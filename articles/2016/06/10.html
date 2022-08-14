@@ -145,7 +145,7 @@
 <h4 id="获取license"><a href="#获取license" class="headerlink" title="获取license"></a>获取license</h4><p>虽然没有许可证也可以使用，但软件开发及维护不易，建议有条件的同学还是购买license，获得永久使用权</p>
 <h4 id="插件安装"><a href="#插件安装" class="headerlink" title="插件安装"></a>插件安装</h4><p>这是今天的重点，在安装插件之前我们需要安装package control组件</p>
 <ol>
-<li>在线安装<br> 按<kbd>ctrl</kbd>+<kbd>`</kbd>调出console面板,粘贴以下代码（或者<a target="_blank" rel="noopener" href="https://packagecontrol.io/installation#st3">SUBLIME TEXT 3</a>面板中的代码）到命令行并回车   <figure class="highlight pgsql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> urllib.request,os; pf = <span class="string">&#x27;Package Control.sublime-package&#x27;</span>; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); <span class="keyword">open</span>(os.path.<span class="keyword">join</span>(ipp, pf), <span class="string">&#x27;wb&#x27;</span>).<span class="keyword">write</span>(urllib.request.urlopen( <span class="string">&#x27;http://sublime.wbond.net/&#x27;</span> + pf.replace(<span class="string">&#x27; &#x27;</span>,<span class="string">&#x27;%20&#x27;</span>)).<span class="keyword">read</span>())</span><br></pre></td></tr></table></figure>
+<li>在线安装<br> 按<kbd>ctrl</kbd>+<kbd>`</kbd>调出console面板,粘贴以下代码（或者<a target="_blank" rel="noopener" href="https://packagecontrol.io/installation#st3">SUBLIME TEXT 3</a>面板中的代码）到命令行并回车   <pre class="line-numbers language-none"><code class="language-none">import urllib.request,os; pf &#x3D; &#39;Package Control.sublime-package&#39;; ipp &#x3D; sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); open(os.path.join(ipp, pf), &#39;wb&#39;).write(urllib.request.urlopen( &#39;http:&#x2F;&#x2F;sublime.wbond.net&#x2F;&#39; + pf.replace(&#39; &#39;,&#39;%20&#39;)).read())<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
  重启Sublime Text 3。如果在Perferences-&gt;package settings中看到package control这一项，则安装成功。 </li>
 <li>手动安装<br> 如果你的电脑没有外网权限(小编就是这样)，那只能手动安装了<br> 点击Preferences 选择Browse Packages… ，打开其上一级文件夹Data并进入Installed Packages文件夹<br> 将下载的[Package Control.sublime-package文件](<a target="_blank" rel="noopener" href="https://packagecontrol.io/Package">https://packagecontrol.io/Package</a> Control.sublime-package)复制进去，再重启Sublime Text</li>
 </ol>
@@ -172,7 +172,23 @@
 <h5 id="16-SublimeLinter-jshint"><a href="#16-SublimeLinter-jshint" class="headerlink" title="16. SublimeLinter-jshint"></a>16. SublimeLinter-jshint</h5><p>使用说明：对错误的javascript代码在状态栏进行提示，</p>
 <h5 id="17-Terminal"><a href="#17-Terminal" class="headerlink" title="17. Terminal"></a>17. Terminal</h5><p>使用说明：调出终端直接进入项目所在根目录，这个插件与gulp配合很好用<br>快捷键：<kbd>ctrl</kbd>+<kbd>shift</kbd>+<kbd>t</kbd></p>
 <h5 id="18-View-In-Browser"><a href="#18-View-In-Browser" class="headerlink" title="18. View In Browser"></a>18. View In Browser</h5><p>使用说明：sublime以本地服务器方式打开网页<br>为了使用插件，你需要建立一个sublime-project文件，点击Project-&gt;Edit Project<br>粘贴以下代码(这是我的相关配置),并保存到user目录下</p>
-<figure class="highlight swift"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="string">&quot;folders&quot;</span>:</span><br><span class="line">    [</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="string">&quot;path&quot;</span>: <span class="string">&quot;D:<span class="subst">\\</span>wamp<span class="subst">\\</span>www&quot;</span>    </span><br><span class="line">        &#125;</span><br><span class="line">    ],</span><br><span class="line">    <span class="string">&quot;settings&quot;</span>:</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="string">&quot;sublime-view-in-browser&quot;</span>:</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="string">&quot;baseUrl&quot;</span>: <span class="string">&quot;http://localhost&quot;</span>  </span><br><span class="line">            <span class="string">&quot;basePath&quot;</span>: <span class="string">&quot;D:<span class="subst">\\</span>wamp<span class="subst">\\</span>www&quot;</span>,   <span class="comment">//本地虚拟主机根目录</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-none"><code class="language-none">&#123;
+    &quot;folders&quot;:
+    [
+        &#123;
+            &quot;path&quot;: &quot;D:\\wamp\\www&quot;    
+        &#125;
+    ],
+    &quot;settings&quot;:
+    &#123;
+        &quot;sublime-view-in-browser&quot;:
+        &#123;
+            &quot;baseUrl&quot;: &quot;http:&#x2F;&#x2F;localhost&quot;  
+            &quot;basePath&quot;: &quot;D:\\wamp\\www&quot;,   &#x2F;&#x2F;本地虚拟主机根目录
+        &#125;
+    &#125;
+&#125;
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>快捷键：<kbd>ctrl</kbd>+<kbd>alt</kbd>+<kbd>v</kbd></p>
 <h5 id="19-MarkdownEditing"><a href="#19-MarkdownEditing" class="headerlink" title="19. MarkdownEditing"></a>19. MarkdownEditing</h5><p>使用说明：它支持Markdown语法高亮显示。</p>
 <h5 id="20-OmniMarkupPreviewer"><a href="#20-OmniMarkupPreviewer" class="headerlink" title="20. OmniMarkupPreviewer"></a>20. OmniMarkupPreviewer</h5><p>使用说明：用来在浏览器中预览markdown 编辑的效果<br>快捷键：<kbd>ctrl</kbd>+<kbd>alt</kbd>+<kbd>o</kbd></p>
@@ -329,7 +345,7 @@
           </li>
         
           <li>
-            <a href="/blog/articles/2022/08/04.html">如何用Electron+vue+vite构建桌面端应用(三)</a>
+            <a href="/blog/articles/2022/08/05.html">如何用Electron+vue+vite构建桌面端应用(三)</a>
           </li>
         
           <li>
@@ -493,8 +509,8 @@
 
 <script>
   var gitalk = new Gitalk({
-    clientID: "1d84813ae13cd94072f0",
-    clientSecret: "4a4dd2af0c622e983dd90f5daf15c3ebd86b8ae9",
+    clientID: "3c3e422527fd3f9fa17a",
+    clientSecret: "f28d1808ec9ab69fb24dc3e9fad81e1c3ab8dd83",
     repo: "blog",
     owner: "jesse121",
     admin: ["jesse121"],

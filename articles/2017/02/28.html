@@ -144,9 +144,22 @@
 
 <p>在讲解操作DOM的api之前，首先我们来复习一下一些基本概念，这些概念是掌握api的关键，必须理解它们。</p>
 <h3 id="Node类型"><a href="#Node类型" class="headerlink" title="Node类型"></a>Node类型</h3><p>DOM1级定义了一个Node接口，该接口由DOM中所有节点类型实现。这个Node接口在JS中是作为Node类型实现的。在IE9以下版本无法访问到这个类型，JS中所有节点都继承自Node类型，都共享着相同的基本属性和方法。<br>每个节点都有一个nodeType属性，用于表明节点的类型。节点类型由在Node类型中定义的下列12个数值常量来表示，任何节点类型必居其一：</p>
-<figure class="highlight apache"><table><tr><td class="code"><pre><span class="line"><span class="attribute">Node</span>.ELEMENT_NODE:<span class="number">1</span></span><br><span class="line"><span class="attribute">Node</span>.ATTRIBUTE_NODE:<span class="number">2</span></span><br><span class="line"><span class="attribute">Node</span>.TEXT_NODE:<span class="number">3</span></span><br><span class="line"><span class="attribute">Node</span>.CDATA_SECTION_NODE:<span class="number">4</span></span><br><span class="line"><span class="attribute">Node</span>.ENTITY_REFERENCE_NODE:<span class="number">5</span></span><br><span class="line"><span class="attribute">Node</span>.ENTITY_NODE:<span class="number">6</span></span><br><span class="line"><span class="attribute">Node</span>.PROCESSING_INSTRUCTION_NODE:<span class="number">7</span></span><br><span class="line"><span class="attribute">Node</span>.COMMENT_NODE:<span class="number">8</span></span><br><span class="line"><span class="attribute">Node</span>.DOCUMENT_NODE:<span class="number">9</span></span><br><span class="line"><span class="attribute">Node</span>.DOCUMENT_TYPE_NODE:<span class="number">10</span></span><br><span class="line"><span class="attribute">Node</span>.DOCUMENT_FRAGMENT_NODE:<span class="number">11</span></span><br><span class="line"><span class="attribute">Node</span>.NOTATION_NODE:<span class="number">12</span></span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-none"><code class="language-none">Node.ELEMENT_NODE:1
+Node.ATTRIBUTE_NODE:2
+Node.TEXT_NODE:3
+Node.CDATA_SECTION_NODE:4
+Node.ENTITY_REFERENCE_NODE:5
+Node.ENTITY_NODE:6
+Node.PROCESSING_INSTRUCTION_NODE:7
+Node.COMMENT_NODE:8
+Node.DOCUMENT_NODE:9
+Node.DOCUMENT_TYPE_NODE:10
+Node.DOCUMENT_FRAGMENT_NODE:11
+Node.NOTATION_NODE:12<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>假设我们要判断一个Node是不是元素，我们可以这样判断</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span>(someNode.<span class="property">nodeType</span> == <span class="number">1</span>)&#123;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;Node is a element&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">if</span><span class="token punctuation">(</span>someNode<span class="token punctuation">.</span>nodeType <span class="token operator">==</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">"Node is a element"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 <p>这些Node类型中，我们最常用的就是element，text，attribute，comment，document，document_fragment这几种类型。<br>我们简单来介绍一下这几种类型：</p>
 <h4 id="Element类型"><a href="#Element类型" class="headerlink" title="Element类型"></a>Element类型</h4><p>Element类型用于表现XML或HTML元素，提供了对元素标签名，子节点和特性的访问，我们常用HTML元素比如div，span，a等标签就是element中的一种。Element有下面几条特性：</p>
 <ul>
@@ -203,9 +216,16 @@
 <p><code>var textNode = document.createTextNode(&quot;Hello World!&quot;);</code></p>
 <p>createTextNode接收一个参数，这个参数就是文本节点中的文本，和createElement一样，创建后的文本节点也只是独立的一个节点，同样需要appendChild将其添加到HTML文档树中</p>
 <h4 id="cloneNode"><a href="#cloneNode" class="headerlink" title="cloneNode()"></a>cloneNode()</h4><p>cloneNode是用来返回调用方法的节点的一个副本，它接收一个bool参数，true用来表示复制本身节点及整个子节点树，false表示只复制本身节点，使用如下：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> parent = <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&quot;parentElement&quot;</span>);</span><br><span class="line"><span class="keyword">var</span> parent2 = parent.<span class="title function_">cloneNode</span>(<span class="literal">true</span>);<span class="comment">// 传入true</span></span><br><span class="line">parent2.<span class="property">id</span> = <span class="string">&quot;parent2&quot;</span>;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">var</span> parent <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">getElementById</span><span class="token punctuation">(</span><span class="token string">"parentElement"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">var</span> parent2 <span class="token operator">=</span> parent<span class="token punctuation">.</span><span class="token function">cloneNode</span><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment">// 传入true</span>
+parent2<span class="token punctuation">.</span>id <span class="token operator">=</span> <span class="token string">"parent2"</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 <p>这段代码通过cloneNode复制了一份parent元素，其中cloneNode的参数为true，表示parent的子节点也被复制，如果传入false，则表示只复制了parent节点。<br>我们看看这个例子</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> parent = <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&quot;parent&quot;</span>);</span><br><span class="line"><span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&quot;btnCopy&quot;</span>).<span class="property">onclick</span> = <span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">    <span class="keyword">var</span> parent2 = parent.<span class="title function_">cloneNode</span>(<span class="literal">true</span>);</span><br><span class="line">    parent2.<span class="property">id</span> = <span class="string">&quot;parent2&quot;</span>;</span><br><span class="line">    <span class="variable language_">document</span>.<span class="property">body</span>.<span class="title function_">appendChild</span>(parent2);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">var</span> parent <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">getElementById</span><span class="token punctuation">(</span><span class="token string">"parent"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+document<span class="token punctuation">.</span><span class="token function">getElementById</span><span class="token punctuation">(</span><span class="token string">"btnCopy"</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function-variable function">onclick</span> <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+    <span class="token keyword">var</span> parent2 <span class="token operator">=</span> parent<span class="token punctuation">.</span><span class="token function">cloneNode</span><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    parent2<span class="token punctuation">.</span>id <span class="token operator">=</span> <span class="token string">"parent2"</span><span class="token punctuation">;</span>
+    document<span class="token punctuation">.</span>body<span class="token punctuation">.</span><span class="token function">appendChild</span><span class="token punctuation">(</span>parent2<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>这段代码很简单，主要是绑定button事件，事件内容是复制了一个parent，修改其id，然后添加到文档中。<br>这里有几点要注意：</p>
 <ol>
 <li>和createElement一样，cloneNode创建的节点只是游离有html文档外的节点，要调用appendChild方法才能添加到文档树中</li>
@@ -214,9 +234,27 @@
 </ol>
 <p>除此之外，我们还有一个需要注意的点：<br>如果被复制的节点绑定了事件，则副本也会跟着绑定该事件吗？这里要分情况讨论：<br>（1）如果是通过addEventListener或者比如onclick进行绑定事件，则副本节点不会绑定该事件<br>（2）如果是内联方式绑定比如<code>&lt;div onclick=&quot;showParent()&quot;&gt;&lt;/div&gt;</code>这样的话，副本节点同样会触发事件。</p>
 <h4 id="document-createDocumentFragment"><a href="#document-createDocumentFragment" class="headerlink" title="document.createDocumentFragment()"></a>document.createDocumentFragment()</h4><p>在前面我们说到DocumentFragment表示一种轻量级的文档，它的作用主要是存储临时的节点用来准备添加到文档中。该方法主要是用于添加大量节点到文档中时。假设要循环一组数据，然后创建多个节点添加到文档中，比如示例</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&quot;btnAdd&quot;</span>).<span class="property">onclick</span> = <span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">    <span class="keyword">var</span> list = <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&quot;list&quot;</span>);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>;i &lt; <span class="number">100</span>; i++)&#123;</span><br><span class="line">        <span class="keyword">var</span> li = <span class="variable language_">document</span>.<span class="title function_">createElement</span>(<span class="string">&quot;li&quot;</span>);</span><br><span class="line">        li.<span class="property">textContent</span> = i;</span><br><span class="line">        list.<span class="title function_">appendChild</span>(li);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript">document<span class="token punctuation">.</span><span class="token function">getElementById</span><span class="token punctuation">(</span><span class="token string">"btnAdd"</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function-variable function">onclick</span> <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+    <span class="token keyword">var</span> list <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">getElementById</span><span class="token punctuation">(</span><span class="token string">"list"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">var</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>i <span class="token operator">&lt;</span> <span class="token number">100</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+        <span class="token keyword">var</span> li <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">createElement</span><span class="token punctuation">(</span><span class="token string">"li"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        li<span class="token punctuation">.</span>textContent <span class="token operator">=</span> i<span class="token punctuation">;</span>
+        list<span class="token punctuation">.</span><span class="token function">appendChild</span><span class="token punctuation">(</span>li<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>这段代码将按钮绑定了一个事件，这个事件创建了100个li节点，然后依次将其添加HTML文档中。这样做有一个缺点：每次一创建一个新的元素，然后添加到文档树中，这个过程会造成浏览器的回流。所谓回流简单说就是指元素大小和位置会被重新计算，如果添加的元素太多，会造成性能问题。这个时候，就是使用createDocumentFragment了。<br>DocumentFragment不是文档树的一部分，它是保存在内存中的，所以不会造成回流问题。我们修改上面的代码如下：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&quot;btnAdd&quot;</span>).<span class="property">onclick</span> = <span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">    <span class="keyword">var</span> list = <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&quot;list&quot;</span>);</span><br><span class="line">    <span class="keyword">var</span> fragment = <span class="variable language_">document</span>.<span class="title function_">createDocumentFragment</span>();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>;i &lt; <span class="number">100</span>; i++)&#123;</span><br><span class="line">      <span class="keyword">var</span> li = <span class="variable language_">document</span>.<span class="title function_">createElement</span>(<span class="string">&quot;li&quot;</span>);</span><br><span class="line">        li.<span class="property">textContent</span> = i;</span><br><span class="line">        fragment.<span class="title function_">appendChild</span>(li);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    list.<span class="title function_">appendChild</span>(fragment);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript">document<span class="token punctuation">.</span><span class="token function">getElementById</span><span class="token punctuation">(</span><span class="token string">"btnAdd"</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function-variable function">onclick</span> <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+    <span class="token keyword">var</span> list <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">getElementById</span><span class="token punctuation">(</span><span class="token string">"list"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">var</span> fragment <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">createDocumentFragment</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">var</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>i <span class="token operator">&lt;</span> <span class="token number">100</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+      <span class="token keyword">var</span> li <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">createElement</span><span class="token punctuation">(</span><span class="token string">"li"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        li<span class="token punctuation">.</span>textContent <span class="token operator">=</span> i<span class="token punctuation">;</span>
+        fragment<span class="token punctuation">.</span><span class="token function">appendChild</span><span class="token punctuation">(</span>li<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+
+    list<span class="token punctuation">.</span><span class="token function">appendChild</span><span class="token punctuation">(</span>fragment<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>优化后的代码主要是创建了一个fragment，每次生成的li节点先添加到fragment，最后一次性添加到list.</p>
 <h4 id="节点创建型API总结"><a href="#节点创建型API总结" class="headerlink" title="节点创建型API总结"></a>节点创建型API总结</h4><p>创建型api主要包括<code>document.createElement()</code>，<code>document.createTextNode()</code>，<code>cloneNode()</code>和<code>document.createDocumentFragment()</code>四个方法，需要注意下面几点：</p>
 <ul>
@@ -228,12 +266,40 @@
 <h4 id="appendChild"><a href="#appendChild" class="headerlink" title="appendChild()"></a>appendChild()</h4><p>appendChild我们在前面已经用到多次，就是将指定的节点添加到调用该方法的节点的子元素的末尾。调用方法如下：</p>
 <p><code>parent.appendChild(child);</code></p>
 <p>child节点将会作为parent节点的最后一个子节点。<br>appendChild这个方法很简单，但是还有一点需要注意：如果被添加的节点是一个页面中已经存在的节点，则执行后这个节点将会添加到指定位置，其原本所在的位置将移除该节点，也就是说不会同时存在两个该节点在页面上，相当于把这个节点移动到另一个地方。我们来看例子</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&lt;div id=<span class="string">&quot;child&quot;</span>&gt;</span><br><span class="line">    要被添加的节点</span><br><span class="line">&lt;/div&gt;</span><br><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">br</span>/&gt;</span></span></span><br><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">br</span>/&gt;</span></span></span><br><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">br</span>/&gt;</span></span></span><br><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;parent&quot;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    要移动的位置</span></span><br><span class="line"><span class="language-xml"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span>      </span><br><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">input</span> <span class="attr">id</span>=<span class="string">&quot;btnMove&quot;</span> <span class="attr">type</span>=<span class="string">&quot;button&quot;</span> <span class="attr">value</span>=<span class="string">&quot;移动节点&quot;</span> /&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&quot;btnMove&quot;</span>).<span class="property">onclick</span> = <span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">    <span class="keyword">var</span> child = <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&quot;child&quot;</span>);</span><br><span class="line">    <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&quot;parent&quot;</span>).<span class="title function_">appendChild</span>(child);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-none"><code class="language-none">&lt;div id&#x3D;&quot;child&quot;&gt;
+    要被添加的节点
+&lt;&#x2F;div&gt;
+&lt;br&#x2F;&gt;
+&lt;br&#x2F;&gt;
+&lt;br&#x2F;&gt;
+&lt;div id&#x3D;&quot;parent&quot;&gt;
+    要移动的位置
+&lt;&#x2F;div&gt;      
+&lt;input id&#x3D;&quot;btnMove&quot; type&#x3D;&quot;button&quot; value&#x3D;&quot;移动节点&quot; &#x2F;&gt;
+
+document.getElementById(&quot;btnMove&quot;).onclick &#x3D; function()&#123;
+    var child &#x3D; document.getElementById(&quot;child&quot;);
+    document.getElementById(&quot;parent&quot;).appendChild(child);
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>这段代码主要是获取页面上的child节点，然后添加到指定位置，可以看到原本的child节点被移动到parent中了。<br>这里还有一个要注意的点：如果child绑定了事件，被移动时，它依然绑定着该事件。</p>
 <h4 id="insertBefore"><a href="#insertBefore" class="headerlink" title="insertBefore()"></a>insertBefore()</h4><p>insertBefore用来添加一个节点到一个参照节点之前，用法如下：</p>
 <p><code>parentNode.insertBefore(newNode,refNode);</code></p>
 <p>parentNode表示新节点被添加后的父节点<br>newNode表示要添加的节点<br>refNode表示参照节点，新节点会添加到这个节点之前<br>我们来看这个例子</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&lt;div id=<span class="string">&quot;parent&quot;</span>&gt;</span><br><span class="line">    父节点</span><br><span class="line">    &lt;div id=<span class="string">&quot;child&quot;</span>&gt;                </span><br><span class="line">        子元素</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;button&quot;</span> <span class="attr">id</span>=<span class="string">&quot;insertNode&quot;</span> <span class="attr">value</span>=<span class="string">&quot;插入节点&quot;</span> /&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> parent = <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&quot;parent&quot;</span>);</span><br><span class="line"><span class="keyword">var</span> child = <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&quot;child&quot;</span>);</span><br><span class="line"><span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&quot;insertNode&quot;</span>).<span class="property">onclick</span> = <span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">    <span class="keyword">var</span> newNode = <span class="variable language_">document</span>.<span class="title function_">createElement</span>(<span class="string">&quot;div&quot;</span>);</span><br><span class="line">    newNode.<span class="property">textContent</span> = <span class="string">&quot;新节点&quot;</span></span><br><span class="line">    parent.<span class="title function_">insertBefore</span>(newNode,child);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-none"><code class="language-none">&lt;div id&#x3D;&quot;parent&quot;&gt;
+    父节点
+    &lt;div id&#x3D;&quot;child&quot;&gt;                
+        子元素
+    &lt;&#x2F;div&gt;
+&lt;&#x2F;div&gt;
+&lt;input type&#x3D;&quot;button&quot; id&#x3D;&quot;insertNode&quot; value&#x3D;&quot;插入节点&quot; &#x2F;&gt;
+
+var parent &#x3D; document.getElementById(&quot;parent&quot;);
+var child &#x3D; document.getElementById(&quot;child&quot;);
+document.getElementById(&quot;insertNode&quot;).onclick &#x3D; function()&#123;
+    var newNode &#x3D; document.createElement(&quot;div&quot;);
+    newNode.textContent &#x3D; &quot;新节点&quot;
+    parent.insertBefore(newNode,child);
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>这段代码创建了一个新节点，然后添加到child节点之前。<br>和appendChild一样，如果插入的节点是页面上的节点，则会移动该节点到指定位置，并且保留其绑定的事件。</p>
 <p>关于第二个参数参照节点还有几个注意的地方：</p>
 <ul>
@@ -243,7 +309,9 @@
 <h4 id="removeChild"><a href="#removeChild" class="headerlink" title="removeChild()"></a>removeChild()</h4><p>removeChild顾名思义，就是删除指定的子节点并返回该节点，用法如下：</p>
 <p><code>var deletedChild = parent.removeChild(node);</code></p>
 <p>deletedChild指向被删除节点的引用，它等于node，被删除的节点仍然存在于内存中，可以对其进行下一步操作。<br>注意：如果被删除的节点不是其子节点，则程序将会报错。我们可以通过下面的方式来确保可以删除：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span>(node.<span class="property">parentNode</span>)&#123;</span><br><span class="line">    node.<span class="property">parentNode</span>.<span class="title function_">removeChild</span>(node);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">if</span><span class="token punctuation">(</span>node<span class="token punctuation">.</span>parentNode<span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+    node<span class="token punctuation">.</span>parentNode<span class="token punctuation">.</span><span class="token function">removeChild</span><span class="token punctuation">(</span>node<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 <p>通过节点自己获取节点的父节点，然后将自身删除。</p>
 <h4 id="replaceChild"><a href="#replaceChild" class="headerlink" title="replaceChild()"></a>replaceChild()</h4><p>replaceChild用于使用一个节点替换另一个节点，用法如下</p>
 <p><code>parent.replaceChild(newChild,oldChild);</code></p>
@@ -261,10 +329,36 @@
 <li>只从文档中进行搜索元素，如果创建了一个元素并指定id，但并没有添加到文档中，则这个元素是不会被查找到的</li>
 </ul>
 <h4 id="document-querySelector"><a href="#document-querySelector" class="headerlink" title="document.querySelector()"></a>document.querySelector()</h4><p>document.querySelector返回第一个匹配的元素，如果没有匹配的元素，则返回null。<br>注意，由于返回的是第一个匹配的元素，这个api使用的深度优先搜索来获取元素。我们来看这个例子：</p>
-<figure class="highlight xquery"><table><tr><td class="code"><pre><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    </span><span class="language-xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        </span><span class="language-xml"><span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">&quot;test&quot;</span>&gt;</span>第三级的span<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><span class="language-xml">  </span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><span class="language-xml"></span></span><br><span class="line"><span class="language-xml"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;test&quot;</span>&gt;</span>          </span></span><br><span class="line"><span class="language-xml">    同级的第二个div</span></span><br><span class="line"><span class="language-xml"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">&lt;input type=<span class="string">&quot;button&quot;</span><span class="built_in"> id</span>=<span class="string">&quot;btnGet&quot;</span> <span class="keyword">value</span>=<span class="string">&quot;获取test元素&quot;</span> /&gt;</span><br><span class="line"><span class="built_in"></span></span><br><span class="line"><span class="built_in">document</span>.getElementById(<span class="string">&quot;btnGet&quot;</span>).addEventListener(<span class="string">&quot;click&quot;</span>,<span class="keyword">function</span>()&#123;</span><br><span class="line">    var <span class="keyword">element</span> = <span class="keyword">document</span>.querySelector(&quot;.test&quot;);</span><br><span class="line">    alert(<span class="keyword">element</span>.textContent);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-none"><code class="language-none">&lt;div&gt;
+    &lt;div&gt;
+        &lt;span class&#x3D;&quot;test&quot;&gt;第三级的span&lt;&#x2F;span&gt;  
+    &lt;&#x2F;div&gt;
+&lt;&#x2F;div&gt;
+&lt;div class&#x3D;&quot;test&quot;&gt;          
+    同级的第二个div
+&lt;&#x2F;div&gt;
+&lt;input type&#x3D;&quot;button&quot; id&#x3D;&quot;btnGet&quot; value&#x3D;&quot;获取test元素&quot; &#x2F;&gt;
+
+document.getElementById(&quot;btnGet&quot;).addEventListener(&quot;click&quot;,function()&#123;
+    var element &#x3D; document.querySelector(&quot;.test&quot;);
+    alert(element.textContent);
+&#125;)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>这个例子很简单，就是两个class都包含“test”的元素，一个在文档树的前面，但是它在第三级，另一个在文档树的后面，但它在第一级，通过querySelector获取元素时，它通过深度优先搜索，拿到文档树前面的第三级的元素。</p>
 <h4 id="document-querySelectorAll"><a href="#document-querySelectorAll" class="headerlink" title="document.querySelectorAll()"></a>document.querySelectorAll()</h4><p>document.querySelectorAll的不同之处在于它返回的是所有匹配的元素，而且可以匹配多个选择符，我们来看看下面这个例子</p>
-<figure class="highlight applescript"><table><tr><td class="code"><pre><span class="line">&lt;<span class="keyword">div</span> <span class="built_in">class</span>=<span class="string">&quot;test&quot;</span>&gt;</span><br><span class="line">    <span class="built_in">class</span>为test</span><br><span class="line">&lt;/<span class="keyword">div</span>&gt;</span><br><span class="line">&lt;<span class="keyword">div</span> <span class="built_in">id</span>=<span class="string">&quot;test&quot;</span>&gt;</span><br><span class="line">    <span class="built_in">id</span>为test</span><br><span class="line">&lt;/<span class="keyword">div</span>&gt;</span><br><span class="line">&lt;input <span class="built_in">id</span>=<span class="string">&quot;btnShow&quot;</span> type=<span class="string">&quot;button&quot;</span> value=<span class="string">&quot;显示内容&quot;</span> /&gt;</span><br><span class="line"></span><br><span class="line">document.getElementById(<span class="string">&quot;btnShow&quot;</span>).addEventListener(<span class="string">&quot;click&quot;</span>,function()&#123;</span><br><span class="line">    var elements = document.querySelectorAll(<span class="string">&quot;#test,.test&quot;</span>);    </span><br><span class="line">    <span class="keyword">for</span>(var i = <span class="number">0</span>,<span class="built_in">length</span> = elements.<span class="built_in">length</span>;i&lt;<span class="built_in">length</span>;i++)&#123;</span><br><span class="line">        alert(elements[i].textContent);</span><br><span class="line">    &#125;   </span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-none"><code class="language-none">&lt;div class&#x3D;&quot;test&quot;&gt;
+    class为test
+&lt;&#x2F;div&gt;
+&lt;div id&#x3D;&quot;test&quot;&gt;
+    id为test
+&lt;&#x2F;div&gt;
+&lt;input id&#x3D;&quot;btnShow&quot; type&#x3D;&quot;button&quot; value&#x3D;&quot;显示内容&quot; &#x2F;&gt;
+
+document.getElementById(&quot;btnShow&quot;).addEventListener(&quot;click&quot;,function()&#123;
+    var elements &#x3D; document.querySelectorAll(&quot;#test,.test&quot;);    
+    for(var i &#x3D; 0,length &#x3D; elements.length;i&lt;length;i++)&#123;
+        alert(elements[i].textContent);
+    &#125;   
+&#125;)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>这段代码通过querySelectorAll，使用id选择器和class选择器选择了两个元素，并依次输出其内容。要注意两点：</p>
 <ul>
@@ -282,7 +376,22 @@
 </ol>
 <p><code>var elements = document.getElementsByClassName(&quot;test1 test2&quot;);</code></p>
 <h4 id="document-getElementsByTagName"><a href="#document-getElementsByTagName" class="headerlink" title="document.getElementsByTagName()"></a>document.getElementsByTagName()</h4><p>这个接口根据元素标签名获取元素，返回一个即时的HTMLCollection类型，什么是即时的HTMLCollection类型呢？我们来看看这个示例</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&lt;div&gt;div1&lt;/div&gt;</span><br><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span>div2<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">        </span><br><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;button&quot;</span> <span class="attr">value</span>=<span class="string">&quot;新增div&quot;</span> <span class="attr">id</span>=<span class="string">&quot;btnAddDiv&quot;</span>/&gt;</span></span> </span><br><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;button&quot;</span> <span class="attr">value</span>=<span class="string">&quot;显示数量&quot;</span> <span class="attr">id</span>=<span class="string">&quot;btnShowCount&quot;</span>/&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> divList = <span class="variable language_">document</span>.<span class="title function_">getElementsByTagName</span>(<span class="string">&quot;div&quot;</span>);</span><br><span class="line"><span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&quot;btnAddDiv&quot;</span>).<span class="property">onclick</span> = <span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">    <span class="keyword">var</span> div = <span class="variable language_">document</span>.<span class="title function_">createElement</span>(<span class="string">&quot;div&quot;</span>);</span><br><span class="line">    div.<span class="property">textContent</span> =<span class="string">&quot;div&quot;</span> + (divList.<span class="property">length</span>+<span class="number">1</span>);</span><br><span class="line">    <span class="variable language_">document</span>.<span class="property">body</span>.<span class="title function_">appendChild</span>(div);</span><br><span class="line">&#125;</span><br><span class="line">    </span><br><span class="line"><span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&quot;btnShowCount&quot;</span>).<span class="property">onclick</span> = <span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">    <span class="title function_">alert</span>(divList.<span class="property">length</span>);<span class="comment">//3</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-none"><code class="language-none">&lt;div&gt;div1&lt;&#x2F;div&gt;
+&lt;div&gt;div2&lt;&#x2F;div&gt;
+        
+&lt;input type&#x3D;&quot;button&quot; value&#x3D;&quot;新增div&quot; id&#x3D;&quot;btnAddDiv&quot;&#x2F;&gt; 
+&lt;input type&#x3D;&quot;button&quot; value&#x3D;&quot;显示数量&quot; id&#x3D;&quot;btnShowCount&quot;&#x2F;&gt;
+
+var divList &#x3D; document.getElementsByTagName(&quot;div&quot;);
+document.getElementById(&quot;btnAddDiv&quot;).onclick &#x3D; function()&#123;
+    var div &#x3D; document.createElement(&quot;div&quot;);
+    div.textContent &#x3D;&quot;div&quot; + (divList.length+1);
+    document.body.appendChild(div);
+&#125;
+    
+document.getElementById(&quot;btnShowCount&quot;).onclick &#x3D; function()&#123;
+    alert(divList.length);&#x2F;&#x2F;3
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>这段代码中有两个按钮，一个按钮可以新增一个div标签到文档中，另一个按钮是显示HTMLCollection元素的个数。前面提到HTMLCollcetion元素是即时的表示该集合是随时变化的，也就是是文档中有几个div，它会随时进行变化，当我们新增一个div后，再访问HTMLCollection时，就会包含这个新增的div。<br>使用document.getElementsByTagName这个方法有几点要注意：</p>
 <ol>
 <li>如果要对HTMLCollection集合进行循环操作，最好将其长度缓存起来，因为每次循环都会去计算长度，暂时缓存起来可以提高效率</li>
@@ -304,7 +413,8 @@
 <h3 id="元素属性型API"><a href="#元素属性型API" class="headerlink" title="元素属性型API"></a>元素属性型API</h3><h4 id="setAttribute"><a href="#setAttribute" class="headerlink" title="setAttribute()"></a>setAttribute()</h4><p>setAttribute：根据名称和值修改元素的特性，用法如下。</p>
 <p><code>element.setAttribute(name, value);</code></p>
 <p>其中name是特性名，value是特性值。如果元素不包含该特性，则会创建该特性并赋值。<br>如果元素本身包含指定的特性名为属性，则可以世界访问属性进行赋值，比如下面两条代码是等价的：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">element.<span class="title function_">setAttribute</span>(<span class="string">&quot;id&quot;</span>,<span class="string">&quot;test&quot;</span>);</span><br><span class="line">element.<span class="property">id</span> = <span class="string">&quot;test&quot;</span>;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript">element<span class="token punctuation">.</span><span class="token function">setAttribute</span><span class="token punctuation">(</span><span class="token string">"id"</span><span class="token punctuation">,</span><span class="token string">"test"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+element<span class="token punctuation">.</span>id <span class="token operator">=</span> <span class="token string">"test"</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <h4 id="getAttribute"><a href="#getAttribute" class="headerlink" title="getAttribute()"></a>getAttribute()</h4><p>getAttribute返回指定的特性名相应的特性值，如果不存在，则返回null或空字符串。用法如下：</p>
 <p><code>var value = element.getAttribute(&quot;id&quot;);</code></p>
 <h4 id="removeAttribute"><a href="#removeAttribute" class="headerlink" title="removeAttribute()"></a>removeAttribute()</h4><p><code>element.removeAttribute(attrName)</code></p>
@@ -404,7 +514,7 @@
           </li>
         
           <li>
-            <a href="/blog/articles/2022/08/04.html">如何用Electron+vue+vite构建桌面端应用(三)</a>
+            <a href="/blog/articles/2022/08/05.html">如何用Electron+vue+vite构建桌面端应用(三)</a>
           </li>
         
           <li>
@@ -568,8 +678,8 @@
 
 <script>
   var gitalk = new Gitalk({
-    clientID: "1d84813ae13cd94072f0",
-    clientSecret: "4a4dd2af0c622e983dd90f5daf15c3ebd86b8ae9",
+    clientID: "3c3e422527fd3f9fa17a",
+    clientSecret: "f28d1808ec9ab69fb24dc3e9fad81e1c3ab8dd83",
     repo: "blog",
     owner: "jesse121",
     admin: ["jesse121"],

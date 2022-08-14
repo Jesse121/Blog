@@ -144,13 +144,31 @@
 <h3 id="ios上overflow-hidden失效"><a href="#ios上overflow-hidden失效" class="headerlink" title="ios上overflow:hidden失效"></a>ios上overflow:hidden失效</h3><p>需要添加position:relative属性</p>
 <h3 id="img还是background-image"><a href="#img还是background-image" class="headerlink" title="img还是background-image"></a>img还是background-image</h3><p>img:html中的标签img是网页结构的一部分会在加载结构的过程中和其他标签一起加载。<br>background：以css背景图存在的图片background会等到结构加载完成（网页的内容全部显示以后）才开始加载<br>也就是说，网页会先加载标签img的内容，再加载背景图片background引用的图片。<br>引入一张图片，那么在这个图片加载完成之前，img后的内容不会显示。而用background来引入同样的图片，网页结构和内容加载完成之后，才开始加载背景图片，网页内容能正常浏览，但是看不到背景图片。结合项目实际情况建议在活动页banner图使用img标签的形式来提升用户体验</p>
 <h3 id="flex布局最后一子项右对齐"><a href="#flex布局最后一子项右对齐" class="headerlink" title="flex布局最后一子项右对齐"></a>flex布局最后一子项右对齐</h3><p>给最后一子项添加margin-left: auto;<br>参考<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/22429003/how-to-right-align-flex-item/22429853#22429853">stackoverflow</a></p>
-<h3 id="取消select-input-button的默认样式"><a href="#取消select-input-button的默认样式" class="headerlink" title="取消select,input,button的默认样式"></a>取消select,input,button的默认样式</h3><figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">input</span>,<span class="selector-tag">button</span>&#123;</span><br><span class="line">    -webkit-appearance: none;</span><br><span class="line">&#125;</span><br><span class="line">select &#123;</span><br><span class="line">    appearance: none;</span><br><span class="line">    -moz-appearance: none;</span><br><span class="line">    -webkit-appearance: none;</span><br><span class="line">    <span class="comment">/*为下拉小箭头留出一点位置，避免被文字覆盖*/</span></span><br><span class="line">    <span class="attribute">padding-right</span>: <span class="number">14px</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*清除ie的默认选择框样式清除，隐藏下拉箭头*/</span></span><br><span class="line">select::-ms-expand &#123;</span><br><span class="line">    <span class="attribute">display</span>: none;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<h3 id="去掉input在IE上的默认样式"><a href="#去掉input在IE上的默认样式" class="headerlink" title="去掉input在IE上的默认样式"></a>去掉input在IE上的默认样式</h3><figure class="highlight css"><table><tr><td class="code"><pre><span class="line">::-ms-clear,::-ms-reveal&#123;<span class="attribute">display</span>:none;&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="取消select-input-button的默认样式"><a href="#取消select-input-button的默认样式" class="headerlink" title="取消select,input,button的默认样式"></a>取消select,input,button的默认样式</h3><pre class="line-numbers language-css" data-language="css"><code class="language-css"><span class="token selector">input,button</span><span class="token punctuation">&#123;</span>
+    <span class="token property">-webkit-appearance</span><span class="token punctuation">:</span> none<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+<span class="token selector">select</span> <span class="token punctuation">&#123;</span>
+    <span class="token property">appearance</span><span class="token punctuation">:</span> none<span class="token punctuation">;</span>
+    <span class="token property">-moz-appearance</span><span class="token punctuation">:</span> none<span class="token punctuation">;</span>
+    <span class="token property">-webkit-appearance</span><span class="token punctuation">:</span> none<span class="token punctuation">;</span>
+    <span class="token comment">/*为下拉小箭头留出一点位置，避免被文字覆盖*/</span>
+    <span class="token property">padding-right</span><span class="token punctuation">:</span> 14px<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+<span class="token comment">/*清除ie的默认选择框样式清除，隐藏下拉箭头*/</span>
+<span class="token selector">select::-ms-expand</span> <span class="token punctuation">&#123;</span>
+    <span class="token property">display</span><span class="token punctuation">:</span> none<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="去掉input在IE上的默认样式"><a href="#去掉input在IE上的默认样式" class="headerlink" title="去掉input在IE上的默认样式"></a>去掉input在IE上的默认样式</h3><pre class="line-numbers language-css" data-language="css"><code class="language-css"><span class="token selector">::-ms-clear,::-ms-reveal</span><span class="token punctuation">&#123;</span><span class="token property">display</span><span class="token punctuation">:</span>none<span class="token punctuation">;</span><span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
-<h3 id="ios中页面点击图片和链接时去掉阴影"><a href="#ios中页面点击图片和链接时去掉阴影" class="headerlink" title="ios中页面点击图片和链接时去掉阴影"></a>ios中页面点击图片和链接时去掉阴影</h3><figure class="highlight css"><table><tr><td class="code"><pre><span class="line">-webkit-tap-highlight-<span class="attribute">color</span>: <span class="built_in">rgba</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>);<span class="comment">/*将高亮设为透明*/</span></span><br></pre></td></tr></table></figure>
+<h3 id="ios中页面点击图片和链接时去掉阴影"><a href="#ios中页面点击图片和链接时去掉阴影" class="headerlink" title="ios中页面点击图片和链接时去掉阴影"></a>ios中页面点击图片和链接时去掉阴影</h3><pre class="line-numbers language-css" data-language="css"><code class="language-css"><span class="token property">-webkit-tap-highlight-color</span><span class="token punctuation">:</span> <span class="token function">rgba</span><span class="token punctuation">(</span>0<span class="token punctuation">,</span> 0<span class="token punctuation">,</span> 0<span class="token punctuation">,</span> 0<span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment">/*将高亮设为透明*/</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>若有cursor:pointer;则将其去掉.  </p>
 <h3 id="delete-删除数组元素"><a href="#delete-删除数组元素" class="headerlink" title="delete 删除数组元素"></a>delete 删除数组元素</h3><p>单元删除后数组的length属性并不会变化  </p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> array = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>];</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(array.<span class="property">length</span>);<span class="comment">//5</span></span><br><span class="line"><span class="keyword">delete</span> array[<span class="number">2</span>];</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(array);<span class="comment">//[1,2,,4,5]</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(array.<span class="property">length</span>);<span class="comment">//5</span></span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">var</span> array <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token number">3</span><span class="token punctuation">,</span><span class="token number">4</span><span class="token punctuation">,</span><span class="token number">5</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>array<span class="token punctuation">.</span>length<span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment">//5</span>
+<span class="token keyword">delete</span> array<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>array<span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment">//[1,2,,4,5]</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>array<span class="token punctuation">.</span>length<span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment">//5</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <h3 id="用clip-path剪切各种图形"><a href="#用clip-path剪切各种图形" class="headerlink" title="用clip-path剪切各种图形"></a>用clip-path剪切各种图形</h3><p>在开发中我们用的较多的是矩形和圆形，可是如果需求要做个多边形该如何做呢？这里用到clip-path<br><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/clip-path">详细使用方法</a></p>
 <h4 id="三角形"><a href="#三角形" class="headerlink" title="三角形"></a>三角形</h4><div style="width:20px;height:20px;background-color: red;clip-path:polygon(5px 10px,16px 3px,16px 17px);"></div>
@@ -239,7 +257,7 @@
           </li>
         
           <li>
-            <a href="/blog/articles/2022/08/04.html">如何用Electron+vue+vite构建桌面端应用(三)</a>
+            <a href="/blog/articles/2022/08/05.html">如何用Electron+vue+vite构建桌面端应用(三)</a>
           </li>
         
           <li>
@@ -403,8 +421,8 @@
 
 <script>
   var gitalk = new Gitalk({
-    clientID: "1d84813ae13cd94072f0",
-    clientSecret: "4a4dd2af0c622e983dd90f5daf15c3ebd86b8ae9",
+    clientID: "3c3e422527fd3f9fa17a",
+    clientSecret: "f28d1808ec9ab69fb24dc3e9fad81e1c3ab8dd83",
     repo: "blog",
     owner: "jesse121",
     admin: ["jesse121"],

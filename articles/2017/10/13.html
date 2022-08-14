@@ -144,7 +144,11 @@
 <h4 id="vim编辑器个人设置"><a href="#vim编辑器个人设置" class="headerlink" title="vim编辑器个人设置"></a>vim编辑器个人设置</h4><ol>
 <li>先复制一份vim配置模板到个人目录下<br> <code>cp /usr/share/vim/vimrc ~/.vimrc</code></li>
 <li>编辑个人目录下的.vimrc<br> <code>vi ~/.vimrc</code></li>
-<li>进入vim编辑模式编写以下配置信息  <figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">syntax on           <span class="string">&#x27;开启语法高亮&#x27;</span></span><br><span class="line"><span class="built_in">set</span> nu!             <span class="string">&#x27;设置行号&#x27;</span></span><br><span class="line"><span class="built_in">set</span> autoindent      <span class="string">&#x27;自动缩进&#x27;</span></span><br><span class="line"><span class="built_in">set</span> <span class="attribute">tabstop</span>=4       <span class="string">&#x27;设置tab键为4个空格&#x27;</span>   </span><br><span class="line"><span class="built_in">set</span> showmatch       <span class="string">&#x27;设置匹配模式，类似当输入一个左括号时会匹配相应的右括号&#x27;</span></span><br></pre></td></tr></table></figure></li>
+<li>进入vim编辑模式编写以下配置信息  <pre class="line-numbers language-none"><code class="language-none">syntax on           &#39;开启语法高亮&#39;
+set nu!             &#39;设置行号&#39;
+set autoindent      &#39;自动缩进&#39;
+set tabstop&#x3D;4       &#39;设置tab键为4个空格&#39;   
+set showmatch       &#39;设置匹配模式，类似当输入一个左括号时会匹配相应的右括号&#39;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
 </ol>
 <h4 id="命令模式（command-mode）—执行命令"><a href="#命令模式（command-mode）—执行命令" class="headerlink" title="命令模式（command mode）—执行命令"></a>命令模式（command mode）—执行命令</h4><p>　　在该模式中，可以输入命令来执行许多种功能。控制屏幕光标的移动，字符、字或行的删除，移动复制某区段及进入Insert mode下，或者到 last line mode。</p>
 <h4 id="输入模式（Insert-mode）—输入文本"><a href="#输入模式（Insert-mode）—输入文本" class="headerlink" title="输入模式（Insert mode）—输入文本"></a>输入模式（Insert mode）—输入文本</h4><p>　　vi被运行时，通常处在命令模式下，键入以下命令 可以使vi退出命令模式，进入输入模式：I（i）、A（a）、O（o）。</p>
@@ -244,7 +248,7 @@
           </li>
         
           <li>
-            <a href="/blog/articles/2022/08/04.html">如何用Electron+vue+vite构建桌面端应用(三)</a>
+            <a href="/blog/articles/2022/08/05.html">如何用Electron+vue+vite构建桌面端应用(三)</a>
           </li>
         
           <li>
@@ -408,8 +412,8 @@
 
 <script>
   var gitalk = new Gitalk({
-    clientID: "1d84813ae13cd94072f0",
-    clientSecret: "4a4dd2af0c622e983dd90f5daf15c3ebd86b8ae9",
+    clientID: "3c3e422527fd3f9fa17a",
+    clientSecret: "f28d1808ec9ab69fb24dc3e9fad81e1c3ab8dd83",
     repo: "blog",
     owner: "jesse121",
     admin: ["jesse121"],

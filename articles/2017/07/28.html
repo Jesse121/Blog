@@ -140,7 +140,13 @@
     </div>
     <div class="e-content article-entry" itemprop="articleBody">
        <p>在前端开发工作过程中曾碰到这样一问题:</p>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span> <span class="attr">type</span>=<span class="string">&quot;text/css&quot;</span>&gt;</span><span class="language-css"></span></span><br><span class="line"><span class="language-css"><span class="selector-class">.parent</span>&#123; <span class="attribute">width</span>:<span class="number">400px</span>; <span class="attribute">height</span>:<span class="number">300px</span>; <span class="attribute">border</span>:<span class="number">1px</span> solid <span class="number">#ccc</span>; &#125;</span></span><br><span class="line"><span class="language-css"><span class="selector-class">.child</span>&#123; <span class="attribute">margin</span>:<span class="number">10%</span>; <span class="attribute">background-color</span>: red; &#125;</span></span><br><span class="line"><span class="language-css"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;parent&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;child&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-none"><code class="language-none">&lt;style type&#x3D;&quot;text&#x2F;css&quot;&gt;
+.parent&#123; width:400px; height:300px; border:1px solid #ccc; &#125;
+.child&#123; margin:10%; background-color: red; &#125;
+&lt;&#x2F;style&gt;
+&lt;div class&#x3D;&quot;parent&quot;&gt;
+    &lt;div class&#x3D;&quot;child&quot;&gt;&lt;&#x2F;div&gt;
+&lt;&#x2F;div&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>问这类名为child元素在网页中显示的高宽？  </p>
 <span id="more"></span>
 <p>答案：width:320px;height:160px;<br>如果您的答案正确，那说明您CSS功底比较强，如果您也不知所以然，希望这篇博文对您有所帮助  </p>
@@ -175,7 +181,7 @@
 </li>
 </ul>
 <h5 id="百分比的继承"><a href="#百分比的继承" class="headerlink" title="百分比的继承"></a>百分比的继承</h5><p>如果某个元素设置了百分比的属性，则后代元素继承的是计算后的值。例如：</p>
-<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">p</span> &#123; <span class="attribute">font-size</span>: <span class="number">10px</span>;<span class="attribute">line-height</span>: <span class="number">120%</span>; &#125;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-css" data-language="css"><code class="language-css"><span class="token selector">p</span> <span class="token punctuation">&#123;</span> <span class="token property">font-size</span><span class="token punctuation">:</span> 10px<span class="token punctuation">;</span><span class="token property">line-height</span><span class="token punctuation">:</span> 120%<span class="token punctuation">;</span> <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>那么p的子元素继承到的值是 line-height: 12px，而不是 line-height: 120%。</p>
 <h4 id="em"><a href="#em" class="headerlink" title="em"></a>em</h4><p>em是相对字体长度单位。如果用于font-size属性本身，则是相对于父元素的font-size。若用于其他属性（width,height），则是相对于本身元素的font-size。国外使用比较多；</p>
 <p>em单位有如下特点：</p>
@@ -186,7 +192,9 @@
 <p>我们知道任意浏览器的默认字体大小都是16px。所有未经调整的浏览器都符合: 1em&#x3D;16px。那么12px&#x3D;0.75em,10px&#x3D;0.625em。为了简化font-size的换算，需要在css中的body选择器中声明font-size&#x3D;62.5%，这就使em值变为 16px*62.5%&#x3D;10px, 这样12px&#x3D;1.2em, 10px&#x3D;1em, 也就是说只需要将你的原来的px数值除以10，然后换上em作为单位就行了。</p>
 <p>em是继承父元素的字体大小，可是当父元素字体大小改变时，又得重新计算了，这不怎么方便，还好rem解决了这个问题</p>
 <h4 id="rem"><a href="#rem" class="headerlink" title="rem"></a>rem</h4><p>rem是CSS3新增的一个相对字体长度单位，只相对根元素即html元素字体大小<br>所以我们只要在html标签上设置字体大小为标准，文档中的字体大小都会以此为参照</p>
-<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">html</span>&#123;<span class="attribute">font-size</span>:<span class="number">62.5%</span>; &#125;</span><br><span class="line"><span class="selector-tag">body</span>&#123;<span class="attribute">font-size</span>:<span class="number">12px</span>;<span class="attribute">font-size</span>:<span class="number">1.2rem</span> ;&#125;</span><br><span class="line"><span class="selector-tag">p</span>&#123;<span class="attribute">font-size</span>:<span class="number">14px</span>;<span class="attribute">font-size</span>:<span class="number">1.4rem</span>;&#125;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-css" data-language="css"><code class="language-css"><span class="token selector">html</span><span class="token punctuation">&#123;</span><span class="token property">font-size</span><span class="token punctuation">:</span>62.5%<span class="token punctuation">;</span> <span class="token punctuation">&#125;</span>
+<span class="token selector">body</span><span class="token punctuation">&#123;</span><span class="token property">font-size</span><span class="token punctuation">:</span>12px<span class="token punctuation">;</span><span class="token property">font-size</span><span class="token punctuation">:</span>1.2rem <span class="token punctuation">;</span><span class="token punctuation">&#125;</span>
+<span class="token selector">p</span><span class="token punctuation">&#123;</span><span class="token property">font-size</span><span class="token punctuation">:</span>14px<span class="token punctuation">;</span><span class="token property">font-size</span><span class="token punctuation">:</span>1.4rem<span class="token punctuation">;</span><span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 <p>兼容性：</p>
 <blockquote>
 <p>IE 9 &amp; IE 10 do not support rem units when used in the font shorthand property (the entire declaration is ignored) or when used on pseudo elements.</p>
@@ -294,7 +302,7 @@
           </li>
         
           <li>
-            <a href="/blog/articles/2022/08/04.html">如何用Electron+vue+vite构建桌面端应用(三)</a>
+            <a href="/blog/articles/2022/08/05.html">如何用Electron+vue+vite构建桌面端应用(三)</a>
           </li>
         
           <li>
@@ -458,8 +466,8 @@
 
 <script>
   var gitalk = new Gitalk({
-    clientID: "1d84813ae13cd94072f0",
-    clientSecret: "4a4dd2af0c622e983dd90f5daf15c3ebd86b8ae9",
+    clientID: "3c3e422527fd3f9fa17a",
+    clientSecret: "f28d1808ec9ab69fb24dc3e9fad81e1c3ab8dd83",
     repo: "blog",
     owner: "jesse121",
     admin: ["jesse121"],

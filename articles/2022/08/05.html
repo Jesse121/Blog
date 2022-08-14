@@ -1,0 +1,1046 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>如何用Electron+vue+vite构建桌面端应用(三) | 前端之路</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  
+    <meta name="description" content="专注前端开发，前端开发技术博客">
+  
+  
+    <meta name="keywords" content="Web前端开发，Javascript，前端开发博客">
+  
+  
+    <link rel="alternate" href="/blog/atom.xml" title="前端之路" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/blog/favicon.ico">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/blog/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/blog/fancybox/jquery.fancybox.min.css">
+
+  
+  
+  
+    
+<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+
+  
+  
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/blog/" id="logo">前端之路</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/blog/" id="subtitle">路漫漫其修远兮，吾将上下而求索</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        
+          <a class="main-nav-link" href="/blog/."><i class="fa fa-home"></i> 首页</a>
+        
+          <a class="main-nav-link" href="/blog/archives/"><i class="fa fa-archive"></i> 归档</a>
+        
+          <a class="main-nav-link" href="/blog/about/"><i class="fa fa-user"></i> 关于</a>
+        
+      </nav>
+    </div>
+    <div id="search-form">
+      <div id="result-mask" class="hide"></div>
+      <label><input id="search-key" type="text" autocomplete="off" placeholder="搜索"></label>
+      <div id="result-wrap" class="hide">
+        <div id="search-result"></div>
+      </div>
+      <div class="hide">
+        <template id="search-tpl">
+          <div class="item">
+            <a href="/{path}" title="{title}">
+              <div class="title">{title}</div>
+              <div class="time">{date}</div>
+              <div class="tags">{tags}</div>
+            </a>
+          </div>
+        </template>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article
+  id="post-electron/如何用Electron+vue+vite构建桌面端应用(三)"
+  class="h-entry article article-type-post"
+  itemprop="blogPost"
+  itemscope
+  itemtype="https://schema.org/BlogPosting"
+>
+  <div class="article-inner">
+     
+    <header class="article-header">
+      
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      如何用Electron+vue+vite构建桌面端应用(三)
+    </h1>
+  
+
+
+    </header>
+    
+    <div class="article-meta">
+       <span class="article-date">
+  <i class="fa fa-date"></i>
+  <time class="dt-published" datetime="2022-08-05T12:45:00.000Z" itemprop="datePublished">2022年08月05日</time>
+</span> 
+  <div class="article-category">
+    <i class="fa fa-classify"></i>
+    <a class="article-category-link" href="/blog/categories/electron/">Electron</a>
+  </div>
+  <span class="article-views">
+  <i class="fa fa-views"></i>
+  <i id="busuanzi_container_page_pv">
+      <i id="busuanzi_value_page_pv"></i>
+  </i>
+</span>
+  
+<a href="/blog/articles/2022/08/05.html#comments" class="article-comment-link">
+  
+    
+    
+    
+    
+    
+  
+  <i class="fa fa-commt"></i>
+  留言
+</a>
+
+
+    </div>
+    <div class="e-content article-entry" itemprop="articleBody">
+       <p>一期我们介绍了完整的 Vue3 项目的搭建及配套工具的使用<a href="https://jesse121.github.io/blog/articles/2022/08/04.html">如何用 Electron+vue+vite 构建桌面端应用(二)</a>。今天主要介绍我们的重点，electron 实战开发中常用到的工具及常用功能介绍</p>
+<span id="more"></span>
+
+<h3 id="打包工具-electron-builder-常用配置说明"><a href="#打包工具-electron-builder-常用配置说明" class="headerlink" title="打包工具 electron-builder 常用配置说明"></a>打包工具 electron-builder 常用配置说明</h3><p>在第一期中我们直接使用了 electron-builder 打包，并没有做详细的介绍，今天介绍下 electron-builder 的配置项及在使用过程中遇到的问题，更加详细的介绍还是要参考官网<a target="_blank" rel="noopener" href="https://www.electron.build/">electron-builder</a></p>
+<pre class="line-numbers language-json5" data-language="json5"><code class="language-json5"><span class="token punctuation">&#123;</span>
+  <span class="token property unquoted">appId</span><span class="token operator">:</span> <span class="token string">"com.electron.app"</span><span class="token punctuation">,</span>
+  <span class="token property unquoted">productName</span><span class="token operator">:</span> <span class="token string">"ElecronApp"</span><span class="token punctuation">,</span> <span class="token comment">//项目名 这也是生成的exe文件的前缀名</span>
+  <span class="token property unquoted">copyright</span><span class="token operator">:</span> <span class="token string">"****"</span><span class="token punctuation">,</span> <span class="token comment">//版权信息</span>
+  <span class="token property unquoted">asar</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span> <span class="token comment">// 是否用asar压缩</span>
+  <span class="token comment">// 输出文件夹</span>
+  <span class="token property unquoted">directories</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+    <span class="token property unquoted">output</span><span class="token operator">:</span> <span class="token string">"release/$&#123;version&#125;"</span><span class="token punctuation">,</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+  <span class="token property unquoted">files</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"dist"</span><span class="token punctuation">,</span> <span class="token string">"resources"</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token comment">//需要打包的文件</span>
+  <span class="token property unquoted">mac</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+    <span class="token property unquoted">icon</span><span class="token operator">:</span> <span class="token string">"resources/icons/mac/icon.icns"</span><span class="token punctuation">,</span>
+    <span class="token property unquoted">target</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"dmg"</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token property unquoted">artifactName</span><span class="token operator">:</span> <span class="token string">"$&#123;productName&#125;_$&#123;version&#125;.$&#123;ext&#125;"</span><span class="token punctuation">,</span> <span class="token comment">// 输出包名格式</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+  <span class="token property unquoted">win</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+    <span class="token property unquoted">requestedExecutionLevel</span><span class="token operator">:</span> <span class="token string">"requireAdministrator"</span><span class="token punctuation">,</span> <span class="token comment">// 管理员权限运行 这里开启管理员权限将会禁止拖拽事件</span>
+    <span class="token property unquoted">icon</span><span class="token operator">:</span> <span class="token string">"resources/icons/win/icon.ico"</span><span class="token punctuation">,</span>
+    <span class="token property unquoted">target</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+      <span class="token punctuation">&#123;</span>
+        <span class="token property unquoted">target</span><span class="token operator">:</span> <span class="token string">"nsis"</span><span class="token punctuation">,</span>
+        <span class="token property unquoted">arch</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"x64"</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+      <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+    <span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token property unquoted">artifactName</span><span class="token operator">:</span> <span class="token string">"$&#123;productName&#125;_$&#123;version&#125;.$&#123;ext&#125;"</span><span class="token punctuation">,</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+  <span class="token property unquoted">nsis</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+    <span class="token property unquoted">oneClick</span><span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span> <span class="token comment">// 是否一键安装</span>
+    <span class="token property unquoted">allowElevation</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span> <span class="token comment">// 允许请求提升。 如果为false，则用户必须使用提升的权限重新启动安装程序。</span>
+    <span class="token property unquoted">perMachine</span><span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span>
+    <span class="token property unquoted">allowToChangeInstallationDirectory</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span> <span class="token comment">// 允许修改安装目录</span>
+    <span class="token property unquoted">deleteAppDataOnUninstall</span><span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span> <span class="token comment">// 卸载是否删除appData</span>
+    <span class="token property unquoted">installerIcon</span><span class="token operator">:</span> <span class="token string">""</span><span class="token punctuation">,</span> <span class="token comment">// 安装程序图标</span>
+    <span class="token property unquoted">uninstallerIcon</span><span class="token operator">:</span> <span class="token string">""</span><span class="token punctuation">,</span> <span class="token comment">//卸载程序图标</span>
+    <span class="token property unquoted">createDesktopShortcut</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span> <span class="token comment">// 创建桌面快捷方式</span>
+    <span class="token property unquoted">createStartMenuShortcut</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span> <span class="token comment">// 创建开始菜单快捷方式</span>
+    <span class="token property unquoted">shortcutName</span><span class="token operator">:</span> <span class="token string">"electronApp"</span><span class="token punctuation">,</span> <span class="token comment">// 快捷方式名称</span>
+    <span class="token property unquoted">include</span><span class="token operator">:</span> <span class="token string">"./installer.nsh"</span><span class="token punctuation">,</span> <span class="token comment">// 包含的自定义nsis脚本。这里设置了默认安装路劲</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+  <span class="token property unquoted">publish</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+    <span class="token punctuation">&#123;</span>
+      <span class="token property unquoted">provider</span><span class="token operator">:</span> <span class="token string">"generic"</span><span class="token punctuation">,</span>
+      <span class="token property unquoted">url</span><span class="token operator">:</span> <span class="token string">"****"</span><span class="token punctuation">,</span> <span class="token comment">// 更新包发布地址</span>
+    <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+  <span class="token punctuation">]</span><span class="token punctuation">,</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="生成图标-electron-icon-builder"><a href="#生成图标-electron-icon-builder" class="headerlink" title="生成图标 electron-icon-builder"></a>生成图标 electron-icon-builder</h3><p>一个图标生成器，用于生成 electron 包所需的所有图标文件</p>
+<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">yarn add electron-icon-builder -D<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>如果 phantomjs 无法下载可以访问<a target="_blank" rel="noopener" href="https://phantomjs.org/download.html">phantomjs</a>手动下载，然后放到<code>C:\Users\Administrator\AppData\Local\Temp\phantomjs\phantomjs-2.1.1-windows.zip</code></p>
+<p>先找 UI 要一张 <code>1024*1024</code> 尺寸的 png 图标<br>执行命令</p>
+<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">.&#x2F;node_modules&#x2F;.bin&#x2F;electron-icon-builder --input&#x3D;D:\\study\\electron\\electron-vue-vite-template\\resources\\icon.png --output&#x3D;.&#x2F;resources&#x2F;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p><strong>注意</strong><br>input 参数是文件绝对路径，output 参数是相对路径</p>
+<p>执行成功后即可看到生成的各种尺寸的图标，方便后期修改打包应用图标</p>
+<p>在 main 文件夹下新建 utils 文件夹，新建 icon.ts 文件</p>
+<pre class="line-numbers language-typescript" data-language="typescript"><code class="language-typescript"><span class="token keyword">const</span> <span class="token function-variable function">resolve</span> <span class="token operator">=</span> <span class="token punctuation">(</span>relativePath<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">)</span> <span class="token operator">=></span> path<span class="token punctuation">.</span><span class="token function">resolve</span><span class="token punctuation">(</span>__dirname<span class="token punctuation">,</span> relativePath<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token keyword">export</span> <span class="token keyword">const</span> <span class="token function-variable function">getIcon</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>process<span class="token punctuation">.</span>platform <span class="token operator">===</span> <span class="token string">"darwin"</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">return</span> <span class="token function">resolve</span><span class="token punctuation">(</span><span class="token string">"../../resources/icons/mac/icon.icns"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>process<span class="token punctuation">.</span>platform <span class="token operator">===</span> <span class="token string">"win32"</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">return</span> <span class="token function">resolve</span><span class="token punctuation">(</span><span class="token string">"../../resources/icons/win/icon.ico"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">return</span> <span class="token function">resolve</span><span class="token punctuation">(</span><span class="token string">"../../resources/icons/png/256x256.png"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="安装调试工具-vue-devtools"><a href="#安装调试工具-vue-devtools" class="headerlink" title="安装调试工具 vue devtools"></a>安装调试工具 vue devtools</h3><p>尽管有 npm 上有 electron-devtools-installer 包，安装后发现并不好用，还是自己来封装下，因为我们的项目使用的是 vue，我们直接封装了 vue devTools</p>
+<p>在 utils 文件夹下新建 devtools.ts 文件</p>
+<pre class="line-numbers language-typescript" data-language="typescript"><code class="language-typescript"><span class="token keyword">import</span> <span class="token punctuation">&#123;</span> app<span class="token punctuation">,</span> BrowserWindow<span class="token punctuation">,</span> session <span class="token punctuation">&#125;</span> <span class="token keyword">from</span> <span class="token string">"electron"</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> fs <span class="token keyword">from</span> <span class="token string">"fs"</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">&#123;</span> homedir <span class="token punctuation">&#125;</span> <span class="token keyword">from</span> <span class="token string">"os"</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">&#123;</span> join <span class="token punctuation">&#125;</span> <span class="token keyword">from</span> <span class="token string">"path"</span><span class="token punctuation">;</span>
+
+<span class="token keyword">const</span> home <span class="token operator">=</span> <span class="token function">homedir</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> <span class="token function-variable function">dir</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token operator">...</span>paths<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token function">join</span><span class="token punctuation">(</span>home<span class="token punctuation">,</span> <span class="token operator">...</span>paths<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment">/** vue devtool 扩展id */</span>
+<span class="token keyword">const</span> vueExtensionId <span class="token operator">=</span> <span class="token string">"nhdogjmejiglipccpnnnanhbledajbpd"</span><span class="token punctuation">;</span>
+
+<span class="token comment">/** Chrome 用户数据基础目录 */</span>
+<span class="token keyword">const</span> ChromeUseDataBaseDirMap<span class="token operator">:</span> Record<span class="token operator">&lt;</span><span class="token builtin">string</span><span class="token punctuation">,</span> <span class="token builtin">string</span><span class="token operator">></span> <span class="token operator">=</span> <span class="token punctuation">&#123;</span>
+  darwin<span class="token operator">:</span> <span class="token function">dir</span><span class="token punctuation">(</span><span class="token string">"/Library/Application Support/Google/Chrome"</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+  win32<span class="token operator">:</span> <span class="token function">dir</span><span class="token punctuation">(</span><span class="token string">"/AppData/Local/Google/Chrome/User Data"</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+
+<span class="token keyword">const</span> profileDirRegex <span class="token operator">=</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">^Default$|^Profile \d+$</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">;</span>
+
+<span class="token keyword">const</span> chromeUseDataBaseDir <span class="token operator">=</span> ChromeUseDataBaseDirMap<span class="token punctuation">[</span>process<span class="token punctuation">.</span>platform<span class="token punctuation">]</span><span class="token punctuation">;</span>
+
+<span class="token comment">/**
+ * 加载 Vue Devtools
+ */</span>
+<span class="token keyword">export</span> <span class="token keyword">function</span> <span class="token function">loadVueDevtools</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>app<span class="token punctuation">.</span>isPackaged<span class="token punctuation">)</span> <span class="token keyword">return</span><span class="token punctuation">;</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>session<span class="token punctuation">.</span>defaultSession<span class="token punctuation">.</span><span class="token function">getExtension</span><span class="token punctuation">(</span>vueExtensionId<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token keyword">return</span><span class="token punctuation">;</span>
+
+  <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>fs<span class="token punctuation">.</span><span class="token function">existsSync</span><span class="token punctuation">(</span>chromeUseDataBaseDir<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token keyword">return</span><span class="token punctuation">;</span>
+
+  <span class="token keyword">const</span> profilePaths<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+
+  fs<span class="token punctuation">.</span><span class="token function">readdirSync</span><span class="token punctuation">(</span>chromeUseDataBaseDir<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">forEach</span><span class="token punctuation">(</span><span class="token punctuation">(</span>it<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>profileDirRegex<span class="token punctuation">.</span><span class="token function">test</span><span class="token punctuation">(</span>it<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token keyword">return</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">const</span> path <span class="token operator">=</span> <span class="token function">join</span><span class="token punctuation">(</span>chromeUseDataBaseDir<span class="token punctuation">,</span> it<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">const</span> dir <span class="token operator">=</span> fs<span class="token punctuation">.</span><span class="token function">statSync</span><span class="token punctuation">(</span>path<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>dir<span class="token punctuation">.</span><span class="token function">isDirectory</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> profilePaths<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span>path<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token keyword">const</span> vueDevToolPath <span class="token operator">=</span> profilePaths
+    <span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span><span class="token punctuation">(</span>it<span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+      <span class="token keyword">const</span> path <span class="token operator">=</span> <span class="token function">join</span><span class="token punctuation">(</span>it<span class="token punctuation">,</span> <span class="token string">"Extensions"</span><span class="token punctuation">,</span> vueExtensionId<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+      <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>fs<span class="token punctuation">.</span><span class="token function">existsSync</span><span class="token punctuation">(</span>path<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token keyword">return</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+
+      <span class="token keyword">return</span> fs
+        <span class="token punctuation">.</span><span class="token function">readdirSync</span><span class="token punctuation">(</span>path<span class="token punctuation">)</span>
+        <span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span><span class="token punctuation">(</span>it<span class="token operator">:</span> <span class="token builtin">any</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+          <span class="token keyword">const</span> sp <span class="token operator">=</span> <span class="token function">join</span><span class="token punctuation">(</span>path<span class="token punctuation">,</span> it<span class="token punctuation">)</span><span class="token punctuation">;</span>
+          <span class="token keyword">const</span> dir <span class="token operator">=</span> fs<span class="token punctuation">.</span><span class="token function">statSync</span><span class="token punctuation">(</span>path<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+          <span class="token keyword">if</span> <span class="token punctuation">(</span>dir<span class="token punctuation">.</span><span class="token function">isDirectory</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span> fs<span class="token punctuation">.</span><span class="token function">existsSync</span><span class="token punctuation">(</span><span class="token function">join</span><span class="token punctuation">(</span>sp<span class="token punctuation">,</span> <span class="token string">"manifest.json"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+            <span class="token keyword">return</span> sp<span class="token punctuation">;</span>
+
+          <span class="token keyword">return</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+        <span class="token punctuation">.</span><span class="token function">filter</span><span class="token punctuation">(</span>Boolean<span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+    <span class="token punctuation">.</span><span class="token function">filter</span><span class="token punctuation">(</span>Boolean<span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>vueDevToolPath<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token builtin">console</span><span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">Vue DevTools Path:>> </span><span class="token template-punctuation string">`</span></span><span class="token punctuation">,</span> vueDevToolPath<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    session<span class="token punctuation">.</span>defaultSession<span class="token punctuation">.</span><span class="token function">loadExtension</span><span class="token punctuation">(</span>vueDevToolPath<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token comment">/**
+ * 打开 Devtools
+ */</span>
+<span class="token keyword">export</span> <span class="token keyword">function</span> <span class="token function">openDevTools</span><span class="token punctuation">(</span>$win<span class="token operator">:</span> BrowserWindow<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>$win<span class="token punctuation">)</span> <span class="token keyword">return</span><span class="token punctuation">;</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>app<span class="token punctuation">.</span>isPackaged<span class="token punctuation">)</span> <span class="token keyword">return</span><span class="token punctuation">;</span>
+
+  $win<span class="token punctuation">.</span>webContents<span class="token punctuation">.</span><span class="token function">openDevTools</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span> mode<span class="token operator">:</span> <span class="token string">"detach"</span> <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token comment">/**
+ * 关闭 Devtools
+ */</span>
+<span class="token keyword">export</span> <span class="token keyword">function</span> <span class="token function">closeDevTools</span><span class="token punctuation">(</span>$win<span class="token operator">:</span> BrowserWindow<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>$win<span class="token punctuation">)</span> <span class="token keyword">return</span><span class="token punctuation">;</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>app<span class="token punctuation">.</span>isPackaged<span class="token punctuation">)</span> <span class="token keyword">return</span><span class="token punctuation">;</span>
+
+  $win<span class="token punctuation">.</span>webContents<span class="token punctuation">.</span><span class="token function">closeDevTools</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><img src="https://raw.githubusercontent.com/Jesse121/publicPic/master/blog/pictures/20220723162320.png" alt="20220723162320"><br>窗口创建完后开始加载 vueDevtool,窗口显示的时候自动打开 Devtool，vue DevTool 加载成功<br><img src="https://raw.githubusercontent.com/Jesse121/publicPic/master/blog/pictures/20220723162642.png" alt="20220723162642"></p>
+<h3 id="生成日志-electron-log"><a href="#生成日志-electron-log" class="headerlink" title="生成日志 electron-log"></a>生成日志 electron-log</h3><p>electron 应用打包后我们要知道当前安装的应用的运行情况，生成本地日志是非常有必要的，这里采用开源工具包 electron-log 实现<br>它不仅可以用于 Electron 应用中也可以用在任何 node.js 的应用中。</p>
+<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">yarn add electron-log -D<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>在 utils 文件夹中新建 log.ts</p>
+<pre class="line-numbers language-typescript" data-language="typescript"><code class="language-typescript"><span class="token keyword">import</span> <span class="token punctuation">&#123;</span> app <span class="token punctuation">&#125;</span> <span class="token keyword">from</span> <span class="token string">"electron"</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> log <span class="token keyword">from</span> <span class="token string">"electron-log"</span><span class="token punctuation">;</span>
+
+<span class="token comment">/**
+ * 支持下列日志等级
+ * error,
+ * warn,
+ * info,
+ * verbose,
+ * debug,
+ * silly
+ *
+ * 日志文件位置
+ * on Linux: ~/.config/&#123;app name&#125;/logs/&#123;process type&#125;.log
+ * on macOS: ~/Library/Logs/&#123;app name&#125;/&#123;process type&#125;.log
+ * on Windows: %USERPROFILE%\AppData\Roaming\&#123;app name&#125;\logs\&#123;process type&#125;.log
+ */</span>
+
+<span class="token keyword">let</span> date <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Date</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> dateStr <span class="token operator">=</span>
+  date<span class="token punctuation">.</span><span class="token function">getFullYear</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">"-"</span> <span class="token operator">+</span> <span class="token punctuation">(</span>date<span class="token punctuation">.</span><span class="token function">getMonth</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">"-"</span> <span class="token operator">+</span> date<span class="token punctuation">.</span><span class="token function">getDate</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">// 修改日志文件名</span>
+log<span class="token punctuation">.</span>transports<span class="token punctuation">.</span>file<span class="token punctuation">.</span>fileName <span class="token operator">=</span> dateStr <span class="token operator">+</span> <span class="token string">".log"</span><span class="token punctuation">;</span>
+<span class="token comment">// 修改日志格式</span>
+log<span class="token punctuation">.</span>transports<span class="token punctuation">.</span>file<span class="token punctuation">.</span>format <span class="token operator">=</span>
+  <span class="token string">"[&#123;m&#125;-&#123;d&#125; &#123;h&#125;:&#123;i&#125;:&#123;s&#125;.&#123;ms&#125;] [&#123;level&#125;]&#123;scope&#125; &#123;text&#125;"</span><span class="token punctuation">;</span>
+<span class="token comment">// 设置日志文件大小上限, 达到上限后备份文件并重命名未**.old.log,有且仅有一个备份文件</span>
+log<span class="token punctuation">.</span>transports<span class="token punctuation">.</span>file<span class="token punctuation">.</span>maxSize <span class="token operator">=</span> <span class="token number">3</span> <span class="token operator">*</span> <span class="token number">1024</span> <span class="token operator">*</span> <span class="token number">1024</span><span class="token punctuation">;</span>
+
+<span class="token comment">// 打包后禁用console输出</span>
+<span class="token keyword">if</span> <span class="token punctuation">(</span>app<span class="token operator">?.</span>isPackaged<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+  log<span class="token punctuation">.</span>transports<span class="token punctuation">.</span><span class="token builtin">console</span><span class="token punctuation">.</span>level <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token keyword">export</span> <span class="token keyword">default</span> log<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>查询本地日志文件可看到，日志记录成功</p>
+<pre class="line-numbers language-none"><code class="language-none">[2022-07-23 17:50:05.923] [error] error
+[2022-07-23 17:50:05.929] [warn]  warn
+[2022-07-23 17:50:05.929] [info]  info
+[2022-07-23 17:50:05.930] [verbose] verbose
+[2022-07-23 17:50:05.930] [debug] debug
+[2022-07-23 17:50:05.931] [silly] silly<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>对于 electron-log 日志在 windows 系统控制台中输出中文乱码，可通过添加 chcp 65001 解决</p>
+<pre class="line-numbers language-json" data-language="json"><code class="language-json"><span class="token comment">// package.json</span>
+<span class="token punctuation">&#123;</span>
+  <span class="token property">"scripts"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+    <span class="token property">"dev"</span><span class="token operator">:</span> <span class="token string">"chcp 65001 &amp;&amp; vite"</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>在渲染进程中如果想使用 log 输出运行日志，可以将 log API 通过 preload 暴露出来供渲染进程使用</p>
+<pre class="line-numbers language-typescript" data-language="typescript"><code class="language-typescript"><span class="token comment">// preload/index.ts</span>
+<span class="token keyword">import</span> log <span class="token keyword">from</span> <span class="token string">"../main/utils/log"</span><span class="token punctuation">;</span>
+<span class="token comment">// ...</span>
+
+contextBridge<span class="token punctuation">.</span><span class="token function">exposeInMainWorld</span><span class="token punctuation">(</span><span class="token string">"log"</span><span class="token punctuation">,</span> log<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="electron-vue-项目多窗口配置"><a href="#electron-vue-项目多窗口配置" class="headerlink" title="electron+vue 项目多窗口配置"></a>electron+vue 项目多窗口配置</h3><p>在 electron 项目开发中我们的需求一般不会只有一个窗口，那么如何创建多个 electron 窗口呢？我们知道<a target="_blank" rel="noopener" href="https://www.electronjs.org/zh/docs/latest/api/browser-window#class-browserwindow">BrowserWindow</a>API 可以创建并控制浏览器窗口，在本项目 main&#x2F;index.ts 中就创建了一个窗口</p>
+<pre class="line-numbers language-typescript" data-language="typescript"><code class="language-typescript"><span class="token keyword">const</span> win <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">BrowserWindow</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span>
+  width<span class="token operator">:</span> <span class="token number">800</span><span class="token punctuation">,</span>
+  height<span class="token operator">:</span> <span class="token number">600</span><span class="token punctuation">,</span>
+  icon<span class="token operator">:</span> <span class="token function">getIcon</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+  webPreferences<span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+    preload<span class="token operator">:</span> path<span class="token punctuation">.</span><span class="token function">join</span><span class="token punctuation">(</span>__dirname<span class="token punctuation">,</span> <span class="token string">"../preload/index.js"</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">if</span> <span class="token punctuation">(</span>app<span class="token punctuation">.</span>isPackaged<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+  win<span class="token punctuation">.</span><span class="token function">loadFile</span><span class="token punctuation">(</span><span class="token function">join</span><span class="token punctuation">(</span>__dirname<span class="token punctuation">,</span> <span class="token string">"../../index.html"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token punctuation">&#123;</span>
+  <span class="token keyword">const</span> url <span class="token operator">=</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">http://</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span>process<span class="token punctuation">.</span>env<span class="token punctuation">[</span><span class="token string">"VITE_DEV_SERVER_HOST"</span><span class="token punctuation">]</span><span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token string">:</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span>process<span class="token punctuation">.</span>env<span class="token punctuation">[</span><span class="token string">"VITE_DEV_SERVER_PORT"</span><span class="token punctuation">]</span><span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">;</span>
+
+  win<span class="token punctuation">.</span><span class="token function">loadURL</span><span class="token punctuation">(</span>url<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  win<span class="token punctuation">.</span><span class="token function">on</span><span class="token punctuation">(</span><span class="token string">"show"</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token function">openDevTools</span><span class="token punctuation">(</span>win<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>这里窗口内容用的是本地 index.html 文件渲染结果，如果要新开一个窗口，可以新建一个 index.html 用同样的方式去渲染。但是我们项目中完全可以以访问其他路由的形式去新开窗口</p>
+<pre class="line-numbers language-typescript" data-language="typescript"><code class="language-typescript"><span class="token keyword">const</span> <span class="token function-variable function">createUpdateWin</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+  <span class="token keyword">const</span> win <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">BrowserWindow</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span>
+    width<span class="token operator">:</span> <span class="token number">800</span><span class="token punctuation">,</span>
+    height<span class="token operator">:</span> <span class="token number">600</span><span class="token punctuation">,</span>
+    icon<span class="token operator">:</span> <span class="token function">getIcon</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    webPreferences<span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+      preload<span class="token operator">:</span> <span class="token function">join</span><span class="token punctuation">(</span>__dirname<span class="token punctuation">,</span> <span class="token string">"../preload/index.js"</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token keyword">let</span> windowUrl<span class="token punctuation">;</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>app<span class="token punctuation">.</span>isPackaged<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    windowUrl <span class="token operator">=</span> <span class="token string">"file://"</span> <span class="token operator">+</span> <span class="token function">join</span><span class="token punctuation">(</span>__dirname<span class="token punctuation">,</span> <span class="token string">"../../index.html"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token punctuation">&#123;</span>
+    windowUrl <span class="token operator">=</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">http://</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span>process<span class="token punctuation">.</span>env<span class="token punctuation">[</span><span class="token string">"VITE_DEV_SERVER_HOST"</span><span class="token punctuation">]</span><span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token string">:</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span>process<span class="token punctuation">.</span>env<span class="token punctuation">[</span><span class="token string">"VITE_DEV_SERVER_PORT"</span><span class="token punctuation">]</span><span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span>
+  win<span class="token punctuation">.</span><span class="token function">loadURL</span><span class="token punctuation">(</span>windowUrl <span class="token operator">+</span> <span class="token string">"#/update"</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 以hash路由形式访问</span>
+
+  win<span class="token punctuation">.</span><span class="token function">on</span><span class="token punctuation">(</span><span class="token string">"show"</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token function">openDevTools</span><span class="token punctuation">(</span>win<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  win<span class="token punctuation">.</span><span class="token function">on</span><span class="token punctuation">(</span><span class="token string">"hide"</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token function">closeDevTools</span><span class="token punctuation">(</span>win<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token keyword">return</span> win<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>这样就可以新开启一个 update 窗口，访问的是&#x2F;update 路由<br><img src="https://raw.githubusercontent.com/Jesse121/publicPic/master/blog/pictures/20220724154522.png" alt="20220724154522"></p>
+<h3 id="electron-进程间通信"><a href="#electron-进程间通信" class="headerlink" title="electron 进程间通信"></a>electron 进程间通信</h3><p>为了确保应用安全，自 Electron 12 以来，默认情况下已启用上下文隔离，并且它是所有应用程序推荐的安全设置。<br>启用上下文隔离之后，Electron 提供一种专门的模块来无阻地帮助您完成这项工作。 contextBridge 模块可以用来安全地从独立运行、上下文隔离的预加载脚本中暴露 API 给正在运行的渲染进程。<br>为了在渲染进程中使用 ipcRenderer 需要在 preload 脚本中将 ipcRenderer 暴露出来<br>编写 preload&#x2F;index.ts</p>
+<pre class="line-numbers language-typescript" data-language="typescript"><code class="language-typescript"><span class="token keyword">import</span> <span class="token punctuation">&#123;</span> contextBridge<span class="token punctuation">,</span> ipcRenderer <span class="token punctuation">&#125;</span> <span class="token keyword">from</span> <span class="token string">"electron"</span><span class="token punctuation">;</span>
+
+contextBridge<span class="token punctuation">.</span><span class="token function">exposeInMainWorld</span><span class="token punctuation">(</span><span class="token string">"ipcRenderer"</span><span class="token punctuation">,</span> ipcRenderer<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p>渲染进程发送消息给主进程</p>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript">ipcRenderer<span class="token punctuation">.</span><span class="token function">send</span><span class="token punctuation">(</span><span class="token string">"login"</span><span class="token punctuation">,</span> <span class="token string">"loginSuccess"</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>主进程接收消息</p>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript">ipcMain<span class="token punctuation">.</span><span class="token function">on</span><span class="token punctuation">(</span><span class="token string">"login"</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token parameter">event<span class="token punctuation">,</span> arg</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+  console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>arg<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// loginSuccess</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p>主进程发消息给渲染进程</p>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript">win<span class="token operator">?.</span>webContents<span class="token punctuation">.</span><span class="token function">send</span><span class="token punctuation">(</span><span class="token string">"showNormalIcon"</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>渲染进程接收消息</p>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript">ipcRenderer<span class="token punctuation">.</span><span class="token function">on</span><span class="token punctuation">(</span><span class="token string">"showNormalIcon"</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+  showNormalIcon<span class="token punctuation">.</span>value <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p>具体还有其他 ipcRenderer 的 api 可以参考官网<a target="_blank" rel="noopener" href="https://www.electronjs.org/zh/docs/latest/api/ipc-renderer">ipcRenderer</a></p>
+<h3 id="窗口最大化与最小化"><a href="#窗口最大化与最小化" class="headerlink" title="窗口最大化与最小化"></a>窗口最大化与最小化</h3><p>根据上面进程间通信方法我们来实现窗口的最大化与最小化</p>
+<p>渲染进程中</p>
+<pre class="line-numbers language-typescript" data-language="typescript"><code class="language-typescript"><span class="token keyword">const</span> <span class="token function-variable function">minimizeWin</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+  <span class="token function">ipcRendererSend</span><span class="token punctuation">(</span><span class="token string">"minimize-win"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+
+<span class="token keyword">const</span> showNormalIcon <span class="token operator">=</span> <span class="token function">ref</span><span class="token punctuation">(</span><span class="token boolean">false</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> <span class="token function-variable function">maximizeWin</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+  <span class="token function">ipcRendererInvoke</span><span class="token punctuation">(</span><span class="token string">"maximize-win"</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token punctuation">(</span>res<span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>res <span class="token operator">===</span> <span class="token string">"showNormalIcon"</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+      showNormalIcon<span class="token punctuation">.</span>value <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>res <span class="token operator">===</span> <span class="token string">"showMaximizeIcon"</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+      showNormalIcon<span class="token punctuation">.</span>value <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+
+<span class="token keyword">const</span> <span class="token function-variable function">closeWin</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+  <span class="token function">ipcRendererSend</span><span class="token punctuation">(</span><span class="token string">"close-win"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>主进程中</p>
+<pre class="line-numbers language-typescript" data-language="typescript"><code class="language-typescript"><span class="token comment">/**
+ * 窗口最小化
+ */</span>
+<span class="token function">ipcMainOn</span><span class="token punctuation">(</span><span class="token string">"minimize-win"</span><span class="token punctuation">,</span> <span class="token punctuation">(</span>event<span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+  <span class="token keyword">const</span> win <span class="token operator">=</span> BrowserWindow<span class="token punctuation">.</span><span class="token function">fromId</span><span class="token punctuation">(</span>event<span class="token punctuation">.</span>sender<span class="token punctuation">.</span>id<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  win<span class="token operator">?.</span><span class="token function">minimize</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">/**
+ * 窗口最大化与正常化
+ */</span>
+<span class="token function">ipcMainHandle</span><span class="token punctuation">(</span><span class="token string">"maximize-win"</span><span class="token punctuation">,</span> <span class="token punctuation">(</span>event<span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+  <span class="token keyword">const</span> win <span class="token operator">=</span> BrowserWindow<span class="token punctuation">.</span><span class="token function">fromId</span><span class="token punctuation">(</span>event<span class="token punctuation">.</span>sender<span class="token punctuation">.</span>id<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>win<span class="token operator">?.</span><span class="token function">isMaximized</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    win<span class="token punctuation">.</span><span class="token function">unmaximize</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> <span class="token string">"showMaximizeIcon"</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token punctuation">&#123;</span>
+    win<span class="token operator">?.</span><span class="token function">maximize</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> <span class="token string">"showNormalIcon"</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">/**
+ * 关闭窗口
+ */</span>
+<span class="token function">ipcMainOn</span><span class="token punctuation">(</span><span class="token string">"close-win"</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+  electronApp<span class="token punctuation">.</span><span class="token function">quit</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="实现托盘及托盘菜单"><a href="#实现托盘及托盘菜单" class="headerlink" title="实现托盘及托盘菜单"></a>实现托盘及托盘菜单</h3><p>桌面端应用一般都会有托盘菜单，这里根据 electron 提供的 Menu 和 Tray 来实现</p>
+<pre class="line-numbers language-typescript" data-language="typescript"><code class="language-typescript"><span class="token keyword">let</span> $tray<span class="token operator">:</span> Tray <span class="token operator">|</span> <span class="token keyword">null</span> <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
+
+<span class="token keyword">const</span> <span class="token function-variable function">setMenu</span> <span class="token operator">=</span> <span class="token punctuation">(</span>electronApp<span class="token operator">:</span> IElectronApp<span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+  <span class="token keyword">const</span> menu <span class="token operator">=</span> <span class="token punctuation">[</span>
+    <span class="token punctuation">&#123;</span>
+      label<span class="token operator">:</span> <span class="token string">"打开ElectronApp"</span><span class="token punctuation">,</span>
+      <span class="token function-variable function">click</span><span class="token operator">:</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> electronApp<span class="token punctuation">.</span><span class="token function">showMainWin</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+    <span class="token punctuation">&#123;</span>
+      icon<span class="token operator">:</span> <span class="token function">getLogout</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+      label<span class="token operator">:</span> <span class="token string">"退出"</span><span class="token punctuation">,</span>
+      <span class="token function-variable function">click</span><span class="token operator">:</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> electronApp<span class="token punctuation">.</span><span class="token function">quit</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+  <span class="token punctuation">]</span><span class="token punctuation">;</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>$tray<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token comment">// 绑定菜单</span>
+    $tray<span class="token punctuation">.</span><span class="token function">setContextMenu</span><span class="token punctuation">(</span>Menu<span class="token punctuation">.</span><span class="token function">buildFromTemplate</span><span class="token punctuation">(</span>menu<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+
+<span class="token keyword">const</span> <span class="token function-variable function">createTray</span> <span class="token operator">=</span> <span class="token punctuation">(</span>electronApp<span class="token operator">:</span> IElectronApp<span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+  <span class="token comment">// 生成托盘图标及其菜单项实例</span>
+  $tray <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Tray</span><span class="token punctuation">(</span>
+    path<span class="token punctuation">.</span><span class="token function">join</span><span class="token punctuation">(</span>__dirname<span class="token punctuation">,</span> <span class="token string">"../../../resources/icons/png/16x16.png"</span><span class="token punctuation">)</span>
+  <span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token comment">// 设置鼠标悬浮时的标题</span>
+  $tray<span class="token punctuation">.</span><span class="token function">setToolTip</span><span class="token punctuation">(</span><span class="token string">"ElectronApp"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token comment">// 设置菜单</span>
+  <span class="token function">setMenu</span><span class="token punctuation">(</span>electronApp<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>可以看到托盘菜单已生成<br><img src="https://raw.githubusercontent.com/Jesse121/publicPic/master/blog/pictures/20220801141913.png" alt="20220801141913"></p>
+<h3 id="全量更新与增量更新"><a href="#全量更新与增量更新" class="headerlink" title="全量更新与增量更新"></a>全量更新与增量更新</h3><h4 id="全量更新"><a href="#全量更新" class="headerlink" title="全量更新"></a>全量更新</h4><p>全量更新是利用官方提供的 autoUpdater 来实现的，即将打包后的新版本包下载下来并重新安装<br>安装 electron-updater</p>
+<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">yarn add electron-updater@5.0.1 -D<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>新建 electron&#x2F;main&#x2F;modules&#x2F;fullUpdate.ts</p>
+<pre class="line-numbers language-typescript" data-language="typescript"><code class="language-typescript"><span class="token keyword">import</span> <span class="token punctuation">&#123;</span> BrowserWindow <span class="token punctuation">&#125;</span> <span class="token keyword">from</span> <span class="token string">"electron"</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">&#123;</span> autoUpdater<span class="token punctuation">,</span> UpdateInfo <span class="token punctuation">&#125;</span> <span class="token keyword">from</span> <span class="token string">"electron-updater"</span><span class="token punctuation">;</span>
+
+<span class="token keyword">const</span> fullUpdate <span class="token operator">=</span> <span class="token punctuation">(</span>window<span class="token operator">:</span> BrowserWindow<span class="token punctuation">)</span><span class="token operator">:</span> <span class="token keyword">void</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+  <span class="token comment">// 检查到新版本</span>
+  autoUpdater<span class="token punctuation">.</span><span class="token function">once</span><span class="token punctuation">(</span><span class="token string">"update-available"</span><span class="token punctuation">,</span> <span class="token punctuation">(</span>info<span class="token operator">:</span> UpdateInfo<span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+    window<span class="token punctuation">.</span>webContents<span class="token punctuation">.</span><span class="token function">send</span><span class="token punctuation">(</span><span class="token string">"update-available"</span><span class="token punctuation">,</span> <span class="token punctuation">&#123;</span>
+      message<span class="token operator">:</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">版本更新中...</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">,</span>
+    <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token comment">// 已经是新版本</span>
+  autoUpdater<span class="token punctuation">.</span><span class="token function">on</span><span class="token punctuation">(</span><span class="token string">"update-not-available"</span><span class="token punctuation">,</span> <span class="token punctuation">(</span>info<span class="token operator">:</span> UpdateInfo<span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+    window<span class="token punctuation">.</span>webContents<span class="token punctuation">.</span><span class="token function">send</span><span class="token punctuation">(</span><span class="token string">"update-not-available"</span><span class="token punctuation">,</span> <span class="token punctuation">&#123;</span>
+      message<span class="token operator">:</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">当前版本已经是最新 v </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span>info<span class="token punctuation">.</span>version<span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">,</span>
+    <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token comment">// 更新下载中</span>
+  autoUpdater<span class="token punctuation">.</span><span class="token function">on</span><span class="token punctuation">(</span><span class="token string">"download-progress"</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">&#123;</span> percent <span class="token punctuation">&#125;</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span> percent<span class="token operator">:</span> <span class="token builtin">number</span> <span class="token punctuation">&#125;</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+    window<span class="token punctuation">.</span><span class="token function">setProgressBar</span><span class="token punctuation">(</span>percent <span class="token operator">/</span> <span class="token number">100</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    window<span class="token punctuation">.</span>webContents<span class="token punctuation">.</span><span class="token function">send</span><span class="token punctuation">(</span><span class="token string">"download-progress"</span><span class="token punctuation">,</span> <span class="token punctuation">&#123;</span>
+      percent<span class="token operator">:</span> percent<span class="token punctuation">.</span><span class="token function">toFixed</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token comment">// 更新下载完毕</span>
+  autoUpdater<span class="token punctuation">.</span><span class="token function">once</span><span class="token punctuation">(</span><span class="token string">"update-downloaded"</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+    window<span class="token punctuation">.</span>webContents<span class="token punctuation">.</span><span class="token function">send</span><span class="token punctuation">(</span><span class="token string">"update-downloaded"</span><span class="token punctuation">,</span> <span class="token punctuation">&#123;</span>
+      message<span class="token operator">:</span> <span class="token string">"更新完成"</span><span class="token punctuation">,</span>
+    <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    autoUpdater<span class="token punctuation">.</span><span class="token function">quitAndInstall</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token comment">// 检查更新出错</span>
+  autoUpdater<span class="token punctuation">.</span><span class="token function">on</span><span class="token punctuation">(</span><span class="token string">"error"</span><span class="token punctuation">,</span> <span class="token punctuation">(</span>error<span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+    window<span class="token punctuation">.</span>webContents<span class="token punctuation">.</span><span class="token function">send</span><span class="token punctuation">(</span>
+      <span class="token string">"update-error"</span><span class="token punctuation">,</span>
+      <span class="token punctuation">&#123;</span>
+        message<span class="token operator">:</span> <span class="token string">"检查更新出错"</span><span class="token punctuation">,</span>
+      <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+      error
+    <span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+
+<span class="token keyword">export</span> <span class="token keyword">default</span> fullUpdate<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>在 electron-builder.json 中</p>
+<pre class="line-numbers language-json" data-language="json"><code class="language-json"><span class="token property">"publish"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+  <span class="token punctuation">&#123;</span>
+    <span class="token property">"provider"</span><span class="token operator">:</span> <span class="token string">"generic"</span><span class="token punctuation">,</span>
+    <span class="token property">"url"</span><span class="token operator">:</span> <span class="token string">"http://127.0.0.1:3000/"</span> <span class="token comment">// 把生成的exe文件和latest.yml文件放到这个静态服务器下 方便下载更新包</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-typescript" data-language="typescript"><code class="language-typescript"><span class="token comment">// mainWin.ts</span>
+<span class="token comment">// 在主进程中处理检查更新，根据版本号升级判断是否全量更新还是增量更新</span>
+<span class="token function">ipcMainHandle</span><span class="token punctuation">(</span><span class="token string">"checkUpdate"</span><span class="token punctuation">,</span> <span class="token keyword">async</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>app<span class="token punctuation">.</span>isPackaged<span class="token punctuation">)</span> <span class="token keyword">return</span><span class="token punctuation">;</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>process<span class="token punctuation">.</span>platform <span class="token operator">!==</span> <span class="token string">"win32"</span><span class="token punctuation">)</span> <span class="token keyword">return</span><span class="token punctuation">;</span>
+  <span class="token keyword">const</span> <span class="token punctuation">[</span>err<span class="token punctuation">,</span> res<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token keyword">await</span> <span class="token function">sync</span><span class="token punctuation">(</span><span class="token function">getAppVersion</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>err<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token builtin">console</span><span class="token punctuation">.</span><span class="token function">error</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    log<span class="token punctuation">.</span><span class="token function">error</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span>
+  log<span class="token punctuation">.</span><span class="token function">info</span><span class="token punctuation">(</span><span class="token string">"remoteVersion:"</span><span class="token punctuation">,</span> res<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  log<span class="token punctuation">.</span><span class="token function">info</span><span class="token punctuation">(</span><span class="token string">"currentVersion"</span><span class="token punctuation">,</span> pkg<span class="token punctuation">.</span>version<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">const</span> remoteVersionArr <span class="token operator">=</span> res<span class="token punctuation">.</span><span class="token function">split</span><span class="token punctuation">(</span><span class="token string">"."</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">const</span> currentVersionArr <span class="token operator">=</span> pkg<span class="token punctuation">.</span>version<span class="token punctuation">.</span><span class="token function">split</span><span class="token punctuation">(</span><span class="token string">"."</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">Number</span><span class="token punctuation">(</span>remoteVersionArr<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">></span> <span class="token function">Number</span><span class="token punctuation">(</span>currentVersionArr<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token comment">// 开启全量更新</span>
+    <span class="token keyword">const</span> <span class="token punctuation">[</span>err<span class="token punctuation">,</span> res<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token keyword">await</span> <span class="token function">sync</span><span class="token punctuation">(</span>autoUpdater<span class="token punctuation">.</span><span class="token function">checkForUpdates</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>err<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+      <span class="token builtin">console</span><span class="token punctuation">.</span><span class="token function">error</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      log<span class="token punctuation">.</span><span class="token function">error</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>res<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+      win<span class="token punctuation">.</span><span class="token function">setMinimumSize</span><span class="token punctuation">(</span><span class="token number">420</span><span class="token punctuation">,</span> <span class="token number">170</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      win<span class="token punctuation">.</span><span class="token function">setSize</span><span class="token punctuation">(</span><span class="token number">420</span><span class="token punctuation">,</span> <span class="token number">170</span><span class="token punctuation">,</span> <span class="token boolean">false</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      win<span class="token punctuation">.</span><span class="token function">center</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token keyword">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>
+    <span class="token function">Number</span><span class="token punctuation">(</span>remoteVersionArr<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">></span> <span class="token function">Number</span><span class="token punctuation">(</span>currentVersionArr<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">||</span>
+    <span class="token function">Number</span><span class="token punctuation">(</span>remoteVersionArr<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">></span> <span class="token function">Number</span><span class="token punctuation">(</span>currentVersionArr<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+  <span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token comment">// 开启增量更新</span>
+    win<span class="token punctuation">.</span><span class="token function">setMinimumSize</span><span class="token punctuation">(</span><span class="token number">420</span><span class="token punctuation">,</span> <span class="token number">170</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    win<span class="token punctuation">.</span><span class="token function">setSize</span><span class="token punctuation">(</span><span class="token number">420</span><span class="token punctuation">,</span> <span class="token number">170</span><span class="token punctuation">,</span> <span class="token boolean">false</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    win<span class="token punctuation">.</span><span class="token function">center</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">const</span> localPath <span class="token operator">=</span> <span class="token function">join</span><span class="token punctuation">(</span>app<span class="token punctuation">.</span><span class="token function">getPath</span><span class="token punctuation">(</span><span class="token string">"exe"</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token string">"../resources/"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    log<span class="token punctuation">.</span><span class="token function">info</span><span class="token punctuation">(</span><span class="token string">"localPath"</span><span class="token punctuation">,</span> localPath<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">getRemoteZipToLocal</span><span class="token punctuation">(</span>publishUrl <span class="token operator">+</span> <span class="token string">"app.zip"</span><span class="token punctuation">,</span> <span class="token string">"app.zip"</span><span class="token punctuation">,</span> <span class="token string">"./"</span><span class="token punctuation">,</span> win<span class="token punctuation">)</span>
+      <span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token punctuation">(</span>res<span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>res<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+          <span class="token keyword">const</span> unzip <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">AdmZip</span><span class="token punctuation">(</span><span class="token string">"app.zip"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+          win<span class="token punctuation">.</span><span class="token function">hide</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+          unzip<span class="token punctuation">.</span><span class="token function">extractAllTo</span><span class="token punctuation">(</span>localPath<span class="token punctuation">,</span> <span class="token boolean">true</span><span class="token punctuation">,</span> <span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+          app<span class="token punctuation">.</span><span class="token function">relaunch</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span> args<span class="token operator">:</span> process<span class="token punctuation">.</span>argv<span class="token punctuation">.</span><span class="token function">slice</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">concat</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token string">"--relaunch"</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+          electronAppInstance<span class="token punctuation">.</span><span class="token function">quit</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+      <span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+      <span class="token punctuation">.</span><span class="token function">catch</span><span class="token punctuation">(</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span> <span class="token operator">=></span> log<span class="token punctuation">.</span><span class="token function">error</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span>
+  <span class="token keyword">return</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>根据 autoUpdater 提供的监听将更新状态发送到渲染进程中显示出来<br><img src="https://raw.githubusercontent.com/Jesse121/publicPic/master/blog/pictures/20220802155551.png" alt="20220802155551"></p>
+<h4 id="增量更新"><a href="#增量更新" class="headerlink" title="增量更新"></a>增量更新</h4><p>有时候我们改动比较小不想全部下载下来重新安装，只想替换修改的部分，这时需要用到 electron 增量更新</p>
+<p>常用的增量更新有两种方案：</p>
+<ol>
+<li>设置 asar:false</li>
+<li>app.asar.unpacked + app.asar</li>
+</ol>
+<p>因为我们的项目会经常改动主进程代码且主进程文件只能打包到 app.asar，综合考虑采用方案 1 比较合适。</p>
+<p>设置 asar:false 之后我们看到 resources 文件夹中 app 是未打包的，我们只需将更新包的 app 文件夹压缩成 app.zip 放到服务器，渲染进程检测增量更新通知主进程，主进程下载 app.zip，解压替换重启就可以。<br>这里需要在打包时生成 app.zip，electron-builder 提供了打包完成后钩子函数 <a target="_blank" rel="noopener" href="https://www.electron.build/configuration/configuration.html#afterpack">afterPack</a>，在钩子函数中处理 app 文件夹打包</p>
+<p>添加 afterPack 钩子函数</p>
+<pre class="line-numbers language-json" data-language="json"><code class="language-json"><span class="token comment">// electron-builder.json</span>
+<span class="token comment">// ...</span>
+<span class="token property">"afterPack"</span><span class="token operator">:</span> <span class="token string">"./afterPack.ts"</span><span class="token punctuation">,</span>
+<span class="token comment">// ...</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>编辑 afterPack.ts</p>
+<pre class="line-numbers language-typescript" data-language="typescript"><code class="language-typescript"><span class="token keyword">const</span> path <span class="token operator">=</span> <span class="token keyword">require</span><span class="token punctuation">(</span><span class="token string">"path"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> AdmZip <span class="token operator">=</span> <span class="token keyword">require</span><span class="token punctuation">(</span><span class="token string">"adm-zip"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token keyword">const</span> <span class="token function-variable function">afterPack</span> <span class="token operator">=</span> <span class="token punctuation">(</span>context<span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+  <span class="token keyword">let</span> targetPath<span class="token punctuation">;</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>context<span class="token punctuation">.</span>packager<span class="token punctuation">.</span>platform<span class="token punctuation">.</span>nodeName <span class="token operator">===</span> <span class="token string">"darwin"</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    targetPath <span class="token operator">=</span> path<span class="token punctuation">.</span><span class="token function">join</span><span class="token punctuation">(</span>
+      context<span class="token punctuation">.</span>appOutDir<span class="token punctuation">,</span>
+      <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span>context<span class="token punctuation">.</span>packager<span class="token punctuation">.</span>appInfo<span class="token punctuation">.</span>productName<span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token string">.app/Contents/Resources</span><span class="token template-punctuation string">`</span></span>
+    <span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token punctuation">&#123;</span>
+    targetPath <span class="token operator">=</span> path<span class="token punctuation">.</span><span class="token function">join</span><span class="token punctuation">(</span>context<span class="token punctuation">.</span>appOutDir<span class="token punctuation">,</span> <span class="token string">"./resources"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span>
+  <span class="token keyword">const</span> unpackedApp <span class="token operator">=</span> path<span class="token punctuation">.</span><span class="token function">join</span><span class="token punctuation">(</span>targetPath<span class="token punctuation">,</span> <span class="token string">"./app"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">var</span> zip <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">AdmZip</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  zip<span class="token punctuation">.</span><span class="token function">addLocalFolder</span><span class="token punctuation">(</span>unpackedApp<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token comment">// 删除不常更改的包，减小更新包zpp.zip大小</span>
+  zip<span class="token punctuation">.</span><span class="token function">deleteFile</span><span class="token punctuation">(</span><span class="token string">"node_modules/axios/"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  zip<span class="token punctuation">.</span><span class="token function">deleteFile</span><span class="token punctuation">(</span><span class="token string">"node_modules/adm-zip/"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  zip<span class="token punctuation">.</span><span class="token function">deleteFile</span><span class="token punctuation">(</span><span class="token string">"node_modules/element-plus/"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  zip<span class="token punctuation">.</span><span class="token function">deleteFile</span><span class="token punctuation">(</span><span class="token string">"node_modules/@element-plus/"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  zip<span class="token punctuation">.</span><span class="token function">deleteFile</span><span class="token punctuation">(</span><span class="token string">"node_modules/normalize.css/"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  zip<span class="token punctuation">.</span><span class="token function">deleteFile</span><span class="token punctuation">(</span><span class="token string">"node_modules/pinia/"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  zip<span class="token punctuation">.</span><span class="token function">deleteFile</span><span class="token punctuation">(</span><span class="token string">"node_modules/sqlite3/"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  zip<span class="token punctuation">.</span><span class="token function">deleteFile</span><span class="token punctuation">(</span><span class="token string">"node_modules/sequelize/"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  zip<span class="token punctuation">.</span><span class="token function">deleteFile</span><span class="token punctuation">(</span><span class="token string">"node_modules/vue/"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  zip<span class="token punctuation">.</span><span class="token function">deleteFile</span><span class="token punctuation">(</span><span class="token string">"node_modules/@vue/"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  zip<span class="token punctuation">.</span><span class="token function">deleteFile</span><span class="token punctuation">(</span><span class="token string">"node_modules/vue-router/"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  zip<span class="token punctuation">.</span><span class="token function">writeZip</span><span class="token punctuation">(</span>path<span class="token punctuation">.</span><span class="token function">join</span><span class="token punctuation">(</span>context<span class="token punctuation">.</span>outDir<span class="token punctuation">,</span> <span class="token string">"app.zip"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+
+module<span class="token punctuation">.</span>exports <span class="token operator">=</span> afterPack<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>打包后我们可以看到生成了 app.zip<br><img src="https://raw.githubusercontent.com/Jesse121/publicPic/master/blog/pictures/20220803111249.png" alt="20220803111249"><br>将这三个文件放到静态服务器上供下载更新</p>
+<h3 id="安装-sequelize-sqlite3-用作本地存储-可根据项目需要是否安装"><a href="#安装-sequelize-sqlite3-用作本地存储-可根据项目需要是否安装" class="headerlink" title="安装 sequelize + sqlite3 用作本地存储(可根据项目需要是否安装)"></a>安装 sequelize + sqlite3 用作本地存储(可根据项目需要是否安装)</h3><pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">yarn add sqlite3@5.0.2 sequelize@6.18.0<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>在 electron&#x2F;main&#x2F;modules 下新建 database 文件夹<br>创建 sequelize.ts,引入 sequelize</p>
+<pre class="line-numbers language-typescript" data-language="typescript"><code class="language-typescript"><span class="token keyword">import</span> <span class="token punctuation">&#123;</span> Sequelize <span class="token punctuation">&#125;</span> <span class="token keyword">from</span> <span class="token string">"sequelize"</span><span class="token punctuation">;</span>
+
+<span class="token keyword">import</span> <span class="token punctuation">&#123;</span> getUserDataPath<span class="token punctuation">,</span> pathJoin <span class="token punctuation">&#125;</span> <span class="token keyword">from</span> <span class="token string">"../../utils/common"</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> log <span class="token keyword">from</span> <span class="token string">"../../utils/log"</span><span class="token punctuation">;</span>
+
+<span class="token keyword">const</span> databasePath <span class="token operator">=</span> <span class="token function">pathJoin</span><span class="token punctuation">(</span><span class="token function">getUserDataPath</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token string">"./database.sqlite"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token keyword">const</span> sequelize <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Sequelize</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span>
+  dialect<span class="token operator">:</span> <span class="token string">"sqlite"</span><span class="token punctuation">,</span>
+  storage<span class="token operator">:</span> databasePath<span class="token punctuation">,</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token keyword">export</span> <span class="token keyword">const</span> connectDB <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">Promise</span><span class="token operator">&lt;</span><span class="token builtin">boolean</span><span class="token operator">></span> <span class="token operator">=></span>
+  <span class="token keyword">new</span> <span class="token class-name"><span class="token builtin">Promise</span></span><span class="token punctuation">(</span><span class="token punctuation">(</span>resolve<span class="token punctuation">,</span> reject<span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+    sequelize
+      <span class="token punctuation">.</span><span class="token function">authenticate</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+      <span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+        log<span class="token punctuation">.</span><span class="token function">info</span><span class="token punctuation">(</span><span class="token string">"Connection has been established successfully."</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token function">resolve</span><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+      <span class="token punctuation">.</span><span class="token function">catch</span><span class="token punctuation">(</span><span class="token punctuation">(</span>err<span class="token operator">:</span> <span class="token builtin">any</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+        log<span class="token punctuation">.</span><span class="token function">error</span><span class="token punctuation">(</span><span class="token string">"Unable to connect to the database:"</span><span class="token punctuation">,</span> err<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token function">reject</span><span class="token punctuation">(</span><span class="token boolean">false</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token keyword">export</span> <span class="token keyword">default</span> sequelize<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>开始创建 model<br>编辑 model&#x2F;user.ts</p>
+<pre class="line-numbers language-typescript" data-language="typescript"><code class="language-typescript"><span class="token keyword">import</span> <span class="token punctuation">&#123;</span> <span class="token constant">INTEGER</span><span class="token punctuation">,</span> Model<span class="token punctuation">,</span> <span class="token constant">STRING</span> <span class="token punctuation">&#125;</span> <span class="token keyword">from</span> <span class="token string">"sequelize"</span><span class="token punctuation">;</span>
+
+<span class="token keyword">import</span> sequelize <span class="token keyword">from</span> <span class="token string">"../sequelize"</span><span class="token punctuation">;</span>
+
+<span class="token keyword">interface</span> <span class="token class-name">IUserModel</span> <span class="token punctuation">&#123;</span>
+  id<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>
+  name<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>
+  sex<span class="token operator">:</span> <span class="token builtin">number</span><span class="token punctuation">;</span>
+  mobile<span class="token operator">:</span> <span class="token builtin">number</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token keyword">const</span> userModel <span class="token operator">=</span> sequelize<span class="token punctuation">.</span><span class="token generic-function"><span class="token function">define</span><span class="token generic class-name"><span class="token operator">&lt;</span>Model<span class="token operator">&lt;</span>IUserModel<span class="token operator">>></span></span></span><span class="token punctuation">(</span><span class="token string">"user"</span><span class="token punctuation">,</span> <span class="token punctuation">&#123;</span>
+  id<span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+    primaryKey<span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+    type<span class="token operator">:</span> <span class="token constant">STRING</span><span class="token punctuation">(</span><span class="token number">100</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+  name<span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+    type<span class="token operator">:</span> <span class="token constant">STRING</span><span class="token punctuation">(</span><span class="token number">50</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+  sex<span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+    type<span class="token operator">:</span> <span class="token constant">INTEGER</span><span class="token punctuation">,</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+  mobile<span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+    type<span class="token operator">:</span> <span class="token constant">INTEGER</span><span class="token punctuation">,</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token keyword">export</span> <span class="token keyword">default</span> userModel<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>现在已经可以操作数据库了</p>
+<pre class="line-numbers language-typescript" data-language="typescript"><code class="language-typescript"><span class="token keyword">import</span> sync <span class="token keyword">from</span> <span class="token string">"../../utils/sync"</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> userModel <span class="token keyword">from</span> <span class="token string">"./model/user"</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> sequelize<span class="token punctuation">,</span> <span class="token punctuation">&#123;</span> connectDB <span class="token punctuation">&#125;</span> <span class="token keyword">from</span> <span class="token string">"./sequelize"</span><span class="token punctuation">;</span>
+<span class="token comment">// 连接数据库</span>
+<span class="token keyword">const</span> <span class="token punctuation">[</span>err<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token keyword">await</span> <span class="token function">sync</span><span class="token punctuation">(</span><span class="token function">connectDB</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">if</span> <span class="token punctuation">(</span>err<span class="token punctuation">)</span> <span class="token keyword">return</span><span class="token punctuation">;</span>
+
+<span class="token keyword">const</span> <span class="token punctuation">[</span>err1<span class="token punctuation">,</span> res1<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token keyword">await</span> <span class="token function">sync</span><span class="token punctuation">(</span>sequelize<span class="token punctuation">.</span><span class="token function">sync</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">if</span> <span class="token punctuation">(</span>err1<span class="token punctuation">)</span> <span class="token keyword">return</span><span class="token punctuation">;</span>
+<span class="token comment">// 插入数据</span>
+<span class="token keyword">const</span> <span class="token punctuation">[</span>err2<span class="token punctuation">,</span> res2<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token keyword">await</span> <span class="token function">sync</span><span class="token punctuation">(</span>
+  userModel<span class="token punctuation">.</span><span class="token function">create</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span>
+    name<span class="token operator">:</span> <span class="token string">"jesse"</span><span class="token punctuation">,</span>
+    sex<span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span>
+    id<span class="token operator">:</span> <span class="token string">"13456"</span><span class="token punctuation">,</span>
+    mobile<span class="token operator">:</span> <span class="token number">15219498643</span><span class="token punctuation">,</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token builtin">console</span><span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>res2<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><p>从 0 开始搭建一个 electron 应用到此已结束，输出结果，一个基本的 electron 应用模板基本搭建完成，包含基础功能如下：</p>
+<ol>
+<li>可开启多个窗口</li>
+<li>可使用 vue devtools 方便调试</li>
+<li>能生成本地运行日志文件</li>
+<li>包含托盘和托盘菜单</li>
+<li>一键打包成 exe</li>
+<li>支持全量更新和增量更新</li>
+<li>本地化 sqlite 存储</li>
+</ol>
+<p>后面的 electron 项目都可以快速创建拥有以上功能</p>
+<p>源码 Github 仓库：<a target="_blank" rel="noopener" href="https://github.com/Jesse121/electron-vue-vite-template">electron-vue-vite-template</a>，如果觉得写得不错还希望给个小星星哦。</p>
+<p>参考文章：</p>
+<ol>
+<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/mapleChain/p/13063954.html">Electron~增量更新和全量更新</a></li>
+</ol>
+ 
+      <div id="toc-article">
+  <div class="widget-wrap" id="toc-wrap">
+    <h3 class="widget-title"><i class="fa fa-toc"></i> 文章目录</h3>
+    <div class="widget">
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%89%93%E5%8C%85%E5%B7%A5%E5%85%B7-electron-builder-%E5%B8%B8%E7%94%A8%E9%85%8D%E7%BD%AE%E8%AF%B4%E6%98%8E"><span class="toc-text">打包工具 electron-builder 常用配置说明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%94%9F%E6%88%90%E5%9B%BE%E6%A0%87-electron-icon-builder"><span class="toc-text">生成图标 electron-icon-builder</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85%E8%B0%83%E8%AF%95%E5%B7%A5%E5%85%B7-vue-devtools"><span class="toc-text">安装调试工具 vue devtools</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%94%9F%E6%88%90%E6%97%A5%E5%BF%97-electron-log"><span class="toc-text">生成日志 electron-log</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#electron-vue-%E9%A1%B9%E7%9B%AE%E5%A4%9A%E7%AA%97%E5%8F%A3%E9%85%8D%E7%BD%AE"><span class="toc-text">electron+vue 项目多窗口配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#electron-%E8%BF%9B%E7%A8%8B%E9%97%B4%E9%80%9A%E4%BF%A1"><span class="toc-text">electron 进程间通信</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AA%97%E5%8F%A3%E6%9C%80%E5%A4%A7%E5%8C%96%E4%B8%8E%E6%9C%80%E5%B0%8F%E5%8C%96"><span class="toc-text">窗口最大化与最小化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E7%8E%B0%E6%89%98%E7%9B%98%E5%8F%8A%E6%89%98%E7%9B%98%E8%8F%9C%E5%8D%95"><span class="toc-text">实现托盘及托盘菜单</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%A8%E9%87%8F%E6%9B%B4%E6%96%B0%E4%B8%8E%E5%A2%9E%E9%87%8F%E6%9B%B4%E6%96%B0"><span class="toc-text">全量更新与增量更新</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%A8%E9%87%8F%E6%9B%B4%E6%96%B0"><span class="toc-text">全量更新</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A2%9E%E9%87%8F%E6%9B%B4%E6%96%B0"><span class="toc-text">增量更新</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85-sequelize-sqlite3-%E7%94%A8%E4%BD%9C%E6%9C%AC%E5%9C%B0%E5%AD%98%E5%82%A8-%E5%8F%AF%E6%A0%B9%E6%8D%AE%E9%A1%B9%E7%9B%AE%E9%9C%80%E8%A6%81%E6%98%AF%E5%90%A6%E5%AE%89%E8%A3%85"><span class="toc-text">安装 sequelize + sqlite3 用作本地存储(可根据项目需要是否安装)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%93%E6%9D%9F"><span class="toc-text">结束</span></a></li></ol>
+    </div>
+  </div>
+
+</div>
+       
+      <blockquote id="copyright">
+        <p>
+          原文链接:
+          <a href="https://jesse121.github.io/blog/articles/2022/08/05.html"
+            >https://jesse121.github.io/blog/articles/2022/08/05.html</a
+          >
+        </p>
+        <p>版权声明: 转载请注明出处.</p>
+      </blockquote>
+       
+    </div>
+    <footer class="article-footer">
+      
+      <div class="article-tag-wrap">
+        
+ 
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/electron/" rel="tag">electron</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/vite/" rel="tag">vite</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/vue3/" rel="tag">vue3</a></li></ul>
+ 
+
+
+      </div>
+        
+<nav id="article-nav">
+  
+    <a href="/blog/articles/2022/08/04.html" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">older</strong>
+      <div class="article-nav-title">
+        
+          如何用Electron+vue+vite构建桌面端应用(二)
+        
+      </div>
+    </a>
+  
+  
+    <a href="/blog/articles/2022/08/08.html" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">newer</strong>
+      <div class="article-nav-title">
+        
+          如何解决Electron应用安装在C盘没有权限更新的问题
+        
+      </div>
+    </a>
+  
+</nav>
+   
+  <div id="comments"></div>
+
+
+
+
+
+
+
+
+ 
+    </footer>
+  </div>
+</article>
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-posts"></i> 最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/blog/articles/2022/08/08.html">如何解决Electron应用安装在C盘没有权限更新的问题</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2022/08/05.html">如何用Electron+vue+vite构建桌面端应用(三)</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2022/08/04.html">如何用Electron+vue+vite构建桌面端应用(二)</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2022/07/22.html">从源码分析为什么Electron+vue项目中router不能用history模式</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2022/07/20.html">如何用Electron+vue+vite构建桌面端应用(一)</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2022/06/15.html">如何在国产银河麒麟系统Mips架构上离线安装electron</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2021/07/12.html">什么是SSE(Server-Sent Event)</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2021/06/11.html">如何用Vite快速搭建一个vue3项目</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2021/05/24.html">Husky配置文件没有执行权限</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2020/12/15.html">如何快速生成tsconfig.json文件</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-tag"></i> 标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/blog/tags/angularjs/" style="font-size: 10px;">AngularJs</a> <a href="/blog/tags/apache/" style="font-size: 12.86px;">Apache</a> <a href="/blog/tags/bootstrap/" style="font-size: 12.86px;">Bootstrap</a> <a href="/blog/tags/css/" style="font-size: 18.57px;">CSS</a> <a href="/blog/tags/centos/" style="font-size: 10px;">CentOS</a> <a href="/blog/tags/docker/" style="font-size: 12.86px;">Docker</a> <a href="/blog/tags/git/" style="font-size: 11.43px;">Git</a> <a href="/blog/tags/gitlab/" style="font-size: 10px;">Gitlab</a> <a href="/blog/tags/gulp/" style="font-size: 10px;">Gulp</a> <a href="/blog/tags/html/" style="font-size: 12.86px;">HTML</a> <a href="/blog/tags/html5/" style="font-size: 10px;">HTML5</a> <a href="/blog/tags/http/" style="font-size: 12.86px;">HTTP</a> <a href="/blog/tags/https/" style="font-size: 10px;">HTTPS</a> <a href="/blog/tags/husky/" style="font-size: 10px;">Husky</a> <a href="/blog/tags/javascript/" style="font-size: 20px;">JavaScript</a> <a href="/blog/tags/jenkins/" style="font-size: 10px;">Jenkins</a> <a href="/blog/tags/linux/" style="font-size: 11.43px;">Linux</a> <a href="/blog/tags/mac/" style="font-size: 10px;">Mac</a> <a href="/blog/tags/mysql/" style="font-size: 12.86px;">MySQL</a> <a href="/blog/tags/nginx/" style="font-size: 11.43px;">Nginx</a> <a href="/blog/tags/node-js/" style="font-size: 11.43px;">Node.js</a> <a href="/blog/tags/php/" style="font-size: 15.71px;">PHP</a> <a href="/blog/tags/photoshop/" style="font-size: 10px;">Photoshop</a> <a href="/blog/tags/react/" style="font-size: 10px;">React</a> <a href="/blog/tags/redux/" style="font-size: 10px;">Redux</a> <a href="/blog/tags/sse/" style="font-size: 10px;">SSE</a> <a href="/blog/tags/sublimetext3/" style="font-size: 10px;">SublimeText3</a> <a href="/blog/tags/typescript/" style="font-size: 11.43px;">Typescript</a> <a href="/blog/tags/vagrant/" style="font-size: 10px;">Vagrant</a> <a href="/blog/tags/vim/" style="font-size: 10px;">Vim</a> <a href="/blog/tags/vue/" style="font-size: 10px;">Vue</a> <a href="/blog/tags/web/" style="font-size: 15.71px;">WEB</a> <a href="/blog/tags/webpack/" style="font-size: 12.86px;">Webpack</a> <a href="/blog/tags/wireshark/" style="font-size: 11.43px;">Wireshark</a> <a href="/blog/tags/yii/" style="font-size: 10px;">Yii</a> <a href="/blog/tags/electron/" style="font-size: 17.14px;">electron</a> <a href="/blog/tags/jquery/" style="font-size: 12.86px;">jQuery</a> <a href="/blog/tags/kylin/" style="font-size: 10px;">kylin</a> <a href="/blog/tags/ssh/" style="font-size: 10px;">ssh</a> <a href="/blog/tags/vite/" style="font-size: 14.29px;">vite</a> <a href="/blog/tags/vscode/" style="font-size: 10px;">vscode</a> <a href="/blog/tags/vue/" style="font-size: 10px;">vue</a> <a href="/blog/tags/vue3/" style="font-size: 12.86px;">vue3</a> <a href="/blog/tags/%E5%89%8D%E7%AB%AF%E7%9B%91%E6%8E%A7/" style="font-size: 10px;">前端监控</a> <a href="/blog/tags/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F/" style="font-size: 10px;">微信小程序</a> <a href="/blog/tags/%E7%AE%97%E6%B3%95/" style="font-size: 12.86px;">算法</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-classify"></i> 分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/blog/categories/bootstrap/">Bootstrap</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/electron/">Electron</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/html-css/">HTML-CSS</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/html5/">HTML5</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/javascript/">JavaScript</a><span class="category-list-count">11</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/linux/">Linux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/mysql/">MySQL</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/node-js/">Node.js</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/php/">PHP</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/photoshop/">Photoshop</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/typescript/">Typescript</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/vue/">Vue</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/web/">WEB</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/jquery/">jQuery</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/translation/">前端翻译</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/">开发工具</a><span class="category-list-count">15</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/%E5%BC%80%E5%8F%91%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/">开发问题记录</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/%E7%AE%97%E6%B3%95/">算法</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/notes/">读书笔记</a><span class="category-list-count">16</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-archive"></i> 归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2022/">2022年</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2021/">2021年</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2020/">2020年</a><span class="archive-list-count">12</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2019/">2019年</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/">2018年</a><span class="archive-list-count">12</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2017/">2017年</a><span class="archive-list-count">26</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/">2016年</a><span class="archive-list-count">27</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-link"></i> 友情链接</h3>
+    <div class="widget">
+      <ul>
+      
+        <li>
+          <a target="_blank" rel="noopener" href="http://www.mahaixiang.cn/internet/300.html">深入理解互联网协议的原理</a>
+        </li>
+      
+        <li>
+          <a target="_blank" rel="noopener" href="http://javascript.ruanyifeng.com/">JavaScript 标准参考教程</a>
+        </li>
+      
+        <li>
+          <a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript">Mozilla Developer Network</a>
+        </li>
+      
+      </ul>
+    </div>
+  </div>
+
+
+  
+</aside>
+        
+      </div>
+      <a id="totop" href="#top"></a>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      <p>
+        <a href="/blog/sitemap.xml">网站地图</a>
+        <span> | </span><a href="/blog/atom.xml">订阅本站</a>
+        <span> | </span><a href="/blog/about/">联系博主</a>
+      </p>
+      
+        <p>
+          <i class="fa fa-visitors"></i>
+          <i id="busuanzi_container_site_uv"><i id="busuanzi_value_site_uv"></i></i>
+          ，
+          <i class="fa fa-views"></i>
+          <i id="busuanzi_container_site_pv"><i id="busuanzi_value_site_pv"></i></i>
+        </p>
+      
+      <p>
+        <span>Copyright &copy; 2022 Jesse.</span>
+        <span>Theme by <a href="https://github.com/chaooo/hexo-theme-BlueLake/" target="_blank">BlueLake.</a></span>
+        <span>Powered by <a href="https://hexo.io/" target="_blank">Hexo.</a></span>
+      </p>
+    </div>
+  </div>
+</footer>
+
+    </div>
+  </div>
+  
+<script src="/blog/js/jquery-3.4.1.min.js"></script>
+
+
+<script src="/blog/js/search.json.js"></script>
+
+
+  
+<script src="/blog/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/blog/js/script.js"></script>
+
+
+
+
+
+
+  
+<script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+  
+  
+
+
+  
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+ 
+<script src="//cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.js"></script>
+
+<script>
+  var gitalk = new Gitalk({
+    clientID: "3c3e422527fd3f9fa17a",
+    clientSecret: "f28d1808ec9ab69fb24dc3e9fad81e1c3ab8dd83",
+    repo: "blog",
+    owner: "jesse121",
+    admin: ["jesse121"],
+    id: md5(window.location.pathname),
+    proxy: "https://gitalk.jesse121.workers.dev/?https://github.com/login/oauth/access_token",
+    distractionFreeMode: false,
+    language: "zh-CN",
+    pagerDirection: "last",
+  });
+  gitalk.render("comments");
+</script>
+         
+
+
+
+</body>
+</html>

@@ -144,21 +144,49 @@
 
 <h3 id="提出问题"><a href="#提出问题" class="headerlink" title="提出问题"></a>提出问题</h3><p>html 中如何正确的引入图片供 webpack 编译？</p>
 <h3 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h3><p>方法一：<br>采用以下方式引入图片</p>
-<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">&lt;img <span class="attribute">src</span>=<span class="string">&quot;<span class="variable">$&#123;require(&#x27;../../../../../../static_audio/src/mobile/v2/img/notice/fishingTips/waiting.png&#x27;)&#125;</span>&quot;</span> <span class="attribute">alt</span>=<span class="string">&quot;&quot;</span>&gt;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-none"><code class="language-none">&lt;img src&#x3D;&quot;$&#123;require(&#39;..&#x2F;..&#x2F;..&#x2F;..&#x2F;..&#x2F;..&#x2F;static_audio&#x2F;src&#x2F;mobile&#x2F;v2&#x2F;img&#x2F;notice&#x2F;fishingTips&#x2F;waiting.png&#39;)&#125;&quot; alt&#x3D;&quot;&quot;&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <p>这样引入的图片可经过 file-loader 处理<br>方法二：<br>采用以下方式引入图片</p>
-<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">&lt;img <span class="attribute">src</span>=<span class="string">&quot;../../../../../../static_audio/src/mobile/v2/img/notice/fishingTips/waiting.png&quot;</span> <span class="attribute">alt</span>=<span class="string">&quot;&quot;</span>&gt;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-none"><code class="language-none">&lt;img src&#x3D;&quot;..&#x2F;..&#x2F;..&#x2F;..&#x2F;..&#x2F;..&#x2F;static_audio&#x2F;src&#x2F;mobile&#x2F;v2&#x2F;img&#x2F;notice&#x2F;fishingTips&#x2F;waiting.png&quot; alt&#x3D;&quot;&quot;&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <p>使用 html-loader 和 file-loader 处理</p>
-<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">rules: [&#123;</span><br><span class="line">        test: <span class="regexp">/\.(html)$/</span>,</span><br><span class="line">        use: &#123;</span><br><span class="line">            loader: <span class="string">&#x27;html-loader&#x27;</span>,</span><br><span class="line">            options: &#123;</span><br><span class="line">                attrs: [<span class="string">&#x27;img:src&#x27;</span>],</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">        test: <span class="regexp">/\.(png|svg|jpg|gif)$/</span>,</span><br><span class="line">        use: [&#123;</span><br><span class="line">            loader: <span class="string">&#x27;file-loader&#x27;</span>,</span><br><span class="line">            options: &#123;</span><br><span class="line">                name: <span class="string">&#x27;[name].[ext]&#x27;</span>,</span><br><span class="line">                outputPath: <span class="string">&quot;assets/&quot;</span>,   <span class="regexp">//</span>输出图片放置的位置</span><br><span class="line">                publicPath: <span class="string">&#x27;./asserts&#x27;</span>, <span class="regexp">//</span>html的img标签src所指向图片的位置，与outputPath一致</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;]</span><br><span class="line">    &#125;</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-none"><code class="language-none">rules: [&#123;
+        test: &#x2F;\.(html)$&#x2F;,
+        use: &#123;
+            loader: &#39;html-loader&#39;,
+            options: &#123;
+                attrs: [&#39;img:src&#39;],
+            &#125;
+        &#125;
+    &#125;,
+    &#123;
+        test: &#x2F;\.(png|svg|jpg|gif)$&#x2F;,
+        use: [&#123;
+            loader: &#39;file-loader&#39;,
+            options: &#123;
+                name: &#39;[name].[ext]&#39;,
+                outputPath: &quot;assets&#x2F;&quot;,   &#x2F;&#x2F;输出图片放置的位置
+                publicPath: &#39;.&#x2F;asserts&#39;, &#x2F;&#x2F;html的img标签src所指向图片的位置，与outputPath一致
+            &#125;
+        &#125;]
+    &#125;
+]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>这里由于我们在项目中用的是 ejs 模板，我们采取第一种方法</p>
 <h3 id="发现问题"><a href="#发现问题" class="headerlink" title="发现问题"></a>发现问题</h3><p>按照上面的写法引入图片之后发现图片变成了<code>&lt;img src=&quot;[object Module]&quot; alt=&quot;&quot;&gt;</code>,在 stackoverflow 中查找资料发现原来是 file-loader 版本过高导致的，esModule 选项已在 4.3.0 版本的文件加载器中引入，而在 5.0.0 版本中，默认情况下已将其设置为 true。问题地址<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/59114479/when-i-using-file-loader-and-html-loader-in-webpack-the-src-attr-of-image-gonna/59115624#59115624">When i using file-loader and html-loader in webpack. The src attr of image gonna be like ‘[object Module]’</a></p>
 <h3 id="解决方法一"><a href="#解决方法一" class="headerlink" title="解决方法一"></a>解决方法一</h3><p>安装 4.3.0 以下版本的 file-loader,这里我安装的是 4.2.0</p>
-<figure class="highlight apache"><table><tr><td class="code"><pre><span class="line"><span class="attribute">yarn</span> add file-loader@<span class="number">4</span>.<span class="number">2</span>.<span class="number">0</span> --dev</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-none"><code class="language-none">yarn add file-loader@4.2.0 --dev<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <h3 id="解决方法二"><a href="#解决方法二" class="headerlink" title="解决方法二"></a>解决方法二</h3><p>使用 4.3.0 以上版本的 file-loader,需设置 esModule: false</p>
-<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">test:</span> <span class="string">/\.(jpeg|jpg|png)$/</span>,</span><br><span class="line">    <span class="attr">use:</span> [</span><br><span class="line">      <span class="attr">loader:</span> <span class="string">&#x27;file-loader&#x27;</span>,</span><br><span class="line">      <span class="attr">options:</span> &#123;</span><br><span class="line">        <span class="attr">esModule:</span> <span class="literal">false</span></span><br><span class="line">      &#125;</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-none"><code class="language-none">&#123;
+    test: &#x2F;\.(jpeg|jpg|png)$&#x2F;,
+    use: [
+      loader: &#39;file-loader&#39;,
+      options: &#123;
+        esModule: false
+      &#125;
+    ]
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p><strong>参考资料</strong><br><a target="_blank" rel="noopener" href="https://juejin.im/post/5de1dd566fb9a07164727a75">webpack 踩坑记录</a><br><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/59114479/when-i-using-file-loader-and-html-loader-in-webpack-the-src-attr-of-image-gonna/59115624#59115624">When i using file-loader and html-loader in webpack. The src attr of image gonna be like ‘[object Module]’</a></p>
  
@@ -245,7 +273,7 @@
           </li>
         
           <li>
-            <a href="/blog/articles/2022/08/04.html">如何用Electron+vue+vite构建桌面端应用(三)</a>
+            <a href="/blog/articles/2022/08/05.html">如何用Electron+vue+vite构建桌面端应用(三)</a>
           </li>
         
           <li>
@@ -409,8 +437,8 @@
 
 <script>
   var gitalk = new Gitalk({
-    clientID: "1d84813ae13cd94072f0",
-    clientSecret: "4a4dd2af0c622e983dd90f5daf15c3ebd86b8ae9",
+    clientID: "3c3e422527fd3f9fa17a",
+    clientSecret: "f28d1808ec9ab69fb24dc3e9fad81e1c3ab8dd83",
     repo: "blog",
     owner: "jesse121",
     admin: ["jesse121"],

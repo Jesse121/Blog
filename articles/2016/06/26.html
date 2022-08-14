@@ -139,7 +139,17 @@
 
     </div>
     <div class="e-content article-entry" itemprop="articleBody">
-       <h3 id="第二章、数据绑定"><a href="#第二章、数据绑定" class="headerlink" title="第二章、数据绑定"></a>第二章、数据绑定</h3><h4 id="2-2-简单的数据绑定"><a href="#2-2-简单的数据绑定" class="headerlink" title="2.2 简单的数据绑定"></a>2.2 简单的数据绑定</h4><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">ng-app</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Simple app<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;https://ajax.googleapis.com/ajax/libs/angularjs/1.2.13/angular.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">ng-model</span>=<span class="string">&quot;name&quot;</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">placeholder</span>=<span class="string">&quot;Your name&quot;</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">h1</span>&gt;</span>Hello &#123;&#123; name &#125;&#125;<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+       <h3 id="第二章、数据绑定"><a href="#第二章、数据绑定" class="headerlink" title="第二章、数据绑定"></a>第二章、数据绑定</h3><h4 id="2-2-简单的数据绑定"><a href="#2-2-简单的数据绑定" class="headerlink" title="2.2 简单的数据绑定"></a>2.2 简单的数据绑定</h4><pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token doctype"><span class="token punctuation">&lt;!</span><span class="token doctype-tag">DOCTYPE</span> <span class="token name">html</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>html</span> <span class="token attr-name">ng-app</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>head</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>title</span><span class="token punctuation">></span></span>Simple app<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>title</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>https://ajax.googleapis.com/ajax/libs/angularjs/1.2.13/angular.js<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token script"></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>head</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>body</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">ng-model</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>name<span class="token punctuation">"</span></span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>text<span class="token punctuation">"</span></span> <span class="token attr-name">placeholder</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>Your name<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>h1</span><span class="token punctuation">></span></span>Hello &#123;&#123; name &#125;&#125;<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>h1</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>body</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>html</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>ng-app 指令定义一个 AngularJS 应用程序。ng-app 声明所有被它包含的元素都属于 AngularJS 应用<br>ng-model 指令把元素值（比如输入域的值）绑定到应用程序。<br>ng-controller 指令定义了应用程序控制器。DOM 元素上的 ng-controller 声明所有被它包含的元素都属于某个控制器。<br>AngularJS 表达式写在双大括号内：。</p>
 <span id="more"></span>
@@ -152,14 +162,28 @@
  是通过 ng-model="name" 进行同步。
 
 <h4 id="2-3-数据绑定的最佳实现"><a href="#2-3-数据绑定的最佳实现" class="headerlink" title="2.3 数据绑定的最佳实现"></a>2.3 数据绑定的最佳实现</h4><p>通常认为，在视图中通过对象的属性而非对象本身来进行引用绑定，是 Angular 中的最佳实践。</p>
-<figure class="highlight arcade"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">MyController</span>(<span class="params">$scope</span>) &#123;</span><br><span class="line">    <span class="symbol">$scope</span>.clock = &#123;</span><br><span class="line">        <span class="attr">now</span>: <span class="keyword">new</span> <span class="built_in">Date</span>()</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="keyword">var</span> updateClock = <span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="symbol">$scope</span>.clock.<span class="built_in">now</span> = <span class="keyword">new</span> <span class="built_in">Date</span>()</span><br><span class="line">    &#125;;</span><br><span class="line">    setInterval(<span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="symbol">$scope</span>.<span class="symbol">$apply</span>(updateClock);</span><br><span class="line">    &#125;, <span class="number">1000</span>);</span><br><span class="line">    updateClock();</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-none"><code class="language-none">function MyController($scope) &#123;
+    $scope.clock &#x3D; &#123;
+        now: new Date()
+    &#125;;
+    var updateClock &#x3D; function() &#123;
+        $scope.clock.now &#x3D; new Date()
+    &#125;;
+    setInterval(function() &#123;
+        $scope.$apply(updateClock);
+    &#125;, 1000);
+    updateClock();
+&#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <h3 id="第三章、模块"><a href="#第三章、模块" class="headerlink" title="第三章、模块"></a>第三章、模块</h3><p>模块包含了主要的应用代码。一个应用可以包含多个模块，每一个模块都包含了定义具体功能的代码。<br>AngularJS 允许我们使用 angular.module()方法来声明模块，这个方法能够接受两个参数，第一个是模块的名称，第二个是依赖列表，也就是可以被注入到模块中的对象列表。<br><code>angular.module(name,requires);</code></p>
 <ul>
 <li>name 是模块的名称，字符串变量。</li>
 <li>requires 包含了一个字符串变量组成的列表，每个元素都是一个模块名称，本模块依赖于这些模块，依赖需要在本模块加载之前由注入器进行预加载。</li>
 </ul>
-<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line"><span class="regexp">//</span>是用来定义模块的</span><br><span class="line">angular.module(<span class="string">&#x27;myApp&#x27;</span>, []);</span><br><span class="line"><span class="regexp">//</span> 用于获取应用</span><br><span class="line">angular.module(<span class="string">&#x27;myApp&#x27;</span>)</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-none"><code class="language-none">&#x2F;&#x2F;是用来定义模块的
+angular.module(&#39;myApp&#39;, []);
+&#x2F;&#x2F; 用于获取应用
+angular.module(&#39;myApp&#39;)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 
 <h3 id="第四章、作用域"><a href="#第四章、作用域" class="headerlink" title="第四章、作用域"></a>第四章、作用域</h3><h4 id="4-1-视图和-scope"><a href="#4-1-视图和-scope" class="headerlink" title="4.1 视图和 $scope"></a>4.1 视图和 $scope</h4><p>AngularJS 启动并生成视图时，会将根 ng-app 元素同<code>$rootScope</code>进行绑定。<code>$rootScope</code>是所有<code>$scope</code>对象的最上层。$rootScope是AngularJS中最接近全局作用域的对象<br>$scope 对象就是一个普通的 JavaScript 对象，我们可以在其上随意修改或添加属性。</p>
 <h4 id="4-2-作用域能做什么"><a href="#4-2-作用域能做什么" class="headerlink" title="4.2 作用域能做什么"></a>4.2 作用域能做什么</h4><p>作用域的功能：</p>
@@ -171,10 +195,18 @@
 </ul>
 <p>ng-controller 和 ng-repeat 指令会创建自己的子作用域并将它们附加到 DOM 元素上。</p>
 <h3 id="第五章、控制器"><a href="#第五章、控制器" class="headerlink" title="第五章、控制器"></a>第五章、控制器</h3><p>控制器并不适合用来执行 DOM 操作、格式化或数据操作，以及存储数据之外的状态维护操作，允许在<code>$scope</code>上设置数据</p>
-<h4 id="5-1-控制器嵌套"><a href="#5-1-控制器嵌套" class="headerlink" title="5.1 控制器嵌套"></a>5.1 控制器嵌套</h4><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">ng-controller</span>=<span class="string">&quot;ParentController&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">ng-controller</span>=<span class="string">&quot;ChildController&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">a</span> <span class="attr">ng-click</span>=<span class="string">&quot;sayHello()&quot;</span>&gt;</span>Say hello<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  &#123;&#123; person &#125;&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h4 id="5-1-控制器嵌套"><a href="#5-1-控制器嵌套" class="headerlink" title="5.1 控制器嵌套"></a>5.1 控制器嵌套</h4><pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">ng-controller</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>ParentController<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">ng-controller</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>ChildController<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>a</span> <span class="token attr-name">ng-click</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>sayHello()<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Say hello<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>a</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+  &#123;&#123; person &#125;&#125;
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>点击按钮时，可以在 ChildController 中访问 ParentController 中<code>$scope.person</code>的值</p>
-<figure class="highlight actionscript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> app=angular.module(<span class="string">&quot;myApp&quot;</span>,[]);</span><br><span class="line">app.controller(<span class="string">&quot;myController&quot;</span>,[<span class="string">&#x27;$scope&#x27;</span>,<span class="string">&#x27;aService&#x27;</span>,...,<span class="keyword">function</span><span class="params">($scope,aService,<span class="rest_arg">...)&#123;</span></span></span><br><span class="line"><span class="rest_arg"><span class="params">    //可以注入你写的factory</span>，provider等等</span></span><br><span class="line"><span class="params">&#125;])</span>;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-none"><code class="language-none">var app&#x3D;angular.module(&quot;myApp&quot;,[]);
+app.controller(&quot;myController&quot;,[&#39;$scope&#39;,&#39;aService&#39;,...,function($scope,aService,...)&#123;
+    &#x2F;&#x2F;可以注入你写的factory，provider等等
+&#125;]);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>controller 第一个参数是名称，后面是一个数组，数组的前面是声明注入的内容，可以是 n 个，最后是个 function，function 的参数个数也必须是 n 个，必须跟前面声明注入的内容一一对应,就这样实现了依赖注入</p>
 <h3 id="第六章、表达式"><a href="#第六章、表达式" class="headerlink" title="第六章、表达式"></a>第六章、表达式</h3><ul>
@@ -184,7 +216,18 @@
 <li>可以接受过滤器和过滤器链。</li>
 </ul>
 <h4 id="6-1-解析-angularjs-表达式"><a href="#6-1-解析-angularjs-表达式" class="headerlink" title="6.1 解析 angularjs 表达式"></a>6.1 解析 angularjs 表达式</h4><p><code>$watch(watchFn, watchAction, deepWatch)</code><br>watchFn 该参数是一个带有 Angular 表达式或者函数的字符串，它会返回被监控的数据模型的当前值<br>watchAction 这是一个函数或者表达式，当 watchFn 发生变化时会被调用。<br>如果是函数的形式，它将会接收到 watchFn 的新旧两个值，以及作用域对象的引用。function(newValue, oldValue, scope)。<br>deepWatch 如果设置为 true，这个可选的布尔型参数将会命令 Angular 去检查被监控对象的每个属性是否发生了变化。<br><code>$parse(expression)</code><br>将一个 AngularJS 表达式转换成一个函数 function(context,locals)<br>context[object]:针对你要解析的语句，这个对象中含有你要解析的语句中的表达式(通常是一个 scope object)<br>locals[object]: 关于 context 中变量的本地变量，对于覆盖 context 中的变量值很有用。</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">angular</span><br><span class="line">  .<span class="title function_">module</span>(<span class="string">&quot;myApp&quot;</span>, [])</span><br><span class="line">  .<span class="title function_">controller</span>(<span class="string">&quot;MyController&quot;</span>, <span class="keyword">function</span> (<span class="params">$scope, $parse</span>) &#123;</span><br><span class="line">    $scope.$watch(<span class="string">&quot;expr&quot;</span>, <span class="keyword">function</span> (<span class="params">newVal, oldVal, scope</span>) &#123;</span><br><span class="line">      <span class="keyword">if</span> (newVal !== oldVal) &#123;</span><br><span class="line">        <span class="comment">// 用该表达式设置parseFun</span></span><br><span class="line">        <span class="keyword">var</span> parseFun = $parse(newVal);</span><br><span class="line">        <span class="comment">// 获取经过解析后表达式的值</span></span><br><span class="line">        $scope.<span class="property">parsedValue</span> = <span class="title function_">parseFun</span>(scope);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;);</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript">angular
+  <span class="token punctuation">.</span><span class="token function">module</span><span class="token punctuation">(</span><span class="token string">"myApp"</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+  <span class="token punctuation">.</span><span class="token function">controller</span><span class="token punctuation">(</span><span class="token string">"MyController"</span><span class="token punctuation">,</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token parameter">$scope<span class="token punctuation">,</span> $parse</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    $scope<span class="token punctuation">.</span><span class="token function">$watch</span><span class="token punctuation">(</span><span class="token string">"expr"</span><span class="token punctuation">,</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token parameter">newVal<span class="token punctuation">,</span> oldVal<span class="token punctuation">,</span> scope</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span>newVal <span class="token operator">!==</span> oldVal<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token comment">// 用该表达式设置parseFun</span>
+        <span class="token keyword">var</span> parseFun <span class="token operator">=</span> <span class="token function">$parse</span><span class="token punctuation">(</span>newVal<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment">// 获取经过解析后表达式的值</span>
+        $scope<span class="token punctuation">.</span>parsedValue <span class="token operator">=</span> <span class="token function">parseFun</span><span class="token punctuation">(</span>scope<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <h4 id="6-2-插值字符串"><a href="#6-2-插值字符串" class="headerlink" title="6.2 插值字符串"></a>6.2 插值字符串</h4><p>要在字符串模板中做插值操作，需要在你的对象中注入$interpolate服务。<br>$interpolate 服务是一个可以接受三个参数的函数，其中第一个参数是必需的。返回一个函数，用来在特定的上下文中运算表达式。</p>
 <ul>
@@ -192,36 +235,88 @@
 <li>mustHaveExpression（布尔型）：如果将这个参数设为 true，当传入的字符串中不含有表达式时会返回 null。</li>
 <li>trustedContext（字符串）：AngularJS 会对已经进行过字符插值操作的字符串通过$sec.getTrusted()方法进行严格的上下文转义。</li>
 </ul>
-<figure class="highlight xquery"><table><tr><td class="code"><pre><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">ng-controller</span>=<span class="string">&quot;MyController&quot;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">ng-model</span>=<span class="string">&quot;to&quot;</span> <span class="attr">type</span>=<span class="string">&quot;email&quot;</span> <span class="attr">placeholder</span>=<span class="string">&quot;Recipient&quot;</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">    </span><span class="language-xml"><span class="tag">&lt;<span class="name">textarea</span> <span class="attr">ng-model</span>=<span class="string">&quot;emailBody&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">textarea</span>&gt;</span></span><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">    </span><span class="language-xml"><span class="tag">&lt;<span class="name">pre</span>&gt;</span></span><span class="language-xquery">&#123;&#123; previewText &#125;</span><span class="language-xml">&#125;<span class="tag">&lt;/<span class="name">pre</span>&gt;</span></span><span class="language-xml"></span></span><br><span class="line"><span class="language-xml"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">angular.<span class="keyword">module</span>(<span class="string">&#x27;myApp&#x27;</span>, [])</span><br><span class="line">.controller(<span class="string">&#x27;MyController&#x27;</span>, <span class="keyword">function</span>(<span class="variable">$scope</span>, <span class="variable">$interpolate</span>) &#123;</span><br><span class="line">    <span class="variable">$scope</span>.<span class="variable">$watch</span>(<span class="string">&#x27;emailBody&#x27;</span>, <span class="keyword">function</span>(body) &#123;</span><br><span class="line">        <span class="keyword">if</span> (body) &#123;</span><br><span class="line">            var template = <span class="variable">$interpolate</span>(body);</span><br><span class="line">            <span class="variable">$scope</span>.previewText = template(&#123;to: <span class="variable">$scope</span>.<span class="keyword">to</span>&#125;);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-none"><code class="language-none">&lt;div ng-controller&#x3D;&quot;MyController&quot;&gt;
+    &lt;input ng-model&#x3D;&quot;to&quot; type&#x3D;&quot;email&quot; placeholder&#x3D;&quot;Recipient&quot; &#x2F;&gt;
+    &lt;textarea ng-model&#x3D;&quot;emailBody&quot;&gt;&lt;&#x2F;textarea&gt;
+    &lt;pre&gt;&#123;&#123; previewText &#125;&#125;&lt;&#x2F;pre&gt;
+&lt;&#x2F;div&gt;
+angular.module(&#39;myApp&#39;, [])
+.controller(&#39;MyController&#39;, function($scope, $interpolate) &#123;
+    $scope.$watch(&#39;emailBody&#39;, function(body) &#123;
+        if (body) &#123;
+            var template &#x3D; $interpolate(body);
+            $scope.previewText &#x3D; template(&#123;to: $scope.to&#125;);
+        &#125;
+    &#125;;
+&#125;);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <h3 id="第七章、过滤器"><a href="#第七章、过滤器" class="headerlink" title="第七章、过滤器"></a>第七章、过滤器</h3><p>在 HTML 中的模板绑定符号运算符内通过<code>|</code>符号来调用过滤器。</p>
-<figure class="highlight handlebars"><table><tr><td class="code"><pre><span class="line"><span class="template-variable">&#123;&#123; <span class="name">name</span> | uppercase &#125;&#125;</span></span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-none"><code class="language-none">&#123;&#123; name | uppercase &#125;&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <p>在 JavaScript 代码中可以通过<code>$filter</code>来调用过滤器</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">app.<span class="title function_">controller</span>(<span class="string">&quot;DemoController&quot;</span>, [</span><br><span class="line">  <span class="string">&quot;$scope&quot;</span>,</span><br><span class="line">  <span class="string">&quot;$filter&quot;</span>,</span><br><span class="line">  <span class="keyword">function</span> (<span class="params">$scope, $filter</span>) &#123;</span><br><span class="line">    $scope.<span class="property">name</span> = $filter(<span class="string">&quot;lowercase&quot;</span>)(<span class="string">&quot;Ari&quot;</span>);</span><br><span class="line">  &#125;,</span><br><span class="line">]);</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript">app<span class="token punctuation">.</span><span class="token function">controller</span><span class="token punctuation">(</span><span class="token string">"DemoController"</span><span class="token punctuation">,</span> <span class="token punctuation">[</span>
+  <span class="token string">"$scope"</span><span class="token punctuation">,</span>
+  <span class="token string">"$filter"</span><span class="token punctuation">,</span>
+  <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token parameter">$scope<span class="token punctuation">,</span> $filter</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    $scope<span class="token punctuation">.</span>name <span class="token operator">=</span> <span class="token function">$filter</span><span class="token punctuation">(</span><span class="token string">"lowercase"</span><span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token string">"Ari"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>内置过滤器</p>
 <ol>
 <li>currency</li>
 <li>date</li>
 <li>filter<br>这个过滤器的第一个参数可以是字符串、对象或是一个用来从数组中选择元素的函数。<br>我们也可以给 filter 过滤器传入第二个参数，用来指定预期值同实际值进行比较的方式<ul>
-<li>字符串<br>返回所有包含这个字符串的元素。如果我们想返回不包含该字符串的元素，在参数前加!符号。<figure class="highlight twig"><table><tr><td class="code"><pre><span class="line"><span class="template-variable">&#123;&#123; [<span class="string">&#x27;Ari&#x27;</span>,<span class="string">&#x27;Lerner&#x27;</span>,<span class="string">&#x27;Likes&#x27;</span>,<span class="string">&#x27;To&#x27;</span>,<span class="string">&#x27;Eat&#x27;</span>,<span class="string">&#x27;Pizza&#x27;</span>] | filter:<span class="string">&#x27;e&#x27;</span> &#125;&#125;</span><span class="language-xml"></span></span><br><span class="line"><span class="language-xml"><span class="comment">&lt;!-- [&quot;Lerner&quot;,&quot;Likes&quot;,&quot;Eat&quot;] --&gt;</span></span></span><br></pre></td></tr></table></figure></li>
-<li>对象<br>AngularJS 会将待过滤对象的属性同这个对象中的同名属性进行比较，如果属性值是字符串就会判断是否包含该字符串。<figure class="highlight sml"><table><tr><td class="code"><pre><span class="line">&#123;&#123; [</span><br><span class="line">      &#123;<span class="symbol">&#x27;name&#x27;</span>: <span class="symbol">&#x27;Ari&#x27;</span>,<span class="symbol">&#x27;City&#x27;</span>: <span class="symbol">&#x27;San</span> <span class="type">Francisco&#x27;</span>,<span class="symbol">&#x27;favorite</span> food&#x27;: <span class="symbol">&#x27;Pizza&#x27;</span>&#125;,</span><br><span class="line">      &#123;<span class="symbol">&#x27;name&#x27;</span>: <span class="symbol">&#x27;Nate&#x27;</span>,<span class="symbol">&#x27;City&#x27;</span>: <span class="symbol">&#x27;San</span> <span class="type">Francisco&#x27;</span>,<span class="symbol">&#x27;favorite</span> food&#x27;: <span class="symbol">&#x27;indian</span> food&#x27;&#125;</span><br><span class="line">   ] | filter:&#123;<span class="symbol">&#x27;favorite</span> food&#x27;: <span class="symbol">&#x27;Pizza&#x27;</span>&#125;</span><br><span class="line">&#125;&#125;</span><br><span class="line">&lt;!-- [&#123;<span class="string">&quot;name&quot;</span>:<span class="string">&quot;Ari&quot;</span>,<span class="string">&quot;City&quot;</span>:<span class="string">&quot;SanFrancisco&quot;</span>,<span class="string">&quot;favoritefood&quot;</span>:<span class="string">&quot;Pizza&quot;</span>&#125;] --&gt;</span><br></pre></td></tr></table></figure></li>
-<li>函数<br>对每个元素都执行这个函数，返回非假值的元素会出现在新的数组中并返回。<figure class="highlight twig"><table><tr><td class="code"><pre><span class="line"><span class="template-variable">&#123;&#123; [<span class="string">&#x27;Ari&#x27;</span>,<span class="string">&#x27;likes&#x27;</span>,<span class="string">&#x27;to&#x27;</span>,<span class="string">&#x27;travel&#x27;</span>] | filter:isCapitalized &#125;&#125;</span><span class="language-xml"></span></span><br><span class="line"><span class="language-xml"><span class="comment">&lt;!-- [&quot;Ari&quot;] --&gt;</span></span></span><br><span class="line"><span class="language-xml">$scope.isCapitalized = function(str) &#123;</span></span><br><span class="line"><span class="language-xml">  return str[0] == str[0].toUpperCase();</span></span><br><span class="line"><span class="language-xml">&#125;;</span></span><br></pre></td></tr></table></figure></li>
+<li>字符串<br>返回所有包含这个字符串的元素。如果我们想返回不包含该字符串的元素，在参数前加!符号。<pre class="line-numbers language-none"><code class="language-none">&#123;&#123; [&#39;Ari&#39;,&#39;Lerner&#39;,&#39;Likes&#39;,&#39;To&#39;,&#39;Eat&#39;,&#39;Pizza&#39;] | filter:&#39;e&#39; &#125;&#125;
+&lt;!-- [&quot;Lerner&quot;,&quot;Likes&quot;,&quot;Eat&quot;] --&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></li>
+<li>对象<br>AngularJS 会将待过滤对象的属性同这个对象中的同名属性进行比较，如果属性值是字符串就会判断是否包含该字符串。<pre class="line-numbers language-none"><code class="language-none">&#123;&#123; [
+      &#123;&#39;name&#39;: &#39;Ari&#39;,&#39;City&#39;: &#39;San Francisco&#39;,&#39;favorite food&#39;: &#39;Pizza&#39;&#125;,
+      &#123;&#39;name&#39;: &#39;Nate&#39;,&#39;City&#39;: &#39;San Francisco&#39;,&#39;favorite food&#39;: &#39;indian food&#39;&#125;
+   ] | filter:&#123;&#39;favorite food&#39;: &#39;Pizza&#39;&#125;
+&#125;&#125;
+&lt;!-- [&#123;&quot;name&quot;:&quot;Ari&quot;,&quot;City&quot;:&quot;SanFrancisco&quot;,&quot;favoritefood&quot;:&quot;Pizza&quot;&#125;] --&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+<li>函数<br>对每个元素都执行这个函数，返回非假值的元素会出现在新的数组中并返回。<pre class="line-numbers language-none"><code class="language-none">&#123;&#123; [&#39;Ari&#39;,&#39;likes&#39;,&#39;to&#39;,&#39;travel&#39;] | filter:isCapitalized &#125;&#125;
+&lt;!-- [&quot;Ari&quot;] --&gt;
+$scope.isCapitalized &#x3D; function(str) &#123;
+  return str[0] &#x3D;&#x3D; str[0].toUpperCase();
+&#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
 </ul>
 </li>
 <li>json<br>json 过滤器可以将一个 JSON 或 JavaScript 对象转换成字符串</li>
 <li>limitTo<br>limitTo 过滤器会根据传入的参数生成一个新的数组或字符串，新的数组或字符串的长度取决于传入的参数，通过传入参数的正负值来控制从前面还是从后面开始截取。</li>
 </ol>
-<figure class="highlight handlebars"><table><tr><td class="code"><pre><span class="line"><span class="template-variable">&#123;&#123; <span class="name">San</span> Francisco is very cloudy | limitTo:3 &#125;&#125;</span><span class="language-xml"><span class="comment">&lt;!-- San --&gt;</span></span></span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-none"><code class="language-none">&#123;&#123; San Francisco is very cloudy | limitTo:3 &#125;&#125;&lt;!-- San --&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <ol start="6">
 <li>lowercase</li>
 <li>uppercase</li>
 <li>number<br>number 过滤器将数字格式化成文本。它的第二个参数是可选的，用来控制小数点后截取的位数。</li>
-<li>orderBy<br>orderBy 过滤器可以用表达式对指定的数组进行排序。可以接受两个参数，第一个是必需的，第二个是可选的,用来控制排序的方向（是否逆向）。<figure class="highlight ada"><table><tr><td class="code"><pre><span class="line">&#123;&#123;</span><br><span class="line">  [&#123;</span><br><span class="line">      <span class="symbol">&#x27;name</span>&#x27;: <span class="symbol">&#x27;Ari</span><span class="string">&#x27;,&#x27;</span>status&#x27;: <span class="symbol">&#x27;awake</span>&#x27;</span><br><span class="line">  &#125;,&#123;</span><br><span class="line">      <span class="symbol">&#x27;name</span>&#x27;: <span class="string">&#x27;Q&#x27;</span>,<span class="symbol">&#x27;status</span>&#x27;: <span class="symbol">&#x27;sleeping</span>&#x27;</span><br><span class="line">  &#125;,&#123;</span><br><span class="line">       <span class="symbol">&#x27;name</span>&#x27;: <span class="symbol">&#x27;Nate</span><span class="string">&#x27;,&#x27;</span>status&#x27;: <span class="symbol">&#x27;awake</span>&#x27;</span><br><span class="line">  &#125;] | orderBy:<span class="symbol">&#x27;name</span>&#x27;:<span class="literal">true</span></span><br><span class="line">&#125;&#125;</span><br><span class="line">&lt;!<span class="comment">--[</span></span><br><span class="line">    &#123;<span class="string">&quot;name&quot;</span>:<span class="string">&quot;Q&quot;</span>,<span class="string">&quot;status&quot;</span>:<span class="string">&quot;sleeping&quot;</span>&#125;,</span><br><span class="line">    &#123;<span class="string">&quot;name&quot;</span>:<span class="string">&quot;Nate&quot;</span>,<span class="string">&quot;status&quot;</span>:<span class="string">&quot;awake&quot;</span>&#125;,</span><br><span class="line">    &#123;<span class="string">&quot;name&quot;</span>:<span class="string">&quot;Ari&quot;</span>,<span class="string">&quot;status&quot;</span>:<span class="string">&quot;awake&quot;</span>&#125;</span><br><span class="line">]<span class="comment">--&gt;</span></span><br></pre></td></tr></table></figure></li>
+<li>orderBy<br>orderBy 过滤器可以用表达式对指定的数组进行排序。可以接受两个参数，第一个是必需的，第二个是可选的,用来控制排序的方向（是否逆向）。<pre class="line-numbers language-none"><code class="language-none">&#123;&#123;
+  [&#123;
+      &#39;name&#39;: &#39;Ari&#39;,&#39;status&#39;: &#39;awake&#39;
+  &#125;,&#123;
+      &#39;name&#39;: &#39;Q&#39;,&#39;status&#39;: &#39;sleeping&#39;
+  &#125;,&#123;
+       &#39;name&#39;: &#39;Nate&#39;,&#39;status&#39;: &#39;awake&#39;
+  &#125;] | orderBy:&#39;name&#39;:true
+&#125;&#125;
+&lt;!--[
+    &#123;&quot;name&quot;:&quot;Q&quot;,&quot;status&quot;:&quot;sleeping&quot;&#125;,
+    &#123;&quot;name&quot;:&quot;Nate&quot;,&quot;status&quot;:&quot;awake&quot;&#125;,
+    &#123;&quot;name&quot;:&quot;Ari&quot;,&quot;status&quot;:&quot;awake&quot;&#125;
+]--&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
 </ol>
-<h4 id="7-1-自定义过滤器"><a href="#7-1-自定义过滤器" class="headerlink" title="7.1 自定义过滤器"></a>7.1 自定义过滤器</h4><figure class="highlight handlebars"><table><tr><td class="code"><pre><span class="line"><span class="template-variable">&#123;&#123; <span class="name">&#x27;ginger loves dog treats&#x27;</span> | lowercase | capitalize &#125;&#125;</span><span class="language-xml"></span></span><br><span class="line"><span class="language-xml"><span class="comment">&lt;!-- Ginger loves dog treats --&gt;</span></span></span><br><span class="line"><span class="language-xml">//自定义capitalize过滤器</span></span><br><span class="line"><span class="language-xml">angular.module(&#x27;myApp&#x27;, [])</span></span><br><span class="line"><span class="language-xml">.filter(&#x27;capitalize&#x27;, function() &#123;</span></span><br><span class="line"><span class="language-xml">    return function(input) &#123;</span></span><br><span class="line"><span class="language-xml">    // input是我们传入的字符串</span></span><br><span class="line"><span class="language-xml">    if (input) &#123;</span></span><br><span class="line"><span class="language-xml">        return input[0].toUpperCase() + input.slice(1);</span></span><br><span class="line"><span class="language-xml">    &#125;</span></span><br><span class="line"><span class="language-xml">&#125;);</span></span><br></pre></td></tr></table></figure>
+<h4 id="7-1-自定义过滤器"><a href="#7-1-自定义过滤器" class="headerlink" title="7.1 自定义过滤器"></a>7.1 自定义过滤器</h4><pre class="line-numbers language-none"><code class="language-none">&#123;&#123; &#39;ginger loves dog treats&#39; | lowercase | capitalize &#125;&#125;
+&lt;!-- Ginger loves dog treats --&gt;
+&#x2F;&#x2F;自定义capitalize过滤器
+angular.module(&#39;myApp&#39;, [])
+.filter(&#39;capitalize&#39;, function() &#123;
+    return function(input) &#123;
+    &#x2F;&#x2F; input是我们传入的字符串
+    if (input) &#123;
+        return input[0].toUpperCase() + input.slice(1);
+    &#125;
+&#125;);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <h4 id="7-2-表单验证"><a href="#7-2-表单验证" class="headerlink" title="7.2 表单验证"></a>7.2 表单验证</h4><p>如果想要屏蔽浏览器对表单的默认验证行为，可以在表单元素上添加 novalidate 标记。<br>可以在 input 元素上使用的所有验证选项</p>
 <ul>
@@ -231,7 +326,14 @@
 <li>在表单中控制变量 + 未修改的表单 <code>formName.inputFieldName.$pristine</code> 如果未修改，值为 true + 修改过的表单 <code>formName.inputFieldName.$dirty</code> 只要用户修改过表单，该值都返回 true + 合法的表单 <code>formName.inputFieldName.$valid</code> + 不合法的表单 <code>formName.inputFieldName.$invalid</code> + 错误 <code>formName.inputfieldName.$error</code> 如果验证失败，这个属性的值为 true + 一些有用的 CSS 样式 .ng-pristine{} .ng-dirty{} .ng-valid{} .ng-invalid{} + $parsers + $formatters<br>给输入字段添加 name 属性非常重要：这决定了我们将验证信息展示给用户时如何引用表单输入字段。</li>
 </ul>
 <h3 id="第八章、指令简介"><a href="#第八章、指令简介" class="headerlink" title="第八章、指令简介"></a>第八章、指令简介</h3><h4 id="8-1-自定义-HTML-元素和属性"><a href="#8-1-自定义-HTML-元素和属性" class="headerlink" title="8.1 自定义 HTML 元素和属性"></a>8.1 自定义 HTML 元素和属性</h4><p>通过 AngularJS 模块 API 中的.directive()方法，我们可以通过传入一个字符串和一个函数来注册一个新指令。其中字符串是这个指令的名字函数应该返回<br>一个对象包含了用来定义和配置指令所需的方法和属性。<br><code>&lt;my-directive&gt;&lt;/my-directive&gt;</code></p>
-<figure class="highlight pgsql"><table><tr><td class="code"><pre><span class="line">angular.module(<span class="string">&#x27;myApp&#x27;</span>,[])</span><br><span class="line">.directive(<span class="string">&#x27;myDirective&#x27;</span>, <span class="keyword">function</span>() &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">        <span class="keyword">restrict</span>: <span class="string">&#x27;E&#x27;</span>,</span><br><span class="line">        <span class="keyword">template</span>: <span class="string">&#x27;&lt;a href=&quot;http://google.com&quot;&gt;</span></span><br><span class="line"><span class="string">        Click me to go to Google&lt;/a&gt;&#x27;</span></span><br><span class="line">    &#125;;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-none"><code class="language-none">angular.module(&#39;myApp&#39;,[])
+.directive(&#39;myDirective&#39;, function() &#123;
+    return &#123;
+        restrict: &#39;E&#39;,
+        template: &#39;&lt;a href&#x3D;&quot;http:&#x2F;&#x2F;google.com&quot;&gt;
+        Click me to go to Google&lt;&#x2F;a&gt;&#39;
+    &#125;;
+&#125;);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>将 replace 设置为 true 就将自定义标签从生成的 DOM 中完全移除掉，并只留下由模版生成的链接<br>restrict 可以指定以元素（E）、属性（A）、类（C）或注释（M）的格式来调用指令,好的经验法则就是始终用属性来声明指</p>
 <h4 id="8-2-向指令中传递数据"><a href="#8-2-向指令中传递数据" class="headerlink" title="8.2 向指令中传递数据"></a>8.2 向指令中传递数据</h4><p>AngularJS 允许通过创建新的子作用域或者隔离作用域来解决这个常见问题</p>
@@ -294,13 +396,48 @@
 <li><p>ng-attr-(suffix)</p>
 </li>
 </ol>
-<figure class="highlight handlebars"><table><tr><td class="code"><pre><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">svg</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;<span class="name">circle</span> <span class="attr">cx</span>=<span class="string">&quot;</span></span></span><span class="template-variable">&#123;&#123; <span class="name">cx</span> &#125;&#125;</span><span class="language-xml"><span class="tag"><span class="string">&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">circle</span>&gt;</span></span></span><br><span class="line"><span class="language-xml"><span class="tag">&lt;/<span class="name">svg</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-none"><code class="language-none">&lt;svg&gt;
+    &lt;circle cx&#x3D;&quot;&#123;&#123; cx &#125;&#125;&quot;&gt;&lt;&#x2F;circle&gt;
+&lt;&#x2F;svg&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 
 <p>指出我们有一个非法属性。可以用 ng-attr-cx 来解决这个问题。</p>
-<figure class="highlight handlebars"><table><tr><td class="code"><pre><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">svg</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;<span class="name">circle</span> <span class="attr">ng-attr-cx</span>=<span class="string">&quot;</span></span></span><span class="template-variable">&#123;&#123; <span class="name">cx</span> &#125;&#125;</span><span class="language-xml"><span class="tag"><span class="string">&quot;</span>&gt;</span><span class="tag">&lt;<span class="name">circle</span>&gt;</span></span></span><br><span class="line"><span class="language-xml"><span class="tag">&lt;/<span class="name">svg</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-none"><code class="language-none">&lt;svg&gt;
+    &lt;circle ng-attr-cx&#x3D;&quot;&#123;&#123; cx &#125;&#125;&quot;&gt;&lt;circle&gt;
+&lt;&#x2F;svg&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 
 <h3 id="第十章、指令详解"><a href="#第十章、指令详解" class="headerlink" title="第十章、指令详解"></a>第十章、指令详解</h3><h4 id="10-1-指令定义"><a href="#10-1-指令定义" class="headerlink" title="10.1 指令定义"></a>10.1 指令定义</h4><p>directive()这个方法是用来定义指令的</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">angular.<span class="title function_">module</span>(<span class="string">&#x27;myApp&#x27;</span>, [])</span><br><span class="line">.<span class="title function_">directive</span>(name,<span class="title function_">factory_function</span>(<span class="params"></span>)&#123;</span><br><span class="line">    <span class="comment">// 指令定义放在这里</span></span><br><span class="line">&#125;);</span><br><span class="line">angular.<span class="title function_">module</span>(<span class="string">&#x27;myApp&#x27;</span>, [])</span><br><span class="line">.<span class="title function_">directive</span>(<span class="string">&#x27;myDirective&#x27;</span>, <span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">        <span class="attr">restrict</span>: <span class="title class_">String</span>,</span><br><span class="line">        <span class="attr">priority</span>: <span class="title class_">Number</span>,</span><br><span class="line">        <span class="attr">terminal</span>: <span class="title class_">Boolean</span>,</span><br><span class="line">        <span class="attr">template</span>: <span class="title class_">String</span> or <span class="title class_">Template</span> <span class="title class_">Function</span>:</span><br><span class="line">        <span class="keyword">function</span>(<span class="params">tElement, tAttrs</span>) (...&#125;,</span><br><span class="line">        <span class="attr">templateUrl</span>: <span class="title class_">String</span>,</span><br><span class="line">        <span class="attr">replace</span>: <span class="title class_">Boolean</span> or <span class="title class_">String</span>,</span><br><span class="line">        <span class="attr">scope</span>: <span class="title class_">Boolean</span> or <span class="title class_">Object</span>,</span><br><span class="line">        <span class="attr">transclude</span>: <span class="title class_">Boolean</span>,</span><br><span class="line">        <span class="attr">controller</span>: <span class="title class_">String</span> or <span class="keyword">function</span>(<span class="params">scope, element, attrs, transclude, otherInjectables</span>)&#123; ... &#125;,</span><br><span class="line">        <span class="attr">controllerAs</span>: <span class="title class_">String</span>,</span><br><span class="line">        <span class="attr">require</span>: <span class="title class_">String</span>,</span><br><span class="line">        <span class="attr">link</span>: <span class="keyword">function</span>(<span class="params">scope, iElement, iAttrs</span>) &#123; ... &#125;,</span><br><span class="line">        <span class="attr">compile</span>:</span><br><span class="line">            <span class="comment">// 返回一个对象或连接函数，如下所示：</span></span><br><span class="line">            <span class="keyword">function</span>(<span class="params">tElement, tAttrs, transclude</span>) &#123;</span><br><span class="line">                <span class="keyword">return</span> &#123;</span><br><span class="line">                    <span class="attr">pre</span>: <span class="keyword">function</span>(<span class="params">scope, iElement, iAttrs, controller</span>) &#123; ... &#125;,</span><br><span class="line">                    <span class="attr">post</span>: <span class="keyword">function</span>(<span class="params">scope, iElement, iAttrs, controller</span>) &#123; ... &#125;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="comment">// 或者</span></span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">function</span> <span class="title function_">postLink</span>(<span class="params">...</span>) &#123; ... &#125;</span><br><span class="line">            &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-none"><code class="language-none">angular.module(&#39;myApp&#39;, [])
+.directive(name,factory_function()&#123;
+    &#x2F;&#x2F; 指令定义放在这里
+&#125;);
+angular.module(&#39;myApp&#39;, [])
+.directive(&#39;myDirective&#39;, function() &#123;
+    return &#123;
+        restrict: String,
+        priority: Number,
+        terminal: Boolean,
+        template: String or Template Function:
+        function(tElement, tAttrs) (...&#125;,
+        templateUrl: String,
+        replace: Boolean or String,
+        scope: Boolean or Object,
+        transclude: Boolean,
+        controller: String or function(scope, element, attrs, transclude, otherInjectables)&#123; ... &#125;,
+        controllerAs: String,
+        require: String,
+        link: function(scope, iElement, iAttrs) &#123; ... &#125;,
+        compile:
+            &#x2F;&#x2F; 返回一个对象或连接函数，如下所示：
+            function(tElement, tAttrs, transclude) &#123;
+                return &#123;
+                    pre: function(scope, iElement, iAttrs, controller) &#123; ... &#125;,
+                    post: function(scope, iElement, iAttrs, controller) &#123; ... &#125;
+                &#125;
+                &#x2F;&#x2F; 或者
+                return function postLink(...) &#123; ... &#125;
+            &#125;
+    &#125;;
+&#125;);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>指令的生命周期开始于$compile 方法并结束于 link 方法</p>
 <h6 id="10-1-1-restrict（字符串）"><a href="#10-1-1-restrict（字符串）" class="headerlink" title="10.1.1 restrict（字符串）"></a>10.1.1 restrict（字符串）</h6><p>restrict 是一个可选的参数。它告诉 AngularJS 这个指令在 DOM 中可以何种形式被声明,默认 AngularJS 认为 restrict 的值是 A，即以属性的形式来进行声明</p>
@@ -329,10 +466,21 @@
 </ul>
 <h6 id="10-3-1-transclude"><a href="#10-3-1-transclude" class="headerlink" title="10.3.1 transclude"></a>10.3.1 transclude</h6><p>transclude 是一个可选的参数。如果设置了，其值必须为 true，它的默认值是 false。<br>嵌入通常用来创建可复用的组件，典型的例子是模态对话框或导航栏。<br>为了将作用域传递进去，scope 参数的值必须通过{}或 true 设置成隔离作用域。如果没有设置 scope 参数，那么指令内部的作用域将被设置为传入模板的作用域<br>如果指令使用了 transclude 参数，那么在控制器（下面马上会介绍）中就无法正常监听数据模型的变化了。这就是最佳实践总是建议在链接函数里使用<code>$watch</code>服务的原因。</p>
 <h6 id="10-3-2-controller（字符串或函数）"><a href="#10-3-2-controller（字符串或函数）" class="headerlink" title="10.3.2 controller（字符串或函数）"></a>10.3.2 controller（字符串或函数）</h6><p>controller 参数可以是一个字符串或一个函数</p>
-<figure class="highlight stylus"><table><tr><td class="code"><pre><span class="line">angular<span class="selector-class">.module</span>(<span class="string">&#x27;myApp&#x27;</span>, <span class="selector-attr">[]</span>)</span><br><span class="line"><span class="selector-class">.directive</span>(<span class="string">&#x27;myDirective&#x27;</span>, <span class="built_in">function</span>() &#123;</span><br><span class="line">    restrict: <span class="string">&#x27;A&#x27;</span>, <span class="comment">// 始终需要</span></span><br><span class="line">    controller: <span class="string">&#x27;SomeController&#x27;</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-none"><code class="language-none">angular.module(&#39;myApp&#39;, [])
+.directive(&#39;myDirective&#39;, function() &#123;
+    restrict: &#39;A&#39;, &#x2F;&#x2F; 始终需要
+    controller: &#39;SomeController&#39;
+&#125;)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>可以在指令内部通过匿名构造函数的方式来定义一个内联的控制器：</p>
-<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">angular.module(<span class="string">&#x27;myApp&#x27;</span>,[])</span><br><span class="line">.directive(<span class="string">&#x27;myDirective&#x27;</span>, <span class="keyword">function</span>() &#123;</span><br><span class="line">    restrict: <span class="string">&#x27;A&#x27;</span>,</span><br><span class="line">    controller:</span><br><span class="line">    <span class="keyword">function</span>(<span class="variable">$scope</span>, <span class="variable">$element</span>, <span class="variable">$attrs</span>, <span class="variable">$transclude</span>) &#123;</span><br><span class="line">    <span class="regexp">//</span> 控制器逻辑放在这里</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-none"><code class="language-none">angular.module(&#39;myApp&#39;,[])
+.directive(&#39;myDirective&#39;, function() &#123;
+    restrict: &#39;A&#39;,
+    controller:
+    function($scope, $element, $attrs, $transclude) &#123;
+    &#x2F;&#x2F; 控制器逻辑放在这里
+    &#125;
+&#125;);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>控制器中也有一些特殊的服务可以被注入到指令当中。这些服务有：</p>
 <ol>
@@ -425,7 +573,7 @@
           </li>
         
           <li>
-            <a href="/blog/articles/2022/08/04.html">如何用Electron+vue+vite构建桌面端应用(三)</a>
+            <a href="/blog/articles/2022/08/05.html">如何用Electron+vue+vite构建桌面端应用(三)</a>
           </li>
         
           <li>
@@ -589,8 +737,8 @@
 
 <script>
   var gitalk = new Gitalk({
-    clientID: "1d84813ae13cd94072f0",
-    clientSecret: "4a4dd2af0c622e983dd90f5daf15c3ebd86b8ae9",
+    clientID: "3c3e422527fd3f9fa17a",
+    clientSecret: "f28d1808ec9ab69fb24dc3e9fad81e1c3ab8dd83",
     repo: "blog",
     owner: "jesse121",
     admin: ["jesse121"],

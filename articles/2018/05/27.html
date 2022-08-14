@@ -149,27 +149,37 @@
 </ul>
 <p>这些软件安装好后接下来才真正开始使用vagrant</p>
 <h3 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h3><p>在xshell中执行</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> D:</span><br><span class="line"><span class="built_in">mkdir</span> vagrant/centos</span><br><span class="line"><span class="built_in">cd</span>  vagrant/centos</span><br><span class="line">vagrant init</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-none"><code class="language-none">cd D:
+mkdir vagrant&#x2F;centos
+cd  vagrant&#x2F;centos
+vagrant init<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 <p>此时可以看到在centos文件夹下有一个Vagrantfile文件，<br>用sublime或其他编辑器打开此文件找到config.vm.box &#x3D; “base”，并将它改为config.vm.box &#x3D; “centos&#x2F;7”，同时也可以添加一下这个box的版本号 config.vm.box_version&#x3D;”1804.02”</p>
 <p><strong>这里为什么将base改为centos&#x2F;7?</strong><br>我这里打算用linux的centos7发行版，vagrant为我们提供了很多的box,我们可以在这里查询到<a target="_blank" rel="noopener" href="https://app.vagrantup.com/boxes/search">https://app.vagrantup.com/boxes/search</a>,选择centos7,就可以看到它推荐我们将config.vm.box &#x3D; “centos&#x2F;7”，同时选好我们使用的版本，这里我们选择用1804.02</p>
-<figure class="highlight ebnf"><table><tr><td class="code"><pre><span class="line"><span class="attribute">vagrant up</span></span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-none"><code class="language-none">vagrant up<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>在这里使用window的朋友需要将powershell升级到3.0及以上<br>如何升级可参考这篇博客<a target="_blank" rel="noopener" href="https://blog.csdn.net/i_am_wangbo/article/details/50033473">https://blog.csdn.net/i_am_wangbo&#x2F;article&#x2F;details&#x2F;50033473</a><br>升级好后再次执行vagrant up<br><img src="/blog/blog/static/images/vagrant/1.png"><br>可以看到vagrant在自动下载我们配置好的box<br><img src="/blog/blog/static/images/vagrant/2.png"><br>如果出现如图所示情况，我们可以更改下Vagrantfile的配置，<br><img src="/blog/blog/static/images/vagrant/3.png"><br>启用vb.gui &#x3D; true配置，以图形界面的形式启动虚拟机，这样我们就能看到具体是什么报错了<br><img src="/blog/blog/static/images/vagrant/4.png"><br>这里我们需要开启硬件加速<br>具体如何开启可参考这篇<a target="_blank" rel="noopener" href="https://jingyan.baidu.com/article/4b52d702a3e0aafc5d774b7c.html">https://jingyan.baidu.com/article/4b52d702a3e0aafc5d774b7c.html</a><br>设置好后再次执行vagrant up,这次没有报错了，此时我们可以看到执行到了centos的登录界面<br><img src="/blog/blog/static/images/vagrant/5.png"></p>
 <p>至此mac用户可以直接执行vagrant ssh<br>window用户可以根据提供的address username port新建ssh连接<br>输入用户名后，密钥我们点击浏览，选择文件D:\vagrant\CentOS.vagrant\machines\default\virtualbox\private_key，这是刚生成的密钥<br><img src="/blog/blog/static/images/vagrant/6.png"><br>至此我们已经登录进了centos系统了。</p>
 <p>进入系统后我们就可以安装配置我们的环境了，具体的PHP开发环境可参<a target="_blank" rel="noopener" href="https://www.cnblogs.com/jesse131/p/9079370.html">LNMP + Apache 架构配置</a>.<br>可开发环境安装好后如何让他人和我有相同的环境配置呢？</p>
 <h3 id="box的打包与分发"><a href="#box的打包与分发" class="headerlink" title="box的打包与分发"></a>box的打包与分发</h3><p>现在开发环境安装好后我们需要将我们的box打包，</p>
-<figure class="highlight gradle"><table><tr><td class="code"><pre><span class="line">vagrant <span class="keyword">package</span> --output D:<span class="regexp">/vagrant/</span>box/CentOS.box</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-none"><code class="language-none">vagrant package --output D:&#x2F;vagrant&#x2F;box&#x2F;CentOS.box<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>我们可以看到在box文件夹下生成了一个CentOS.box文件，我们可以通过U盘或网盘将这个box分发给其他同事。<br>提他同事安装后vagrant就可以用这个box了<br>载入这个box</p>
-<figure class="highlight mipsasm"><table><tr><td class="code"><pre><span class="line">vagrant <span class="keyword">box </span><span class="keyword">add </span>CentOS.<span class="keyword">box </span></span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-none"><code class="language-none">vagrant box add CentOS.box <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>vagrant up就可以直接使用了，这样其他同事就和我们有相同的环境配置了</p>
 <h3 id="vagrant优化"><a href="#vagrant优化" class="headerlink" title="vagrant优化"></a>vagrant优化</h3><p>如果一个box在使用的过程中又安装了其他软件怎么办？<br>对于新用户我们可以重新打包分发，对于老用户我们可以修改Vagrantfile文件</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">config.vm.provision <span class="string">&quot;shell&quot;</span>, inline: &lt;&lt;-<span class="string">SHELL</span></span><br><span class="line"><span class="string">    yum install -y apache2</span></span><br><span class="line"><span class="string">SHELL</span></span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-none"><code class="language-none">config.vm.provision &quot;shell&quot;, inline: &lt;&lt;-SHELL
+    yum install -y apache2
+SHELL<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 <p>这样在下次执行vagrant up的时候会自动安装新的软件</p>
 <p><strong>如何以固定ip的形式访问虚拟机上的web服务器</strong><br>这里我们可以通过设置私有网络ip的形式供自己访问，</p>
-<figure class="highlight stylus"><table><tr><td class="code"><pre><span class="line">config<span class="selector-class">.vm</span><span class="selector-class">.network</span> <span class="string">&quot;private_network&quot;</span>,ip:<span class="string">&quot;192.168.10.10&quot;</span></span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-none"><code class="language-none">config.vm.network &quot;private_network&quot;,ip:&quot;192.168.10.10&quot;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>这样我们就可以通过这个ip访问到我们的服务器了</p>
 <h3 id="vagrant常用命令"><a href="#vagrant常用命令" class="headerlink" title="vagrant常用命令"></a>vagrant常用命令</h3><p>vagrant box list 查看目前已有的box<br>vagrant box add 新增加一个box<br>vagrant box remove<br>vagrant inti 初始化配置生成vagrantfile<br>vagrant up 启动虚拟机<br>vagrant ssh登录虚拟机<br>vagrant suspend 挂起虚拟机<br>vagrant reload 重启虚拟机<br>vagrant halt 关闭虚拟机<br>vagrant status 查看虚拟机<br>vagrant destory 删除虚拟机</p>
 <h3 id="设置vagrant默认以root用户身份登录"><a href="#设置vagrant默认以root用户身份登录" class="headerlink" title="设置vagrant默认以root用户身份登录"></a>设置vagrant默认以root用户身份登录</h3><p>当通过vagrant up,以vagrant身份进入linux后，</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo su root</span><br><span class="line">vi /etc/ssh/sshd_config</span><br><span class="line">找到PermitRootLogin设置为 <span class="built_in">yes</span></span><br><span class="line">找到PasswordAuthentication设置为<span class="built_in">yes</span></span><br><span class="line">保存后执行重启sshd</span><br><span class="line">service sshd restart</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-none"><code class="language-none">sudo su root
+vi &#x2F;etc&#x2F;ssh&#x2F;sshd_config
+找到PermitRootLogin设置为 yes
+找到PasswordAuthentication设置为yes
+保存后执行重启sshd
+service sshd restart<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>重启该box后我们就可以用root身份登录了，需要填写密码默认是vagrant</p>
  
       <div id="toc-article">
@@ -255,7 +265,7 @@
           </li>
         
           <li>
-            <a href="/blog/articles/2022/08/04.html">如何用Electron+vue+vite构建桌面端应用(三)</a>
+            <a href="/blog/articles/2022/08/05.html">如何用Electron+vue+vite构建桌面端应用(三)</a>
           </li>
         
           <li>
@@ -419,8 +429,8 @@
 
 <script>
   var gitalk = new Gitalk({
-    clientID: "1d84813ae13cd94072f0",
-    clientSecret: "4a4dd2af0c622e983dd90f5daf15c3ebd86b8ae9",
+    clientID: "3c3e422527fd3f9fa17a",
+    clientSecret: "f28d1808ec9ab69fb24dc3e9fad81e1c3ab8dd83",
     repo: "blog",
     owner: "jesse121",
     admin: ["jesse121"],

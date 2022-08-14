@@ -169,7 +169,13 @@
 <h4 id="生成自签证书"><a href="#生成自签证书" class="headerlink" title="生成自签证书"></a>生成自签证书</h4><p>生成私钥文件<br>sudo openssl genrsa -out server.key 2048<br>生成自签证书文件<br>sudo openssl req -new -x509 -days 1826 -key server.key -out server.crt</p>
 <h4 id="修改-apache-配置"><a href="#修改-apache-配置" class="headerlink" title="修改 apache 配置"></a>修改 apache 配置</h4><p>apache2.4<br>需开启的模块<br>LoadModule ssl_module libexec&#x2F;apache2&#x2F;mod_ssl.so<br>LoadModule socache_shmcb_module libexec&#x2F;apache2&#x2F;mod_socache_shmcb.so</p>
 <p>sudo vim httpd-ssl.conf</p>
-<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">&lt;VirtualHost *:<span class="number">443</span>&gt;</span><br><span class="line">    DocumentRoot <span class="string">&quot;/var/www/html&quot;</span></span><br><span class="line">    ServerName www.domain.com:<span class="number">443</span></span><br><span class="line">    SSLEngine on</span><br><span class="line">    SSLCertificateFile <span class="regexp">/usr/</span>local<span class="regexp">/apache/</span>conf/server.crt <span class="comment">#添加证书文件</span></span><br><span class="line">    SSLCertificateKeyFile <span class="regexp">/usr/</span>local<span class="regexp">/apache/</span>conf/server.key <span class="comment">#添加私钥文件</span></span><br><span class="line">&lt;/VirtualHost&gt;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-none"><code class="language-none">&lt;VirtualHost *:443&gt;
+    DocumentRoot &quot;&#x2F;var&#x2F;www&#x2F;html&quot;
+    ServerName www.domain.com:443
+    SSLEngine on
+    SSLCertificateFile &#x2F;usr&#x2F;local&#x2F;apache&#x2F;conf&#x2F;server.crt #添加证书文件
+    SSLCertificateKeyFile &#x2F;usr&#x2F;local&#x2F;apache&#x2F;conf&#x2F;server.key #添加私钥文件
+&lt;&#x2F;VirtualHost&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>检测配置文件是否有错误<br>sudo apachectl configtest<br>重启 apache<br>sudo apachectl restart</p>
 <h3 id="Fiddler-x2F-Charles-是如何监听-HTTPS"><a href="#Fiddler-x2F-Charles-是如何监听-HTTPS" class="headerlink" title="Fiddler&#x2F;Charles 是如何监听 HTTPS?"></a>Fiddler&#x2F;Charles 是如何监听 HTTPS?</h3><p>第一步，Fiddler 截获客户端发送给服务器的 HTTPS 请求，Fiddler 伪装成客户端向服务器发送请求进行握手 。<br>第二步，服务器发回相应，Fiddler 获取到服务器的 CA 证书， 用根证书（这里的根证书是 CA 认证中心给自己颁发的证书）公钥进行解密， 验证服务器数据签名， 获取到服务器 CA 证书公钥。然后 Fiddler 伪造自己的 CA 证书（这里的 CA 证书，也是根证书，只不过是 Fiddler 伪造的根证书）， 冒充服务器证书传递给客户端浏览器。<br>第三步，与普通过程中客户端的操作相同，客户端根据返回的数据进行证书校验、生成密码 Pre_master、用 Fiddler 伪造的证书公钥加密，并生成 HTTPS 通信用的对称密钥 enc_key。<br>第四步，客户端将重要信息传递给服务器， 又被 Fiddler 截获。Fiddler 将截获的密文用自己伪造证书的私钥解开， 获得并计算得到 HTTPS 通信用的对称密钥 enc_key。Fiddler 将对称密钥用服务器证书公钥加密传递给服务器。<br>第五步，与普通过程中服务器端的操作相同，服务器用私钥解开后建立信任，然后再发送加密的握手消息给客户端。<br>第六步，Fiddler 截获服务器发送的密文， 用对称密钥解开， 再用自己伪造证书的私钥加密传给客户端。<br>第七步，客户端拿到加密信息后，用公钥解开，验证 HASH。握手过程正式完成，客户端与服务器端就这样建立了”信任“。</p>
@@ -263,7 +269,7 @@
           </li>
         
           <li>
-            <a href="/blog/articles/2022/08/04.html">如何用Electron+vue+vite构建桌面端应用(三)</a>
+            <a href="/blog/articles/2022/08/05.html">如何用Electron+vue+vite构建桌面端应用(三)</a>
           </li>
         
           <li>
@@ -427,8 +433,8 @@
 
 <script>
   var gitalk = new Gitalk({
-    clientID: "1d84813ae13cd94072f0",
-    clientSecret: "4a4dd2af0c622e983dd90f5daf15c3ebd86b8ae9",
+    clientID: "3c3e422527fd3f9fa17a",
+    clientSecret: "f28d1808ec9ab69fb24dc3e9fad81e1c3ab8dd83",
     repo: "blog",
     owner: "jesse121",
     admin: ["jesse121"],

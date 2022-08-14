@@ -139,15 +139,18 @@
 
     </div>
     <div class="e-content article-entry" itemprop="articleBody">
-       <h3 id="发现问题"><a href="#发现问题" class="headerlink" title="发现问题"></a>发现问题</h3><p>最近在项目中使用<a href="mailto:&#x68;&#117;&#115;&#x6b;&#x79;&#64;&#x37;&#46;&#x30;&#46;&#x31;">&#x68;&#117;&#115;&#x6b;&#x79;&#64;&#x37;&#46;&#x30;&#46;&#x31;</a>给 git 添加执行钩子时发现在 window 系统上可以正常触发配置的 pre-commit 但是在 mac 上就是不行并且在控制台输出一下提示：</p>
+       <h3 id="发现问题"><a href="#发现问题" class="headerlink" title="发现问题"></a>发现问题</h3><p>最近在项目中使用<a href="mailto:&#104;&#117;&#115;&#107;&#x79;&#64;&#55;&#x2e;&#x30;&#46;&#49;">&#104;&#117;&#115;&#107;&#x79;&#64;&#55;&#x2e;&#x30;&#46;&#49;</a>给 git 添加执行钩子时发现在 window 系统上可以正常触发配置的 pre-commit 但是在 mac 上就是不行并且在控制台输出一下提示：</p>
 <span id="more"></span>
 
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">hint: The <span class="string">&#x27;.husky/pre-commit&#x27;</span> hook was ignored because it<span class="string">&#x27;s not set as executable.</span></span><br><span class="line"><span class="string">hint: You can disable this warning with `git config advice.ignoredHook false`.</span></span><br><span class="line"><span class="string">hint: The &#x27;</span>.husky/commit-msg<span class="string">&#x27; hook was ignored because it&#x27;</span>s not <span class="built_in">set</span> as executable.</span><br><span class="line">hint: You can <span class="built_in">disable</span> this warning with `git config advice.ignoredHook <span class="literal">false</span>`.</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">hint: The &#39;.husky&#x2F;pre-commit&#39; hook was ignored because it&#39;s not set as executable.
+hint: You can disable this warning with &#96;git config advice.ignoredHook false&#96;.
+hint: The &#39;.husky&#x2F;commit-msg&#39; hook was ignored because it&#39;s not set as executable.
+hint: You can disable this warning with &#96;git config advice.ignoredHook false&#96;.<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>然后进入到项目中的.husky 文件夹中查看权限，果然没有执行权限<br><img src="https://raw.githubusercontent.com/Jesse121/publicPic/master/blog/pictures/1.png" alt="1"></p>
 <h3 id="分析原因"><a href="#分析原因" class="headerlink" title="分析原因"></a>分析原因</h3><p>为啥就 commit-msg 和 pre-commit 这俩文件没有执行权限？突然想起这些文件都是命令行创建的，唯独这俩文件因为修改过把源文件删了又手动创建了，导致权限不够</p>
 <h3 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h3><p>没有权限就增加权限</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="built_in">chmod</span> +x .husky/*</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">chmod +x .husky&#x2F;*<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <p>所以，要解决这类问题，我们要避免手动添加 hook 文件，使用 yarn husky add .husky&#x2F;<hookname>这个命令来添加。</p>
 <p>参考文档：<br><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/68367259/husky-needs-to-make-executable-for-every-new-branch">Husky needs to make executable for every new branch</a></p>
@@ -235,7 +238,7 @@
           </li>
         
           <li>
-            <a href="/blog/articles/2022/08/04.html">如何用Electron+vue+vite构建桌面端应用(三)</a>
+            <a href="/blog/articles/2022/08/05.html">如何用Electron+vue+vite构建桌面端应用(三)</a>
           </li>
         
           <li>
@@ -399,8 +402,8 @@
 
 <script>
   var gitalk = new Gitalk({
-    clientID: "1d84813ae13cd94072f0",
-    clientSecret: "4a4dd2af0c622e983dd90f5daf15c3ebd86b8ae9",
+    clientID: "3c3e422527fd3f9fa17a",
+    clientSecret: "f28d1808ec9ab69fb24dc3e9fad81e1c3ab8dd83",
     repo: "blog",
     owner: "jesse121",
     admin: ["jesse121"],

@@ -142,12 +142,13 @@
        <h3 id="用-docker-commit-的方式创建-ssh-直连-docker-容器镜像"><a href="#用-docker-commit-的方式创建-ssh-直连-docker-容器镜像" class="headerlink" title="用 docker commit 的方式创建 ssh 直连 docker 容器镜像"></a>用 docker commit 的方式创建 ssh 直连 docker 容器镜像</h3><ol>
 <li>拉取镜像，这里采用 centos:7 作为基础镜像</li>
 </ol>
-<figure class="highlight apache"><table><tr><td class="code"><pre><span class="line"><span class="attribute">docker</span> pull centos:<span class="number">7</span></span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-none"><code class="language-none">docker pull centos:7<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <ol start="2">
 <li>运行镜像，生成容器</li>
 </ol>
-<figure class="highlight dockerfile"><table><tr><td class="code"><pre><span class="line">docker <span class="keyword">run</span><span class="language-bash"> -d --name ssh_box --privileged=<span class="literal">true</span> centos:7 /usr/sbin/init</span></span><br><span class="line"><span class="number">07228</span>ec257564c4874ca24216d651bda65573d49e4149064a079cacca27de4e1 <span class="comment"># 生成的容器ID</span></span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-none"><code class="language-none">docker run -d --name ssh_box --privileged&#x3D;true centos:7 &#x2F;usr&#x2F;sbin&#x2F;init
+07228ec257564c4874ca24216d651bda65573d49e4149064a079cacca27de4e1 # 生成的容器ID<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
 <span id="more"></span>
 
@@ -155,71 +156,96 @@
 <ol start="3">
 <li>进入刚刚生成的容器</li>
 </ol>
-<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">docker exec -it <span class="number">07228</span>ec25756 <span class="regexp">/bin/</span>bash</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-none"><code class="language-none">docker exec -it 07228ec25756 &#x2F;bin&#x2F;bash<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <ol start="4">
 <li>进入容器后，使用 passwd 密码来修改密码（如提示没有这个命令行使用 yum install passwd 安装）</li>
 </ol>
-<figure class="highlight ebnf"><table><tr><td class="code"><pre><span class="line"><span class="attribute">passwd</span></span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-none"><code class="language-none">passwd<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <p><img src="https://raw.githubusercontent.com/Jesse121/publicPic/master/blog/pictures/801336-20200821203112524-490844386.png" alt="801336-20200821203112524-490844386"></p>
 <p>5.安装 vim 和 Openssh（docker 容器中执行）</p>
-<figure class="highlight axapta"><table><tr><td class="code"><pre><span class="line">yum install vim openssh-<span class="keyword">server</span> openssh-clients -y</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-none"><code class="language-none">yum install vim openssh-server openssh-clients -y<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <p>6.修改 SSH 配置文件</p>
-<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line"> vim <span class="regexp">/etc/</span>ssh/sshd_config</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-none"><code class="language-none"> vim &#x2F;etc&#x2F;ssh&#x2F;sshd_config<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <p>修改如下：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">PubkeyAuthentication <span class="built_in">yes</span> <span class="comment">#启用公钥私钥配对认证方式</span></span><br><span class="line">AuthorizedKeysFile .ssh/authorized_keys <span class="comment">#公钥文件路径（和上面生成的文件同）</span></span><br><span class="line">PermitRootLogin <span class="built_in">yes</span> <span class="comment">#root能使用ssh登录</span></span><br><span class="line">ClientAliveInterval 60  <span class="comment">#参数数值是秒 , 是指超时时间</span></span><br><span class="line">ClientAliveCountMax 3 <span class="comment">#设置允许超时的次数</span></span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-none"><code class="language-none">PubkeyAuthentication yes #启用公钥私钥配对认证方式
+AuthorizedKeysFile .ssh&#x2F;authorized_keys #公钥文件路径（和上面生成的文件同）
+PermitRootLogin yes #root能使用ssh登录
+ClientAliveInterval 60  #参数数值是秒 , 是指超时时间
+ClientAliveCountMax 3 #设置允许超时的次数<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <ol start="7">
 <li>重启 ssh 服务，并设置开机启动</li>
 </ol>
-<figure class="highlight nsis"><table><tr><td class="code"><pre><span class="line"><span class="params">system</span>ctl restart sshd.service</span><br><span class="line"><span class="params">system</span>ctl enable sshd.service</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-none"><code class="language-none">systemctl restart sshd.service
+systemctl enable sshd.service<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
 <p><strong>Failed to get D-Bus connection: Operation not permitted</strong><br>这里如果报这个错误说明容器权限不足,第 2 步执行有误 8.退出容器并保存更改</p>
-<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line"><span class="keyword">exit</span></span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-none"><code class="language-none">exit<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <ol start="9">
 <li>用刚才生成的容器创建镜像</li>
 </ol>
-<figure class="highlight livecodeserver"><table><tr><td class="code"><pre><span class="line">docker commit -m <span class="string">&#x27;openssh&#x27;</span> -<span class="keyword">a</span> <span class="string">&#x27;Docker for ssh&#x27;</span> ffe81683c404 ssh_box</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-none"><code class="language-none">docker commit -m &#39;openssh&#39; -a &#39;Docker for ssh&#39; ffe81683c404 ssh_box<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <p>-m:来指定提交的说明信息，跟我们使用的版本控制工具一样<br>-a  可以指定更新的用户信息<br>ffe81683c404： 创建镜像的容器的 ID，就是上面的容器 id，也就是我们刚才进入的容器 id<br>ssh_box: 目标镜像的仓库名</p>
 <p><code>docker images</code>可以查看到新生成的镜像<br><img src="https://raw.githubusercontent.com/Jesse121/publicPic/master/blog/pictures/801336-20200822081615017-1067003193.jpg" alt="801336-20200822081615017-1067003193"></p>
 <p>10.删除构建容器（可选）<br>我们用 centos 基础容器修改配置后已经生成了所需要的镜像，之前的构建容器就可以删除了</p>
-<figure class="highlight apache"><table><tr><td class="code"><pre><span class="line"><span class="attribute">docker</span> stop <span class="number">07228</span>ec25756</span><br><span class="line"><span class="attribute">docker</span> rm <span class="number">07228</span>ec25756</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-none"><code class="language-none">docker stop 07228ec25756
+docker rm 07228ec25756<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
 <ol start="11">
 <li>用新生成的镜像启动新的容器并打通 22 端口</li>
 </ol>
-<figure class="highlight apache"><table><tr><td class="code"><pre><span class="line"><span class="attribute">docker</span> run -d -p <span class="number">2222</span>:<span class="number">22</span> ssh_box /usr/sbin/sshd -D</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-none"><code class="language-none">docker run -d -p 2222:22 ssh_box &#x2F;usr&#x2F;sbin&#x2F;sshd -D<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <p>12.然后可以使用 xshell 连接新生成的容器</p>
-<p>ip: 为宿主主机的 ip，而不是 docker 容器的 ip<br>端口:就是上面的 2222<br>用户名： root<br>密码： 就是上面 password 部分设置的密码<br>在 mac 上可通过 ssh <a href="mailto:&#114;&#x6f;&#111;&#116;&#x40;&#49;&#x32;&#x37;&#46;&#48;&#x2e;&#x30;&#46;&#49;">&#114;&#x6f;&#111;&#116;&#x40;&#49;&#x32;&#x37;&#46;&#48;&#x2e;&#x30;&#46;&#49;</a> -p:2222 登录新生成的容器</p>
+<p>ip: 为宿主主机的 ip，而不是 docker 容器的 ip<br>端口:就是上面的 2222<br>用户名： root<br>密码： 就是上面 password 部分设置的密码<br>在 mac 上可通过 ssh <a href="mailto:&#x72;&#x6f;&#111;&#x74;&#x40;&#49;&#50;&#x37;&#46;&#48;&#x2e;&#48;&#46;&#49;">&#x72;&#x6f;&#111;&#x74;&#x40;&#49;&#50;&#x37;&#46;&#48;&#x2e;&#48;&#46;&#49;</a> -p:2222 登录新生成的容器</p>
 <p>至此 ssh 连接 docker 容器连接成功</p>
 <h3 id="以-Dockerfile-的方式创建-ssh-直连-docker-容器"><a href="#以-Dockerfile-的方式创建-ssh-直连-docker-容器" class="headerlink" title="以 Dockerfile 的方式创建 ssh 直连 docker 容器"></a>以 Dockerfile 的方式创建 ssh 直连 docker 容器</h3><ol>
 <li>创建 Dockerfile 文件</li>
 </ol>
-<figure class="highlight dockerfile"><table><tr><td class="code"><pre><span class="line"><span class="comment">#生成的新镜像以centos7镜像为基础</span></span><br><span class="line"><span class="keyword">FROM</span> centos:<span class="number">7</span></span><br><span class="line"><span class="keyword">MAINTAINER</span> by jesse (jesse152@<span class="number">163</span>.com)</span><br><span class="line"><span class="comment">#升级系统</span></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> yum -y update</span></span><br><span class="line"><span class="comment">#安装openssh-server</span></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> yum -y install openssh-server</span></span><br><span class="line"><span class="comment">#修改/etc/ssh/sshd_config</span></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> sed -i <span class="string">&#x27;s/UsePAM yes/UsePAM no/g&#x27;</span> /etc/ssh/sshd_config</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 生成sshkey</span></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> ssh-keygen -t dsa -f /etc/ssh/ssh_host_dsa_key</span></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> ssh-keygen -t rsa -f /etc/ssh/ssh_host_rsa_key</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#变更root密码</span></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> <span class="built_in">echo</span> <span class="string">&quot;root:jesse131978&quot;</span>|chpasswd</span></span><br><span class="line"><span class="comment">#开放窗口的22端口</span></span><br><span class="line"><span class="keyword">EXPOSE</span> <span class="number">22</span></span><br><span class="line"><span class="comment">#运行脚本，启动sshd服务</span></span><br><span class="line"><span class="keyword">CMD</span><span class="language-bash">    [<span class="string">&quot;/usr/sbin/sshd&quot;</span>, <span class="string">&quot;-D&quot;</span>]</span></span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-none"><code class="language-none">#生成的新镜像以centos7镜像为基础
+FROM centos:7
+MAINTAINER by jesse (jesse152@163.com)
+#升级系统
+RUN yum -y update
+#安装openssh-server
+RUN yum -y install openssh-server
+#修改&#x2F;etc&#x2F;ssh&#x2F;sshd_config
+RUN sed -i &#39;s&#x2F;UsePAM yes&#x2F;UsePAM no&#x2F;g&#39; &#x2F;etc&#x2F;ssh&#x2F;sshd_config
+
+# 生成sshkey
+RUN ssh-keygen -t dsa -f &#x2F;etc&#x2F;ssh&#x2F;ssh_host_dsa_key
+RUN ssh-keygen -t rsa -f &#x2F;etc&#x2F;ssh&#x2F;ssh_host_rsa_key
+
+#变更root密码
+RUN echo &quot;root:jesse131978&quot;|chpasswd
+#开放窗口的22端口
+EXPOSE 22
+#运行脚本，启动sshd服务
+CMD    [&quot;&#x2F;usr&#x2F;sbin&#x2F;sshd&quot;, &quot;-D&quot;]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>2.在 dockerfile 文件同级目录中运行创建命令</p>
-<figure class="highlight erlang"><table><tr><td class="code"><pre><span class="line">docker build -t centos7_ssh .</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-none"><code class="language-none">docker build -t centos7_ssh .<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <p>命令成功后，就会创建一个名字为 centos7_ssh 的 image，可以使用“docker images”来查看 3. 根据镜像创建容器</p>
-<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">docker <span class="built_in">run</span> -d -P <span class="attribute">--name</span>=ssh_box centos7_ssh</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-none"><code class="language-none">docker run -d -P --name&#x3D;ssh_box centos7_ssh<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <ol start="4">
 <li>查看容器 ip</li>
 </ol>
-<figure class="highlight ebnf"><table><tr><td class="code"><pre><span class="line"><span class="attribute">docker inspect ssh_box</span></span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-none"><code class="language-none">docker inspect ssh_box<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <p>5.查看端口</p>
-<figure class="highlight apache"><table><tr><td class="code"><pre><span class="line"><span class="attribute">docker</span> port ssh_box <span class="number">22</span></span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-none"><code class="language-none">docker port ssh_box 22<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <p>知道 ip 和端口后就可以通过 ssh 建立连接了</p>
 <h3 id="远程-Dockerfile"><a href="#远程-Dockerfile" class="headerlink" title="远程 Dockerfile"></a>远程 Dockerfile</h3><p>我将 Dockerfile 文件上传至 github,可通过命令直接用 github 上的 Dockerfile</p>
-<figure class="highlight nginx"><table><tr><td class="code"><pre><span class="line"><span class="attribute">docker</span> build -t linux git<span class="variable">@github</span>.com:Jesse121/mylinux.git</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-none"><code class="language-none">docker build -t linux git@github.com:Jesse121&#x2F;mylinux.git<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <h5 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h5><ol>
 <li><a target="_blank" rel="noopener" href="https://blog.51cto.com/lizhenliang/1975466">Docker 容器使用问题：Failed to get D-Bus connection: Operation not permitted</a></li>
@@ -309,7 +335,7 @@
           </li>
         
           <li>
-            <a href="/blog/articles/2022/08/04.html">如何用Electron+vue+vite构建桌面端应用(三)</a>
+            <a href="/blog/articles/2022/08/05.html">如何用Electron+vue+vite构建桌面端应用(三)</a>
           </li>
         
           <li>
@@ -473,8 +499,8 @@
 
 <script>
   var gitalk = new Gitalk({
-    clientID: "1d84813ae13cd94072f0",
-    clientSecret: "4a4dd2af0c622e983dd90f5daf15c3ebd86b8ae9",
+    clientID: "3c3e422527fd3f9fa17a",
+    clientSecret: "f28d1808ec9ab69fb24dc3e9fad81e1c3ab8dd83",
     repo: "blog",
     owner: "jesse121",
     admin: ["jesse121"],

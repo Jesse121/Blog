@@ -142,16 +142,23 @@
        <p>在学习 typescript 的过程中发现在 vscode 上不能很好地的输出 typescript 的运行结果，需要先将 typescript 编译为 javascript，在通过 node 执行 js 文件得到结果，执行过程如下</p>
 <span id="more"></span>
 
-<figure class="highlight ts"><table><tr><td class="code"><pre><span class="line"><span class="comment">// greeter.ts</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">greeter</span>(<span class="params">person</span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="string">&quot;Hello, &quot;</span> + person;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> user = <span class="string">&quot;Jane User&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(user);</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-typescript" data-language="typescript"><code class="language-typescript"><span class="token comment">// greeter.ts</span>
+<span class="token keyword">function</span> <span class="token function">greeter</span><span class="token punctuation">(</span>person<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+  <span class="token keyword">return</span> <span class="token string">"Hello, "</span> <span class="token operator">+</span> person<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token keyword">let</span> user <span class="token operator">=</span> <span class="token string">"Jane User"</span><span class="token punctuation">;</span>
+
+<span class="token builtin">console</span><span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>user<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>在命令行上执行</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">tsc greeter.ts</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">tsc greeter.ts<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <p>在当前文件夹下会输出 greeter.js 文件，然后通过 node greeter.js 执行这个文件，才能输出运行结果。这样操作觉得比较麻烦，查询后得知在 vscode 上还有更快捷的执行方式</p>
 <h3 id="执行准备操作"><a href="#执行准备操作" class="headerlink" title="执行准备操作"></a>执行准备操作</h3><ol>
 <li>在全局上安装 ts-node 包</li>
 </ol>
-<figure class="highlight crmsh"><table><tr><td class="code"><pre><span class="line">npm install typescript ts-<span class="keyword">node</span> <span class="title">@types</span>/<span class="keyword">node</span><span class="title">@* -g</span></span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-none"><code class="language-none">npm install typescript ts-node @types&#x2F;node@* -g<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <ol start="2">
 <li>在 vscode 上安装 Code Runner 插件</li>
@@ -241,7 +248,7 @@
           </li>
         
           <li>
-            <a href="/blog/articles/2022/08/04.html">如何用Electron+vue+vite构建桌面端应用(三)</a>
+            <a href="/blog/articles/2022/08/05.html">如何用Electron+vue+vite构建桌面端应用(三)</a>
           </li>
         
           <li>
@@ -405,8 +412,8 @@
 
 <script>
   var gitalk = new Gitalk({
-    clientID: "1d84813ae13cd94072f0",
-    clientSecret: "4a4dd2af0c622e983dd90f5daf15c3ebd86b8ae9",
+    clientID: "3c3e422527fd3f9fa17a",
+    clientSecret: "f28d1808ec9ab69fb24dc3e9fad81e1c3ab8dd83",
     repo: "blog",
     owner: "jesse121",
     admin: ["jesse121"],

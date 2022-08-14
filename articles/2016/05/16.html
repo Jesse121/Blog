@@ -20,8 +20,6 @@
 <link rel="stylesheet" href="/blog/fancybox/jquery.fancybox.min.css">
   
    
-<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
-  
 <meta name="generator" content="Hexo 6.2.0"></head>
 
 <body>
@@ -339,8 +337,6 @@ $<span class="token punctuation">.</span><span class="token function">extend</sp
   
 </nav>
    
-  <div id="comments"></div>
-
 
 
 
@@ -524,27 +520,21 @@ $<span class="token punctuation">.</span><span class="token function">extend</sp
   
 
 
-  
-<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
- 
-<script src="//cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.js"></script>
+   
+<script src="//imsun.github.io/gitment/dist/gitment.browser.js"></script>
 
 <script>
-  var gitalk = new Gitalk({
-    clientID: "3c3e422527fd3f9fa17a",
-    clientSecret: "f28d1808ec9ab69fb24dc3e9fad81e1c3ab8dd83",
-    repo: "blog",
-    owner: "jesse121",
-    admin: ["jesse121"],
-    id: md5(window.location.pathname),
-    proxy: "https://gitalk.jesse121.workers.dev/?https://github.com/login/oauth/access_token",
-    distractionFreeMode: false,
-    language: "zh-CN",
-    pagerDirection: "last",
+  var gitment = new Gitment({
+    owner: "#{theme.comment.gitment.gitment_owner}",
+    repo: "#{theme.comment.gitment.gitment_repo}",
+    oauth: {
+      client_id: "#{theme.comment.gitment.gitment_oauth.client_id}",
+      client_secret: "#{theme.comment.gitment.gitment_oauth.client_secret}",
+    },
   });
-  gitalk.render("comments");
+  gitment.render("gitment-ctn");
 </script>
-         
+        
 
 
 

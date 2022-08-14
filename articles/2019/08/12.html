@@ -1,27 +1,39 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8" />
-   
+  <meta charset="utf-8">
+  
+  
   <title>规范Git Commit提交记录和版本发布记录 | 前端之路</title>
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1, shrink-to-fit=no"
-  />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   
-  <meta name="description" content="专注前端开发，前端开发技术博客" />
-   
-  <meta name="keywords" content="Web前端开发，Javascript，前端开发博客" />
-    <link rel="alternate" href="/blog/atom.xml" title="前端之路" type="application/atom+xml">   <link rel="shortcut icon" href="/blog/favicon.ico">   
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+    <meta name="description" content="专注前端开发，前端开发技术博客">
   
-<link rel="stylesheet" href="/blog/css/style.css">
   
-<link rel="stylesheet" href="/blog/fancybox/jquery.fancybox.min.css">
+    <meta name="keywords" content="Web前端开发，Javascript，前端开发博客">
+  
+  
+    <link rel="alternate" href="/blog/atom.xml" title="前端之路" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/blog/favicon.ico">
+  
   
     
-<link rel="stylesheet" href="//imsun.github.io/gitment/style/default.css">
- 
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/blog/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/blog/fancybox/jquery.fancybox.min.css">
+
+  
+  
+  
+  
 <meta name="generator" content="Hexo 6.2.0"></head>
 
 <body>
@@ -127,11 +139,7 @@
 <span id="more"></span>
 
 <h3 id="commit-message-格式"><a href="#commit-message-格式" class="headerlink" title="commit message 格式"></a>commit message 格式</h3><p>目前大家比较认可的是<a target="_blank" rel="noopener" href="https://github.com/angular/angular.js/blob/master/DEVELOPERS.md#-git-commit-guidelines">Angular团队的提交规范</a>，很多工具也是基于此规范开发的。该提交规范格式如下:</p>
-<pre class="line-numbers language-none"><code class="language-none">&lt;type&gt;(&lt;scope&gt;): &lt;subject&gt;
-&lt;BLANK LINE&gt;
-&lt;body&gt;
-&lt;BLANK LINE&gt;
-&lt;footer&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">type</span>&gt;</span>(<span class="tag">&lt;<span class="name">scope</span>&gt;</span>): <span class="tag">&lt;<span class="name">subject</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">BLANK</span> <span class="attr">LINE</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">BLANK</span> <span class="attr">LINE</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">footer</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <p>每一个commit message由header（必填）、body（选填）和footer（选填）组成，header部分包括三个字段：type（必填）、scope（选填）和 subject（必填）。为了方便浏览，每一行的commit message不应超过100个字符。</p>
 <p><strong>type</strong><br>type 用于说明提交的commit的类别，有一下几种类型：</p>
 <ul>
@@ -148,143 +156,36 @@
 <h3 id="如何规范提交记录"><a href="#如何规范提交记录" class="headerlink" title="如何规范提交记录"></a>如何规范提交记录</h3><p>上面介绍的是通用的git commit message规范，可是在git commit的时候如何用这写规范来写呢？</p>
 <p>如果是个人项目我们可以为 git 设置 commit template, 每次 git commit 的时候在 vim 中自动带上模板信息, 自己只要按照模板信息填写就行</p>
 <ol>
-<li>修改~&#x2F;.gitconfig(.git&#x2F;config文件), 添加:<pre class="line-numbers language-none"><code class="language-none">[commit]
-    template &#x3D; .git_template<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></li>
-<li>新建.git_template 内容可如下：<pre class="line-numbers language-none"><code class="language-none"># head: &lt;type&gt;(&lt;scope&gt;): &lt;subject&gt;
-# - type: feat, fix, docs, style, refactor, test, chore
-# - scope: can be empty (eg. if the change is a global or difficult to assign to a single component)
-# - subject: start with verb (such as &#39;change&#39;), 50-character line
-#
-# body: 72-character wrapped. This should answer:
-# * Why was this change necessary?
-# * How does it address the problem?
-# * Are there any side effects?
-#
-# footer: 
-# - Include a link to the ticket, if any.
-# - BREAKING CHANGE
-#<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<li>修改~&#x2F;.gitconfig(.git&#x2F;config文件), 添加:<figure class="highlight ini"><table><tr><td class="code"><pre><span class="line"><span class="section">[commit]</span></span><br><span class="line">    <span class="attr">template</span> = .git_template</span><br></pre></td></tr></table></figure></li>
+<li>新建.git_template 内容可如下：<figure class="highlight apache"><table><tr><td class="code"><pre><span class="line"><span class="comment"># head: &lt;type&gt;(&lt;scope&gt;): &lt;subject&gt;</span></span><br><span class="line"><span class="comment"># - type: feat, fix, docs, style, refactor, test, chore</span></span><br><span class="line"><span class="comment"># - scope: can be empty (eg. if the change is a global or difficult to assign to a single component)</span></span><br><span class="line"><span class="comment"># - subject: start with verb (such as &#x27;change&#x27;), 50-character line</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># body: 72-character wrapped. This should answer:</span></span><br><span class="line"><span class="comment"># * Why was this change necessary?</span></span><br><span class="line"><span class="comment"># * How does it address the problem?</span></span><br><span class="line"><span class="comment"># * Are there any side effects?</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># footer: </span></span><br><span class="line"><span class="comment"># - Include a link to the ticket, if any.</span></span><br><span class="line"><span class="comment"># - BREAKING CHANGE</span></span><br><span class="line"><span class="comment">#</span></span><br></pre></td></tr></table></figure>
 这样在项目中执行git commit时vim编辑会带上这些信息</li>
 </ol>
 <p>如果我们的项目是多人参与的项目，这样就不合适了。这里我们推荐使用<a target="_blank" rel="noopener" href="https://www.npmjs.com/package/cz-customizable">cz-customizable</a>工具生成和约束commit message<br>cz-customizable有两种使用方式，这里我们采用官方推荐的第二种方式</p>
 <ol>
-<li>安装cz-customizable<pre class="line-numbers language-none"><code class="language-none">npm install  cz-customizable --save-dev<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></li>
-<li>修改package.json文件，在scripts中加入commit命令<pre class="line-numbers language-none"><code class="language-none">&quot;scripts&quot; : &#123;
-  ...
-  &quot;commit&quot;: &quot;.&#x2F;node_modules&#x2F;cz-customizable&#x2F;standalone.js&quot;
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre></li>
-<li>新建.cz-config.js文件<pre class="line-numbers language-none"><code class="language-none">module.exports &#x3D; &#123;
-types: [
-    &#123; value: &#39;feat&#39;, name: &#39;feat: A new feature&#39; &#125;,
-    &#123; value: &#39;fix&#39;, name: &#39;fix: A bug fix&#39; &#125;,
-    &#123; value: &#39;docs&#39;, name: &#39;docs: Documentation only changes&#39; &#125;,
-    &#123;
-        value: &#39;style&#39;,
-        name: &#39;style: Changes that do not affect the meaning of the code\n (white-space, formatting, missing semi-colons, etc)&#39;,
-    &#125;,
-    &#123;
-        value: &#39;refactor&#39;,
-        name: &#39;refactor: A code change that neither fixes a bug nor adds a feature&#39;,
-    &#125;,
-    &#123;
-        value: &#39;perf&#39;,
-        name: &#39;perf: A code change that improves performance&#39;,
-    &#125;,
-    &#123; value: &#39;test&#39;, name: &#39;test: Adding missing tests&#39; &#125;,
-    &#123;
-        value: &#39;chore&#39;,
-        name:&#39;chore: Changes to the build process or auxiliary tools\n and libraries such as documentation generation&#39;,
-    &#125;
-],
-
-scopes: [&#123; name: &#39;&#39;common &#125;, &#123; name: &#39;route&#39; &#125;, &#123; name: &#39;components&#39; &#125;],
-allowTicketNumber: false,
-isTicketNumberRequired: false,
-ticketNumberPrefix: &#39;TICKET-&#39;,
-ticketNumberRegExp: &#39;\\d&#123;1,5&#125;&#39;,
-&#x2F;&#x2F; it needs to match the value for field type. Eg.: &#39;fix&#39;
-&#x2F;*
-scopeOverrides: &#123;
-fix: [
-&#123;name: &#39;merge&#39;&#125;,
-&#123;name: &#39;style&#39;&#125;,
-&#123;name: &#39;e2eTest&#39;&#125;,
-&#123;name: &#39;unitTest&#39;&#125;
-]
-&#125;,
-*&#x2F;
-&#x2F;&#x2F; override the messages, defaults are as follows
-messages: &#123;
-    type: &quot;Select the type of change that you&#39;re committing:&quot;,
-    scope: &#39;\nDenote the SCOPE of this change (optional):&#39;,
-    &#x2F;&#x2F; used if allowCustomScopes is true
-    customScope: &#39;Denote the SCOPE of this change:&#39;,
-    subject: &#39;Write a SHORT, IMPERATIVE tense description of the change:\n&#39;,
-    body: &#39;Provide a LONGER description of the change (optional). Use &quot;|&quot; to break new line:\n&#39;,
-    breaking: &#39;List any BREAKING CHANGES (optional):\n&#39;,
-    footer: &#39;List any ISSUES CLOSED by this change (optional). E.g.: #31, #34:\n&#39;,
-    confirmCommit: &#39;Are you sure you want to proceed with the commit above?&#39;,
-&#125;,
-allowCustomScopes: true,
-allowBreakingChanges: [&#39;feat&#39;, &#39;fix&#39;],
-&#x2F;&#x2F; skip any questions you want
-skipQuestions: [&#39;body&#39;,&#39;breaking&#39;,&#39;footer&#39;],
-&#x2F;&#x2F; limit subject length
-subjectLimit: 100,
-&#x2F;&#x2F; breaklineChar: &#39;|&#39;, &#x2F;&#x2F; It is supported for fields body and footer.
-&#x2F;&#x2F; footerPrefix : &#39;ISSUES CLOSED:&#39;
-&#x2F;&#x2F; askForBreakingChangeFirst : true, &#x2F;&#x2F; default is false
-&#125;;
-
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<li>安装cz-customizable<figure class="highlight q"><table><tr><td class="code"><pre><span class="line">npm install  cz-customizable --<span class="built_in">save</span>-<span class="built_in">dev</span></span><br></pre></td></tr></table></figure></li>
+<li>修改package.json文件，在scripts中加入commit命令<figure class="highlight ada"><table><tr><td class="code"><pre><span class="line"><span class="string">&quot;scripts&quot;</span> : &#123;</span><br><span class="line">  ...</span><br><span class="line">  <span class="string">&quot;commit&quot;</span>: <span class="string">&quot;./node_modules/cz-customizable/standalone.js&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>新建.cz-config.js文件<figure class="highlight xquery"><table><tr><td class="code"><pre><span class="line"><span class="keyword">module</span>.exports = &#123;</span><br><span class="line">types: [</span><br><span class="line">    &#123; value: <span class="string">&#x27;feat&#x27;</span>,<span class="built_in"> name</span>: <span class="string">&#x27;feat: A new feature&#x27;</span> &#125;,</span><br><span class="line">    &#123; value: <span class="string">&#x27;fix&#x27;</span>,<span class="built_in"> name</span>: <span class="string">&#x27;fix: A bug fix&#x27;</span> &#125;,</span><br><span class="line">    &#123; value: <span class="string">&#x27;docs&#x27;</span>,<span class="built_in"> name</span>: <span class="string">&#x27;docs: Documentation only changes&#x27;</span> &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">        value: <span class="string">&#x27;style&#x27;</span>,</span><br><span class="line">       <span class="built_in"> name</span>: <span class="string">&#x27;style: Changes that do not affect the meaning of the code\n (white-space, formatting, missing semi-colons, etc)&#x27;</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">        value: <span class="string">&#x27;refactor&#x27;</span>,</span><br><span class="line">       <span class="built_in"> name</span>: <span class="string">&#x27;refactor: A code change that neither fixes a bug nor adds a feature&#x27;</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">        value: <span class="string">&#x27;perf&#x27;</span>,</span><br><span class="line">       <span class="built_in"> name</span>: <span class="string">&#x27;perf: A code change that improves performance&#x27;</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123; value: <span class="string">&#x27;test&#x27;</span>,<span class="built_in"> name</span>: <span class="string">&#x27;test: Adding missing tests&#x27;</span> &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">        value: <span class="string">&#x27;chore&#x27;</span>,</span><br><span class="line">       <span class="built_in"> name</span>:<span class="string">&#x27;chore: Changes to the build process or auxiliary tools\n and libraries such as documentation generation&#x27;</span>,</span><br><span class="line">    &#125;</span><br><span class="line">],</span><br><span class="line"></span><br><span class="line">scopes: [&#123;<span class="built_in"> name</span>: <span class="string">&#x27;&#x27;</span>common &#125;, &#123;<span class="built_in"> name</span>: <span class="string">&#x27;route&#x27;</span> &#125;, &#123;<span class="built_in"> name</span>: <span class="string">&#x27;components&#x27;</span> &#125;],</span><br><span class="line">allowTicketNumber:<span class="built_in"> false</span>,</span><br><span class="line">isTicketNumberRequired:<span class="built_in"> false</span>,</span><br><span class="line">ticketNumberPrefix: <span class="string">&#x27;TICKET-&#x27;</span>,</span><br><span class="line">ticketNumberRegExp: <span class="string">&#x27;\\d&#123;1,5&#125;&#x27;</span>,</span><br><span class="line">// it needs <span class="keyword">to</span> match the <span class="keyword">value</span> <span class="keyword">for</span> field type. Eg.: <span class="string">&#x27;fix&#x27;</span></span><br><span class="line">/*</span><br><span class="line">scopeOverrides: &#123;</span><br><span class="line">fix: [</span><br><span class="line"><span class="built_in">&#123;name</span>: <span class="string">&#x27;merge&#x27;</span>&#125;,</span><br><span class="line"><span class="built_in">&#123;name</span>: <span class="string">&#x27;style&#x27;</span>&#125;,</span><br><span class="line"><span class="built_in">&#123;name</span>: <span class="string">&#x27;e2eTest&#x27;</span>&#125;,</span><br><span class="line"><span class="built_in">&#123;name</span>: <span class="string">&#x27;unitTest&#x27;</span>&#125;</span><br><span class="line">]</span><br><span class="line">&#125;,</span><br><span class="line">*/</span><br><span class="line">// override the messages, defaults are <span class="keyword">as</span> follows</span><br><span class="line">messages: &#123;</span><br><span class="line">    type: <span class="string">&quot;Select the type of change that you&#x27;re committing:&quot;</span>,</span><br><span class="line">    scope: <span class="string">&#x27;\nDenote the SCOPE of this change (optional):&#x27;</span>,</span><br><span class="line">    // used <span class="keyword">if</span> allowCustomScopes <span class="literal">is</span><span class="built_in"> true</span></span><br><span class="line">    customScope: <span class="string">&#x27;Denote the SCOPE of this change:&#x27;</span>,</span><br><span class="line">    subject: <span class="string">&#x27;Write a SHORT, IMPERATIVE tense description of the change:\n&#x27;</span>,</span><br><span class="line">    body: <span class="string">&#x27;Provide a LONGER description of the change (optional). Use &quot;|&quot; to break new line:\n&#x27;</span>,</span><br><span class="line">    breaking: <span class="string">&#x27;List any BREAKING CHANGES (optional):\n&#x27;</span>,</span><br><span class="line">    footer: <span class="string">&#x27;List any ISSUES CLOSED by this change (optional). E.g.: #31, #34:\n&#x27;</span>,</span><br><span class="line">    confirmCommit: <span class="string">&#x27;Are you sure you want to proceed with the commit above?&#x27;</span>,</span><br><span class="line">&#125;,</span><br><span class="line">allowCustomScopes:<span class="built_in"> true</span>,</span><br><span class="line">allowBreakingChanges: [<span class="string">&#x27;feat&#x27;</span>, <span class="string">&#x27;fix&#x27;</span>],</span><br><span class="line">// skip any questions you want</span><br><span class="line">skipQuestions: [<span class="string">&#x27;body&#x27;</span>,<span class="string">&#x27;breaking&#x27;</span>,<span class="string">&#x27;footer&#x27;</span>],</span><br><span class="line">// limit subject length</span><br><span class="line">subjectLimit: <span class="number">100</span>,</span><br><span class="line">// breaklineChar: <span class="string">&#x27;|&#x27;</span>, // It <span class="literal">is</span> supported <span class="keyword">for</span> fields body <span class="keyword">and</span> footer.</span><br><span class="line">// footerPrefix : <span class="string">&#x27;ISSUES CLOSED:&#x27;</span></span><br><span class="line">// askForBreakingChangeFirst :<span class="built_in"> true</span>, // <span class="keyword">default</span> <span class="literal">is</span><span class="built_in"> false</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
 该文件的配置信息可参考<a target="_blank" rel="noopener" href="https://www.npmjs.com/package/cz-customizable#options">options</a></li>
 </ol>
 <p>至此我们在提交代码时不在使用git commit命令，而是使用npm run commit这样就可以按照规范输出commit message。</p>
 <h3 id="校验commit-message"><a href="#校验commit-message" class="headerlink" title="校验commit message"></a>校验commit message</h3><p>上面的配置中我们并没有对commit message进行校验，也就是说如果项目中有成员继续使用git commit -m “message”提交仍是可以的，如果想增加commit message校验可以使用validate-commit-msg工具</p>
 <ol>
-<li>安装相关依赖包 <pre class="line-numbers language-none"><code class="language-none">npm install validate-commit-msg  husky --save-dev <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></li>
-<li>在package.json文件中增加以下配置<pre class="line-numbers language-none"><code class="language-none">&quot;husky&quot;: &#123;
-    &quot;hooks&quot;: &#123;
-        &quot;commit-msg&quot;: &quot;validate-commit-msg&quot;
-    &#125;
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-这样我们团队中如果有成员使用git commit -m ‘message’提交时，会提交不通过的提示<pre class="line-numbers language-none"><code class="language-none">$ git commit -m &#39;aaa&#39;
-husky &gt; commit-msg (node v8.11.3)
-INVALID COMMIT MSG: does not match &quot;&lt;type&gt;(&lt;scope&gt;): &lt;subject&gt;&quot; !
-aaa
-husky &gt; commit-msg hook failed (add --no-verify to bypass)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<li>安装相关依赖包 <figure class="highlight pgsql"><table><tr><td class="code"><pre><span class="line">npm install <span class="keyword">validate</span>-<span class="keyword">commit</span>-msg  husky <span class="comment">--save-dev </span></span><br></pre></td></tr></table></figure></li>
+<li>在package.json文件中增加以下配置<figure class="highlight json"><table><tr><td class="code"><pre><span class="line"><span class="attr">&quot;husky&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;hooks&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;commit-msg&quot;</span><span class="punctuation">:</span> <span class="string">&quot;validate-commit-msg&quot;</span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+这样我们团队中如果有成员使用git commit -m ‘message’提交时，会提交不通过的提示<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">$ git <span class="keyword">commit</span> <span class="operator">-</span>m <span class="string">&#x27;aaa&#x27;</span></span><br><span class="line">husky <span class="operator">&gt;</span> <span class="keyword">commit</span><span class="operator">-</span>msg (node v8<span class="number">.11</span><span class="number">.3</span>)</span><br><span class="line">INVALID <span class="keyword">COMMIT</span> MSG: does <span class="keyword">not</span> <span class="keyword">match</span> &quot;&lt;type&gt;(&lt;scope&gt;): &lt;subject&gt;&quot; <span class="operator">!</span></span><br><span class="line">aaa</span><br><span class="line">husky <span class="operator">&gt;</span> <span class="keyword">commit</span><span class="operator">-</span>msg hook failed (<span class="keyword">add</span> <span class="comment">--no-verify to bypass)</span></span><br></pre></td></tr></table></figure>
 至此用cz-customizable规范git commit提交记录配置完成</li>
 </ol>
 <h3 id="记录版本发布"><a href="#记录版本发布" class="headerlink" title="记录版本发布"></a>记录版本发布</h3><p>在之前的前端开发脚手架项目改动时，我们总是手动编写README文件，将做出的哪些改变一一列出来方便团队成员浏览知晓，后来在网上查阅参考别的项目得知我们可以通过<br>standard-version工具自动生成CHANGLOG文件记录版本变动</p>
 <ol>
-<li>安装<pre class="line-numbers language-none"><code class="language-none">npm install  standard-version --save-dev<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></li>
-<li>修改package.json文件，在scripts中加入release命令<pre class="line-numbers language-none"><code class="language-none">&quot;scripts&quot;: &#123;
-    ...
-    &quot;release&quot;: &quot;standard-version&quot;
-&#125;,<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<li>安装<figure class="highlight applescript"><table><tr><td class="code"><pre><span class="line">npm install  standard-<span class="built_in">version</span> <span class="comment">--save-dev</span></span><br></pre></td></tr></table></figure></li>
+<li>修改package.json文件，在scripts中加入release命令<figure class="highlight jboss-cli"><table><tr><td class="code"><pre><span class="line"><span class="string">&quot;scripts&quot;</span>: &#123;</span><br><span class="line">    <span class="string">...</span></span><br><span class="line">    <span class="string">&quot;release&quot;</span>: <span class="string">&quot;standard-version&quot;</span></span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
 执行npm run release即可生成CHANGELOG文件，该文件中包含Features和Bug Fixes的提交记录</li>
 </ol>
 <p>standard-version命令参数介绍</p>
-<pre class="line-numbers language-none"><code class="language-none">--release-as, -r     Specify the release type manually (like npm version &lt;major|minor|patch|1.1.0&gt;) [字符串]
-&#x2F;&#x2F; major: 1.0.0 -&gt; 2.0.0, minor: 1.0.0 -&gt; 1.1.0, patch : 1.0.0 -&gt; 1.0.1
---prerelease, -p     make a pre-release with optional option value to specify a tag id [字符串]
---infile, -i         Read the CHANGELOG from this file                 [默认值: &quot;CHANGELOG.md&quot;]
---message, -m        Commit message, replaces %s with new version [字符串] [默认值: &quot;chore(release): %s&quot;]
---first-release, -f  Is this the first release?                          [布尔] [默认值: false]
---sign, -s           Should the git commit and tag be signed?            [布尔] [默认值: false]
---no-verify, -n      Bypass pre-commit or commit-msg git hooks during the commit phase [布尔] [默认值: false]
---commit-all, -a     Commit all staged changes, not just files affected by standard-version [布尔] [默认值: false]
---silent             Don&#39;t print logs and errors                         [布尔] [默认值: false]
---tag-prefix, -t     Set a custom prefix for the git tag to be created   [字符串] [默认值: &quot;v&quot;]
---scripts            Provide scripts to execute for lifecycle events (prebump, precommit, [默认值: &#123;&#125;]
---skip               Map of steps in the release process that should be skipped    [默认值: &#123;&#125;]
---dry-run            See the commands that running standard-version would run [布尔] [默认值: false]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight elm"><table><tr><td class="code"><pre><span class="line"><span class="comment">--release-as, -r     Specify the release type manually (like npm version &lt;major|minor|patch|1.1.0&gt;) [字符串]</span></span><br><span class="line">// major: <span class="number">1.0</span><span class="number">.0</span> -&gt; <span class="number">2.0</span><span class="number">.0</span>, minor: <span class="number">1.0</span><span class="number">.0</span> -&gt; <span class="number">1.1</span><span class="number">.0</span>, patch : <span class="number">1.0</span><span class="number">.0</span> -&gt; <span class="number">1.0</span><span class="number">.1</span></span><br><span class="line"><span class="comment">--prerelease, -p     make a pre-release with optional option value to specify a tag id [字符串]</span></span><br><span class="line"><span class="comment">--infile, -i         Read the CHANGELOG from this file                 [默认值: &quot;CHANGELOG.md&quot;]</span></span><br><span class="line"><span class="comment">--message, -m        Commit message, replaces %s with new version [字符串] [默认值: &quot;chore(release): %s&quot;]</span></span><br><span class="line"><span class="comment">--first-release, -f  Is this the first release?                          [布尔] [默认值: false]</span></span><br><span class="line"><span class="comment">--sign, -s           Should the git commit and tag be signed?            [布尔] [默认值: false]</span></span><br><span class="line"><span class="comment">--no-verify, -n      Bypass pre-commit or commit-msg git hooks during the commit phase [布尔] [默认值: false]</span></span><br><span class="line"><span class="comment">--commit-all, -a     Commit all staged changes, not just files affected by standard-version [布尔] [默认值: false]</span></span><br><span class="line"><span class="comment">--silent             Don&#x27;t print logs and errors                         [布尔] [默认值: false]</span></span><br><span class="line"><span class="comment">--tag-prefix, -t     Set a custom prefix for the git tag to be created   [字符串] [默认值: &quot;v&quot;]</span></span><br><span class="line"><span class="comment">--scripts            Provide scripts to execute for lifecycle events (prebump, precommit, [默认值: &#123;&#125;]</span></span><br><span class="line"><span class="comment">--skip               Map of steps in the release process that should be skipped    [默认值: &#123;&#125;]</span></span><br><span class="line"><span class="comment">--dry-run            See the commands that running standard-version would run [布尔] [默认值: false]</span></span><br></pre></td></tr></table></figure>
 <p>&#x2F;&#x2F; 第一次发布版本<br>npm run release -f<br>&#x2F;&#x2F; 指定发布版本等级<br>npm run release  -r minor</p>
 <p><strong>注意</strong><br>使用standard-version生成CHANGELOG之前需要有完整的package.json文件，特别是有</p>
-<pre class="line-numbers language-none"><code class="language-none">&quot;repository&quot;: &#123;
-    &quot;type&quot;: &quot;git&quot;,
-    &quot;url&quot;: &quot;***&quot;
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight json"><table><tr><td class="code"><pre><span class="line"><span class="attr">&quot;repository&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;type&quot;</span><span class="punctuation">:</span> <span class="string">&quot;git&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;url&quot;</span><span class="punctuation">:</span> <span class="string">&quot;***&quot;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
 <p>否则生成的compare链接不完整，小编就犯过这个错</p>
 <p><strong>参考文章</strong></p>
 <ol>
@@ -349,9 +250,14 @@ husky &gt; commit-msg hook failed (add --no-verify to bypass)<span aria-hidden="
     </a>
   
 </nav>
-    
-<div id="comments"></div>
-      
+   
+
+
+
+
+
+
+
  
     </footer>
   </div>
@@ -528,21 +434,7 @@ husky &gt; commit-msg hook failed (add --no-verify to bypass)<span aria-hidden="
   
 
 
-   
-<script src="//imsun.github.io/gitment/dist/gitment.browser.js"></script>
-
-<script>
-  var gitment = new Gitment({
-    owner: "jesse121",
-    repo: "blog",
-    oauth: {
-      client_id: "3c3e422527fd3f9fa17a",
-      client_secret: "f28d1808ec9ab69fb24dc3e9fad81e1c3ab8dd8",
-    },
-  });
-  gitment.render("comments");
-</script>
-        
+          
 
 
 

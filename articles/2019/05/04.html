@@ -1,27 +1,39 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8" />
-   
+  <meta charset="utf-8">
+  
+  
   <title>为什么使用HTTP2？ | 前端之路</title>
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1, shrink-to-fit=no"
-  />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   
-  <meta name="description" content="专注前端开发，前端开发技术博客" />
-   
-  <meta name="keywords" content="Web前端开发，Javascript，前端开发博客" />
-    <link rel="alternate" href="/blog/atom.xml" title="前端之路" type="application/atom+xml">   <link rel="shortcut icon" href="/blog/favicon.ico">   
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+    <meta name="description" content="专注前端开发，前端开发技术博客">
   
-<link rel="stylesheet" href="/blog/css/style.css">
   
-<link rel="stylesheet" href="/blog/fancybox/jquery.fancybox.min.css">
+    <meta name="keywords" content="Web前端开发，Javascript，前端开发博客">
+  
+  
+    <link rel="alternate" href="/blog/atom.xml" title="前端之路" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/blog/favicon.ico">
+  
   
     
-<link rel="stylesheet" href="//imsun.github.io/gitment/style/default.css">
- 
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/blog/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/blog/fancybox/jquery.fancybox.min.css">
+
+  
+  
+  
+  
 <meta name="generator" content="Hexo 6.2.0"></head>
 
 <body>
@@ -150,13 +162,9 @@
 <li>HTTP&#x2F;2多个请求可同时在一个连接上并行执行。某个请求任务耗时严重，不会影响到其它连接的正常执行；</li>
 </ol>
 <h3 id="nginx上http2-0配置"><a href="#nginx上http2-0配置" class="headerlink" title="nginx上http2.0配置"></a>nginx上http2.0配置</h3><p>尽管HTTP2.0其实可以支持非HTTPS的，但是现在主流的浏览器像chrome，firefox表示还是只支持基于 TLS 部署的HTTP2.0协议，所以要想升级成HTTP2.0还是先升级HTTPS为好。<br>在https基础上配置成http2就非常简单了，<br>在 Nginx 上 开启 HTTP&#x2F;2 需要 Nginx 1.9.5 以上版本，并且需要 OpenSSL 版本在 1.0.2 以上。<br>查看openssl版本</p>
-<pre class="line-numbers language-none"><code class="language-none">openss version
-OpenSSL 1.0.2k-fips  26 Jan 2017<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<figure class="highlight apache"><table><tr><td class="code"><pre><span class="line"><span class="attribute">openss</span> version</span><br><span class="line"><span class="attribute">OpenSSL</span> <span class="number">1</span>.<span class="number">0</span>.<span class="number">2</span>k-fips  <span class="number">26</span> Jan <span class="number">2017</span></span><br></pre></td></tr></table></figure>
 <p>修改Nginx配置<br>在 server 配置段中的 listen 后增加 http2 即可。</p>
-<pre class="line-numbers language-none"><code class="language-none">server&#123;
-    listen  443 ssl http2;
-    ···
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight pgsql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">server</span>&#123;</span><br><span class="line">    <span class="keyword">listen</span>  <span class="number">443</span> ssl http2;</span><br><span class="line">    ···</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>重启nginx  nginx -s reload<br>至此可以在浏览器访问看看http2是否生效</p>
 <h4 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h4><ol>
 <li><a target="_blank" rel="noopener" href="https://juejin.im/entry/5981c5df518825359a2b9476">HTTP1.0、HTTP1.1 和 HTTP2.0 的区别</a></li>
@@ -217,9 +225,14 @@ OpenSSL 1.0.2k-fips  26 Jan 2017<span aria-hidden="true" class="line-numbers-row
     </a>
   
 </nav>
-    
-<div id="comments"></div>
-      
+   
+
+
+
+
+
+
+
  
     </footer>
   </div>
@@ -396,21 +409,7 @@ OpenSSL 1.0.2k-fips  26 Jan 2017<span aria-hidden="true" class="line-numbers-row
   
 
 
-   
-<script src="//imsun.github.io/gitment/dist/gitment.browser.js"></script>
-
-<script>
-  var gitment = new Gitment({
-    owner: "jesse121",
-    repo: "blog",
-    oauth: {
-      client_id: "3c3e422527fd3f9fa17a",
-      client_secret: "f28d1808ec9ab69fb24dc3e9fad81e1c3ab8dd8",
-    },
-  });
-  gitment.render("comments");
-</script>
-        
+          
 
 
 

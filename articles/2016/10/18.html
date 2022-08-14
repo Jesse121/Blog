@@ -1,27 +1,39 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8" />
-   
+  <meta charset="utf-8">
+  
+  
   <title>Bootstrap源码分析系列之初始化和依赖项 | 前端之路</title>
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1, shrink-to-fit=no"
-  />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   
-  <meta name="description" content="专注前端开发，前端开发技术博客" />
-   
-  <meta name="keywords" content="Web前端开发，Javascript，前端开发博客" />
-    <link rel="alternate" href="/blog/atom.xml" title="前端之路" type="application/atom+xml">   <link rel="shortcut icon" href="/blog/favicon.ico">   
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+    <meta name="description" content="专注前端开发，前端开发技术博客">
   
-<link rel="stylesheet" href="/blog/css/style.css">
   
-<link rel="stylesheet" href="/blog/fancybox/jquery.fancybox.min.css">
+    <meta name="keywords" content="Web前端开发，Javascript，前端开发博客">
+  
+  
+    <link rel="alternate" href="/blog/atom.xml" title="前端之路" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/blog/favicon.ico">
+  
   
     
-<link rel="stylesheet" href="//imsun.github.io/gitment/style/default.css">
- 
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/blog/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/blog/fancybox/jquery.fancybox.min.css">
+
+  
+  
+  
+  
 <meta name="generator" content="Hexo 6.2.0"></head>
 
 <body>
@@ -126,204 +138,9 @@
        <p>在上一节中我们介绍了Bootstrap整体架构，本节我们将介绍Bootstrap框架第二部分初始化及依赖项，这部分内容位于源码的第8~885行，打开源码这部分内容似乎也不是很难理解。但是请站在一个开发者的角度来面对这段源码。为什么要这样写？如果没有Bootstrap框架我能写出类似这样的框架吗？  </p>
 <span id="more"></span>
 <p>我们先来分析normalize.less编译后的源码,我们知道normalize.css是一个专门将不同浏览器的默认css特性设置为统一效果的css库,它和reset.css还是有区别的，normalize.css并不是简单的重置了所有的样式，而是有针对的修改，同时也保留了标签的语义化。</p>
-<pre class="line-numbers language-css" data-language="css"><code class="language-css"><span class="token selector">html</span> <span class="token punctuation">&#123;</span>
-  <span class="token property">font-family</span><span class="token punctuation">:</span> sans-serif<span class="token punctuation">;</span>
-  <span class="token property">-webkit-text-size-adjust</span><span class="token punctuation">:</span> 100%<span class="token punctuation">;</span>  //防止IOS系统方向改变<span class="token punctuation">(</span>特别是手持设备<span class="token punctuation">)</span>后字体大小的调整，不禁用用户缩放。
-      <span class="token property">-ms-text-size-adjust</span><span class="token punctuation">:</span> 100%<span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span>
-<span class="token selector">body</span> <span class="token punctuation">&#123;</span>
-  <span class="token property">margin</span><span class="token punctuation">:</span> 0<span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span>
-<span class="token selector">article,
-aside,
-details,
-figcaption,
-figure,
-footer,
-header,
-hgroup,
-main,
-menu,
-nav,
-section,
-summary</span> <span class="token punctuation">&#123;</span>
-  <span class="token property">display</span><span class="token punctuation">:</span> block<span class="token punctuation">;</span> //修正IE中未定义的html5块状元素
-<span class="token punctuation">&#125;</span>
-<span class="token selector">audio,
-canvas,
-progress,
-video</span> <span class="token punctuation">&#123;</span>
-  <span class="token property">display</span><span class="token punctuation">:</span> inline-block<span class="token punctuation">;</span>
-  <span class="token property">vertical-align</span><span class="token punctuation">:</span> baseline<span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span>
-<span class="token selector">audio:not([controls])</span> <span class="token punctuation">&#123;</span>//否定伪类<span class="token punctuation">,</span>匹配所有没有controls属性的audio
-  <span class="token property">display</span><span class="token punctuation">:</span> none<span class="token punctuation">;</span>  //防止现代浏览器显示没有控制条的音频。
-  <span class="token property">height</span><span class="token punctuation">:</span> 0<span class="token punctuation">;</span>  //在iOS5设备中去除多余的高度。
-<span class="token punctuation">&#125;</span>
-<span class="token selector">[hidden],
-template</span> <span class="token punctuation">&#123;</span>//template标签主要用于声明是“模板元素”。
-  <span class="token property">display</span><span class="token punctuation">:</span> none<span class="token punctuation">;</span> //template标签和有hidden属性的元素不显示
-<span class="token punctuation">&#125;</span>
-<span class="token selector">a</span> <span class="token punctuation">&#123;</span>
-  <span class="token property">background-color</span><span class="token punctuation">:</span> transparent<span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span>
-<span class="token selector">a:active,
-a:hover</span> <span class="token punctuation">&#123;</span>
-  <span class="token property">outline</span><span class="token punctuation">:</span> 0<span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span>
-<span class="token selector">abbr[title]</span> <span class="token punctuation">&#123;</span>
-  <span class="token property">border-bottom</span><span class="token punctuation">:</span> 1px dotted<span class="token punctuation">;</span>//<span class="token property">这是缩写形式，border-bottom-color</span><span class="token punctuation">:</span>initial<span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span>
-<span class="token selector">b,
-strong</span> <span class="token punctuation">&#123;</span>
-  <span class="token property">font-weight</span><span class="token punctuation">:</span> bold<span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span>
-<span class="token selector">dfn</span> <span class="token punctuation">&#123;</span>  //用来定义一个定义项目。
-  <span class="token property">font-style</span><span class="token punctuation">:</span> italic<span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span>
-<span class="token selector">h1</span> <span class="token punctuation">&#123;</span>
-  <span class="token property">margin</span><span class="token punctuation">:</span> .67em 0<span class="token punctuation">;</span>
-  <span class="token property">font-size</span><span class="token punctuation">:</span> 2em<span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span>
-<span class="token selector">mark</span> <span class="token punctuation">&#123;</span> //部分文本高亮显示<span class="token punctuation">,</span>请在需要突出显示文本时使用
-  <span class="token property">color</span><span class="token punctuation">:</span> #000<span class="token punctuation">;</span>
-  <span class="token property">background</span><span class="token punctuation">:</span> #ff0<span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span>
-<span class="token selector">small</span> <span class="token punctuation">&#123;</span>
-  <span class="token property">font-size</span><span class="token punctuation">:</span> 80%<span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span>
-<span class="token selector">sub,
-sup</span> <span class="token punctuation">&#123;</span> //防止sub sup影响行高
-  <span class="token property">position</span><span class="token punctuation">:</span> relative<span class="token punctuation">;</span>
-  <span class="token property">font-size</span><span class="token punctuation">:</span> 75%<span class="token punctuation">;</span>
-  <span class="token property">line-height</span><span class="token punctuation">:</span> 0<span class="token punctuation">;</span>
-  <span class="token property">vertical-align</span><span class="token punctuation">:</span> baseline<span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span>
-<span class="token selector">sup</span> <span class="token punctuation">&#123;</span>
-  <span class="token property">top</span><span class="token punctuation">:</span> -.5em<span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span>
-<span class="token selector">sub</span> <span class="token punctuation">&#123;</span>
-  <span class="token property">bottom</span><span class="token punctuation">:</span> -.25em<span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span>
-<span class="token selector">img</span> <span class="token punctuation">&#123;</span>
-  <span class="token property">border</span><span class="token punctuation">:</span> 0<span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span>
-<span class="token selector">svg:not(:root)</span> <span class="token punctuation">&#123;</span>//非根目录的svg标签
-  <span class="token property">overflow</span><span class="token punctuation">:</span> hidden<span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span>
-<span class="token selector">figure</span> <span class="token punctuation">&#123;</span> //标记文档中的一个图像
-  <span class="token property">margin</span><span class="token punctuation">:</span> 1em 40px<span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span>
-<span class="token selector">hr</span> <span class="token punctuation">&#123;</span>
-  <span class="token property">height</span><span class="token punctuation">:</span> 0<span class="token punctuation">;</span>
-  <span class="token property">-webkit-box-sizing</span><span class="token punctuation">:</span> content-box<span class="token punctuation">;</span>
-     <span class="token property">-moz-box-sizing</span><span class="token punctuation">:</span> content-box<span class="token punctuation">;</span>
-          <span class="token property">box-sizing</span><span class="token punctuation">:</span> content-box<span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span>
-<span class="token selector">pre</span> <span class="token punctuation">&#123;</span>
-  <span class="token property">overflow</span><span class="token punctuation">:</span> auto<span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span>
-<span class="token selector">code,
-kbd,
-pre,
-samp</span> <span class="token punctuation">&#123;</span>
-  <span class="token property">font-family</span><span class="token punctuation">:</span> monospace<span class="token punctuation">,</span> monospace<span class="token punctuation">;</span>
-  <span class="token property">font-size</span><span class="token punctuation">:</span> 1em<span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span>
-<span class="token selector">button,
-input,
-optgroup,
-select,
-textarea</span> <span class="token punctuation">&#123;</span>
-  <span class="token property">margin</span><span class="token punctuation">:</span> 0<span class="token punctuation">;</span>
-  <span class="token property">font</span><span class="token punctuation">:</span> inherit<span class="token punctuation">;</span>
-  <span class="token property">color</span><span class="token punctuation">:</span> inherit<span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span>
-<span class="token selector">button</span> <span class="token punctuation">&#123;</span>
-  <span class="token property">overflow</span><span class="token punctuation">:</span> visible<span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span>
-<span class="token selector">button,
-select</span> <span class="token punctuation">&#123;</span>
-  <span class="token property">text-transform</span><span class="token punctuation">:</span> none<span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span>
-<span class="token selector">button,
-html input[type="button"],
-input[type="reset"],
-input[type="submit"]</span> <span class="token punctuation">&#123;</span>
-  <span class="token property">-webkit-appearance</span><span class="token punctuation">:</span> button<span class="token punctuation">;</span>
-  <span class="token property">cursor</span><span class="token punctuation">:</span> pointer<span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span>
-<span class="token selector">button[disabled],
-html input[disabled]</span> <span class="token punctuation">&#123;</span>
-  <span class="token property">cursor</span><span class="token punctuation">:</span> default<span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span>
-<span class="token selector">button::-moz-focus-inner,
-input::-moz-focus-inner</span> <span class="token punctuation">&#123;</span> //删除在火狐浏览器4及以上中的按钮的内部填充和边框
-  <span class="token property">padding</span><span class="token punctuation">:</span> 0<span class="token punctuation">;</span>
-  <span class="token property">border</span><span class="token punctuation">:</span> 0<span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span>
-<span class="token selector">input</span> <span class="token punctuation">&#123;</span>
-  <span class="token property">line-height</span><span class="token punctuation">:</span> normal<span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span>
-<span class="token selector">input[type="checkbox"],
-input[type="radio"]</span> <span class="token punctuation">&#123;</span>
-  <span class="token property">-webkit-box-sizing</span><span class="token punctuation">:</span> border-box<span class="token punctuation">;</span>
-     <span class="token property">-moz-box-sizing</span><span class="token punctuation">:</span> border-box<span class="token punctuation">;</span>
-          <span class="token property">box-sizing</span><span class="token punctuation">:</span> border-box<span class="token punctuation">;</span>
-  <span class="token property">padding</span><span class="token punctuation">:</span> 0<span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span>
-<span class="token selector">input[type="number"]::-webkit-inner-spin-button,
-input[type="number"]::-webkit-outer-spin-button</span> <span class="token punctuation">&#123;</span>
-  <span class="token property">height</span><span class="token punctuation">:</span> auto<span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span>
-<span class="token selector">input[type="search"]</span> <span class="token punctuation">&#123;</span>
-  <span class="token property">-webkit-box-sizing</span><span class="token punctuation">:</span> content-box<span class="token punctuation">;</span>
-     <span class="token property">-moz-box-sizing</span><span class="token punctuation">:</span> content-box<span class="token punctuation">;</span>
-          <span class="token property">box-sizing</span><span class="token punctuation">:</span> content-box<span class="token punctuation">;</span>
-  <span class="token property">-webkit-appearance</span><span class="token punctuation">:</span> textfield<span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span>
-<span class="token selector">input[type="search"]::-webkit-search-cancel-button,
-input[type="search"]::-webkit-search-decoration</span> <span class="token punctuation">&#123;</span>
-  <span class="token property">-webkit-appearance</span><span class="token punctuation">:</span> none<span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span>
-<span class="token selector">fieldset</span> <span class="token punctuation">&#123;</span>//将表单内的相关元素分组。
-  <span class="token property">padding</span><span class="token punctuation">:</span> .35em .625em .75em<span class="token punctuation">;</span>
-  <span class="token property">margin</span><span class="token punctuation">:</span> 0 2px<span class="token punctuation">;</span>
-  <span class="token property">border</span><span class="token punctuation">:</span> 1px solid #c0c0c0<span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span>
-<span class="token selector">legend</span> <span class="token punctuation">&#123;</span>
-  <span class="token property">padding</span><span class="token punctuation">:</span> 0<span class="token punctuation">;</span>
-  <span class="token property">border</span><span class="token punctuation">:</span> 0<span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span>
-<span class="token selector">textarea</span> <span class="token punctuation">&#123;</span>
-  <span class="token property">overflow</span><span class="token punctuation">:</span> auto<span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span>
-<span class="token selector">optgroup</span> <span class="token punctuation">&#123;</span>//用于把相关的选项组合在一起。
-  <span class="token property">font-weight</span><span class="token punctuation">:</span> bold<span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span>
-<span class="token selector">table</span> <span class="token punctuation">&#123;</span>
-  <span class="token property">border-spacing</span><span class="token punctuation">:</span> 0<span class="token punctuation">;</span>
-  <span class="token property">border-collapse</span><span class="token punctuation">:</span> collapse<span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span>
-<span class="token selector">td,
-th</span> <span class="token punctuation">&#123;</span>
-  <span class="token property">padding</span><span class="token punctuation">:</span> 0<span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">html</span> &#123;</span><br><span class="line">  <span class="attribute">font-family</span>: sans-serif;</span><br><span class="line">  -webkit-text-size-adjust: <span class="number">100%</span>;  //防止IOS系统方向改变(特别是手持设备)后字体大小的调整，不禁用用户缩放。</span><br><span class="line">      -ms-text-size-adjust: <span class="number">100%</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">body</span> &#123;</span><br><span class="line">  <span class="attribute">margin</span>: <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">article</span>,</span><br><span class="line"><span class="selector-tag">aside</span>,</span><br><span class="line"><span class="selector-tag">details</span>,</span><br><span class="line"><span class="selector-tag">figcaption</span>,</span><br><span class="line"><span class="selector-tag">figure</span>,</span><br><span class="line"><span class="selector-tag">footer</span>,</span><br><span class="line"><span class="selector-tag">header</span>,</span><br><span class="line"><span class="selector-tag">hgroup</span>,</span><br><span class="line"><span class="selector-tag">main</span>,</span><br><span class="line"><span class="selector-tag">menu</span>,</span><br><span class="line"><span class="selector-tag">nav</span>,</span><br><span class="line"><span class="selector-tag">section</span>,</span><br><span class="line"><span class="selector-tag">summary</span> &#123;</span><br><span class="line">  <span class="attribute">display</span>: block; //修正IE中未定义的html5块状元素</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">audio</span>,</span><br><span class="line"><span class="selector-tag">canvas</span>,</span><br><span class="line">progress,</span><br><span class="line"><span class="selector-tag">video</span> &#123;</span><br><span class="line">  <span class="attribute">display</span>: inline-block;</span><br><span class="line">  <span class="attribute">vertical-align</span>: baseline;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">audio</span><span class="selector-pseudo">:not</span>(<span class="selector-attr">[controls]</span>) &#123;//否定伪类,匹配所有没有controls属性的<span class="selector-tag">audio</span></span><br><span class="line">  <span class="attribute">display</span>: none;  //防止现代浏览器显示没有控制条的音频。</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">0</span>;  //在iOS5设备中去除多余的高度。</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-attr">[hidden]</span>,</span><br><span class="line">template &#123;//template标签主要用于声明是“模板元素”。</span><br><span class="line">  <span class="attribute">display</span>: none; //template标签和有hidden属性的元素不显示</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">a</span> &#123;</span><br><span class="line">  <span class="attribute">background-color</span>: transparent;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">a</span><span class="selector-pseudo">:active</span>,</span><br><span class="line"><span class="selector-tag">a</span><span class="selector-pseudo">:hover</span> &#123;</span><br><span class="line">  <span class="attribute">outline</span>: <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">abbr</span><span class="selector-attr">[title]</span> &#123;</span><br><span class="line">  <span class="attribute">border-bottom</span>: <span class="number">1px</span> dotted;//这是缩写形式，<span class="attribute">border-bottom-color</span>:initial;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">b</span>,</span><br><span class="line"><span class="selector-tag">strong</span> &#123;</span><br><span class="line">  <span class="attribute">font-weight</span>: bold;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">dfn</span> &#123;  //用来定义一个定义项目。</span><br><span class="line">  <span class="attribute">font-style</span>: italic;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">h1</span> &#123;</span><br><span class="line">  <span class="attribute">margin</span>: .<span class="number">67em</span> <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">font-size</span>: <span class="number">2em</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">mark</span> &#123; //部分文本高亮显示,请在需要突出显示文本时使用</span><br><span class="line">  <span class="attribute">color</span>: <span class="number">#000</span>;</span><br><span class="line">  <span class="attribute">background</span>: <span class="number">#ff0</span>;</span><br><span class="line">&#125;</span><br><span class="line">small &#123;</span><br><span class="line">  <span class="attribute">font-size</span>: <span class="number">80%</span>;</span><br><span class="line">&#125;</span><br><span class="line">sub,</span><br><span class="line"><span class="selector-tag">sup</span> &#123; //防止sub <span class="selector-tag">sup</span>影响行高</span><br><span class="line">  <span class="attribute">position</span>: relative;</span><br><span class="line">  <span class="attribute">font-size</span>: <span class="number">75%</span>;</span><br><span class="line">  <span class="attribute">line-height</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">vertical-align</span>: baseline;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">sup</span> &#123;</span><br><span class="line">  <span class="attribute">top</span>: -.<span class="number">5em</span>;</span><br><span class="line">&#125;</span><br><span class="line">sub &#123;</span><br><span class="line">  <span class="attribute">bottom</span>: -.<span class="number">25em</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">img</span> &#123;</span><br><span class="line">  <span class="attribute">border</span>: <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line">svg<span class="selector-pseudo">:not</span>(<span class="selector-pseudo">:root</span>) &#123;//非根目录的svg标签</span><br><span class="line">  <span class="attribute">overflow</span>: hidden;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">figure</span> &#123; //标记文档中的一个图像</span><br><span class="line">  <span class="attribute">margin</span>: <span class="number">1em</span> <span class="number">40px</span>;</span><br><span class="line">&#125;</span><br><span class="line">hr &#123;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">0</span>;</span><br><span class="line">  -webkit-<span class="attribute">box-sizing</span>: content-box;</span><br><span class="line">     -moz-<span class="attribute">box-sizing</span>: content-box;</span><br><span class="line">          <span class="attribute">box-sizing</span>: content-box;</span><br><span class="line">&#125;</span><br><span class="line">pre &#123;</span><br><span class="line">  <span class="attribute">overflow</span>: auto;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">code</span>,</span><br><span class="line"><span class="selector-tag">kbd</span>,</span><br><span class="line">pre,</span><br><span class="line"><span class="selector-tag">samp</span> &#123;</span><br><span class="line">  <span class="attribute">font-family</span>: monospace, monospace;</span><br><span class="line">  <span class="attribute">font-size</span>: <span class="number">1em</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">button</span>,</span><br><span class="line"><span class="selector-tag">input</span>,</span><br><span class="line">optgroup,</span><br><span class="line">select,</span><br><span class="line"><span class="selector-tag">textarea</span> &#123;</span><br><span class="line">  <span class="attribute">margin</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">font</span>: inherit;</span><br><span class="line">  <span class="attribute">color</span>: inherit;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">button</span> &#123;</span><br><span class="line">  <span class="attribute">overflow</span>: visible;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">button</span>,</span><br><span class="line">select &#123;</span><br><span class="line">  <span class="attribute">text-transform</span>: none;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">button</span>,</span><br><span class="line"><span class="selector-tag">html</span> <span class="selector-tag">input</span><span class="selector-attr">[type=<span class="string">&quot;button&quot;</span>]</span>,</span><br><span class="line"><span class="selector-tag">input</span><span class="selector-attr">[type=<span class="string">&quot;reset&quot;</span>]</span>,</span><br><span class="line"><span class="selector-tag">input</span><span class="selector-attr">[type=<span class="string">&quot;submit&quot;</span>]</span> &#123;</span><br><span class="line">  -webkit-appearance: button;</span><br><span class="line">  <span class="attribute">cursor</span>: pointer;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">button</span><span class="selector-attr">[disabled]</span>,</span><br><span class="line"><span class="selector-tag">html</span> <span class="selector-tag">input</span><span class="selector-attr">[disabled]</span> &#123;</span><br><span class="line">  <span class="attribute">cursor</span>: default;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">button</span>::-moz-focus-inner,</span><br><span class="line">input::-moz-focus-inner &#123; //删除在火狐浏览器<span class="number">4</span>及以上中的按钮的内部填充和边框</span><br><span class="line">  <span class="attribute">padding</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">border</span>: <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">input</span> &#123;</span><br><span class="line">  <span class="attribute">line-height</span>: normal;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">input</span><span class="selector-attr">[type=<span class="string">&quot;checkbox&quot;</span>]</span>,</span><br><span class="line"><span class="selector-tag">input</span><span class="selector-attr">[type=<span class="string">&quot;radio&quot;</span>]</span> &#123;</span><br><span class="line">  -webkit-<span class="attribute">box-sizing</span>: border-box;</span><br><span class="line">     -moz-<span class="attribute">box-sizing</span>: border-box;</span><br><span class="line">          <span class="attribute">box-sizing</span>: border-box;</span><br><span class="line">  <span class="attribute">padding</span>: <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">input</span><span class="selector-attr">[type=<span class="string">&quot;number&quot;</span>]</span>::-webkit-inner-spin-button,</span><br><span class="line">input[type=<span class="string">&quot;number&quot;</span>]::-webkit-outer-spin-button &#123;</span><br><span class="line">  <span class="attribute">height</span>: auto;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">input</span><span class="selector-attr">[type=<span class="string">&quot;search&quot;</span>]</span> &#123;</span><br><span class="line">  -webkit-<span class="attribute">box-sizing</span>: content-box;</span><br><span class="line">     -moz-<span class="attribute">box-sizing</span>: content-box;</span><br><span class="line">          <span class="attribute">box-sizing</span>: content-box;</span><br><span class="line">  -webkit-appearance: textfield;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">input</span><span class="selector-attr">[type=<span class="string">&quot;search&quot;</span>]</span>::-webkit-search-cancel-button,</span><br><span class="line">input[type=<span class="string">&quot;search&quot;</span>]::-webkit-search-decoration &#123;</span><br><span class="line">  -webkit-appearance: none;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">fieldset</span> &#123;//将表单内的相关元素分组。</span><br><span class="line">  <span class="attribute">padding</span>: .<span class="number">35em</span> .<span class="number">625em</span> .<span class="number">75em</span>;</span><br><span class="line">  <span class="attribute">margin</span>: <span class="number">0</span> <span class="number">2px</span>;</span><br><span class="line">  <span class="attribute">border</span>: <span class="number">1px</span> solid <span class="number">#c0c0c0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">legend</span> &#123;</span><br><span class="line">  <span class="attribute">padding</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">border</span>: <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">textarea</span> &#123;</span><br><span class="line">  <span class="attribute">overflow</span>: auto;</span><br><span class="line">&#125;</span><br><span class="line">optgroup &#123;//用于把相关的选项组合在一起。</span><br><span class="line">  <span class="attribute">font-weight</span>: bold;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">table</span> &#123;</span><br><span class="line">  <span class="attribute">border-spacing</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">border-collapse</span>: collapse;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">td</span>,</span><br><span class="line"><span class="selector-tag">th</span> &#123;</span><br><span class="line">  <span class="attribute">padding</span>: <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>print.less主要是网页的打印样式，在此就不做分析了<br>glyphicons.less是Bootstrap引入的字体图标样式，个人觉得提供的字体图标样式太少，而且不太适合国内的网页特点，所以在定制自己的Bootstrap框架时完全可以将其去掉，或者用其他的字体替换。我个人喜欢使用淘宝的iconfont字体，其使用方式与Bootstrap相同，都是在需要使用图标的地方加上相应的类名即可。<br>来分析下部分glyphicons源码</p>
-<pre class="line-numbers language-css" data-language="css"><code class="language-css"><span class="token selector">.glyphicon</span> <span class="token punctuation">&#123;</span>
-  <span class="token property">position</span><span class="token punctuation">:</span> relative<span class="token punctuation">;</span>
-  <span class="token property">top</span><span class="token punctuation">:</span> 1px<span class="token punctuation">;</span>
-  <span class="token property">display</span><span class="token punctuation">:</span> inline-block<span class="token punctuation">;</span>
-  <span class="token property">font-family</span><span class="token punctuation">:</span> <span class="token string">'Glyphicons Halflings'</span><span class="token punctuation">;</span>
-  <span class="token property">font-style</span><span class="token punctuation">:</span> normal<span class="token punctuation">;</span>
-  <span class="token property">font-weight</span><span class="token punctuation">:</span> normal<span class="token punctuation">;</span>
-  <span class="token property">line-height</span><span class="token punctuation">:</span> 1<span class="token punctuation">;</span>
-  <span class="token property">-webkit-font-smoothing</span><span class="token punctuation">:</span> antialiased<span class="token punctuation">;</span> //字体灰度平滑
-  <span class="token property">-moz-osx-font-smoothing</span><span class="token punctuation">:</span> grayscale<span class="token punctuation">;</span>// 灰阶渲染
-<span class="token punctuation">&#125;</span>
-<span class="token selector">.glyphicon-asterisk:before</span> <span class="token punctuation">&#123;</span>
-  <span class="token property">content</span><span class="token punctuation">:</span> <span class="token string">"\2a"</span><span class="token punctuation">;</span> //与引入的字体文件中图标对应
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.glyphicon</span> &#123;</span><br><span class="line">  <span class="attribute">position</span>: relative;</span><br><span class="line">  <span class="attribute">top</span>: <span class="number">1px</span>;</span><br><span class="line">  <span class="attribute">display</span>: inline-block;</span><br><span class="line">  <span class="attribute">font-family</span>: <span class="string">&#x27;Glyphicons Halflings&#x27;</span>;</span><br><span class="line">  <span class="attribute">font-style</span>: normal;</span><br><span class="line">  <span class="attribute">font-weight</span>: normal;</span><br><span class="line">  <span class="attribute">line-height</span>: <span class="number">1</span>;</span><br><span class="line">  -webkit-<span class="attribute">font-smoothing</span>: antialiased; //字体灰度平滑</span><br><span class="line">  -moz-osx-<span class="attribute">font-smoothing</span>: grayscale;// 灰阶渲染</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.glyphicon-asterisk</span><span class="selector-pseudo">:before</span> &#123;</span><br><span class="line">  <span class="attribute">content</span>: <span class="string">&quot;\2a&quot;</span>; //与引入的字体文件中图标对应</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>这些字体图标的本质是使用before伪类，其content后面的数字码则是与那个图标一一对应。</p>
  
       <div id="toc-article">
@@ -380,9 +197,14 @@ th</span> <span class="token punctuation">&#123;</span>
     </a>
   
 </nav>
-    
-<div id="comments"></div>
-      
+   
+
+
+
+
+
+
+
  
     </footer>
   </div>
@@ -559,21 +381,7 @@ th</span> <span class="token punctuation">&#123;</span>
   
 
 
-   
-<script src="//imsun.github.io/gitment/dist/gitment.browser.js"></script>
-
-<script>
-  var gitment = new Gitment({
-    owner: "jesse121",
-    repo: "blog",
-    oauth: {
-      client_id: "3c3e422527fd3f9fa17a",
-      client_secret: "f28d1808ec9ab69fb24dc3e9fad81e1c3ab8dd8",
-    },
-  });
-  gitment.render("comments");
-</script>
-        
+          
 
 
 

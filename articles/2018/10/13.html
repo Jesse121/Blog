@@ -1,27 +1,39 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8" />
-   
+  <meta charset="utf-8">
+  
+  
   <title>Node.js学习记录(一)--安装设置篇 | 前端之路</title>
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1, shrink-to-fit=no"
-  />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   
-  <meta name="description" content="专注前端开发，前端开发技术博客" />
-   
-  <meta name="keywords" content="Web前端开发，Javascript，前端开发博客" />
-    <link rel="alternate" href="/blog/atom.xml" title="前端之路" type="application/atom+xml">   <link rel="shortcut icon" href="/blog/favicon.ico">   
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+    <meta name="description" content="专注前端开发，前端开发技术博客">
   
-<link rel="stylesheet" href="/blog/css/style.css">
   
-<link rel="stylesheet" href="/blog/fancybox/jquery.fancybox.min.css">
+    <meta name="keywords" content="Web前端开发，Javascript，前端开发博客">
+  
+  
+    <link rel="alternate" href="/blog/atom.xml" title="前端之路" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/blog/favicon.ico">
+  
   
     
-<link rel="stylesheet" href="//imsun.github.io/gitment/style/default.css">
- 
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/blog/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/blog/fancybox/jquery.fancybox.min.css">
+
+  
+  
+  
+  
 <meta name="generator" content="Hexo 6.2.0"></head>
 
 <body>
@@ -127,31 +139,22 @@
 <span id="more"></span>
 
 <p>2、双击 install.cmd 然后会让你输入”压缩文件解压或拷贝到的一个绝对路径” 先不用管它，直接回车，成功后，会生成一个 settings.txt 的文本文件，把这个文件另存到 D:\Program Files\nvm 目录中，然后我们把它的内容修改成这样：</p>
-<pre class="line-numbers language-none"><code class="language-none">root: D:\Program Files\nvm
-path: D:\Program Files\nodejs
-arch: 64   &#x2F;&#x2F;改为自己的电脑的系统位数
-proxy: none
-node_mirror: http:&#x2F;&#x2F;npm.taobao.org&#x2F;mirrors&#x2F;node&#x2F;
-npm_mirror: https:&#x2F;&#x2F;npm.taobao.org&#x2F;mirrors&#x2F;npm&#x2F;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">root: D:\Program Files\nvm</span><br><span class="line">path: D:\Program Files\nodejs</span><br><span class="line">arch: <span class="number">64</span>   <span class="regexp">//</span>改为自己的电脑的系统位数</span><br><span class="line">proxy: none</span><br><span class="line">node_mirror: http:<span class="regexp">//</span>npm.taobao.org<span class="regexp">/mirrors/</span>node/</span><br><span class="line">npm_mirror: https:<span class="regexp">//</span>npm.taobao.org<span class="regexp">/mirrors/</span>npm/</span><br></pre></td></tr></table></figure>
 
 <p>3、然后我们开始配置环境变量了，因为刚刚点击了 install.cmd 的文件，那么会在环境变量的系统变量中，生成两个环境变量：NVM_HOME 和 NVM_SYMLINK 我们开始修改这两个变量名的变量值：NVM_HOME 的变量值为：D:\Program Files\nvm ； NVM_SYMLINK 的变量值为：D:\Program Files\nodejs</p>
 <p>4、在 Path 中也会自动添加上 D:\Program Files\nvm ;或者是 D:\Program Files\nodejs，如果有的话，把他们删掉，没有的话更好，我们自己来配置，在 Path 的最前面输入： ;%NVM_HOME%;%NVM_SYMLINK%;</p>
 <p>打开一个 cmd 窗口输入命令：nvm v ，那么我们会看到当前 nvm 的版本信息。然后我们可以安装 nodejs 了。</p>
 <p>nvm install v8.9.0 &#x2F;&#x2F;安装 8.9.0 版本 nodejs<br>nvm use v8.9.0 &#x2F;&#x2F;当前命令行窗口切换 nodejs 到 v8.9.0<br>nvm switch v8.9.0 &#x2F;&#x2F;切换到 8.9.0 版本为默认使用版本<br>nvm list &#x2F;&#x2F;显示本地已安装的 nodejs 版本<br>nvm list available&#x2F;&#x2F;显示可安装的 nodejs 版本<br>nvm arch &#x2F;&#x2F;查看 nodejs 运行为 32 位还是 64 位<br>nvm off &#x2F;&#x2F;关闭 nvm<br>nvm on &#x2F;&#x2F;开启 nvm<br>nvm version &#x2F;&#x2F;nvm 版本<br>nvm root c:&#x2F;&#x2F;nodePath &#x2F;&#x2F;设置不同版本 nodejs 安装的根路径<br>nvm uninstall v8.9.0 卸载 nodejs v8.9.0</p>
 <p><strong>linux</strong><br>这里通过 nvm 安装 node<br>下载并安装 nvm</p>
-<pre class="line-numbers language-none"><code class="language-none">curl https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;creationix&#x2F;nvm&#x2F;v0.13.1&#x2F;install.sh | bash
-或者
-wget -qO- https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;creationix&#x2F;nvm&#x2F;v0.33.11&#x2F;install.sh | bash
-然后
-source ~&#x2F;.bash_profile<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">curl https:<span class="regexp">//</span>raw.githubusercontent.com<span class="regexp">/creationix/</span>nvm<span class="regexp">/v0.13.1/i</span>nstall.sh | bash</span><br><span class="line">或者</span><br><span class="line">wget -qO- https:<span class="regexp">//</span>raw.githubusercontent.com<span class="regexp">/creationix/</span>nvm<span class="regexp">/v0.33.11/i</span>nstall.sh | bash</span><br><span class="line">然后</span><br><span class="line">source ~/.bash_profile</span><br></pre></td></tr></table></figure>
 
 <p>通过命令 nvm –version 可查看版本，说明安装成功<br>通过 nvm ls-remote 可查看 node 所有版本<br>通过 nvm install <version>(版本号) 例如：nvm install v10.6.0<br>安装后可通过 node -v ,npm -v 查看版本<br>查看已安装的版本 nvm list<br>切换版本 nvm use v0.10.30<br>设置默认版本 nvm alias default v0.10.30</p>
 <p><strong>mac</strong><br>mac 可通过 n 来管理 node 的版本<br>n 输出当前已经安装的 node 版本以及正在使用的版本（前面有一个 o），你可以通过移动上下方向键来选择要使用的版本，最后按回车生效<br>n 9.8.0 安装 9.8.0 版本<br>n ls 查看可用的 Node 版本<br>n latest 安装最新的版本<br>n stable 安装稳定的版本<br>n rm 0.10.1 删除某个版本</p>
 <h3 id="Node-npm-常用配置"><a href="#Node-npm-常用配置" class="headerlink" title="Node npm 常用配置"></a>Node npm 常用配置</h3><h4 id="修改下载仓库为淘宝镜像"><a href="#修改下载仓库为淘宝镜像" class="headerlink" title="修改下载仓库为淘宝镜像"></a>修改下载仓库为淘宝镜像</h4><p>针对国内用户下载某些依赖包时耗时很长的情况，可以将下载仓库设置为淘宝镜像</p>
-<pre class="line-numbers language-none"><code class="language-none">npm config set registry http:&#x2F;&#x2F;registry.npm.taobao.org&#x2F;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<figure class="highlight tcl"><table><tr><td class="code"><pre><span class="line">npm config <span class="keyword">set</span> <span class="keyword">registry</span> <span class="keyword">http</span>://<span class="keyword">registry</span>.npm.taobao.org/</span><br></pre></td></tr></table></figure>
 
 <p>但是如果要发布自己的 npm 模块则需要修改回来</p>
-<pre class="line-numbers language-none"><code class="language-none">npm config set registry https:&#x2F;&#x2F;registry.npmjs.org&#x2F;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<figure class="highlight arduino"><table><tr><td class="code"><pre><span class="line">npm config set registry https:<span class="comment">//registry.npmjs.org/</span></span><br></pre></td></tr></table></figure>
 
 <h4 id="发布自己的-npm-模块"><a href="#发布自己的-npm-模块" class="headerlink" title="发布自己的 npm 模块"></a>发布自己的 npm 模块</h4><ol>
 <li>注册一个 npm 账号<br>前往<a target="_blank" rel="noopener" href="https://www.npmjs.com/">NPM</a>官网进行注册</li>
@@ -159,16 +162,11 @@ source ~&#x2F;.bash_profile<span aria-hidden="true" class="line-numbers-rows"><s
 <li>开始发布<br>如果是第一次发布包，执行以下命令，然后输入前面注册好的 NPM 账号，密码和邮箱，将提示创建成功<br>npm adduser<br>如果不是第一次发布，执行<br>npm login<br>进入项目文件夹，执行<br>npm publish<br>即可发布自己的 npm 模块文件</li>
 </ol>
 <p>如果模块需要更新，也是使用 npm publish 发布</p>
-<h4 id="查看全局安装包"><a href="#查看全局安装包" class="headerlink" title="查看全局安装包"></a>查看全局安装包</h4><pre class="line-numbers language-none"><code class="language-none">npm ls --depth&#x3D;0 -g<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h4 id="查看全局安装包"><a href="#查看全局安装包" class="headerlink" title="查看全局安装包"></a>查看全局安装包</h4><figure class="highlight jboss-cli"><table><tr><td class="code"><pre><span class="line">npm <span class="keyword">ls</span> <span class="params">--depth=0</span> -g</span><br></pre></td></tr></table></figure>
 
-<h4 id="查看-npm-配置信息"><a href="#查看-npm-配置信息" class="headerlink" title="查看 npm 配置信息"></a>查看 npm 配置信息</h4><pre class="line-numbers language-none"><code class="language-none">npm config list<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h4 id="查看-npm-配置信息"><a href="#查看-npm-配置信息" class="headerlink" title="查看 npm 配置信息"></a>查看 npm 配置信息</h4><figure class="highlight arduino"><table><tr><td class="code"><pre><span class="line">npm config list</span><br></pre></td></tr></table></figure>
 
-<h4 id="npm-依赖包版本号区别"><a href="#npm-依赖包版本号区别" class="headerlink" title="npm 依赖包版本号区别"></a>npm 依赖包版本号区别</h4><pre class="line-numbers language-none"><code class="language-none">&quot;dependencies&quot;: &#123;
-   &quot;body-parser&quot;: &quot;^1.13.2&quot;,
-   &quot;cookie-parser&quot;: &quot;~1.3.5&quot;,
-   &quot;ejs&quot;: &quot;*&quot;,
-   &quot;express&quot;: &quot;~4.13.x&quot;,
- &#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="npm-依赖包版本号区别"><a href="#npm-依赖包版本号区别" class="headerlink" title="npm 依赖包版本号区别"></a>npm 依赖包版本号区别</h4><figure class="highlight css"><table><tr><td class="code"><pre><span class="line">&quot;dependencies&quot;: &#123;</span><br><span class="line">   &quot;<span class="selector-tag">body</span>-parser&quot;: <span class="string">&quot;^1.13.2&quot;</span>,</span><br><span class="line">   <span class="string">&quot;cookie-parser&quot;</span>: <span class="string">&quot;~1.3.5&quot;</span>,</span><br><span class="line">   <span class="string">&quot;ejs&quot;</span>: <span class="string">&quot;*&quot;</span>,</span><br><span class="line">   <span class="string">&quot;express&quot;</span>: <span class="string">&quot;~4.13.x&quot;</span>,</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
 
 <p>~x.y.z: 匹配大于 x.y.z 的 z 的最新版<br>^x.y.z: 匹配大于 x.y.z 的 y.z 的最新版<br>当 x 为 0 时，^x.y.z 等价于 ~x.y.z，即只会安装 z 的最新版本；<br>当 x 和 y 为 0 时，^x.y.z 等价于 x.y.z，即只会安装 x.y.z 版本；</p>
 <p>~ 会匹配最近的小版本依赖包<br>^ 会匹配最新的大版本依赖包</p>
@@ -228,9 +226,14 @@ source ~&#x2F;.bash_profile<span aria-hidden="true" class="line-numbers-rows"><s
     </a>
   
 </nav>
-    
-<div id="comments"></div>
-      
+   
+
+
+
+
+
+
+
  
     </footer>
   </div>
@@ -407,21 +410,7 @@ source ~&#x2F;.bash_profile<span aria-hidden="true" class="line-numbers-rows"><s
   
 
 
-   
-<script src="//imsun.github.io/gitment/dist/gitment.browser.js"></script>
-
-<script>
-  var gitment = new Gitment({
-    owner: "jesse121",
-    repo: "blog",
-    oauth: {
-      client_id: "3c3e422527fd3f9fa17a",
-      client_secret: "f28d1808ec9ab69fb24dc3e9fad81e1c3ab8dd8",
-    },
-  });
-  gitment.render("comments");
-</script>
-        
+          
 
 
 

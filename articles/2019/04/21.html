@@ -1,27 +1,39 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8" />
-   
+  <meta charset="utf-8">
+  
+  
   <title>Docker中Nginx服务器相关配置 | 前端之路</title>
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1, shrink-to-fit=no"
-  />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   
-  <meta name="description" content="专注前端开发，前端开发技术博客" />
-   
-  <meta name="keywords" content="Web前端开发，Javascript，前端开发博客" />
-    <link rel="alternate" href="/blog/atom.xml" title="前端之路" type="application/atom+xml">   <link rel="shortcut icon" href="/blog/favicon.ico">   
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+    <meta name="description" content="专注前端开发，前端开发技术博客">
   
-<link rel="stylesheet" href="/blog/css/style.css">
   
-<link rel="stylesheet" href="/blog/fancybox/jquery.fancybox.min.css">
+    <meta name="keywords" content="Web前端开发，Javascript，前端开发博客">
+  
+  
+    <link rel="alternate" href="/blog/atom.xml" title="前端之路" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/blog/favicon.ico">
+  
   
     
-<link rel="stylesheet" href="//imsun.github.io/gitment/style/default.css">
- 
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/blog/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/blog/fancybox/jquery.fancybox.min.css">
+
+  
+  
+  
+  
 <meta name="generator" content="Hexo 6.2.0"></head>
 
 <body>
@@ -129,50 +141,18 @@
 <h3 id="下载nginx"><a href="#下载nginx" class="headerlink" title="下载nginx"></a>下载nginx</h3><p>从默认的中央仓库下载nginx<br><code>docker pull nginx</code><br>启动nginx images并进入后台<br><code>docker run -it nginx /bin/bash</code><br>通过查看linux发行版知晓用哪个包管理工具<br><code>cat /proc/version</code>  </p>
 <p>Linux version 4.14.92-boot2docker (root@2c85d808f0f3) (gcc version 6.3.0 20170516 (Debian 6.3.0-18+deb9u1)) #1 SMP Wed Jan 9 22:03:23 UTC 2019<br>可以看到这里默认用的是Debian，因此包管理工具使用apt-get</p>
 <p>安装常用工具vim curl等<br><code>apt-get install vim</code><br>如果安装不了，命令提示如下</p>
-<pre class="line-numbers language-none"><code class="language-none">Reading package lists... Done
-Building dependency tree       
-Reading state information... Done
-E: Unable to locate package vim<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight pf"><table><tr><td class="code"><pre><span class="line">Reading package lists... Done</span><br><span class="line">Building dependency tree       </span><br><span class="line">Reading <span class="keyword">state</span> information... Done</span><br><span class="line">E: Unable <span class="keyword">to</span> locate package vim</span><br></pre></td></tr></table></figure>
 <p>这时候需要敲：<code>apt-get update</code>，这个命令的作用是：同步 &#x2F;etc&#x2F;apt&#x2F;sources.list 和 &#x2F;etc&#x2F;apt&#x2F;sources.list.d 中列出的源的索引，这样才能获取到最新的软件包。<br>等更新完毕以后重新执行apt-get install vim命令即可。</p>
 <p>设置ll别名<br>vi ~&#x2F;.bashrc<br>添加下面这句<br>alias ll&#x3D;’ls $LS_OPTIONS -l’</p>
 <h3 id="docker端口映射方便本机访问"><a href="#docker端口映射方便本机访问" class="headerlink" title="docker端口映射方便本机访问"></a>docker端口映射方便本机访问</h3><p>docker run -p 8080:80 -it nginx &#x2F;bin&#x2F;bash<br>在宿主机中访问localhost:8080即可看到nginx欢迎页面<br><strong>注意</strong><br>在window中宿主机是192.168.99.100，所以访问地址是<a target="_blank" rel="noopener" href="http://192.168.99.100:8080/">http://192.168.99.100:8080</a></p>
 <p>原因：docker是运行在Linux上的，在Windows中运行docker，实际上还是在Windows下先安装了一个Linux环境，然后在这个系统中运行的docker。也就是说，服务中使用的localhost指的是这个Linux环境的地址，而不是我们的宿主环境Windows。找到这个Linux的ip地址，一般情况下这个地址是192.168.99.100（docker-machine ip default 命令查找）</p>
-<h3 id="nginx相关配置"><a href="#nginx相关配置" class="headerlink" title="nginx相关配置"></a>nginx相关配置</h3><h4 id="nginx的压缩输出配置"><a href="#nginx的压缩输出配置" class="headerlink" title="nginx的压缩输出配置"></a>nginx的压缩输出配置</h4><pre class="line-numbers language-none"><code class="language-none"># 开启gzip
-gzip  on;
-# 启用gzip压缩的最小文件
-gzip_min_length 1k;
-gzip_buffers 4 16k;
-gzip_http_version 1.1;
-# gzip 压缩级别
-gzip_comp_level 2;
-# 进行压缩的文件类型。
-gzip_types text&#x2F;plain application&#x2F;x-javascript application&#x2F;css  text&#x2F;css application&#x2F;xml text&#x2F;javascript application&#x2F;x-httpd-php
-gzip_vary on;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="nginx相关配置"><a href="#nginx相关配置" class="headerlink" title="nginx相关配置"></a>nginx相关配置</h3><h4 id="nginx的压缩输出配置"><a href="#nginx的压缩输出配置" class="headerlink" title="nginx的压缩输出配置"></a>nginx的压缩输出配置</h4><figure class="highlight applescript"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 开启gzip</span></span><br><span class="line">gzip  <span class="keyword">on</span>;</span><br><span class="line"><span class="comment"># 启用gzip压缩的最小文件</span></span><br><span class="line">gzip_min_length <span class="number">1</span>k;</span><br><span class="line">gzip_buffers <span class="number">4</span> <span class="number">16</span>k;</span><br><span class="line">gzip_http_version <span class="number">1.1</span>;</span><br><span class="line"><span class="comment"># gzip 压缩级别</span></span><br><span class="line">gzip_comp_level <span class="number">2</span>;</span><br><span class="line"><span class="comment"># 进行压缩的文件类型。</span></span><br><span class="line">gzip_types <span class="built_in">text</span>/plain <span class="built_in">application</span>/x-javascript <span class="built_in">application</span>/css  <span class="built_in">text</span>/css <span class="built_in">application</span>/xml <span class="built_in">text</span>/javascript <span class="built_in">application</span>/x-httpd-php</span><br><span class="line">gzip_vary <span class="keyword">on</span>;</span><br></pre></td></tr></table></figure>
 
-<h4 id="Nginx配置静态资源跨域访问"><a href="#Nginx配置静态资源跨域访问" class="headerlink" title="Nginx配置静态资源跨域访问"></a>Nginx配置静态资源跨域访问</h4><pre class="line-numbers language-none"><code class="language-none">location &#x2F; &#123;
-    add_header Access-Control-Allow-Origin http:&#x2F;&#x2F;php.jesse.com; &#x2F;&#x2F;只允许的域名
-    add_header Access-Control-Allow-Methods GET,POST,PUT,DELETE,OPTIONS; &#x2F;&#x2F;只允许的方法
-    root   &#x2F;var&#x2F;www&#x2F;php;
-    index  index.html index.htm;
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="Nginx配置静态资源跨域访问"><a href="#Nginx配置静态资源跨域访问" class="headerlink" title="Nginx配置静态资源跨域访问"></a>Nginx配置静态资源跨域访问</h4><figure class="highlight pgsql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">location</span> / &#123;</span><br><span class="line">    add_header <span class="keyword">Access</span>-Control-Allow-Origin http://php.jesse.com; //只允许的域名</span><br><span class="line">    add_header <span class="keyword">Access</span>-Control-Allow-Methods <span class="keyword">GET</span>,POST,PUT,<span class="keyword">DELETE</span>,<span class="keyword">OPTIONS</span>; //只允许的方法</span><br><span class="line">    root   /var/www/php;</span><br><span class="line">    <span class="keyword">index</span>  <span class="keyword">index</span>.html <span class="keyword">index</span>.htm;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h4 id="Nginx配置静态资源防盗链"><a href="#Nginx配置静态资源防盗链" class="headerlink" title="Nginx配置静态资源防盗链"></a>Nginx配置静态资源防盗链</h4><pre class="line-numbers language-none"><code class="language-none">location ~ .*\.(jpg|gif|png)$ &#123;
-    valid_referers none  blocked php.jesse.com;
-    if ($invalid_referer) &#123;
-        return 403;
-    &#125;
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="Nginx配置静态资源防盗链"><a href="#Nginx配置静态资源防盗链" class="headerlink" title="Nginx配置静态资源防盗链"></a>Nginx配置静态资源防盗链</h4><figure class="highlight nginx"><table><tr><td class="code"><pre><span class="line"><span class="section">location</span> <span class="regexp">~ .*\.(jpg|gif|png)$</span> &#123;</span><br><span class="line">    <span class="attribute">valid_referers</span> <span class="literal">none</span>  <span class="literal">blocked</span> php.jesse.com;</span><br><span class="line">    <span class="attribute">if</span> (<span class="variable">$invalid_referer</span>) &#123;</span><br><span class="line">        <span class="attribute">return</span> <span class="number">403</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h4 id="Nginx-静态资源缓存设置"><a href="#Nginx-静态资源缓存设置" class="headerlink" title="Nginx 静态资源缓存设置"></a>Nginx 静态资源缓存设置</h4><pre class="line-numbers language-none"><code class="language-none">location ~ .*\.(php|htm|html)$ &#123;
-    add_header Cache-Control no-cache;
-    add_header Pragma no-cache;
-&#125;
-location ~ .*\.(css|js|swf)$ &#123;
-    add_header Cache-Control max-age&#x3D;600;
-&#125;
-location ~ .*\.(jpg|gif|png)$ &#123;
-    expires 3d;
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="Nginx-静态资源缓存设置"><a href="#Nginx-静态资源缓存设置" class="headerlink" title="Nginx 静态资源缓存设置"></a>Nginx 静态资源缓存设置</h4><figure class="highlight nginx"><table><tr><td class="code"><pre><span class="line"><span class="section">location</span> <span class="regexp">~ .*\.(php|htm|html)$</span> &#123;</span><br><span class="line">    <span class="attribute">add_header</span> Cache-Control <span class="literal">no</span>-cache;</span><br><span class="line">    <span class="attribute">add_header</span> Pragma <span class="literal">no</span>-cache;</span><br><span class="line">&#125;</span><br><span class="line"><span class="section">location</span> <span class="regexp">~ .*\.(css|js|swf)$</span> &#123;</span><br><span class="line">    <span class="attribute">add_header</span> Cache-Control max-age=<span class="number">600</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="section">location</span> <span class="regexp">~ .*\.(jpg|gif|png)$</span> &#123;</span><br><span class="line">    <span class="attribute">expires</span> <span class="number">3d</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 
 <p>Cache-Control与Expires的作用一致，都是指明当前资源的有效期，控制浏览器是否直接从浏览器缓存取数据还是重新发请求到服务器取数据。只不过Cache-Control的选择更多，设置更细致，如果同时设置的话，其优先级高于Expires。</p>
@@ -197,29 +177,9 @@ location ~ .*\.(jpg|gif|png)$ &#123;
 <p>第二种，自建CA，自签证书，意思就是自己给自己签署证明，很显然，这种方式的签署证书，就不能得到权威验证，无法具备公认的有效性，所以如果客户端访问，会显示证书无效，或者不安全之类的，这种方式是免费的，一般内部测试或者使用的话，用这种方式就可以了。</p>
 <h4 id="删除私钥中的密码"><a href="#删除私钥中的密码" class="headerlink" title="删除私钥中的密码"></a>删除私钥中的密码</h4><p>在第1步创建私钥的过程中，由于必须要指定一个密码。而这个密码会带来一个副作用，那就是在每次nginx启动时，都会要求输入密码，这显然非常不方便。要删除私钥中的密码，操作如下：<br><code>openssl rsa -in server.key.org -out server.key</code></p>
 <h4 id="生成自签名证书"><a href="#生成自签名证书" class="headerlink" title="生成自签名证书"></a>生成自签名证书</h4><p><code>openssl x509 -req -days 365 -in server.csr -signkey server.key -out server.crt</code></p>
-<h5 id="原80端口做301转跳"><a href="#原80端口做301转跳" class="headerlink" title="原80端口做301转跳"></a>原80端口做301转跳</h5><pre class="line-numbers language-none"><code class="language-none">server &#123;
-    listen 80;
-    server_name php.jesse.com;
-    return 301 https:&#x2F;&#x2F;php.jesse.com$request_uri;    #跳转到Https
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h5 id="原80端口做301转跳"><a href="#原80端口做301转跳" class="headerlink" title="原80端口做301转跳"></a>原80端口做301转跳</h5><figure class="highlight nginx"><table><tr><td class="code"><pre><span class="line"><span class="section">server</span> &#123;</span><br><span class="line">    <span class="attribute">listen</span> <span class="number">80</span>;</span><br><span class="line">    <span class="attribute">server_name</span> php.jesse.com;</span><br><span class="line">    <span class="attribute">return</span> <span class="number">301</span> https://php.jesse.com<span class="variable">$request_uri</span>;    <span class="comment">#跳转到Https</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>由于用户习惯，通常准备访问某个网站时，在浏览器中只会输入一个域名，而不会在域名前面加上 http:&#x2F;&#x2F; 或者 https:&#x2F;&#x2F;，而是由浏览器自动填充，当前所有浏览器默认填充的都是http:&#x2F;&#x2F;。一般情况网站管理员会采用了 301&#x2F;302 跳转的方式由 HTTP 跳转到 HTTPS，但是这个过程总使用到 HTTP 因此容易发生劫持，受到第三方的攻击。这个时候就需要用到 HSTS（HTTP 严格安全传输）。</p>
-<h5 id="开启ssl功能"><a href="#开启ssl功能" class="headerlink" title="开启ssl功能"></a>开启ssl功能</h5><pre class="line-numbers language-none"><code class="language-none">server &#123;
-    listen       443;
-    server_name  php.jesse.com;
-    add_header Strict-Transport-Security &quot;max-age&#x3D;31536000; includeSubDomains&quot;; # hsts
-    root   &#x2F;var&#x2F;www&#x2F;php;
-    index  index.html index.htm;
-
-    ssl                  on;
-    ssl_certificate      &#x2F;etc&#x2F;nginx&#x2F;ssl&#x2F;server.crt;
-    ssl_certificate_key  &#x2F;etc&#x2F;nginx&#x2F;ssl&#x2F;server.key;
-
-    ssl_session_timeout  5m;
-
-    ssl_protocols  SSLv2 SSLv3 TLSv1 TLSv1.1 TLSv1.2;
-    ssl_ciphers  ALL:!ADH:!EXPORT56:RC4+RSA:+HIGH:+MEDIUM:+LOW:+SSLv2:+EXP;
-    ssl_prefer_server_ciphers   on;
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h5 id="开启ssl功能"><a href="#开启ssl功能" class="headerlink" title="开启ssl功能"></a>开启ssl功能</h5><figure class="highlight nginx"><table><tr><td class="code"><pre><span class="line"><span class="section">server</span> &#123;</span><br><span class="line">    <span class="attribute">listen</span>       <span class="number">443</span>;</span><br><span class="line">    <span class="attribute">server_name</span>  php.jesse.com;</span><br><span class="line">    <span class="attribute">add_header</span> Strict-Transport-Security <span class="string">&quot;max-age=31536000; includeSubDomains&quot;</span>; <span class="comment"># hsts</span></span><br><span class="line">    <span class="attribute">root</span>   /var/www/php;</span><br><span class="line">    <span class="attribute">index</span>  index.html index.htm;</span><br><span class="line"></span><br><span class="line">    <span class="attribute">ssl</span>                  <span class="literal">on</span>;</span><br><span class="line">    <span class="attribute">ssl_certificate</span>      /etc/nginx/ssl/server.crt;</span><br><span class="line">    <span class="attribute">ssl_certificate_key</span>  /etc/nginx/ssl/server.key;</span><br><span class="line"></span><br><span class="line">    <span class="attribute">ssl_session_timeout</span>  <span class="number">5m</span>;</span><br><span class="line"></span><br><span class="line">    <span class="attribute">ssl_protocols</span>  SSLv2 SSLv3 TLSv1 TLSv1.<span class="number">1</span> TLSv1.<span class="number">2</span>;</span><br><span class="line">    <span class="attribute">ssl_ciphers</span>  ALL:!ADH:!EXPORT56:RC4+RSA:+HIGH:+MEDIUM:+LOW:+SSLv2:+EXP;</span><br><span class="line">    <span class="attribute">ssl_prefer_server_ciphers</span>   <span class="literal">on</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h4 id="制作mynginx镜像"><a href="#制作mynginx镜像" class="headerlink" title="制作mynginx镜像"></a>制作mynginx镜像</h4><p>以上我们在nginx镜像生成的容器中做了很多操作，也安装了以下必要的插件。下次使用的时候我们希望是在原来的基础上操作，我们可以直接使用之前的容器，我们也可以将之前的容器制作成镜像。<br><code>docker commit -a &quot;username&quot; -m &quot;this is mynginx&quot; &lt;container id&gt; mynginx</code></p>
 <h4 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h4><ol>
@@ -281,9 +241,14 @@ location ~ .*\.(jpg|gif|png)$ &#123;
     </a>
   
 </nav>
-    
-<div id="comments"></div>
-      
+   
+
+
+
+
+
+
+
  
     </footer>
   </div>
@@ -460,21 +425,7 @@ location ~ .*\.(jpg|gif|png)$ &#123;
   
 
 
-   
-<script src="//imsun.github.io/gitment/dist/gitment.browser.js"></script>
-
-<script>
-  var gitment = new Gitment({
-    owner: "jesse121",
-    repo: "blog",
-    oauth: {
-      client_id: "3c3e422527fd3f9fa17a",
-      client_secret: "f28d1808ec9ab69fb24dc3e9fad81e1c3ab8dd8",
-    },
-  });
-  gitment.render("comments");
-</script>
-        
+          
 
 
 

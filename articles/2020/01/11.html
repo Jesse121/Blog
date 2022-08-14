@@ -1,27 +1,39 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8" />
-   
+  <meta charset="utf-8">
+  
+  
   <title>如何做好前端页面异常监控？ | 前端之路</title>
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1, shrink-to-fit=no"
-  />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   
-  <meta name="description" content="专注前端开发，前端开发技术博客" />
-   
-  <meta name="keywords" content="Web前端开发，Javascript，前端开发博客" />
-    <link rel="alternate" href="/blog/atom.xml" title="前端之路" type="application/atom+xml">   <link rel="shortcut icon" href="/blog/favicon.ico">   
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+    <meta name="description" content="专注前端开发，前端开发技术博客">
   
-<link rel="stylesheet" href="/blog/css/style.css">
   
-<link rel="stylesheet" href="/blog/fancybox/jquery.fancybox.min.css">
+    <meta name="keywords" content="Web前端开发，Javascript，前端开发博客">
+  
+  
+    <link rel="alternate" href="/blog/atom.xml" title="前端之路" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/blog/favicon.ico">
+  
   
     
-<link rel="stylesheet" href="//imsun.github.io/gitment/style/default.css">
- 
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/blog/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/blog/fancybox/jquery.fancybox.min.css">
+
+  
+  
+  
+  
 <meta name="generator" content="Hexo 6.2.0"></head>
 
 <body>
@@ -135,117 +147,21 @@
 <li>vue 项目中全局异常捕获</li>
 </ol>
 <p>接下来介绍如何捕获这些异常</p>
-<h3 id="前端页面异常捕获方式"><a href="#前端页面异常捕获方式" class="headerlink" title="前端页面异常捕获方式"></a>前端页面异常捕获方式</h3><h4 id="window-onerror-捕获-javascript-异常"><a href="#window-onerror-捕获-javascript-异常" class="headerlink" title="window.onerror 捕获 javascript 异常"></a>window.onerror 捕获 javascript 异常</h4><pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">/**
- * 捕获javascript异常
- * @param &#123;String&#125;  message    错误信息
- * @param &#123;String&#125;  source     出错文件
- * @param &#123;Number&#125;  lineno     行号
- * @param &#123;Number&#125;  colno      列号
- * @param &#123;Object&#125;  error      Error对象（对象）
- */</span>
-window<span class="token punctuation">.</span><span class="token function-variable function">onerror</span> <span class="token operator">=</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token parameter">message<span class="token punctuation">,</span> source<span class="token punctuation">,</span> lineno<span class="token punctuation">,</span> colno<span class="token punctuation">,</span> error</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-  console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">"捕获到异常："</span><span class="token punctuation">,</span> <span class="token punctuation">&#123;</span> message<span class="token punctuation">,</span> source<span class="token punctuation">,</span> lineno<span class="token punctuation">,</span> colno<span class="token punctuation">,</span> error <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="前端页面异常捕获方式"><a href="#前端页面异常捕获方式" class="headerlink" title="前端页面异常捕获方式"></a>前端页面异常捕获方式</h3><h4 id="window-onerror-捕获-javascript-异常"><a href="#window-onerror-捕获-javascript-异常" class="headerlink" title="window.onerror 捕获 javascript 异常"></a>window.onerror 捕获 javascript 异常</h4><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 捕获javascript异常</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> &#123;<span class="type">String</span>&#125;  message    错误信息</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> &#123;<span class="type">String</span>&#125;  source     出错文件</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> &#123;<span class="type">Number</span>&#125;  lineno     行号</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> &#123;<span class="type">Number</span>&#125;  colno      列号</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> &#123;<span class="type">Object</span>&#125;  error      Error对象（对象）</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="variable language_">window</span>.<span class="property">onerror</span> = <span class="keyword">function</span> (<span class="params">message, source, lineno, colno, error</span>) &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;捕获到异常：&quot;</span>, &#123; message, source, lineno, colno, error &#125;);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
 <h4 id="跨域脚本异常捕获"><a href="#跨域脚本异常捕获" class="headerlink" title="跨域脚本异常捕获"></a>跨域脚本异常捕获</h4><p>一般涉及跨域的 js 运行错误时会抛出错误提示 script error.，但没有具体信息（如出错文件，行列号提示等）, 可利用资源共享策略来捕获跨域 js 错误<br>客户端：在 script 标签增加 crossorigin&#x3D;”anonymous”属性<br>服务端：静态资源响应头 Access-Control-Allow-Origin: *</p>
 <h4 id="window-addEventListener-‘error’-cb-true-捕获资源加载异常"><a href="#window-addEventListener-‘error’-cb-true-捕获资源加载异常" class="headerlink" title="window.addEventListener(‘error’,cb,true)捕获资源加载异常"></a>window.addEventListener(‘error’,cb,true)捕获资源加载异常</h4><p>img 加载异常时会触发 img.onerror 函数</p>
-<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">// 捕获资源加载异常</span>
-window<span class="token punctuation">.</span><span class="token function">addEventListener</span><span class="token punctuation">(</span>
-  <span class="token string">"error"</span><span class="token punctuation">,</span>
-  <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token parameter">e</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-    <span class="token keyword">const</span> err <span class="token operator">=</span> e<span class="token punctuation">.</span>target<span class="token punctuation">.</span>src <span class="token operator">||</span> e<span class="token punctuation">.</span>target<span class="token punctuation">.</span>href<span class="token punctuation">;</span>
-    <span class="token keyword">if</span> <span class="token punctuation">(</span>err<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-      console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">"捕获到资源加载异常"</span><span class="token punctuation">,</span> err<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">&#125;</span>
-  <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
-  <span class="token boolean">true</span>
-<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 捕获资源加载异常</span></span><br><span class="line"><span class="variable language_">window</span>.<span class="title function_">addEventListener</span>(</span><br><span class="line">  <span class="string">&quot;error&quot;</span>,</span><br><span class="line">  <span class="keyword">function</span> (<span class="params">e</span>) &#123;</span><br><span class="line">    <span class="keyword">const</span> err = e.<span class="property">target</span>.<span class="property">src</span> || e.<span class="property">target</span>.<span class="property">href</span>;</span><br><span class="line">    <span class="keyword">if</span> (err) &#123;</span><br><span class="line">      <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;捕获到资源加载异常&quot;</span>, err);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="literal">true</span></span><br><span class="line">);</span><br></pre></td></tr></table></figure>
 
-<h4 id="ajax-接口请求异常捕获"><a href="#ajax-接口请求异常捕获" class="headerlink" title="ajax 接口请求异常捕获"></a>ajax 接口请求异常捕获</h4><pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">// 统一拦截ajax请求</span>
-<span class="token keyword">function</span> <span class="token function">ajaxEventTrigger</span><span class="token punctuation">(</span><span class="token parameter">event</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-  <span class="token keyword">var</span> ajaxEvent <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">CustomEvent</span><span class="token punctuation">(</span>event<span class="token punctuation">,</span> <span class="token punctuation">&#123;</span> <span class="token literal-property property">detail</span><span class="token operator">:</span> <span class="token keyword">this</span> <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  window<span class="token punctuation">.</span><span class="token function">dispatchEvent</span><span class="token punctuation">(</span>ajaxEvent<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span>
-
-<span class="token keyword">var</span> oldXHR <span class="token operator">=</span> window<span class="token punctuation">.</span>XMLHttpRequest<span class="token punctuation">;</span>
-<span class="token keyword">function</span> <span class="token function">newXHR</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-  <span class="token keyword">var</span> realXHR <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">oldXHR</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  realXHR<span class="token punctuation">.</span><span class="token function">addEventListener</span><span class="token punctuation">(</span>
-    <span class="token string">"readystatechange"</span><span class="token punctuation">,</span>
-    <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-      <span class="token function">ajaxEventTrigger</span><span class="token punctuation">.</span><span class="token function">call</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">,</span> <span class="token string">"ajaxReadyStateChange"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
-    <span class="token boolean">false</span>
-  <span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token keyword">return</span> realXHR<span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span>
-window<span class="token punctuation">.</span>XMLHttpRequest <span class="token operator">=</span> newXHR<span class="token punctuation">;</span>
-<span class="token keyword">var</span> startTime <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
-<span class="token keyword">var</span> gapTime <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> <span class="token comment">// 计算请求延时</span>
-window<span class="token punctuation">.</span><span class="token function">addEventListener</span><span class="token punctuation">(</span><span class="token string">"ajaxReadyStateChange"</span><span class="token punctuation">,</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token parameter">e</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-  <span class="token keyword">var</span> xhr <span class="token operator">=</span> e<span class="token punctuation">.</span>detail<span class="token punctuation">;</span>
-  <span class="token keyword">var</span> status <span class="token operator">=</span> xhr<span class="token punctuation">.</span>status<span class="token punctuation">;</span>
-  <span class="token keyword">var</span> readyState <span class="token operator">=</span> xhr<span class="token punctuation">.</span>readyState<span class="token punctuation">;</span>
-  <span class="token comment">/**
-   * 计算请求延时
-   */</span>
-  <span class="token keyword">if</span> <span class="token punctuation">(</span>readyState <span class="token operator">===</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-    startTime <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Date</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getTime</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token punctuation">&#125;</span>
-  <span class="token keyword">if</span> <span class="token punctuation">(</span>readyState <span class="token operator">===</span> <span class="token number">4</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-    gapTime <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Date</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getTime</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">-</span> startTime<span class="token punctuation">;</span>
-  <span class="token punctuation">&#125;</span>
-  <span class="token comment">/**
-   * 上报请求信息
-   */</span>
-  <span class="token keyword">if</span> <span class="token punctuation">(</span>readyState <span class="token operator">===</span> <span class="token number">4</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-    <span class="token keyword">if</span> <span class="token punctuation">(</span>status <span class="token operator">===</span> <span class="token number">200</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-      <span class="token comment">// 接口正常响应时捕获接口响应耗时</span>
-      console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">"接口"</span><span class="token punctuation">,</span> xhr<span class="token punctuation">.</span>responseURL<span class="token punctuation">,</span> <span class="token string">"耗时"</span><span class="token punctuation">,</span> gapTime<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token punctuation">&#123;</span>
-      <span class="token comment">// 接口异常时捕获异常接口及状态码</span>
-      console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">"异常接口"</span><span class="token punctuation">,</span> xhr<span class="token punctuation">.</span>responseURL<span class="token punctuation">,</span> <span class="token string">"状态码"</span><span class="token punctuation">,</span> status<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">&#125;</span>
-  <span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="ajax-接口请求异常捕获"><a href="#ajax-接口请求异常捕获" class="headerlink" title="ajax 接口请求异常捕获"></a>ajax 接口请求异常捕获</h4><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 统一拦截ajax请求</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">ajaxEventTrigger</span>(<span class="params">event</span>) &#123;</span><br><span class="line">  <span class="keyword">var</span> ajaxEvent = <span class="keyword">new</span> <span class="title class_">CustomEvent</span>(event, &#123; <span class="attr">detail</span>: <span class="variable language_">this</span> &#125;);</span><br><span class="line">  <span class="variable language_">window</span>.<span class="title function_">dispatchEvent</span>(ajaxEvent);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> oldXHR = <span class="variable language_">window</span>.<span class="property">XMLHttpRequest</span>;</span><br><span class="line"><span class="keyword">function</span> <span class="title function_">newXHR</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">var</span> realXHR = <span class="keyword">new</span> <span class="title function_">oldXHR</span>();</span><br><span class="line">  realXHR.<span class="title function_">addEventListener</span>(</span><br><span class="line">    <span class="string">&quot;readystatechange&quot;</span>,</span><br><span class="line">    <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">      ajaxEventTrigger.<span class="title function_">call</span>(<span class="variable language_">this</span>, <span class="string">&quot;ajaxReadyStateChange&quot;</span>);</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="literal">false</span></span><br><span class="line">  );</span><br><span class="line">  <span class="keyword">return</span> realXHR;</span><br><span class="line">&#125;</span><br><span class="line"><span class="variable language_">window</span>.<span class="property">XMLHttpRequest</span> = newXHR;</span><br><span class="line"><span class="keyword">var</span> startTime = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">var</span> gapTime = <span class="number">0</span>; <span class="comment">// 计算请求延时</span></span><br><span class="line"><span class="variable language_">window</span>.<span class="title function_">addEventListener</span>(<span class="string">&quot;ajaxReadyStateChange&quot;</span>, <span class="keyword">function</span> (<span class="params">e</span>) &#123;</span><br><span class="line">  <span class="keyword">var</span> xhr = e.<span class="property">detail</span>;</span><br><span class="line">  <span class="keyword">var</span> status = xhr.<span class="property">status</span>;</span><br><span class="line">  <span class="keyword">var</span> readyState = xhr.<span class="property">readyState</span>;</span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">   * 计算请求延时</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  <span class="keyword">if</span> (readyState === <span class="number">1</span>) &#123;</span><br><span class="line">    startTime = <span class="keyword">new</span> <span class="title class_">Date</span>().<span class="title function_">getTime</span>();</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">if</span> (readyState === <span class="number">4</span>) &#123;</span><br><span class="line">    gapTime = <span class="keyword">new</span> <span class="title class_">Date</span>().<span class="title function_">getTime</span>() - startTime;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">   * 上报请求信息</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  <span class="keyword">if</span> (readyState === <span class="number">4</span>) &#123;</span><br><span class="line">    <span class="keyword">if</span> (status === <span class="number">200</span>) &#123;</span><br><span class="line">      <span class="comment">// 接口正常响应时捕获接口响应耗时</span></span><br><span class="line">      <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;接口&quot;</span>, xhr.<span class="property">responseURL</span>, <span class="string">&quot;耗时&quot;</span>, gapTime);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="comment">// 接口异常时捕获异常接口及状态码</span></span><br><span class="line">      <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;异常接口&quot;</span>, xhr.<span class="property">responseURL</span>, <span class="string">&quot;状态码&quot;</span>, status);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
 
 <h4 id="promise-异常捕获"><a href="#promise-异常捕获" class="headerlink" title="promise 异常捕获"></a>promise 异常捕获</h4><p>promise 中的报错顺序是：<br>如果有 catch 等捕获函数，则走 catch 捕获函数。catch 捕获函数如果没有抛出新的异常，则下一个 then 将会认为没有什么报错，会继续执行。<br>如果没有 catch 等捕获函数，我们需要注册 window.addEventListener(‘unhandledrejection’) 来处理</p>
-<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">/**
- * Promise catch错误上报，需要在使用promise的地方显示调用.catch()，否则不会捕获错误
- */</span>
-<span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">typeof</span> Promise <span class="token operator">!==</span> <span class="token string">"undefined"</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-  <span class="token keyword">var</span> _promiseCatch <span class="token operator">=</span> <span class="token class-name">Promise</span><span class="token punctuation">.</span>prototype<span class="token punctuation">.</span>catch<span class="token punctuation">;</span>
-  <span class="token class-name">Promise</span><span class="token punctuation">.</span>prototype<span class="token punctuation">.</span><span class="token function-variable function">catch</span> <span class="token operator">=</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token parameter">foo</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-    <span class="token keyword">return</span> <span class="token function">_promiseCatch</span><span class="token punctuation">.</span><span class="token function">call</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">,</span> <span class="token function">catCatch</span><span class="token punctuation">(</span>foo<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span>
-<span class="token keyword">function</span> <span class="token function">catCatch</span><span class="token punctuation">(</span><span class="token parameter">foo</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-  <span class="token keyword">return</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token parameter">args</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-    <span class="token keyword">let</span> msg <span class="token operator">=</span> args<span class="token punctuation">.</span>stack <span class="token operator">?</span> args<span class="token punctuation">.</span>stack <span class="token operator">:</span> args<span class="token punctuation">;</span>
-    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">"捕获到catch中的异常"</span><span class="token punctuation">,</span> msg<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    foo <span class="token operator">&amp;&amp;</span> <span class="token function">foo</span><span class="token punctuation">.</span><span class="token function">call</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">,</span> args<span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Promise catch错误上报，需要在使用promise的地方显示调用.catch()，否则不会捕获错误</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">if</span> (<span class="keyword">typeof</span> <span class="title class_">Promise</span> !== <span class="string">&quot;undefined&quot;</span>) &#123;</span><br><span class="line">  <span class="keyword">var</span> _promiseCatch = <span class="title class_">Promise</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">catch</span>;</span><br><span class="line">  <span class="title class_">Promise</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">catch</span> = <span class="keyword">function</span> (<span class="params">foo</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> _promiseCatch.<span class="title function_">call</span>(<span class="variable language_">this</span>, <span class="title function_">catCatch</span>(foo));</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">function</span> <span class="title function_">catCatch</span>(<span class="params">foo</span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">function</span> (<span class="params">args</span>) &#123;</span><br><span class="line">    <span class="keyword">let</span> msg = args.<span class="property">stack</span> ? args.<span class="property">stack</span> : args;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;捕获到catch中的异常&quot;</span>, msg);</span><br><span class="line">    foo &amp;&amp; foo.<span class="title function_">call</span>(<span class="variable language_">this</span>, args);</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 监听promise未处理的reject错误, 跨域情况下监控不到</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="variable language_">window</span>.<span class="title function_">addEventListener</span>(<span class="string">&quot;unhandledrejection&quot;</span>, <span class="function">(<span class="params">event</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;捕获到未处理的promise异常&quot;</span>, event.<span class="property">reson</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
 
-<span class="token comment">/**
- * 监听promise未处理的reject错误, 跨域情况下监控不到
- */</span>
-window<span class="token punctuation">.</span><span class="token function">addEventListener</span><span class="token punctuation">(</span><span class="token string">"unhandledrejection"</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token parameter">event</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
-  console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">"捕获到未处理的promise异常"</span><span class="token punctuation">,</span> event<span class="token punctuation">.</span>reson<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h4 id="vue-项目全局异常捕获"><a href="#vue-项目全局异常捕获" class="headerlink" title="vue 项目全局异常捕获"></a>vue 项目全局异常捕获</h4><pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript">Vue<span class="token punctuation">.</span>config<span class="token punctuation">.</span><span class="token function-variable function">errorHandler</span> <span class="token operator">=</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token parameter">err<span class="token punctuation">,</span> vm<span class="token punctuation">,</span> info</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-  <span class="token comment">// `info` 是 Vue 特定的错误信息，比如错误所在的生命周期钩子</span>
-  <span class="token comment">// 只在 2.2.0+ 可用</span>
-  <span class="token keyword">let</span> msg <span class="token operator">=</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">错误发生在：</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span>info<span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token string">中，具体信息：</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span>err<span class="token punctuation">.</span>stack<span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">;</span>
-  console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>msg<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="vue-项目全局异常捕获"><a href="#vue-项目全局异常捕获" class="headerlink" title="vue 项目全局异常捕获"></a>vue 项目全局异常捕获</h4><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="title class_">Vue</span>.<span class="property">config</span>.<span class="property">errorHandler</span> = <span class="keyword">function</span> (<span class="params">err, vm, info</span>) &#123;</span><br><span class="line">  <span class="comment">// `info` 是 Vue 特定的错误信息，比如错误所在的生命周期钩子</span></span><br><span class="line">  <span class="comment">// 只在 2.2.0+ 可用</span></span><br><span class="line">  <span class="keyword">let</span> msg = <span class="string">`错误发生在：<span class="subst">$&#123;info&#125;</span>中，具体信息：<span class="subst">$&#123;err.stack&#125;</span>`</span>;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(msg);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
 <p>捕获到这些异常后我们需要将这些异常上报给服务器，我们直接以请求图片的形式发送上报内容</p>
-<h3 id="异常上报"><a href="#异常上报" class="headerlink" title="异常上报"></a>异常上报</h3><pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">function</span> <span class="token function">report</span><span class="token punctuation">(</span><span class="token parameter">msg</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-  <span class="token keyword">var</span> reportUrl <span class="token operator">=</span> <span class="token string">"http://xxxx/report"</span><span class="token punctuation">;</span>
-  <span class="token keyword">new</span> <span class="token class-name">Image</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>src <span class="token operator">=</span> reportUrl <span class="token operator">+</span> <span class="token function">encodeURIComponent</span><span class="token punctuation">(</span><span class="token constant">JSON</span><span class="token punctuation">.</span><span class="token function">stringify</span><span class="token punctuation">(</span>msg<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="异常上报"><a href="#异常上报" class="headerlink" title="异常上报"></a>异常上报</h3><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">report</span>(<span class="params">msg</span>) &#123;</span><br><span class="line">  <span class="keyword">var</span> reportUrl = <span class="string">&quot;http://xxxx/report&quot;</span>;</span><br><span class="line">  <span class="keyword">new</span> <span class="title class_">Image</span>().<span class="property">src</span> = reportUrl + <span class="built_in">encodeURIComponent</span>(<span class="title class_">JSON</span>.<span class="title function_">stringify</span>(msg));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
  
       <div id="toc-article">
   <div class="widget-wrap" id="toc-wrap">
@@ -301,9 +217,14 @@ window<span class="token punctuation">.</span><span class="token function">addEv
     </a>
   
 </nav>
-    
-<div id="comments"></div>
-      
+   
+
+
+
+
+
+
+
  
     </footer>
   </div>
@@ -480,21 +401,7 @@ window<span class="token punctuation">.</span><span class="token function">addEv
   
 
 
-   
-<script src="//imsun.github.io/gitment/dist/gitment.browser.js"></script>
-
-<script>
-  var gitment = new Gitment({
-    owner: "jesse121",
-    repo: "blog",
-    oauth: {
-      client_id: "3c3e422527fd3f9fa17a",
-      client_secret: "f28d1808ec9ab69fb24dc3e9fad81e1c3ab8dd8",
-    },
-  });
-  gitment.render("comments");
-</script>
-        
+          
 
 
 

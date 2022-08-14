@@ -1,27 +1,39 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8" />
-   
+  <meta charset="utf-8">
+  
+  
   <title>《高性能网站建设指南》--读书笔记 | 前端之路</title>
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1, shrink-to-fit=no"
-  />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   
-  <meta name="description" content="专注前端开发，前端开发技术博客" />
-   
-  <meta name="keywords" content="Web前端开发，Javascript，前端开发博客" />
-    <link rel="alternate" href="/blog/atom.xml" title="前端之路" type="application/atom+xml">   <link rel="shortcut icon" href="/blog/favicon.ico">   
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+    <meta name="description" content="专注前端开发，前端开发技术博客">
   
-<link rel="stylesheet" href="/blog/css/style.css">
   
-<link rel="stylesheet" href="/blog/fancybox/jquery.fancybox.min.css">
+    <meta name="keywords" content="Web前端开发，Javascript，前端开发博客">
+  
+  
+    <link rel="alternate" href="/blog/atom.xml" title="前端之路" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/blog/favicon.ico">
+  
   
     
-<link rel="stylesheet" href="//imsun.github.io/gitment/style/default.css">
- 
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/blog/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/blog/fancybox/jquery.fancybox.min.css">
+
+  
+  
+  
+  
 <meta name="generator" content="Hexo 6.2.0"></head>
 
 <body>
@@ -156,33 +168,10 @@
 <li><a target="_blank" rel="noopener" href="http://www.bootcdn.cn/">Bootstrap</a></li>
 </ul>
 <h3 id="规则三、添加Expires"><a href="#规则三、添加Expires" class="headerlink" title="规则三、添加Expires"></a>规则三、添加Expires</h3><p>页面中都包含大量的组件，通过web服务器使用一个长久的expires头，使得这些组件可以被缓存，这样在后续页面中避免不必要的HTTP请求<br>缺点：要求服务器和客户端的时间严格同步，过期日期需要检查，并提供新日期<br>HTTP1.1引入Cache-Control头来克服Expires头的限制<br>cache-control使用max-age指令<br>max-age请求的内容过多久过期（相对于请求时间Date）失效，默认以秒为单位<br>具体的过期时间配置可在Apache配置文件中添加mod_expires.c配置信息。</p>
-<pre class="line-numbers language-none"><code class="language-none">&lt;IfModule mod_expires.c&gt;
-    ExpiresActive On
-    ExpiresByType text&#x2F;css &quot;now plus 1 month&quot;
-    ExpiresByType application&#x2F;x-javascript &quot;now plus 5 day&quot;
-    ExpiresByType image&#x2F;jpeg &quot;access plus 1 month&quot;
-    ExpiresByType image&#x2F;gif &quot;access plus 1 month&quot;
-    ExpiresByType image&#x2F;bmp &quot;access plus 1 month&quot;
-    ExpiresByType image&#x2F;x-icon &quot;access plus 1 month&quot;
-    ExpiresByType image&#x2F;png &quot;access plus 1 minutes&quot;
-    ExpiresByType application&#x2F;x-shockwave-flash &quot;access plus 1 month&quot;
-    ExpiresDefault &quot;now plus 1 minutes&quot;
-&lt;&#x2F;IfModule&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">&lt;IfModule mod_expires.c&gt;</span><br><span class="line">    ExpiresActive On</span><br><span class="line">    ExpiresByType text/css <span class="string">&quot;now plus 1 month&quot;</span></span><br><span class="line">    ExpiresByType application/x-javascript <span class="string">&quot;now plus 5 day&quot;</span></span><br><span class="line">    ExpiresByType image/jpeg <span class="string">&quot;access plus 1 month&quot;</span></span><br><span class="line">    ExpiresByType image/gif <span class="string">&quot;access plus 1 month&quot;</span></span><br><span class="line">    ExpiresByType image/bmp <span class="string">&quot;access plus 1 month&quot;</span></span><br><span class="line">    ExpiresByType image/x-icon <span class="string">&quot;access plus 1 month&quot;</span></span><br><span class="line">    ExpiresByType image/png <span class="string">&quot;access plus 1 minutes&quot;</span></span><br><span class="line">    ExpiresByType application/x-shockwave-flash <span class="string">&quot;access plus 1 month&quot;</span></span><br><span class="line">    ExpiresDefault <span class="string">&quot;now plus 1 minutes&quot;</span></span><br><span class="line">&lt;/IfModule&gt;</span><br></pre></td></tr></table></figure>
 <p>配置信息可参考<a target="_blank" rel="noopener" href="http://httpd.apache.org/docs/current/mod/mod_expires.html">Apache Module mod_expires</a></p>
 <h3 id="规则四、压缩组件"><a href="#规则四、压缩组件" class="headerlink" title="规则四、压缩组件"></a>规则四、压缩组件</h3><p>通过开启gzip压缩来减小HTTP响应数据包的大小<br>值得压缩的内容有HTML xml css js json<br>不该压缩的内容图片 pdf，他们在上传到服务器的时候一般就已压缩好，再压缩只会浪费CPU<br>通过配置Apache 2.x的mod_deflate模块</p>
-<pre class="line-numbers language-none"><code class="language-none">&lt;IfModule mod_deflate.c&gt;
-    DeflateCompressionLevel 6 
-    SetOutputFilter DEFLATE 
-    SetEnvIfNoCase Request_URI .(?:gif|jpe?g|png)$ no-gzip dont-vary 
-    SetEnvIfNoCase Request_URI .(?:exe|t?gz|zip|bz2|sit|rar)$ no-gzip dont-vary 
-    SetEnvIfNoCase Request_URI .(?:pdf|doc)$ no-gzip dont-vary 
-    AddOutputFilterByType DEFLATE text&#x2F;html text&#x2F;plain text&#x2F;xml text&#x2F;css application&#x2F;x-javascript application&#x2F;json
-    &lt;IfModule mod_setenvif.c&gt;
-        BrowserMatch ^Mozilla&#x2F;4 gzip-only-text&#x2F;html 
-        BrowserMatch ^Mozilla&#x2F;4.0[678] no-gzip 
-        BrowserMatch \bMSIE !no-gzip !gzip-only-text&#x2F;html 
-    &lt;&#x2F;IfModule&gt;
-&lt;&#x2F;IfModule&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight elixir"><table><tr><td class="code"><pre><span class="line">&lt;<span class="title class_">IfModule</span> mod_deflate.c&gt;</span><br><span class="line">    <span class="title class_">DeflateCompressionLevel</span> <span class="number">6</span> </span><br><span class="line">    <span class="title class_">SetOutputFilter</span> <span class="title class_">DEFLATE</span> </span><br><span class="line">    <span class="title class_">SetEnvIfNoCase</span> <span class="title class_">Request_URI</span> .(?<span class="symbol">:gif|jpe?g|png</span>)<span class="variable">$ </span>no-gzip dont-vary </span><br><span class="line">    <span class="title class_">SetEnvIfNoCase</span> <span class="title class_">Request_URI</span> .(?<span class="symbol">:exe|t?gz|zip|bz2|sit|rar</span>)<span class="variable">$ </span>no-gzip dont-vary </span><br><span class="line">    <span class="title class_">SetEnvIfNoCase</span> <span class="title class_">Request_URI</span> .(?<span class="symbol">:pdf|doc</span>)<span class="variable">$ </span>no-gzip dont-vary </span><br><span class="line">    <span class="title class_">AddOutputFilterByType</span> <span class="title class_">DEFLATE</span> text/html text/plain text/xml text/css application/x-javascript application/json</span><br><span class="line">    &lt;<span class="title class_">IfModule</span> mod_setenvif.c&gt;</span><br><span class="line">        <span class="title class_">BrowserMatch</span> ^<span class="title class_">Mozilla</span>/<span class="number">4</span> gzip-only-text/html </span><br><span class="line">        <span class="title class_">BrowserMatch</span> ^<span class="title class_">Mozilla</span>/<span class="number">4.0</span>[<span class="number">678</span>] no-gzip </span><br><span class="line">        <span class="title class_">BrowserMatch</span> \bMSIE !no-gzip !gzip-only-text/html </span><br><span class="line">    &lt;/<span class="title class_">IfModule</span>&gt;</span><br><span class="line">&lt;/<span class="title class_">IfModule</span>&gt;</span><br></pre></td></tr></table></figure>
 <p>配置信息可参考<a target="_blank" rel="noopener" href="http://httpd.apache.org/docs/current/mod/mod_deflate.html">Apache Module mod_deflate</a></p>
 <h3 id="规则五、将样式表放在顶部"><a href="#规则五、将样式表放在顶部" class="headerlink" title="规则五、将样式表放在顶部"></a>规则五、将样式表放在顶部</h3><p>将样式表放在head标签里可以避免白屏，这样浏览器能更快的展现内容，用户体验更好<br>而将样式表放在底部会导致浏览器阻止内容逐步呈现，为避免当样式变化时重绘页面，浏览器会延迟显示页面中的元素  </p>
 <h3 id="规则六、将脚本放在底部"><a href="#规则六、将脚本放在底部" class="headerlink" title="规则六、将脚本放在底部"></a>规则六、将脚本放在底部</h3><p>在下载脚本时浏览器会阻塞并行下载，原因：</p>
@@ -233,12 +222,7 @@
 <h4 id="实体标签"><a href="#实体标签" class="headerlink" title="实体标签"></a>实体标签</h4><p>ETag是唯一标识了一个组件的一个特性版本的字符串<br><code>ETag:&quot;24-54c6a9bd53bd1&quot;</code><br>当组件第一次被请求成功后浏览器缓存了该组件以及它的最新修改日期（允许缓存）还有ETag信息，当再次请求该组件时，浏览器会使用If-None-Match头将ETag和原始服务器上该组件的ETag进行比较，如果相同则返回一个304，而不传输数据，浏览器将使用缓存数据。</p>
 <h4 id="ETag带来的问题"><a href="#ETag带来的问题" class="headerlink" title="ETag带来的问题"></a>ETag带来的问题</h4><p>当你使用服务器集群时，相同的组件从一台服务器带另一台服务器，Aapache和IIS产生的ETag是不同的，这样组件下载次数将增加，导致性能下降<br>当If-None-Match比If-Modified-Since共存时，只有If-Modified-Since和If-None-Match在完全匹配时，服务器才能返回304。否则由于If-None-Match比If-Modified-Since具有更高的优先级,ETag不同，服务器就会返回200</p>
 <h4 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h4><ol>
-<li>配置ETag  <pre class="line-numbers language-none"><code class="language-none">FileEtag INode Mtime Size 
-INode:文件的索引节点(inode)数  
-MTime:文件的最后修改日期及时间  
-Size:文件的字节数  
-All:所有存在的域，等价于：FileETag INode MTime Size  
-None:移除ETag  <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<li>配置ETag  <figure class="highlight avrasm"><table><tr><td class="code"><pre><span class="line">FileEtag INode Mtime Size </span><br><span class="line"><span class="symbol">INode:</span>文件的索引节点(inode)数  </span><br><span class="line"><span class="symbol">MTime:</span>文件的最后修改日期及时间  </span><br><span class="line"><span class="symbol">Size:</span>文件的字节数  </span><br><span class="line"><span class="symbol">All:</span>所有存在的域，等价于：FileETag INode MTime Size  </span><br><span class="line"><span class="symbol">None:</span>移除ETag  </span><br></pre></td></tr></table></figure>
 有网友建议只是用MTime和Size就好了，有待验证  </li>
 <li>移除ETag<br> 在Aapache配置文件按中添加<code>FileETag none</code></li>
 </ol>
@@ -298,9 +282,14 @@ None:移除ETag  <span aria-hidden="true" class="line-numbers-rows"><span></span
     </a>
   
 </nav>
-    
-<div id="comments"></div>
-      
+   
+
+
+
+
+
+
+
  
     </footer>
   </div>
@@ -477,21 +466,7 @@ None:移除ETag  <span aria-hidden="true" class="line-numbers-rows"><span></span
   
 
 
-   
-<script src="//imsun.github.io/gitment/dist/gitment.browser.js"></script>
-
-<script>
-  var gitment = new Gitment({
-    owner: "jesse121",
-    repo: "blog",
-    oauth: {
-      client_id: "3c3e422527fd3f9fa17a",
-      client_secret: "f28d1808ec9ab69fb24dc3e9fad81e1c3ab8dd8",
-    },
-  });
-  gitment.render("comments");
-</script>
-        
+          
 
 
 

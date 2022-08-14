@@ -1,27 +1,39 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8" />
-   
+  <meta charset="utf-8">
+  
+  
   <title>工作中常用到的Vim命令 | 前端之路</title>
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1, shrink-to-fit=no"
-  />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   
-  <meta name="description" content="专注前端开发，前端开发技术博客" />
-   
-  <meta name="keywords" content="Web前端开发，Javascript，前端开发博客" />
-    <link rel="alternate" href="/blog/atom.xml" title="前端之路" type="application/atom+xml">   <link rel="shortcut icon" href="/blog/favicon.ico">   
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+    <meta name="description" content="专注前端开发，前端开发技术博客">
   
-<link rel="stylesheet" href="/blog/css/style.css">
   
-<link rel="stylesheet" href="/blog/fancybox/jquery.fancybox.min.css">
+    <meta name="keywords" content="Web前端开发，Javascript，前端开发博客">
+  
+  
+    <link rel="alternate" href="/blog/atom.xml" title="前端之路" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/blog/favicon.ico">
+  
   
     
-<link rel="stylesheet" href="//imsun.github.io/gitment/style/default.css">
- 
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/blog/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/blog/fancybox/jquery.fancybox.min.css">
+
+  
+  
+  
+  
 <meta name="generator" content="Hexo 6.2.0"></head>
 
 <body>
@@ -128,11 +140,7 @@
 <h4 id="vim编辑器个人设置"><a href="#vim编辑器个人设置" class="headerlink" title="vim编辑器个人设置"></a>vim编辑器个人设置</h4><ol>
 <li>先复制一份vim配置模板到个人目录下<br> <code>cp /usr/share/vim/vimrc ~/.vimrc</code></li>
 <li>编辑个人目录下的.vimrc<br> <code>vi ~/.vimrc</code></li>
-<li>进入vim编辑模式编写以下配置信息  <pre class="line-numbers language-none"><code class="language-none">syntax on           &#39;开启语法高亮&#39;
-set nu!             &#39;设置行号&#39;
-set autoindent      &#39;自动缩进&#39;
-set tabstop&#x3D;4       &#39;设置tab键为4个空格&#39;   
-set showmatch       &#39;设置匹配模式，类似当输入一个左括号时会匹配相应的右括号&#39;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+<li>进入vim编辑模式编写以下配置信息  <figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">syntax on           <span class="string">&#x27;开启语法高亮&#x27;</span></span><br><span class="line"><span class="built_in">set</span> nu!             <span class="string">&#x27;设置行号&#x27;</span></span><br><span class="line"><span class="built_in">set</span> autoindent      <span class="string">&#x27;自动缩进&#x27;</span></span><br><span class="line"><span class="built_in">set</span> <span class="attribute">tabstop</span>=4       <span class="string">&#x27;设置tab键为4个空格&#x27;</span>   </span><br><span class="line"><span class="built_in">set</span> showmatch       <span class="string">&#x27;设置匹配模式，类似当输入一个左括号时会匹配相应的右括号&#x27;</span></span><br></pre></td></tr></table></figure></li>
 </ol>
 <h4 id="命令模式（command-mode）—执行命令"><a href="#命令模式（command-mode）—执行命令" class="headerlink" title="命令模式（command mode）—执行命令"></a>命令模式（command mode）—执行命令</h4><p>　　在该模式中，可以输入命令来执行许多种功能。控制屏幕光标的移动，字符、字或行的删除，移动复制某区段及进入Insert mode下，或者到 last line mode。</p>
 <h4 id="输入模式（Insert-mode）—输入文本"><a href="#输入模式（Insert-mode）—输入文本" class="headerlink" title="输入模式（Insert mode）—输入文本"></a>输入模式（Insert mode）—输入文本</h4><p>　　vi被运行时，通常处在命令模式下，键入以下命令 可以使vi退出命令模式，进入输入模式：I（i）、A（a）、O（o）。</p>
@@ -203,9 +211,14 @@ set showmatch       &#39;设置匹配模式，类似当输入一个左括号时�
     </a>
   
 </nav>
-    
-<div id="comments"></div>
-      
+   
+
+
+
+
+
+
+
  
     </footer>
   </div>
@@ -382,21 +395,7 @@ set showmatch       &#39;设置匹配模式，类似当输入一个左括号时�
   
 
 
-   
-<script src="//imsun.github.io/gitment/dist/gitment.browser.js"></script>
-
-<script>
-  var gitment = new Gitment({
-    owner: "jesse121",
-    repo: "blog",
-    oauth: {
-      client_id: "3c3e422527fd3f9fa17a",
-      client_secret: "f28d1808ec9ab69fb24dc3e9fad81e1c3ab8dd8",
-    },
-  });
-  gitment.render("comments");
-</script>
-        
+          
 
 
 

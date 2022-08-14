@@ -1,27 +1,39 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8" />
-   
+  <meta charset="utf-8">
+  
+  
   <title>jQuery插件开发总结 | 前端之路</title>
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1, shrink-to-fit=no"
-  />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   
-  <meta name="description" content="专注前端开发，前端开发技术博客" />
-   
-  <meta name="keywords" content="Web前端开发，Javascript，前端开发博客" />
-    <link rel="alternate" href="/blog/atom.xml" title="前端之路" type="application/atom+xml">   <link rel="shortcut icon" href="/blog/favicon.ico">   
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+    <meta name="description" content="专注前端开发，前端开发技术博客">
   
-<link rel="stylesheet" href="/blog/css/style.css">
   
-<link rel="stylesheet" href="/blog/fancybox/jquery.fancybox.min.css">
+    <meta name="keywords" content="Web前端开发，Javascript，前端开发博客">
+  
+  
+    <link rel="alternate" href="/blog/atom.xml" title="前端之路" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/blog/favicon.ico">
+  
   
     
-<link rel="stylesheet" href="//imsun.github.io/gitment/style/default.css">
- 
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/blog/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/blog/fancybox/jquery.fancybox.min.css">
+
+  
+  
+  
+  
 <meta name="generator" content="Hexo 6.2.0"></head>
 
 <body>
@@ -134,144 +146,28 @@
 <li>objectN 包含额外的属性合并到第一个参数</li>
 </ul>
 <p>当我们提供两个或多个对象给<code>$.extend()</code>，对象的所有属性都添加到目标对象（target参数）<br>目标对象将被修改，并且将通过<code>$.extend()</code>返回。然而，如果我们想保留原对象，我们可以通过传递一个空对象作为目标对象：<br><code>var settings = $.extend(&#123;&#125;, defaults, options);</code>这样defaults对象就不会被更改<br>在默认情况下，通过$.extend()合并操作是不递归的，如果第一个对象的属性本身是一个对象或数组，那么它将完全用第二个对象相同的key重写这个属性。这些值不会被合并。;</p>
-<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">//注意浅拷贝和深拷贝的区别</span>
-<span class="token keyword">var</span> object1 <span class="token operator">=</span> <span class="token punctuation">&#123;</span><span class="token literal-property property">apple</span><span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">,</span><span class="token literal-property property">banana</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span><span class="token literal-property property">weight</span><span class="token operator">:</span> <span class="token number">52</span><span class="token punctuation">,</span> <span class="token literal-property property">price</span><span class="token operator">:</span> <span class="token number">100</span><span class="token punctuation">&#125;</span><span class="token punctuation">,</span><span class="token literal-property property">cherry</span><span class="token operator">:</span> <span class="token number">97</span><span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
-<span class="token keyword">var</span> object2 <span class="token operator">=</span> <span class="token punctuation">&#123;</span><span class="token literal-property property">banana</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span><span class="token literal-property property">price</span><span class="token operator">:</span> <span class="token number">200</span><span class="token punctuation">&#125;</span><span class="token punctuation">,</span><span class="token literal-property property">durian</span><span class="token operator">:</span> <span class="token number">100</span><span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
-$<span class="token punctuation">.</span><span class="token function">extend</span><span class="token punctuation">(</span>object1<span class="token punctuation">,</span> object2<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token comment">//&#123;apple: 0, banana: &#123;price:200&#125;, cherry: 97, durian: 100&#125;</span>
-$<span class="token punctuation">.</span><span class="token function">extend</span><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">,</span> object1<span class="token punctuation">,</span> object2<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token comment">//&#123;apple: 0, banana: &#123;weight: 52, price:200&#125;, cherry: 97, durian: 100&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">//注意浅拷贝和深拷贝的区别</span></span><br><span class="line"><span class="keyword">var</span> object1 = &#123;<span class="attr">apple</span>: <span class="number">0</span>,<span class="attr">banana</span>: &#123;<span class="attr">weight</span>: <span class="number">52</span>, <span class="attr">price</span>: <span class="number">100</span>&#125;,<span class="attr">cherry</span>: <span class="number">97</span>&#125;;</span><br><span class="line"><span class="keyword">var</span> object2 = &#123;<span class="attr">banana</span>: &#123;<span class="attr">price</span>: <span class="number">200</span>&#125;,<span class="attr">durian</span>: <span class="number">100</span>&#125;;</span><br><span class="line">$.<span class="title function_">extend</span>(object1, object2);</span><br><span class="line"><span class="comment">//&#123;apple: 0, banana: &#123;price:200&#125;, cherry: 97, durian: 100&#125;</span></span><br><span class="line">$.<span class="title function_">extend</span>(<span class="literal">true</span>, object1, object2);</span><br><span class="line"><span class="comment">//&#123;apple: 0, banana: &#123;weight: 52, price:200&#125;, cherry: 97, durian: 100&#125;</span></span><br></pre></td></tr></table></figure>
 <h4 id="jQuery-fn-extend"><a href="#jQuery-fn-extend" class="headerlink" title="jQuery.fn.extend()"></a>jQuery.fn.extend()</h4><p>在jQuery源码中有<code>jQuery.fn = jQuery.prototype = function()&#123;……&#125;</code>即指向jQuery对象的原型链，对其它进行的扩展，作用在jQuery对象上面；  </p>
 <p><strong>总结</strong></p>
 <ol>
 <li>jQuery.extend()能够创建全局函数或选择器，在实际开发中常使用jQuery.extend()方法作为插件方法传递系列选项结构的参数</li>
 <li>jQuery.fn.extend()能够创建jQuery对象方法，一般用此方法来扩展jQuery的对象插件</li>
 </ol>
-<h3 id="jQuery插件开发通用框架"><a href="#jQuery插件开发通用框架" class="headerlink" title="jQuery插件开发通用框架"></a>jQuery插件开发通用框架</h3><pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token punctuation">;</span><span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">$<span class="token punctuation">,</span> window<span class="token punctuation">,</span> document<span class="token punctuation">,</span> <span class="token keyword">undefined</span></span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
-    <span class="token comment">//Plugin code here</span>
-<span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">(</span>jQuery<span class="token punctuation">,</span> window<span class="token punctuation">,</span> document<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<h3 id="jQuery插件开发通用框架"><a href="#jQuery插件开发通用框架" class="headerlink" title="jQuery插件开发通用框架"></a>jQuery插件开发通用框架</h3><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">;(<span class="keyword">function</span>(<span class="params">$, <span class="variable language_">window</span>, <span class="variable language_">document</span>, <span class="literal">undefined</span></span>)&#123;</span><br><span class="line">    <span class="comment">//Plugin code here</span></span><br><span class="line">&#125;)(jQuery, <span class="variable language_">window</span>, <span class="variable language_">document</span>);</span><br></pre></td></tr></table></figure>
 <p>使用分号是为了防止因前面的代码没有使用分号而导致插件函数不能正确解析<br>传入jQuery是为了确保在匿名函数中正确的使用jQuery对象，防止多库共存时$冲突<br>传入window、document并非必须，只不过为了更快的访问window和document<br>传入undefined是为了防止undefined变量被更改，确保undefined的准确性  </p>
 <h3 id="jQuery插件开发的3种形式"><a href="#jQuery插件开发的3种形式" class="headerlink" title="jQuery插件开发的3种形式"></a>jQuery插件开发的3种形式</h3><h4 id="类级别开发-封装全局函数的插件"><a href="#类级别开发-封装全局函数的插件" class="headerlink" title="类级别开发(封装全局函数的插件)"></a>类级别开发(封装全局函数的插件)</h4><p><strong>方式1</strong> 常用</p>
-<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token punctuation">;</span><span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">$<span class="token punctuation">,</span> window<span class="token punctuation">,</span> document<span class="token punctuation">,</span> <span class="token keyword">undefined</span></span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
-    $<span class="token punctuation">.</span><span class="token function-variable function">pluginName</span> <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span> 
-        <span class="token comment">//Plugin implementation code here</span>
-    <span class="token punctuation">&#125;</span><span class="token punctuation">;</span>  
-<span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">(</span>jQuery<span class="token punctuation">,</span> window<span class="token punctuation">,</span> document<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">;(<span class="keyword">function</span>(<span class="params">$, <span class="variable language_">window</span>, <span class="variable language_">document</span>, <span class="literal">undefined</span></span>)&#123;</span><br><span class="line">    $.pluginName = <span class="keyword">function</span>(<span class="params"></span>)&#123; </span><br><span class="line">        <span class="comment">//Plugin implementation code here</span></span><br><span class="line">    &#125;;  </span><br><span class="line">&#125;)(jQuery, <span class="variable language_">window</span>, <span class="variable language_">document</span>);</span><br></pre></td></tr></table></figure>
 <p><strong>方式2</strong> 当全局函数较多时</p>
-<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token punctuation">;</span><span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">$<span class="token punctuation">,</span> window<span class="token punctuation">,</span> document<span class="token punctuation">,</span> <span class="token keyword">undefined</span></span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
-    $<span class="token punctuation">.</span><span class="token function">extend</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span>
-        <span class="token function-variable function">pluginName</span> <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
-            <span class="token comment">//Plugin implementation code here</span>
-        <span class="token punctuation">&#125;</span><span class="token punctuation">;</span>  
-    <span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
-<span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">(</span>jQuery<span class="token punctuation">,</span> window<span class="token punctuation">,</span> document<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">;(<span class="keyword">function</span>(<span class="params">$, <span class="variable language_">window</span>, <span class="variable language_">document</span>, <span class="literal">undefined</span></span>)&#123;</span><br><span class="line">    $.<span class="title function_">extend</span>(&#123;</span><br><span class="line">        pluginName = <span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">            <span class="comment">//Plugin implementation code here</span></span><br><span class="line">        &#125;;  </span><br><span class="line">    &#125;)</span><br><span class="line">&#125;)(jQuery, <span class="variable language_">window</span>, <span class="variable language_">document</span>);</span><br></pre></td></tr></table></figure>
 <p><strong>调用方法：</strong>$.pluginName();  </p>
 <h4 id="对象级别的插件开发"><a href="#对象级别的插件开发" class="headerlink" title="对象级别的插件开发"></a>对象级别的插件开发</h4><p><strong>方式1</strong> 常用</p>
-<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token punctuation">;</span><span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">$<span class="token punctuation">,</span> window<span class="token punctuation">,</span> document<span class="token punctuation">,</span> <span class="token keyword">undefined</span></span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
-    $<span class="token punctuation">.</span>fn<span class="token punctuation">.</span><span class="token function-variable function">pluginName</span> <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">options</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-        <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">each</span><span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>  
-        <span class="token comment">//this关键字代表了这个插件将要执行的jQuery对象</span>
-        <span class="token comment">//return this.each()使得插件能够形成链式调用</span>
-            <span class="token keyword">var</span> defaults <span class="token operator">=</span> <span class="token punctuation">&#123;</span>
-                <span class="token comment">//pro : value</span>
-            <span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
-            <span class="token keyword">var</span> settings <span class="token operator">=</span> $<span class="token punctuation">.</span><span class="token function">extend</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span><span class="token punctuation">,</span> defaults<span class="token punctuation">,</span> options<span class="token punctuation">)</span><span class="token punctuation">;</span>
-            <span class="token comment">// plugin implementationcode here</span>
-        <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">(</span>jQuery<span class="token punctuation">,</span> window<span class="token punctuation">,</span> document<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">;(<span class="keyword">function</span>(<span class="params">$, <span class="variable language_">window</span>, <span class="variable language_">document</span>, <span class="literal">undefined</span></span>)&#123;</span><br><span class="line">    $.fn.<span class="property">pluginName</span> = <span class="keyword">function</span>(<span class="params">options</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="title function_">each</span>(<span class="keyword">function</span>(<span class="params"></span>) &#123;  </span><br><span class="line">        <span class="comment">//this关键字代表了这个插件将要执行的jQuery对象</span></span><br><span class="line">        <span class="comment">//return this.each()使得插件能够形成链式调用</span></span><br><span class="line">            <span class="keyword">var</span> defaults = &#123;</span><br><span class="line">                <span class="comment">//pro : value</span></span><br><span class="line">            &#125;;</span><br><span class="line">            <span class="keyword">var</span> settings = $.<span class="title function_">extend</span>(&#123;&#125;, defaults, options);</span><br><span class="line">            <span class="comment">// plugin implementationcode here</span></span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)(jQuery, <span class="variable language_">window</span>, <span class="variable language_">document</span>);</span><br></pre></td></tr></table></figure>
 <p><strong>方式2</strong></p>
-<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token punctuation">;</span><span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">$<span class="token punctuation">,</span> window<span class="token punctuation">,</span> document<span class="token punctuation">,</span> <span class="token keyword">undefined</span></span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
-    $<span class="token punctuation">.</span>fn<span class="token punctuation">.</span><span class="token function">extend</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span>
-        <span class="token function-variable function">pluginName</span> <span class="token operator">:</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
-            <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">each</span><span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
-                <span class="token comment">// plugin implementationcode here</span>
-            <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
-    <span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
-<span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">(</span>jQuery<span class="token punctuation">,</span> window<span class="token punctuation">,</span> document<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">;(<span class="keyword">function</span>(<span class="params">$, <span class="variable language_">window</span>, <span class="variable language_">document</span>, <span class="literal">undefined</span></span>)&#123;</span><br><span class="line">    $.fn.<span class="title function_">extend</span>(&#123;</span><br><span class="line">        pluginName : <span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="title function_">each</span>(<span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">                <span class="comment">// plugin implementationcode here</span></span><br><span class="line">            &#125;);</span><br><span class="line">        &#125;;</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;)(jQuery, <span class="variable language_">window</span>, <span class="variable language_">document</span>);</span><br></pre></td></tr></table></figure>
 <p><strong>方式3</strong><br>将原型和构造函数组合使用，使得通过构造函数创建的每个实例既能实现对原型属性和方法的继承，从而实现函数复用，也能实现对实例属性的继承保证每个实例都有自己的属性。</p>
-<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token punctuation">;</span><span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">$<span class="token punctuation">,</span> window<span class="token punctuation">,</span> document<span class="token punctuation">,</span> <span class="token keyword">undefined</span></span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-    <span class="token comment">//定义构造函数</span>
-    <span class="token keyword">var</span> <span class="token function-variable function">pluginName</span> <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">ele<span class="token punctuation">,</span> opt</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-        <span class="token keyword">this</span><span class="token punctuation">.</span>element <span class="token operator">=</span> ele<span class="token punctuation">;</span>
-        <span class="token keyword">this</span><span class="token punctuation">.</span>defaults <span class="token operator">=</span> <span class="token punctuation">&#123;</span>
-            <span class="token comment">//设置默认参数</span>
-        <span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
-        <span class="token keyword">this</span><span class="token punctuation">.</span>options <span class="token operator">=</span> $<span class="token punctuation">.</span><span class="token function">extend</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span><span class="token punctuation">,</span> <span class="token keyword">this</span><span class="token punctuation">.</span>defaults<span class="token punctuation">,</span> opt<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">&#125;</span>
-    <span class="token comment">//定义pluginName的原型方法</span>
-    pluginName<span class="token punctuation">.</span>prototype <span class="token operator">=</span> <span class="token punctuation">&#123;</span>
-        <span class="token function-variable function">init</span><span class="token operator">:</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-            <span class="token comment">//this.element</span>
-            <span class="token comment">// plugin implementationcode here</span>
-        <span class="token punctuation">&#125;</span>
-        <span class="token comment">// 补充其他相关的方法</span>
-    <span class="token punctuation">&#125;</span>
-
-    $<span class="token punctuation">.</span>fn<span class="token punctuation">.</span><span class="token function-variable function">pluginName</span> <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">options</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-        <span class="token comment">//创建pluginName的实体</span>
-        <span class="token keyword">var</span> pluginObj <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">pluginName</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">,</span> options<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token comment">//调用其方法</span>
-        pluginObj<span class="token punctuation">.</span><span class="token function">init</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token comment">//返回jQuery选择器的集合，以便链式调用</span>
-        <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">;</span>
-    <span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">(</span>jQuery<span class="token punctuation">,</span> window<span class="token punctuation">,</span> document<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">;(<span class="keyword">function</span>(<span class="params">$, <span class="variable language_">window</span>, <span class="variable language_">document</span>, <span class="literal">undefined</span></span>) &#123;</span><br><span class="line">    <span class="comment">//定义构造函数</span></span><br><span class="line">    <span class="keyword">var</span> pluginName = <span class="keyword">function</span>(<span class="params">ele, opt</span>) &#123;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">element</span> = ele;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">defaults</span> = &#123;</span><br><span class="line">            <span class="comment">//设置默认参数</span></span><br><span class="line">        &#125;;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">options</span> = $.<span class="title function_">extend</span>(&#123;&#125;, <span class="variable language_">this</span>.<span class="property">defaults</span>, opt);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//定义pluginName的原型方法</span></span><br><span class="line">    pluginName.<span class="property"><span class="keyword">prototype</span></span> = &#123;</span><br><span class="line">        <span class="attr">init</span>: <span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">            <span class="comment">//this.element</span></span><br><span class="line">            <span class="comment">// plugin implementationcode here</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 补充其他相关的方法</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    $.fn.<span class="property">pluginName</span> = <span class="keyword">function</span>(<span class="params">options</span>) &#123;</span><br><span class="line">        <span class="comment">//创建pluginName的实体</span></span><br><span class="line">        <span class="keyword">var</span> pluginObj = <span class="keyword">new</span> <span class="title function_">pluginName</span>(<span class="variable language_">this</span>, options);</span><br><span class="line">        <span class="comment">//调用其方法</span></span><br><span class="line">        pluginObj.<span class="title function_">init</span>();</span><br><span class="line">        <span class="comment">//返回jQuery选择器的集合，以便链式调用</span></span><br><span class="line">        <span class="keyword">return</span> <span class="variable language_">this</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)(jQuery, <span class="variable language_">window</span>, <span class="variable language_">document</span>);</span><br></pre></td></tr></table></figure>
 <p><strong>方式4</strong> 不常用<br>这种类型的插件架构允许您封装所有的方法在父包中，通过传递该方法的字符串名称和额外的此方法需要的参数来调用它们。</p>
-<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token punctuation">;</span><span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">$<span class="token punctuation">,</span> window<span class="token punctuation">,</span> document<span class="token punctuation">,</span> <span class="token keyword">undefined</span></span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-    <span class="token comment">// 在我们插件容器内，创造一个公共变量来构建一个私有方法  </span>
-    <span class="token keyword">var</span> <span class="token function-variable function">privateFunction</span> <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-            <span class="token comment">// code here  </span>
-        <span class="token punctuation">&#125;</span>
-        <span class="token comment">// 通过字面量创造一个对象，存储我们需要的公有方法  </span>
-    <span class="token keyword">var</span> methods <span class="token operator">=</span> <span class="token punctuation">&#123;</span>
-        <span class="token comment">// 在字面量对象中定义每个单独的方法  </span>
-        <span class="token function-variable function">init</span><span class="token operator">:</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-            <span class="token comment">//为了更好的灵活性，对来自主函数并进入每个方法中的选择器其中的每个单独的元素都执行代码  </span>
-            <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">each</span><span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-                <span class="token comment">// 为每个独立的元素创建一个jQuery对象  </span>
-                <span class="token keyword">var</span> $<span class="token keyword">this</span> <span class="token operator">=</span> <span class="token function">$</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-                <span class="token comment">// 创建一个默认设置对象  </span>
-                <span class="token keyword">var</span> defaults <span class="token operator">=</span> <span class="token punctuation">&#123;</span>
-                    <span class="token literal-property property">propertyName</span><span class="token operator">:</span> <span class="token string">'value'</span><span class="token punctuation">,</span>
-                    <span class="token function-variable function">onSomeEvent</span><span class="token operator">:</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span>
-                <span class="token punctuation">&#125;</span>
-                <span class="token comment">// 使用extend方法从options和defaults对象中构造出一个settings对象  </span>
-                <span class="token keyword">var</span> settings <span class="token operator">=</span> $<span class="token punctuation">.</span><span class="token function">extend</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span><span class="token punctuation">,</span> defaults<span class="token punctuation">,</span> options<span class="token punctuation">)</span><span class="token punctuation">;</span>
-                <span class="token comment">// 执行代码  </span>
-                <span class="token comment">// 例如： privateFunction();  </span>
-            <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
-        <span class="token function-variable function">destroy</span><span class="token operator">:</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-            <span class="token comment">// 对选择器每个元素都执行方法  </span>
-            <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">each</span><span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-                <span class="token comment">// 执行代码  </span>
-            <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token punctuation">&#125;</span>
-    <span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
-    $<span class="token punctuation">.</span>fn<span class="token punctuation">.</span><span class="token function-variable function">pluginName</span> <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-        <span class="token comment">// 获取我们的方法，遗憾的是，如果我们用function(method)&#123;&#125;来实现，这样会毁掉一切的  </span>
-        <span class="token keyword">var</span> method <span class="token operator">=</span> arguments<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
-        <span class="token comment">// 检验方法是否存在  </span>
-        <span class="token keyword">if</span> <span class="token punctuation">(</span>methods<span class="token punctuation">[</span>method<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-            <span class="token comment">// 如果方法存在，存储起来以便使用  </span>
-            <span class="token comment">// 注意：我这样做是为了等下更方便地使用each（）  </span>
-            method <span class="token operator">=</span> methods<span class="token punctuation">[</span>method<span class="token punctuation">]</span><span class="token punctuation">;</span>
-            <span class="token comment">// 如果方法不存在，检验对象是否为一个对象（JSON对象）或者method方法没有被传入  </span>
-        <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">typeof</span><span class="token punctuation">(</span>method<span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token string">'object'</span> <span class="token operator">||</span> <span class="token operator">!</span>method<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-            <span class="token comment">// 如果我们传入的是一个对象参数，或者根本没有参数，init方法会被调用  </span>
-            method <span class="token operator">=</span> methods<span class="token punctuation">.</span>init<span class="token punctuation">;</span>
-        <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token punctuation">&#123;</span>
-            <span class="token comment">// 如果方法不存在或者参数没传入，则报出错误。需要调用的方法没有被正确调用  </span>
-            $<span class="token punctuation">.</span><span class="token function">error</span><span class="token punctuation">(</span><span class="token string">'Method '</span> <span class="token operator">+</span> method <span class="token operator">+</span> <span class="token string">' does not exist on jQuery.pluginName'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-            <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">;</span>
-        <span class="token punctuation">&#125;</span>
-        <span class="token comment">// 调用我们选中的方法  </span>
-        <span class="token comment">// 再一次注意我们是如何将each()从这里转移到每个单独的方法上的  </span>
-        <span class="token keyword">return</span> <span class="token function">method</span><span class="token punctuation">.</span><span class="token function">call</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">(</span>jQuery<span class="token punctuation">,</span> window<span class="token punctuation">,</span> document<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">;(<span class="keyword">function</span>(<span class="params">$, <span class="variable language_">window</span>, <span class="variable language_">document</span>, <span class="literal">undefined</span></span>) &#123;</span><br><span class="line">    <span class="comment">// 在我们插件容器内，创造一个公共变量来构建一个私有方法  </span></span><br><span class="line">    <span class="keyword">var</span> privateFunction = <span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">            <span class="comment">// code here  </span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 通过字面量创造一个对象，存储我们需要的公有方法  </span></span><br><span class="line">    <span class="keyword">var</span> methods = &#123;</span><br><span class="line">        <span class="comment">// 在字面量对象中定义每个单独的方法  </span></span><br><span class="line">        <span class="attr">init</span>: <span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">            <span class="comment">//为了更好的灵活性，对来自主函数并进入每个方法中的选择器其中的每个单独的元素都执行代码  </span></span><br><span class="line">            <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="title function_">each</span>(<span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">                <span class="comment">// 为每个独立的元素创建一个jQuery对象  </span></span><br><span class="line">                <span class="keyword">var</span> $this = $(<span class="variable language_">this</span>);</span><br><span class="line">                <span class="comment">// 创建一个默认设置对象  </span></span><br><span class="line">                <span class="keyword">var</span> defaults = &#123;</span><br><span class="line">                    <span class="attr">propertyName</span>: <span class="string">&#x27;value&#x27;</span>,</span><br><span class="line">                    <span class="attr">onSomeEvent</span>: <span class="keyword">function</span>(<span class="params"></span>) &#123;&#125;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="comment">// 使用extend方法从options和defaults对象中构造出一个settings对象  </span></span><br><span class="line">                <span class="keyword">var</span> settings = $.<span class="title function_">extend</span>(&#123;&#125;, defaults, options);</span><br><span class="line">                <span class="comment">// 执行代码  </span></span><br><span class="line">                <span class="comment">// 例如： privateFunction();  </span></span><br><span class="line">            &#125;);</span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="attr">destroy</span>: <span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">            <span class="comment">// 对选择器每个元素都执行方法  </span></span><br><span class="line">            <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="title function_">each</span>(<span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">                <span class="comment">// 执行代码  </span></span><br><span class="line">            &#125;);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">    $.fn.<span class="property">pluginName</span> = <span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="comment">// 获取我们的方法，遗憾的是，如果我们用function(method)&#123;&#125;来实现，这样会毁掉一切的  </span></span><br><span class="line">        <span class="keyword">var</span> method = <span class="variable language_">arguments</span>[<span class="number">0</span>];</span><br><span class="line">        <span class="comment">// 检验方法是否存在  </span></span><br><span class="line">        <span class="keyword">if</span> (methods[method]) &#123;</span><br><span class="line">            <span class="comment">// 如果方法存在，存储起来以便使用  </span></span><br><span class="line">            <span class="comment">// 注意：我这样做是为了等下更方便地使用each（）  </span></span><br><span class="line">            method = methods[method];</span><br><span class="line">            <span class="comment">// 如果方法不存在，检验对象是否为一个对象（JSON对象）或者method方法没有被传入  </span></span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="title function_">typeof</span>(method) == <span class="string">&#x27;object&#x27;</span> || !method) &#123;</span><br><span class="line">            <span class="comment">// 如果我们传入的是一个对象参数，或者根本没有参数，init方法会被调用  </span></span><br><span class="line">            method = methods.<span class="property">init</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="comment">// 如果方法不存在或者参数没传入，则报出错误。需要调用的方法没有被正确调用  </span></span><br><span class="line">            $.<span class="title function_">error</span>(<span class="string">&#x27;Method &#x27;</span> + method + <span class="string">&#x27; does not exist on jQuery.pluginName&#x27;</span>);</span><br><span class="line">            <span class="keyword">return</span> <span class="variable language_">this</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 调用我们选中的方法  </span></span><br><span class="line">        <span class="comment">// 再一次注意我们是如何将each()从这里转移到每个单独的方法上的  </span></span><br><span class="line">        <span class="keyword">return</span> method.<span class="title function_">call</span>(<span class="variable language_">this</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)(jQuery, <span class="variable language_">window</span>, <span class="variable language_">document</span>);</span><br></pre></td></tr></table></figure>
 
 <p><strong>调用方法</strong>：$(‘selector’).pluginName();  </p>
 <h3 id="通过-widget-应用jQuery-UI的部件工厂方式创建"><a href="#通过-widget-应用jQuery-UI的部件工厂方式创建" class="headerlink" title="通过$.widget()应用jQuery UI的部件工厂方式创建"></a>通过$.widget()应用jQuery UI的部件工厂方式创建</h3><p>用来开发更高级jQuery部件的，该模式开发出来的部件带有很多jQuery内建的特性，比如插件的状态信息自动保存，各种关于插件的常用方法等</p>
@@ -338,9 +234,14 @@ $<span class="token punctuation">.</span><span class="token function">extend</sp
     </a>
   
 </nav>
-    
-<div id="comments"></div>
-      
+   
+
+
+
+
+
+
+
  
     </footer>
   </div>
@@ -517,21 +418,7 @@ $<span class="token punctuation">.</span><span class="token function">extend</sp
   
 
 
-   
-<script src="//imsun.github.io/gitment/dist/gitment.browser.js"></script>
-
-<script>
-  var gitment = new Gitment({
-    owner: "jesse121",
-    repo: "blog",
-    oauth: {
-      client_id: "3c3e422527fd3f9fa17a",
-      client_secret: "f28d1808ec9ab69fb24dc3e9fad81e1c3ab8dd8",
-    },
-  });
-  gitment.render("comments");
-</script>
-        
+          
 
 
 

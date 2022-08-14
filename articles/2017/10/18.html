@@ -1,27 +1,39 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8" />
-   
+  <meta charset="utf-8">
+  
+  
   <title>Linux基础 | 前端之路</title>
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1, shrink-to-fit=no"
-  />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   
-  <meta name="description" content="专注前端开发，前端开发技术博客" />
-   
-  <meta name="keywords" content="Web前端开发，Javascript，前端开发博客" />
-    <link rel="alternate" href="/blog/atom.xml" title="前端之路" type="application/atom+xml">   <link rel="shortcut icon" href="/blog/favicon.ico">   
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+    <meta name="description" content="专注前端开发，前端开发技术博客">
   
-<link rel="stylesheet" href="/blog/css/style.css">
   
-<link rel="stylesheet" href="/blog/fancybox/jquery.fancybox.min.css">
+    <meta name="keywords" content="Web前端开发，Javascript，前端开发博客">
+  
+  
+    <link rel="alternate" href="/blog/atom.xml" title="前端之路" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/blog/favicon.ico">
+  
   
     
-<link rel="stylesheet" href="//imsun.github.io/gitment/style/default.css">
- 
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/blog/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/blog/fancybox/jquery.fancybox.min.css">
+
+  
+  
+  
+  
 <meta name="generator" content="Hexo 6.2.0"></head>
 
 <body>
@@ -156,10 +168,7 @@
 <td>x</td>
 </tr>
 </tbody></table>
-<pre class="line-numbers language-none"><code class="language-none">a 代表ugo
-+ 添加权限
-- 移除权限
-&#x3D; 赋值权限<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight asciidoc"><table><tr><td class="code"><pre><span class="line">a 代表ugo</span><br><span class="line">+ 添加权限</span><br><span class="line"><span class="bullet">- </span>移除权限</span><br><span class="line"><span class="section">= 赋值权限</span></span><br></pre></td></tr></table></figure>
 
 <p>chmod [-R] ugo 文件或目录<br>u 所有者权限 g 所属组权限 o 其他用户权限<br>chmod -R a&#x3D;rwx file</p>
 <h5 id="2-数字表示法"><a href="#2-数字表示法" class="headerlink" title="2.数字表示法"></a>2.数字表示法</h5><p>r 可读权限 2^2&#x3D;4<br>w 可写权限 2^1&#x3D;2<br>x 可执行权限 2^0&#x3D;1</p>
@@ -168,13 +177,13 @@
 <h4 id="切换账户"><a href="#切换账户" class="headerlink" title="切换账户"></a>切换账户</h4><p>su username<br>从普通用户切换到 root 用户 sudo su root<br>从 root 用户切换到普通用户 sudo su jesse</p>
 <h3 id="压缩与解压"><a href="#压缩与解压" class="headerlink" title="压缩与解压"></a>压缩与解压</h3><h4 id="打包压缩"><a href="#打包压缩" class="headerlink" title="打包压缩"></a>打包压缩</h4><p>tar [-ctxzjJvf] 压缩文件 [源文件]<br>c 打包压缩&#x2F;t 查看内容&#x2F;x 解打包解压缩&#x2F;v 显示过程&#x2F;f 指定压缩包名称<br>z 使用 gzip 方式&#x2F;j 使用 bzip2 方式&#x2F;J 使用 xz 方式<br>tar -czvf a.tar.gz a<br>tar -cjvf a.tar.bz2 a</p>
 <h4 id="解压"><a href="#解压" class="headerlink" title="解压"></a>解压</h4><p>tar -xzvf a.tar.gz -C 解压目录<br>tar -xjvf a.tar.bz2 -C 解压目录</p>
-<h4 id="gzip-压缩文件"><a href="#gzip-压缩文件" class="headerlink" title="gzip 压缩文件"></a>gzip 压缩文件</h4><pre class="line-numbers language-none"><code class="language-none">gzip [-cdtv#] test<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h4 id="gzip-压缩文件"><a href="#gzip-压缩文件" class="headerlink" title="gzip 压缩文件"></a>gzip 压缩文件</h4><figure class="highlight nginx"><table><tr><td class="code"><pre><span class="line"><span class="attribute">gzip</span> [-cdtv<span class="comment">#] test</span></span><br></pre></td></tr></table></figure>
 
 <p>压缩扩展名为 gz<br>-c 将压缩数据输出到屏幕上<br>-d 解压缩参数<br>-t 校验文件是否损坏<br>-V 显示和源文件压缩比<br>-# 压缩等级 -1 最快 -9 最慢 默认-6</p>
-<h3 id="bzip2-压缩文件"><a href="#bzip2-压缩文件" class="headerlink" title="bzip2 压缩文件"></a>bzip2 压缩文件</h3><pre class="line-numbers language-none"><code class="language-none">bzip2 [-cdkv#] test<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h3 id="bzip2-压缩文件"><a href="#bzip2-压缩文件" class="headerlink" title="bzip2 压缩文件"></a>bzip2 压缩文件</h3><figure class="highlight mipsasm"><table><tr><td class="code"><pre><span class="line"><span class="keyword">bzip2 </span>[-cdkv<span class="comment">#] test</span></span><br></pre></td></tr></table></figure>
 
 <p>-c 将压缩数据输出到屏幕上<br>-d 解压缩参数<br>-k 保留原文件<br>-V 显示和源文件压缩比<br>-# 压缩等级 -1 最快 -9 最慢 默认-6</p>
-<h4 id="zip-压缩"><a href="#zip-压缩" class="headerlink" title="zip 压缩"></a>zip 压缩</h4><pre class="line-numbers language-none"><code class="language-none">zip [-q -r -e -m -o] [yourName].zip someThing<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h4 id="zip-压缩"><a href="#zip-压缩" class="headerlink" title="zip 压缩"></a>zip 压缩</h4><figure class="highlight stylus"><table><tr><td class="code"><pre><span class="line">zip <span class="selector-attr">[-q -r -e -m -o]</span> <span class="selector-attr">[yourName]</span><span class="selector-class">.zip</span> someThing</span><br></pre></td></tr></table></figure>
 
 <p>-q 表示不显示压缩进度状态<br>-r 表示子目录子文件全部压缩为 zip<br>-e 表示你的压缩文件需要加密，终端会提示你输入密码的<br>-m 表示压缩完删除原文件<br>-o 表示设置所有被压缩文件的最后修改时间为当前压缩时间</p>
 <h3 id="软件的安装与卸载"><a href="#软件的安装与卸载" class="headerlink" title="软件的安装与卸载"></a>软件的安装与卸载</h3><h4 id="源码包安装"><a href="#源码包安装" class="headerlink" title="源码包安装"></a>源码包安装</h4><p>下载源码包(curl,wget)<br>解压(tar)<br>进入目录(cd)<br>编译前配置(.&#x2F;configure)<br>编译(make)<br>编译安装(make install)<br>删除源码包 make clean</p>
@@ -360,9 +369,14 @@
     </a>
   
 </nav>
-    
-<div id="comments"></div>
-      
+   
+
+
+
+
+
+
+
  
     </footer>
   </div>
@@ -539,21 +553,7 @@
   
 
 
-   
-<script src="//imsun.github.io/gitment/dist/gitment.browser.js"></script>
-
-<script>
-  var gitment = new Gitment({
-    owner: "jesse121",
-    repo: "blog",
-    oauth: {
-      client_id: "3c3e422527fd3f9fa17a",
-      client_secret: "f28d1808ec9ab69fb24dc3e9fad81e1c3ab8dd8",
-    },
-  });
-  gitment.render("comments");
-</script>
-        
+          
 
 
 

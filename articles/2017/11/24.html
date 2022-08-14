@@ -1,27 +1,39 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8" />
-   
+  <meta charset="utf-8">
+  
+  
   <title>MySQL基础 | 前端之路</title>
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1, shrink-to-fit=no"
-  />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   
-  <meta name="description" content="专注前端开发，前端开发技术博客" />
-   
-  <meta name="keywords" content="Web前端开发，Javascript，前端开发博客" />
-    <link rel="alternate" href="/blog/atom.xml" title="前端之路" type="application/atom+xml">   <link rel="shortcut icon" href="/blog/favicon.ico">   
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+    <meta name="description" content="专注前端开发，前端开发技术博客">
   
-<link rel="stylesheet" href="/blog/css/style.css">
   
-<link rel="stylesheet" href="/blog/fancybox/jquery.fancybox.min.css">
+    <meta name="keywords" content="Web前端开发，Javascript，前端开发博客">
+  
+  
+    <link rel="alternate" href="/blog/atom.xml" title="前端之路" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/blog/favicon.ico">
+  
   
     
-<link rel="stylesheet" href="//imsun.github.io/gitment/style/default.css">
- 
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/blog/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/blog/fancybox/jquery.fancybox.min.css">
+
+  
+  
+  
+  
 <meta name="generator" content="Hexo 6.2.0"></head>
 
 <body>
@@ -129,31 +141,21 @@
 <h4 id="MySQL-常用语句"><a href="#MySQL-常用语句" class="headerlink" title="MySQL 常用语句"></a>MySQL 常用语句</h4><p>登录 mysql -uroot -p<br>登录并打开某数据库 mysql -uroot -p -D db_name</p>
 <p>常用 MySQL 的关键字需要大写，库名，表名，字段名需要小写</p>
 <p>常用 sql 语句</p>
-<pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">SELECT</span> <span class="token keyword">USER</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token keyword">SELECT</span> VERSION<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token keyword">SELECT</span> <span class="token function">NOW</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token keyword">SELECT</span> <span class="token keyword">DATABASE</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token keyword">SHOW</span> <span class="token keyword">WARNINGS</span><span class="token punctuation">;</span> <span class="token comment">-- 查看上一步产生的警告</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">USER</span>();</span><br><span class="line"><span class="keyword">SELECT</span> VERSION();</span><br><span class="line"><span class="keyword">SELECT</span> NOW();</span><br><span class="line"><span class="keyword">SELECT</span> DATABASE();</span><br><span class="line"><span class="keyword">SHOW</span> WARNINGS; <span class="comment">-- 查看上一步产生的警告</span></span><br></pre></td></tr></table></figure>
 
-<h5 id="MySQL-注释"><a href="#MySQL-注释" class="headerlink" title="MySQL 注释"></a>MySQL 注释</h5><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token comment">-- 注释内容</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h5 id="MySQL-注释"><a href="#MySQL-注释" class="headerlink" title="MySQL 注释"></a>MySQL 注释</h5><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="comment">-- 注释内容</span></span><br></pre></td></tr></table></figure>
 
-<h5 id="创建数据库"><a href="#创建数据库" class="headerlink" title="创建数据库"></a>创建数据库</h5><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">CREATE</span> <span class="token keyword">DATABASE</span> db_name<span class="token punctuation">;</span>
-<span class="token keyword">CREATE</span> <span class="token keyword">DATABASE</span> <span class="token keyword">IF</span> <span class="token operator">NOT</span> <span class="token keyword">EXISTS</span> db_name<span class="token punctuation">;</span>
-<span class="token keyword">CREATE</span> <span class="token keyword">DATABASE</span> db_name <span class="token keyword">CHARACTER</span> <span class="token keyword">SET</span> <span class="token string">'UTF8'</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<h5 id="创建数据库"><a href="#创建数据库" class="headerlink" title="创建数据库"></a>创建数据库</h5><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> DATABASE db_name;</span><br><span class="line"><span class="keyword">CREATE</span> DATABASE IF <span class="keyword">NOT</span> <span class="keyword">EXISTS</span> db_name;</span><br><span class="line"><span class="keyword">CREATE</span> DATABASE db_name <span class="type">CHARACTER</span> <span class="keyword">SET</span> <span class="string">&#x27;UTF8&#x27;</span>;</span><br></pre></td></tr></table></figure>
 
-<h5 id="查看数据库的详细信息"><a href="#查看数据库的详细信息" class="headerlink" title="查看数据库的详细信息"></a>查看数据库的详细信息</h5><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">SHOW</span> <span class="token keyword">CREATE</span> <span class="token keyword">DATABASE</span> db_name<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h5 id="查看数据库的详细信息"><a href="#查看数据库的详细信息" class="headerlink" title="查看数据库的详细信息"></a>查看数据库的详细信息</h5><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SHOW</span> <span class="keyword">CREATE</span> DATABASE db_name;</span><br></pre></td></tr></table></figure>
 
-<h5 id="修改数据库编码方式"><a href="#修改数据库编码方式" class="headerlink" title="修改数据库编码方式"></a>修改数据库编码方式</h5><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">ALTER</span> <span class="token keyword">DATABASE</span> db_name <span class="token keyword">CHARACTER</span> <span class="token keyword">SET</span> <span class="token string">'UTF8'</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h5 id="修改数据库编码方式"><a href="#修改数据库编码方式" class="headerlink" title="修改数据库编码方式"></a>修改数据库编码方式</h5><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> DATABASE db_name <span class="type">CHARACTER</span> <span class="keyword">SET</span> <span class="string">&#x27;UTF8&#x27;</span>;</span><br></pre></td></tr></table></figure>
 
-<h5 id="查看当前服务器下的全部数据库"><a href="#查看当前服务器下的全部数据库" class="headerlink" title="查看当前服务器下的全部数据库"></a>查看当前服务器下的全部数据库</h5><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">SHOW</span> <span class="token keyword">DATABASES</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h5 id="查看当前服务器下的全部数据库"><a href="#查看当前服务器下的全部数据库" class="headerlink" title="查看当前服务器下的全部数据库"></a>查看当前服务器下的全部数据库</h5><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SHOW</span> DATABASES;</span><br></pre></td></tr></table></figure>
 
-<h5 id="删除指定的数据库"><a href="#删除指定的数据库" class="headerlink" title="删除指定的数据库"></a>删除指定的数据库</h5><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">DROP</span> <span class="token keyword">DATABASE</span> db_name<span class="token punctuation">;</span>
-<span class="token keyword">DROP</span> <span class="token keyword">DATABASE</span> <span class="token keyword">IF</span> <span class="token keyword">EXISTS</span> db_name<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h5 id="删除指定的数据库"><a href="#删除指定的数据库" class="headerlink" title="删除指定的数据库"></a>删除指定的数据库</h5><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">DROP</span> DATABASE db_name;</span><br><span class="line"><span class="keyword">DROP</span> DATABASE IF <span class="keyword">EXISTS</span> db_name;</span><br></pre></td></tr></table></figure>
 
-<h5 id="创建数据表"><a href="#创建数据表" class="headerlink" title="创建数据表"></a>创建数据表</h5><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">CREATE</span> <span class="token keyword">TABLE</span> <span class="token punctuation">[</span><span class="token keyword">IF</span> <span class="token operator">NOT</span> <span class="token keyword">EXISTS</span><span class="token punctuation">]</span> tb_name<span class="token punctuation">(</span>
-    字段名称 字段类型<span class="token punctuation">[</span>完整性约束条件<span class="token punctuation">]</span><span class="token punctuation">,</span>
-    <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
-<span class="token punctuation">)</span><span class="token keyword">ENGINE</span><span class="token operator">=</span>存储引擎 <span class="token keyword">CHARSET</span><span class="token operator">=</span>编码方式<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<h5 id="创建数据表"><a href="#创建数据表" class="headerlink" title="创建数据表"></a>创建数据表</h5><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> [IF <span class="keyword">NOT</span> <span class="keyword">EXISTS</span>] tb_name(</span><br><span class="line">    字段名称 字段类型[完整性约束条件],</span><br><span class="line">    ...</span><br><span class="line">)ENGINE<span class="operator">=</span>存储引擎 CHARSET<span class="operator">=</span>编码方式</span><br></pre></td></tr></table></figure>
 
 <h5 id="mysql-中字段类型"><a href="#mysql-中字段类型" class="headerlink" title="mysql 中字段类型"></a>mysql 中字段类型</h5><ul>
 <li>数值型</li>
@@ -170,111 +172,79 @@
 <li>AUTO INCREMENT 自动增长 只能用于数值列 配合索引</li>
 <li>FOREIGN KEY 外键约束</li>
 </ul>
-<h5 id="查看数据表"><a href="#查看数据表" class="headerlink" title="查看数据表"></a>查看数据表</h5><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">SHOW</span> <span class="token keyword">TABLES</span><span class="token punctuation">;</span>
-<span class="token keyword">SHOW</span> <span class="token keyword">FULL</span> <span class="token keyword">TABLES</span> <span class="token keyword">FROM</span> db_name<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h5 id="查看数据表"><a href="#查看数据表" class="headerlink" title="查看数据表"></a>查看数据表</h5><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SHOW</span> TABLES;</span><br><span class="line"><span class="keyword">SHOW</span> <span class="keyword">FULL</span> TABLES <span class="keyword">FROM</span> db_name;</span><br></pre></td></tr></table></figure>
 
-<h5 id="查看指定数据表的详细信息"><a href="#查看指定数据表的详细信息" class="headerlink" title="查看指定数据表的详细信息"></a>查看指定数据表的详细信息</h5><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">SHOW</span> <span class="token keyword">CREATE</span> <span class="token keyword">TABLE</span> tb_name<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h5 id="查看指定数据表的详细信息"><a href="#查看指定数据表的详细信息" class="headerlink" title="查看指定数据表的详细信息"></a>查看指定数据表的详细信息</h5><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SHOW</span> <span class="keyword">CREATE</span> <span class="keyword">TABLE</span> tb_name;</span><br></pre></td></tr></table></figure>
 
-<h5 id="查看表结构"><a href="#查看表结构" class="headerlink" title="查看表结构"></a>查看表结构</h5><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">DESC</span> tb_name<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h5 id="查看表结构"><a href="#查看表结构" class="headerlink" title="查看表结构"></a>查看表结构</h5><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">DESC</span> tb_name;</span><br></pre></td></tr></table></figure>
 
-<h5 id="删除指定数据表"><a href="#删除指定数据表" class="headerlink" title="删除指定数据表"></a>删除指定数据表</h5><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">DROP</span> <span class="token keyword">TABLE</span> <span class="token keyword">IF</span> <span class="token keyword">EXISTS</span> tb_name<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h5 id="删除指定数据表"><a href="#删除指定数据表" class="headerlink" title="删除指定数据表"></a>删除指定数据表</h5><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">DROP</span> <span class="keyword">TABLE</span> IF <span class="keyword">EXISTS</span> tb_name;</span><br></pre></td></tr></table></figure>
 
-<h5 id="彻底清空数据表"><a href="#彻底清空数据表" class="headerlink" title="彻底清空数据表"></a>彻底清空数据表</h5><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">TRUNCATE</span> tb_name<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h5 id="彻底清空数据表"><a href="#彻底清空数据表" class="headerlink" title="彻底清空数据表"></a>彻底清空数据表</h5><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">TRUNCATE</span> tb_name;</span><br></pre></td></tr></table></figure>
 
-<h5 id="向表中插入数据"><a href="#向表中插入数据" class="headerlink" title="向表中插入数据"></a>向表中插入数据</h5><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">INSERT</span> tb_name<span class="token punctuation">(</span>id<span class="token punctuation">,</span>username <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">)</span> <span class="token keyword">VALUES</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token string">'jesse'</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h5 id="向表中插入数据"><a href="#向表中插入数据" class="headerlink" title="向表中插入数据"></a>向表中插入数据</h5><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">INSERT</span> tb_name(id,username ...) <span class="keyword">VALUES</span>(<span class="number">1</span>,<span class="string">&#x27;jesse&#x27;</span>...);</span><br></pre></td></tr></table></figure>
 
-<h5 id="查询表中所有记录"><a href="#查询表中所有记录" class="headerlink" title="查询表中所有记录"></a>查询表中所有记录</h5><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">SELECT</span> <span class="token operator">*</span> <span class="token keyword">FROM</span> imooc_user<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h5 id="查询表中所有记录"><a href="#查询表中所有记录" class="headerlink" title="查询表中所有记录"></a>查询表中所有记录</h5><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> imooc_user;</span><br></pre></td></tr></table></figure>
 
-<h4 id="表结构相关操作"><a href="#表结构相关操作" class="headerlink" title="表结构相关操作"></a>表结构相关操作</h4><h5 id="添加字段"><a href="#添加字段" class="headerlink" title="添加字段"></a>添加字段</h5><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">ALTER</span> <span class="token keyword">TABLE</span> tb_name
-<span class="token keyword">ADD</span> 字段名称 字段属性<span class="token punctuation">[</span>约束条件<span class="token punctuation">]</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h4 id="表结构相关操作"><a href="#表结构相关操作" class="headerlink" title="表结构相关操作"></a>表结构相关操作</h4><h5 id="添加字段"><a href="#添加字段" class="headerlink" title="添加字段"></a>添加字段</h5><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> tb_name</span><br><span class="line"><span class="keyword">ADD</span> 字段名称 字段属性[约束条件];</span><br></pre></td></tr></table></figure>
 
-<h5 id="删除字段"><a href="#删除字段" class="headerlink" title="删除字段"></a>删除字段</h5><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">ALTER</span> <span class="token keyword">TABLE</span> tb_name
-<span class="token keyword">DROP</span> 字段名称<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h5 id="删除字段"><a href="#删除字段" class="headerlink" title="删除字段"></a>删除字段</h5><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> tb_name</span><br><span class="line"><span class="keyword">DROP</span> 字段名称;</span><br></pre></td></tr></table></figure>
 
-<h5 id="添加默认值"><a href="#添加默认值" class="headerlink" title="添加默认值"></a>添加默认值</h5><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">ALTER</span> <span class="token keyword">TABLE</span> tb_name
-<span class="token keyword">ALTER</span> 字段名称 <span class="token keyword">SET</span> <span class="token keyword">DEFAULT</span> 默认值<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h5 id="添加默认值"><a href="#添加默认值" class="headerlink" title="添加默认值"></a>添加默认值</h5><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> tb_name</span><br><span class="line"><span class="keyword">ALTER</span> 字段名称 <span class="keyword">SET</span> <span class="keyword">DEFAULT</span> 默认值;</span><br></pre></td></tr></table></figure>
 
-<h5 id="删除默认值"><a href="#删除默认值" class="headerlink" title="删除默认值"></a>删除默认值</h5><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">ALTER</span> <span class="token keyword">TABLE</span> tb_name
-<span class="token keyword">ALTER</span> 字段名称 <span class="token keyword">DROP</span> <span class="token keyword">DEFAULT</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h5 id="删除默认值"><a href="#删除默认值" class="headerlink" title="删除默认值"></a>删除默认值</h5><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> tb_name</span><br><span class="line"><span class="keyword">ALTER</span> 字段名称 <span class="keyword">DROP</span> <span class="keyword">DEFAULT</span>;</span><br></pre></td></tr></table></figure>
 
-<h5 id="修改字段类型-字段属性"><a href="#修改字段类型-字段属性" class="headerlink" title="修改字段类型 字段属性"></a>修改字段类型 字段属性</h5><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">ALTER</span> <span class="token keyword">TABLE</span> tb_name
-<span class="token keyword">MODIFY</span> 字段名称 字段类型<span class="token punctuation">[</span>字段属性<span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h5 id="修改字段类型-字段属性"><a href="#修改字段类型-字段属性" class="headerlink" title="修改字段类型 字段属性"></a>修改字段类型 字段属性</h5><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> tb_name</span><br><span class="line">MODIFY 字段名称 字段类型[字段属性]</span><br></pre></td></tr></table></figure>
 
-<h5 id="修改字段名称-字段类型-字段属性"><a href="#修改字段名称-字段类型-字段属性" class="headerlink" title="修改字段名称 字段类型 字段属性"></a>修改字段名称 字段类型 字段属性</h5><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">ALTER</span> <span class="token keyword">TABLE</span> tb_name
-CHANGE 原字段名称 新字段名称 字段类型<span class="token punctuation">[</span>字段属性<span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h5 id="修改字段名称-字段类型-字段属性"><a href="#修改字段名称-字段类型-字段属性" class="headerlink" title="修改字段名称 字段类型 字段属性"></a>修改字段名称 字段类型 字段属性</h5><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> tb_name</span><br><span class="line">CHANGE 原字段名称 新字段名称 字段类型[字段属性]</span><br></pre></td></tr></table></figure>
 
-<h5 id="添加主键"><a href="#添加主键" class="headerlink" title="添加主键"></a>添加主键</h5><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">ALTER</span> <span class="token keyword">TABLE</span> tb_name
-<span class="token keyword">ADD</span> <span class="token keyword">PRIMARY</span> <span class="token keyword">KEY</span><span class="token punctuation">(</span>字段名称<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h5 id="添加主键"><a href="#添加主键" class="headerlink" title="添加主键"></a>添加主键</h5><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> tb_name</span><br><span class="line"><span class="keyword">ADD</span> <span class="keyword">PRIMARY</span> KEY(字段名称);</span><br></pre></td></tr></table></figure>
 
-<h5 id="删除主键"><a href="#删除主键" class="headerlink" title="删除主键"></a>删除主键</h5><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">ALTER</span> <span class="token keyword">TABLE</span> tb_name
-<span class="token keyword">DROP</span> <span class="token keyword">PRIMARY</span> <span class="token keyword">KEY</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h5 id="删除主键"><a href="#删除主键" class="headerlink" title="删除主键"></a>删除主键</h5><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> tb_name</span><br><span class="line"><span class="keyword">DROP</span> <span class="keyword">PRIMARY</span> KEY;</span><br></pre></td></tr></table></figure>
 
-<h5 id="添加唯一"><a href="#添加唯一" class="headerlink" title="添加唯一"></a>添加唯一</h5><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">ALTER</span> <span class="token keyword">TABLE</span> tb_name
-<span class="token keyword">ADD</span> <span class="token keyword">UNIQUE</span> <span class="token keyword">KEY</span><span class="token operator">|</span><span class="token keyword">INDEX</span> index_name<span class="token punctuation">(</span>字段名称<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h5 id="添加唯一"><a href="#添加唯一" class="headerlink" title="添加唯一"></a>添加唯一</h5><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> tb_name</span><br><span class="line"><span class="keyword">ADD</span> <span class="keyword">UNIQUE</span> KEY<span class="operator">|</span>INDEX index_name(字段名称);</span><br></pre></td></tr></table></figure>
 
-<h5 id="删除唯一"><a href="#删除唯一" class="headerlink" title="删除唯一"></a>删除唯一</h5><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">ALTER</span> <span class="token keyword">TABLE</span> tb_name
-<span class="token keyword">ADD</span> index_name<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h5 id="删除唯一"><a href="#删除唯一" class="headerlink" title="删除唯一"></a>删除唯一</h5><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> tb_name</span><br><span class="line"><span class="keyword">ADD</span> index_name;</span><br></pre></td></tr></table></figure>
 
-<h5 id="修改表名"><a href="#修改表名" class="headerlink" title="修改表名"></a>修改表名</h5><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">ALTER</span> <span class="token keyword">TABLE</span> tb_name <span class="token keyword">RENAME</span> new_tb_name<span class="token punctuation">;</span>
-<span class="token keyword">RENAME</span> <span class="token keyword">TABLE</span> tb_name <span class="token keyword">TO</span> new_tb_name<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h5 id="修改表名"><a href="#修改表名" class="headerlink" title="修改表名"></a>修改表名</h5><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> tb_name RENAME new_tb_name;</span><br><span class="line">RENAME <span class="keyword">TABLE</span> tb_name <span class="keyword">TO</span> new_tb_name;</span><br></pre></td></tr></table></figure>
 
-<h5 id="添加记录"><a href="#添加记录" class="headerlink" title="添加记录"></a>添加记录</h5><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">INSERT</span> tb_name<span class="token punctuation">(</span>col_name<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">)</span> <span class="token keyword">VALUES</span><span class="token punctuation">(</span><span class="token keyword">values</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h5 id="添加记录"><a href="#添加记录" class="headerlink" title="添加记录"></a>添加记录</h5><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">INSERT</span> tb_name(col_name...) <span class="keyword">VALUES</span>(values...);</span><br></pre></td></tr></table></figure>
 
-<h5 id="添加多条记录"><a href="#添加多条记录" class="headerlink" title="添加多条记录"></a>添加多条记录</h5><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">INSERT</span> tb_name<span class="token punctuation">(</span>col_name<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">)</span> <span class="token keyword">VALUES</span><span class="token punctuation">(</span><span class="token keyword">values</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token punctuation">(</span><span class="token keyword">values</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h5 id="添加多条记录"><a href="#添加多条记录" class="headerlink" title="添加多条记录"></a>添加多条记录</h5><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">INSERT</span> tb_name(col_name...) <span class="keyword">VALUES</span>(values...),(values...);</span><br></pre></td></tr></table></figure>
 
-<h5 id="修改记录"><a href="#修改记录" class="headerlink" title="修改记录"></a>修改记录</h5><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">UPDATE</span> tb_name <span class="token keyword">SET</span> 字段名称<span class="token operator">=</span>值，字段名称<span class="token operator">=</span>值 <span class="token keyword">WHERE</span> 条件<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h5 id="修改记录"><a href="#修改记录" class="headerlink" title="修改记录"></a>修改记录</h5><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">UPDATE</span> tb_name <span class="keyword">SET</span> 字段名称<span class="operator">=</span>值，字段名称<span class="operator">=</span>值 <span class="keyword">WHERE</span> 条件</span><br></pre></td></tr></table></figure>
 
-<h5 id="删除记录"><a href="#删除记录" class="headerlink" title="删除记录"></a>删除记录</h5><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">DELETE</span> <span class="token keyword">FROM</span> tb_name <span class="token keyword">WHERE</span> 条件<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h5 id="删除记录"><a href="#删除记录" class="headerlink" title="删除记录"></a>删除记录</h5><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">DELETE</span> <span class="keyword">FROM</span> tb_name <span class="keyword">WHERE</span> 条件</span><br></pre></td></tr></table></figure>
 
-<h5 id="查询记录"><a href="#查询记录" class="headerlink" title="查询记录"></a>查询记录</h5><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">SELECT</span> <span class="token operator">*</span> <span class="token keyword">FROM</span> tb_name<span class="token punctuation">;</span>
-<span class="token keyword">SELECT</span> 字段名称 <span class="token keyword">FROM</span> db_name<span class="token punctuation">.</span>tb_name<span class="token punctuation">;</span>
-<span class="token keyword">SELECT</span> 字段名称 别名 <span class="token keyword">FROM</span> tb_name<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<h5 id="查询记录"><a href="#查询记录" class="headerlink" title="查询记录"></a>查询记录</h5><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> tb_name;</span><br><span class="line"><span class="keyword">SELECT</span> 字段名称 <span class="keyword">FROM</span> db_name.tb_name;</span><br><span class="line"><span class="keyword">SELECT</span> 字段名称 别名 <span class="keyword">FROM</span> tb_name;</span><br></pre></td></tr></table></figure>
 
-<h5 id="选出-null-值"><a href="#选出-null-值" class="headerlink" title="选出 null 值"></a>选出 null 值</h5><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">SELECT</span> <span class="token operator">*</span> <span class="token keyword">FROM</span> <span class="token keyword">user</span> <span class="token keyword">WHERE</span> userDesc<span class="token operator">&lt;=></span><span class="token boolean">NULL</span><span class="token punctuation">;</span>
-<span class="token keyword">SELECT</span> <span class="token operator">*</span> <span class="token keyword">FROM</span> <span class="token keyword">user</span> <span class="token keyword">WHERE</span> userDesc <span class="token operator">IS</span> <span class="token punctuation">[</span><span class="token operator">NOT</span><span class="token punctuation">]</span> <span class="token boolean">NULL</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h5 id="选出-null-值"><a href="#选出-null-值" class="headerlink" title="选出 null 值"></a>选出 null 值</h5><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> <span class="keyword">user</span> <span class="keyword">WHERE</span> userDesc<span class="operator">&lt;=&gt;</span><span class="keyword">NULL</span>;</span><br><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> <span class="keyword">user</span> <span class="keyword">WHERE</span> userDesc <span class="keyword">IS</span> [<span class="keyword">NOT</span>] <span class="keyword">NULL</span>;</span><br></pre></td></tr></table></figure>
 
 <p>指定范围 BETWEEN … AND …<br>指定集合 IN(…)<br>匹配字符 LIKE %代表任意长度字符 _代表任意一个字符</p>
 <h4 id="GROUP-BY-分组"><a href="#GROUP-BY-分组" class="headerlink" title="GROUP BY 分组"></a>GROUP BY 分组</h4><p>配合 GROUP_CONCAT()使用</p>
-<pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">SELECT</span> GROUP_CONCAT<span class="token punctuation">(</span>username<span class="token punctuation">)</span><span class="token punctuation">,</span>age<span class="token punctuation">,</span>sex <span class="token keyword">FROM</span> user1 <span class="token keyword">GROUP</span> <span class="token keyword">BY</span> sex<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> GROUP_CONCAT(username),age,sex <span class="keyword">FROM</span> user1 <span class="keyword">GROUP</span> <span class="keyword">BY</span> sex;</span><br></pre></td></tr></table></figure>
 
 <p>配合函数使用 MAX() MIN() AVG() SUM()<br>COUNT()当统计的字段值为 null 时不计入在内<br>COUNT(*)会全部计入<br>配合 WITH ROLLUP 使用 会在记录末尾添加一条记录，是所有上面记录的总和<br>HAVING 子句对分组结果进行二次筛选</p>
-<h4 id="ORDER-BY-排序"><a href="#ORDER-BY-排序" class="headerlink" title="ORDER BY 排序"></a>ORDER BY 排序</h4><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">SELECT</span> id<span class="token punctuation">,</span>ussename<span class="token punctuation">,</span>age <span class="token keyword">FROM</span> <span class="token keyword">user</span>
-<span class="token keyword">ORDER</span> <span class="token keyword">BY</span> id <span class="token keyword">DESC</span><span class="token punctuation">,</span>age <span class="token keyword">ASC</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h4 id="ORDER-BY-排序"><a href="#ORDER-BY-排序" class="headerlink" title="ORDER BY 排序"></a>ORDER BY 排序</h4><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> id,ussename,age <span class="keyword">FROM</span> <span class="keyword">user</span></span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> id <span class="keyword">DESC</span>,age <span class="keyword">ASC</span>;</span><br></pre></td></tr></table></figure>
 
-<h4 id="LIMIT-限制结果集显示条数"><a href="#LIMIT-限制结果集显示条数" class="headerlink" title="LIMIT 限制结果集显示条数"></a>LIMIT 限制结果集显示条数</h4><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">SELECT</span> <span class="token operator">*</span> <span class="token keyword">FROM</span> <span class="token keyword">user</span> <span class="token keyword">LIMIT</span> <span class="token number">5</span><span class="token punctuation">;</span>
-<span class="token keyword">SELECT</span> <span class="token operator">*</span> <span class="token keyword">FROM</span> <span class="token keyword">user</span> <span class="token keyword">LIMIT</span> <span class="token number">0</span><span class="token punctuation">,</span><span class="token number">5</span><span class="token punctuation">;</span> <span class="token keyword">offset</span>从<span class="token number">0</span>开始<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h4 id="LIMIT-限制结果集显示条数"><a href="#LIMIT-限制结果集显示条数" class="headerlink" title="LIMIT 限制结果集显示条数"></a>LIMIT 限制结果集显示条数</h4><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> <span class="keyword">user</span> LIMIT <span class="number">5</span>;</span><br><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> <span class="keyword">user</span> LIMIT <span class="number">0</span>,<span class="number">5</span>; <span class="keyword">offset</span>从<span class="number">0</span>开始</span><br></pre></td></tr></table></figure>
 
 <h4 id="多表查询"><a href="#多表查询" class="headerlink" title="多表查询"></a>多表查询</h4><h5 id="内连接"><a href="#内连接" class="headerlink" title="内连接"></a>内连接</h5><p>SELECT 字段名… FROM tb_name1 INNER JOIN tb_name2 ON 连接条件</p>
-<pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">SELECT</span> e<span class="token punctuation">.</span>id<span class="token punctuation">,</span>e<span class="token punctuation">.</span>username<span class="token punctuation">,</span>e<span class="token punctuation">.</span>age<span class="token punctuation">,</span>d<span class="token punctuation">.</span>depName
-FORM emp <span class="token keyword">AS</span> e
-<span class="token keyword">INNER</span> <span class="token keyword">JOIN</span> dep <span class="token keyword">AS</span> d
-<span class="token keyword">ON</span> d<span class="token punctuation">.</span>id <span class="token operator">=</span> e<span class="token punctuation">.</span>depId<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> e.id,e.username,e.age,d.depName</span><br><span class="line">FORM emp <span class="keyword">AS</span> e</span><br><span class="line"><span class="keyword">INNER</span> <span class="keyword">JOIN</span> dep <span class="keyword">AS</span> d</span><br><span class="line"><span class="keyword">ON</span> d.id <span class="operator">=</span> e.depId;</span><br></pre></td></tr></table></figure>
 
-<h5 id="外连接"><a href="#外连接" class="headerlink" title="外连接"></a>外连接</h5><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">SELECT</span> 字段名<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> <span class="token keyword">FROM</span> tb_name1
-<span class="token keyword">LEFT</span> <span class="token punctuation">[</span><span class="token keyword">OUTER</span><span class="token punctuation">]</span> <span class="token keyword">JOIN</span> tb_name2
-<span class="token keyword">ON</span> 条件<span class="token punctuation">;</span>
-
-<span class="token keyword">SELECT</span> 字段名<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> <span class="token keyword">FROM</span> tb_name1
-<span class="token keyword">RIGHT</span> <span class="token punctuation">[</span><span class="token keyword">OUTER</span><span class="token punctuation">]</span> <span class="token keyword">JOIN</span> tb_name2
-<span class="token keyword">ON</span> 条件<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h5 id="外连接"><a href="#外连接" class="headerlink" title="外连接"></a>外连接</h5><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> 字段名... <span class="keyword">FROM</span> tb_name1</span><br><span class="line"><span class="keyword">LEFT</span> [<span class="keyword">OUTER</span>] <span class="keyword">JOIN</span> tb_name2</span><br><span class="line"><span class="keyword">ON</span> 条件;</span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> 字段名... <span class="keyword">FROM</span> tb_name1</span><br><span class="line"><span class="keyword">RIGHT</span> [<span class="keyword">OUTER</span>] <span class="keyword">JOIN</span> tb_name2</span><br><span class="line"><span class="keyword">ON</span> 条件;</span><br></pre></td></tr></table></figure>
 
 <h4 id="创建外键"><a href="#创建外键" class="headerlink" title="创建外键"></a>创建外键</h4><h5 id="建表创建"><a href="#建表创建" class="headerlink" title="建表创建"></a>建表创建</h5><p>FOREIGN KEY(字表字段名) REFERENCES 父表(父表主键字段名)</p>
 <h5 id="动态创建"><a href="#动态创建" class="headerlink" title="动态创建"></a>动态创建</h5><p>添加外键之前表中数据没有脏值</p>
-<pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">ALTER</span> TRABLE tb_name
-<span class="token keyword">ADD</span> <span class="token keyword">FOREIGN</span> <span class="token keyword">KEY</span><span class="token punctuation">(</span>外键字段<span class="token punctuation">)</span> <span class="token keyword">REFERENCES</span> 主表<span class="token punctuation">(</span>主键字段<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> TRABLE tb_name</span><br><span class="line"><span class="keyword">ADD</span> <span class="keyword">FOREIGN</span> KEY(外键字段) <span class="keyword">REFERENCES</span> 主表(主键字段);</span><br></pre></td></tr></table></figure>
 
-<h4 id="删除外键"><a href="#删除外键" class="headerlink" title="删除外键"></a>删除外键</h4><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">ALTER</span> <span class="token keyword">TABLE</span> tb_name
-<span class="token keyword">DROP</span> FORENGIN <span class="token keyword">KEY</span> fk_name<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h4 id="删除外键"><a href="#删除外键" class="headerlink" title="删除外键"></a>删除外键</h4><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> tb_name</span><br><span class="line"><span class="keyword">DROP</span> FORENGIN KEY fk_name;</span><br></pre></td></tr></table></figure>
 
-<h5 id="添加外键时指定级联操作"><a href="#添加外键时指定级联操作" class="headerlink" title="添加外键时指定级联操作"></a>添加外键时指定级联操作</h5><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">ALTER</span> <span class="token keyword">TABLE</span> tb_name
-<span class="token keyword">ADD</span> <span class="token keyword">FOREIGN</span> <span class="token keyword">KEY</span><span class="token punctuation">(</span>外键字段<span class="token punctuation">)</span> <span class="token keyword">REFERENCES</span> 主表<span class="token punctuation">(</span>主键字段<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token keyword">ON</span> <span class="token keyword">DELETE</span> <span class="token keyword">CASCADE</span> <span class="token keyword">ON</span> <span class="token keyword">UPDATE</span> <span class="token keyword">CASCADE</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<h5 id="添加外键时指定级联操作"><a href="#添加外键时指定级联操作" class="headerlink" title="添加外键时指定级联操作"></a>添加外键时指定级联操作</h5><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> tb_name</span><br><span class="line"><span class="keyword">ADD</span> <span class="keyword">FOREIGN</span> KEY(外键字段) <span class="keyword">REFERENCES</span> 主表(主键字段);</span><br><span class="line"><span class="keyword">ON</span> <span class="keyword">DELETE</span> CASCADE <span class="keyword">ON</span> <span class="keyword">UPDATE</span> CASCADE;</span><br></pre></td></tr></table></figure>
 
-<h5 id="由-IN-引发的子查询"><a href="#由-IN-引发的子查询" class="headerlink" title="由 IN 引发的子查询"></a>由 IN 引发的子查询</h5><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">SELECT</span> <span class="token operator">*</span> <span class="token keyword">FROM</span> emp
-<span class="token keyword">WHERE</span> depId <span class="token operator">IN</span> <span class="token punctuation">(</span><span class="token keyword">SELECT</span> id <span class="token keyword">FROM</span> dep<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h5 id="由-IN-引发的子查询"><a href="#由-IN-引发的子查询" class="headerlink" title="由 IN 引发的子查询"></a>由 IN 引发的子查询</h5><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> emp</span><br><span class="line"><span class="keyword">WHERE</span> depId <span class="keyword">IN</span> (<span class="keyword">SELECT</span> id <span class="keyword">FROM</span> dep);</span><br></pre></td></tr></table></figure>
 
-<h5 id="由-EXISTS-引发的子查询"><a href="#由-EXISTS-引发的子查询" class="headerlink" title="由 EXISTS 引发的子查询"></a>由 EXISTS 引发的子查询</h5><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">SELECT</span> <span class="token operator">*</span> <span class="token keyword">FROM</span> emp
-<span class="token keyword">WHERE</span> <span class="token keyword">EXISTS</span> <span class="token punctuation">(</span><span class="token keyword">SELECT</span> depName <span class="token keyword">FROM</span> dep <span class="token keyword">WHERE</span> id<span class="token operator">=</span><span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h5 id="由-EXISTS-引发的子查询"><a href="#由-EXISTS-引发的子查询" class="headerlink" title="由 EXISTS 引发的子查询"></a>由 EXISTS 引发的子查询</h5><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> emp</span><br><span class="line"><span class="keyword">WHERE</span> <span class="keyword">EXISTS</span> (<span class="keyword">SELECT</span> depName <span class="keyword">FROM</span> dep <span class="keyword">WHERE</span> id<span class="operator">=</span><span class="number">10</span>);</span><br></pre></td></tr></table></figure>
 
 <p>INSERT … SELECT …将查询结果插入<br>CREATE … SELECT …将查询结果写入表<br>INSERT … SET … 将查询结果赋值给某字段</p>
 <h5 id="联合查询"><a href="#联合查询" class="headerlink" title="联合查询"></a>联合查询</h5><ul>
@@ -348,9 +318,14 @@ FORM emp <span class="token keyword">AS</span> e
     </a>
   
 </nav>
-    
-<div id="comments"></div>
-      
+   
+
+
+
+
+
+
+
  
     </footer>
   </div>
@@ -527,21 +502,7 @@ FORM emp <span class="token keyword">AS</span> e
   
 
 
-   
-<script src="//imsun.github.io/gitment/dist/gitment.browser.js"></script>
-
-<script>
-  var gitment = new Gitment({
-    owner: "jesse121",
-    repo: "blog",
-    oauth: {
-      client_id: "3c3e422527fd3f9fa17a",
-      client_secret: "f28d1808ec9ab69fb24dc3e9fad81e1c3ab8dd8",
-    },
-  });
-  gitment.render("comments");
-</script>
-        
+          
 
 
 

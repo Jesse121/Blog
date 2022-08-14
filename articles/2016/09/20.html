@@ -1,27 +1,39 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8" />
-   
+  <meta charset="utf-8">
+  
+  
   <title>《Javascript语言精粹》修订版--读书笔记 | 前端之路</title>
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1, shrink-to-fit=no"
-  />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   
-  <meta name="description" content="专注前端开发，前端开发技术博客" />
-   
-  <meta name="keywords" content="Web前端开发，Javascript，前端开发博客" />
-    <link rel="alternate" href="/blog/atom.xml" title="前端之路" type="application/atom+xml">   <link rel="shortcut icon" href="/blog/favicon.ico">   
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+    <meta name="description" content="专注前端开发，前端开发技术博客">
   
-<link rel="stylesheet" href="/blog/css/style.css">
   
-<link rel="stylesheet" href="/blog/fancybox/jquery.fancybox.min.css">
+    <meta name="keywords" content="Web前端开发，Javascript，前端开发博客">
+  
+  
+    <link rel="alternate" href="/blog/atom.xml" title="前端之路" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/blog/favicon.ico">
+  
   
     
-<link rel="stylesheet" href="//imsun.github.io/gitment/style/default.css">
- 
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/blog/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/blog/fancybox/jquery.fancybox.min.css">
+
+  
+  
+  
+  
 <meta name="generator" content="Hexo 6.2.0"></head>
 
 <body>
@@ -178,47 +190,13 @@
 </tr>
 </tbody></table>
 <h3 id="第四章、函数"><a href="#第四章、函数" class="headerlink" title="第四章、函数"></a>第四章、函数</h3><h4 id="调用"><a href="#调用" class="headerlink" title="调用"></a>调用</h4><p>参数this的值取决于调用模式：<br><strong>方法调用模式</strong><br>当一个函数被保存为对象的一个属性时，我们称它为一个方法。方法被调用时,this被绑定到该对象。通过this可取得所属对象的公有方法  </p>
-<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">var</span> myObject <span class="token operator">=</span> <span class="token punctuation">&#123;</span>
-    <span class="token literal-property property">value</span><span class="token operator">:</span><span class="token number">0</span><span class="token punctuation">,</span>
-    <span class="token function-variable function">increment</span><span class="token operator">:</span><span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">inc</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
-        <span class="token keyword">this</span><span class="token punctuation">.</span>value <span class="token operator">+=</span> <span class="token keyword">typeof</span> inc <span class="token operator">===</span> <span class="token string">'number'</span> <span class="token operator">?</span> inc <span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">;</span>
-        console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment">//&#123;value:1,increment:function()&#123;&#125;&#125;</span>
-    <span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> myObject = &#123;</span><br><span class="line">    <span class="attr">value</span>:<span class="number">0</span>,</span><br><span class="line">    <span class="attr">increment</span>:<span class="keyword">function</span>(<span class="params">inc</span>)&#123;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">value</span> += <span class="keyword">typeof</span> inc === <span class="string">&#x27;number&#x27;</span> ? inc : <span class="number">1</span>;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">this</span>);  <span class="comment">//&#123;value:1,increment:function()&#123;&#125;&#125;</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p><strong>函数调用模式</strong><br>当一个函数并非一个对象的属性时，那么它就是被当做一个函数来调用的，以此模式调用函数时，this被绑定到全局对象。  </p>
-<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">var</span> myObject <span class="token operator">=</span> <span class="token punctuation">&#123;</span>
-    <span class="token literal-property property">value</span> <span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">,</span>
-    <span class="token function-variable function">increment</span> <span class="token operator">:</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">inc</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
-        <span class="token keyword">this</span><span class="token punctuation">.</span>value <span class="token operator">+=</span> <span class="token keyword">typeof</span> inc <span class="token operator">===</span> <span class="token string">'number'</span> <span class="token operator">?</span> inc <span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">;</span>
-        console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment">//&#123;value:1,increment:function()&#123;&#125;&#125;</span>
-    <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
-    <span class="token function-variable function">double</span> <span class="token operator">:</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
-        <span class="token keyword">var</span> <span class="token function-variable function">helper</span> <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
-            console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">//window</span>
-        <span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
-        <span class="token function">helper</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> myObject = &#123;</span><br><span class="line">    value : <span class="number">0</span>,</span><br><span class="line">    increment : <span class="keyword">function</span>(<span class="params">inc</span>)&#123;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">value</span> += <span class="keyword">typeof</span> inc === <span class="string">&#x27;number&#x27;</span> ? inc : <span class="number">1</span>;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">this</span>);  <span class="comment">//&#123;value:1,increment:function()&#123;&#125;&#125;</span></span><br><span class="line">    &#125;,</span><br><span class="line">    double : <span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">        <span class="keyword">var</span> helper = <span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">            <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">this</span>); <span class="comment">//window</span></span><br><span class="line">        &#125;;</span><br><span class="line">        <span class="title function_">helper</span>();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p><strong>构造器调用模式</strong><br>如果一个函数前面带上new来调用，那么背地里将会创建一个连接到该函数的prototype成员的新对象，同时this会被绑定到那个新对象上。</p>
-<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">function</span> <span class="token function">Quo</span><span class="token punctuation">(</span><span class="token parameter">string</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
-    <span class="token keyword">this</span><span class="token punctuation">.</span>status <span class="token operator">=</span> string<span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span>
-<span class="token class-name">Quo</span><span class="token punctuation">.</span>prototype<span class="token punctuation">.</span><span class="token function-variable function">getStatus</span> <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
-    <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span>
-<span class="token keyword">var</span> myQuo <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Quo</span><span class="token punctuation">(</span><span class="token string">"confused"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>myQuo<span class="token punctuation">.</span><span class="token function">getStatus</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">//Quo &#123;status: "confused"&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">Quo</span>(<span class="params">string</span>)&#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">status</span> = string;</span><br><span class="line">&#125;</span><br><span class="line"><span class="title class_">Quo</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">getStatus</span> = <span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="variable language_">this</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> myQuo = <span class="keyword">new</span> <span class="title class_">Quo</span>(<span class="string">&quot;confused&quot;</span>);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(myQuo.<span class="title function_">getStatus</span>()); <span class="comment">//Quo &#123;status: &quot;confused&quot;&#125;</span></span><br></pre></td></tr></table></figure>
 <p><strong>Apply调用模式</strong><br>apply方法允许我们构建一个函数数组传递给调用函数，也允许选择this的值  </p>
-<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">var</span> statusObject <span class="token operator">=</span> <span class="token punctuation">&#123;</span>
-    <span class="token literal-property property">status</span><span class="token operator">:</span> <span class="token string">"ok"</span>
-<span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
-<span class="token keyword">function</span> <span class="token function">Quo</span><span class="token punctuation">(</span><span class="token parameter">string</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
-    <span class="token keyword">this</span><span class="token punctuation">.</span>status <span class="token operator">=</span> string<span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span>
-<span class="token class-name">Quo</span><span class="token punctuation">.</span>prototype<span class="token punctuation">.</span><span class="token function-variable function">getStatus</span> <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
-    <span class="token keyword">return</span> console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">//&#123;status: "ok"&#125;</span>
-<span class="token punctuation">&#125;</span>
-<span class="token class-name">Quo</span><span class="token punctuation">.</span>prototype<span class="token punctuation">.</span><span class="token function">getStatus</span><span class="token punctuation">.</span><span class="token function">apply</span><span class="token punctuation">(</span>statusObject<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> statusObject = &#123;</span><br><span class="line">    <span class="attr">status</span>: <span class="string">&quot;ok&quot;</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">function</span> <span class="title function_">Quo</span>(<span class="params">string</span>)&#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">status</span> = string;</span><br><span class="line">&#125;</span><br><span class="line"><span class="title class_">Quo</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">getStatus</span> = <span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">this</span>); <span class="comment">//&#123;status: &quot;ok&quot;&#125;</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="title class_">Quo</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">getStatus</span>.<span class="title function_">apply</span>(statusObject);</span><br></pre></td></tr></table></figure>
 <h3 id="第七章-正则表达式"><a href="#第七章-正则表达式" class="headerlink" title="第七章 正则表达式"></a>第七章 正则表达式</h3><p>\ &#x2F; [ ] ( ) { } ? + * | . ^ $ 这些特殊字符都需要\来进行转义</p>
 <h3 id="第八章-方法"><a href="#第八章-方法" class="headerlink" title="第八章 方法"></a>第八章 方法</h3><h4 id="Array"><a href="#Array" class="headerlink" title="Array"></a>Array</h4><p>array.sort()<br>如果这两个参数相等则返回0，如果第1个参数应该排在前面，则返回一个负数，如果第2个参数应该排在前面，则返回一个正数。</p>
  
@@ -276,9 +254,14 @@ console<span class="token punctuation">.</span><span class="token function">log<
     </a>
   
 </nav>
-    
-<div id="comments"></div>
-      
+   
+
+
+
+
+
+
+
  
     </footer>
   </div>
@@ -455,21 +438,7 @@ console<span class="token punctuation">.</span><span class="token function">log<
   
 
 
-   
-<script src="//imsun.github.io/gitment/dist/gitment.browser.js"></script>
-
-<script>
-  var gitment = new Gitment({
-    owner: "jesse121",
-    repo: "blog",
-    oauth: {
-      client_id: "3c3e422527fd3f9fa17a",
-      client_secret: "f28d1808ec9ab69fb24dc3e9fad81e1c3ab8dd8",
-    },
-  });
-  gitment.render("comments");
-</script>
-        
+          
 
 
 

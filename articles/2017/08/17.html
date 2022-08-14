@@ -1,27 +1,39 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8" />
-   
+  <meta charset="utf-8">
+  
+  
   <title>H5页面开发常用的头部标签设置 | 前端之路</title>
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1, shrink-to-fit=no"
-  />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   
-  <meta name="description" content="专注前端开发，前端开发技术博客" />
-   
-  <meta name="keywords" content="Web前端开发，Javascript，前端开发博客" />
-    <link rel="alternate" href="/blog/atom.xml" title="前端之路" type="application/atom+xml">   <link rel="shortcut icon" href="/blog/favicon.ico">   
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+    <meta name="description" content="专注前端开发，前端开发技术博客">
   
-<link rel="stylesheet" href="/blog/css/style.css">
   
-<link rel="stylesheet" href="/blog/fancybox/jquery.fancybox.min.css">
+    <meta name="keywords" content="Web前端开发，Javascript，前端开发博客">
+  
+  
+    <link rel="alternate" href="/blog/atom.xml" title="前端之路" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/blog/favicon.ico">
+  
   
     
-<link rel="stylesheet" href="//imsun.github.io/gitment/style/default.css">
- 
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/blog/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/blog/fancybox/jquery.fancybox.min.css">
+
+  
+  
+  
+  
 <meta name="generator" content="Hexo 6.2.0"></head>
 
 <body>
@@ -126,56 +138,34 @@
        <p>在 H5 页面开发中，我们常需要设置各种头部标签以帮助浏览器更好的解析页面，将页面完美呈现，这里列出了工作中常用的各种头部标签，以备查询。</p>
 <span id="more"></span>
 
-<h3 id="viewport"><a href="#viewport" class="headerlink" title="viewport"></a><a target="_blank" rel="noopener" href="http://www.css88.com/archives/5975">viewport</a></h3><pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>meta</span>
-  <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>viewport<span class="token punctuation">"</span></span>
-  <span class="token attr-name">content</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0<span class="token punctuation">"</span></span>
-<span class="token punctuation">/></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="viewport"><a href="#viewport" class="headerlink" title="viewport"></a><a target="_blank" rel="noopener" href="http://www.css88.com/archives/5975">viewport</a></h3><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span></span></span><br><span class="line"><span class="tag">  <span class="attr">name</span>=<span class="string">&quot;viewport&quot;</span></span></span><br><span class="line"><span class="tag">  <span class="attr">content</span>=<span class="string">&quot;width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0&quot;</span></span></span><br><span class="line"><span class="tag">/&gt;</span></span><br></pre></td></tr></table></figure>
 
 <p>initial-scale 属性控制页面最初加载时的缩放等级。maximum-scale、minimum-scale 及 user-scalable 属性控制允许用户以怎样的方式放大或缩小页面。</p>
 <p>使用目的：阻止页面缩放</p>
 <p>Safari 无效，其他均能阻止页面缩放<br>safari 可以使用以下方法</p>
-<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript">window<span class="token punctuation">.</span><span class="token function-variable function">onload</span> <span class="token operator">=</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-  document<span class="token punctuation">.</span><span class="token function">addEventListener</span><span class="token punctuation">(</span><span class="token string">"touchstart"</span><span class="token punctuation">,</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token parameter">event</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-    <span class="token keyword">if</span> <span class="token punctuation">(</span>event<span class="token punctuation">.</span>touches<span class="token punctuation">.</span>length <span class="token operator">></span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-      <span class="token comment">//多触点</span>
-      event<span class="token punctuation">.</span><span class="token function">preventDefault</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">//阻止默认缩放</span>
-    <span class="token punctuation">&#125;</span>
-  <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token keyword">var</span> lastTouchEnd <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
-  document<span class="token punctuation">.</span><span class="token function">addEventListener</span><span class="token punctuation">(</span>
-    <span class="token string">"touchend"</span><span class="token punctuation">,</span>
-    <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token parameter">event</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-      <span class="token keyword">var</span> now <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Date</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getTime</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-      <span class="token keyword">if</span> <span class="token punctuation">(</span>now <span class="token operator">-</span> lastTouchEnd <span class="token operator">&lt;=</span> <span class="token number">300</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-        event<span class="token punctuation">.</span><span class="token function">preventDefault</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">//阻止双击放大</span>
-      <span class="token punctuation">&#125;</span>
-      lastTouchEnd <span class="token operator">=</span> now<span class="token punctuation">;</span>
-    <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
-    <span class="token boolean">false</span>
-  <span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="variable language_">window</span>.<span class="property">onload</span> = <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">  <span class="variable language_">document</span>.<span class="title function_">addEventListener</span>(<span class="string">&quot;touchstart&quot;</span>, <span class="keyword">function</span> (<span class="params">event</span>) &#123;</span><br><span class="line">    <span class="keyword">if</span> (event.<span class="property">touches</span>.<span class="property">length</span> &gt; <span class="number">1</span>) &#123;</span><br><span class="line">      <span class="comment">//多触点</span></span><br><span class="line">      event.<span class="title function_">preventDefault</span>(); <span class="comment">//阻止默认缩放</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;);</span><br><span class="line">  <span class="keyword">var</span> lastTouchEnd = <span class="number">0</span>;</span><br><span class="line">  <span class="variable language_">document</span>.<span class="title function_">addEventListener</span>(</span><br><span class="line">    <span class="string">&quot;touchend&quot;</span>,</span><br><span class="line">    <span class="keyword">function</span> (<span class="params">event</span>) &#123;</span><br><span class="line">      <span class="keyword">var</span> now = <span class="keyword">new</span> <span class="title class_">Date</span>().<span class="title function_">getTime</span>();</span><br><span class="line">      <span class="keyword">if</span> (now - lastTouchEnd &lt;= <span class="number">300</span>) &#123;</span><br><span class="line">        event.<span class="title function_">preventDefault</span>(); <span class="comment">//阻止双击放大</span></span><br><span class="line">      &#125;</span><br><span class="line">      lastTouchEnd = now;</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="literal">false</span></span><br><span class="line">  );</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
 <h3 id="ios-meta"><a href="#ios-meta" class="headerlink" title="ios meta"></a>ios meta</h3><!-- <meta name="apple-touch-fullscreen" content="yes"> -->
 
-<pre class="line-numbers language-none"><code class="language-none">&lt;meta name&#x3D;&quot;apple-mobile-web-app-capable&quot; content&#x3D;&quot;yes&quot;&#x2F;&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">&lt;meta <span class="attribute">name</span>=<span class="string">&quot;apple-mobile-web-app-capable&quot;</span> <span class="attribute">content</span>=<span class="string">&quot;yes&quot;</span>/&gt;</span><br></pre></td></tr></table></figure>
 
 <p>启用 WebApp 全屏模式，删除苹果默认的工具栏和菜单栏</p>
-<pre class="line-numbers language-none"><code class="language-none">&lt;meta name&#x3D;&quot;apple-mobile-web-app-title&quot; content&#x3D;&quot;标题&quot;&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">&lt;meta <span class="attribute">name</span>=<span class="string">&quot;apple-mobile-web-app-title&quot;</span> <span class="attribute">content</span>=<span class="string">&quot;标题&quot;</span>&gt;</span><br></pre></td></tr></table></figure>
 
 <p>设置添加到主屏后的标题</p>
-<pre class="line-numbers language-none"><code class="language-none">&lt;meta name&#x3D;&quot;apple-mobile-web-app-status-bar-style&quot; content&#x3D;&quot;black&quot;&#x2F;&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">&lt;meta <span class="attribute">name</span>=<span class="string">&quot;apple-mobile-web-app-status-bar-style&quot;</span> <span class="attribute">content</span>=<span class="string">&quot;black&quot;</span>/&gt;</span><br></pre></td></tr></table></figure>
 
 <p>在 web app 应用下状态条（屏幕顶部条）的颜色，default（白色）black（黑色） black-translucent（灰色半透明）<br>若值为”black-translucent”将会占据页面位置（会覆盖页面 20px 高度–iphone4 和 itouch4 的 Retina 屏幕为 40px）。</p>
-<pre class="line-numbers language-none"><code class="language-none">&lt;meta name&#x3D;&quot;format-detection&quot; content&#x3D;&quot;telphone&#x3D;no, email&#x3D;no&quot;&#x2F;&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">&lt;meta <span class="attribute">name</span>=<span class="string">&quot;format-detection&quot;</span> <span class="attribute">content</span>=<span class="string">&quot;telphone=no, email=no&quot;</span>/&gt;</span><br></pre></td></tr></table></figure>
 
 <p>忽略页面中的数字识别为电话，忽略 email 识别</p>
-<h4 id="iOS-添加到主屏图标"><a href="#iOS-添加到主屏图标" class="headerlink" title="iOS 添加到主屏图标"></a>iOS 添加到主屏图标</h4><pre class="line-numbers language-none"><code class="language-none">&lt;link rel&#x3D;&quot;apple-touch-icon&quot; href&#x3D;&quot;apple-touch-icon.png&quot;&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h4 id="iOS-添加到主屏图标"><a href="#iOS-添加到主屏图标" class="headerlink" title="iOS 添加到主屏图标"></a>iOS 添加到主屏图标</h4><figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">&lt;link <span class="attribute">rel</span>=<span class="string">&quot;apple-touch-icon&quot;</span> <span class="attribute">href</span>=<span class="string">&quot;apple-touch-icon.png&quot;</span>&gt;</span><br></pre></td></tr></table></figure>
 
 <p>ios7 以前系统默认会对图标添加特效（圆角及高光），如果不希望系统添加特效，则可以用 apple-touch-icon-precomposed.png 代替 apple-touch-icon.png</p>
-<pre class="line-numbers language-none"><code class="language-none">&lt;link rel&#x3D;&quot;apple-touch-icon-precomposed&quot; href&#x3D;&quot;apple-touch-icon-57x57-precomposed.png&quot;&#x2F;&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">&lt;link <span class="attribute">rel</span>=<span class="string">&quot;apple-touch-icon-precomposed&quot;</span> <span class="attribute">href</span>=<span class="string">&quot;apple-touch-icon-57x57-precomposed.png&quot;</span>/&gt;</span><br></pre></td></tr></table></figure>
 
 <p>iPhone 和 iTouch，默认 57x57 像素，必须有</p>
-<pre class="line-numbers language-none"><code class="language-none">&lt;link rel&#x3D;&quot;apple-touch-icon-precomposed&quot; href&#x3D;&quot;apple-touch-icon-114x114-precomposed.png&quot;&#x2F;&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">&lt;link <span class="attribute">rel</span>=<span class="string">&quot;apple-touch-icon-precomposed&quot;</span> <span class="attribute">href</span>=<span class="string">&quot;apple-touch-icon-114x114-precomposed.png&quot;</span>/&gt;</span><br></pre></td></tr></table></figure>
 
 <p>Retina iPhone 和 Retina iTouch，114x114 像素，可以没有，但推荐有</p>
 <p>图标使用的优先级如下：</p>
@@ -184,66 +174,66 @@
 <li>如果没有比推荐尺寸大的图标，会优先选择最接近推荐尺寸的图标。</li>
 </ul>
 <h4 id="iOS-启动画面"><a href="#iOS-启动画面" class="headerlink" title="iOS 启动画面"></a>iOS 启动画面</h4><p>iPhone</p>
-<pre class="line-numbers language-none"><code class="language-none">&lt;link rel&#x3D;&quot;apple-touch-startup-image&quot; media&#x3D;&quot;(device-width: 320px)&quot; href&#x3D;&quot;apple-touch-startup-image-320x460.png&quot;   &#x2F;&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<figure class="highlight abnf"><table><tr><td class="code"><pre><span class="line">&lt;link rel<span class="operator">=</span><span class="string">&quot;apple-touch-startup-image&quot;</span> media<span class="operator">=</span><span class="string">&quot;(device-width: 320px)&quot;</span> href<span class="operator">=</span><span class="string">&quot;apple-touch-startup-image-320x460.png&quot;</span>   /&gt;</span><br></pre></td></tr></table></figure>
 
 <p>iPhone Retina</p>
-<pre class="line-numbers language-none"><code class="language-none">&lt;link href&#x3D;&quot;apple-touch-startup-image-640x920.png&quot; media&#x3D;&quot;(device-width: 320px) and (-webkit-device-pixel-ratio: 2)&quot; rel&#x3D;&quot;apple-touch-startup-image&quot; &#x2F;&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<figure class="highlight abnf"><table><tr><td class="code"><pre><span class="line">&lt;link href<span class="operator">=</span><span class="string">&quot;apple-touch-startup-image-640x920.png&quot;</span> media<span class="operator">=</span><span class="string">&quot;(device-width: 320px) and (-webkit-device-pixel-ratio: 2)&quot;</span> rel<span class="operator">=</span><span class="string">&quot;apple-touch-startup-image&quot;</span> /&gt;</span><br></pre></td></tr></table></figure>
 
 <p>iPhone 5</p>
-<pre class="line-numbers language-none"><code class="language-none">&lt;link rel&#x3D;&quot;apple-touch-startup-image&quot; media&#x3D;&quot;(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)&quot; href&#x3D;&quot;apple-touch-startup-image-640x1096.png&quot;&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">&lt;link <span class="attribute">rel</span>=<span class="string">&quot;apple-touch-startup-image&quot;</span> <span class="attribute">media</span>=<span class="string">&quot;(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)&quot;</span> <span class="attribute">href</span>=<span class="string">&quot;apple-touch-startup-image-640x1096.png&quot;</span>&gt;</span><br></pre></td></tr></table></figure>
 
 <p>iPad portrait</p>
-<pre class="line-numbers language-none"><code class="language-none">&lt;link href&#x3D;&quot;apple-touch-startup-image-768x1004.png&quot; media&#x3D;&quot;(device-width: 768px) and (orientation: portrait)&quot; rel&#x3D;&quot;apple-touch-startup-image&quot; &#x2F;&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<figure class="highlight abnf"><table><tr><td class="code"><pre><span class="line">&lt;link href<span class="operator">=</span><span class="string">&quot;apple-touch-startup-image-768x1004.png&quot;</span> media<span class="operator">=</span><span class="string">&quot;(device-width: 768px) and (orientation: portrait)&quot;</span> rel<span class="operator">=</span><span class="string">&quot;apple-touch-startup-image&quot;</span> /&gt;</span><br></pre></td></tr></table></figure>
 
 <p>iPad landscape</p>
-<pre class="line-numbers language-none"><code class="language-none">&lt;link href&#x3D;&quot;apple-touch-startup-image-748x1024.png&quot; media&#x3D;&quot;(device-width: 768px) and (orientation: landscape)&quot; rel&#x3D;&quot;apple-touch-startup-image&quot; &#x2F;&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<figure class="highlight abnf"><table><tr><td class="code"><pre><span class="line">&lt;link href<span class="operator">=</span><span class="string">&quot;apple-touch-startup-image-748x1024.png&quot;</span> media<span class="operator">=</span><span class="string">&quot;(device-width: 768px) and (orientation: landscape)&quot;</span> rel<span class="operator">=</span><span class="string">&quot;apple-touch-startup-image&quot;</span> /&gt;</span><br></pre></td></tr></table></figure>
 
 <p>iPad Retina portrait</p>
-<pre class="line-numbers language-none"><code class="language-none">&lt;link href&#x3D;&quot;apple-touch-startup-image-1536x2008.png&quot; media&#x3D;&quot;(device-width: 1536px) and (orientation: portrait) and (-webkit-device-pixel-ratio: 2)&quot; rel&#x3D;&quot;apple-touch-startup-image&quot; &#x2F;&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<figure class="highlight abnf"><table><tr><td class="code"><pre><span class="line">&lt;link href<span class="operator">=</span><span class="string">&quot;apple-touch-startup-image-1536x2008.png&quot;</span> media<span class="operator">=</span><span class="string">&quot;(device-width: 1536px) and (orientation: portrait) and (-webkit-device-pixel-ratio: 2)&quot;</span> rel<span class="operator">=</span><span class="string">&quot;apple-touch-startup-image&quot;</span> /&gt;</span><br></pre></td></tr></table></figure>
 
 <p>iPad Retina landscape</p>
-<pre class="line-numbers language-none"><code class="language-none">&lt;link href&#x3D;&quot;apple-touch-startup-image-1496x2048.png&quot;media&#x3D;&quot;(device-width: 1536px) and (orientation: landscape) and (-webkit-device-pixel-ratio: 2)&quot;rel&#x3D;&quot;apple-touch-startup-image&quot; &#x2F;&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<figure class="highlight abnf"><table><tr><td class="code"><pre><span class="line">&lt;link href<span class="operator">=</span><span class="string">&quot;apple-touch-startup-image-1496x2048.png&quot;</span>media<span class="operator">=</span><span class="string">&quot;(device-width: 1536px) and (orientation: landscape) and (-webkit-device-pixel-ratio: 2)&quot;</span>rel<span class="operator">=</span><span class="string">&quot;apple-touch-startup-image&quot;</span> /&gt;</span><br></pre></td></tr></table></figure>
 
-<h3 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h3><pre class="line-numbers language-none"><code class="language-none">&lt;link rel&#x3D;&quot;dns-prefetch&quot; href&#x3D;&quot;&#x2F;&#x2F;api.m.taobao.com&quot;&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h3 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h3><figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">&lt;link <span class="attribute">rel</span>=<span class="string">&quot;dns-prefetch&quot;</span> <span class="attribute">href</span>=<span class="string">&quot;//api.m.taobao.com&quot;</span>&gt;</span><br></pre></td></tr></table></figure>
 
 <p>DNS 预解析</p>
-<pre class="line-numbers language-none"><code class="language-none">&lt;link rel&#x3D;&quot;shortcut icon&quot; type&#x3D;&quot;image&#x2F;ico&quot; href&#x3D;&quot;&#x2F;favicon.ico&quot;&#x2F;&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">&lt;link <span class="attribute">rel</span>=<span class="string">&quot;shortcut icon&quot;</span> <span class="attribute">type</span>=<span class="string">&quot;image/ico&quot;</span> <span class="attribute">href</span>=<span class="string">&quot;/favicon.ico&quot;</span>/&gt;</span><br></pre></td></tr></table></figure>
 
 <p>添加 favicon icon</p>
-<pre class="line-numbers language-none"><code class="language-none">&lt;meta name&#x3D;&quot;renderer&quot; content&#x3D;&quot;webkit&quot;&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">&lt;meta <span class="attribute">name</span>=<span class="string">&quot;renderer&quot;</span> <span class="attribute">content</span>=<span class="string">&quot;webkit&quot;</span>&gt;</span><br></pre></td></tr></table></figure>
 
 <p>启用 360 浏览器的极速模式(webkit)</p>
-<pre class="line-numbers language-none"><code class="language-none">&lt;meta http-equiv&#x3D;&quot;X-UA-Compatible&quot; content&#x3D;&quot;IE&#x3D;edge&quot;&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">&lt;meta <span class="attribute">http-equiv</span>=<span class="string">&quot;X-UA-Compatible&quot;</span> <span class="attribute">content</span>=<span class="string">&quot;IE=edge&quot;</span>&gt;</span><br></pre></td></tr></table></figure>
 
 <p>IE 使用现有最高版本</p>
-<pre class="line-numbers language-none"><code class="language-none">&lt;meta http-equiv&#x3D;&quot;Cache-Control&quot; content&#x3D;&quot;no-siteapp&quot; &#x2F;&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<figure class="highlight abnf"><table><tr><td class="code"><pre><span class="line">&lt;meta http-equiv<span class="operator">=</span><span class="string">&quot;Cache-Control&quot;</span> content<span class="operator">=</span><span class="string">&quot;no-siteapp&quot;</span> /&gt;</span><br></pre></td></tr></table></figure>
 
 <p>不让百度转码</p>
 <!-- <meta name="HandheldFriendly" content="true"> -->
 <!-- 针对手持设备优化，主要是针对一些老的不识别viewport的浏览器，比如黑莓 -->
 
-<pre class="line-numbers language-none"><code class="language-none">&lt;meta name&#x3D;&quot;x5-orientation&quot; content&#x3D;&quot;portrait&quot;&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">&lt;meta <span class="attribute">name</span>=<span class="string">&quot;x5-orientation&quot;</span> <span class="attribute">content</span>=<span class="string">&quot;portrait&quot;</span>&gt;</span><br></pre></td></tr></table></figure>
 
 <p>QQ 强制竖屏</p>
-<pre class="line-numbers language-none"><code class="language-none">&lt;meta name&#x3D;&quot;x5-fullscreen&quot; content&#x3D;&quot;true&quot;&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">&lt;meta <span class="attribute">name</span>=<span class="string">&quot;x5-fullscreen&quot;</span> <span class="attribute">content</span>=<span class="string">&quot;true&quot;</span>&gt;</span><br></pre></td></tr></table></figure>
 
 <p>QQ 强制全屏</p>
-<pre class="line-numbers language-none"><code class="language-none">&lt;meta name&#x3D;&quot;x5-page-mode&quot; content&#x3D;&quot;app&quot;&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">&lt;meta <span class="attribute">name</span>=<span class="string">&quot;x5-page-mode&quot;</span> <span class="attribute">content</span>=<span class="string">&quot;app&quot;</span>&gt;</span><br></pre></td></tr></table></figure>
 
 <p>QQ 应用模式</p>
-<pre class="line-numbers language-none"><code class="language-none">&lt;meta name&#x3D;&quot;screen-orientation&quot; content&#x3D;&quot;portrait&quot;&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">&lt;meta <span class="attribute">name</span>=<span class="string">&quot;screen-orientation&quot;</span> <span class="attribute">content</span>=<span class="string">&quot;portrait&quot;</span>&gt;</span><br></pre></td></tr></table></figure>
 
 <p>UC 强制竖屏</p>
-<pre class="line-numbers language-none"><code class="language-none">&lt;meta name&#x3D;&quot;full-screen&quot; content&#x3D;&quot;yes&quot;&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">&lt;meta <span class="attribute">name</span>=<span class="string">&quot;full-screen&quot;</span> <span class="attribute">content</span>=<span class="string">&quot;yes&quot;</span>&gt;</span><br></pre></td></tr></table></figure>
 
 <p>UC 强制全屏</p>
-<pre class="line-numbers language-none"><code class="language-none">&lt;meta name&#x3D;&quot;browsermode&quot; content&#x3D;&quot;application&quot;&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">&lt;meta <span class="attribute">name</span>=<span class="string">&quot;browsermode&quot;</span> <span class="attribute">content</span>=<span class="string">&quot;application&quot;</span>&gt;</span><br></pre></td></tr></table></figure>
 
 <p>UC 应用模式</p>
-<pre class="line-numbers language-none"><code class="language-none">&lt;meta name&#x3D;&quot;msapplication-tap-highlight&quot; content&#x3D;&quot;no&quot;&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">&lt;meta <span class="attribute">name</span>=<span class="string">&quot;msapplication-tap-highlight&quot;</span> <span class="attribute">content</span>=<span class="string">&quot;no&quot;</span>&gt;</span><br></pre></td></tr></table></figure>
 
 <p>windows phone 点击无高光</p>
-<pre class="line-numbers language-none"><code class="language-none">&lt;meta name&#x3D;&quot;robots&quot; content&#x3D;&quot;index,follow&quot;&#x2F;&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">&lt;meta <span class="attribute">name</span>=<span class="string">&quot;robots&quot;</span> <span class="attribute">content</span>=<span class="string">&quot;index,follow&quot;</span>/&gt;</span><br></pre></td></tr></table></figure>
 
 <p>搜索引擎抓取<br>说明：<br>robots 用来告诉搜索机器人哪些页面需要索引，哪些页面不需要索引。<br>具体参数如下：<br>信息参数为 all：文件将被检索，且页面上的链接可以被查询；<br>信息参数为 none：文件将不被检索，且页面上的链接不可以被查询；<br>信息参数为 index：文件将被检索；<br>信息参数为 follow：页面上的链接可以被查询；<br>信息参数为 noindex：文件将不被检索，但页面上的链接可以被查询；<br>信息参数为 nofollow：文件将被检索，但页面上的链接不可以被查询；</p>
 <!-- 为移动设备添加 viewport -->
@@ -324,9 +314,14 @@
     </a>
   
 </nav>
-    
-<div id="comments"></div>
-      
+   
+
+
+
+
+
+
+
  
     </footer>
   </div>
@@ -503,21 +498,7 @@
   
 
 
-   
-<script src="//imsun.github.io/gitment/dist/gitment.browser.js"></script>
-
-<script>
-  var gitment = new Gitment({
-    owner: "jesse121",
-    repo: "blog",
-    oauth: {
-      client_id: "3c3e422527fd3f9fa17a",
-      client_secret: "f28d1808ec9ab69fb24dc3e9fad81e1c3ab8dd8",
-    },
-  });
-  gitment.render("comments");
-</script>
-        
+          
 
 
 

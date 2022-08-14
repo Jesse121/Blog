@@ -1,27 +1,39 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8" />
-   
+  <meta charset="utf-8">
+  
+  
   <title>Apache2.4.23 + PHP5.6.30 + MySQL5.7.18安装教程 | 前端之路</title>
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1, shrink-to-fit=no"
-  />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   
-  <meta name="description" content="专注前端开发，前端开发技术博客" />
-   
-  <meta name="keywords" content="Web前端开发，Javascript，前端开发博客" />
-    <link rel="alternate" href="/blog/atom.xml" title="前端之路" type="application/atom+xml">   <link rel="shortcut icon" href="/blog/favicon.ico">   
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+    <meta name="description" content="专注前端开发，前端开发技术博客">
   
-<link rel="stylesheet" href="/blog/css/style.css">
   
-<link rel="stylesheet" href="/blog/fancybox/jquery.fancybox.min.css">
+    <meta name="keywords" content="Web前端开发，Javascript，前端开发博客">
+  
+  
+    <link rel="alternate" href="/blog/atom.xml" title="前端之路" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/blog/favicon.ico">
+  
   
     
-<link rel="stylesheet" href="//imsun.github.io/gitment/style/default.css">
- 
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/blog/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/blog/fancybox/jquery.fancybox.min.css">
+
+  
+  
+  
+  
 <meta name="generator" content="Hexo 6.2.0"></head>
 
 <body>
@@ -135,50 +147,26 @@
 </ul>
 <p>今天我们选择在Apache Lounge提供的安装包为例做一次演示，打开网站后选择适合自己电脑（32位or64位）的安装包，下载下来后将其解压到H：&#x2F;Apache24文件夹（安装路径自定义），在安装之前需要确认你的电脑是否已安装对应的VC环境，这里我使用的是VC2015，这个文件在Apache Lounge网站上也提供下载<br>Be sure that you have installed the latest C++ Redistributable Visual Studio 2015 : <a target="_blank" rel="noopener" href="https://www.microsoft.com/en-us/download/details.aspx?id=53840">vc_redist_x64&#x2F;86.exe</a><br>至此安装Apache所需文件已下载完，接下来进行安装  </p>
 <h4 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h4><p>我们需要通过命令行进入Apahce24目录下的bin文件夹，并执行http -k install命令<br>win+r输入cmd,在cmd窗口命令行中输入</p>
-<pre class="line-numbers language-none"><code class="language-none">D:
-cd webserver
-cd Apache24
-cd bin
-httpd -k install <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">D:</span><br><span class="line"><span class="built_in">cd</span> webserver</span><br><span class="line"><span class="built_in">cd</span> Apache24</span><br><span class="line"><span class="built_in">cd</span> bin</span><br><span class="line">httpd -k install </span><br></pre></td></tr></table></figure>
 <p>执行完后我们可以看到</p>
-<pre class="line-numbers language-none"><code class="language-none">Installing the &#39;Apache2.4&#39; service
-The &#39;Apache2.4&#39; service is successfully installed.
-Testing httpd.conf....
-Errors reported here must be corrected before the service can be started.
-AH00558: httpd: Could not reliably determine the server&#39;s fully qualified domain
- name, using fe80::d4a4:6f0f:a01b:afb. Set the &#39;ServerName&#39; directive globally t
-o suppress this message<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight subunit"><table><tr><td class="code"><pre><span class="line">Installing the &#x27;Apache2.4&#x27; service</span><br><span class="line">The &#x27;Apache2.4&#x27; service is successfully installed.</span><br><span class="line"><span class="keyword">Testing </span>httpd.conf....</span><br><span class="line">Errors reported here must be corrected before the service can be started.</span><br><span class="line">AH00558: httpd: Could not reliably determine the server&#x27;s fully qualified domain</span><br><span class="line"> name, using fe80::d4a4:6f0f:a01b:afb. Set the &#x27;ServerName&#x27; directive globally t</span><br><span class="line">o suppress this message</span><br></pre></td></tr></table></figure>
 <p>这里报错提示是无法确定服务器域名，请修改http.conf文件中ServerName指令<br>我们进入Apache24目录下的conf文件夹找到httpd.conf文件，用文本编辑器将其打开,找到ServerName指令（220行），这里将#注释去掉并将<a href="http://www.example:80修改为127.0.0.1:80。httd.conf文件中默认是将Apache安装在C盘的。所以需要修改以下路径：">www.example:80修改为127.0.0.1:80。httd.conf文件中默认是将Apache安装在C盘的。所以需要修改以下路径：</a>  </p>
-<pre class="line-numbers language-none"><code class="language-none">37行改为ServerRoot &quot;D:&#x2F;webserver&#x2F;Apache24&quot;  
-244行改为DocumentRoot &quot;H:&#x2F;&quot;将文档等目录改为H盘
-244行改为&lt;Directory &quot;H:&#x2F;&quot;&gt;   
-361行改为ScriptAlias &#x2F;cgi-bin&#x2F; &quot;D:&#x2F;webserver&#x2F;Apache24&#x2F;cgi-bin&#x2F;&quot;  
-377行改为&lt;Directory &quot;D:&#x2F;webserver&#x2F;Apache24&#x2F;cgi-bin&quot;&gt;  <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line"><span class="number">37</span>行改为ServerRoot <span class="string">&quot;D:/webserver/Apache24&quot;</span>  </span><br><span class="line"><span class="number">244</span>行改为DocumentRoot <span class="string">&quot;H:/&quot;</span>将文档等目录改为H盘</span><br><span class="line"><span class="number">244</span>行改为&lt;Directory <span class="string">&quot;H:/&quot;</span>&gt;   </span><br><span class="line"><span class="number">361</span>行改为ScriptAlias <span class="regexp">/cgi-bin/</span> <span class="string">&quot;D:/webserver/Apache24/cgi-bin/&quot;</span>  </span><br><span class="line"><span class="number">377</span>行改为&lt;Directory <span class="string">&quot;D:/webserver/Apache24/cgi-bin&quot;</span>&gt;  </span><br></pre></td></tr></table></figure>
 <p>修改完成后我们执行<code>httpd -k start</code>没有任何提示，通过windows任务管理器我们可以看到Apache2.4正在运行<br>此时我们在浏览器中输入localhost，回车，我们能看到It works！<br>至此Apache已安装完成  </p>
 <h3 id="PHP5-6-30安装"><a href="#PHP5-6-30安装" class="headerlink" title="PHP5.6.30安装"></a>PHP5.6.30安装</h3><h4 id="下载-1"><a href="#下载-1" class="headerlink" title="下载"></a>下载</h4><p>打开<a target="_blank" rel="noopener" href="http://php.net/">PHP官网</a>点击<a target="_blank" rel="noopener" href="http://php.net/downloads.php">Downloads</a>，这里我们选择PHP5.6.30版本，点击<a target="_blank" rel="noopener" href="http://windows.php.net/download#php-5.6">windows downloads</a>,这里我们可以看到有  </p>
-<pre class="line-numbers language-none"><code class="language-none">Non Thread Safe 非线程安全与IIS搭配环境
-Thread Safe 线程安全与apache搭配的环境<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<figure class="highlight autohotkey"><table><tr><td class="code"><pre><span class="line">Non <span class="keyword">Thread</span> Safe 非线程安全与IIS搭配环境</span><br><span class="line"><span class="keyword">Thread</span> Safe 线程安全与apache搭配的环境</span><br></pre></td></tr></table></figure>
 <p>这里我选择的是VC11 x86 Thread Safe，这里的VC11提示我们在安装PHP之前需要安装Visual C++ Redistributable for Visual Studio 2012，网页也提供了下载的链接<a target="_blank" rel="noopener" href="https://www.microsoft.com/en-us/download/details.aspx?id=30679">x86 or x64</a>,安装好后我们将下载的PHP5.6.30安装包解压到D:&#x2F;webserver&#x2F;PHP5</p>
 <h4 id="安装-1"><a href="#安装-1" class="headerlink" title="安装"></a>安装</h4><p>PHP解压后无需其他安装，只需修改相关文件即可：<br>将php.ini-production文件改名为php.ini，并用文本编辑器将其打开做以下修改：<br>第734行取消extension_dir &#x3D; “ext”前面的”;”并将其改为绝对路径(D:webserver\PHP5\ext)这个是指向扩展库目录的路径<br>第882行这里展示的是windows下的各种库文件，可以自己手动载入要用到的扩展，我一般载入以下扩展文件：</p>
-<pre class="line-numbers language-none"><code class="language-none">php_fileinfo.dll libmagic库的一个封装，可以用来获得文件的一些信息
-php_gd2.dll GD库图像函数库
-php_mysql.dll MySQL函数库
-php_mysqli.dll MySQLi函数库
-php_pdo_mysql.dll PDO mysql库<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight stylus"><table><tr><td class="code"><pre><span class="line">php_fileinfo<span class="selector-class">.dll</span> libmagic库的一个封装，可以用来获得文件的一些信息</span><br><span class="line">php_gd2<span class="selector-class">.dll</span> GD库图像函数库</span><br><span class="line">php_mysql<span class="selector-class">.dll</span> MySQL函数库</span><br><span class="line">php_mysqli<span class="selector-class">.dll</span> MySQLi函数库</span><br><span class="line">php_pdo_mysql<span class="selector-class">.dll</span> PDO mysql库</span><br></pre></td></tr></table></figure>
 <p>去掉库文件前面的”;”即可载入相应的库文件。保存，退出，<br>至此PHP安装完成  </p>
 <h4 id="与Apache2-4-23整合"><a href="#与Apache2-4-23整合" class="headerlink" title="与Apache2.4.23整合"></a>与Apache2.4.23整合</h4><p>在apache配置文件httpd.conf文件末尾添加以下内容；</p>
-<pre class="line-numbers language-none"><code class="language-none"># php5 support
-LoadModule php5_module D:&#x2F;webserver&#x2F;PHP5&#x2F;php5apache2_4.dll
-AddType application&#x2F;x-httpd-php .php .html .htm
-# configure the path to php.ini
-PHPIniDir &quot;D:&#x2F;webserver&#x2F;PHP5&quot;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight jboss-cli"><table><tr><td class="code"><pre><span class="line"><span class="comment"># php5 support</span></span><br><span class="line">LoadModule php5_module D:<span class="string">/webserver/PHP5/php5apache2_4.dll</span></span><br><span class="line">AddType application/x-httpd-php <span class="string">.php</span> <span class="string">.html</span> <span class="string">.htm</span></span><br><span class="line"><span class="comment"># configure the path to php.ini</span></span><br><span class="line">PHPIniDir <span class="string">&quot;D:/webserver/PHP5&quot;</span></span><br></pre></td></tr></table></figure>
 <p>这里是载入PHP5模块和指明PHP.ini的位置<br>我们可以将以下代码保存为phpinfo.php文件，并放在文档根目录中这里是H:&#x2F;，在浏览器中输入localhost&#x2F;phpinfo.php回车即可看到已安装的PHP全部信息  </p>
-<pre class="line-numbers language-php" data-language="php"><code class="language-php"><span class="token php language-php"><span class="token delimiter important">&lt;?php</span> php<span class="token operator">.</span><span class="token function">info</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token delimiter important">?></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span> php.<span class="title function_ invoke__">info</span>() <span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
 <h3 id="MySQL5-7-18安装"><a href="#MySQL5-7-18安装" class="headerlink" title="MySQL5.7.18安装"></a>MySQL5.7.18安装</h3><p>在<a target="_blank" rel="noopener" href="https://www.mysql.com/">MySQL官网</a>点击Downloads -&gt; windows -&gt; <a target="_blank" rel="noopener" href="https://dev.mysql.com/downloads/installer/">MySQL Installer</a>.这里我们可以看到两个mysql安装器：</p>
-<pre class="line-numbers language-none"><code class="language-none">mysql-installer-web-community 如果在有网络的环境上运行MySQL，建议选择这个
-mysql-installer-community 如果在没有网络的环境上运行MySQL，建议选择这个<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<figure class="highlight mipsasm"><table><tr><td class="code"><pre><span class="line">mysql-<span class="keyword">installer-web-community </span>如果在有网络的环境上运行MySQL，建议选择这个</span><br><span class="line">mysql-<span class="keyword">installer-community </span>如果在没有网络的环境上运行MySQL，建议选择这个</span><br></pre></td></tr></table></figure>
 <p>这里我们选择mysql-installer-web-community，下载后双击运行即可，和一般的软件安装方式一样，<br>这里我们选择自定义安装，选择安装了MySQL Server 5.7.18和MySQL Documentation 5.7.18,这里直接默认安装在C盘,具体详细图文安装教程可参考<a target="_blank" rel="noopener" href="http://jingyan.baidu.com/article/ca00d56c4a1fb6e99eebcf94.html">如何安装mysql5.7</a><br>安装完成后我们win+r输入mysql，选择command line client - Unicode，我们可以看到提示我们输入自己设置的MySQL数据库密码，输完密码回车看到</p>
-<pre class="line-numbers language-none"><code class="language-none">Welcome to the MySQL  monitor.……<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<figure class="highlight livecodeserver"><table><tr><td class="code"><pre><span class="line">Welcome <span class="built_in">to</span> <span class="keyword">the</span> MySQL  monitor.……</span><br></pre></td></tr></table></figure>
 <p>至此MySQL安装成功<br>如果通过cmd进入mysql,我们需要将“C:\Program Files\MySQL\MySQL Server 5.7\bin”添加到系统环境变量中，可通过mysql -u root -p连接上数据库</p>
 <p><strong>注意</strong><br>这种安装方式配置文件和数据库文件在“C:\ProgramData\MySQL\MySQL Server 5.7”</p>
 <h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><p>通过此次亲自安装实验，加深了对Apache服务器的了解，为下一步的服务器安全配置打下基础。目前只是初步安装完成，要想达到上线使用还有很多安全配置工作要做，在接下来的一篇博客中我将总结一下基本的安全配置工作。</p>
@@ -237,9 +225,14 @@ mysql-installer-community 如果在没有网络的环境上运行MySQL，建议�
     </a>
   
 </nav>
-    
-<div id="comments"></div>
-      
+   
+
+
+
+
+
+
+
  
     </footer>
   </div>
@@ -416,21 +409,7 @@ mysql-installer-community 如果在没有网络的环境上运行MySQL，建议�
   
 
 
-   
-<script src="//imsun.github.io/gitment/dist/gitment.browser.js"></script>
-
-<script>
-  var gitment = new Gitment({
-    owner: "jesse121",
-    repo: "blog",
-    oauth: {
-      client_id: "3c3e422527fd3f9fa17a",
-      client_secret: "f28d1808ec9ab69fb24dc3e9fad81e1c3ab8dd8",
-    },
-  });
-  gitment.render("comments");
-</script>
-        
+          
 
 
 

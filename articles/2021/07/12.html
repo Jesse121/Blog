@@ -1,27 +1,39 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8" />
-   
+  <meta charset="utf-8">
+  
+  
   <title>什么是SSE(Server-Sent Event) | 前端之路</title>
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1, shrink-to-fit=no"
-  />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   
-  <meta name="description" content="专注前端开发，前端开发技术博客" />
-   
-  <meta name="keywords" content="Web前端开发，Javascript，前端开发博客" />
-    <link rel="alternate" href="/blog/atom.xml" title="前端之路" type="application/atom+xml">   <link rel="shortcut icon" href="/blog/favicon.ico">   
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+    <meta name="description" content="专注前端开发，前端开发技术博客">
   
-<link rel="stylesheet" href="/blog/css/style.css">
   
-<link rel="stylesheet" href="/blog/fancybox/jquery.fancybox.min.css">
+    <meta name="keywords" content="Web前端开发，Javascript，前端开发博客">
+  
+  
+    <link rel="alternate" href="/blog/atom.xml" title="前端之路" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/blog/favicon.ico">
+  
   
     
-<link rel="stylesheet" href="//imsun.github.io/gitment/style/default.css">
- 
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/blog/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/blog/fancybox/jquery.fancybox.min.css">
+
+  
+  
+  
+  
 <meta name="generator" content="Hexo 6.2.0"></head>
 
 <body>
@@ -131,62 +143,10 @@
 <p>也就是说，发送的不是一次性的数据包，而是一个数据流，会连续不断地发送过来。这时，客户端不会关闭连接，会一直等着服务器发过来的新的数据流，视频播放就是这样的例子。本质上，这种通信就是以流信息的方式，完成一次用时很长的下载。</p>
 <p>SSE 就是利用这种机制，使用流信息向浏览器推送信息。它基于 HTTP 协议，目前除了 IE&#x2F;Edge，其他浏览器都支持。</p>
 <h3 id="如何使用？"><a href="#如何使用？" class="headerlink" title="如何使用？"></a>如何使用？</h3><p>用 node 开启 sse 服务</p>
-<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">var</span> http <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">"http"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-http
-  <span class="token punctuation">.</span><span class="token function">createServer</span><span class="token punctuation">(</span><span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token parameter">req<span class="token punctuation">,</span> res</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-    <span class="token keyword">var</span> fileName <span class="token operator">=</span> req<span class="token punctuation">.</span>url<span class="token punctuation">;</span>
-
-    <span class="token keyword">if</span> <span class="token punctuation">(</span>fileName <span class="token operator">===</span> <span class="token string">"/stream"</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-      res<span class="token punctuation">.</span><span class="token function">writeHead</span><span class="token punctuation">(</span><span class="token number">200</span><span class="token punctuation">,</span> <span class="token punctuation">&#123;</span>
-        <span class="token string-property property">"Content-Type"</span><span class="token operator">:</span> <span class="token string">"text/event-stream"</span><span class="token punctuation">,</span>
-        <span class="token string-property property">"Cache-Control"</span><span class="token operator">:</span> <span class="token string">"no-cache"</span><span class="token punctuation">,</span>
-        <span class="token literal-property property">Connection</span><span class="token operator">:</span> <span class="token string">"keep-alive"</span><span class="token punctuation">,</span>
-        <span class="token string-property property">"Access-Control-Allow-Origin"</span><span class="token operator">:</span> <span class="token string">"*"</span><span class="token punctuation">,</span>
-      <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-      res<span class="token punctuation">.</span><span class="token function">write</span><span class="token punctuation">(</span><span class="token string">"retry: 10000\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-      res<span class="token punctuation">.</span><span class="token function">write</span><span class="token punctuation">(</span><span class="token string">"event: connecttime\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-      res<span class="token punctuation">.</span><span class="token function">write</span><span class="token punctuation">(</span><span class="token string">"data: "</span> <span class="token operator">+</span> <span class="token string">"this is connecttime"</span> <span class="token operator">+</span> <span class="token keyword">new</span> <span class="token class-name">Date</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">"\n\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-      <span class="token keyword">var</span> interval <span class="token operator">=</span> <span class="token function">setInterval</span><span class="token punctuation">(</span><span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-        res<span class="token punctuation">.</span><span class="token function">write</span><span class="token punctuation">(</span><span class="token string">"event: getdata\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        res<span class="token punctuation">.</span><span class="token function">write</span><span class="token punctuation">(</span><span class="token string">"data: "</span> <span class="token operator">+</span> <span class="token keyword">new</span> <span class="token class-name">Date</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">"\n\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-      <span class="token punctuation">&#125;</span><span class="token punctuation">,</span> <span class="token number">1000</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-      req<span class="token punctuation">.</span>connection<span class="token punctuation">.</span><span class="token function">addListener</span><span class="token punctuation">(</span>
-        <span class="token string">"close"</span><span class="token punctuation">,</span>
-        <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-          <span class="token function">clearInterval</span><span class="token punctuation">(</span>interval<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
-        <span class="token boolean">false</span>
-      <span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">&#125;</span>
-  <span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
-  <span class="token punctuation">.</span><span class="token function">listen</span><span class="token punctuation">(</span><span class="token number">8080</span><span class="token punctuation">,</span> <span class="token string">"127.0.0.1"</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> http = <span class="built_in">require</span>(<span class="string">&quot;http&quot;</span>);</span><br><span class="line"></span><br><span class="line">http</span><br><span class="line">  .<span class="title function_">createServer</span>(<span class="keyword">function</span> (<span class="params">req, res</span>) &#123;</span><br><span class="line">    <span class="keyword">var</span> fileName = req.<span class="property">url</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (fileName === <span class="string">&quot;/stream&quot;</span>) &#123;</span><br><span class="line">      res.<span class="title function_">writeHead</span>(<span class="number">200</span>, &#123;</span><br><span class="line">        <span class="string">&quot;Content-Type&quot;</span>: <span class="string">&quot;text/event-stream&quot;</span>,</span><br><span class="line">        <span class="string">&quot;Cache-Control&quot;</span>: <span class="string">&quot;no-cache&quot;</span>,</span><br><span class="line">        <span class="title class_">Connection</span>: <span class="string">&quot;keep-alive&quot;</span>,</span><br><span class="line">        <span class="string">&quot;Access-Control-Allow-Origin&quot;</span>: <span class="string">&quot;*&quot;</span>,</span><br><span class="line">      &#125;);</span><br><span class="line">      res.<span class="title function_">write</span>(<span class="string">&quot;retry: 10000\n&quot;</span>);</span><br><span class="line"></span><br><span class="line">      res.<span class="title function_">write</span>(<span class="string">&quot;event: connecttime\n&quot;</span>);</span><br><span class="line">      res.<span class="title function_">write</span>(<span class="string">&quot;data: &quot;</span> + <span class="string">&quot;this is connecttime&quot;</span> + <span class="keyword">new</span> <span class="title class_">Date</span>() + <span class="string">&quot;\n\n&quot;</span>);</span><br><span class="line"></span><br><span class="line">      <span class="keyword">var</span> interval = <span class="built_in">setInterval</span>(<span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">        res.<span class="title function_">write</span>(<span class="string">&quot;event: getdata\n&quot;</span>);</span><br><span class="line">        res.<span class="title function_">write</span>(<span class="string">&quot;data: &quot;</span> + <span class="keyword">new</span> <span class="title class_">Date</span>() + <span class="string">&quot;\n\n&quot;</span>);</span><br><span class="line">      &#125;, <span class="number">1000</span>);</span><br><span class="line"></span><br><span class="line">      req.<span class="property">connection</span>.<span class="title function_">addListener</span>(</span><br><span class="line">        <span class="string">&quot;close&quot;</span>,</span><br><span class="line">        <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">          <span class="built_in">clearInterval</span>(interval);</span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="literal">false</span></span><br><span class="line">      );</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;)</span><br><span class="line">  .<span class="title function_">listen</span>(<span class="number">8080</span>, <span class="string">&quot;127.0.0.1&quot;</span>);</span><br></pre></td></tr></table></figure>
 
 <p>在 html 页面上开启 sse 并兼听事件</p>
-<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">var</span> source <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">EventSource</span><span class="token punctuation">(</span><span class="token string">"http://127.0.0.1:8080/stream"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token keyword">var</span> div <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">getElementById</span><span class="token punctuation">(</span><span class="token string">"example"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-source<span class="token punctuation">.</span><span class="token function-variable function">onopen</span> <span class="token operator">=</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token parameter">event</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-  div<span class="token punctuation">.</span>innerHTML <span class="token operator">+=</span> <span class="token string">"&lt;p>Connection open ...&lt;/p>"</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
-
-source<span class="token punctuation">.</span><span class="token function-variable function">onerror</span> <span class="token operator">=</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token parameter">event</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-  div<span class="token punctuation">.</span>innerHTML <span class="token operator">+=</span> <span class="token string">"&lt;p>Connection close.&lt;/p>"</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
-
-source<span class="token punctuation">.</span><span class="token function">addEventListener</span><span class="token punctuation">(</span>
-  <span class="token string">"connecttime"</span><span class="token punctuation">,</span>
-  <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token parameter">event</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-    div<span class="token punctuation">.</span>innerHTML <span class="token operator">+=</span> <span class="token string">"&lt;p>Start time: "</span> <span class="token operator">+</span> event<span class="token punctuation">.</span>data <span class="token operator">+</span> <span class="token string">"&lt;/p>"</span><span class="token punctuation">;</span>
-  <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
-  <span class="token boolean">false</span>
-<span class="token punctuation">)</span><span class="token punctuation">;</span>
-source<span class="token punctuation">.</span><span class="token function">addEventListener</span><span class="token punctuation">(</span><span class="token string">"getdata"</span><span class="token punctuation">,</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token parameter">event</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-  div<span class="token punctuation">.</span>innerHTML <span class="token operator">+=</span> <span class="token string">"&lt;p>Data: "</span> <span class="token operator">+</span> event<span class="token punctuation">.</span>data <span class="token operator">+</span> <span class="token string">"&lt;/p>"</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> source = <span class="keyword">new</span> <span class="title class_">EventSource</span>(<span class="string">&quot;http://127.0.0.1:8080/stream&quot;</span>);</span><br><span class="line"><span class="keyword">var</span> div = <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&quot;example&quot;</span>);</span><br><span class="line"></span><br><span class="line">source.<span class="property">onopen</span> = <span class="keyword">function</span> (<span class="params">event</span>) &#123;</span><br><span class="line">  div.<span class="property">innerHTML</span> += <span class="string">&quot;&lt;p&gt;Connection open ...&lt;/p&gt;&quot;</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">source.<span class="property">onerror</span> = <span class="keyword">function</span> (<span class="params">event</span>) &#123;</span><br><span class="line">  div.<span class="property">innerHTML</span> += <span class="string">&quot;&lt;p&gt;Connection close.&lt;/p&gt;&quot;</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">source.<span class="title function_">addEventListener</span>(</span><br><span class="line">  <span class="string">&quot;connecttime&quot;</span>,</span><br><span class="line">  <span class="keyword">function</span> (<span class="params">event</span>) &#123;</span><br><span class="line">    div.<span class="property">innerHTML</span> += <span class="string">&quot;&lt;p&gt;Start time: &quot;</span> + event.<span class="property">data</span> + <span class="string">&quot;&lt;/p&gt;&quot;</span>;</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="literal">false</span></span><br><span class="line">);</span><br><span class="line">source.<span class="title function_">addEventListener</span>(<span class="string">&quot;getdata&quot;</span>, <span class="keyword">function</span> (<span class="params">event</span>) &#123;</span><br><span class="line">  div.<span class="property">innerHTML</span> += <span class="string">&quot;&lt;p&gt;Data: &quot;</span> + event.<span class="property">data</span> + <span class="string">&quot;&lt;/p&gt;&quot;</span>;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
 
 <p>此时在页面上可以看到从服务器发来源源不断的数据</p>
 <p>参考文章：</p>
@@ -248,9 +208,14 @@ source<span class="token punctuation">.</span><span class="token function">addEv
     </a>
   
 </nav>
-    
-<div id="comments"></div>
-      
+   
+
+
+
+
+
+
+
  
     </footer>
   </div>
@@ -427,21 +392,7 @@ source<span class="token punctuation">.</span><span class="token function">addEv
   
 
 
-   
-<script src="//imsun.github.io/gitment/dist/gitment.browser.js"></script>
-
-<script>
-  var gitment = new Gitment({
-    owner: "jesse121",
-    repo: "blog",
-    oauth: {
-      client_id: "3c3e422527fd3f9fa17a",
-      client_secret: "f28d1808ec9ab69fb24dc3e9fad81e1c3ab8dd8",
-    },
-  });
-  gitment.render("comments");
-</script>
-        
+          
 
 
 

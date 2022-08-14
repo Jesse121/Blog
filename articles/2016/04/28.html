@@ -1,27 +1,39 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8" />
-   
+  <meta charset="utf-8">
+  
+  
   <title>CSS3新特性，兼容性，兼容方法总结 | 前端之路</title>
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1, shrink-to-fit=no"
-  />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   
-  <meta name="description" content="专注前端开发，前端开发技术博客" />
-   
-  <meta name="keywords" content="Web前端开发，Javascript，前端开发博客" />
-    <link rel="alternate" href="/blog/atom.xml" title="前端之路" type="application/atom+xml">   <link rel="shortcut icon" href="/blog/favicon.ico">   
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+    <meta name="description" content="专注前端开发，前端开发技术博客">
   
-<link rel="stylesheet" href="/blog/css/style.css">
   
-<link rel="stylesheet" href="/blog/fancybox/jquery.fancybox.min.css">
+    <meta name="keywords" content="Web前端开发，Javascript，前端开发博客">
+  
+  
+    <link rel="alternate" href="/blog/atom.xml" title="前端之路" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/blog/favicon.ico">
+  
   
     
-<link rel="stylesheet" href="//imsun.github.io/gitment/style/default.css">
- 
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/blog/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/blog/fancybox/jquery.fancybox.min.css">
+
+  
+  
+  
+  
 <meta name="generator" content="Hexo 6.2.0"></head>
 
 <body>
@@ -125,7 +137,7 @@
     <div class="e-content article-entry" itemprop="articleBody">
        <p>参考工具<br><a target="_blank" rel="noopener" href="http://www.css88.com/book/css/">css3手册</a><br><a target="_blank" rel="noopener" href="http://css3clickchart.com/#box-sizing">CSS3 click chart</a></p>
 <h3 id="border-radius"><a href="#border-radius" class="headerlink" title="border-radius"></a>border-radius</h3><p>用于添加圆角效果</p>
-<h4 id="语法"><a href="#语法" class="headerlink" title="语法:"></a>语法:</h4><pre class="line-numbers language-none"><code class="language-none">border-radius：[ &lt;length&gt; | &lt;percentage&gt; ]&#123;1,4&#125; [ &#x2F; [ &lt;length&gt; | &lt;percentage&gt; ]&#123;1,4&#125; ]?<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h4 id="语法"><a href="#语法" class="headerlink" title="语法:"></a>语法:</h4><figure class="highlight dust"><table><tr><td class="code"><pre><span class="line"><span class="language-xml">border-radius：[ <span class="tag">&lt;<span class="name">length</span>&gt;</span> | <span class="tag">&lt;<span class="name">percentage</span>&gt;</span> ]</span><span class="template-variable">&#123;1,4&#125;</span><span class="language-xml"> [ / [ <span class="tag">&lt;<span class="name">length</span>&gt;</span> | <span class="tag">&lt;<span class="name">percentage</span>&gt;</span> ]</span><span class="template-variable">&#123;1,4&#125;</span><span class="language-xml"> ]?</span></span><br></pre></td></tr></table></figure>
 <p><code>&lt;length&gt;：</code>用长度值设置对象的圆角半径长度。不允许负值<br><code>&lt;percentage&gt;：</code>用百分比设置对象的圆角半径长度。不允许负值  </p>
 <span id="more"></span>
 <h4 id="实例"><a href="#实例" class="headerlink" title="实例:"></a>实例:</h4><p><code>border-radius:10px;</code></p>
@@ -136,55 +148,19 @@
 <div style="width:100px;height:100px;border-radius:26px 106px 162px 32px/28px 80px 178px 26px;background-color:red"></div>
 `border-radius:50%;  //是相对于元素占据尺寸的百分比，即包含边框和padding后的尺寸`
 <div style="width:100px;height:100px;border:1px solid red;border-radius: 50%;"></div>
-<pre class="line-numbers language-css" data-language="css"><code class="language-css"><span class="token selector">.radius</span><span class="token punctuation">&#123;</span>
-    <span class="token property">border-top-left-radius</span><span class="token punctuation">:</span>5px<span class="token punctuation">;</span>      <span class="token comment">/*左上角，注意顺序是先上下后左右*/</span>
-    <span class="token property">border-top-right-radius</span><span class="token punctuation">:</span>10px<span class="token punctuation">;</span>    <span class="token comment">/*右上角*/</span>
-    <span class="token property">border-bottom-left-radius</span><span class="token punctuation">:</span>15px<span class="token punctuation">;</span>  <span class="token comment">/*左下角*/</span>
-    <span class="token property">border-bottom-left-radius</span><span class="token punctuation">:</span>20px<span class="token punctuation">;</span>  <span class="token comment">/*右下角*/</span>
-    <span class="token comment">/*即使元素没有边框，圆角也可以用到 background 上面，
-    具体效果受 background-clip 影响。*/</span>
-    <span class="token property">background-color</span><span class="token punctuation">:</span>red<span class="token punctuation">;</span>  
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.radius</span>&#123;</span><br><span class="line">    <span class="attribute">border-top-left-radius</span>:<span class="number">5px</span>;      <span class="comment">/*左上角，注意顺序是先上下后左右*/</span></span><br><span class="line">    <span class="attribute">border-top-right-radius</span>:<span class="number">10px</span>;    <span class="comment">/*右上角*/</span></span><br><span class="line">    <span class="attribute">border-bottom-left-radius</span>:<span class="number">15px</span>;  <span class="comment">/*左下角*/</span></span><br><span class="line">    <span class="attribute">border-bottom-left-radius</span>:<span class="number">20px</span>;  <span class="comment">/*右下角*/</span></span><br><span class="line">    <span class="comment">/*即使元素没有边框，圆角也可以用到 background 上面，</span></span><br><span class="line"><span class="comment">    具体效果受 background-clip 影响。*/</span></span><br><span class="line">    <span class="attribute">background-color</span>:red;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <div style="width:100px;height:100px;border-top-left-radius:5px;border-top-right-radius:10px;border-bottom-left-radius:15px;border-bottom-right-radius:20px;background-color:red;"></div>
 
 <h4 id="兼容性："><a href="#兼容性：" class="headerlink" title="兼容性："></a>兼容性：</h4><p>IE9+,Firefox4+,Chrome5+,Safari5+,Opera01.5+,iOS Safari4+,Android Browser2.2+ ,Android Chrome18+</p>
 <h4 id="兼容方法："><a href="#兼容方法：" class="headerlink" title="兼容方法："></a>兼容方法：</h4><p>低版本的chrome:<code>-webkit-border-radius:10px;</code><br>低版本的firefox:<code>-moz-border-radius:10px;</code><br>IE6&#x2F;7&#x2F;8:</p>
 <ul>
-<li>使用DD_roudies.js(推荐)，详情参考<a target="_blank" rel="noopener" href="http://dillerdesign.com/experiment/DD_roundies/">DD_roundies</a><pre class="line-numbers language-none"><code class="language-none">&lt;style type&#x3D;&quot;text&#x2F;css&quot;&gt;
-.radius &#123;
-    width: 300px;
-    height: 300px;
-    border:1px solid red;
-&#125;
-&lt;&#x2F;style&gt;
-&lt;div class&#x3D;&quot;radius&quot;&gt;&lt;&#x2F;div&gt;
-&lt;script src&#x3D;&quot;http:&#x2F;&#x2F;dillerdesign.com&#x2F;experiment&#x2F;DD_roundies&#x2F;DD_roundies_0.0.2a-min.js&quot;&gt;&lt;&#x2F;script&gt;
-&lt;script type&#x3D;&quot;text&#x2F;javascript&quot;&gt;
-    DD_roundies.addRule(&#39;.radius&#39;, &#39;10px 15px 30px 0&#39;,false);
-&lt;&#x2F;script&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
-<li>使用jquery.corner.js，详情参考<a target="_blank" rel="noopener" href="http://www.zhangxinxu.com/study/201001/jquery-plugin-round-corner.html">jquery.corner.js</a><pre class="line-numbers language-none"><code class="language-none">&lt;style type&#x3D;&quot;text&#x2F;css&quot;&gt;
-.render &#123;
-    width: 300px;
-    height: 300px;
-    background: red;
-&#125;
-&lt;&#x2F;style&gt;
-&lt;div class&#x3D;&quot;render&quot;&gt;&lt;&#x2F;div&gt;
-&lt;script src&#x3D;&quot;http:&#x2F;&#x2F;apps.bdimg.com&#x2F;libs&#x2F;jquery&#x2F;1.2.6&#x2F;jquery.min.js&quot;&gt;&lt;&#x2F;script&gt;
-&lt;script src&#x3D;&quot;jquery.corner.js&quot;&gt;&lt;&#x2F;script&gt;
-&lt;script type&#x3D;&quot;text&#x2F;javascript&quot;&gt;
-    $(&#39;.render&#39;).corner(&quot;top 30px&quot;);
-&lt;&#x2F;script&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
-<li>引入ie-css3兼容文件，详情参阅<a target="_blank" rel="noopener" href="http://www.zhangxinxu.com/wordpress/2010/04/%E8%AE%A9ie6ie7ie8%E6%B5%8F%E8%A7%88%E5%99%A8%E6%94%AF%E6%8C%81css3%E5%B1%9E%E6%80%A7/">让IE6&#x2F;IE7&#x2F;IE8浏览器支持CSS3属性</a> <pre class="line-numbers language-none"><code class="language-none">.radius&#123;
-    -moz-border-radius: 15px; &#x2F;* Firefox *&#x2F;
-    -webkit-border-radius: 15px; &#x2F;* Safari 和 Chrome *&#x2F;
-    border-radius: 15px; &#x2F;* Opera 10.5+, 以及使用了IE-CSS3的IE浏览器 *&#x2F;
-    behavior: url(ie-css3.htc);
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+<li>使用DD_roudies.js(推荐)，详情参考<a target="_blank" rel="noopener" href="http://dillerdesign.com/experiment/DD_roundies/">DD_roundies</a><figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span> <span class="attr">type</span>=<span class="string">&quot;text/css&quot;</span>&gt;</span><span class="language-css"></span></span><br><span class="line"><span class="language-css"><span class="selector-class">.radius</span> &#123;</span></span><br><span class="line"><span class="language-css">    <span class="attribute">width</span>: <span class="number">300px</span>;</span></span><br><span class="line"><span class="language-css">    <span class="attribute">height</span>: <span class="number">300px</span>;</span></span><br><span class="line"><span class="language-css">    <span class="attribute">border</span>:<span class="number">1px</span> solid red;</span></span><br><span class="line"><span class="language-css">&#125;</span></span><br><span class="line"><span class="language-css"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;radius&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;http://dillerdesign.com/experiment/DD_roundies/DD_roundies_0.0.2a-min.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">&quot;text/javascript&quot;</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">    DD_roundies.<span class="title function_">addRule</span>(<span class="string">&#x27;.radius&#x27;</span>, <span class="string">&#x27;10px 15px 30px 0&#x27;</span>,<span class="literal">false</span>);</span></span><br><span class="line"><span class="language-javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
+<li>使用jquery.corner.js，详情参考<a target="_blank" rel="noopener" href="http://www.zhangxinxu.com/study/201001/jquery-plugin-round-corner.html">jquery.corner.js</a><figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span> <span class="attr">type</span>=<span class="string">&quot;text/css&quot;</span>&gt;</span><span class="language-css"></span></span><br><span class="line"><span class="language-css"><span class="selector-class">.render</span> &#123;</span></span><br><span class="line"><span class="language-css">    <span class="attribute">width</span>: <span class="number">300px</span>;</span></span><br><span class="line"><span class="language-css">    <span class="attribute">height</span>: <span class="number">300px</span>;</span></span><br><span class="line"><span class="language-css">    <span class="attribute">background</span>: red;</span></span><br><span class="line"><span class="language-css">&#125;</span></span><br><span class="line"><span class="language-css"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;render&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;http://apps.bdimg.com/libs/jquery/1.2.6/jquery.min.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;jquery.corner.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">&quot;text/javascript&quot;</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">    $(<span class="string">&#x27;.render&#x27;</span>).<span class="title function_">corner</span>(<span class="string">&quot;top 30px&quot;</span>);</span></span><br><span class="line"><span class="language-javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
+<li>引入ie-css3兼容文件，详情参阅<a target="_blank" rel="noopener" href="http://www.zhangxinxu.com/wordpress/2010/04/%E8%AE%A9ie6ie7ie8%E6%B5%8F%E8%A7%88%E5%99%A8%E6%94%AF%E6%8C%81css3%E5%B1%9E%E6%80%A7/">让IE6&#x2F;IE7&#x2F;IE8浏览器支持CSS3属性</a> <figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.radius</span>&#123;</span><br><span class="line">    -moz-<span class="attribute">border-radius</span>: <span class="number">15px</span>; <span class="comment">/* Firefox */</span></span><br><span class="line">    -webkit-<span class="attribute">border-radius</span>: <span class="number">15px</span>; <span class="comment">/* Safari 和 Chrome */</span></span><br><span class="line">    <span class="attribute">border-radius</span>: <span class="number">15px</span>; <span class="comment">/* Opera 10.5+, 以及使用了IE-CSS3的IE浏览器 */</span></span><br><span class="line">    behavior: <span class="built_in">url</span>(<span class="string">ie-css3.htc</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
 </ul>
 <p>详情参阅<a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/border-radius">border-radius</a></p>
 <h3 id="box-shadow"><a href="#box-shadow" class="headerlink" title="box-shadow"></a>box-shadow</h3><p>用于添加阴影效果</p>
-<h4 id="语法："><a href="#语法：" class="headerlink" title="语法："></a>语法：</h4><pre class="line-numbers language-none"><code class="language-none">box-shadow：none|[inset? &amp;&amp; [&lt;offset-x&gt;&lt;offset-y&gt;&lt;blur-radius&gt;?&lt;spread-radius&gt;?&lt;color&gt;?]]#<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h4 id="语法："><a href="#语法：" class="headerlink" title="语法："></a>语法：</h4><figure class="highlight pf"><table><tr><td class="code"><pre><span class="line">box-shadow：<span class="keyword">none</span>|[inset? &amp;&amp; [<span class="variable">&lt;offset-x&gt;</span><span class="variable">&lt;offset-y&gt;</span><span class="variable">&lt;blur-radius&gt;</span>?<span class="variable">&lt;spread-radius&gt;</span>?<span class="variable">&lt;color&gt;</span>?]]<span class="comment">#</span></span><br></pre></td></tr></table></figure>
 <p>inset：设置对象的阴影类型为内阴影。该值为空时，则对象的阴影类型为外阴影<br><code>&lt;offset-x&gt;</code>: 这是第一个 length值设置水平偏移量，如果是负值则阴影位于元素左边。<br><code>&lt;offset-y&gt;</code>: 这是第二个 length值设置垂直偏移量，如果是负值则阴影位于元素上面。<br><code>&lt;blur-radius&gt;</code>:这是第三个 length值。值越大，糊糊面积越大，阴影就越大越淡。不能为负值。默认为0，此时阴影边缘锐利。<br><code>&lt;color&gt;</code>：设置对象的阴影的颜色。  </p>
 <h4 id="实例："><a href="#实例：" class="headerlink" title="实例："></a>实例：</h4><p><code>box-shadow: 10px 10px 5px gray;</code></p>
 <div style="width:100px;height:100px;background-color:red;-webkit-box-shadow:10px 10px 5px gray;-moz-box-shadow:10px 10px 5px gray;box-shadow: 10px 10px 5px gray;"></div>
@@ -194,22 +170,13 @@
 <h4 id="兼容性：-1"><a href="#兼容性：-1" class="headerlink" title="兼容性："></a>兼容性：</h4><p>IE9.0+,Firefox4.0+,Chrome10.0+,Safari5.1+,Opera10.5+,Safari5.0+,Android Browser4.0+,Android Chrome18.0+</p>
 <h4 id="兼容方法：-1"><a href="#兼容方法：-1" class="headerlink" title="兼容方法："></a>兼容方法：</h4><p>低版本的chrome:<code>-webkit-box-shadow:10px 10px 5px #888;</code><br>低版本的firefox:<code>-moz-box-shadow:10px 10px 5px #888;</code><br>IE6&#x2F;7&#x2F;8:</p>
 <ul>
-<li>引入ie-css3兼容文件(推荐)，缺点：不支持除了黑色(#000)以外的其他颜色，详情参阅<a target="_blank" rel="noopener" href="http://www.zhangxinxu.com/wordpress/2010/04/%E8%AE%A9ie6ie7ie8%E6%B5%8F%E8%A7%88%E5%99%A8%E6%94%AF%E6%8C%81css3%E5%B1%9E%E6%80%A7/">让IE6&#x2F;IE7&#x2F;IE8浏览器支持CSS3属性</a><pre class="line-numbers language-none"><code class="language-none">.box&#123;
-    width:100px;
-    height:100px;
-    background-color:red;
-    -webkit-box-shadow:10px 10px 5px gray;
-    -moz-box-shadow:10px 10px 5px gray;
-    box-shadow: 10px 10px 5px gray;
-    behavior:url(ie-css3.htc);
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
-<li>使用DropShadow滤镜，缺点：阴影不能边缘模糊<pre class="line-numbers language-none"><code class="language-none">filter:progid:dXImageTransform.Microsoft.DropShadow(color&#x3D;#888888,offX&#x3D;10,offY&#x3D;10,positives&#x3D;true);<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></li>
-<li>使用Shadow滤镜，类似于投影效果，缺点：阴影不能边缘模糊<pre class="line-numbers language-none"><code class="language-none">filter:progid:DXImageTransform.Microsoft.Shadow(color&#x3D;&#39;#0099ff&#39;, Direction&#x3D;&#39;120&#39;, Strength&#x3D;&#39;10&#39;);<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<li>引入ie-css3兼容文件(推荐)，缺点：不支持除了黑色(#000)以外的其他颜色，详情参阅<a target="_blank" rel="noopener" href="http://www.zhangxinxu.com/wordpress/2010/04/%E8%AE%A9ie6ie7ie8%E6%B5%8F%E8%A7%88%E5%99%A8%E6%94%AF%E6%8C%81css3%E5%B1%9E%E6%80%A7/">让IE6&#x2F;IE7&#x2F;IE8浏览器支持CSS3属性</a><figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.box</span>&#123;</span><br><span class="line">    <span class="attribute">width</span>:<span class="number">100px</span>;</span><br><span class="line">    <span class="attribute">height</span>:<span class="number">100px</span>;</span><br><span class="line">    <span class="attribute">background-color</span>:red;</span><br><span class="line">    -webkit-<span class="attribute">box-shadow</span>:<span class="number">10px</span> <span class="number">10px</span> <span class="number">5px</span> gray;</span><br><span class="line">    -moz-<span class="attribute">box-shadow</span>:<span class="number">10px</span> <span class="number">10px</span> <span class="number">5px</span> gray;</span><br><span class="line">    <span class="attribute">box-shadow</span>: <span class="number">10px</span> <span class="number">10px</span> <span class="number">5px</span> gray;</span><br><span class="line">    behavior:<span class="built_in">url</span>(<span class="string">ie-css3.htc</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>使用DropShadow滤镜，缺点：阴影不能边缘模糊<figure class="highlight reasonml"><table><tr><td class="code"><pre><span class="line">filter:progid:dXImageTransform.Microsoft.<span class="constructor">DropShadow(<span class="params">color</span>=#888888,<span class="params">offX</span>=10,<span class="params">offY</span>=10,<span class="params">positives</span>=<span class="params">true</span>)</span>;</span><br></pre></td></tr></table></figure></li>
+<li>使用Shadow滤镜，类似于投影效果，缺点：阴影不能边缘模糊<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">filter:progid:DXImageTransform.Microsoft.Shadow(<span class="attribute">color</span>=<span class="string">&#x27;#0099ff&#x27;</span>, <span class="attribute">Direction</span>=<span class="string">&#x27;120&#x27;</span>, <span class="attribute">Strength</span>=<span class="string">&#x27;10&#x27;</span>);</span><br></pre></td></tr></table></figure>
 详情参阅<a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/box-shadow">box-shadow</a></li>
 </ul>
 <h3 id="border-image"><a href="#border-image" class="headerlink" title="border-image"></a>border-image</h3><p>用来给元素边框添加背景图片</p>
-<h4 id="语法：-1"><a href="#语法：-1" class="headerlink" title="语法："></a>语法：</h4><pre class="line-numbers language-none"><code class="language-none">border-image：&lt;&#39; border-image-source &#39;&gt; || &lt;&#39; border-image-slice &#39;&gt; [ &#x2F; &lt;&#39; border-image-width &#39;&gt; | 
-&#x2F; &lt;&#39; border-image-width &#39;&gt;? &#x2F; &lt;&#39; border-image-outset &#39;&gt; ]? || &lt;&#39; border-image-repeat &#39;&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h4 id="语法：-1"><a href="#语法：-1" class="headerlink" title="语法："></a>语法：</h4><figure class="highlight maxima"><table><tr><td class="code"><pre><span class="line"><span class="built_in">border</span>-<span class="built_in">image</span>：&lt;&#x27; <span class="built_in">border</span>-<span class="built_in">image</span>-source &#x27;&gt; || &lt;&#x27; <span class="built_in">border</span>-<span class="built_in">image</span>-slice &#x27;&gt; [ / &lt;&#x27; <span class="built_in">border</span>-<span class="built_in">image</span>-<span class="built_in">width</span> &#x27;&gt; | </span><br><span class="line">/ &lt;&#x27; <span class="built_in">border</span>-<span class="built_in">image</span>-<span class="built_in">width</span> &#x27;&gt;? / &lt;&#x27; <span class="built_in">border</span>-<span class="built_in">image</span>-outset &#x27;&gt; ]? || &lt;&#x27; <span class="built_in">border</span>-<span class="built_in">image</span>-repeat &#x27;&gt;</span><br></pre></td></tr></table></figure>
 <p>&lt;’ border-image-source ‘&gt;：设置或检索对象的边框是否用图像定义样式或图像来源路径。<br>&lt;’ border-image-slice ‘&gt;： 设置或检索对象的边框背景图的分割方式,该属性指定从上，右，下，左方位来分隔图像，将图像分成4个角，4条边和中间区域共9份，中间区域始终是透明的（即没图像填充），除非加上关键字 fill。<br>&lt;’ border-image-width ‘&gt;： 设置或检索对象的边框厚度。<br>&lt;’ border-image-outset ‘&gt;：设置或检索对象的边框图像可超出边框盒的大小。<br>&lt;’ border-image-repeat ‘&gt;：设置或检索对象的边框图像的平铺方式repeat,round,stretch。</p>
 <h4 id="实例：-1"><a href="#实例：-1" class="headerlink" title="实例："></a>实例：</h4><p><code>border-image:url(&quot;http://www.w3school.com.cn/i/border.png&quot;) 30 30 round;</code></p>
 <div style="width:100px;height:100px;padding: 10px 20px;border: 15px solid transparent;-webkit-border-image:url('http://www.w3school.com.cn/i/border.png') 30 30 stretch;-moz-border-image:url('http://www.w3school.com.cn/i/border.png') 30 30 stretch;-o-border-image:url('http://www.w3school.com.cn/i/border.png') 30 30 stretch;border-image:url('http://www.w3school.com.cn/i/border.png')30 30 round;"></div>
@@ -228,22 +195,8 @@
 <h4 id="兼容性：-3"><a href="#兼容性：-3" class="headerlink" title="兼容性："></a>兼容性：</h4><p>IE9+,Firefox4+, Chrome15+,Safari7+, Opera15+,   iOS Safari7+,  Android Browser4.4+, Android Chrome18+</p>
 <h4 id="兼容方法：-3"><a href="#兼容方法：-3" class="headerlink" title="兼容方法："></a>兼容方法：</h4><p>低版本的chrome:<code>-webkit-background-size:10px 10px 5px #888; //不支持background简写</code><br>低版本的firefox:<code>-moz-background-size:10px 10px 5px #888;</code><br>IE8：</p>
 <ul>
-<li>方法一(推荐)、引入backgroundsize.min.htc兼容文件<pre class="line-numbers language-css" data-language="css"><code class="language-css"><span class="token selector">.size</span> <span class="token punctuation">&#123;</span>
-    <span class="token property">width</span><span class="token punctuation">:</span> 400px<span class="token punctuation">;</span>
-    <span class="token property">height</span><span class="token punctuation">:</span> 400px<span class="token punctuation">;</span>
-    <span class="token property">margin</span><span class="token punctuation">:</span> 20px auto 0<span class="token punctuation">;</span>
-    <span class="token property">background</span><span class="token punctuation">:</span>  green <span class="token url"><span class="token function">url</span><span class="token punctuation">(</span>img/1.jpg<span class="token punctuation">)</span></span> no-repeat scroll center 0<span class="token punctuation">;</span>
-    <span class="token property">background-size</span><span class="token punctuation">:</span> cover<span class="token punctuation">;</span>
-    <span class="token property">-ms-behavior</span><span class="token punctuation">:</span> <span class="token url"><span class="token function">url</span><span class="token punctuation">(</span>js/backgroundsize.min.htc<span class="token punctuation">)</span></span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
-<li>方法二、针对IE8的hack<pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token comment">&lt;!--[if IE 8]>
-&lt;style type="text/css">
-.size&#123;
-    -ms-filter: "progid:DXImageTransform.Microsoft.AlphaImageLoader(src='img/1.jpg', sizingMethod='scale')";
-&#125;  
-//该函数只能模仿cover值,IE8下效果与IE9/10稍有不同,图片占满背景大小且不超出,而且可能会带来其他影响
-&lt;/style>
-&lt;![endif]--></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<li>方法一(推荐)、引入backgroundsize.min.htc兼容文件<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.size</span> &#123;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">400px</span>;</span><br><span class="line">    <span class="attribute">height</span>: <span class="number">400px</span>;</span><br><span class="line">    <span class="attribute">margin</span>: <span class="number">20px</span> auto <span class="number">0</span>;</span><br><span class="line">    <span class="attribute">background</span>:  green <span class="built_in">url</span>(<span class="string">img/1.jpg</span>) no-repeat scroll center <span class="number">0</span>;</span><br><span class="line">    <span class="attribute">background-size</span>: cover;</span><br><span class="line">    -ms-behavior: <span class="built_in">url</span>(<span class="string">js/backgroundsize.min.htc</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>方法二、针对IE8的hack<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!--[if IE 8]&gt;</span></span><br><span class="line"><span class="comment">&lt;style type=&quot;text/css&quot;&gt;</span></span><br><span class="line"><span class="comment">.size&#123;</span></span><br><span class="line"><span class="comment">    -ms-filter: &quot;progid:DXImageTransform.Microsoft.AlphaImageLoader(src=&#x27;img/1.jpg&#x27;, sizingMethod=&#x27;scale&#x27;)&quot;;</span></span><br><span class="line"><span class="comment">&#125;  </span></span><br><span class="line"><span class="comment">//该函数只能模仿cover值,IE8下效果与IE9/10稍有不同,图片占满背景大小且不超出,而且可能会带来其他影响</span></span><br><span class="line"><span class="comment">&lt;/style&gt;</span></span><br><span class="line"><span class="comment">&lt;![endif]--&gt;</span></span><br></pre></td></tr></table></figure>
 详情参阅<a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/background-size">background-size</a></li>
 </ul>
 <h3 id="background-origin"><a href="#background-origin" class="headerlink" title="background-origin"></a>background-origin</h3><p>指定背景图片background-image 属性的原点位置的背景相对区域,当使用 background-attachment 为fixed时，该属性将被忽略不起作用 </p>
@@ -262,14 +215,8 @@
 
 <h4 id="兼容性：-5"><a href="#兼容性：-5" class="headerlink" title="兼容性："></a>兼容性：</h4><p>IE9+,Firefox4.0+, Chrome4.0+,  Safari6.0+,iOS Safari6.0+, Android Browser3.0+, Android Chrome18.0+</p>
 <h4 id="兼容方法：-5"><a href="#兼容方法：-5" class="headerlink" title="兼容方法："></a>兼容方法：</h4><p>firefox4.0以下：<code>-moz-background-clip:padding | border; //没有content</code><br>IE8下background-clip默认为padding-box</p>
-<h3 id="multiple-backgrounds"><a href="#multiple-backgrounds" class="headerlink" title="multiple backgrounds"></a>multiple backgrounds</h3><h4 id="语法：-5"><a href="#语法：-5" class="headerlink" title="语法："></a>语法：</h4><pre class="line-numbers language-none"><code class="language-none">background：[&lt;bg-layer&gt;,]*&lt;final-bg-layer&gt;&lt;bg-layer&gt;&#x3D;&lt;bg-image&gt;||&lt;position&gt;[&#x2F;&lt;bg-size&gt;]?
-||&lt;repeat-style&gt;||&lt;attachment&gt;||&lt;box&gt;||&lt;box&gt;&lt;final-bg-layer&gt;&#x3D;&lt;bg-image&gt;
-||&lt;position&gt;[&#x2F;&lt;bg-size&gt;]?||&lt;repeat-style&gt;||&lt;attachment&gt;
-||&lt;box&gt;||box&gt;||&lt;&#39;background-color&#39;&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-<h4 id="实例：-5"><a href="#实例：-5" class="headerlink" title="实例："></a>实例：</h4><pre class="line-numbers language-none"><code class="language-none">background:
-    url(test1.jpg) no-repeat scroll 10px 20px&#x2F;50px 60px padding-box,
-    url(test1.jpg) no-repeat scroll 10px 20px&#x2F;70px 90px padding-box,
-    url(test1.jpg) no-repeat scroll 10px 20px&#x2F;110px 130px padding-box #aaa;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="multiple-backgrounds"><a href="#multiple-backgrounds" class="headerlink" title="multiple backgrounds"></a>multiple backgrounds</h3><h4 id="语法：-5"><a href="#语法：-5" class="headerlink" title="语法："></a>语法：</h4><figure class="highlight bnf"><table><tr><td class="code"><pre><span class="line">background：[<span class="attribute">&lt;bg-layer&gt;</span>,]*<span class="attribute">&lt;final-bg-layer&gt;</span><span class="attribute">&lt;bg-layer&gt;</span>=<span class="attribute">&lt;bg-image&gt;</span>||<span class="attribute">&lt;position&gt;</span>[/<span class="attribute">&lt;bg-size&gt;</span>]?</span><br><span class="line">||<span class="attribute">&lt;repeat-style&gt;</span>||<span class="attribute">&lt;attachment&gt;</span>||<span class="attribute">&lt;box&gt;</span>||<span class="attribute">&lt;box&gt;</span><span class="attribute">&lt;final-bg-layer&gt;</span>=<span class="attribute">&lt;bg-image&gt;</span></span><br><span class="line">||<span class="attribute">&lt;position&gt;</span>[/<span class="attribute">&lt;bg-size&gt;</span>]?||<span class="attribute">&lt;repeat-style&gt;</span>||<span class="attribute">&lt;attachment&gt;</span></span><br><span class="line">||<span class="attribute">&lt;box&gt;</span>||box&gt;||<span class="attribute">&lt;&#x27;background-color&#x27;&gt;</span></span><br></pre></td></tr></table></figure>
+<h4 id="实例：-5"><a href="#实例：-5" class="headerlink" title="实例："></a>实例：</h4><figure class="highlight apache"><table><tr><td class="code"><pre><span class="line"><span class="attribute">background</span>:</span><br><span class="line">    <span class="attribute">url</span>(test1.jpg) no-repeat scroll <span class="number">10</span>px <span class="number">20</span>px/<span class="number">50</span>px <span class="number">60</span>px padding-box,</span><br><span class="line">    <span class="attribute">url</span>(test1.jpg) no-repeat scroll <span class="number">10</span>px <span class="number">20</span>px/<span class="number">70</span>px <span class="number">90</span>px padding-box,</span><br><span class="line">    <span class="attribute">url</span>(test1.jpg) no-repeat scroll <span class="number">10</span>px <span class="number">20</span>px/<span class="number">110</span>px <span class="number">130</span>px padding-box #aaa;</span><br></pre></td></tr></table></figure>
 <h4 id="兼容性：-6"><a href="#兼容性：-6" class="headerlink" title="兼容性："></a>兼容性：</h4><p>IE9+,Firefox3.6+, Chrome4.0+,  Safari3.1+</p>
 <h4 id="兼容方法：-6"><a href="#兼容方法：-6" class="headerlink" title="兼容方法："></a>兼容方法：</h4><p>未解决</p>
 <h3 id="text-shadow"><a href="#text-shadow" class="headerlink" title="text-shadow"></a>text-shadow</h3><p>为文字添加阴影</p>
@@ -292,22 +239,8 @@
 <h4 id="兼容性：-8"><a href="#兼容性：-8" class="headerlink" title="兼容性："></a>兼容性：</h4><p>IE6+,Firefox3.5+, Chrome4+,  Safari6+,  iOS Safari6+,  Android Browser2.1+, Android Chrome18+</p>
 <h4 id="兼容方法：-8"><a href="#兼容方法：-8" class="headerlink" title="兼容方法："></a>兼容方法：</h4><p>现代浏览器几乎都支持</p>
 <h3 id="font-face"><a href="#font-face" class="headerlink" title="@font-face"></a>@font-face</h3><p>能够加载服务器端的字体文件，让客户端显示客户端所没有安装的字体。</p>
-<h4 id="语法：-8"><a href="#语法：-8" class="headerlink" title="语法："></a>语法：</h4><pre class="line-numbers language-css" data-language="css"><code class="language-css"><span class="token atrule"><span class="token rule">@font-face</span></span> <span class="token punctuation">&#123;</span>
-    <span class="token property">font-family</span><span class="token punctuation">:</span> &lt;YourWebFontName><span class="token punctuation">;</span>
-    <span class="token property">src</span><span class="token punctuation">:</span> &lt;source> [&lt;format>][<span class="token punctuation">,</span>&lt;source> [&lt;format>]]*<span class="token punctuation">;</span>
-    [<span class="token property">font-weight</span><span class="token punctuation">:</span> &lt;weight>]<span class="token punctuation">;</span>
-    [<span class="token property">font-style</span><span class="token punctuation">:</span> &lt;style>]<span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h4 id="实例：-8"><a href="#实例：-8" class="headerlink" title="实例："></a>实例：</h4><pre class="line-numbers language-css" data-language="css"><code class="language-css"><span class="token atrule"><span class="token rule">@font-face</span></span> <span class="token punctuation">&#123;</span>
-    <span class="token property">font-family</span><span class="token punctuation">:</span> <span class="token string">'YourWebFontName'</span><span class="token punctuation">;</span>
-    <span class="token property">src</span><span class="token punctuation">:</span> <span class="token url"><span class="token function">url</span><span class="token punctuation">(</span><span class="token string url">'YourWebFontName.eot'</span><span class="token punctuation">)</span></span><span class="token punctuation">;</span> <span class="token comment">/* IE9 Compat Modes */</span>
-    <span class="token property">src</span><span class="token punctuation">:</span> <span class="token url"><span class="token function">url</span><span class="token punctuation">(</span><span class="token string url">'YourWebFontName.eot?#iefix'</span><span class="token punctuation">)</span></span> <span class="token function">format</span><span class="token punctuation">(</span><span class="token string">'embedded-opentype'</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token comment">/* IE6-IE8 */</span>
-         <span class="token url"><span class="token function">url</span><span class="token punctuation">(</span><span class="token string url">'YourWebFontName.woff'</span><span class="token punctuation">)</span></span> <span class="token function">format</span><span class="token punctuation">(</span><span class="token string">'woff'</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token comment">/* Modern Browsers */</span>
-         <span class="token url"><span class="token function">url</span><span class="token punctuation">(</span><span class="token string url">'YourWebFontName.ttf'</span><span class="token punctuation">)</span></span>  <span class="token function">format</span><span class="token punctuation">(</span><span class="token string">'truetype'</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token comment">/* Safari, Android, iOS */</span>
-         <span class="token url"><span class="token function">url</span><span class="token punctuation">(</span><span class="token string url">'YourWebFontName.svg#YourWebFontName'</span><span class="token punctuation">)</span></span> <span class="token function">format</span><span class="token punctuation">(</span><span class="token string">'svg'</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">/* Legacy iOS */</span>
-    <span class="token property">font-weight</span><span class="token punctuation">:</span> normal<span class="token punctuation">;</span>
-    <span class="token property">font-style</span><span class="token punctuation">:</span> normal<span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="语法：-8"><a href="#语法：-8" class="headerlink" title="语法："></a>语法：</h4><figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="keyword">@font-face</span> &#123;</span><br><span class="line">    <span class="attribute">font-family</span>: &lt;YourWebFontName&gt;;</span><br><span class="line">    <span class="attribute">src</span>: &lt;source&gt; [&lt;format&gt;][,&lt;source&gt; [&lt;format&gt;]]*;</span><br><span class="line">    <span class="selector-attr">[font-weight: &lt;weight&gt;]</span>;</span><br><span class="line">    <span class="selector-attr">[font-style: &lt;style&gt;]</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="实例：-8"><a href="#实例：-8" class="headerlink" title="实例："></a>实例：</h4><figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="keyword">@font-face</span> &#123;</span><br><span class="line">    <span class="attribute">font-family</span>: <span class="string">&#x27;YourWebFontName&#x27;</span>;</span><br><span class="line">    <span class="attribute">src</span>: <span class="built_in">url</span>(<span class="string">&#x27;YourWebFontName.eot&#x27;</span>); <span class="comment">/* IE9 Compat Modes */</span></span><br><span class="line">    <span class="attribute">src</span>: <span class="built_in">url</span>(<span class="string">&#x27;YourWebFontName.eot?#iefix&#x27;</span>) <span class="built_in">format</span>(<span class="string">&#x27;embedded-opentype&#x27;</span>), <span class="comment">/* IE6-IE8 */</span></span><br><span class="line">         <span class="built_in">url</span>(<span class="string">&#x27;YourWebFontName.woff&#x27;</span>) <span class="built_in">format</span>(<span class="string">&#x27;woff&#x27;</span>), <span class="comment">/* Modern Browsers */</span></span><br><span class="line">         <span class="built_in">url</span>(<span class="string">&#x27;YourWebFontName.ttf&#x27;</span>)  <span class="built_in">format</span>(<span class="string">&#x27;truetype&#x27;</span>), <span class="comment">/* Safari, Android, iOS */</span></span><br><span class="line">         <span class="built_in">url</span>(<span class="string">&#x27;YourWebFontName.svg#YourWebFontName&#x27;</span>) <span class="built_in">format</span>(<span class="string">&#x27;svg&#x27;</span>); <span class="comment">/* Legacy iOS */</span></span><br><span class="line">    <span class="attribute">font-weight</span>: normal;</span><br><span class="line">    <span class="attribute">font-style</span>: normal;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h4 id="兼容性：-9"><a href="#兼容性：-9" class="headerlink" title="兼容性："></a>兼容性：</h4><p>几乎所有浏览器支持网络字体@font-face的用法</p>
 <h4 id="兼容方法：-9"><a href="#兼容方法：-9" class="headerlink" title="兼容方法："></a>兼容方法：</h4><p>详情参阅<a target="_blank" rel="noopener" href="http://www.w3cplus.com/content/css3-font-face"> @font-face</a></p>
 <h3 id="transform"><a href="#transform" class="headerlink" title="transform"></a>transform</h3><p>元素可以按照设定的值变形、旋转、缩放、倾斜</p>
@@ -346,28 +279,14 @@
 <div style="width:100px;height:100px;background-color:red;transform:translate(100px,20px);"></div>
 
 <h4 id="兼容性：-10"><a href="#兼容性：-10" class="headerlink" title="兼容性："></a>兼容性：</h4><p>IE9+, Firefox3.5+, Chrome4.0+,  Safari6.0+,  iOS Safari8.4+,  Android Browser4.4+, Android Chrome34+</p>
-<h4 id="兼容方法：-10"><a href="#兼容方法：-10" class="headerlink" title="兼容方法："></a>兼容方法：</h4><pre class="line-numbers language-css" data-language="css"><code class="language-css"><span class="token selector">.transform</span><span class="token punctuation">&#123;</span>
-    <span class="token property">-webkit-transform</span><span class="token punctuation">:</span> x<span class="token punctuation">,</span>y<span class="token punctuation">;</span>
-    <span class="token property">-moz-transform</span><span class="token punctuation">:</span> x<span class="token punctuation">,</span>y<span class="token punctuation">;</span>
-    <span class="token property">-ms-transform</span><span class="token punctuation">:</span> x<span class="token punctuation">,</span>y<span class="token punctuation">;</span>
-    <span class="token property">-o-transform</span><span class="token punctuation">:</span> x<span class="token punctuation">,</span>y<span class="token punctuation">;</span>
-    <span class="token property">transform</span><span class="token punctuation">:</span> x<span class="token punctuation">,</span>y<span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="兼容方法：-10"><a href="#兼容方法：-10" class="headerlink" title="兼容方法："></a>兼容方法：</h4><figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.transform</span>&#123;</span><br><span class="line">    -webkit-<span class="attribute">transform</span>: x,y;</span><br><span class="line">    -moz-<span class="attribute">transform</span>: x,y;</span><br><span class="line">    -ms-<span class="attribute">transform</span>: x,y;</span><br><span class="line">    -o-<span class="attribute">transform</span>: x,y;</span><br><span class="line">    <span class="attribute">transform</span>: x,y;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>IE8及以下：用IE滤镜 </p>
-<pre class="line-numbers language-css" data-language="css"><code class="language-css"><span class="token punctuation">&#123;</span>
-    <span class="token property">filter</span><span class="token punctuation">:</span>fliph<span class="token punctuation">;</span><span class="token comment">/*水平翻转相当于transform:rotateY(180deg)*/</span>
-    <span class="token property">filter</span><span class="token punctuation">:</span>flipv<span class="token punctuation">;</span><span class="token comment">/*垂直翻转相当于transform:rotateX(180deg)*/</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attribute">filter</span>:fliph;<span class="comment">/*水平翻转相当于transform:rotateY(180deg)*/</span></span><br><span class="line">    <span class="attribute">filter</span>:flipv;<span class="comment">/*垂直翻转相当于transform:rotateX(180deg)*/</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>详情参阅<a target="_blank" rel="noopener" href="http://www.w3cplus.com/content/css3-transform">transform</a></p>
 <h3 id="transition"><a href="#transition" class="headerlink" title="transition"></a>transition</h3><p>css的属性值在一定的时间区间内平滑地过渡</p>
-<h4 id="语法：-10"><a href="#语法：-10" class="headerlink" title="语法："></a>语法：</h4><pre class="line-numbers language-none"><code class="language-none">transition ：[&lt;&#39;transition-property&#39;&gt; || &lt;&#39;transition-duration&#39;&gt; ||
-&lt;&#39;transition-timing-function&#39;&gt; || &lt;&#39;transition-delay&#39;&gt; [, [&lt;&#39;transition-property&#39;&gt; 
-|| &lt;&#39;transition-duration&#39;&gt; || &lt;&#39;transition-timing-function&#39;&gt; || &lt;&#39;transition-delay&#39;&gt;]]* <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<h4 id="语法：-10"><a href="#语法：-10" class="headerlink" title="语法："></a>语法：</h4><figure class="highlight sml"><table><tr><td class="code"><pre><span class="line">transition ：[&lt;<span class="symbol">&#x27;transition</span>-property&#x27;&gt; || &lt;<span class="symbol">&#x27;transition</span>-duration&#x27;&gt; ||</span><br><span class="line">&lt;<span class="symbol">&#x27;transition</span>-timing-function&#x27;&gt; || &lt;<span class="symbol">&#x27;transition</span>-delay&#x27;&gt; [, [&lt;<span class="symbol">&#x27;transition</span>-property&#x27;&gt; </span><br><span class="line">|| &lt;<span class="symbol">&#x27;transition</span>-duration&#x27;&gt; || &lt;<span class="symbol">&#x27;transition</span>-timing-function&#x27;&gt; || &lt;<span class="symbol">&#x27;transition</span>-delay&#x27;&gt;]]* </span><br></pre></td></tr></table></figure>
 <p><code>transition-property ： none | all | [ &lt;ident&gt; ] [, &lt;ident&gt; ]*</code>检索或设置对象中的参与过渡的属性<br><code>transition-duration ： &lt;time&gt; [, &lt;time&gt;]* </code>检索或设置对象过渡的持续时间  </p>
-<pre class="line-numbers language-none"><code class="language-none">transition-timing-function ：ease | linear | ease-in | ease-out | ease-in-out | step-start 
-| step-end | steps(&lt;integer&gt;[, [ start | end ] ]?) | cubic-bezier(&lt;number&gt;, &lt;number&gt;, &lt;number&gt;, &lt;number&gt;)
-[,ease | linear | ease-in | ease-out | ease-in-out | step-start | step-end | steps(&lt;integer&gt;[, 
-[ start | end ] ]?) | cubic-bezier(&lt;number&gt;, &lt;number&gt;, &lt;number&gt;, &lt;number&gt;)]*<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight coq"><table><tr><td class="code"><pre><span class="line">transition-timing-function ：ease | <span class="type">linear</span> | <span class="type">ease</span>-<span class="built_in">in</span> | <span class="type">ease</span>-out | <span class="type">ease</span>-<span class="built_in">in</span>-out | <span class="type">step</span>-start </span><br><span class="line">| <span class="type">step</span>-<span class="keyword">end</span> | <span class="type">steps</span>(&lt;integer&gt;[, [ start | <span class="type">end</span> ] ]?) | <span class="type">cubic</span>-bezier(&lt;number&gt;, &lt;number&gt;, &lt;number&gt;, &lt;number&gt;)</span><br><span class="line">[,ease | <span class="type">linear</span> | <span class="type">ease</span>-<span class="built_in">in</span> | <span class="type">ease</span>-out | <span class="type">ease</span>-<span class="built_in">in</span>-out | <span class="type">step</span>-start | <span class="type">step</span>-<span class="keyword">end</span> | <span class="type">steps</span>(&lt;integer&gt;[, </span><br><span class="line">[ start | <span class="type">end</span> ] ]?) | <span class="type">cubic</span>-bezier(&lt;number&gt;, &lt;number&gt;, &lt;number&gt;, &lt;number&gt;)]*</span><br></pre></td></tr></table></figure>
 <p>检索或设置对象中过渡的动画类型  </p>
 <p><code>transition-delay ： &lt;time&gt; [, &lt;time&gt;]*</code> 检索或设置对象延迟过渡的时间  </p>
 <h4 id="实例：-10"><a href="#实例：-10" class="headerlink" title="实例："></a>实例：</h4><p><code>transition: all .5s ease-in-out 1s;</code></p>
@@ -375,35 +294,18 @@
 <div class="transition"></div>
 
 <h4 id="兼容性：-11"><a href="#兼容性：-11" class="headerlink" title="兼容性："></a>兼容性：</h4><p>IE10+,  Firefox16+,  Chrome26+  ,Safari6.1+ , iOS Safari7+,  Android Browser4.4+, Android Chrome25+</p>
-<h4 id="兼容方法：-11"><a href="#兼容方法：-11" class="headerlink" title="兼容方法："></a>兼容方法：</h4><pre class="line-numbers language-css" data-language="css"><code class="language-css"><span class="token selector">p</span> <span class="token punctuation">&#123;</span>
-  <span class="token property">-webkit-transition</span><span class="token punctuation">:</span> all .5s ease-in-out 1s<span class="token punctuation">;</span>
-  <span class="token property">-moz-transition</span><span class="token punctuation">:</span> all .5s ease-in-out 1s<span class="token punctuation">;</span>
-  <span class="token property">-o-transition</span><span class="token punctuation">:</span> all .5s ease-in-out 1s<span class="token punctuation">;</span>
-  <span class="token property">transition</span><span class="token punctuation">:</span> all .5s ease-in-out 1s<span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="兼容方法：-11"><a href="#兼容方法：-11" class="headerlink" title="兼容方法："></a>兼容方法：</h4><figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">p</span> &#123;</span><br><span class="line">  -webkit-<span class="attribute">transition</span>: all .<span class="number">5s</span> ease-in-out <span class="number">1s</span>;</span><br><span class="line">  -moz-<span class="attribute">transition</span>: all .<span class="number">5s</span> ease-in-out <span class="number">1s</span>;</span><br><span class="line">  -o-<span class="attribute">transition</span>: all .<span class="number">5s</span> ease-in-out <span class="number">1s</span>;</span><br><span class="line">  <span class="attribute">transition</span>: all .<span class="number">5s</span> ease-in-out <span class="number">1s</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>IE9以及更早的版本，不支持 transition 属性。<br>详情参阅<a target="_blank" rel="noopener" href="http://www.w3cplus.com/content/css3-transition">transition</a></p>
 <h3 id="animation"><a href="#animation" class="headerlink" title="animation"></a>animation</h3><p>检索或设置对象所应用的动画特效。</p>
 <h4 id="语法：-11"><a href="#语法：-11" class="headerlink" title="语法："></a>语法：</h4><p><code>animation：&lt;single-animation&gt;[,&lt;single-animation&gt;]*</code>  </p>
-<pre class="line-numbers language-none"><code class="language-none">&lt;single-animation&gt; &#x3D; &lt;single-animation-name&gt; || &lt;time&gt; || &lt;single-animation-timing-function&gt;
- || &lt;time&gt; || &lt;single-animation-iteration-count&gt; || &lt;single-animation-direction&gt; ||
-  &lt;single-animation-fill-mode&gt; || &lt;single-animation-play-state&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight gherkin"><table><tr><td class="code"><pre><span class="line"><span class="variable">&lt;single-animation&gt;</span> = <span class="variable">&lt;single-animation-name&gt;</span> ||<span class="string"> &lt;time&gt; </span>||<span class="string"> &lt;single-animation-timing-function&gt;</span></span><br><span class="line"><span class="string"> </span>||<span class="string"> &lt;time&gt; </span>||<span class="string"> &lt;single-animation-iteration-count&gt; </span>||<span class="string"> &lt;single-animation-direction&gt; </span>||</span><br><span class="line">  <span class="variable">&lt;single-animation-fill-mode&gt;</span> ||<span class="string"> &lt;single-animation-play-state&gt;</span></span><br></pre></td></tr></table></figure>
 <p>&lt;’ animation-name ‘&gt;：检索或设置对象所应用的动画名称<br>&lt;’ animation-duration ‘&gt;：检索或设置对象动画的持续时间<br>&lt;’ animation-timing-function ‘&gt;：检索或设置对象动画的过渡类型<br>&lt;’ animation-delay ‘&gt;：检索或设置对象动画延迟的时间<br>&lt;’ animation-iteration-count ‘&gt;：检索或设置对象动画的循环次数<br>&lt;’ animation-direction ‘&gt;：检索或设置对象动画在循环中是否反向运动<br>&lt;’ animation-fill-mode ‘&gt;：检索或设置对象动画时间之外的状态<br>&lt;’ animation-play-state ‘&gt;：检索或设置对象动画的状态。</p>
 <h4 id="实例：-11"><a href="#实例：-11" class="headerlink" title="实例："></a>实例：</h4><iframe style="width: 100%; height: 100px" src="http://sandbox.runjs.cn/show/2fkpryt4" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
 
 <h4 id="兼容性：-12"><a href="#兼容性：-12" class="headerlink" title="兼容性："></a>兼容性：</h4><p>IE10+,Firefox16+, Chrome43+,  Safari9+</p>
 <h4 id="兼容方法：-12"><a href="#兼容方法：-12" class="headerlink" title="兼容方法："></a>兼容方法：</h4><p>低版本的chrome:-webkit-<br>低版本的firefox：-moz-<br>IE9及以下不支持<br>详情参阅<a target="_blank" rel="noopener" href="http://www.w3cplus.com/content/css3-animation">animation</a></p>
 <h3 id="keyframes"><a href="#keyframes" class="headerlink" title="@keyframes"></a>@keyframes</h3><p>用于创建动画</p>
-<h4 id="语法：-12"><a href="#语法：-12" class="headerlink" title="语法："></a>语法：</h4><pre class="line-numbers language-css" data-language="css"><code class="language-css"><span class="token atrule"><span class="token rule">@keyframes</span> IDENT</span> <span class="token punctuation">&#123;</span>
-      <span class="token selector">0%</span> <span class="token punctuation">&#123;</span>
-         <span class="token property">Properties</span><span class="token punctuation">:</span>Properties value<span class="token punctuation">;</span>
-      <span class="token punctuation">&#125;</span>
-      <span class="token selector">Percentage</span> <span class="token punctuation">&#123;</span>
-         <span class="token property">Properties</span><span class="token punctuation">:</span>Properties value<span class="token punctuation">;</span>
-      <span class="token punctuation">&#125;</span>
-      <span class="token selector">100%</span> <span class="token punctuation">&#123;</span>
-         <span class="token property">Properties</span><span class="token punctuation">:</span>Properties value<span class="token punctuation">;</span>
-      <span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="语法：-12"><a href="#语法：-12" class="headerlink" title="语法："></a>语法：</h4><figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="keyword">@keyframes</span> IDENT &#123;</span><br><span class="line">      <span class="number">0%</span> &#123;</span><br><span class="line">         Properties:Properties value;</span><br><span class="line">      &#125;</span><br><span class="line">      Percentage &#123;</span><br><span class="line">         Properties:Properties value;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="number">100%</span> &#123;</span><br><span class="line">         Properties:Properties value;</span><br><span class="line">      &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h4 id="实例：-12"><a href="#实例：-12" class="headerlink" title="实例："></a>实例：</h4><p>见上例</p>
 <h4 id="兼容性：-13"><a href="#兼容性：-13" class="headerlink" title="兼容性："></a>兼容性：</h4><p>IE10+,Firefox16+, Chrome43+,  Safari9+</p>
 <h4 id="兼容方法：-13"><a href="#兼容方法：-13" class="headerlink" title="兼容方法："></a>兼容方法：</h4><p>低版本的chrome:-webkit-<br>低版本的firefox：-moz-<br>IE9及以下不支持<br>详情参阅<a target="_blank" rel="noopener" href="http://www.w3cplus.com/content/css3-animation">animation</a></p>
@@ -416,7 +318,7 @@
 
 <h4 id="兼容性：-14"><a href="#兼容性：-14" class="headerlink" title="兼容性："></a>兼容性：</h4><p>IE10+,  Firefox16+, Chrome26+,  Safari6.1+</p>
 <h4 id="兼容方法：-14"><a href="#兼容方法：-14" class="headerlink" title="兼容方法："></a>兼容方法：</h4><p>低版本的chrome:-webkit-<br>低版本的firefox：-moz-<br>IE9及以下可使用 IE 滤镜处理:</p>
-<pre class="line-numbers language-none"><code class="language-none">filter:progid:DXImageTransform.Microsoft.gradient(startColorstr&#x3D;&#39;#000000&#39;,endColorstr&#x3D;&#39;#ffffff&#39;);<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="attribute">filter</span>:progid:DXImageTransform.Microsoft.<span class="built_in">gradient</span>(startColorstr=<span class="string">&#x27;#000000&#x27;</span>,endColorstr=<span class="string">&#x27;#ffffff&#x27;</span>);</span><br></pre></td></tr></table></figure>
 <p>详情参阅<a target="_blank" rel="noopener" href="http://www.w3cplus.com/content/css3-gradient">gradient</a></p>
 <h3 id="rgba-r-g-b-a"><a href="#rgba-r-g-b-a" class="headerlink" title="rgba(r,g,b,a)"></a>rgba(r,g,b,a)</h3><p>设置颜色red+green+blue+alpha</p>
 <h4 id="语法：-14"><a href="#语法：-14" class="headerlink" title="语法："></a>语法：</h4><p><code>rgba(r,g,b,alpha)</code></p>
@@ -425,7 +327,7 @@
 
 <h4 id="兼容性：-15"><a href="#兼容性：-15" class="headerlink" title="兼容性："></a>兼容性：</h4><p>IE9+,  Firefox2+, Chrome4+,  Safari3+, iOS Safari3.2+,  Android Browser2.1+, Android Chrome18+</p>
 <h4 id="兼容方法：-15"><a href="#兼容方法：-15" class="headerlink" title="兼容方法："></a>兼容方法：</h4><p>IE6&#x2F;7&#x2F;8不支持使用 rgba 模式实现透明度，可使用 IE 滤镜处理  </p>
-<pre class="line-numbers language-none"><code class="language-none">filter:progid:DXImageTransform.Microsoft.gradient(startColorstr&#x3D;#7fff0000,endColorstr&#x3D;#7fff0000);<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="attribute">filter</span>:progid:DXImageTransform.Microsoft.<span class="built_in">gradient</span>(startColorstr=<span class="number">#7fff0000</span>,endColorstr=<span class="number">#7fff0000</span>);</span><br></pre></td></tr></table></figure>
 <p>详情参阅<a target="_blank" rel="noopener" href="http://www.cnblogs.com/jesse131/p/4771611.html">IE8下兼容rgba颜色的半透明背景</a></p>
 <h3 id="flex"><a href="#flex" class="headerlink" title="flex"></a>flex</h3><p>设置或检索弹性盒模型对象的子元素如何分配空间。用在子容器上</p>
 <h4 id="语法：-15"><a href="#语法：-15" class="headerlink" title="语法："></a>语法：</h4><p><code>flex：none | &lt;&#39; flex-grow &#39;&gt; &lt;&#39; flex-shrink &gt;&#39;? || &lt;&#39; flex-basis &#39;&gt; </code><br>默认值为0 1 auto，建议优先使用这个属性，而不是单独写三个分离的属性，因为浏览器会推算相关值。<br><code>flex-grow：&lt;number&gt;设置或检索弹性盒的扩展比率。</code><br>默认为0,如果所有子容器的flex-grow属性都为1，则它们将等分剩余空间（如果有的话）。如果一个子容器的flex-grow属性为2，其他都为1，则前者占据的剩余空间将比其他项多一倍。<br><code>flex-shrink：&lt;number&gt;设置或检索弹性盒的收缩比率。</code><br>如果所有子容器的flex-shrink属性都为1，当空间不足时，都将等比例缩小。如果一个子容器的flex-shrink属性为0，其他子容器都为1，则空间不足时，前者不缩小。<br><code>flex-basis：&lt;length&gt; | &lt;percentage&gt; | auto | content </code><br>定义了在分配多余空间之前，子容器占据的主轴空间（main size）。浏览器根据这个属性，计算主轴是否有多余空间。它的默认值为auto，即子容器的本来大小。</p>
@@ -529,7 +431,7 @@
 IE8不兼容 Firefox Chrome Safari现代版都兼容 
 #### 兼容方法：
 IE8及以下可使用IE滤镜处理
-<pre class="line-numbers language-none"><code class="language-none">filter：alpha(opacity&#x3D;50);<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<figure class="highlight scss"><table><tr><td class="code"><pre><span class="line"><span class="attribute">filter</span>：<span class="built_in">alpha</span>(opacity=<span class="number">50</span>);</span><br></pre></td></tr></table></figure>
 对于行内元素需要先将其转化为块状元素才行
 
  
@@ -587,9 +489,14 @@ IE8及以下可使用IE滤镜处理
     </a>
   
 </nav>
-    
-<div id="comments"></div>
-      
+   
+
+
+
+
+
+
+
  
     </footer>
   </div>
@@ -766,21 +673,7 @@ IE8及以下可使用IE滤镜处理
   
 
 
-   
-<script src="//imsun.github.io/gitment/dist/gitment.browser.js"></script>
-
-<script>
-  var gitment = new Gitment({
-    owner: "jesse121",
-    repo: "blog",
-    oauth: {
-      client_id: "3c3e422527fd3f9fa17a",
-      client_secret: "f28d1808ec9ab69fb24dc3e9fad81e1c3ab8dd8",
-    },
-  });
-  gitment.render("comments");
-</script>
-        
+          
 
 
 

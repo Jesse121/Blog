@@ -1,27 +1,39 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8" />
-   
+  <meta charset="utf-8">
+  
+  
   <title>Apache Web服务器安全配置 | 前端之路</title>
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1, shrink-to-fit=no"
-  />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   
-  <meta name="description" content="专注前端开发，前端开发技术博客" />
-   
-  <meta name="keywords" content="Web前端开发，Javascript，前端开发博客" />
-    <link rel="alternate" href="/blog/atom.xml" title="前端之路" type="application/atom+xml">   <link rel="shortcut icon" href="/blog/favicon.ico">   
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+    <meta name="description" content="专注前端开发，前端开发技术博客">
   
-<link rel="stylesheet" href="/blog/css/style.css">
   
-<link rel="stylesheet" href="/blog/fancybox/jquery.fancybox.min.css">
+    <meta name="keywords" content="Web前端开发，Javascript，前端开发博客">
+  
+  
+    <link rel="alternate" href="/blog/atom.xml" title="前端之路" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/blog/favicon.ico">
+  
   
     
-<link rel="stylesheet" href="//imsun.github.io/gitment/style/default.css">
- 
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/blog/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/blog/fancybox/jquery.fancybox.min.css">
+
+  
+  
+  
+  
 <meta name="generator" content="Hexo 6.2.0"></head>
 
 <body>
@@ -127,42 +139,27 @@
 <span id="more"></span>
 
 <h3 id="修改-Apache-配置文件-http-conf"><a href="#修改-Apache-配置文件-http-conf" class="headerlink" title="修改 Apache 配置文件 http.conf"></a>修改 Apache 配置文件 http.conf</h3><h4 id="以专用的-apache-用户运行"><a href="#以专用的-apache-用户运行" class="headerlink" title="以专用的 apache 用户运行"></a>以专用的 apache 用户运行</h4><p>一般情况下，Apache 是由 Root 来安装和运行的。如果 Apache Server 进程具有 Root 用户特权，那么它将给系统的安全构成很大的威胁，应确保 Apache Server 进程以最可能低的权限用户来运行。<br>1.window 系统中创建 apache 用户<br>在命令行中输入</p>
-<pre class="line-numbers language-none"><code class="language-none">net user 查看系统已经存在的用户
-net user apache 131978jesse &#x2F;add 添加apahce用户
-net localgroup apachegroup &#x2F;add 添加apachegroup用户组
-net localgroup apachegroup apache &#x2F;add 将apache添加进apachegroup用户组<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">net<span class="built_in"> user </span>查看系统已经存在的用户</span><br><span class="line">net<span class="built_in"> user </span>apache 131978jesse /<span class="built_in">add</span> 添加apahce用户</span><br><span class="line">net localgroup apachegroup /<span class="built_in">add</span> 添加apachegroup用户组</span><br><span class="line">net localgroup apachegroup apache /<span class="built_in">add</span> 将apache添加进apachegroup用户组</span><br></pre></td></tr></table></figure>
 
 <p>2.给予 apache 用户读取和执行所有文档和脚本目录(例如：htdocs 和 cgi-bin)的权限。 对 Apache 的 logs 目录具有读&#x2F;写&#x2F;删除(RWD)的权限。<br>3.在 http.conf 文件中修改以下内容：</p>
-<pre class="line-numbers language-none"><code class="language-none">User apache
-Group apachegroup<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<figure class="highlight crmsh"><table><tr><td class="code"><pre><span class="line"><span class="keyword">User</span> <span class="title">apache</span></span><br><span class="line"><span class="keyword">Group</span> <span class="title">apachegroup</span></span><br></pre></td></tr></table></figure>
 
 <p>4.在 service.msc 服务中选择 Aapche 属性，登录账号改为 apache，重启 apache 即可</p>
 <h4 id="apache-目录禁止访问"><a href="#apache-目录禁止访问" class="headerlink" title="apache 目录禁止访问"></a>apache 目录禁止访问</h4><p>Indexes  的作用就是当该目录下没有  index.html 文件时，就显示目录结构。<br>默认 apache 在当前目录下没有 index.html 入口就会显示目录。让目录暴露在外面是非常危险的事，如下操作禁止 apache 显示目录：</p>
-<pre class="line-numbers language-none"><code class="language-none">Options FollowSymLinks<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<figure class="highlight apache"><table><tr><td class="code"><pre><span class="line"><span class="attribute">Options</span> FollowSymLinks</span><br></pre></td></tr></table></figure>
 
 <p>将 Options Indexes FollowSymLinks 中的 Indexes  去掉，就可以禁止  Apache  显示该目录结构。</p>
 <h4 id="阻止用户修改系统设置"><a href="#阻止用户修改系统设置" class="headerlink" title="阻止用户修改系统设置"></a>阻止用户修改系统设置</h4><p>在 Apache 服务器的配置文件中进行以下的设置，阻止用户建立、修改 .htaccess 文件，防止用户超越能定义的系统安全特性。</p>
-<pre class="line-numbers language-none"><code class="language-none">AllowOveride None
-Options None
-Allow from all<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight pgsql"><table><tr><td class="code"><pre><span class="line">AllowOveride <span class="keyword">None</span></span><br><span class="line"><span class="keyword">Options</span> <span class="keyword">None</span></span><br><span class="line">Allow <span class="keyword">from</span> <span class="keyword">all</span></span><br></pre></td></tr></table></figure>
 
 <p>然后再分别对特定的目录进行适当的配置。</p>
-<h4 id="apache-隐藏版本信息"><a href="#apache-隐藏版本信息" class="headerlink" title="apache 隐藏版本信息"></a>apache 隐藏版本信息</h4><pre class="line-numbers language-none"><code class="language-none">ServerSignature Off
-ServerTokens Prod<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h4 id="apache-隐藏版本信息"><a href="#apache-隐藏版本信息" class="headerlink" title="apache 隐藏版本信息"></a>apache 隐藏版本信息</h4><figure class="highlight apache"><table><tr><td class="code"><pre><span class="line"><span class="attribute">ServerSignature</span> <span class="literal">Off</span></span><br><span class="line"><span class="attribute">ServerTokens</span> Prod</span><br></pre></td></tr></table></figure>
 
-<h4 id="自定义错误页面"><a href="#自定义错误页面" class="headerlink" title="自定义错误页面"></a>自定义错误页面</h4><pre class="line-numbers language-none"><code class="language-none">ErrorDocument 400 &#x2F;custom400.html
-ErrorDocument 401 &#x2F;custom401.html
-ErrorDocument 403 &#x2F;custom403.html
-ErrorDocument 404 &#x2F;custom404.html
-ErrorDocument 405 &#x2F;custom405.html
-ErrorDocument 500 &#x2F;custom500.html<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="自定义错误页面"><a href="#自定义错误页面" class="headerlink" title="自定义错误页面"></a>自定义错误页面</h4><figure class="highlight apache"><table><tr><td class="code"><pre><span class="line"><span class="attribute">ErrorDocument</span> <span class="number">400</span> /custom400.html</span><br><span class="line"><span class="attribute">ErrorDocument</span> <span class="number">401</span> /custom401.html</span><br><span class="line"><span class="attribute">ErrorDocument</span> <span class="number">403</span> /custom403.html</span><br><span class="line"><span class="attribute">ErrorDocument</span> <span class="number">404</span> /custom404.html</span><br><span class="line"><span class="attribute">ErrorDocument</span> <span class="number">405</span> /custom405.html</span><br><span class="line"><span class="attribute">ErrorDocument</span> <span class="number">500</span> /custom500.html</span><br></pre></td></tr></table></figure>
 
-<h4 id="删除如下-apache-的默认文件"><a href="#删除如下-apache-的默认文件" class="headerlink" title="删除如下 apache 的默认文件"></a>删除如下 apache 的默认文件</h4><pre class="line-numbers language-none"><code class="language-none">删除默认的HTML文件：   # apache网页根目录htdocs下的html文件
-删除默认的icons文件：  # apache安装目录下的icons文件夹及里面的文件
-删除默认的的CGI脚本：  # apache安装目录下的cgi-bin文件夹及里面的文件
-删除Apache说明文件：   # apache安装目录下的manual文件夹及里面的文件以及安装目录下的其他介绍性文件<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="删除如下-apache-的默认文件"><a href="#删除如下-apache-的默认文件" class="headerlink" title="删除如下 apache 的默认文件"></a>删除如下 apache 的默认文件</h4><figure class="highlight objectivec"><table><tr><td class="code"><pre><span class="line">删除默认的HTML文件：   <span class="meta"># apache网页根目录htdocs下的html文件</span></span><br><span class="line">删除默认的icons文件：  <span class="meta"># apache安装目录下的icons文件夹及里面的文件</span></span><br><span class="line">删除默认的的<span class="built_in">CGI</span>脚本：  <span class="meta"># apache安装目录下的cgi-bin文件夹及里面的文件</span></span><br><span class="line">删除Apache说明文件：   <span class="meta"># apache安装目录下的manual文件夹及里面的文件以及安装目录下的其他介绍性文件</span></span><br></pre></td></tr></table></figure>
 
-<h3 id="使用-rotatelogs-每隔一天记录一个日志"><a href="#使用-rotatelogs-每隔一天记录一个日志" class="headerlink" title="使用 rotatelogs 每隔一天记录一个日志"></a>使用 rotatelogs 每隔一天记录一个日志</h3><pre class="line-numbers language-none"><code class="language-none">CustomLog &quot;|bin&#x2F;rotatelogs.exe logs&#x2F;access.log 86400 480&quot; combined<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h3 id="使用-rotatelogs-每隔一天记录一个日志"><a href="#使用-rotatelogs-每隔一天记录一个日志" class="headerlink" title="使用 rotatelogs 每隔一天记录一个日志"></a>使用 rotatelogs 每隔一天记录一个日志</h3><figure class="highlight nginx"><table><tr><td class="code"><pre><span class="line"><span class="attribute">CustomLog</span> <span class="string">&quot;|bin/rotatelogs.exe logs/access.log 86400 480&quot;</span> combined</span><br></pre></td></tr></table></figure>
 
 <p>rotatelogs logfile [ rotationtime [ offset ]] | [ filesizeM ]<br>logfile：它加上基准名就是日志文件名。如果 logfile 中包含’%’，则它会被视为用于的 strftime(3)的格式字串；否则，它会被自动加上以秒为单位的.nnnnnnnnnn 后缀。这两种格式都表示新的日志开始使用的时间。<br>rotationtime：日志文件回卷的以秒为单位的间隔时间，86400 表示一天，即每天生成一个新的日志文件。<br>offset：相对于 UTC 的时差的分钟数。如果省略，则默认为 0，并使用 UTC 时间。比如，要指定 UTC 时差为-5 小时的地区的当地时间，则此参数应为-300，北京时间为+8 时间，应设置为 480。这样日志里的时间才会和服务器上的时间一致，方便查看日志。<br>filesizeM：指定回卷时以兆字节为单位的后缀字母 M 的文件大小，而不是指定回卷时间或时差。</p>
 <h3 id="修改-PHP-配置文件-php-ini"><a href="#修改-PHP-配置文件-php-ini" class="headerlink" title="修改 PHP 配置文件 php.ini"></a>修改 PHP 配置文件 php.ini</h3><h4 id="将时区修改为东八区北京时间"><a href="#将时区修改为东八区北京时间" class="headerlink" title="将时区修改为东八区北京时间"></a>将时区修改为东八区北京时间</h4><p>date.timezone &#x3D; “PRC”</p>
@@ -223,9 +220,14 @@ ErrorDocument 500 &#x2F;custom500.html<span aria-hidden="true" class="line-numbe
     </a>
   
 </nav>
-    
-<div id="comments"></div>
-      
+   
+
+
+
+
+
+
+
  
     </footer>
   </div>
@@ -402,21 +404,7 @@ ErrorDocument 500 &#x2F;custom500.html<span aria-hidden="true" class="line-numbe
   
 
 
-   
-<script src="//imsun.github.io/gitment/dist/gitment.browser.js"></script>
-
-<script>
-  var gitment = new Gitment({
-    owner: "jesse121",
-    repo: "blog",
-    oauth: {
-      client_id: "3c3e422527fd3f9fa17a",
-      client_secret: "f28d1808ec9ab69fb24dc3e9fad81e1c3ab8dd8",
-    },
-  });
-  gitment.render("comments");
-</script>
-        
+          
 
 
 

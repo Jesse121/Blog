@@ -1,27 +1,39 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8" />
-   
+  <meta charset="utf-8">
+  
+  
   <title>exports与module.exports的区别,export与export.defult区别 | 前端之路</title>
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1, shrink-to-fit=no"
-  />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   
-  <meta name="description" content="专注前端开发，前端开发技术博客" />
-   
-  <meta name="keywords" content="Web前端开发，Javascript，前端开发博客" />
-    <link rel="alternate" href="/blog/atom.xml" title="前端之路" type="application/atom+xml">   <link rel="shortcut icon" href="/blog/favicon.ico">   
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+    <meta name="description" content="专注前端开发，前端开发技术博客">
   
-<link rel="stylesheet" href="/blog/css/style.css">
   
-<link rel="stylesheet" href="/blog/fancybox/jquery.fancybox.min.css">
+    <meta name="keywords" content="Web前端开发，Javascript，前端开发博客">
+  
+  
+    <link rel="alternate" href="/blog/atom.xml" title="前端之路" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/blog/favicon.ico">
+  
   
     
-<link rel="stylesheet" href="//imsun.github.io/gitment/style/default.css">
- 
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/blog/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/blog/fancybox/jquery.fancybox.min.css">
+
+  
+  
+  
+  
 <meta name="generator" content="Hexo 6.2.0"></head>
 
 <body>
@@ -126,28 +138,12 @@
        <p>在 JS 模块化编程中，之前使用的是 require.js 或者 sea.js。随着前端工程化工具 webpack 的推出，使得前端 js 可以使用 CommonJS 模块标准或者使用 ES6 moduel 特性。<br>在 CommonJs 模块标准中我们载入模块使用的是 require()，输出模块用的是 exports 或者 module.exports<br>在 ES6 中载入模块我们用的是 import ，输出模块用的是 export</p>
 <span id="more"></span>
 
-<h3 id="exports-与-module-exports-的区别"><a href="#exports-与-module-exports-的区别" class="headerlink" title="exports 与 module.exports 的区别"></a>exports 与 module.exports 的区别</h3><pre class="line-numbers language-none"><code class="language-none">&#x2F;&#x2F;载入模块
-var m &#x3D; require(&#39;.&#x2F;moduleA.js&#39;)
-m.callName()
-&#x2F;&#x2F;输出模块
-exports.callName &#x3D; function()&#123;
-    console.log(&#39;jesse&#39;)
-&#125;
-&#x2F;&#x2F;也可以这样输出
-module.exports.callName &#x3D; function()&#123;
-    console.log(&#39;jesse&#39;)
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="exports-与-module-exports-的区别"><a href="#exports-与-module-exports-的区别" class="headerlink" title="exports 与 module.exports 的区别"></a>exports 与 module.exports 的区别</h3><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">//载入模块</span></span><br><span class="line"><span class="keyword">var</span> m = <span class="built_in">require</span>(<span class="string">&#x27;./moduleA.js&#x27;</span>)</span><br><span class="line">m.<span class="title function_">callName</span>()</span><br><span class="line"><span class="comment">//输出模块</span></span><br><span class="line"><span class="built_in">exports</span>.<span class="property">callName</span> = <span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;jesse&#x27;</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//也可以这样输出</span></span><br><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span>.<span class="property">callName</span> = <span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;jesse&#x27;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>module.exports 才是 module 模块的真正接口，而 exports 可以理解为它的一个副本<br>虽然修改 exports 对象的时候也会修改 module.exports 对象，但最终返回给调用的是 module.exports 对象<br>当 module.exports 对象通过赋值方式进行设定后，就已经和 exports 对象没关系了</p>
 <p>so,我的理解是 exports 输出的只是要输出的对象的某个属性，module.exports 才真正输出的是要输出的对象。<br>一个模块文件中可以有多个 exports 输出，但只能有一个 module.exports 输出<br>这种方式普遍用于 node 中模块的编写</p>
 <h3 id="export-与-export-defult-区别"><a href="#export-与-export-defult-区别" class="headerlink" title="export 与 export.defult 区别"></a>export 与 export.defult 区别</h3><p>es6moduel 特性在 node 环境中并不能完全支持，解决方法是用 babel 编译</p>
-<pre class="line-numbers language-none"><code class="language-none">&#x2F;&#x2F;载入模块
-import &#123;callName&#125; from &#39;.&#x2F;moduleA.js&#39;
-callName()
-&#x2F;&#x2F;输出模块
-export function callName ()&#123;
-    console.log(&#39;jesse&#39;)
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">//载入模块</span></span><br><span class="line"><span class="keyword">import</span> &#123;callName&#125; <span class="keyword">from</span> <span class="string">&#x27;./moduleA.js&#x27;</span></span><br><span class="line"><span class="title function_">callName</span>()</span><br><span class="line"><span class="comment">//输出模块</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">function</span> <span class="title function_">callName</span> ()&#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;jesse&#x27;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>1.export 与 export default 均可用于导出常量、函数、文件、模块等 2.你可以在其它文件或模块中通过 import+(常量 | 函数 | 文件 | 模块)名的方式，将其导入，以便能够对其进行使用 3.在一个文件或模块中，export、import 可以有多个，export default 仅有一个 4.通过 export 方式导出，在导入时要加{ }，export default 则不需要</p>
  
@@ -205,9 +201,14 @@ export function callName ()&#123;
     </a>
   
 </nav>
-    
-<div id="comments"></div>
-      
+   
+
+
+
+
+
+
+
  
     </footer>
   </div>
@@ -384,21 +385,7 @@ export function callName ()&#123;
   
 
 
-   
-<script src="//imsun.github.io/gitment/dist/gitment.browser.js"></script>
-
-<script>
-  var gitment = new Gitment({
-    owner: "jesse121",
-    repo: "blog",
-    oauth: {
-      client_id: "3c3e422527fd3f9fa17a",
-      client_secret: "f28d1808ec9ab69fb24dc3e9fad81e1c3ab8dd8",
-    },
-  });
-  gitment.render("comments");
-</script>
-        
+          
 
 
 

@@ -1,27 +1,39 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8" />
-   
+  <meta charset="utf-8">
+  
+  
   <title>如何在Vscode上直接运行typescript? | 前端之路</title>
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1, shrink-to-fit=no"
-  />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   
-  <meta name="description" content="专注前端开发，前端开发技术博客" />
-   
-  <meta name="keywords" content="Web前端开发，Javascript，前端开发博客" />
-    <link rel="alternate" href="/blog/atom.xml" title="前端之路" type="application/atom+xml">   <link rel="shortcut icon" href="/blog/favicon.ico">   
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+    <meta name="description" content="专注前端开发，前端开发技术博客">
   
-<link rel="stylesheet" href="/blog/css/style.css">
   
-<link rel="stylesheet" href="/blog/fancybox/jquery.fancybox.min.css">
+    <meta name="keywords" content="Web前端开发，Javascript，前端开发博客">
+  
+  
+    <link rel="alternate" href="/blog/atom.xml" title="前端之路" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/blog/favicon.ico">
+  
   
     
-<link rel="stylesheet" href="//imsun.github.io/gitment/style/default.css">
- 
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/blog/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/blog/fancybox/jquery.fancybox.min.css">
+
+  
+  
+  
+  
 <meta name="generator" content="Hexo 6.2.0"></head>
 
 <body>
@@ -126,23 +138,16 @@
        <p>在学习 typescript 的过程中发现在 vscode 上不能很好地的输出 typescript 的运行结果，需要先将 typescript 编译为 javascript，在通过 node 执行 js 文件得到结果，执行过程如下</p>
 <span id="more"></span>
 
-<pre class="line-numbers language-typescript" data-language="typescript"><code class="language-typescript"><span class="token comment">// greeter.ts</span>
-<span class="token keyword">function</span> <span class="token function">greeter</span><span class="token punctuation">(</span>person<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-  <span class="token keyword">return</span> <span class="token string">"Hello, "</span> <span class="token operator">+</span> person<span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span>
-
-<span class="token keyword">let</span> user <span class="token operator">=</span> <span class="token string">"Jane User"</span><span class="token punctuation">;</span>
-
-<span class="token builtin">console</span><span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>user<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight ts"><table><tr><td class="code"><pre><span class="line"><span class="comment">// greeter.ts</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">greeter</span>(<span class="params">person</span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="string">&quot;Hello, &quot;</span> + person;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> user = <span class="string">&quot;Jane User&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(user);</span><br></pre></td></tr></table></figure>
 
 <p>在命令行上执行</p>
-<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">tsc greeter.ts<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">tsc greeter.ts</span><br></pre></td></tr></table></figure>
 
 <p>在当前文件夹下会输出 greeter.js 文件，然后通过 node greeter.js 执行这个文件，才能输出运行结果。这样操作觉得比较麻烦，查询后得知在 vscode 上还有更快捷的执行方式</p>
 <h3 id="执行准备操作"><a href="#执行准备操作" class="headerlink" title="执行准备操作"></a>执行准备操作</h3><ol>
 <li>在全局上安装 ts-node 包</li>
 </ol>
-<pre class="line-numbers language-none"><code class="language-none">npm install typescript ts-node @types&#x2F;node@* -g<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<figure class="highlight crmsh"><table><tr><td class="code"><pre><span class="line">npm install typescript ts-<span class="keyword">node</span> <span class="title">@types</span>/<span class="keyword">node</span><span class="title">@* -g</span></span><br></pre></td></tr></table></figure>
 
 <ol start="2">
 <li>在 vscode 上安装 Code Runner 插件</li>
@@ -203,9 +208,14 @@
     </a>
   
 </nav>
-    
-<div id="comments"></div>
-      
+   
+
+
+
+
+
+
+
  
     </footer>
   </div>
@@ -382,21 +392,7 @@
   
 
 
-   
-<script src="//imsun.github.io/gitment/dist/gitment.browser.js"></script>
-
-<script>
-  var gitment = new Gitment({
-    owner: "jesse121",
-    repo: "blog",
-    oauth: {
-      client_id: "3c3e422527fd3f9fa17a",
-      client_secret: "f28d1808ec9ab69fb24dc3e9fad81e1c3ab8dd8",
-    },
-  });
-  gitment.render("comments");
-</script>
-        
+          
 
 
 

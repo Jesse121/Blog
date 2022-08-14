@@ -19,7 +19,9 @@
   
 <link rel="stylesheet" href="/blog/fancybox/jquery.fancybox.min.css">
   
-   
+    
+<link rel="stylesheet" href="//imsun.github.io/gitment/style/default.css">
+ 
 <meta name="generator" content="Hexo 6.2.0"></head>
 
 <body>
@@ -320,14 +322,9 @@ Set-Cookie: H_PS_PSSID&#x3D;1451_21116_17001_21408_21417_21554_20929; path&#x3D;
     </a>
   
 </nav>
-   
-
-
-
-
-
-
-
+    
+<div id="comments"></div>
+      
  
     </footer>
   </div>
@@ -516,7 +513,7 @@ Set-Cookie: H_PS_PSSID&#x3D;1451_21116_17001_21408_21417_21554_20929; path&#x3D;
       client_secret: "#{theme.comment.gitment.gitment_oauth.client_secret}",
     },
   });
-  gitment.render("gitment-ctn");
+  gitment.render("comments");
 </script>
         
 

@@ -19,7 +19,9 @@
   
 <link rel="stylesheet" href="/blog/fancybox/jquery.fancybox.min.css">
   
-   
+    
+<link rel="stylesheet" href="//imsun.github.io/gitment/style/default.css">
+ 
 <meta name="generator" content="Hexo 6.2.0"></head>
 
 <body>
@@ -794,14 +796,9 @@ context<span class="token punctuation">.</span><span class="token function">stro
     </a>
   
 </nav>
-   
-
-
-
-
-
-
-
+    
+<div id="comments"></div>
+      
  
     </footer>
   </div>
@@ -990,7 +987,7 @@ context<span class="token punctuation">.</span><span class="token function">stro
       client_secret: "#{theme.comment.gitment.gitment_oauth.client_secret}",
     },
   });
-  gitment.render("gitment-ctn");
+  gitment.render("comments");
 </script>
         
 

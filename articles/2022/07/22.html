@@ -19,7 +19,9 @@
   
 <link rel="stylesheet" href="/blog/fancybox/jquery.fancybox.min.css">
   
-   
+    
+<link rel="stylesheet" href="//imsun.github.io/gitment/style/default.css">
+ 
 <meta name="generator" content="Hexo 6.2.0"></head>
 
 <body>
@@ -338,14 +340,9 @@ matcher <span class="token operator">=</span> matchers<span class="token punctua
     </a>
   
 </nav>
-   
-
-
-
-
-
-
-
+    
+<div id="comments"></div>
+      
  
     </footer>
   </div>
@@ -534,7 +531,7 @@ matcher <span class="token operator">=</span> matchers<span class="token punctua
       client_secret: "#{theme.comment.gitment.gitment_oauth.client_secret}",
     },
   });
-  gitment.render("gitment-ctn");
+  gitment.render("comments");
 </script>
         
 

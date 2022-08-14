@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>《图解HTTP》--读书笔记 | 前端之路</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  
+    <meta name="description" content="专注前端开发，前端开发技术博客">
+  
+  
+    <meta name="keywords" content="Web前端开发，Javascript，前端开发博客">
+  
+  
+    <link rel="alternate" href="/blog/atom.xml" title="前端之路" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/blog/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/blog/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/blog/fancybox/jquery.fancybox.min.css">
+
+  
+  
+  
+    
+<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+
+  
+  
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/blog/" id="logo">前端之路</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/blog/" id="subtitle">路漫漫其修远兮，吾将上下而求索</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        
+          <a class="main-nav-link" href="/blog/."><i class="fa fa-home"></i> 首页</a>
+        
+          <a class="main-nav-link" href="/blog/archives/"><i class="fa fa-archive"></i> 归档</a>
+        
+          <a class="main-nav-link" href="/blog/about/"><i class="fa fa-user"></i> 关于</a>
+        
+      </nav>
+    </div>
+    <div id="search-form">
+      <div id="result-mask" class="hide"></div>
+      <label><input id="search-key" type="text" autocomplete="off" placeholder="搜索"></label>
+      <div id="result-wrap" class="hide">
+        <div id="search-result"></div>
+      </div>
+      <div class="hide">
+        <template id="search-tpl">
+          <div class="item">
+            <a href="/{path}" title="{title}">
+              <div class="title">{title}</div>
+              <div class="time">{date}</div>
+              <div class="tags">{tags}</div>
+            </a>
+          </div>
+        </template>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-notes/《图解HTTP》--读书笔记" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      《图解HTTP》--读书笔记
+    </h1>
+  
+
+
+      </header>
+    
+    <div class="article-meta">
+      
+      <span class="article-date">
+  <i class="fa fa-date"></i>
+  <time class="dt-published" datetime="2016-04-01T16:00:00.000Z" itemprop="datePublished">2016年04月02日</time>
+</span>
+      
+  <div class="article-category">
+    <i class="fa fa-classify"></i>
+    <a class="article-category-link" href="/blog/categories/notes/">读书笔记</a>
+  </div>
+
+      
+        <span class="article-views">
+  <i class="fa fa-views"></i>
+  <i id="busuanzi_container_page_pv">
+      <i id="busuanzi_value_page_pv"></i>
+  </i>
+</span>
+
+      
+      
+<a href="/blog/articles/2016/04/02.html#comments" class="article-comment-link">
+  
+    
+    
+    
+    
+    
+  
+  <i class="fa fa-commt"></i>
+  留言
+</a>
+
+
+    </div>
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h3 id="第一章、了解web及网络基础"><a href="#第一章、了解web及网络基础" class="headerlink" title="第一章、了解web及网络基础"></a>第一章、了解web及网络基础</h3><h4 id="1-2-http的诞生"><a href="#1-2-http的诞生" class="headerlink" title="1.2 http的诞生"></a>1.2 http的诞生</h4><p>HTTP于1990年问世，那时候HTTP并没有作为正式的标准被建立，被称为HTTP&#x2F;0.9</p>
+<p>HTTP正式作为标准被公布是在1996年5月，版本被命名为HTTP&#x2F;1.0，该协议至今仍被广泛用在服务器端。</p>
+<p>HTTP&#x2F;1.1于1997年1月公布，是目前主流的HTTP协议版本。</p>
+<p>HTTP&#x2F;2.0正在制定中。</p>
+<span id="more"></span>
+<h4 id="1-3-TCP-x2F-IP"><a href="#1-3-TCP-x2F-IP" class="headerlink" title="1.3 TCP&#x2F;IP"></a>1.3 TCP&#x2F;IP</h4><p>TCP&#x2F;IP不是某个协议，而是互联网相关的各类协议族的总称。详细内容参见<a target="_blank" rel="noopener" href="http://www.cnblogs.com/fengzanfeng/articles/1339347.html">TCP&#x2F;IP详解学习笔记</a></p>
+<p>TCP&#x2F;IP协议族按层次分别为以下4层：</p>
+<p>应用层：决定了向用户提供应用服务时的通信活动，该层包括FTP DNS HTTP</p>
+<p>传输层：对上层应用层，提供处于网络连接中的两台计算机之间的数据传输，该层包括TCP UDP</p>
+<p>网络层：用来处理在网络上流动的数据包，该层规定了通过怎样的路径达到对方计算机并把数据包传送给对方</p>
+<p>链路层：用来处理连接网络的硬件部分，网卡 光纤</p>
+<p>TCP&#x2F;IP通信传输流程（http举例）</p>
+<p>首先作为发送端的客户端在应用层（http协议）发出一个想看某个web页面的http请求。接着，为了传输的方便，在传输层（tcp协议）把从应用层处收到的数据（http请求报文）进行分割，并在各个报文上打上标记序号及端口号后转发给网络层。在网络层（ip协议）增加作为通信目的地的MAC地址后转发给链路层。这样，发往网络的通信请求就齐全了。</p>
+<p><img src="/blog/blog/static/images/http/TCPIP.jpg" alt="TCP/IP通信传输流程"></p>
+<h4 id="1-4-1-负责传输的IP协议"><a href="#1-4-1-负责传输的IP协议" class="headerlink" title="1.4.1 负责传输的IP协议"></a>1.4.1 负责传输的IP协议</h4><p>IP协议的作用是把各种数据包传送给对方</p>
+<p>IP地址指明了节点被分配到的地址，MAC地址是指网卡所属的固定地址</p>
+<h4 id="1-4-2-确保可靠性的TCP协议"><a href="#1-4-2-确保可靠性的TCP协议" class="headerlink" title="1.4.2 确保可靠性的TCP协议"></a>1.4.2 确保可靠性的TCP协议</h4><p>TCP协议为了更容易送达大数据才把数据分割，采用三次握手策略确保数据最终送达对方</p>
+<p>三次握手策略：</p>
+<p>发送端首先发送一个带SYN(synchronize)标志的数据包给对方，接收端收到后回传一个带有SYN&#x2F;ACK标志的数据包以示传达确认信息。最后发送端再回传一个带ACK(acknowledgement)标志的数据包代表握手结束。 </p>
+<h4 id="1-5-负责域名解析的DNS-Domain-Name-System-服务"><a href="#1-5-负责域名解析的DNS-Domain-Name-System-服务" class="headerlink" title="1.5 负责域名解析的DNS(Domain Name System)服务"></a>1.5 负责域名解析的DNS(Domain Name System)服务</h4><p>DNS提供域名到IP地址之间的解析服务</p>
+<h4 id="1-6-各种协议在http协议通信过程中的职责"><a href="#1-6-各种协议在http协议通信过程中的职责" class="headerlink" title="1.6 各种协议在http协议通信过程中的职责"></a>1.6 各种协议在http协议通信过程中的职责</h4><p>按流程顺序分别为：</p>
+<p>DNS服务：把用户输入的域名解析为IP地址</p>
+<p>HTTP协议：生成针对目标web服务器的HTTP请求报文</p>
+<p>TCP协议：为了方便通信将HTTP请求报文分割成报文段，把每个报文段可靠的传给对方</p>
+<p>IP协议：搜索对方的地址，一边中转一边传送</p>
+<p>TCP协议：从对方那里接收报文段并按序号从组请求报文</p>
+<p>HTTP协议：对web服务器请求的内容的处理</p>
+<h4 id="1-7-URI-x2F-URL"><a href="#1-7-URI-x2F-URL" class="headerlink" title="1.7 URI&#x2F;URL"></a>1.7 URI&#x2F;URL</h4><p>URI(Uniform Resource Identifier)某个协议方案的资源的定位标识符</p>
+<p>URL(Uniform Resource Locator)表示互联网资源的具体地点</p>
+<h3 id="第二章、简单的http协议"><a href="#第二章、简单的http协议" class="headerlink" title="第二章、简单的http协议"></a>第二章、简单的http协议</h3><h4 id="2-2-通过请求和响应的交换达成通信"><a href="#2-2-通过请求和响应的交换达成通信" class="headerlink" title="2.2 通过请求和响应的交换达成通信"></a>2.2 通过请求和响应的交换达成通信</h4><p>请求报文是由请求方法、请求URI、协议版本、可选的请求头部字段和内容实体构成的。</p>
+<p><img src="/blog/blog/static/images/http/2.2.1.jpg" alt="请求报文的构成"></p>
+<p>响应报文基本上是由协议版本、状态码、用以解释状态码的原因短语、可选的响应首部字段及实体主体构成。</p>
+<p><img src="/blog/blog/static/images/http/2.2.2.jpg" alt="响应报文的构成"></p>
+<h4 id="2-3-HTTP是不保存状态的协议"><a href="#2-3-HTTP是不保存状态的协议" class="headerlink" title="2.3 HTTP是不保存状态的协议"></a>2.3 HTTP是不保存状态的协议</h4><p>HTTP协议自身不对请求和响应之间的通信状态进行保存</p>
+<h4 id="2-5-告知服务器意图的http方法"><a href="#2-5-告知服务器意图的http方法" class="headerlink" title="2.5 告知服务器意图的http方法"></a>2.5 告知服务器意图的http方法</h4><p>GET:用来访问已被URI识别的资源</p>
+<p>POST:用来传输实体的主体</p>
+<p>GET方法和POST方法的区别：</p>
+<ol>
+<li><p>安全性</p>
+<ul>
+<li>GET请求的数据会附在URL之后（就是把数据放置在HTTP协议头中），以?分割URL和传输数据，参数之间以&amp;相连，参数将明文出现在URL上，容易被他人看到，URL信息也可能会被记录到历史纪录中。</li>
+<li>POST请求是把提交的数据则放置在是HTTP包的包体中。</li>
+</ul>
+</li>
+<li><p>数据长度：</p>
+<ul>
+<li>HTTP协议没有对传输的数据和URL长度进行限制， 但特定浏览器和服务器对URL长度有限制， 因此对于GET提交时，传输数据就会受到URL长度的限制； </li>
+<li>由于POST操作不是通过URL传值，理论上数据长度不受限；</li>
+</ul>
+</li>
+<li><p>GET请求能够被缓存,以GET请求的URL能够保存为浏览器书签，而POST请求则都不能</p>
+</li>
+<li><p>Get是用来从服务器上获得数据，而Post是用来向服务器上传递数据。</p>
+</li>
+</ol>
+<p>以下其他方法均不常用</p>
+<p>PUT:传输文件 HEAD：获得报文首部 DELETE:删除文件 OPTUIONS:询问支持的方法 TRACK:追踪路径 CONNECT：要求用隧道协议连接代理</p>
+<h4 id="2-7-持久连接节省通信量"><a href="#2-7-持久连接节省通信量" class="headerlink" title="2.7 持久连接节省通信量"></a>2.7 持久连接节省通信量</h4><p>持久连接的好处在于减少了TCP连接的重复建立和断开所造成的额外开销，减轻服务器端荷载。在HTTP&#x2F;1.1中所有连接默认都是持久连接</p>
+<p>持久连接使得多数请求以管线化方式发送，即能同时并行发送多个请求。</p>
+<h4 id="2-8-使用cookie的状态管理"><a href="#2-8-使用cookie的状态管理" class="headerlink" title="2.8 使用cookie的状态管理"></a>2.8 使用cookie的状态管理</h4><p>cookie技术是通过在请求和响应报文中写入cookie信息来控制客户端的状态</p>
+<p>Cookie会根据从服务器发送的响应报文内的一个叫做Set-Cookie的首部字段信息，通知客户端保存cookie。当下次客户端再往该服务器发送请求时，客户端会自动在请求报文中加入Cookie值后发送出去。服务器端接收到客户端发送过来的Cookie后，会去检查究竟是从哪一个客户端发来的连接请求，然后对比服务器上的记录，最后得到之前的状态信息。 </p>
+<h3 id="第三章、http报文内的http信息"><a href="#第三章、http报文内的http信息" class="headerlink" title="第三章、http报文内的http信息"></a>第三章、http报文内的http信息</h3><h4 id="3-1-HTTP报文"><a href="#3-1-HTTP报文" class="headerlink" title="3.1 HTTP报文"></a>3.1 HTTP报文</h4><p>HTTP报文大致可分为报文首部和报文主体两块，两者有最初出现的空行来划分，通常并不一定要有报文主体</p>
+<h4 id="3-2-请求报文和响应报文的结构"><a href="#3-2-请求报文和响应报文的结构" class="headerlink" title="3.2 请求报文和响应报文的结构"></a>3.2 请求报文和响应报文的结构</h4><p>请求行：包含用于请求的方法，请求URI和HTTP版本</p>
+<p>状态行：包含响应结果的状态码，原因短语和HTTP版本</p>
+<p>首部字段：包含表示请求和响应的各种条件和属性的各类首部，一般分别为：通用首部、请求首部、响应首部和实体首部。</p>
+<p>其他：包含HTTP的RFC里未定义的首部（Cookie等）</p>
+<h4 id="3-3-编码提升传输速率"><a href="#3-3-编码提升传输速率" class="headerlink" title="3.3 编码提升传输速率"></a>3.3 编码提升传输速率</h4><p>常用的内容编码方式有以下几种：</p>
+<ul>
+<li>gzip(GNU zip)</li>
+<li>compress(UNIX系统的标准压缩)</li>
+<li>deflate(zlib)</li>
+<li>identity(不进行编码)</li>
+</ul>
+<h4 id="3-5-获取部分内容的范围请求-Range-Request"><a href="#3-5-获取部分内容的范围请求-Range-Request" class="headerlink" title="3.5 获取部分内容的范围请求(Range Request)"></a>3.5 获取部分内容的范围请求(Range Request)</h4><p>执行范围请求时，会用到首部字段Range来指定资源的byte范围</p>
+<p>针对范围请求，响应会返回状态码为206 Partial Content的响应报文</p>
+<h4 id="3-6-内容协商返回最合适的内容"><a href="#3-6-内容协商返回最合适的内容" class="headerlink" title="3.6 内容协商返回最合适的内容"></a>3.6 内容协商返回最合适的内容</h4><p>内容协商机制是指客户端和服务器端就响应的资源内容进行交涉，然后提供给客户端最适合的资源。内容协商会以响应资源的语言、字符集、编码方式等作为判断的基准。如首部字段中的Accept、Accept-Charset、Accept-Enoding、Accept-Language、Content-Language</p>
+<h3 id="第四章、返回结果的http状态"><a href="#第四章、返回结果的http状态" class="headerlink" title="第四章、返回结果的http状态"></a>第四章、返回结果的http状态</h3><h4 id="4-1-状态码告知从服务器端返回的请求结果"><a href="#4-1-状态码告知从服务器端返回的请求结果" class="headerlink" title="4.1 状态码告知从服务器端返回的请求结果"></a>4.1 状态码告知从服务器端返回的请求结果</h4><table>
+<thead>
+<tr>
+<th></th>
+<th>类别</th>
+<th>Cool</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1XX</td>
+<td>informational(信息性状态码)</td>
+<td>接收的请求正在处理</td>
+</tr>
+<tr>
+<td>2XX</td>
+<td>Success(成功状态码)</td>
+<td>请求正常处理完毕</td>
+</tr>
+<tr>
+<td>3XX</td>
+<td>Redirection(重定向状态码)</td>
+<td>需要进行附加操作已完成请求</td>
+</tr>
+<tr>
+<td>4XX</td>
+<td>Client Error(客户端错误状态码)</td>
+<td>服务器无法处理请求</td>
+</tr>
+<tr>
+<td>5XX</td>
+<td>Server Error(服务器端错误状态码)</td>
+<td>服务器处理请求出错</td>
+</tr>
+</tbody></table>
+<h4 id="4-2-2XX成功"><a href="#4-2-2XX成功" class="headerlink" title="4.2 2XX成功"></a>4.2 2XX成功</h4><p>200 OK 表示从客户端发来的请求在服务器端被正常处理</p>
+<p>204 No Content 表示服务器接收的请求已成功处理，但返回的响应报文中不允许返回任何实体的主体部分</p>
+<p>206 Partial Content 表示客户端进行了范围请求，服务器成功执行了这部分GET请求</p>
+<h4 id="4-3-3XX-重定向"><a href="#4-3-3XX-重定向" class="headerlink" title="4.3 3XX 重定向"></a>4.3 3XX 重定向</h4><p>304 Not Modified 表示客户端发送附带条件的GET请求时，其访问的资源（自上次访问以来或者根据请求的条件）未变化</p>
+<h4 id="4-4-4XX客户端错误"><a href="#4-4-4XX客户端错误" class="headerlink" title="4.4 4XX客户端错误"></a>4.4 4XX客户端错误</h4><p>401 Bad Request 表示报文中存在语法错误</p>
+<p>403 Forbidden 表示对请求资源的访问被服务器拒绝了</p>
+<p>404 Not Found 表示服务器上无法找到请求的资源</p>
+<h4 id="4-5-5XX-服务器错误"><a href="#4-5-5XX-服务器错误" class="headerlink" title="4.5 5XX 服务器错误"></a>4.5 5XX 服务器错误</h4><p>501 Internet Sever Error 表示服务器端在执行请求时发生了错误</p>
+<p>503 Service Unavailable 表示服务器暂时处于超负荷或正在停机维护，现无法处理请求</p>
+<h3 id="第五章、与http协作的web服务器"><a href="#第五章、与http协作的web服务器" class="headerlink" title="第五章、与http协作的web服务器"></a>第五章、与http协作的web服务器</h3><h4 id="5-1-用单个虚拟主机实现多个域名"><a href="#5-1-用单个虚拟主机实现多个域名" class="headerlink" title="5.1 用单个虚拟主机实现多个域名"></a>5.1 用单个虚拟主机实现多个域名</h4><p>在相同的IP地址下，由于虚拟主机可以寄存多个不同主机名和域名的Web网站，因此在发送HTTP请求时，必须在Host首部内完整指定主机名或域名的URI</p>
+<h4 id="5-2-1-代理"><a href="#5-2-1-代理" class="headerlink" title="5.2.1 代理"></a>5.2.1 代理</h4><p>代理服务器的基本行为接收客户端发送的请求后转发给其他服务器，代理不改变请求URI,转发时需要附加Via首部字段已标记出经过的主机信息。</p>
+<p>使用代理服务器的理由：</p>
+<ul>
+<li>利用缓存技术（代理缓存）减少网络带宽的流量</li>
+<li>组织内部针对特定网站的访问控制，以获取访问日志为主要目的。</li>
+</ul>
+<h4 id="5-2-2-网关"><a href="#5-2-2-网关" class="headerlink" title="5.2.2 网关"></a>5.2.2 网关</h4><p>网关能使通信线路上的服务器提供非HTTP服务（SQL数据查询）</p>
+<h4 id="5-2-3-隧道"><a href="#5-2-3-隧道" class="headerlink" title="5.2.3 隧道"></a>5.2.3 隧道</h4><p>隧道的目的是确保客户端能与服务器进行安全的通信</p>
+<h3 id="第六章、http首部"><a href="#第六章、http首部" class="headerlink" title="第六章、http首部"></a>第六章、http首部</h3><h4 id="6-2-4-首部字段一览表"><a href="#6-2-4-首部字段一览表" class="headerlink" title="6.2.4 首部字段一览表"></a>6.2.4 首部字段一览表</h4><p>通用首部字段</p>
+<table>
+<thead>
+<tr>
+<th>首部字段名</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Cache-Control</td>
+<td>控制缓存的行为</td>
+</tr>
+<tr>
+<td>Cache-Control</td>
+<td>逐跳首部、连接的管理</td>
+</tr>
+<tr>
+<td>Date</td>
+<td>创建报文的日期时间</td>
+</tr>
+<tr>
+<td>Pragma</td>
+<td>报文指令</td>
+</tr>
+<tr>
+<td>Trailer</td>
+<td>报文末端的首部一览</td>
+</tr>
+<tr>
+<td>Transfer-Encoding</td>
+<td>指定报文主体的传输编码方式</td>
+</tr>
+<tr>
+<td>Upgrade</td>
+<td>升级为其他协议</td>
+</tr>
+<tr>
+<td>Via</td>
+<td>代理服务器的相关信息</td>
+</tr>
+<tr>
+<td>Warning</td>
+<td>错误通知</td>
+</tr>
+</tbody></table>
+<p>请求首部字段</p>
+<table>
+<thead>
+<tr>
+<th>首部字段名</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Accept</td>
+<td>用户代理可处理的媒体类型</td>
+</tr>
+<tr>
+<td>Accept-Charset</td>
+<td>优先的字符集</td>
+</tr>
+<tr>
+<td>Accept-Encoding</td>
+<td>优先的内容编码</td>
+</tr>
+<tr>
+<td>Accept-Language</td>
+<td>优先的语言</td>
+</tr>
+<tr>
+<td>Authorization</td>
+<td>web认证信息</td>
+</tr>
+<tr>
+<td>Expect</td>
+<td>期待服务器的特定行为</td>
+</tr>
+<tr>
+<td>Form</td>
+<td>用户的电子邮箱地址</td>
+</tr>
+<tr>
+<td>Host</td>
+<td>请求资源所在服务器</td>
+</tr>
+<tr>
+<td>if-Match</td>
+<td>比较实体标记ETag</td>
+</tr>
+<tr>
+<td>if-None-Math</td>
+<td>比较实体标记</td>
+</tr>
+<tr>
+<td>if-Modified-Since</td>
+<td>比较资源的更新时间</td>
+</tr>
+<tr>
+<td>if-Unmodified-Since</td>
+<td>比较资源的更新时间</td>
+</tr>
+<tr>
+<td>if-Range</td>
+<td>资源未更新时发送实体byte的范围请求</td>
+</tr>
+<tr>
+<td>Max-Forwards</td>
+<td>最大传输逐跳数</td>
+</tr>
+<tr>
+<td>Proy-Authorization</td>
+<td>代理服务器要求的客户端认证信息</td>
+</tr>
+<tr>
+<td>Referer</td>
+<td>对请求中URI的原始获取方</td>
+</tr>
+<tr>
+<td>Range</td>
+<td>实体的字节范围请求</td>
+</tr>
+<tr>
+<td>TE</td>
+<td>传输编码的优先级</td>
+</tr>
+<tr>
+<td>User-Agent</td>
+<td>http客户端程序的信息</td>
+</tr>
+</tbody></table>
+<p>响应首部字段</p>
+<table>
+<thead>
+<tr>
+<th>首部字段名</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Accept-Range</td>
+<td>是否接受字节范围请求</td>
+</tr>
+<tr>
+<td>Age</td>
+<td>推算资源创建经过时间</td>
+</tr>
+<tr>
+<td>ETag</td>
+<td>资源的匹配信息</td>
+</tr>
+<tr>
+<td>Location</td>
+<td>令客户端重定向指定URI</td>
+</tr>
+<tr>
+<td>Proxy-Authenticate</td>
+<td>代理服务器对客户端的认证信息</td>
+</tr>
+<tr>
+<td>Petry-After</td>
+<td>对再次发起请求的时机要求</td>
+</tr>
+<tr>
+<td>Server</td>
+<td>HTTP服务器的安装信息</td>
+</tr>
+<tr>
+<td>Vary</td>
+<td>代理服务器缓存的管理信息</td>
+</tr>
+<tr>
+<td>WWW-Authenticate</td>
+<td>服务器对客户端的认证信息</td>
+</tr>
+</tbody></table>
+<p>实体首部字段</p>
+<p><img src="/blog/blog/static/images/http/6.4.jpg" alt="实体首部字段"></p>
+<h3 id="第七章、确保web安全的https"><a href="#第七章、确保web安全的https" class="headerlink" title="第七章、确保web安全的https"></a>第七章、确保web安全的https</h3><h4 id="7-1http缺点"><a href="#7-1http缺点" class="headerlink" title="7.1http缺点"></a>7.1http缺点</h4><ul>
+<li>通信使用明文，内容可能被窃听</li>
+<li>不验证通信方身份，有可能遭遇伪装</li>
+<li>无法证明报文的完整性，有可能已遭篡改</li>
+</ul>
+<h4 id="7-2-HTTP-加密-认证-完整性保护-x3D-HTTPS"><a href="#7-2-HTTP-加密-认证-完整性保护-x3D-HTTPS" class="headerlink" title="7.2 HTTP+加密+认证+完整性保护&#x3D;HTTPS"></a>7.2 HTTP+加密+认证+完整性保护&#x3D;HTTPS</h4><p>HTTPS并非应用层的一种新协议，只是HTTP通信接口部分用SSL和TLS协议代替而已，其实就是身披SSL协议这层外壳的HTTP</p>
+<p>SSL采用一种叫做公开密钥加密的加密处理方式</p>
+<p>公开密钥加密使用一对非对称的密钥，私有密钥和公开密钥，发送密文的一方使用对方的公开密钥进行加密处理，对方收到被加密的信息后，再使用自己的私有密钥进行解密</p>
+<p>公开密钥加密处理起来比共享密钥加密方式更为复杂，因此若在通信时使用公开密钥加密方式，效率会很低。所以HTTPS采用采用共享密钥加密和公开密钥加密两者并用的混合加密机制</p>
+<p>混合加密机制原理：</p>
+<ol>
+<li>使用公开密钥加密方式安全的交换共享密钥（在稍后的共享密钥加密中要使用的密钥）</li>
+<li>确保交换的秘钥安全的前提下，使用共享密钥加密方式通信。</li>
+</ol>
+<h3 id="第八章、确认访问用户身份的认证"><a href="#第八章、确认访问用户身份的认证" class="headerlink" title="第八章、确认访问用户身份的认证"></a>第八章、确认访问用户身份的认证</h3><h3 id="第九章、基于http的功能追加协议"><a href="#第九章、基于http的功能追加协议" class="headerlink" title="第九章、基于http的功能追加协议"></a>第九章、基于http的功能追加协议</h3><h4 id="9-2-消除http瓶颈的spdy"><a href="#9-2-消除http瓶颈的spdy" class="headerlink" title="9.2 消除http瓶颈的spdy"></a>9.2 消除http瓶颈的spdy</h4><p>http瓶颈：</p>
+<ul>
+<li>一条连接上只可发送一个请求</li>
+<li>请求只能从客户端开始，客户端不可以接收除响应以外的指令</li>
+<li>请求&#x2F;响应首部未经压缩就发送，首部信息越多延迟越大</li>
+<li>发送冗长的首部，每次发送相同的首部造成的浪费较多</li>
+<li>可任意选择数据压缩格式，非强制压缩发送</li>
+</ul>
+<p>消除http瓶颈方法尝试: </p>
+<ul>
+<li>Ajax 能实时地从服务器获取内容，可能导致大量请求产生</li>
+<li>Comet 内容随可以实时更新，但为了保留响应，一次连接的持续时间变长了，消耗更多资源</li>
+<li>SPDY 虽然能有效消除瓶颈，但当一个web网站使用多个域名下的资源时，改善效果受限制</li>
+</ul>
+<h4 id="9-3-使用浏览器进行双全工通信的WebSocket"><a href="#9-3-使用浏览器进行双全工通信的WebSocket" class="headerlink" title="9.3 使用浏览器进行双全工通信的WebSocket"></a>9.3 使用浏览器进行双全工通信的WebSocket</h4><p>WebSocket协议主要特点：</p>
+<ul>
+<li>支持由服务器向客户端推送数据功能</li>
+<li>减少通信量，不但每次连接总开销减少，而且首部信息也很少</li>
+</ul>
+<p>为了实现WebSocket通信需要将Http的Upgrade首部字段值设为websocket,对于之前的握手请求，返回状态码101 Switching Proticols.成功握手确立WebSocket连接之后，不再使用HTTP的数据帧，而采用WebSocket独立数据帧</p>
+<p>WebSocket API</p>
+<p>javascript可调用“The Websocket API”内提供的websocket程序接口，以实现websocket协议下双全工通信</p>
+<h3 id="第十章、构建web内容的技术"><a href="#第十章、构建web内容的技术" class="headerlink" title="第十章、构建web内容的技术"></a>第十章、构建web内容的技术</h3><h3 id="第十一章、web的攻击技术"><a href="#第十一章、web的攻击技术" class="headerlink" title="第十一章、web的攻击技术"></a>第十一章、web的攻击技术</h3>
+        
+            <div id="toc-article">
+                
+  <div class="widget-wrap" id="toc-wrap">
+    <h3 class="widget-title"><i class="fa fa-toc"></i> 文章目录</h3>
+    <div class="widget">
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E7%AB%A0%E3%80%81%E4%BA%86%E8%A7%A3web%E5%8F%8A%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80"><span class="toc-text">第一章、了解web及网络基础</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-http%E7%9A%84%E8%AF%9E%E7%94%9F"><span class="toc-text">1.2 http的诞生</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-3-TCP-x2F-IP"><span class="toc-text">1.3 TCP&#x2F;IP</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-4-1-%E8%B4%9F%E8%B4%A3%E4%BC%A0%E8%BE%93%E7%9A%84IP%E5%8D%8F%E8%AE%AE"><span class="toc-text">1.4.1 负责传输的IP协议</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-4-2-%E7%A1%AE%E4%BF%9D%E5%8F%AF%E9%9D%A0%E6%80%A7%E7%9A%84TCP%E5%8D%8F%E8%AE%AE"><span class="toc-text">1.4.2 确保可靠性的TCP协议</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-5-%E8%B4%9F%E8%B4%A3%E5%9F%9F%E5%90%8D%E8%A7%A3%E6%9E%90%E7%9A%84DNS-Domain-Name-System-%E6%9C%8D%E5%8A%A1"><span class="toc-text">1.5 负责域名解析的DNS(Domain Name System)服务</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-6-%E5%90%84%E7%A7%8D%E5%8D%8F%E8%AE%AE%E5%9C%A8http%E5%8D%8F%E8%AE%AE%E9%80%9A%E4%BF%A1%E8%BF%87%E7%A8%8B%E4%B8%AD%E7%9A%84%E8%81%8C%E8%B4%A3"><span class="toc-text">1.6 各种协议在http协议通信过程中的职责</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-7-URI-x2F-URL"><span class="toc-text">1.7 URI&#x2F;URL</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E4%BA%8C%E7%AB%A0%E3%80%81%E7%AE%80%E5%8D%95%E7%9A%84http%E5%8D%8F%E8%AE%AE"><span class="toc-text">第二章、简单的http协议</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-%E9%80%9A%E8%BF%87%E8%AF%B7%E6%B1%82%E5%92%8C%E5%93%8D%E5%BA%94%E7%9A%84%E4%BA%A4%E6%8D%A2%E8%BE%BE%E6%88%90%E9%80%9A%E4%BF%A1"><span class="toc-text">2.2 通过请求和响应的交换达成通信</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-3-HTTP%E6%98%AF%E4%B8%8D%E4%BF%9D%E5%AD%98%E7%8A%B6%E6%80%81%E7%9A%84%E5%8D%8F%E8%AE%AE"><span class="toc-text">2.3 HTTP是不保存状态的协议</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-5-%E5%91%8A%E7%9F%A5%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%84%8F%E5%9B%BE%E7%9A%84http%E6%96%B9%E6%B3%95"><span class="toc-text">2.5 告知服务器意图的http方法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-7-%E6%8C%81%E4%B9%85%E8%BF%9E%E6%8E%A5%E8%8A%82%E7%9C%81%E9%80%9A%E4%BF%A1%E9%87%8F"><span class="toc-text">2.7 持久连接节省通信量</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-8-%E4%BD%BF%E7%94%A8cookie%E7%9A%84%E7%8A%B6%E6%80%81%E7%AE%A1%E7%90%86"><span class="toc-text">2.8 使用cookie的状态管理</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E4%B8%89%E7%AB%A0%E3%80%81http%E6%8A%A5%E6%96%87%E5%86%85%E7%9A%84http%E4%BF%A1%E6%81%AF"><span class="toc-text">第三章、http报文内的http信息</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-1-HTTP%E6%8A%A5%E6%96%87"><span class="toc-text">3.1 HTTP报文</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-%E8%AF%B7%E6%B1%82%E6%8A%A5%E6%96%87%E5%92%8C%E5%93%8D%E5%BA%94%E6%8A%A5%E6%96%87%E7%9A%84%E7%BB%93%E6%9E%84"><span class="toc-text">3.2 请求报文和响应报文的结构</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-3-%E7%BC%96%E7%A0%81%E6%8F%90%E5%8D%87%E4%BC%A0%E8%BE%93%E9%80%9F%E7%8E%87"><span class="toc-text">3.3 编码提升传输速率</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-5-%E8%8E%B7%E5%8F%96%E9%83%A8%E5%88%86%E5%86%85%E5%AE%B9%E7%9A%84%E8%8C%83%E5%9B%B4%E8%AF%B7%E6%B1%82-Range-Request"><span class="toc-text">3.5 获取部分内容的范围请求(Range Request)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-6-%E5%86%85%E5%AE%B9%E5%8D%8F%E5%95%86%E8%BF%94%E5%9B%9E%E6%9C%80%E5%90%88%E9%80%82%E7%9A%84%E5%86%85%E5%AE%B9"><span class="toc-text">3.6 内容协商返回最合适的内容</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E5%9B%9B%E7%AB%A0%E3%80%81%E8%BF%94%E5%9B%9E%E7%BB%93%E6%9E%9C%E7%9A%84http%E7%8A%B6%E6%80%81"><span class="toc-text">第四章、返回结果的http状态</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#4-1-%E7%8A%B6%E6%80%81%E7%A0%81%E5%91%8A%E7%9F%A5%E4%BB%8E%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AB%AF%E8%BF%94%E5%9B%9E%E7%9A%84%E8%AF%B7%E6%B1%82%E7%BB%93%E6%9E%9C"><span class="toc-text">4.1 状态码告知从服务器端返回的请求结果</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-2-2XX%E6%88%90%E5%8A%9F"><span class="toc-text">4.2 2XX成功</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-3-3XX-%E9%87%8D%E5%AE%9A%E5%90%91"><span class="toc-text">4.3 3XX 重定向</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-4-4XX%E5%AE%A2%E6%88%B7%E7%AB%AF%E9%94%99%E8%AF%AF"><span class="toc-text">4.4 4XX客户端错误</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-5-5XX-%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%94%99%E8%AF%AF"><span class="toc-text">4.5 5XX 服务器错误</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E4%BA%94%E7%AB%A0%E3%80%81%E4%B8%8Ehttp%E5%8D%8F%E4%BD%9C%E7%9A%84web%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="toc-text">第五章、与http协作的web服务器</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#5-1-%E7%94%A8%E5%8D%95%E4%B8%AA%E8%99%9A%E6%8B%9F%E4%B8%BB%E6%9C%BA%E5%AE%9E%E7%8E%B0%E5%A4%9A%E4%B8%AA%E5%9F%9F%E5%90%8D"><span class="toc-text">5.1 用单个虚拟主机实现多个域名</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-2-1-%E4%BB%A3%E7%90%86"><span class="toc-text">5.2.1 代理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-2-2-%E7%BD%91%E5%85%B3"><span class="toc-text">5.2.2 网关</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-2-3-%E9%9A%A7%E9%81%93"><span class="toc-text">5.2.3 隧道</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E5%85%AD%E7%AB%A0%E3%80%81http%E9%A6%96%E9%83%A8"><span class="toc-text">第六章、http首部</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#6-2-4-%E9%A6%96%E9%83%A8%E5%AD%97%E6%AE%B5%E4%B8%80%E8%A7%88%E8%A1%A8"><span class="toc-text">6.2.4 首部字段一览表</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E4%B8%83%E7%AB%A0%E3%80%81%E7%A1%AE%E4%BF%9Dweb%E5%AE%89%E5%85%A8%E7%9A%84https"><span class="toc-text">第七章、确保web安全的https</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#7-1http%E7%BC%BA%E7%82%B9"><span class="toc-text">7.1http缺点</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7-2-HTTP-%E5%8A%A0%E5%AF%86-%E8%AE%A4%E8%AF%81-%E5%AE%8C%E6%95%B4%E6%80%A7%E4%BF%9D%E6%8A%A4-x3D-HTTPS"><span class="toc-text">7.2 HTTP+加密+认证+完整性保护&#x3D;HTTPS</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E5%85%AB%E7%AB%A0%E3%80%81%E7%A1%AE%E8%AE%A4%E8%AE%BF%E9%97%AE%E7%94%A8%E6%88%B7%E8%BA%AB%E4%BB%BD%E7%9A%84%E8%AE%A4%E8%AF%81"><span class="toc-text">第八章、确认访问用户身份的认证</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E4%B9%9D%E7%AB%A0%E3%80%81%E5%9F%BA%E4%BA%8Ehttp%E7%9A%84%E5%8A%9F%E8%83%BD%E8%BF%BD%E5%8A%A0%E5%8D%8F%E8%AE%AE"><span class="toc-text">第九章、基于http的功能追加协议</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#9-2-%E6%B6%88%E9%99%A4http%E7%93%B6%E9%A2%88%E7%9A%84spdy"><span class="toc-text">9.2 消除http瓶颈的spdy</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#9-3-%E4%BD%BF%E7%94%A8%E6%B5%8F%E8%A7%88%E5%99%A8%E8%BF%9B%E8%A1%8C%E5%8F%8C%E5%85%A8%E5%B7%A5%E9%80%9A%E4%BF%A1%E7%9A%84WebSocket"><span class="toc-text">9.3 使用浏览器进行双全工通信的WebSocket</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E5%8D%81%E7%AB%A0%E3%80%81%E6%9E%84%E5%BB%BAweb%E5%86%85%E5%AE%B9%E7%9A%84%E6%8A%80%E6%9C%AF"><span class="toc-text">第十章、构建web内容的技术</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E5%8D%81%E4%B8%80%E7%AB%A0%E3%80%81web%E7%9A%84%E6%94%BB%E5%87%BB%E6%8A%80%E6%9C%AF"><span class="toc-text">第十一章、web的攻击技术</span></a></li></ol>
+    </div>
+  </div>
+
+
+            </div>
+        
+        
+          <blockquote id="copyright">
+              <p>原文链接: <a href="https://jesse121.github.io/articles/2016/04/02.html">https://jesse121.github.io/articles/2016/04/02.html</a></p>
+              <p>版权声明: 转载请注明出处.</p>
+          </blockquote>
+        
+      
+    </div>
+    <footer class="article-footer">
+      
+        <div class="article-tag-wrap">
+          
+
+          
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/http/" rel="tag">HTTP</a></li></ul>
+
+          
+
+
+        </div>
+      
+      
+        
+<nav id="article-nav">
+  
+    <a href="/blog/articles/2016/03/13.html" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">older</strong>
+      <div class="article-nav-title">
+        
+          《HTML5程序设计第二版》--读书笔记
+        
+      </div>
+    </a>
+  
+  
+    <a href="/blog/articles/2016/04/28.html" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">newer</strong>
+      <div class="article-nav-title">
+        
+          CSS3新特性，兼容性，兼容方法总结
+        
+      </div>
+    </a>
+  
+</nav>
+
+      
+      
+        
+  <div id="comments"></div>
+
+
+
+
+
+
+
+
+
+      
+    </footer>
+  </div>
+</article>
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-posts"></i> 最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/blog/articles/2021/06/11.html">如何用Vite快速搭建一个vue3项目</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2020/12/15.html">如何快速生成tsconfig.json文件</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2020/08/22.html">用Ssh连接docker容器</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2020/07/04.html">如何在Vscode上直接运行typescript?</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2020/06/13.html">Wireshark过滤器使用介绍</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2020/05/13.html">Webpack编译后的html中图片路径变为[object Module]的原因及解决办法</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2020/05/02.html">栈与队列</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2020/04/19.html">链表</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2020/04/19.html">算法的时间复杂度与空间复杂度分析</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2020/04/12.html">如何使用Wireshark抓取HTTP2报文？</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-tag"></i> 标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/blog/tags/angularjs/" style="font-size: 10px;">AngularJs</a> <a href="/blog/tags/apache/" style="font-size: 14px;">Apache</a> <a href="/blog/tags/bootstrap/" style="font-size: 14px;">Bootstrap</a> <a href="/blog/tags/css/" style="font-size: 18px;">CSS</a> <a href="/blog/tags/centos/" style="font-size: 10px;">CentOS</a> <a href="/blog/tags/docker/" style="font-size: 14px;">Docker</a> <a href="/blog/tags/git/" style="font-size: 12px;">Git</a> <a href="/blog/tags/gitlab/" style="font-size: 10px;">Gitlab</a> <a href="/blog/tags/gulp/" style="font-size: 10px;">Gulp</a> <a href="/blog/tags/html/" style="font-size: 14px;">HTML</a> <a href="/blog/tags/html5/" style="font-size: 10px;">HTML5</a> <a href="/blog/tags/http/" style="font-size: 14px;">HTTP</a> <a href="/blog/tags/https/" style="font-size: 10px;">HTTPS</a> <a href="/blog/tags/javascript/" style="font-size: 20px;">JavaScript</a> <a href="/blog/tags/jenkins/" style="font-size: 10px;">Jenkins</a> <a href="/blog/tags/linux/" style="font-size: 12px;">Linux</a> <a href="/blog/tags/mac/" style="font-size: 10px;">Mac</a> <a href="/blog/tags/mysql/" style="font-size: 14px;">MySQL</a> <a href="/blog/tags/nginx/" style="font-size: 12px;">Nginx</a> <a href="/blog/tags/node-js/" style="font-size: 12px;">Node.js</a> <a href="/blog/tags/php/" style="font-size: 16px;">PHP</a> <a href="/blog/tags/photoshop/" style="font-size: 10px;">Photoshop</a> <a href="/blog/tags/react/" style="font-size: 10px;">React</a> <a href="/blog/tags/redux/" style="font-size: 10px;">Redux</a> <a href="/blog/tags/sublimetext3/" style="font-size: 10px;">SublimeText3</a> <a href="/blog/tags/typescript/" style="font-size: 12px;">Typescript</a> <a href="/blog/tags/vagrant/" style="font-size: 10px;">Vagrant</a> <a href="/blog/tags/vim/" style="font-size: 10px;">Vim</a> <a href="/blog/tags/vue/" style="font-size: 10px;">Vue</a> <a href="/blog/tags/web/" style="font-size: 16px;">WEB</a> <a href="/blog/tags/webpack/" style="font-size: 14px;">Webpack</a> <a href="/blog/tags/wireshark/" style="font-size: 12px;">Wireshark</a> <a href="/blog/tags/yii/" style="font-size: 10px;">Yii</a> <a href="/blog/tags/jquery/" style="font-size: 14px;">jQuery</a> <a href="/blog/tags/monitor/" style="font-size: 10px;">monitor</a> <a href="/blog/tags/ssh/" style="font-size: 10px;">ssh</a> <a href="/blog/tags/vite/" style="font-size: 10px;">vite</a> <a href="/blog/tags/vscode/" style="font-size: 10px;">vscode</a> <a href="/blog/tags/vue/" style="font-size: 10px;">vue</a> <a href="/blog/tags/%E5%BC%80%E5%8F%91%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/" style="font-size: 10px;">开发问题记录</a> <a href="/blog/tags/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F/" style="font-size: 10px;">微信小程序</a> <a href="/blog/tags/%E7%AE%97%E6%B3%95/" style="font-size: 14px;">算法</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-classify"></i> 分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/blog/categories/bootstrap/">Bootstrap</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/html-css/">HTML-CSS</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/html5/">HTML5</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/javascript/">JavaScript</a><span class="category-list-count">11</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/linux/">Linux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/mysql/">MySQL</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/node-js/">Node.js</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/php/">PHP</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/photoshop/">Photoshop</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/typescript/">Typescript</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/vue/">Vue</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/web/">WEB</a><span class="category-list-count">8</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/jquery/">jQuery</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/translation/">前端翻译</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/">开发工具</a><span class="category-list-count">15</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/%E5%BC%80%E5%8F%91%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/">开发问题记录</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/%E7%AE%97%E6%B3%95/">算法</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/notes/">读书笔记</a><span class="category-list-count">16</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-archive"></i> 归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2021/">2021年</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2020/">2020年</a><span class="archive-list-count">12</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2019/">2019年</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/">2018年</a><span class="archive-list-count">12</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2017/">2017年</a><span class="archive-list-count">26</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/">2016年</a><span class="archive-list-count">27</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-link"></i> 友情链接</h3>
+    <div class="widget">
+      <ul>
+      
+        <li>
+          <a target="_blank" rel="noopener" href="http://www.mahaixiang.cn/internet/300.html">深入理解互联网协议的原理</a>
+        </li>
+      
+        <li>
+          <a target="_blank" rel="noopener" href="http://javascript.ruanyifeng.com/">JavaScript 标准参考教程</a>
+        </li>
+      
+        <li>
+          <a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript">Mozilla Developer Network</a>
+        </li>
+      
+      </ul>
+    </div>
+  </div>
+
+
+  
+</aside>
+        
+      </div>
+      <a id="totop" href="#top"></a>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      <p>
+        <a href="/blog/sitemap.xml">网站地图</a>
+        <span> | </span><a href="/blog/atom.xml">订阅本站</a>
+        <span> | </span><a href="/blog/about/">联系博主</a>
+      </p>
+      
+        <p>
+          <i class="fa fa-visitors"></i>
+          <i id="busuanzi_container_site_uv"><i id="busuanzi_value_site_uv"></i></i>
+          ，
+          <i class="fa fa-views"></i>
+          <i id="busuanzi_container_site_pv"><i id="busuanzi_value_site_pv"></i></i>
+        </p>
+      
+      <p>
+        <span>Copyright &copy; 2022 Jesse.</span>
+        <span>Theme by <a href="https://github.com/chaooo/hexo-theme-BlueLake/" target="_blank">BlueLake.</a></span>
+        <span>Powered by <a href="https://hexo.io/" target="_blank">Hexo.</a></span>
+      </p>
+    </div>
+  </div>
+</footer>
+
+    </div>
+  </div>
+  
+<script src="/blog/js/jquery-3.4.1.min.js"></script>
+
+
+<script src="/blog/js/search.json.js"></script>
+
+
+  
+<script src="/blog/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/blog/js/script.js"></script>
+
+
+
+
+
+
+  
+<script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+  
+  
+
+
+  
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+ 
+<script src="//cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.js"></script>
+
+<script>
+  var gitalk = new Gitalk({
+    clientID: "1d84813ae13cd94072f0",
+    clientSecret: "4a4dd2af0c622e983dd90f5daf15c3ebd86b8ae9",
+    repo: "blog",
+    owner: "jesse121",
+    admin: ["jesse121"],
+    id: md5(window.location.pathname),
+    proxy: "https://gitalk-worker.jesse121.workers.dev/https://github.com/login/oauth/access_token,",
+    distractionFreeMode: false,
+    language: "zh-CN",
+    pagerDirection: "last",
+  });
+  gitalk.render("comments");
+</script>
+         
+
+
+
+</body>
+</html>

@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>《React与Redux开发实例精解》--读书笔记 | 前端之路</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  
+    <meta name="description" content="专注前端开发，前端开发技术博客">
+  
+  
+    <meta name="keywords" content="Web前端开发，Javascript，前端开发博客">
+  
+  
+    <link rel="alternate" href="/blog/atom.xml" title="前端之路" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/blog/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/blog/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/blog/fancybox/jquery.fancybox.min.css">
+
+  
+  
+  
+    
+<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+
+  
+  
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/blog/" id="logo">前端之路</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/blog/" id="subtitle">路漫漫其修远兮，吾将上下而求索</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        
+          <a class="main-nav-link" href="/blog/."><i class="fa fa-home"></i> 首页</a>
+        
+          <a class="main-nav-link" href="/blog/archives/"><i class="fa fa-archive"></i> 归档</a>
+        
+          <a class="main-nav-link" href="/blog/about/"><i class="fa fa-user"></i> 关于</a>
+        
+      </nav>
+    </div>
+    <div id="search-form">
+      <div id="result-mask" class="hide"></div>
+      <label><input id="search-key" type="text" autocomplete="off" placeholder="搜索"></label>
+      <div id="result-wrap" class="hide">
+        <div id="search-result"></div>
+      </div>
+      <div class="hide">
+        <template id="search-tpl">
+          <div class="item">
+            <a href="/{path}" title="{title}">
+              <div class="title">{title}</div>
+              <div class="time">{date}</div>
+              <div class="tags">{tags}</div>
+            </a>
+          </div>
+        </template>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-notes/《React与Redux开发实例精解》--读书笔记" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      《React与Redux开发实例精解》--读书笔记
+    </h1>
+  
+
+
+      </header>
+    
+    <div class="article-meta">
+      
+      <span class="article-date">
+  <i class="fa fa-date"></i>
+  <time class="dt-published" datetime="2018-08-14T16:00:00.000Z" itemprop="datePublished">2018年08月15日</time>
+</span>
+      
+  <div class="article-category">
+    <i class="fa fa-classify"></i>
+    <a class="article-category-link" href="/blog/categories/notes/">读书笔记</a>
+  </div>
+
+      
+        <span class="article-views">
+  <i class="fa fa-views"></i>
+  <i id="busuanzi_container_page_pv">
+      <i id="busuanzi_value_page_pv"></i>
+  </i>
+</span>
+
+      
+      
+<a href="/blog/articles/2018/08/15.html#comments" class="article-comment-link">
+  
+    
+    
+    
+    
+    
+  
+  <i class="fa fa-commt"></i>
+  留言
+</a>
+
+
+    </div>
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h3 id="第五章-JSX-语法"><a href="#第五章-JSX-语法" class="headerlink" title="第五章 JSX 语法"></a>第五章 JSX 语法</h3><ul>
+<li>class 属性改为 className for 属性改为 htmlFor</li>
+<li>jsx 中 javascript 表达式必须要有返回值，使用三元操作符</li>
+<li>所有的标签必须闭合 input img 等</li>
+<li>react 声明组件时，组件名称第一个字母必须大写</li>
+<li>解析 html 代码用双括号</li>
+<li>jsx 中内联样式通过 style 属性来定义，驼峰命名法<span id="more"></span></li>
+</ul>
+<h3 id="第六章-React-的数据载体：state-props-与-context"><a href="#第六章-React-的数据载体：state-props-与-context" class="headerlink" title="第六章 React 的数据载体：state props 与 context"></a>第六章 React 的数据载体：state props 与 context</h3><p>state 称为内部状态或局部状态,<br>props 与 context 则用于在组件间传递数据，props 仅支持逐层传递，而 context 则能够跨级传递，只要在一个组件中定义了 context，这个组件里面的子组件不管跨多少级都可以访问到 context 中的数据，react-redux 的 provider 组件就使用了 context 来传递 store</p>
+<h3 id="第七章-reactElement-与组件实例"><a href="#第七章-reactElement-与组件实例" class="headerlink" title="第七章 reactElement 与组件实例"></a>第七章 reactElement 与组件实例</h3><p>组件是一个函数或类，它决定了如何把数据变为视图<br>ReactElement 只是一个普通的对象，它描述了组件实例或 DOM 节点<br>组件实例是组件类的实例化对象</p>
+<h4 id="生命周期"><a href="#生命周期" class="headerlink" title="生命周期"></a>生命周期</h4><ol>
+<li><p><code>constructor()</code><br>执行时间：组件被加载前最先调用，并且仅调用一次<br>作用：定义状态机变量<br>注意：第一个语句必须是 super（props）</p>
+</li>
+<li><p><code>componentWillMount()</code><br>执行时间：组件初始渲染（render()被调用前）前调用，并且仅调用一次<br>作用：如果在这个函数中调用 setState 改变某些状态机，react 会等待 setState 完成后再渲染 组件<br>注意：子组件也有 componentWillMount 函数，在父组件的该函数调用后再被调用</p>
+</li>
+<li><p><code>render()</code><br>执行时间：componentWillMount 之后，componentDidMount 之前，<br>作用：渲染挂载组件<br>触发条件：（1）初始化加载页面（2）状态机改变 setState ( 3 ) 接收到新的 props（父组件更新）<br>注意：组件所必不可少的核心函数；不能在该函数中修改状态机 state</p>
+</li>
+<li><p><code>componentDidMount()</code><br>执行时间：render 之后被调用，并且仅调用一次<br>作用：渲染挂载组件；可以使用 refs（备注：React 支持一个特殊的属性，你可以将这个属性加在任何通过 render()返回的组件中。这也就是说对 render()返回的组件进行一个标记，可以方便的定位的这个组件实例。）<br>注意：子组件也有该函数，在父组件的该函数调用前被调用；如果在该函数中修改某些状态机 state，会重新渲染 render 组件，所以有些组件为减少渲染次数，可以将某些修改状态机的操作放在 componentWillMount 函数中；<br><strong>如果需要在程序启动显示初始化页面后从网路获取数据，可以将网络请求代码放在该函数中</strong></p>
+</li>
+<li><p><code>componentWillReceiveProps(nextProps)</code><br>执行时间：组件渲染后，当组件接收到新的 props 时被调用；这个函数接收一个 object 参数（新的 props）；props 是父组件传递给子组件的。父组件发生 render 的时候子组件就会调用<br>作用：渲染挂载组件；可以使用 refs（备注：React 支持一个特殊的属性，你可以将这个属性加在任何通过 render()返回的组件中。这也就是说对 render()返回的组件进行一个标记，可以方便的定位的这个组件实例。）<br>注意：react 初次渲染时，该函数并不会被触发，因此有时该函数需要和 componentWillMount 或 componentDidMount 组合使用;使用该函数一定要加 nextProps 参数</p>
+</li>
+<li><p><code>shouldComponentUpdate(nextProps, nextState)</code><br>执行时间：组件挂载后（即执行完 render），接收到新的 state 或 props 时被调用，即每次执行 setState 都会执行该函数，来判断是否重新 render 组件，默认返回 true；接收两个参数：第一个是心的 props，第二个是新的 state。<br>作用：如果有些变化不需要重新 render 组件，可以在该函数中阻拦<br>注意：该方法在初始化渲染的时候不会调用，在使用 forceUpdate 方法的时候也不会</p>
+</li>
+<li><p><code>componentWillUpdate()</code><br>执行时间：在接收到新的 props 或者 state，重新渲染之前立刻调用，在初始化渲染的时候该方法不会被调用<br>作用：为即将发生的重新渲染做一些准备工作<br>注意：不能再该函数中通过 this.setstate 再次改变状态机，如果需要，则在 componentWillReceiveProps 函数中改变</p>
+</li>
+<li><p><code>componentDidUpdate()</code><br>执行时间：重新渲染后调用，在初始化渲染的时候该方法不会被调用<br>作用：使用该方法可以在组件更新之后操作 DOM 元素</p>
+</li>
+<li><p><code>componentWillUnmount()</code><br>执行时间：组件被卸载前调用，<br>作用：在该方法中执行任何必要的清理，比如无效的定时器，或者清除在 componentDidMount 中创建的 DOM 元素。</p>
+</li>
+</ol>
+<h5 id="React-组件中-this"><a href="#React-组件中-this" class="headerlink" title="React 组件中 this"></a>React 组件中 this</h5><ul>
+<li>constructor(),render(),componentDidMount(),componentDidUpdate()等其他生命周期函数中的 this 都是组件实例</li>
+<li>其他地方的 this 都与当前上下文有关，因此在 render 输出的 reactElemnt 中调用其他自定义函数需要绑定 this,当然也可以使用箭头函数</li>
+</ul>
+<h3 id="第八章-初识-Redux"><a href="#第八章-初识-Redux" class="headerlink" title="第八章 初识 Redux"></a>第八章 初识 Redux</h3><p>action 是一个普通对象，表示将要执行的动作，例如{type:’increment’}<br>reducer 描述了 action 如何把 state 转变成下一个 state<br>store 是个全局对象，将 action 和 reducer 以及 stte 联系在一起<br>store 有以下职能：</p>
+<ul>
+<li>维持应用的 state</li>
+<li>提供 getState()方法获取 state</li>
+<li>提供 dispatch(action)方法更新 state</li>
+<li>提供 subscribe(listener)注册监听器</li>
+</ul>
+<h3 id="第九章-action-创建函数与-ReduxThunk-中间件"><a href="#第九章-action-创建函数与-ReduxThunk-中间件" class="headerlink" title="第九章 action 创建函数与 ReduxThunk 中间件"></a>第九章 action 创建函数与 ReduxThunk 中间件</h3><p>reduxThunk 中间件可以让 action 创建函数先不返回 action 对象，而是返回一个函数，通过这个函数延迟 dispatch 或者只在满足指定条件的情况下 dispatch</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123;createStore,applyMiddleware&#125; <span class="keyword">from</span> <span class="string">&#x27;redux&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> thunk <span class="keyword">from</span> <span class="string">&#x27;redux-thunk&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> store = <span class="title function_">createStore</span>(counter,<span class="title function_">applyMiddleware</span>(thunk));</span><br></pre></td></tr></table></figure>
+
+<h3 id="第十一章-使用-react-redux-链接"><a href="#第十一章-使用-react-redux-链接" class="headerlink" title="第十一章 使用 react-redux 链接"></a>第十一章 使用 react-redux 链接</h3><p>在所有组件的顶层使用 Provider 组件给整个程序提供 store</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line">ReactDOM.render(</span><br><span class="line">    <span class="tag">&lt;<span class="name">Provider</span> <span class="attr">store</span>=<span class="string">&#123;store&#125;</span>&gt;</span></span><br><span class="line">    ...</span><br><span class="line">    <span class="tag">&lt;/<span class="name">Peovider</span>&gt;</span>,rootEl);</span><br></pre></td></tr></table></figure>
+
+<p>使用 connect()将 state 和 action 创建函数绑定到组件中</p>
+<figure class="highlight pf"><table><tr><td class="code"><pre><span class="line">export <span class="keyword">default</span> connect(</span><br><span class="line">    <span class="keyword">state</span>=&gt;(&#123;counter:<span class="keyword">state</span>.counter&#125;),//将<span class="keyword">state</span>.counter传递给组件的counter属性</span><br><span class="line">    ActionCreators//是所有action创建函数的集合，同时为每个action创建函数隐式绑定了dispatch方法，</span><br><span class="line">    //因此可以直接通过props调用这个action创建函数</span><br><span class="line">)(Counter);</span><br></pre></td></tr></table></figure>
+
+<h4 id="容器组件（Container）和展示组件（Components）"><a href="#容器组件（Container）和展示组件（Components）" class="headerlink" title="容器组件（Container）和展示组件（Components）"></a>容器组件（Container）和展示组件（Components）</h4><table>
+<thead>
+<tr>
+<th></th>
+<th>展示组件</th>
+<th>容器组件</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>作用</td>
+<td>描述如何展现（骨架、样式）</td>
+<td>描述如何运行（数据获取、状态更新）</td>
+</tr>
+<tr>
+<td>直接使用 Redux</td>
+<td>否</td>
+<td>是</td>
+</tr>
+<tr>
+<td>数据来源</td>
+<td>props</td>
+<td>监听 Redux state</td>
+</tr>
+<tr>
+<td>数据修改</td>
+<td>从 props 调用回调函数</td>
+<td>向 Redux 派发 actions</td>
+</tr>
+<tr>
+<td>调用方式</td>
+<td>手动</td>
+<td>通常由 React Redux 生成</td>
+</tr>
+</tbody></table>
+
+        
+            <div id="toc-article">
+                
+  <div class="widget-wrap" id="toc-wrap">
+    <h3 class="widget-title"><i class="fa fa-toc"></i> 文章目录</h3>
+    <div class="widget">
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E4%BA%94%E7%AB%A0-JSX-%E8%AF%AD%E6%B3%95"><span class="toc-text">第五章 JSX 语法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E5%85%AD%E7%AB%A0-React-%E7%9A%84%E6%95%B0%E6%8D%AE%E8%BD%BD%E4%BD%93%EF%BC%9Astate-props-%E4%B8%8E-context"><span class="toc-text">第六章 React 的数据载体：state props 与 context</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E4%B8%83%E7%AB%A0-reactElement-%E4%B8%8E%E7%BB%84%E4%BB%B6%E5%AE%9E%E4%BE%8B"><span class="toc-text">第七章 reactElement 与组件实例</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F"><span class="toc-text">生命周期</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#React-%E7%BB%84%E4%BB%B6%E4%B8%AD-this"><span class="toc-text">React 组件中 this</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E5%85%AB%E7%AB%A0-%E5%88%9D%E8%AF%86-Redux"><span class="toc-text">第八章 初识 Redux</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E4%B9%9D%E7%AB%A0-action-%E5%88%9B%E5%BB%BA%E5%87%BD%E6%95%B0%E4%B8%8E-ReduxThunk-%E4%B8%AD%E9%97%B4%E4%BB%B6"><span class="toc-text">第九章 action 创建函数与 ReduxThunk 中间件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E5%8D%81%E4%B8%80%E7%AB%A0-%E4%BD%BF%E7%94%A8-react-redux-%E9%93%BE%E6%8E%A5"><span class="toc-text">第十一章 使用 react-redux 链接</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%B9%E5%99%A8%E7%BB%84%E4%BB%B6%EF%BC%88Container%EF%BC%89%E5%92%8C%E5%B1%95%E7%A4%BA%E7%BB%84%E4%BB%B6%EF%BC%88Components%EF%BC%89"><span class="toc-text">容器组件（Container）和展示组件（Components）</span></a></li></ol></li></ol>
+    </div>
+  </div>
+
+
+            </div>
+        
+        
+          <blockquote id="copyright">
+              <p>原文链接: <a href="https://jesse121.github.io/articles/2018/08/15.html">https://jesse121.github.io/articles/2018/08/15.html</a></p>
+              <p>版权声明: 转载请注明出处.</p>
+          </blockquote>
+        
+      
+    </div>
+    <footer class="article-footer">
+      
+        <div class="article-tag-wrap">
+          
+
+          
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/javascript/" rel="tag">JavaScript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/react/" rel="tag">React</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/redux/" rel="tag">Redux</a></li></ul>
+
+          
+
+
+        </div>
+      
+      
+        
+<nav id="article-nav">
+  
+    <a href="/blog/articles/2018/08/03.html" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">older</strong>
+      <div class="article-nav-title">
+        
+          前端开发如何实现自动化编译与部署？
+        
+      </div>
+    </a>
+  
+  
+    <a href="/blog/articles/2018/10/13.html" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">newer</strong>
+      <div class="article-nav-title">
+        
+          Node.js学习记录(一)--安装设置篇
+        
+      </div>
+    </a>
+  
+</nav>
+
+      
+      
+        
+  <div id="comments"></div>
+
+
+
+
+
+
+
+
+
+      
+    </footer>
+  </div>
+</article>
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-posts"></i> 最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/blog/articles/2021/06/11.html">如何用Vite快速搭建一个vue3项目</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2020/12/15.html">如何快速生成tsconfig.json文件</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2020/08/22.html">用Ssh连接docker容器</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2020/07/04.html">如何在Vscode上直接运行typescript?</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2020/06/13.html">Wireshark过滤器使用介绍</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2020/05/13.html">Webpack编译后的html中图片路径变为[object Module]的原因及解决办法</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2020/05/02.html">栈与队列</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2020/04/19.html">链表</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2020/04/19.html">算法的时间复杂度与空间复杂度分析</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2020/04/12.html">如何使用Wireshark抓取HTTP2报文？</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-tag"></i> 标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/blog/tags/angularjs/" style="font-size: 10px;">AngularJs</a> <a href="/blog/tags/apache/" style="font-size: 14px;">Apache</a> <a href="/blog/tags/bootstrap/" style="font-size: 14px;">Bootstrap</a> <a href="/blog/tags/css/" style="font-size: 18px;">CSS</a> <a href="/blog/tags/centos/" style="font-size: 10px;">CentOS</a> <a href="/blog/tags/docker/" style="font-size: 14px;">Docker</a> <a href="/blog/tags/git/" style="font-size: 12px;">Git</a> <a href="/blog/tags/gitlab/" style="font-size: 10px;">Gitlab</a> <a href="/blog/tags/gulp/" style="font-size: 10px;">Gulp</a> <a href="/blog/tags/html/" style="font-size: 14px;">HTML</a> <a href="/blog/tags/html5/" style="font-size: 10px;">HTML5</a> <a href="/blog/tags/http/" style="font-size: 14px;">HTTP</a> <a href="/blog/tags/https/" style="font-size: 10px;">HTTPS</a> <a href="/blog/tags/javascript/" style="font-size: 20px;">JavaScript</a> <a href="/blog/tags/jenkins/" style="font-size: 10px;">Jenkins</a> <a href="/blog/tags/linux/" style="font-size: 12px;">Linux</a> <a href="/blog/tags/mac/" style="font-size: 10px;">Mac</a> <a href="/blog/tags/mysql/" style="font-size: 14px;">MySQL</a> <a href="/blog/tags/nginx/" style="font-size: 12px;">Nginx</a> <a href="/blog/tags/node-js/" style="font-size: 12px;">Node.js</a> <a href="/blog/tags/php/" style="font-size: 16px;">PHP</a> <a href="/blog/tags/photoshop/" style="font-size: 10px;">Photoshop</a> <a href="/blog/tags/react/" style="font-size: 10px;">React</a> <a href="/blog/tags/redux/" style="font-size: 10px;">Redux</a> <a href="/blog/tags/sublimetext3/" style="font-size: 10px;">SublimeText3</a> <a href="/blog/tags/typescript/" style="font-size: 12px;">Typescript</a> <a href="/blog/tags/vagrant/" style="font-size: 10px;">Vagrant</a> <a href="/blog/tags/vim/" style="font-size: 10px;">Vim</a> <a href="/blog/tags/vue/" style="font-size: 10px;">Vue</a> <a href="/blog/tags/web/" style="font-size: 16px;">WEB</a> <a href="/blog/tags/webpack/" style="font-size: 14px;">Webpack</a> <a href="/blog/tags/wireshark/" style="font-size: 12px;">Wireshark</a> <a href="/blog/tags/yii/" style="font-size: 10px;">Yii</a> <a href="/blog/tags/jquery/" style="font-size: 14px;">jQuery</a> <a href="/blog/tags/monitor/" style="font-size: 10px;">monitor</a> <a href="/blog/tags/ssh/" style="font-size: 10px;">ssh</a> <a href="/blog/tags/vite/" style="font-size: 10px;">vite</a> <a href="/blog/tags/vscode/" style="font-size: 10px;">vscode</a> <a href="/blog/tags/vue/" style="font-size: 10px;">vue</a> <a href="/blog/tags/%E5%BC%80%E5%8F%91%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/" style="font-size: 10px;">开发问题记录</a> <a href="/blog/tags/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F/" style="font-size: 10px;">微信小程序</a> <a href="/blog/tags/%E7%AE%97%E6%B3%95/" style="font-size: 14px;">算法</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-classify"></i> 分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/blog/categories/bootstrap/">Bootstrap</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/html-css/">HTML-CSS</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/html5/">HTML5</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/javascript/">JavaScript</a><span class="category-list-count">11</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/linux/">Linux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/mysql/">MySQL</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/node-js/">Node.js</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/php/">PHP</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/photoshop/">Photoshop</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/typescript/">Typescript</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/vue/">Vue</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/web/">WEB</a><span class="category-list-count">8</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/jquery/">jQuery</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/translation/">前端翻译</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/">开发工具</a><span class="category-list-count">15</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/%E5%BC%80%E5%8F%91%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/">开发问题记录</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/%E7%AE%97%E6%B3%95/">算法</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/notes/">读书笔记</a><span class="category-list-count">16</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-archive"></i> 归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2021/">2021年</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2020/">2020年</a><span class="archive-list-count">12</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2019/">2019年</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/">2018年</a><span class="archive-list-count">12</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2017/">2017年</a><span class="archive-list-count">26</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/">2016年</a><span class="archive-list-count">27</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-link"></i> 友情链接</h3>
+    <div class="widget">
+      <ul>
+      
+        <li>
+          <a target="_blank" rel="noopener" href="http://www.mahaixiang.cn/internet/300.html">深入理解互联网协议的原理</a>
+        </li>
+      
+        <li>
+          <a target="_blank" rel="noopener" href="http://javascript.ruanyifeng.com/">JavaScript 标准参考教程</a>
+        </li>
+      
+        <li>
+          <a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript">Mozilla Developer Network</a>
+        </li>
+      
+      </ul>
+    </div>
+  </div>
+
+
+  
+</aside>
+        
+      </div>
+      <a id="totop" href="#top"></a>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      <p>
+        <a href="/blog/sitemap.xml">网站地图</a>
+        <span> | </span><a href="/blog/atom.xml">订阅本站</a>
+        <span> | </span><a href="/blog/about/">联系博主</a>
+      </p>
+      
+        <p>
+          <i class="fa fa-visitors"></i>
+          <i id="busuanzi_container_site_uv"><i id="busuanzi_value_site_uv"></i></i>
+          ，
+          <i class="fa fa-views"></i>
+          <i id="busuanzi_container_site_pv"><i id="busuanzi_value_site_pv"></i></i>
+        </p>
+      
+      <p>
+        <span>Copyright &copy; 2022 Jesse.</span>
+        <span>Theme by <a href="https://github.com/chaooo/hexo-theme-BlueLake/" target="_blank">BlueLake.</a></span>
+        <span>Powered by <a href="https://hexo.io/" target="_blank">Hexo.</a></span>
+      </p>
+    </div>
+  </div>
+</footer>
+
+    </div>
+  </div>
+  
+<script src="/blog/js/jquery-3.4.1.min.js"></script>
+
+
+<script src="/blog/js/search.json.js"></script>
+
+
+  
+<script src="/blog/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/blog/js/script.js"></script>
+
+
+
+
+
+
+  
+<script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+  
+  
+
+
+  
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+ 
+<script src="//cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.js"></script>
+
+<script>
+  var gitalk = new Gitalk({
+    clientID: "1d84813ae13cd94072f0",
+    clientSecret: "4a4dd2af0c622e983dd90f5daf15c3ebd86b8ae9",
+    repo: "blog",
+    owner: "jesse121",
+    admin: ["jesse121"],
+    id: md5(window.location.pathname),
+    proxy: "https://gitalk-worker.jesse121.workers.dev/https://github.com/login/oauth/access_token,",
+    distractionFreeMode: false,
+    language: "zh-CN",
+    pagerDirection: "last",
+  });
+  gitalk.render("comments");
+</script>
+         
+
+
+
+</body>
+</html>

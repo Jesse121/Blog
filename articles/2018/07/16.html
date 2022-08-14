@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>工作中遇到的细节问题总结(二) | 前端之路</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  
+    <meta name="description" content="专注前端开发，前端开发技术博客">
+  
+  
+    <meta name="keywords" content="Web前端开发，Javascript，前端开发博客">
+  
+  
+    <link rel="alternate" href="/blog/atom.xml" title="前端之路" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/blog/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/blog/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/blog/fancybox/jquery.fancybox.min.css">
+
+  
+  
+  
+    
+<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+
+  
+  
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/blog/" id="logo">前端之路</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/blog/" id="subtitle">路漫漫其修远兮，吾将上下而求索</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        
+          <a class="main-nav-link" href="/blog/."><i class="fa fa-home"></i> 首页</a>
+        
+          <a class="main-nav-link" href="/blog/archives/"><i class="fa fa-archive"></i> 归档</a>
+        
+          <a class="main-nav-link" href="/blog/about/"><i class="fa fa-user"></i> 关于</a>
+        
+      </nav>
+    </div>
+    <div id="search-form">
+      <div id="result-mask" class="hide"></div>
+      <label><input id="search-key" type="text" autocomplete="off" placeholder="搜索"></label>
+      <div id="result-wrap" class="hide">
+        <div id="search-result"></div>
+      </div>
+      <div class="hide">
+        <template id="search-tpl">
+          <div class="item">
+            <a href="/{path}" title="{title}">
+              <div class="title">{title}</div>
+              <div class="time">{date}</div>
+              <div class="tags">{tags}</div>
+            </a>
+          </div>
+        </template>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-html-css/工作中遇到的细节问题总结(二)" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      工作中遇到的细节问题总结(二)
+    </h1>
+  
+
+
+      </header>
+    
+    <div class="article-meta">
+      
+      <span class="article-date">
+  <i class="fa fa-date"></i>
+  <time class="dt-published" datetime="2018-07-16T10:13:05.000Z" itemprop="datePublished">2018年07月16日</time>
+</span>
+      
+  <div class="article-category">
+    <i class="fa fa-classify"></i>
+    <a class="article-category-link" href="/blog/categories/html-css/">HTML-CSS</a>
+  </div>
+
+      
+        <span class="article-views">
+  <i class="fa fa-views"></i>
+  <i id="busuanzi_container_page_pv">
+      <i id="busuanzi_value_page_pv"></i>
+  </i>
+</span>
+
+      
+      
+<a href="/blog/articles/2018/07/16.html#comments" class="article-comment-link">
+  
+    
+    
+    
+    
+    
+  
+  <i class="fa fa-commt"></i>
+  留言
+</a>
+
+
+    </div>
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>在前端开发工作中总会遇到各种各样的坑，今天这篇博文就是为了记录下踩过的坑，分析后发现容易掉坑里的地方一般是自己不熟悉的知识点或者是易忽略的知识点。故作此文，谨以自勉。</p>
+<span id="more"></span>
+<h3 id="ios上overflow-hidden失效"><a href="#ios上overflow-hidden失效" class="headerlink" title="ios上overflow:hidden失效"></a>ios上overflow:hidden失效</h3><p>需要添加position:relative属性</p>
+<h3 id="img还是background-image"><a href="#img还是background-image" class="headerlink" title="img还是background-image"></a>img还是background-image</h3><p>img:html中的标签img是网页结构的一部分会在加载结构的过程中和其他标签一起加载。<br>background：以css背景图存在的图片background会等到结构加载完成（网页的内容全部显示以后）才开始加载<br>也就是说，网页会先加载标签img的内容，再加载背景图片background引用的图片。<br>引入一张图片，那么在这个图片加载完成之前，img后的内容不会显示。而用background来引入同样的图片，网页结构和内容加载完成之后，才开始加载背景图片，网页内容能正常浏览，但是看不到背景图片。结合项目实际情况建议在活动页banner图使用img标签的形式来提升用户体验</p>
+<h3 id="flex布局最后一子项右对齐"><a href="#flex布局最后一子项右对齐" class="headerlink" title="flex布局最后一子项右对齐"></a>flex布局最后一子项右对齐</h3><p>给最后一子项添加margin-left: auto;<br>参考<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/22429003/how-to-right-align-flex-item/22429853#22429853">stackoverflow</a></p>
+<h3 id="取消select-input-button的默认样式"><a href="#取消select-input-button的默认样式" class="headerlink" title="取消select,input,button的默认样式"></a>取消select,input,button的默认样式</h3><figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">input</span>,<span class="selector-tag">button</span>&#123;</span><br><span class="line">    -webkit-appearance: none;</span><br><span class="line">&#125;</span><br><span class="line">select &#123;</span><br><span class="line">    appearance: none;</span><br><span class="line">    -moz-appearance: none;</span><br><span class="line">    -webkit-appearance: none;</span><br><span class="line">    <span class="comment">/*为下拉小箭头留出一点位置，避免被文字覆盖*/</span></span><br><span class="line">    <span class="attribute">padding-right</span>: <span class="number">14px</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*清除ie的默认选择框样式清除，隐藏下拉箭头*/</span></span><br><span class="line">select::-ms-expand &#123;</span><br><span class="line">    <span class="attribute">display</span>: none;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h3 id="去掉input在IE上的默认样式"><a href="#去掉input在IE上的默认样式" class="headerlink" title="去掉input在IE上的默认样式"></a>去掉input在IE上的默认样式</h3><figure class="highlight css"><table><tr><td class="code"><pre><span class="line">::-ms-clear,::-ms-reveal&#123;<span class="attribute">display</span>:none;&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="ios中页面点击图片和链接时去掉阴影"><a href="#ios中页面点击图片和链接时去掉阴影" class="headerlink" title="ios中页面点击图片和链接时去掉阴影"></a>ios中页面点击图片和链接时去掉阴影</h3><figure class="highlight css"><table><tr><td class="code"><pre><span class="line">-webkit-tap-highlight-<span class="attribute">color</span>: <span class="built_in">rgba</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>);<span class="comment">/*将高亮设为透明*/</span></span><br></pre></td></tr></table></figure>
+<p>若有cursor:pointer;则将其去掉.  </p>
+<h3 id="delete-删除数组元素"><a href="#delete-删除数组元素" class="headerlink" title="delete 删除数组元素"></a>delete 删除数组元素</h3><p>单元删除后数组的length属性并不会变化  </p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> array = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>];</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(array.<span class="property">length</span>);<span class="comment">//5</span></span><br><span class="line"><span class="keyword">delete</span> array[<span class="number">2</span>];</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(array);<span class="comment">//[1,2,,4,5]</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(array.<span class="property">length</span>);<span class="comment">//5</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="用clip-path剪切各种图形"><a href="#用clip-path剪切各种图形" class="headerlink" title="用clip-path剪切各种图形"></a>用clip-path剪切各种图形</h3><p>在开发中我们用的较多的是矩形和圆形，可是如果需求要做个多边形该如何做呢？这里用到clip-path<br><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/clip-path">详细使用方法</a></p>
+<h4 id="三角形"><a href="#三角形" class="headerlink" title="三角形"></a>三角形</h4><div style="width:20px;height:20px;background-color: red;clip-path:polygon(5px 10px,16px 3px,16px 17px);"></div>
+#### 矩形减掉一角
+<div style="width:100px;height:100px;background-color: red;clip-path:polygon(0 0,100px 0,100px 80px,80px 100px,0 100px);"></div>
+        
+            <div id="toc-article">
+                
+  <div class="widget-wrap" id="toc-wrap">
+    <h3 class="widget-title"><i class="fa fa-toc"></i> 文章目录</h3>
+    <div class="widget">
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#ios%E4%B8%8Aoverflow-hidden%E5%A4%B1%E6%95%88"><span class="toc-text">ios上overflow:hidden失效</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#img%E8%BF%98%E6%98%AFbackground-image"><span class="toc-text">img还是background-image</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#flex%E5%B8%83%E5%B1%80%E6%9C%80%E5%90%8E%E4%B8%80%E5%AD%90%E9%A1%B9%E5%8F%B3%E5%AF%B9%E9%BD%90"><span class="toc-text">flex布局最后一子项右对齐</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%96%E6%B6%88select-input-button%E7%9A%84%E9%BB%98%E8%AE%A4%E6%A0%B7%E5%BC%8F"><span class="toc-text">取消select,input,button的默认样式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8E%BB%E6%8E%89input%E5%9C%A8IE%E4%B8%8A%E7%9A%84%E9%BB%98%E8%AE%A4%E6%A0%B7%E5%BC%8F"><span class="toc-text">去掉input在IE上的默认样式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ios%E4%B8%AD%E9%A1%B5%E9%9D%A2%E7%82%B9%E5%87%BB%E5%9B%BE%E7%89%87%E5%92%8C%E9%93%BE%E6%8E%A5%E6%97%B6%E5%8E%BB%E6%8E%89%E9%98%B4%E5%BD%B1"><span class="toc-text">ios中页面点击图片和链接时去掉阴影</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#delete-%E5%88%A0%E9%99%A4%E6%95%B0%E7%BB%84%E5%85%83%E7%B4%A0"><span class="toc-text">delete 删除数组元素</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%94%A8clip-path%E5%89%AA%E5%88%87%E5%90%84%E7%A7%8D%E5%9B%BE%E5%BD%A2"><span class="toc-text">用clip-path剪切各种图形</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%89%E8%A7%92%E5%BD%A2"><span class="toc-text">三角形</span></a></li></ol></li></ol>
+    </div>
+  </div>
+
+
+            </div>
+        
+        
+          <blockquote id="copyright">
+              <p>原文链接: <a href="https://jesse121.github.io/articles/2018/07/16.html">https://jesse121.github.io/articles/2018/07/16.html</a></p>
+              <p>版权声明: 转载请注明出处.</p>
+          </blockquote>
+        
+      
+    </div>
+    <footer class="article-footer">
+      
+        <div class="article-tag-wrap">
+          
+
+          
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/css/" rel="tag">CSS</a></li></ul>
+
+          
+
+
+        </div>
+      
+      
+        
+<nav id="article-nav">
+  
+    <a href="/blog/articles/2018/06/01.html" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">older</strong>
+      <div class="article-nav-title">
+        
+          我是这样理解HTTP和HTTPS区别的
+        
+      </div>
+    </a>
+  
+  
+    <a href="/blog/articles/2018/08/03.html" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">newer</strong>
+      <div class="article-nav-title">
+        
+          前端开发如何实现自动化编译与部署？
+        
+      </div>
+    </a>
+  
+</nav>
+
+      
+      
+        
+  <div id="comments"></div>
+
+
+
+
+
+
+
+
+
+      
+    </footer>
+  </div>
+</article>
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-posts"></i> 最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/blog/articles/2021/06/11.html">如何用Vite快速搭建一个vue3项目</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2020/12/15.html">如何快速生成tsconfig.json文件</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2020/08/22.html">用Ssh连接docker容器</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2020/07/04.html">如何在Vscode上直接运行typescript?</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2020/06/13.html">Wireshark过滤器使用介绍</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2020/05/13.html">Webpack编译后的html中图片路径变为[object Module]的原因及解决办法</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2020/05/02.html">栈与队列</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2020/04/19.html">链表</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2020/04/19.html">算法的时间复杂度与空间复杂度分析</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2020/04/12.html">如何使用Wireshark抓取HTTP2报文？</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-tag"></i> 标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/blog/tags/angularjs/" style="font-size: 10px;">AngularJs</a> <a href="/blog/tags/apache/" style="font-size: 14px;">Apache</a> <a href="/blog/tags/bootstrap/" style="font-size: 14px;">Bootstrap</a> <a href="/blog/tags/css/" style="font-size: 18px;">CSS</a> <a href="/blog/tags/centos/" style="font-size: 10px;">CentOS</a> <a href="/blog/tags/docker/" style="font-size: 14px;">Docker</a> <a href="/blog/tags/git/" style="font-size: 12px;">Git</a> <a href="/blog/tags/gitlab/" style="font-size: 10px;">Gitlab</a> <a href="/blog/tags/gulp/" style="font-size: 10px;">Gulp</a> <a href="/blog/tags/html/" style="font-size: 14px;">HTML</a> <a href="/blog/tags/html5/" style="font-size: 10px;">HTML5</a> <a href="/blog/tags/http/" style="font-size: 14px;">HTTP</a> <a href="/blog/tags/https/" style="font-size: 10px;">HTTPS</a> <a href="/blog/tags/javascript/" style="font-size: 20px;">JavaScript</a> <a href="/blog/tags/jenkins/" style="font-size: 10px;">Jenkins</a> <a href="/blog/tags/linux/" style="font-size: 12px;">Linux</a> <a href="/blog/tags/mac/" style="font-size: 10px;">Mac</a> <a href="/blog/tags/mysql/" style="font-size: 14px;">MySQL</a> <a href="/blog/tags/nginx/" style="font-size: 12px;">Nginx</a> <a href="/blog/tags/node-js/" style="font-size: 12px;">Node.js</a> <a href="/blog/tags/php/" style="font-size: 16px;">PHP</a> <a href="/blog/tags/photoshop/" style="font-size: 10px;">Photoshop</a> <a href="/blog/tags/react/" style="font-size: 10px;">React</a> <a href="/blog/tags/redux/" style="font-size: 10px;">Redux</a> <a href="/blog/tags/sublimetext3/" style="font-size: 10px;">SublimeText3</a> <a href="/blog/tags/typescript/" style="font-size: 12px;">Typescript</a> <a href="/blog/tags/vagrant/" style="font-size: 10px;">Vagrant</a> <a href="/blog/tags/vim/" style="font-size: 10px;">Vim</a> <a href="/blog/tags/vue/" style="font-size: 10px;">Vue</a> <a href="/blog/tags/web/" style="font-size: 16px;">WEB</a> <a href="/blog/tags/webpack/" style="font-size: 14px;">Webpack</a> <a href="/blog/tags/wireshark/" style="font-size: 12px;">Wireshark</a> <a href="/blog/tags/yii/" style="font-size: 10px;">Yii</a> <a href="/blog/tags/jquery/" style="font-size: 14px;">jQuery</a> <a href="/blog/tags/monitor/" style="font-size: 10px;">monitor</a> <a href="/blog/tags/ssh/" style="font-size: 10px;">ssh</a> <a href="/blog/tags/vite/" style="font-size: 10px;">vite</a> <a href="/blog/tags/vscode/" style="font-size: 10px;">vscode</a> <a href="/blog/tags/vue/" style="font-size: 10px;">vue</a> <a href="/blog/tags/%E5%BC%80%E5%8F%91%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/" style="font-size: 10px;">开发问题记录</a> <a href="/blog/tags/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F/" style="font-size: 10px;">微信小程序</a> <a href="/blog/tags/%E7%AE%97%E6%B3%95/" style="font-size: 14px;">算法</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-classify"></i> 分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/blog/categories/bootstrap/">Bootstrap</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/html-css/">HTML-CSS</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/html5/">HTML5</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/javascript/">JavaScript</a><span class="category-list-count">11</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/linux/">Linux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/mysql/">MySQL</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/node-js/">Node.js</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/php/">PHP</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/photoshop/">Photoshop</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/typescript/">Typescript</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/vue/">Vue</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/web/">WEB</a><span class="category-list-count">8</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/jquery/">jQuery</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/translation/">前端翻译</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/">开发工具</a><span class="category-list-count">15</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/%E5%BC%80%E5%8F%91%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/">开发问题记录</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/%E7%AE%97%E6%B3%95/">算法</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/notes/">读书笔记</a><span class="category-list-count">16</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-archive"></i> 归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2021/">2021年</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2020/">2020年</a><span class="archive-list-count">12</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2019/">2019年</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/">2018年</a><span class="archive-list-count">12</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2017/">2017年</a><span class="archive-list-count">26</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/">2016年</a><span class="archive-list-count">27</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-link"></i> 友情链接</h3>
+    <div class="widget">
+      <ul>
+      
+        <li>
+          <a target="_blank" rel="noopener" href="http://www.mahaixiang.cn/internet/300.html">深入理解互联网协议的原理</a>
+        </li>
+      
+        <li>
+          <a target="_blank" rel="noopener" href="http://javascript.ruanyifeng.com/">JavaScript 标准参考教程</a>
+        </li>
+      
+        <li>
+          <a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript">Mozilla Developer Network</a>
+        </li>
+      
+      </ul>
+    </div>
+  </div>
+
+
+  
+</aside>
+        
+      </div>
+      <a id="totop" href="#top"></a>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      <p>
+        <a href="/blog/sitemap.xml">网站地图</a>
+        <span> | </span><a href="/blog/atom.xml">订阅本站</a>
+        <span> | </span><a href="/blog/about/">联系博主</a>
+      </p>
+      
+        <p>
+          <i class="fa fa-visitors"></i>
+          <i id="busuanzi_container_site_uv"><i id="busuanzi_value_site_uv"></i></i>
+          ，
+          <i class="fa fa-views"></i>
+          <i id="busuanzi_container_site_pv"><i id="busuanzi_value_site_pv"></i></i>
+        </p>
+      
+      <p>
+        <span>Copyright &copy; 2022 Jesse.</span>
+        <span>Theme by <a href="https://github.com/chaooo/hexo-theme-BlueLake/" target="_blank">BlueLake.</a></span>
+        <span>Powered by <a href="https://hexo.io/" target="_blank">Hexo.</a></span>
+      </p>
+    </div>
+  </div>
+</footer>
+
+    </div>
+  </div>
+  
+<script src="/blog/js/jquery-3.4.1.min.js"></script>
+
+
+<script src="/blog/js/search.json.js"></script>
+
+
+  
+<script src="/blog/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/blog/js/script.js"></script>
+
+
+
+
+
+
+  
+<script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+  
+  
+
+
+  
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+ 
+<script src="//cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.js"></script>
+
+<script>
+  var gitalk = new Gitalk({
+    clientID: "1d84813ae13cd94072f0",
+    clientSecret: "4a4dd2af0c622e983dd90f5daf15c3ebd86b8ae9",
+    repo: "blog",
+    owner: "jesse121",
+    admin: ["jesse121"],
+    id: md5(window.location.pathname),
+    proxy: "https://gitalk-worker.jesse121.workers.dev/https://github.com/login/oauth/access_token,",
+    distractionFreeMode: false,
+    language: "zh-CN",
+    pagerDirection: "last",
+  });
+  gitalk.render("comments");
+</script>
+         
+
+
+
+</body>
+</html>

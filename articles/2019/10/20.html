@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>解读setTimeout, promise.then, process.nextTick, setImmediate的执行顺序 | 前端之路</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  
+    <meta name="description" content="专注前端开发，前端开发技术博客">
+  
+  
+    <meta name="keywords" content="Web前端开发，Javascript，前端开发博客">
+  
+  
+    <link rel="alternate" href="/blog/atom.xml" title="前端之路" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/blog/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/blog/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/blog/fancybox/jquery.fancybox.min.css">
+
+  
+  
+  
+    
+<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+
+  
+  
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/blog/" id="logo">前端之路</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/blog/" id="subtitle">路漫漫其修远兮，吾将上下而求索</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        
+          <a class="main-nav-link" href="/blog/."><i class="fa fa-home"></i> 首页</a>
+        
+          <a class="main-nav-link" href="/blog/archives/"><i class="fa fa-archive"></i> 归档</a>
+        
+          <a class="main-nav-link" href="/blog/about/"><i class="fa fa-user"></i> 关于</a>
+        
+      </nav>
+    </div>
+    <div id="search-form">
+      <div id="result-mask" class="hide"></div>
+      <label><input id="search-key" type="text" autocomplete="off" placeholder="搜索"></label>
+      <div id="result-wrap" class="hide">
+        <div id="search-result"></div>
+      </div>
+      <div class="hide">
+        <template id="search-tpl">
+          <div class="item">
+            <a href="/{path}" title="{title}">
+              <div class="title">{title}</div>
+              <div class="time">{date}</div>
+              <div class="tags">{tags}</div>
+            </a>
+          </div>
+        </template>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-javascript/解读setTimeout, promise.then, process.nextTick, setImmediate的执行顺序" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      解读setTimeout, promise.then, process.nextTick, setImmediate的执行顺序
+    </h1>
+  
+
+
+      </header>
+    
+    <div class="article-meta">
+      
+      <span class="article-date">
+  <i class="fa fa-date"></i>
+  <time class="dt-published" datetime="2019-10-20T09:25:23.000Z" itemprop="datePublished">2019年10月20日</time>
+</span>
+      
+  <div class="article-category">
+    <i class="fa fa-classify"></i>
+    <a class="article-category-link" href="/blog/categories/javascript/">JavaScript</a>
+  </div>
+
+      
+        <span class="article-views">
+  <i class="fa fa-views"></i>
+  <i id="busuanzi_container_page_pv">
+      <i id="busuanzi_value_page_pv"></i>
+  </i>
+</span>
+
+      
+      
+<a href="/blog/articles/2019/10/20.html#comments" class="article-comment-link">
+  
+    
+    
+    
+    
+    
+  
+  <i class="fa fa-commt"></i>
+  留言
+</a>
+
+
+    </div>
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>最近在看《Node.js 调试指南》的时候遇到有意思的几道题，是关于 setTimeout, promise.then, process.nextTick, setImmediate 的执行顺序。今天抽空记录下这道题的分析过程及背后的原理与知识点。</p>
+<span id="more"></span>
+
+<p>题目如下：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 题目一：</span></span><br><span class="line"><span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;setTimeout&quot;</span>);</span><br><span class="line">&#125;, <span class="number">0</span>);</span><br><span class="line"><span class="title function_">setImmediate</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;setImmediate&quot;</span>);</span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment">// 题目二：</span></span><br><span class="line"><span class="keyword">const</span> promise = <span class="title class_">Promise</span>.<span class="title function_">resolve</span>();</span><br><span class="line">promise.<span class="title function_">then</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;promise&quot;</span>);</span><br><span class="line">&#125;);</span><br><span class="line">process.<span class="title function_">nextTick</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;nextTick&quot;</span>);</span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment">// 题目三：</span></span><br><span class="line"><span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="number">1</span>);</span><br><span class="line">&#125;, <span class="number">0</span>);</span><br><span class="line"><span class="keyword">new</span> <span class="title class_">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="number">2</span>);</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; <span class="number">10000</span>; i++) &#123;</span><br><span class="line">    i === <span class="number">9999</span> &amp;&amp; <span class="title function_">resolve</span>();</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="number">3</span>);</span><br><span class="line">&#125;).<span class="title function_">then</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="number">4</span>);</span><br><span class="line">&#125;);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="number">5</span>);</span><br><span class="line"><span class="comment">// 题目四</span></span><br><span class="line"><span class="built_in">setInterval</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;setInterval&quot;</span>);</span><br><span class="line">&#125;, <span class="number">100</span>);</span><br><span class="line">process.<span class="title function_">nextTick</span>(<span class="keyword">function</span> <span class="title function_">tick</span>(<span class="params"></span>) &#123;</span><br><span class="line">  process.<span class="title function_">nextTick</span>(tick);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>在分析这几道题之前先有必要了解下 node.js 的事件循环</p>
+<h3 id="事件循环-Event-Loop"><a href="#事件循环-Event-Loop" class="headerlink" title="事件循环 Event Loop"></a>事件循环 Event Loop</h3><p>我们可以简单理解 Event Loop 如下：</p>
+<ol>
+<li>所有任务都在主线程上执行，形成一个执行栈(Execution Context Stack)</li>
+<li>在主线程之外还存在一个任务队列(Task Queen),系统把异步任务放到任务队列中，然后主线程继续执行后续的任务</li>
+<li>一旦执行栈中所有的任务执行完毕，系统就会读取任务队列。如果这时异步任务已结束等待状态，就会从任务队列进入执行栈，恢复执行</li>
+<li>主线程不断重复上面的第三步</li>
+</ol>
+<p>上面第三步中的读取任务队列包括以下 6 个阶段<br><img src="https://raw.githubusercontent.com/Jesse121/publicPic/master/blog/pictures/801336-20191020172427935-416926087.png" alt="801336-20191020172427935-416926087"></p>
+<ul>
+<li>timers:执行 setTimeout()和 setInterval()中到期的 callback</li>
+<li>I&#x2F;O callbacks:上一轮循环中有少数的 I&#x2F;O callback 会被延迟到这一轮的这一阶段</li>
+<li>idle,prepare:仅内部调用</li>
+<li>poll:最重要的阶段，执行 I&#x2F;O callback,在某些条件下 node 会阻塞在这个阶段</li>
+<li>check:执行 setImmediate()的 callback</li>
+<li>close callbacks:执行 close 事件的 callback,例如 socket.on(‘close’,func)</li>
+</ul>
+<p>每个阶段都有一个 FIFO 的回调队列，当 Event Loop 执行到这个阶段时，就会从当前阶段的队列里拿出一个任务放到执行栈中执行，在队列任务清空或者执行的回调数量达到上限后，Event Loop 就会进入下一个阶段</p>
+<h4 id="poll-阶段"><a href="#poll-阶段" class="headerlink" title="poll 阶段"></a>poll 阶段</h4><p>poll 阶段主要有两个功能，如下所述：</p>
+<ol>
+<li>当 timers 的定时器到期后，执行定时器(setTimeout 和 setInterval)的 callback</li>
+<li>执行 poll 队列里面的 I&#x2F;O callback<br>如果 Event Loop 进入了 poll 阶段，且代码未设定 timer,则可能发生以下的情况：</li>
+</ol>
+<ul>
+<li>如果 poll queue 不为空，则 Event Loop 将同步执行 queue 里的 callback,直至 queue 为空，或者执行的 callback 达到系统上限</li>
+<li>如果 poll queue 为空，则可能发生以下情况：<ul>
+<li>如果代码中使用了 setImmediate(),则 Event Loop 将结束 poll 阶段并进入 check 阶段，执行 check 阶段的代码</li>
+<li>如果代码中没有使用 setImmediate(),则 Event Loop 将阻塞在该阶段，等待 callback 加入 poll queue，如果有 callback 进来则立即执行</li>
+</ul>
+</li>
+</ul>
+<p>一旦 poll queue 为空，则 Event Loop 将检查 timers,如果有 timer 的时间到期，则 Event Loop 将回到 timers 阶段，然后执行 timer queue</p>
+<h3 id="事件循环原理"><a href="#事件循环原理" class="headerlink" title="事件循环原理"></a>事件循环原理</h3><ol>
+<li><p>node 的初始化</p>
+<ol>
+<li>初始化 node 环境。</li>
+<li>执行输入代码。</li>
+<li>执行 process.nextTick 回调。</li>
+<li>执行 microtasks。</li>
+</ol>
+</li>
+<li><p>进入 event-loop</p>
+<ol>
+<li><p>进入 timers 阶段</p>
+<ul>
+<li>检查 timer 队列是否有到期的 timer 回调，如果有，将到期的 timer 回调按照 timerId 升序执行。</li>
+<li>检查是否有 process.nextTick 任务，如果有，全部执行。</li>
+<li>检查是否有 microtask，如果有，全部执行。</li>
+<li>退出该阶段。</li>
+</ul>
+</li>
+<li><p>进入 IO callbacks 阶段。</p>
+<ul>
+<li>检查是否有 pending 的 I&#x2F;O 回调。如果有，执行回调。如果没有，退出该阶段。</li>
+<li>检查是否有 process.nextTick 任务，如果有，全部执行。</li>
+<li>检查是否有 microtask，如果有，全部执行。</li>
+<li>退出该阶段。</li>
+</ul>
+</li>
+<li><p>进入 idle，prepare 阶段：</p>
+<ul>
+<li>这两个阶段与我们编程关系不大，暂且按下不表。</li>
+</ul>
+</li>
+<li><p>进入 poll 阶段</p>
+<ul>
+<li>首先检查是否存在尚未完成的回调，如果存在，那么分两种情况。<ul>
+<li>第一种情况：<ul>
+<li>如果有可用回调（可用回调包含到期的定时器还有一些 IO 事件等），执行所有可用回调。</li>
+<li>检查是否有 process.nextTick 回调，如果有，全部执行。</li>
+<li>检查是否有 microtaks，如果有，全部执行。</li>
+<li>退出该阶段。</li>
+</ul>
+</li>
+<li>第二种情况：<ul>
+<li>如果没有可用回调。</li>
+<li>检查是否有 immediate 回调，如果有，退出 poll 阶段。如果没有，阻塞在此阶段，等待新的事件通知。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>如果不存在尚未完成的回调，退出 poll 阶段。</li>
+</ul>
+</li>
+<li><p>进入 check 阶段。</p>
+<ul>
+<li>如果有 immediate 回调，则执行所有 immediate 回调。</li>
+<li>检查是否有 process.nextTick 回调，如果有，全部执行。</li>
+<li>检查是否有 microtaks，如果有，全部执行。</li>
+<li>退出 check 阶段</li>
+</ul>
+</li>
+<li><p>进入 closing 阶段。</p>
+<ul>
+<li>如果有 immediate 回调，则执行所有 immediate 回调。</li>
+<li>检查是否有 process.nextTick 回调，如果有，全部执行。</li>
+<li>检查是否有 microtaks，如果有，全部执行。</li>
+<li>退出 closing 阶段</li>
+</ul>
+</li>
+<li><p>检查是否有活跃的 handles（定时器、IO 等事件句柄）。</p>
+<ul>
+<li>如果有，继续下一轮循环。</li>
+<li>如果没有，结束事件循环，退出程序。</li>
+</ul>
+</li>
+</ol>
+</li>
+</ol>
+<p>通过上面的事件循环的介绍我们已经知道 setTimeout setImmediate 的执行机制，但是并没有介绍 process.nextTick()和 promise.then()。这里我们还需要知道宏任务与微任务的概念</p>
+<h3 id="宏任务-Macrotask"><a href="#宏任务-Macrotask" class="headerlink" title="宏任务 Macrotask"></a>宏任务 Macrotask</h3><p>宏任务是指 Event Loop 在每个阶段执行的任务<br><strong>宏任务包括 script (整体代码)，setTimeout, setInterval, setImmediate, I&#x2F;O, UI renderin</strong></p>
+<h3 id="微任务-Microtask"><a href="#微任务-Microtask" class="headerlink" title="微任务 Microtask"></a>微任务 Microtask</h3><p>微任务是指 Event Loop 在每个阶段之间执行的任务<br><strong>微任务包括 process.nextTick, Promise.then，Object.observe，MutationObserver</strong></p>
+<p>宏任务与微任务执行顺序图<br><img src="https://raw.githubusercontent.com/Jesse121/publicPic/master/blog/pictures/801336-20191020172507873-569608539.png" alt="801336-20191020172507873-569608539"></p>
+<p>图中绿色小块表示 Event Loop 的各个阶段，执行的是宏任务，粉色箭头表示执行的是微任务</p>
+<p>了解到这里我们再来分析上面的几道题<br>题目一的执行结果是：</p>
+<figure class="highlight jboss-cli"><table><tr><td class="code"><pre><span class="line"><span class="keyword">set</span>Timeout</span><br><span class="line"><span class="keyword">set</span>Immediate</span><br><span class="line"><span class="string">//</span>或者</span><br><span class="line"><span class="keyword">set</span>Immediate</span><br><span class="line"><span class="keyword">set</span>Timeout</span><br></pre></td></tr></table></figure>
+
+<p>为什么结果不确定呢？我们知道 setTimeout 的回调函数在 timer 阶段执行，setImmediate 的回调函数在 check 阶段执行。但是从事件循环开始到 timer 阶段会消耗一定的时间，所以会出现两种情况：</p>
+<ol>
+<li>若 timer 前的准备时间超过 1ms，则执行 timer 阶段（setTimeout）的回调函数</li>
+<li>若 timer 前的准备时间少于 1ms，则执行 check 阶段（setImmediate）的回调函数，下次 event loop 循环在执行 timer 阶段的函数</li>
+</ol>
+<p>题目二的执行结果是</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">nextTick</span><br><span class="line">promise</span><br></pre></td></tr></table></figure>
+
+<p>这里虽然和 process.nextTick 一样，promise.then 也将回调函数注册到 microtask,<strong>但 process.nextTick 的 microtask queue 总是优先于 promise 的 microtask queue 执行的</strong><br>题目三的执行结果是</p>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line">2</span><br><span class="line">3</span><br><span class="line">5</span><br><span class="line">4</span><br><span class="line">1</span><br></pre></td></tr></table></figure>
+
+<p>Promise 构造函数是同步执行的，所以先打印 2，3，在打印 5，接下来事件循环执行微任务执行 promise.then 的回调，打印 4，然后进入下一个事件循环执行 timer 阶段的回调打印 1</p>
+<p>题目四的执行结果是<br>永远不会打印 setInterval</p>
+<p>process.nextTick 会无限循环，将 event loop 阻塞在 microtask 阶段，导致 event loop 上其他 macrotask 阶段的回调函数没有机会执行<br>解决方法通常是用 setImmediate 代替 process.nextTick.<br>在 setImmediate 内执行 setImmedaite 时会将 immediate 注册到下一次 event loop 的 check 阶段，这样其他 macrotask 就有机会执行</p>
+<p>至此终于将 node.js 事件循环宏任务与微任务分析清楚了</p>
+
+        
+            <div id="toc-article">
+                
+  <div class="widget-wrap" id="toc-wrap">
+    <h3 class="widget-title"><i class="fa fa-toc"></i> 文章目录</h3>
+    <div class="widget">
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF-Event-Loop"><span class="toc-text">事件循环 Event Loop</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#poll-%E9%98%B6%E6%AE%B5"><span class="toc-text">poll 阶段</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF%E5%8E%9F%E7%90%86"><span class="toc-text">事件循环原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%8F%E4%BB%BB%E5%8A%A1-Macrotask"><span class="toc-text">宏任务 Macrotask</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BE%AE%E4%BB%BB%E5%8A%A1-Microtask"><span class="toc-text">微任务 Microtask</span></a></li></ol>
+    </div>
+  </div>
+
+
+            </div>
+        
+        
+          <blockquote id="copyright">
+              <p>原文链接: <a href="https://jesse121.github.io/articles/2019/10/20.html">https://jesse121.github.io/articles/2019/10/20.html</a></p>
+              <p>版权声明: 转载请注明出处.</p>
+          </blockquote>
+        
+      
+    </div>
+    <footer class="article-footer">
+      
+        <div class="article-tag-wrap">
+          
+
+          
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/javascript/" rel="tag">JavaScript</a></li></ul>
+
+          
+
+
+        </div>
+      
+      
+        
+<nav id="article-nav">
+  
+    <a href="/blog/articles/2019/08/12.html" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">older</strong>
+      <div class="article-nav-title">
+        
+          规范Git Commit提交记录和版本发布记录
+        
+      </div>
+    </a>
+  
+  
+    <a href="/blog/articles/2020/01/11.html" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">newer</strong>
+      <div class="article-nav-title">
+        
+          如何做好前端页面异常监控？
+        
+      </div>
+    </a>
+  
+</nav>
+
+      
+      
+        
+  <div id="comments"></div>
+
+
+
+
+
+
+
+
+
+      
+    </footer>
+  </div>
+</article>
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-posts"></i> 最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/blog/articles/2021/06/11.html">如何用Vite快速搭建一个vue3项目</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2020/12/15.html">如何快速生成tsconfig.json文件</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2020/08/22.html">用Ssh连接docker容器</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2020/07/04.html">如何在Vscode上直接运行typescript?</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2020/06/13.html">Wireshark过滤器使用介绍</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2020/05/13.html">Webpack编译后的html中图片路径变为[object Module]的原因及解决办法</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2020/05/02.html">栈与队列</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2020/04/19.html">链表</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2020/04/19.html">算法的时间复杂度与空间复杂度分析</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2020/04/12.html">如何使用Wireshark抓取HTTP2报文？</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-tag"></i> 标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/blog/tags/angularjs/" style="font-size: 10px;">AngularJs</a> <a href="/blog/tags/apache/" style="font-size: 14px;">Apache</a> <a href="/blog/tags/bootstrap/" style="font-size: 14px;">Bootstrap</a> <a href="/blog/tags/css/" style="font-size: 18px;">CSS</a> <a href="/blog/tags/centos/" style="font-size: 10px;">CentOS</a> <a href="/blog/tags/docker/" style="font-size: 14px;">Docker</a> <a href="/blog/tags/git/" style="font-size: 12px;">Git</a> <a href="/blog/tags/gitlab/" style="font-size: 10px;">Gitlab</a> <a href="/blog/tags/gulp/" style="font-size: 10px;">Gulp</a> <a href="/blog/tags/html/" style="font-size: 14px;">HTML</a> <a href="/blog/tags/html5/" style="font-size: 10px;">HTML5</a> <a href="/blog/tags/http/" style="font-size: 14px;">HTTP</a> <a href="/blog/tags/https/" style="font-size: 10px;">HTTPS</a> <a href="/blog/tags/javascript/" style="font-size: 20px;">JavaScript</a> <a href="/blog/tags/jenkins/" style="font-size: 10px;">Jenkins</a> <a href="/blog/tags/linux/" style="font-size: 12px;">Linux</a> <a href="/blog/tags/mac/" style="font-size: 10px;">Mac</a> <a href="/blog/tags/mysql/" style="font-size: 14px;">MySQL</a> <a href="/blog/tags/nginx/" style="font-size: 12px;">Nginx</a> <a href="/blog/tags/node-js/" style="font-size: 12px;">Node.js</a> <a href="/blog/tags/php/" style="font-size: 16px;">PHP</a> <a href="/blog/tags/photoshop/" style="font-size: 10px;">Photoshop</a> <a href="/blog/tags/react/" style="font-size: 10px;">React</a> <a href="/blog/tags/redux/" style="font-size: 10px;">Redux</a> <a href="/blog/tags/sublimetext3/" style="font-size: 10px;">SublimeText3</a> <a href="/blog/tags/typescript/" style="font-size: 12px;">Typescript</a> <a href="/blog/tags/vagrant/" style="font-size: 10px;">Vagrant</a> <a href="/blog/tags/vim/" style="font-size: 10px;">Vim</a> <a href="/blog/tags/vue/" style="font-size: 10px;">Vue</a> <a href="/blog/tags/web/" style="font-size: 16px;">WEB</a> <a href="/blog/tags/webpack/" style="font-size: 14px;">Webpack</a> <a href="/blog/tags/wireshark/" style="font-size: 12px;">Wireshark</a> <a href="/blog/tags/yii/" style="font-size: 10px;">Yii</a> <a href="/blog/tags/jquery/" style="font-size: 14px;">jQuery</a> <a href="/blog/tags/monitor/" style="font-size: 10px;">monitor</a> <a href="/blog/tags/ssh/" style="font-size: 10px;">ssh</a> <a href="/blog/tags/vite/" style="font-size: 10px;">vite</a> <a href="/blog/tags/vscode/" style="font-size: 10px;">vscode</a> <a href="/blog/tags/vue/" style="font-size: 10px;">vue</a> <a href="/blog/tags/%E5%BC%80%E5%8F%91%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/" style="font-size: 10px;">开发问题记录</a> <a href="/blog/tags/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F/" style="font-size: 10px;">微信小程序</a> <a href="/blog/tags/%E7%AE%97%E6%B3%95/" style="font-size: 14px;">算法</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-classify"></i> 分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/blog/categories/bootstrap/">Bootstrap</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/html-css/">HTML-CSS</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/html5/">HTML5</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/javascript/">JavaScript</a><span class="category-list-count">11</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/linux/">Linux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/mysql/">MySQL</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/node-js/">Node.js</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/php/">PHP</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/photoshop/">Photoshop</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/typescript/">Typescript</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/vue/">Vue</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/web/">WEB</a><span class="category-list-count">8</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/jquery/">jQuery</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/translation/">前端翻译</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/">开发工具</a><span class="category-list-count">15</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/%E5%BC%80%E5%8F%91%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/">开发问题记录</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/%E7%AE%97%E6%B3%95/">算法</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/notes/">读书笔记</a><span class="category-list-count">16</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-archive"></i> 归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2021/">2021年</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2020/">2020年</a><span class="archive-list-count">12</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2019/">2019年</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/">2018年</a><span class="archive-list-count">12</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2017/">2017年</a><span class="archive-list-count">26</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/">2016年</a><span class="archive-list-count">27</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-link"></i> 友情链接</h3>
+    <div class="widget">
+      <ul>
+      
+        <li>
+          <a target="_blank" rel="noopener" href="http://www.mahaixiang.cn/internet/300.html">深入理解互联网协议的原理</a>
+        </li>
+      
+        <li>
+          <a target="_blank" rel="noopener" href="http://javascript.ruanyifeng.com/">JavaScript 标准参考教程</a>
+        </li>
+      
+        <li>
+          <a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript">Mozilla Developer Network</a>
+        </li>
+      
+      </ul>
+    </div>
+  </div>
+
+
+  
+</aside>
+        
+      </div>
+      <a id="totop" href="#top"></a>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      <p>
+        <a href="/blog/sitemap.xml">网站地图</a>
+        <span> | </span><a href="/blog/atom.xml">订阅本站</a>
+        <span> | </span><a href="/blog/about/">联系博主</a>
+      </p>
+      
+        <p>
+          <i class="fa fa-visitors"></i>
+          <i id="busuanzi_container_site_uv"><i id="busuanzi_value_site_uv"></i></i>
+          ，
+          <i class="fa fa-views"></i>
+          <i id="busuanzi_container_site_pv"><i id="busuanzi_value_site_pv"></i></i>
+        </p>
+      
+      <p>
+        <span>Copyright &copy; 2022 Jesse.</span>
+        <span>Theme by <a href="https://github.com/chaooo/hexo-theme-BlueLake/" target="_blank">BlueLake.</a></span>
+        <span>Powered by <a href="https://hexo.io/" target="_blank">Hexo.</a></span>
+      </p>
+    </div>
+  </div>
+</footer>
+
+    </div>
+  </div>
+  
+<script src="/blog/js/jquery-3.4.1.min.js"></script>
+
+
+<script src="/blog/js/search.json.js"></script>
+
+
+  
+<script src="/blog/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/blog/js/script.js"></script>
+
+
+
+
+
+
+  
+<script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+  
+  
+
+
+  
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+ 
+<script src="//cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.js"></script>
+
+<script>
+  var gitalk = new Gitalk({
+    clientID: "1d84813ae13cd94072f0",
+    clientSecret: "4a4dd2af0c622e983dd90f5daf15c3ebd86b8ae9",
+    repo: "blog",
+    owner: "jesse121",
+    admin: ["jesse121"],
+    id: md5(window.location.pathname),
+    proxy: "https://gitalk-worker.jesse121.workers.dev/https://github.com/login/oauth/access_token,",
+    distractionFreeMode: false,
+    language: "zh-CN",
+    pagerDirection: "last",
+  });
+  gitalk.render("comments");
+</script>
+         
+
+
+
+</body>
+</html>

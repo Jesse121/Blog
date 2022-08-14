@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>《高性能网站建设指南》--读书笔记 | 前端之路</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  
+    <meta name="description" content="专注前端开发，前端开发技术博客">
+  
+  
+    <meta name="keywords" content="Web前端开发，Javascript，前端开发博客">
+  
+  
+    <link rel="alternate" href="/blog/atom.xml" title="前端之路" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/blog/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/blog/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/blog/fancybox/jquery.fancybox.min.css">
+
+  
+  
+  
+    
+<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+
+  
+  
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/blog/" id="logo">前端之路</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/blog/" id="subtitle">路漫漫其修远兮，吾将上下而求索</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        
+          <a class="main-nav-link" href="/blog/."><i class="fa fa-home"></i> 首页</a>
+        
+          <a class="main-nav-link" href="/blog/archives/"><i class="fa fa-archive"></i> 归档</a>
+        
+          <a class="main-nav-link" href="/blog/about/"><i class="fa fa-user"></i> 关于</a>
+        
+      </nav>
+    </div>
+    <div id="search-form">
+      <div id="result-mask" class="hide"></div>
+      <label><input id="search-key" type="text" autocomplete="off" placeholder="搜索"></label>
+      <div id="result-wrap" class="hide">
+        <div id="search-result"></div>
+      </div>
+      <div class="hide">
+        <template id="search-tpl">
+          <div class="item">
+            <a href="/{path}" title="{title}">
+              <div class="title">{title}</div>
+              <div class="time">{date}</div>
+              <div class="tags">{tags}</div>
+            </a>
+          </div>
+        </template>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-notes/《高性能网站建设指南》--读书笔记" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      《高性能网站建设指南》--读书笔记
+    </h1>
+  
+
+
+      </header>
+    
+    <div class="article-meta">
+      
+      <span class="article-date">
+  <i class="fa fa-date"></i>
+  <time class="dt-published" datetime="2017-05-27T16:00:00.000Z" itemprop="datePublished">2017年05月28日</time>
+</span>
+      
+  <div class="article-category">
+    <i class="fa fa-classify"></i>
+    <a class="article-category-link" href="/blog/categories/notes/">读书笔记</a>
+  </div>
+
+      
+        <span class="article-views">
+  <i class="fa fa-views"></i>
+  <i id="busuanzi_container_page_pv">
+      <i id="busuanzi_value_page_pv"></i>
+  </i>
+</span>
+
+      
+      
+<a href="/blog/articles/2017/05/28.html#comments" class="article-comment-link">
+  
+    
+    
+    
+    
+    
+  
+  <i class="fa fa-commt"></i>
+  留言
+</a>
+
+
+    </div>
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>在前端开发中如何提升网站性能是每个前端工程师必须所考虑的内容。通过阅读《高性能网站建设指南》加深了对提升网站性能的各种方法的认识，同时在今后的开发中也能更好的运用。</p>
+<span id="more"></span>
+
+<h3 id="规则一、减少HTTP请求"><a href="#规则一、减少HTTP请求" class="headerlink" title="规则一、减少HTTP请求"></a>规则一、减少HTTP请求</h3><ol>
+<li><p>CSS Sprites合并图片，减少HTTP请求</p>
+</li>
+<li><p>内联图片。<br> 使用Data URL技术，图片数据以base64字符串格式嵌入到了页面中，减少了HTTP请求。  </p>
+<ul>
+<li><p>使用场景：</p>
+<ul>
+<li>当图片很小时，可用dataURL，这样既可以避免HTTP请求，同时数据量也不大</li>
+<li>当图片是服务器生成且每个用户都不一样的时候，例如验证码</li>
+<li>dataURL用在css文件中可避免单纯的dataURL图片不被浏览器缓存这个缺点</li>
+</ul>
+</li>
+<li><p>缺点：</p>
+<ul>
+<li>Base64编码的数据体积通常是原数据的体积4&#x2F;3，也就是Data URL形式的图片会比二进制格式的图片体积大1&#x2F;3。</li>
+<li>Data URL形式的图片不会被浏览器缓存，这意味着每次访问这样页面时都被下载一次，不适合在网站中大量使用。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>合并脚本和样式表，尽量减少js和css的请求数量</p>
+</li>
+</ol>
+<h3 id="规则二、使用内容发布网络"><a href="#规则二、使用内容发布网络" class="headerlink" title="规则二、使用内容发布网络"></a>规则二、使用内容发布网络</h3><p>内容发布网络（CDN）是一组分布在多个不同地理位置的Web服务器，用于更加有效地向用户发布内容。<br>常用的CDN有：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="http://cdn.code.baidu.com/">baidu</a></li>
+<li><a target="_blank" rel="noopener" href="https://cdnjs.com/">cdnjs</a></li>
+<li><a target="_blank" rel="noopener" href="http://www.bootcdn.cn/">Bootstrap</a></li>
+</ul>
+<h3 id="规则三、添加Expires"><a href="#规则三、添加Expires" class="headerlink" title="规则三、添加Expires"></a>规则三、添加Expires</h3><p>页面中都包含大量的组件，通过web服务器使用一个长久的expires头，使得这些组件可以被缓存，这样在后续页面中避免不必要的HTTP请求<br>缺点：要求服务器和客户端的时间严格同步，过期日期需要检查，并提供新日期<br>HTTP1.1引入Cache-Control头来克服Expires头的限制<br>cache-control使用max-age指令<br>max-age请求的内容过多久过期（相对于请求时间Date）失效，默认以秒为单位<br>具体的过期时间配置可在Apache配置文件中添加mod_expires.c配置信息。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">&lt;IfModule mod_expires.c&gt;</span><br><span class="line">    ExpiresActive On</span><br><span class="line">    ExpiresByType text/css <span class="string">&quot;now plus 1 month&quot;</span></span><br><span class="line">    ExpiresByType application/x-javascript <span class="string">&quot;now plus 5 day&quot;</span></span><br><span class="line">    ExpiresByType image/jpeg <span class="string">&quot;access plus 1 month&quot;</span></span><br><span class="line">    ExpiresByType image/gif <span class="string">&quot;access plus 1 month&quot;</span></span><br><span class="line">    ExpiresByType image/bmp <span class="string">&quot;access plus 1 month&quot;</span></span><br><span class="line">    ExpiresByType image/x-icon <span class="string">&quot;access plus 1 month&quot;</span></span><br><span class="line">    ExpiresByType image/png <span class="string">&quot;access plus 1 minutes&quot;</span></span><br><span class="line">    ExpiresByType application/x-shockwave-flash <span class="string">&quot;access plus 1 month&quot;</span></span><br><span class="line">    ExpiresDefault <span class="string">&quot;now plus 1 minutes&quot;</span></span><br><span class="line">&lt;/IfModule&gt;</span><br></pre></td></tr></table></figure>
+<p>配置信息可参考<a target="_blank" rel="noopener" href="http://httpd.apache.org/docs/current/mod/mod_expires.html">Apache Module mod_expires</a></p>
+<h3 id="规则四、压缩组件"><a href="#规则四、压缩组件" class="headerlink" title="规则四、压缩组件"></a>规则四、压缩组件</h3><p>通过开启gzip压缩来减小HTTP响应数据包的大小<br>值得压缩的内容有HTML xml css js json<br>不该压缩的内容图片 pdf，他们在上传到服务器的时候一般就已压缩好，再压缩只会浪费CPU<br>通过配置Apache 2.x的mod_deflate模块</p>
+<figure class="highlight elixir"><table><tr><td class="code"><pre><span class="line">&lt;<span class="title class_">IfModule</span> mod_deflate.c&gt;</span><br><span class="line">    <span class="title class_">DeflateCompressionLevel</span> <span class="number">6</span> </span><br><span class="line">    <span class="title class_">SetOutputFilter</span> <span class="title class_">DEFLATE</span> </span><br><span class="line">    <span class="title class_">SetEnvIfNoCase</span> <span class="title class_">Request_URI</span> .(?<span class="symbol">:gif|jpe?g|png</span>)<span class="variable">$ </span>no-gzip dont-vary </span><br><span class="line">    <span class="title class_">SetEnvIfNoCase</span> <span class="title class_">Request_URI</span> .(?<span class="symbol">:exe|t?gz|zip|bz2|sit|rar</span>)<span class="variable">$ </span>no-gzip dont-vary </span><br><span class="line">    <span class="title class_">SetEnvIfNoCase</span> <span class="title class_">Request_URI</span> .(?<span class="symbol">:pdf|doc</span>)<span class="variable">$ </span>no-gzip dont-vary </span><br><span class="line">    <span class="title class_">AddOutputFilterByType</span> <span class="title class_">DEFLATE</span> text/html text/plain text/xml text/css application/x-javascript application/json</span><br><span class="line">    &lt;<span class="title class_">IfModule</span> mod_setenvif.c&gt;</span><br><span class="line">        <span class="title class_">BrowserMatch</span> ^<span class="title class_">Mozilla</span>/<span class="number">4</span> gzip-only-text/html </span><br><span class="line">        <span class="title class_">BrowserMatch</span> ^<span class="title class_">Mozilla</span>/<span class="number">4.0</span>[<span class="number">678</span>] no-gzip </span><br><span class="line">        <span class="title class_">BrowserMatch</span> \bMSIE !no-gzip !gzip-only-text/html </span><br><span class="line">    &lt;/<span class="title class_">IfModule</span>&gt;</span><br><span class="line">&lt;/<span class="title class_">IfModule</span>&gt;</span><br></pre></td></tr></table></figure>
+<p>配置信息可参考<a target="_blank" rel="noopener" href="http://httpd.apache.org/docs/current/mod/mod_deflate.html">Apache Module mod_deflate</a></p>
+<h3 id="规则五、将样式表放在顶部"><a href="#规则五、将样式表放在顶部" class="headerlink" title="规则五、将样式表放在顶部"></a>规则五、将样式表放在顶部</h3><p>将样式表放在head标签里可以避免白屏，这样浏览器能更快的展现内容，用户体验更好<br>而将样式表放在底部会导致浏览器阻止内容逐步呈现，为避免当样式变化时重绘页面，浏览器会延迟显示页面中的元素  </p>
+<h3 id="规则六、将脚本放在底部"><a href="#规则六、将脚本放在底部" class="headerlink" title="规则六、将脚本放在底部"></a>规则六、将脚本放在底部</h3><p>在下载脚本时浏览器会阻塞并行下载，原因：</p>
+<ol>
+<li>脚本可能会修改页面内容，因此浏览器会等待</li>
+<li>需要保证脚本能够按照正确的顺序执行</li>
+</ol>
+<p>将脚本放到页面底部，这不会阻止页面内容呈现而且页面中的可视组件能尽早下载  </p>
+<h3 id="规则七、避免CSS表达式"><a href="#规则七、避免CSS表达式" class="headerlink" title="规则七、避免CSS表达式"></a>规则七、避免CSS表达式</h3><p>表达式的问题在于对其进行的求值的频率比人们期望的要高，它们不只在页面呈现和大小改变时求值，当页面滚动、甚至用户鼠标在页面上移过时都要被求值。频繁地求值计算会导致性能底下<br>解决方法：</p>
+<ul>
+<li>避免使用css表达式</li>
+<li>若必须使用css表达式，可使用一次性表达式{background-color:expression(altBgcolor(this));}</li>
+<li>使用事件处理器</li>
+</ul>
+<h3 id="规则八、使用外部的JS和CSS"><a href="#规则八、使用外部的JS和CSS" class="headerlink" title="规则八、使用外部的JS和CSS"></a>规则八、使用外部的JS和CSS</h3><p>好处：</p>
+<ol>
+<li>外部js和css文件有机会被浏览器缓存起来</li>
+<li>外部文件可以提高页面组件的重用率</li>
+</ol>
+<h3 id="规则九、减少DNS查找"><a href="#规则九、减少DNS查找" class="headerlink" title="规则九、减少DNS查找"></a>规则九、减少DNS查找</h3><p>方法：</p>
+<ul>
+<li>通过使用Keep-Alive，重用现有连接避免重复DNS查找</li>
+<li>使用较少的域名可以减少DNS查找的数量（页面性能需要在减少DNS查找和并行下载之间权衡）</li>
+</ul>
+<h3 id="规则十、精简JavaScript和CSS"><a href="#规则十、精简JavaScript和CSS" class="headerlink" title="规则十、精简JavaScript和CSS"></a>规则十、精简JavaScript和CSS</h3><p>通过精简从代码中移除不必要的字符，注释，空白符等，从而达到减小请求文件大小的目的<br>在实际开发中一般将js和css通过工具压缩为min文件</p>
+<h3 id="规则十一、避免重定向"><a href="#规则十一、避免重定向" class="headerlink" title="规则十一、避免重定向"></a>规则十一、避免重定向</h3><p>常见的重定向状态码有：</p>
+<ul>
+<li>301 Moved Permancently</li>
+<li>302 Moved Temporarily(Found)</li>
+<li>304 Not Modified 并不是真正的重定向，避免下载已经存在的缓存</li>
+</ul>
+<p>重定向会延长从发出请求到请求资源被下载的这段时间<br>有一种重定向最浪费也发生的很频繁 <strong>缺少结尾的斜线</strong><br>当缺少结尾的斜线时它允许自动索引(自动转到默认的index.html)并且能够获得与当前目录相关的URL<br>避免重定向方法</p>
+<ul>
+<li>通过这事Alias mod_rewrite等</li>
+<li>如果域名变了可以使用CNAME记录</li>
+</ul>
+<h3 id="规则十二、移除重复脚本"><a href="#规则十二、移除重复脚本" class="headerlink" title="规则十二、移除重复脚本"></a>规则十二、移除重复脚本</h3><p>重复脚本损伤性能的两种方式</p>
+<ul>
+<li>带来不必要的HTTP请求</li>
+<li>执行脚本所浪费的时间</li>
+</ul>
+<h3 id="规则十三、配置或移除Etag"><a href="#规则十三、配置或移除Etag" class="headerlink" title="规则十三、配置或移除Etag"></a>规则十三、配置或移除Etag</h3><p>Etag是web服务器和浏览器用于确认缓存组件的有效性的一种机制<br>服务器在检测缓存的组件是否和原始服务器上的组件匹配时有两种方式：</p>
+<ul>
+<li>比较最新修改时间</li>
+<li>比较实体标签</li>
+</ul>
+<h4 id="最新修改日期"><a href="#最新修改日期" class="headerlink" title="最新修改日期"></a>最新修改日期</h4><p>原始服务器通过Last-Modified响应头来返回组件的最新修改日期<br>当组件第一次被请求成功后浏览器缓存了该组件以及它的最新修改日期（允许缓存），当再次请求该组件时，浏览器会使用If-Modified-Since头将最新修改时间和原始服务器上该组件的最新修改时间进行比较，如果相同则返回一个304，而不传输数据，浏览器将使用缓存数据。</p>
+<h4 id="实体标签"><a href="#实体标签" class="headerlink" title="实体标签"></a>实体标签</h4><p>ETag是唯一标识了一个组件的一个特性版本的字符串<br><code>ETag:&quot;24-54c6a9bd53bd1&quot;</code><br>当组件第一次被请求成功后浏览器缓存了该组件以及它的最新修改日期（允许缓存）还有ETag信息，当再次请求该组件时，浏览器会使用If-None-Match头将ETag和原始服务器上该组件的ETag进行比较，如果相同则返回一个304，而不传输数据，浏览器将使用缓存数据。</p>
+<h4 id="ETag带来的问题"><a href="#ETag带来的问题" class="headerlink" title="ETag带来的问题"></a>ETag带来的问题</h4><p>当你使用服务器集群时，相同的组件从一台服务器带另一台服务器，Aapache和IIS产生的ETag是不同的，这样组件下载次数将增加，导致性能下降<br>当If-None-Match比If-Modified-Since共存时，只有If-Modified-Since和If-None-Match在完全匹配时，服务器才能返回304。否则由于If-None-Match比If-Modified-Since具有更高的优先级,ETag不同，服务器就会返回200</p>
+<h4 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h4><ol>
+<li>配置ETag  <figure class="highlight avrasm"><table><tr><td class="code"><pre><span class="line">FileEtag INode Mtime Size </span><br><span class="line"><span class="symbol">INode:</span>文件的索引节点(inode)数  </span><br><span class="line"><span class="symbol">MTime:</span>文件的最后修改日期及时间  </span><br><span class="line"><span class="symbol">Size:</span>文件的字节数  </span><br><span class="line"><span class="symbol">All:</span>所有存在的域，等价于：FileETag INode MTime Size  </span><br><span class="line"><span class="symbol">None:</span>移除ETag  </span><br></pre></td></tr></table></figure>
+有网友建议只是用MTime和Size就好了，有待验证  </li>
+<li>移除ETag<br> 在Aapache配置文件按中添加<code>FileETag none</code></li>
+</ol>
+<h3 id="规则十四、使用Ajax可缓存"><a href="#规则十四、使用Ajax可缓存" class="headerlink" title="规则十四、使用Ajax可缓存"></a>规则十四、使用Ajax可缓存</h3><p>如果使用ajax向服务器发起大量的GET请求则可以为其请求的资源设置长久的expires头  </p>
+
+        
+            <div id="toc-article">
+                
+  <div class="widget-wrap" id="toc-wrap">
+    <h3 class="widget-title"><i class="fa fa-toc"></i> 文章目录</h3>
+    <div class="widget">
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A7%84%E5%88%99%E4%B8%80%E3%80%81%E5%87%8F%E5%B0%91HTTP%E8%AF%B7%E6%B1%82"><span class="toc-text">规则一、减少HTTP请求</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A7%84%E5%88%99%E4%BA%8C%E3%80%81%E4%BD%BF%E7%94%A8%E5%86%85%E5%AE%B9%E5%8F%91%E5%B8%83%E7%BD%91%E7%BB%9C"><span class="toc-text">规则二、使用内容发布网络</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A7%84%E5%88%99%E4%B8%89%E3%80%81%E6%B7%BB%E5%8A%A0Expires"><span class="toc-text">规则三、添加Expires</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A7%84%E5%88%99%E5%9B%9B%E3%80%81%E5%8E%8B%E7%BC%A9%E7%BB%84%E4%BB%B6"><span class="toc-text">规则四、压缩组件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A7%84%E5%88%99%E4%BA%94%E3%80%81%E5%B0%86%E6%A0%B7%E5%BC%8F%E8%A1%A8%E6%94%BE%E5%9C%A8%E9%A1%B6%E9%83%A8"><span class="toc-text">规则五、将样式表放在顶部</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A7%84%E5%88%99%E5%85%AD%E3%80%81%E5%B0%86%E8%84%9A%E6%9C%AC%E6%94%BE%E5%9C%A8%E5%BA%95%E9%83%A8"><span class="toc-text">规则六、将脚本放在底部</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A7%84%E5%88%99%E4%B8%83%E3%80%81%E9%81%BF%E5%85%8DCSS%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="toc-text">规则七、避免CSS表达式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A7%84%E5%88%99%E5%85%AB%E3%80%81%E4%BD%BF%E7%94%A8%E5%A4%96%E9%83%A8%E7%9A%84JS%E5%92%8CCSS"><span class="toc-text">规则八、使用外部的JS和CSS</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A7%84%E5%88%99%E4%B9%9D%E3%80%81%E5%87%8F%E5%B0%91DNS%E6%9F%A5%E6%89%BE"><span class="toc-text">规则九、减少DNS查找</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A7%84%E5%88%99%E5%8D%81%E3%80%81%E7%B2%BE%E7%AE%80JavaScript%E5%92%8CCSS"><span class="toc-text">规则十、精简JavaScript和CSS</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A7%84%E5%88%99%E5%8D%81%E4%B8%80%E3%80%81%E9%81%BF%E5%85%8D%E9%87%8D%E5%AE%9A%E5%90%91"><span class="toc-text">规则十一、避免重定向</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A7%84%E5%88%99%E5%8D%81%E4%BA%8C%E3%80%81%E7%A7%BB%E9%99%A4%E9%87%8D%E5%A4%8D%E8%84%9A%E6%9C%AC"><span class="toc-text">规则十二、移除重复脚本</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A7%84%E5%88%99%E5%8D%81%E4%B8%89%E3%80%81%E9%85%8D%E7%BD%AE%E6%88%96%E7%A7%BB%E9%99%A4Etag"><span class="toc-text">规则十三、配置或移除Etag</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9C%80%E6%96%B0%E4%BF%AE%E6%94%B9%E6%97%A5%E6%9C%9F"><span class="toc-text">最新修改日期</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E4%BD%93%E6%A0%87%E7%AD%BE"><span class="toc-text">实体标签</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ETag%E5%B8%A6%E6%9D%A5%E7%9A%84%E9%97%AE%E9%A2%98"><span class="toc-text">ETag带来的问题</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95"><span class="toc-text">解决办法</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A7%84%E5%88%99%E5%8D%81%E5%9B%9B%E3%80%81%E4%BD%BF%E7%94%A8Ajax%E5%8F%AF%E7%BC%93%E5%AD%98"><span class="toc-text">规则十四、使用Ajax可缓存</span></a></li></ol>
+    </div>
+  </div>
+
+
+            </div>
+        
+        
+          <blockquote id="copyright">
+              <p>原文链接: <a href="https://jesse121.github.io/articles/2017/05/28.html">https://jesse121.github.io/articles/2017/05/28.html</a></p>
+              <p>版权声明: 转载请注明出处.</p>
+          </blockquote>
+        
+      
+    </div>
+    <footer class="article-footer">
+      
+        <div class="article-tag-wrap">
+          
+
+          
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/web/" rel="tag">WEB</a></li></ul>
+
+          
+
+
+        </div>
+      
+      
+        
+<nav id="article-nav">
+  
+    <a href="/blog/articles/2017/05/23.html" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">older</strong>
+      <div class="article-nav-title">
+        
+          常见的前端漏洞及防御措施
+        
+      </div>
+    </a>
+  
+  
+    <a href="/blog/articles/2017/06/05.html" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">newer</strong>
+      <div class="article-nav-title">
+        
+          《高性能网站建设进阶指南》--读书笔记
+        
+      </div>
+    </a>
+  
+</nav>
+
+      
+      
+        
+  <div id="comments"></div>
+
+
+
+
+
+
+
+
+
+      
+    </footer>
+  </div>
+</article>
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-posts"></i> 最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/blog/articles/2021/06/11.html">如何用Vite快速搭建一个vue3项目</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2020/12/15.html">如何快速生成tsconfig.json文件</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2020/08/22.html">用Ssh连接docker容器</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2020/07/04.html">如何在Vscode上直接运行typescript?</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2020/06/13.html">Wireshark过滤器使用介绍</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2020/05/13.html">Webpack编译后的html中图片路径变为[object Module]的原因及解决办法</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2020/05/02.html">栈与队列</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2020/04/19.html">链表</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2020/04/19.html">算法的时间复杂度与空间复杂度分析</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2020/04/12.html">如何使用Wireshark抓取HTTP2报文？</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-tag"></i> 标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/blog/tags/angularjs/" style="font-size: 10px;">AngularJs</a> <a href="/blog/tags/apache/" style="font-size: 14px;">Apache</a> <a href="/blog/tags/bootstrap/" style="font-size: 14px;">Bootstrap</a> <a href="/blog/tags/css/" style="font-size: 18px;">CSS</a> <a href="/blog/tags/centos/" style="font-size: 10px;">CentOS</a> <a href="/blog/tags/docker/" style="font-size: 14px;">Docker</a> <a href="/blog/tags/git/" style="font-size: 12px;">Git</a> <a href="/blog/tags/gitlab/" style="font-size: 10px;">Gitlab</a> <a href="/blog/tags/gulp/" style="font-size: 10px;">Gulp</a> <a href="/blog/tags/html/" style="font-size: 14px;">HTML</a> <a href="/blog/tags/html5/" style="font-size: 10px;">HTML5</a> <a href="/blog/tags/http/" style="font-size: 14px;">HTTP</a> <a href="/blog/tags/https/" style="font-size: 10px;">HTTPS</a> <a href="/blog/tags/javascript/" style="font-size: 20px;">JavaScript</a> <a href="/blog/tags/jenkins/" style="font-size: 10px;">Jenkins</a> <a href="/blog/tags/linux/" style="font-size: 12px;">Linux</a> <a href="/blog/tags/mac/" style="font-size: 10px;">Mac</a> <a href="/blog/tags/mysql/" style="font-size: 14px;">MySQL</a> <a href="/blog/tags/nginx/" style="font-size: 12px;">Nginx</a> <a href="/blog/tags/node-js/" style="font-size: 12px;">Node.js</a> <a href="/blog/tags/php/" style="font-size: 16px;">PHP</a> <a href="/blog/tags/photoshop/" style="font-size: 10px;">Photoshop</a> <a href="/blog/tags/react/" style="font-size: 10px;">React</a> <a href="/blog/tags/redux/" style="font-size: 10px;">Redux</a> <a href="/blog/tags/sublimetext3/" style="font-size: 10px;">SublimeText3</a> <a href="/blog/tags/typescript/" style="font-size: 12px;">Typescript</a> <a href="/blog/tags/vagrant/" style="font-size: 10px;">Vagrant</a> <a href="/blog/tags/vim/" style="font-size: 10px;">Vim</a> <a href="/blog/tags/vue/" style="font-size: 10px;">Vue</a> <a href="/blog/tags/web/" style="font-size: 16px;">WEB</a> <a href="/blog/tags/webpack/" style="font-size: 14px;">Webpack</a> <a href="/blog/tags/wireshark/" style="font-size: 12px;">Wireshark</a> <a href="/blog/tags/yii/" style="font-size: 10px;">Yii</a> <a href="/blog/tags/jquery/" style="font-size: 14px;">jQuery</a> <a href="/blog/tags/monitor/" style="font-size: 10px;">monitor</a> <a href="/blog/tags/ssh/" style="font-size: 10px;">ssh</a> <a href="/blog/tags/vite/" style="font-size: 10px;">vite</a> <a href="/blog/tags/vscode/" style="font-size: 10px;">vscode</a> <a href="/blog/tags/vue/" style="font-size: 10px;">vue</a> <a href="/blog/tags/%E5%BC%80%E5%8F%91%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/" style="font-size: 10px;">开发问题记录</a> <a href="/blog/tags/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F/" style="font-size: 10px;">微信小程序</a> <a href="/blog/tags/%E7%AE%97%E6%B3%95/" style="font-size: 14px;">算法</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-classify"></i> 分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/blog/categories/bootstrap/">Bootstrap</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/html-css/">HTML-CSS</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/html5/">HTML5</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/javascript/">JavaScript</a><span class="category-list-count">11</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/linux/">Linux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/mysql/">MySQL</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/node-js/">Node.js</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/php/">PHP</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/photoshop/">Photoshop</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/typescript/">Typescript</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/vue/">Vue</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/web/">WEB</a><span class="category-list-count">8</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/jquery/">jQuery</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/translation/">前端翻译</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/">开发工具</a><span class="category-list-count">15</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/%E5%BC%80%E5%8F%91%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/">开发问题记录</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/%E7%AE%97%E6%B3%95/">算法</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/notes/">读书笔记</a><span class="category-list-count">16</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-archive"></i> 归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2021/">2021年</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2020/">2020年</a><span class="archive-list-count">12</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2019/">2019年</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/">2018年</a><span class="archive-list-count">12</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2017/">2017年</a><span class="archive-list-count">26</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/">2016年</a><span class="archive-list-count">27</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-link"></i> 友情链接</h3>
+    <div class="widget">
+      <ul>
+      
+        <li>
+          <a target="_blank" rel="noopener" href="http://www.mahaixiang.cn/internet/300.html">深入理解互联网协议的原理</a>
+        </li>
+      
+        <li>
+          <a target="_blank" rel="noopener" href="http://javascript.ruanyifeng.com/">JavaScript 标准参考教程</a>
+        </li>
+      
+        <li>
+          <a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript">Mozilla Developer Network</a>
+        </li>
+      
+      </ul>
+    </div>
+  </div>
+
+
+  
+</aside>
+        
+      </div>
+      <a id="totop" href="#top"></a>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      <p>
+        <a href="/blog/sitemap.xml">网站地图</a>
+        <span> | </span><a href="/blog/atom.xml">订阅本站</a>
+        <span> | </span><a href="/blog/about/">联系博主</a>
+      </p>
+      
+        <p>
+          <i class="fa fa-visitors"></i>
+          <i id="busuanzi_container_site_uv"><i id="busuanzi_value_site_uv"></i></i>
+          ，
+          <i class="fa fa-views"></i>
+          <i id="busuanzi_container_site_pv"><i id="busuanzi_value_site_pv"></i></i>
+        </p>
+      
+      <p>
+        <span>Copyright &copy; 2022 Jesse.</span>
+        <span>Theme by <a href="https://github.com/chaooo/hexo-theme-BlueLake/" target="_blank">BlueLake.</a></span>
+        <span>Powered by <a href="https://hexo.io/" target="_blank">Hexo.</a></span>
+      </p>
+    </div>
+  </div>
+</footer>
+
+    </div>
+  </div>
+  
+<script src="/blog/js/jquery-3.4.1.min.js"></script>
+
+
+<script src="/blog/js/search.json.js"></script>
+
+
+  
+<script src="/blog/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/blog/js/script.js"></script>
+
+
+
+
+
+
+  
+<script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+  
+  
+
+
+  
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+ 
+<script src="//cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.js"></script>
+
+<script>
+  var gitalk = new Gitalk({
+    clientID: "1d84813ae13cd94072f0",
+    clientSecret: "4a4dd2af0c622e983dd90f5daf15c3ebd86b8ae9",
+    repo: "blog",
+    owner: "jesse121",
+    admin: ["jesse121"],
+    id: md5(window.location.pathname),
+    proxy: "https://gitalk-worker.jesse121.workers.dev/https://github.com/login/oauth/access_token,",
+    distractionFreeMode: false,
+    language: "zh-CN",
+    pagerDirection: "last",
+  });
+  gitalk.render("comments");
+</script>
+         
+
+
+
+</body>
+</html>

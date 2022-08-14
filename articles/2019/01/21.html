@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Docker的安装与使用介绍 | 前端之路</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  
+    <meta name="description" content="专注前端开发，前端开发技术博客">
+  
+  
+    <meta name="keywords" content="Web前端开发，Javascript，前端开发博客">
+  
+  
+    <link rel="alternate" href="/blog/atom.xml" title="前端之路" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/blog/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/blog/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/blog/fancybox/jquery.fancybox.min.css">
+
+  
+  
+  
+    
+<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+
+  
+  
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/blog/" id="logo">前端之路</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/blog/" id="subtitle">路漫漫其修远兮，吾将上下而求索</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        
+          <a class="main-nav-link" href="/blog/."><i class="fa fa-home"></i> 首页</a>
+        
+          <a class="main-nav-link" href="/blog/archives/"><i class="fa fa-archive"></i> 归档</a>
+        
+          <a class="main-nav-link" href="/blog/about/"><i class="fa fa-user"></i> 关于</a>
+        
+      </nav>
+    </div>
+    <div id="search-form">
+      <div id="result-mask" class="hide"></div>
+      <label><input id="search-key" type="text" autocomplete="off" placeholder="搜索"></label>
+      <div id="result-wrap" class="hide">
+        <div id="search-result"></div>
+      </div>
+      <div class="hide">
+        <template id="search-tpl">
+          <div class="item">
+            <a href="/{path}" title="{title}">
+              <div class="title">{title}</div>
+              <div class="time">{date}</div>
+              <div class="tags">{tags}</div>
+            </a>
+          </div>
+        </template>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-tool/Docker的安装与使用介绍" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      Docker的安装与使用介绍
+    </h1>
+  
+
+
+      </header>
+    
+    <div class="article-meta">
+      
+      <span class="article-date">
+  <i class="fa fa-date"></i>
+  <time class="dt-published" datetime="2019-01-20T22:39:30.000Z" itemprop="datePublished">2019年01月21日</time>
+</span>
+      
+  <div class="article-category">
+    <i class="fa fa-classify"></i>
+    <a class="article-category-link" href="/blog/categories/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/">开发工具</a>
+  </div>
+
+      
+        <span class="article-views">
+  <i class="fa fa-views"></i>
+  <i id="busuanzi_container_page_pv">
+      <i id="busuanzi_value_page_pv"></i>
+  </i>
+</span>
+
+      
+      
+<a href="/blog/articles/2019/01/21.html#comments" class="article-comment-link">
+  
+    
+    
+    
+    
+    
+  
+  <i class="fa fa-commt"></i>
+  留言
+</a>
+
+
+    </div>
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h3 id="docker-是什么？"><a href="#docker-是什么？" class="headerlink" title="docker 是什么？"></a>docker 是什么？</h3><p>Docker 是一个开源的应用容器引擎，基于 Go 语言 并遵从 Apache2.0 协议开源。<br>Docker 可以让开发者打包他们的应用以及依赖包到一个轻量级、可移植的容器中，然后发布到任何流行的 Linux 机器上，也可以实现虚拟化。<br>容器是完全使用沙箱机制，相互之间不会有任何接口,更重要的是容器性能开销极低。</p>
+<span id="more"></span>
+
+<h3 id="为什么要用-docker"><a href="#为什么要用-docker" class="headerlink" title="为什么要用 docker?"></a>为什么要用 docker?</h3><p>在没有用 docker 之前，我们需要在本地，测试，线上部署相同的环境，相同的软件每个环境都要安装一次，并且每来一个新同事，相同的环境有要重新安装一遍，很麻烦且过于重复。docker 可以完美的解决这个问题<br>用 docker 之后我们只需要在本地，测试，线上分别安装相同的 docker，然后在本地搭建环境，将搭建好的环境容器生成 docker 镜像，只要将这个 docker 镜像提供给测试和线上即可构建出相同的环境，在代码部署上我们可以利用 docker 数据卷将本地项目目录文件直接挂载到测试环境中</p>
+<h3 id="docker-在-win7-上的安装"><a href="#docker-在-win7-上的安装" class="headerlink" title="docker 在 win7 上的安装"></a>docker 在 win7 上的安装</h3><p>我们在官网上看到 docker 不能在 win7 上直接安装，需要通过 docker toolbox 来安装</p>
+<blockquote>
+<p>Requires Microsoft Windows 10 Professional or Enterprise 64-bit. For previous versions get Docker Toolbox.</p>
+</blockquote>
+<p>so,根据官网的介绍我们可以在这里<a target="_blank" rel="noopener" href="https://docs.docker.com/toolbox/overview/">https://docs.docker.com/toolbox/overview/</a>直接点击 Get Docker Toolbox for Windows<br>按钮直接下载，如果下载慢的话可以在<a target="_blank" rel="noopener" href="https://get.daocloud.io/toolbox/">https://get.daocloud.io/toolbox/</a>下载，我选择 DockerToolbox-18.09.1.exe 这个版本。下载完后可直接双击安装<br>安装的过程中需要选择安装哪些组件，这里由于我本机已经安装了 git 和 virtual box,所以就不选了，没安装的建议全选<br><img src="/blog/blog/static/images/docker/1.png"><br>安装完后桌面上多出 docker 和 kitematic 两个快捷方式</p>
+<p>双击 Docker Quickstart Terminal，由于我们没有一起安装 git，因此弹出需要我们指定用哪个 bash.exe，这里我们选择本机安装的 Git&#x2F;bin&#x2F;bash.exe 文件，等一段时间后安装完成，出现如下界面<br><img src="/blog/blog/static/images/docker/2.png"><br>执行 docker-machine ssh default 即可登录上镜像<br>这里 docker 启用默认的镜像，ip 为 192.168.99.100，我们可以通过 xshell 登陆上此服务器<br>default 镜像默认的用户名是 docker 密码是 tcuser<br>至此 docker 在 win7 上安装完成，</p>
+<h4 id="docker-在-win7-上的优化"><a href="#docker-在-win7-上的优化" class="headerlink" title="docker 在 win7 上的优化"></a>docker 在 win7 上的优化</h4><p>虚拟机的默认存储位置是 C:\Users\Administrator.docker\machine\machines ，后期 docke 镜像文件会不断增加，为了给系统盘减负，最好将磁盘移动到其他位置。</p>
+<ol>
+<li>在终端中执行 docker-machine stop default 命令停止 default 虚拟机</li>
+<li>通过 VirtualBox【管理】-&gt;【虚拟介质管理】界面对虚拟磁盘进行复制</li>
+</ol>
+<h4 id="更改镜像仓库地址"><a href="#更改镜像仓库地址" class="headerlink" title="更改镜像仓库地址"></a>更改镜像仓库地址</h4><p>docker 默认的镜像仓库地址是<a target="_blank" rel="noopener" href="https://hub.docker.com/">https://hub.docker.com/</a>，但国内的下载速度太过缓慢，最好使用国内镜像，<br>参考<a target="_blank" rel="noopener" href="http://guide.daocloud.io/dcs/daocloud-9153151.html#docker-toolbox">http://guide.daocloud.io/dcs/daocloud-9153151.html#docker-toolbox</a>设置镜像加速</p>
+<h3 id="docker-在-mac-上的安装"><a href="#docker-在-mac-上的安装" class="headerlink" title="docker 在 mac 上的安装"></a>docker 在 mac 上的安装</h3><p>在 docker 官网上我们可以直接下载 Docker Desktop (Mac) 可直接在<a target="_blank" rel="noopener" href="https://hub.docker.com/editions/community/docker-ce-desktop-mac">https://hub.docker.com/editions/community/docker-ce-desktop-mac</a>下载(需要登录),下载后双击执行 docker.dmg 正常安装即可<br>启动 docker 后在系统菜单栏我们可以看到 docker 标志,说明 docker 安装成功</p>
+<h4 id="docker-镜像加速"><a href="#docker-镜像加速" class="headerlink" title="docker 镜像加速"></a>docker 镜像加速</h4><p>参考<a target="_blank" rel="noopener" href="http://guide.daocloud.io/dcs/daocloud-9153151.html#docker-toolbox">http://guide.daocloud.io/dcs/daocloud-9153151.html#docker-toolbox</a>设置镜像加速<br><img src="/blog/blog/static/images/docker/3.png"></p>
+<h3 id="docker-基本命令"><a href="#docker-基本命令" class="headerlink" title="docker 基本命令"></a>docker 基本命令</h3><figure class="highlight awk"><table><tr><td class="code"><pre><span class="line"><span class="regexp">//</span> 列出本地已有镜像</span><br><span class="line">docker images</span><br><span class="line"><span class="regexp">//</span> 从远端下载镜像</span><br><span class="line">docker pull &lt;image name&gt;</span><br><span class="line"><span class="regexp">//</span> 使用镜像创建并启动一个容器（若本地没有该镜像，则会先从远端下载，每次run都会生成一个容器，嗯，轻量~）</span><br><span class="line">docker run hub.c.<span class="number">163</span>.com<span class="regexp">/library/</span>hello-world:latest</span><br><span class="line"><span class="regexp">//</span>列出正在运行的容器</span><br><span class="line">docker ps</span><br><span class="line"><span class="regexp">//</span> 列出所有容器（包括Exited）</span><br><span class="line">docker ps -a</span><br><span class="line"><span class="regexp">//</span> 启动指定的容器</span><br><span class="line">docker start &lt;container id&gt;</span><br><span class="line"><span class="regexp">//</span> 停止指定的容器</span><br><span class="line">docker stop &lt;container id&gt;</span><br><span class="line"><span class="regexp">//</span> 停止所有运行中的容器</span><br><span class="line">docker stop $(docker ps -q)</span><br><span class="line"><span class="regexp">//</span> 删除指定容器</span><br><span class="line">docker rm &lt;container id&gt;</span><br><span class="line"><span class="regexp">//</span>删除所有容器</span><br><span class="line">docker rm $(docker ps -aq)</span><br><span class="line"><span class="regexp">//</span>停止并删除容器</span><br><span class="line">docker stop $(docker ps -q) &amp; docker rm $(docker ps -aq)</span><br><span class="line"><span class="regexp">//</span> 删除指定镜像（删除镜像前须先停止并删除容器）</span><br><span class="line">docker rmi &lt;image id&gt;</span><br><span class="line"><span class="regexp">//</span> 重启容器</span><br><span class="line">docker restart &lt;container id&gt;</span><br><span class="line"><span class="regexp">//</span> 创建一个新的容器并运行一个命令</span><br><span class="line">docker run [OPTIONS] IMAGE [COMMAND] [ARG...]</span><br><span class="line">-a stdin: 指定标准输入输出内容类型，可选 STDIN<span class="regexp">/STDOUT/</span>STDERR 三项；</span><br><span class="line">-d: 后台运行容器，并返回容器ID；</span><br><span class="line">-i: 以交互模式运行容器，通常与 -t 同时使用；</span><br><span class="line">-p: 端口映射，格式为：主机(宿主)端口:容器端口</span><br><span class="line">-t: 为容器重新分配一个伪输入终端，通常与 -i 同时使用；</span><br><span class="line">--name=<span class="string">&quot;nginx-lb&quot;</span>: 为容器指定一个名称；</span><br><span class="line">--dns <span class="number">8.8</span>.<span class="number">8.8</span>: 指定容器使用的DNS服务器，默认和宿主一致；</span><br><span class="line">--dns-search example.com: 指定容器DNS搜索域名，默认和宿主一致；</span><br><span class="line">-h <span class="string">&quot;mars&quot;</span>: 指定容器的hostname；</span><br><span class="line">-e username=<span class="string">&quot;ritchie&quot;</span>: 设置环境变量；</span><br><span class="line">--env-file=[]: 从指定文件读入环境变量；</span><br><span class="line">--cpuset=<span class="string">&quot;0-2&quot;</span> or --cpuset=<span class="string">&quot;0,1,2&quot;</span>: 绑定容器到指定CPU运行；</span><br><span class="line">-m :设置容器使用内存最大值；</span><br><span class="line">--net=<span class="string">&quot;bridge&quot;</span>: 指定容器的网络连接类型，支持 bridge<span class="regexp">/host/</span>none/container: 四种类型；</span><br><span class="line">--link=[]: 添加链接到另一个容器；</span><br><span class="line">--expose=[]: 开放一个端口或一组端口；</span><br><span class="line"></span><br><span class="line"><span class="regexp">//</span> 交互运行</span><br><span class="line">docker run -it centos <span class="regexp">/bin/</span>bash</span><br><span class="line"><span class="regexp">/bin/</span>bash 是进入到linux中命令行</span><br><span class="line"><span class="regexp">//</span> 进入容器</span><br><span class="line">docker exec -it &lt;container id&gt; <span class="regexp">/bin/</span>bash</span><br><span class="line"><span class="regexp">//</span> 运行nginx镜像并将容器<span class="number">80</span>端口映射到本机<span class="number">8080</span>端口</span><br><span class="line">docker run -p <span class="number">8080</span>:<span class="number">80</span> -d nginx</span><br><span class="line"><span class="regexp">//</span> 容器拷贝到主机</span><br><span class="line">docker cp &lt;container id&gt;:文件路径 主机目标路径</span><br><span class="line"><span class="regexp">//</span> 主机拷贝到容器</span><br><span class="line">docker cp 主机文件路径 &lt;container id&gt;:文件路径</span><br></pre></td></tr></table></figure>
+
+<h3 id="win7-上文件以数据卷的形式挂载到-docker-容器中"><a href="#win7-上文件以数据卷的形式挂载到-docker-容器中" class="headerlink" title="win7 上文件以数据卷的形式挂载到 docker 容器中"></a>win7 上文件以数据卷的形式挂载到 docker 容器中</h3><p>1.先设置 win7 到 VirtualBox 中 docker 用的那个虚拟机的共享文件夹<br>　填写好共享文件夹路径和名称。如：共享文件夹路径：E:\ 共享文件夹名称: e<br>　然后勾选自动挂载和固定分配 2.重启 docker 3. docker run -it -v &#x2F;test:&#x2F;var&#x2F;www myimage &#x2F;bin&#x2F;bash</p>
+<h3 id="制作镜像"><a href="#制作镜像" class="headerlink" title="制作镜像"></a>制作镜像</h3><p>在上面的镜像容器中我们可以搭建自己所需要的各种环境，搭建好后可将这个更改后的容器打包成一个镜像，并上传到镜像仓库供大家使用<br>在搭建好环境的容器中退出时我们应当使用 ctrl+p+q 快捷键，而不是 exit 退出，因为这样直接退出会关闭当前容器<br>docker commit :从容器创建一个新的镜像。<br><code>docker commit -a &quot;username&quot; -m &quot;this is profile&quot; &lt;container id&gt; imageName</code><br>这里以阿里云为例，将镜像推送到 Registry</p>
+<figure class="highlight stylus"><table><tr><td class="code"><pre><span class="line">$ sudo docker login <span class="attr">--username</span>=jesse131 registry<span class="selector-class">.cn-shenzhen</span><span class="selector-class">.aliyuncs</span><span class="selector-class">.com</span></span><br><span class="line">$ sudo docker tag <span class="selector-attr">[ImageId]</span> registry<span class="selector-class">.cn-shenzhen</span><span class="selector-class">.aliyuncs</span>.com/mirror-study/study:<span class="selector-attr">[镜像版本号]</span></span><br><span class="line">$ sudo docker push registry<span class="selector-class">.cn-shenzhen</span><span class="selector-class">.aliyuncs</span>.com/mirror-study/study:<span class="selector-attr">[镜像版本号]</span></span><br></pre></td></tr></table></figure>
+
+<p>如果不想通过网络拉去镜像也可以通过 U 盘拷贝镜像</p>
+<h4 id="导出镜像到本地"><a href="#导出镜像到本地" class="headerlink" title="导出镜像到本地"></a>导出镜像到本地</h4><p><code>docker save &lt;container id&gt; -o d:/www/centos.tar</code></p>
+<h4 id="加载本地镜像"><a href="#加载本地镜像" class="headerlink" title="加载本地镜像"></a>加载本地镜像</h4><p><code>docker load -i d:/www/centos.tar</code></p>
+<h4 id="mac-上用命令行启动-docker"><a href="#mac-上用命令行启动-docker" class="headerlink" title="mac 上用命令行启动 docker"></a>mac 上用命令行启动 docker</h4><p><code>open -a docker</code></p>
+
+        
+            <div id="toc-article">
+                
+  <div class="widget-wrap" id="toc-wrap">
+    <h3 class="widget-title"><i class="fa fa-toc"></i> 文章目录</h3>
+    <div class="widget">
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#docker-%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="toc-text">docker 是什么？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E7%94%A8-docker"><span class="toc-text">为什么要用 docker?</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#docker-%E5%9C%A8-win7-%E4%B8%8A%E7%9A%84%E5%AE%89%E8%A3%85"><span class="toc-text">docker 在 win7 上的安装</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#docker-%E5%9C%A8-win7-%E4%B8%8A%E7%9A%84%E4%BC%98%E5%8C%96"><span class="toc-text">docker 在 win7 上的优化</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9B%B4%E6%94%B9%E9%95%9C%E5%83%8F%E4%BB%93%E5%BA%93%E5%9C%B0%E5%9D%80"><span class="toc-text">更改镜像仓库地址</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#docker-%E5%9C%A8-mac-%E4%B8%8A%E7%9A%84%E5%AE%89%E8%A3%85"><span class="toc-text">docker 在 mac 上的安装</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#docker-%E9%95%9C%E5%83%8F%E5%8A%A0%E9%80%9F"><span class="toc-text">docker 镜像加速</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#docker-%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4"><span class="toc-text">docker 基本命令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#win7-%E4%B8%8A%E6%96%87%E4%BB%B6%E4%BB%A5%E6%95%B0%E6%8D%AE%E5%8D%B7%E7%9A%84%E5%BD%A2%E5%BC%8F%E6%8C%82%E8%BD%BD%E5%88%B0-docker-%E5%AE%B9%E5%99%A8%E4%B8%AD"><span class="toc-text">win7 上文件以数据卷的形式挂载到 docker 容器中</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%B6%E4%BD%9C%E9%95%9C%E5%83%8F"><span class="toc-text">制作镜像</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AF%BC%E5%87%BA%E9%95%9C%E5%83%8F%E5%88%B0%E6%9C%AC%E5%9C%B0"><span class="toc-text">导出镜像到本地</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8A%A0%E8%BD%BD%E6%9C%AC%E5%9C%B0%E9%95%9C%E5%83%8F"><span class="toc-text">加载本地镜像</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#mac-%E4%B8%8A%E7%94%A8%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%90%AF%E5%8A%A8-docker"><span class="toc-text">mac 上用命令行启动 docker</span></a></li></ol></li></ol>
+    </div>
+  </div>
+
+
+            </div>
+        
+        
+          <blockquote id="copyright">
+              <p>原文链接: <a href="https://jesse121.github.io/articles/2019/01/21.html">https://jesse121.github.io/articles/2019/01/21.html</a></p>
+              <p>版权声明: 转载请注明出处.</p>
+          </blockquote>
+        
+      
+    </div>
+    <footer class="article-footer">
+      
+        <div class="article-tag-wrap">
+          
+
+          
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/docker/" rel="tag">Docker</a></li></ul>
+
+          
+
+
+        </div>
+      
+      
+        
+<nav id="article-nav">
+  
+    <a href="/blog/articles/2019/01/15.html" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">older</strong>
+      <div class="article-nav-title">
+        
+          《Node.js权威指南》--读书笔记
+        
+      </div>
+    </a>
+  
+  
+    <a href="/blog/articles/2019/04/21.html" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">newer</strong>
+      <div class="article-nav-title">
+        
+          Docker中Nginx服务器相关配置
+        
+      </div>
+    </a>
+  
+</nav>
+
+      
+      
+        
+  <div id="comments"></div>
+
+
+
+
+
+
+
+
+
+      
+    </footer>
+  </div>
+</article>
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-posts"></i> 最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/blog/articles/2021/06/11.html">如何用Vite快速搭建一个vue3项目</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2020/12/15.html">如何快速生成tsconfig.json文件</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2020/08/22.html">用Ssh连接docker容器</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2020/07/04.html">如何在Vscode上直接运行typescript?</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2020/06/13.html">Wireshark过滤器使用介绍</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2020/05/13.html">Webpack编译后的html中图片路径变为[object Module]的原因及解决办法</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2020/05/02.html">栈与队列</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2020/04/19.html">链表</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2020/04/19.html">算法的时间复杂度与空间复杂度分析</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2020/04/12.html">如何使用Wireshark抓取HTTP2报文？</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-tag"></i> 标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/blog/tags/angularjs/" style="font-size: 10px;">AngularJs</a> <a href="/blog/tags/apache/" style="font-size: 14px;">Apache</a> <a href="/blog/tags/bootstrap/" style="font-size: 14px;">Bootstrap</a> <a href="/blog/tags/css/" style="font-size: 18px;">CSS</a> <a href="/blog/tags/centos/" style="font-size: 10px;">CentOS</a> <a href="/blog/tags/docker/" style="font-size: 14px;">Docker</a> <a href="/blog/tags/git/" style="font-size: 12px;">Git</a> <a href="/blog/tags/gitlab/" style="font-size: 10px;">Gitlab</a> <a href="/blog/tags/gulp/" style="font-size: 10px;">Gulp</a> <a href="/blog/tags/html/" style="font-size: 14px;">HTML</a> <a href="/blog/tags/html5/" style="font-size: 10px;">HTML5</a> <a href="/blog/tags/http/" style="font-size: 14px;">HTTP</a> <a href="/blog/tags/https/" style="font-size: 10px;">HTTPS</a> <a href="/blog/tags/javascript/" style="font-size: 20px;">JavaScript</a> <a href="/blog/tags/jenkins/" style="font-size: 10px;">Jenkins</a> <a href="/blog/tags/linux/" style="font-size: 12px;">Linux</a> <a href="/blog/tags/mac/" style="font-size: 10px;">Mac</a> <a href="/blog/tags/mysql/" style="font-size: 14px;">MySQL</a> <a href="/blog/tags/nginx/" style="font-size: 12px;">Nginx</a> <a href="/blog/tags/node-js/" style="font-size: 12px;">Node.js</a> <a href="/blog/tags/php/" style="font-size: 16px;">PHP</a> <a href="/blog/tags/photoshop/" style="font-size: 10px;">Photoshop</a> <a href="/blog/tags/react/" style="font-size: 10px;">React</a> <a href="/blog/tags/redux/" style="font-size: 10px;">Redux</a> <a href="/blog/tags/sublimetext3/" style="font-size: 10px;">SublimeText3</a> <a href="/blog/tags/typescript/" style="font-size: 12px;">Typescript</a> <a href="/blog/tags/vagrant/" style="font-size: 10px;">Vagrant</a> <a href="/blog/tags/vim/" style="font-size: 10px;">Vim</a> <a href="/blog/tags/vue/" style="font-size: 10px;">Vue</a> <a href="/blog/tags/web/" style="font-size: 16px;">WEB</a> <a href="/blog/tags/webpack/" style="font-size: 14px;">Webpack</a> <a href="/blog/tags/wireshark/" style="font-size: 12px;">Wireshark</a> <a href="/blog/tags/yii/" style="font-size: 10px;">Yii</a> <a href="/blog/tags/jquery/" style="font-size: 14px;">jQuery</a> <a href="/blog/tags/monitor/" style="font-size: 10px;">monitor</a> <a href="/blog/tags/ssh/" style="font-size: 10px;">ssh</a> <a href="/blog/tags/vite/" style="font-size: 10px;">vite</a> <a href="/blog/tags/vscode/" style="font-size: 10px;">vscode</a> <a href="/blog/tags/vue/" style="font-size: 10px;">vue</a> <a href="/blog/tags/%E5%BC%80%E5%8F%91%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/" style="font-size: 10px;">开发问题记录</a> <a href="/blog/tags/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F/" style="font-size: 10px;">微信小程序</a> <a href="/blog/tags/%E7%AE%97%E6%B3%95/" style="font-size: 14px;">算法</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-classify"></i> 分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/blog/categories/bootstrap/">Bootstrap</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/html-css/">HTML-CSS</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/html5/">HTML5</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/javascript/">JavaScript</a><span class="category-list-count">11</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/linux/">Linux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/mysql/">MySQL</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/node-js/">Node.js</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/php/">PHP</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/photoshop/">Photoshop</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/typescript/">Typescript</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/vue/">Vue</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/web/">WEB</a><span class="category-list-count">8</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/jquery/">jQuery</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/translation/">前端翻译</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/">开发工具</a><span class="category-list-count">15</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/%E5%BC%80%E5%8F%91%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/">开发问题记录</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/%E7%AE%97%E6%B3%95/">算法</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/notes/">读书笔记</a><span class="category-list-count">16</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-archive"></i> 归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2021/">2021年</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2020/">2020年</a><span class="archive-list-count">12</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2019/">2019年</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/">2018年</a><span class="archive-list-count">12</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2017/">2017年</a><span class="archive-list-count">26</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/">2016年</a><span class="archive-list-count">27</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-link"></i> 友情链接</h3>
+    <div class="widget">
+      <ul>
+      
+        <li>
+          <a target="_blank" rel="noopener" href="http://www.mahaixiang.cn/internet/300.html">深入理解互联网协议的原理</a>
+        </li>
+      
+        <li>
+          <a target="_blank" rel="noopener" href="http://javascript.ruanyifeng.com/">JavaScript 标准参考教程</a>
+        </li>
+      
+        <li>
+          <a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript">Mozilla Developer Network</a>
+        </li>
+      
+      </ul>
+    </div>
+  </div>
+
+
+  
+</aside>
+        
+      </div>
+      <a id="totop" href="#top"></a>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      <p>
+        <a href="/blog/sitemap.xml">网站地图</a>
+        <span> | </span><a href="/blog/atom.xml">订阅本站</a>
+        <span> | </span><a href="/blog/about/">联系博主</a>
+      </p>
+      
+        <p>
+          <i class="fa fa-visitors"></i>
+          <i id="busuanzi_container_site_uv"><i id="busuanzi_value_site_uv"></i></i>
+          ，
+          <i class="fa fa-views"></i>
+          <i id="busuanzi_container_site_pv"><i id="busuanzi_value_site_pv"></i></i>
+        </p>
+      
+      <p>
+        <span>Copyright &copy; 2022 Jesse.</span>
+        <span>Theme by <a href="https://github.com/chaooo/hexo-theme-BlueLake/" target="_blank">BlueLake.</a></span>
+        <span>Powered by <a href="https://hexo.io/" target="_blank">Hexo.</a></span>
+      </p>
+    </div>
+  </div>
+</footer>
+
+    </div>
+  </div>
+  
+<script src="/blog/js/jquery-3.4.1.min.js"></script>
+
+
+<script src="/blog/js/search.json.js"></script>
+
+
+  
+<script src="/blog/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/blog/js/script.js"></script>
+
+
+
+
+
+
+  
+<script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+  
+  
+
+
+  
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+ 
+<script src="//cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.js"></script>
+
+<script>
+  var gitalk = new Gitalk({
+    clientID: "1d84813ae13cd94072f0",
+    clientSecret: "4a4dd2af0c622e983dd90f5daf15c3ebd86b8ae9",
+    repo: "blog",
+    owner: "jesse121",
+    admin: ["jesse121"],
+    id: md5(window.location.pathname),
+    proxy: "https://gitalk-worker.jesse121.workers.dev/https://github.com/login/oauth/access_token,",
+    distractionFreeMode: false,
+    language: "zh-CN",
+    pagerDirection: "last",
+  });
+  gitalk.render("comments");
+</script>
+         
+
+
+
+</body>
+</html>

@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>【译】编写整洁 CSS 代码的黄金法则 | 前端之路</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  
+    <meta name="description" content="专注前端开发，前端开发技术博客">
+  
+  
+    <meta name="keywords" content="Web前端开发，Javascript，前端开发博客">
+  
+  
+    <link rel="alternate" href="/blog/atom.xml" title="前端之路" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/blog/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/blog/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/blog/fancybox/jquery.fancybox.min.css">
+
+  
+  
+  
+    
+<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+
+  
+  
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/blog/" id="logo">前端之路</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/blog/" id="subtitle">路漫漫其修远兮，吾将上下而求索</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        
+          <a class="main-nav-link" href="/blog/."><i class="fa fa-home"></i> 首页</a>
+        
+          <a class="main-nav-link" href="/blog/archives/"><i class="fa fa-archive"></i> 归档</a>
+        
+          <a class="main-nav-link" href="/blog/about/"><i class="fa fa-user"></i> 关于</a>
+        
+      </nav>
+    </div>
+    <div id="search-form">
+      <div id="result-mask" class="hide"></div>
+      <label><input id="search-key" type="text" autocomplete="off" placeholder="搜索"></label>
+      <div id="result-wrap" class="hide">
+        <div id="search-result"></div>
+      </div>
+      <div class="hide">
+        <template id="search-tpl">
+          <div class="item">
+            <a href="/{path}" title="{title}">
+              <div class="title">{title}</div>
+              <div class="time">{date}</div>
+              <div class="tags">{tags}</div>
+            </a>
+          </div>
+        </template>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-translation/【译】编写整洁 CSS 代码的黄金法则" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      【译】编写整洁 CSS 代码的黄金法则
+    </h1>
+  
+
+
+      </header>
+    
+    <div class="article-meta">
+      
+      <span class="article-date">
+  <i class="fa fa-date"></i>
+  <time class="dt-published" datetime="2017-05-03T16:00:00.000Z" itemprop="datePublished">2017年05月04日</time>
+</span>
+      
+  <div class="article-category">
+    <i class="fa fa-classify"></i>
+    <a class="article-category-link" href="/blog/categories/translation/">前端翻译</a>
+  </div>
+
+      
+        <span class="article-views">
+  <i class="fa fa-views"></i>
+  <i id="busuanzi_container_page_pv">
+      <i id="busuanzi_value_page_pv"></i>
+  </i>
+</span>
+
+      
+      
+<a href="/blog/articles/2017/05/04.html#comments" class="article-comment-link">
+  
+    
+    
+    
+    
+    
+  
+  <i class="fa fa-commt"></i>
+  留言
+</a>
+
+
+    </div>
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>要编写整洁的 CSS 代码，你必须准守以下规则，它将有助于你写出轻量的可复用的 CSS 代码：</p>
+<ul>
+<li>避免使用全局选择器和元素选择器</li>
+<li>避免使用权重过高的选择器</li>
+<li>使用语义化类名</li>
+<li>避免 CSS 和标签结构的紧耦合</li>
+</ul>
+<p>本文将依次阐述上述规则。</p>
+<span id="more"></span>
+
+<h3 id="避免使用全局选择器"><a href="#避免使用全局选择器" class="headerlink" title="避免使用全局选择器"></a>避免使用全局选择器</h3><p>全局选择器包括通配选择器（*）、元素选择器（例如 p、button、h1 等）和属性选择器（例如[type&#x3D;checkbox]），这些选择器的样式声明会被应用到全站所有符合要求的元素上，例如：</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">button</span> &#123;</span><br><span class="line">  <span class="attribute">background</span>: <span class="number">#ffc107</span>;</span><br><span class="line">  <span class="attribute">border</span>: <span class="number">1px</span> outset <span class="number">#ff9800</span>;</span><br><span class="line">  <span class="attribute">display</span>: block;</span><br><span class="line">  <span class="attribute">font</span>: bold <span class="number">16px</span> / <span class="number">1.5</span> sans-serif;</span><br><span class="line">  <span class="attribute">margin</span>: <span class="number">1rem</span> auto;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">50%</span>;</span><br><span class="line">  <span class="attribute">padding</span>: <span class="number">0.5rem</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这段代码看起来没什么问题，但是倘若我们需要新建一个样式不同的 button 元素选择器呢？我们需要定义一个类名为 close 的 button 元素用于关闭对话框组件：</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">section</span> <span class="attr">class</span>=<span class="string">&quot;dialog&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">&quot;button&quot;</span> <span class="attr">class</span>=<span class="string">&quot;close&quot;</span>&gt;</span>Close<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">section</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>PS:</strong> 为什么不使用 dialog 元素？<br>我们这里使用 section 元素而不使用 dialog 元素是因为只有基于 Blink 内核的浏览器才支持 dialog 元素， 例如 Chrome&#x2F;Chromium、Opera、和 Yandex 等。</p>
+<p>现在，需要编写 CSS 代码来覆盖那些不需要继承于 button 元素选择器的属性：</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.close</span> &#123;</span><br><span class="line">  <span class="attribute">background</span>: <span class="number">#e00</span>;</span><br><span class="line">  <span class="attribute">border</span>: <span class="number">2px</span> solid <span class="number">#fff</span>;</span><br><span class="line">  <span class="attribute">color</span>: <span class="number">#fff</span>;</span><br><span class="line">  <span class="attribute">display</span>: inline-block;</span><br><span class="line">  <span class="attribute">margin</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">font-size</span>: <span class="number">12px</span>;</span><br><span class="line">  <span class="attribute">font-weight</span>: normal;</span><br><span class="line">  <span class="attribute">line-height</span>: <span class="number">1</span>;</span><br><span class="line">  <span class="attribute">padding</span>: <span class="number">5px</span>;</span><br><span class="line">  <span class="attribute">border-radius</span>: <span class="number">100px</span>;</span><br><span class="line">  <span class="attribute">width</span>: auto;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>我们仍然需要许多类似的样式来覆盖浏览器的默认样式。但如果我们将 button 元素选择器的样式用一个 default 类选择器来替换会如何呢？结果发现 close 类中不需要指定 display、font-weight、 line-height、margin、 padding 和 width 等属性，这便减少了 23% 的代码量：</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.default</span> &#123;</span><br><span class="line">  <span class="attribute">background</span>: <span class="number">#ffc107</span>;</span><br><span class="line">  <span class="attribute">border</span>: <span class="number">1px</span> outset <span class="number">#ff9800</span>;</span><br><span class="line">  <span class="attribute">display</span>: block;</span><br><span class="line">  <span class="attribute">font</span>: bold <span class="number">16px</span> / <span class="number">1.5</span> sans-serif;</span><br><span class="line">  <span class="attribute">margin</span>: <span class="number">1rem</span> auto;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">50%</span>;</span><br><span class="line">  <span class="attribute">padding</span>: <span class="number">0.5rem</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.close</span> &#123;</span><br><span class="line">  <span class="attribute">background</span>: <span class="number">#e00</span>;</span><br><span class="line">  <span class="attribute">border</span>: <span class="number">2px</span> solid <span class="number">#fff</span>;</span><br><span class="line">  <span class="attribute">color</span>: <span class="number">#fff</span>;</span><br><span class="line">  <span class="attribute">font-size</span>: <span class="number">12px</span>;</span><br><span class="line">  <span class="attribute">padding</span>: <span class="number">5px</span>;</span><br><span class="line">  <span class="attribute">border-radius</span>: <span class="number">100px</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>还有一点非常重要：避免使用全局选择器将有助于减少样式冲突，即在某个模块或页面的开发中添加样式不会对其他模块或页面造成影响</p>
+<p>全局样式和选择器非常适合用于重置和统一浏览器默认样式，在其他情况下，它们只会造成代码臃肿。</p>
+<h3 id="避免使用权重过高的选择器"><a href="#避免使用权重过高的选择器" class="headerlink" title="避免使用权重过高的选择器"></a>避免使用权重过高的选择器</h3><p>保持选择器的低权重是编写轻量级、可复用和可维护的 CSS 代码的又一关键所在。正如你所回忆起的权重，一个元素选择器的权重是 0,0,1，而类选择器的权重则是 0,1,0：</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="comment">/* Specificity of 0,0,1 */</span></span><br><span class="line"><span class="selector-tag">p</span> &#123;</span><br><span class="line">  <span class="attribute">color</span>: <span class="number">#222</span>;</span><br><span class="line">  <span class="attribute">font-size</span>: <span class="number">12px</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/* Specificity of 0,1,0 */</span></span><br><span class="line"><span class="selector-class">.error</span> &#123;</span><br><span class="line">  <span class="attribute">color</span>: <span class="number">#a00</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>当你为一个元素添加类名后，这个元素选择器的的优先级将高于一般元素选择器。这里没有必要将类选择器和属性选择器组合在一起来提升优先级，这样做只会增加选择器的权重和文件的大小。</p>
+<p>换句话说，没有必要使用 p.error 这样的选择器，因为仅仅一个 .error 就能达到同样的效果，此外还有一个好处是 .error 还可以被其他元素所复用，而 p.error 选择器则会将 .error 这个类限制于 p 元素上。</p>
+<h3 id="避免链式类选择器"><a href="#避免链式类选择器" class="headerlink" title="避免链式类选择器"></a>避免链式类选择器</h3><p>同时还需要避免链式类选择器。比如：.message.warning 这样的选择器的权重为 0,2,0。权重越高意味着越难进行样式覆盖，增长连接都会导致这种副作用，举例如下：</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.message</span> &#123;</span><br><span class="line">  <span class="attribute">background</span>: <span class="number">#eee</span>;</span><br><span class="line">  <span class="attribute">border</span>: <span class="number">2px</span> solid <span class="number">#333</span>;</span><br><span class="line">  <span class="attribute">border-radius</span>: <span class="number">1em</span>;</span><br><span class="line">  <span class="attribute">padding</span>: <span class="number">1em</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.message</span><span class="selector-class">.error</span> &#123;</span><br><span class="line">  <span class="attribute">background</span>: <span class="number">#f30</span>;</span><br><span class="line">  <span class="attribute">color</span>: <span class="number">#fff</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.error</span> &#123;</span><br><span class="line">  <span class="attribute">background</span>: <span class="number">#ff0</span>;</span><br><span class="line">  <span class="attribute">border-color</span>: <span class="number">#fc0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>如图所示，在上述 CSS 作用下<code>&lt;p class=&quot;message&quot;&gt;</code>会呈现一个带有深灰色边框和灰色背景的盒子。</p>
+<p style="background: #eee;border: 2px solid #333;border-radius: 1em;padding: 1em;">A message</p>
+而`<p class="message error">`会呈现 .message.error 类的背景和 .error 类的边框：
+<p style="background: #f30;border: 2px solid #333;border-radius: 1em;padding: 1em;border-color: #fc0;">A error occured</p>
+要想覆盖链式类选择器的样式，只能使用权重更高的选择器。为了消除黄色的边框，需要在已有选择器上再加一个类名或一个标签选择器：`.message.warning.exception` 或 `div.message.warning`，更好的做法是创建一个新类。如果你发现你正在使用链式类选择器，那就该回过头重新考虑了。要么是设计上存在不合理的地方，要么就是过早的使用链式类从而想避免那些尚不存在的问题。解决这些问题将会带来更高的可维护性和可复用性。
+
+<h3 id="避免使用-id-选择器"><a href="#避免使用-id-选择器" class="headerlink" title="避免使用 id 选择器"></a>避免使用 id 选择器</h3><p>因为在一篇文档中每个 id 只能对应一个元素，所以 id 选择器的 CSS 规则是很难复用的。这样做一般都会涉及到一系列的 id 选择器，例如<code>#sidebar-features</code>和<code>#sidebar-sports</code>。</p>
+<p>id 标识符是具有很高的权重的，要想覆盖它就必须使用更“长”的选择器。例如下面这段 CSS 代码，为了覆盖 <code>#sidebar</code> 的背景颜色属性，必须使用 <code>#sidebar.sports</code> 和 <code>#sidebar.local</code>：</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-id">#sidebar</span> &#123;</span><br><span class="line">  <span class="attribute">float</span>: right;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">25%</span>;</span><br><span class="line">  <span class="attribute">background</span>: <span class="number">#eee</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-id">#sidebar</span><span class="selector-class">.sports</span> &#123;</span><br><span class="line">  <span class="attribute">background</span>: <span class="number">#d5e3ff</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-id">#sidebar</span><span class="selector-class">.local</span> &#123;</span><br><span class="line">  <span class="attribute">background</span>: <span class="number">#ffcccc</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>改用类选择器，例如 <code>.sidebar</code>，就可以简化我们的 CSS 选择器：</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.sidebar</span> &#123;</span><br><span class="line">  <span class="attribute">float</span>: right;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">25%</span>;</span><br><span class="line">  <span class="attribute">background</span>: <span class="number">#eee</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.sports</span> &#123;</span><br><span class="line">  <span class="attribute">background</span>: <span class="number">#d5e3ff</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.local</span> &#123;</span><br><span class="line">  <span class="attribute">background</span>: <span class="number">#ffcccc</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这不仅能减少字节，而且<code>.sport</code>和<code>.local</code>类还能添加到其他元素上。</p>
+<p>使用属性选择器例如<code>[id=sidebar]</code>可以解决 id 选择器高权重的问题，尽管其复用性不如类选择器，但其低权重可以让我们避免使用链式类选择器。</p>
+<p><strong>PS</strong> id 选择器的高权重也确有用武之地<br>在某些情况下，你可能确实需要 id 选择器的高权重性。例如，一些网络上的媒体站点可能需要其所有子站都使用同样的导航条组件，该组件必须在所有站点都表现一致并且其样式是难以被覆盖的。此时，使用 id 选择器就可以减少导航条样式被意外覆盖的情况。</p>
+<p>最后，让我们再来讨论一下形如 <code>#main article.sports table#stats tr:nth-child(even) td:last-child</code> 这样的选择器。不仅它长的离谱，而且其权重为 2,3,4，也很难复用。在你的 HTML 标记文档中又有多少标签真能匹配这一选择器呢？我们稍作修改，可以将选择器拆分为<code>#stats tr:nth-child(even) td:last-child</code>，其权重也足够满足需求了。当然最好的办法是使用类选择器，这样既能提高复用性又能减少代码量。</p>
+<p><strong>PS</strong>：预处理器嵌套综合症<br>权重过高的选择器大多是由预处理器中过多的嵌套造成的</p>
+<h3 id="使用语义化类名"><a href="#使用语义化类名" class="headerlink" title="使用语义化类名"></a>使用语义化类名</h3><p>所谓的语义化，是指要有意义，类名应该表明这是什么规则或者这些规则影响到那些内容。此外类名也要能够适应 UI 需求的变化。命名看似简单，实则不然。</p>
+<p>不要使用<code>.red-text</code>、<code>.blue-button</code>、<code> .border-4px</code> 和 <code>.margin10px</code> 这样的类名，因为这些类名和当前的设计耦合的太紧密。用<code>class=&quot;red-text&quot;</code>来标记一个错误的信息，看似可行，但如果设计稿发生了变化并要求将错误信息用橙底黑字表示呢？这时原有类名就不准确了，使得你和你的同事更难以理解代码的真正含义。</p>
+<p>在这种情况下，比较好的做法是用<code>.alert</code>, <code>.error</code>, 或者 <code>.message-error</code>等类名。这些类名指明了这些类如何使用以及他们会影响到哪些内容。对于定义页面布局的类名，不妨加上 <code>layout-</code>、 <code>grid-</code>、<code>col-</code>或 <code>l-</code> 等前缀，使人一眼可以看出它们的作用。之后关于 BEM 方法论的章节会详细阐述了这一过程。</p>
+<h3 id="避免-CSS-和标签结构的紧耦合"><a href="#避免-CSS-和标签结构的紧耦合" class="headerlink" title="避免 CSS 和标签结构的紧耦合"></a>避免 CSS 和标签结构的紧耦合</h3><p>你可能在代码中使用过子元素选择器和后代选择器。子元素选择器形如<code> E &gt; F</code>，其中 F 是某个元素，而 E 是 F 的直接父元素。例如，<code>article &gt; h1</code> 会影响 <code>&lt;article&gt;&lt;h1&gt;Advanced CSS&lt;/h1&gt;&lt;/article&gt;</code> 中的 h1 元素，但不会影响 <code>&lt;article&gt;&lt;section&gt;&lt;h1&gt;Advanced CSS&lt;/h1&gt;&lt;/section&gt;&lt;/article&gt;</code> 中的 h1 元素。另一方面，后代选择器形如<code> E F</code>，其中 F 是某个元素而 E 是 F 的祖先元素。还用上述例子，则那两种标签结构中的 h1 元素都会受到 <code>article h1 </code>的影响。</p>
+<p>不是说子元素选择器和后代元素选择器的继承性不好，实际上它们在限制 CSS 规则的作用域方面确实发挥着很好的作用。但它们也绝非理想之选，因为标签结构经常会发生改变。</p>
+<p>你可能会有以下经历，你为某个客户编写了一些模版，并且在 CSS 代码中用到了子元素选择器和后代选择器，并且大多数都是元素选择器，即形如 <code>.promo &gt; h2</code> 和 <code>.media h3</code> 这样的选择器；后来你的客户又聘请了一位 SEO 技术顾问，他检查了你代码中的标签结构并建议你将 h2 和 h3 分别改为 h1 和 h2，这时候问题来了 —— 你必须同时修改 CSS 代码。</p>
+<p>这个时候类选择器再一次表现出其优点。使用 <code>.promo &gt; .headline </code>或 <code>.media .title </code>（或者更简单一些： <code>.promo-headline</code> 和 <code>.media-title</code>）使得在改变标签结构的时候无需改变 CSS 代码。</p>
+<p>当然，这条规则假设你对标签结构有足够的控制权，当在面对一些遗留的 CMS 系统的时候这些可能是不正确的，在这种情况下使用子元素选择器、后代选择器和伪类选择器是适当的同时也是必要的。</p>
+<p><strong>PS：</strong>更多架构合理的 CSS 规则<br>Philip Walton 在其 “<a target="_blank" rel="noopener" href="https://philipwalton.com/articles/css-architecture/">CSS 架构</a>”一文中讨论了相关规则，有关 CSS 架构的更多想法参见 Roberts 的网站 <a target="_blank" rel="noopener" href="http://cssguidelin.es/">CSS 原则</a> 以及 Nicolas Gallagher 的博客文章 <a target="_blank" rel="noopener" href="http://nicolasgallagher.com/about-html-semantics-front-end-architecture/">HTML 语义化及前端架构</a>。</p>
+<p>接下来将会探讨有关 CSS 架构的两种方法，这两种方法主要用于提升大规模团队和大规模站点的开发效率，但对于小团队来说其实也是十分适用的。</p>
+<hr>
+<blockquote>
+<p>译文链接：<a target="_blank" rel="noopener" href="http://www.jesse131.cn/blog/articles/translation/golden-guidelines-for-writing-clean-css.html">编写整洁 CSS 代码的黄金法则</a><br>原文链接：<a target="_blank" rel="noopener" href="https://www.sitepoint.com/golden-guidelines-for-writing-clean-css/">Golden Guidelines for Writing Clean CSS</a><br>翻译作者：<a target="_blank" rel="noopener" href="http://www.jesse131.cn/blog/about/">Jesse</a><br>转载必须保留译文链接、原文链接、翻译作者等信息。</p>
+</blockquote>
+
+        
+            <div id="toc-article">
+                
+  <div class="widget-wrap" id="toc-wrap">
+    <h3 class="widget-title"><i class="fa fa-toc"></i> 文章目录</h3>
+    <div class="widget">
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%81%BF%E5%85%8D%E4%BD%BF%E7%94%A8%E5%85%A8%E5%B1%80%E9%80%89%E6%8B%A9%E5%99%A8"><span class="toc-text">避免使用全局选择器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%81%BF%E5%85%8D%E4%BD%BF%E7%94%A8%E6%9D%83%E9%87%8D%E8%BF%87%E9%AB%98%E7%9A%84%E9%80%89%E6%8B%A9%E5%99%A8"><span class="toc-text">避免使用权重过高的选择器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%81%BF%E5%85%8D%E9%93%BE%E5%BC%8F%E7%B1%BB%E9%80%89%E6%8B%A9%E5%99%A8"><span class="toc-text">避免链式类选择器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%81%BF%E5%85%8D%E4%BD%BF%E7%94%A8-id-%E9%80%89%E6%8B%A9%E5%99%A8"><span class="toc-text">避免使用 id 选择器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E8%AF%AD%E4%B9%89%E5%8C%96%E7%B1%BB%E5%90%8D"><span class="toc-text">使用语义化类名</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%81%BF%E5%85%8D-CSS-%E5%92%8C%E6%A0%87%E7%AD%BE%E7%BB%93%E6%9E%84%E7%9A%84%E7%B4%A7%E8%80%A6%E5%90%88"><span class="toc-text">避免 CSS 和标签结构的紧耦合</span></a></li></ol>
+    </div>
+  </div>
+
+
+            </div>
+        
+        
+          <blockquote id="copyright">
+              <p>原文链接: <a href="https://jesse121.github.io/articles/2017/05/04.html">https://jesse121.github.io/articles/2017/05/04.html</a></p>
+              <p>版权声明: 转载请注明出处.</p>
+          </blockquote>
+        
+      
+    </div>
+    <footer class="article-footer">
+      
+        <div class="article-tag-wrap">
+          
+
+          
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/css/" rel="tag">CSS</a></li></ul>
+
+          
+
+
+        </div>
+      
+      
+        
+<nav id="article-nav">
+  
+    <a href="/blog/articles/2017/05/03.html" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">older</strong>
+      <div class="article-nav-title">
+        
+          前端开发工作中常用的JavaScript片段
+        
+      </div>
+    </a>
+  
+  
+    <a href="/blog/articles/2017/05/20.html" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">newer</strong>
+      <div class="article-nav-title">
+        
+          CSS页面布局常见问题总结
+        
+      </div>
+    </a>
+  
+</nav>
+
+      
+      
+        
+  <div id="comments"></div>
+
+
+
+
+
+
+
+
+
+      
+    </footer>
+  </div>
+</article>
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-posts"></i> 最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/blog/articles/2021/06/11.html">如何用Vite快速搭建一个vue3项目</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2020/12/15.html">如何快速生成tsconfig.json文件</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2020/08/22.html">用Ssh连接docker容器</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2020/07/04.html">如何在Vscode上直接运行typescript?</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2020/06/13.html">Wireshark过滤器使用介绍</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2020/05/13.html">Webpack编译后的html中图片路径变为[object Module]的原因及解决办法</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2020/05/02.html">栈与队列</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2020/04/19.html">链表</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2020/04/19.html">算法的时间复杂度与空间复杂度分析</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2020/04/12.html">如何使用Wireshark抓取HTTP2报文？</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-tag"></i> 标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/blog/tags/angularjs/" style="font-size: 10px;">AngularJs</a> <a href="/blog/tags/apache/" style="font-size: 14px;">Apache</a> <a href="/blog/tags/bootstrap/" style="font-size: 14px;">Bootstrap</a> <a href="/blog/tags/css/" style="font-size: 18px;">CSS</a> <a href="/blog/tags/centos/" style="font-size: 10px;">CentOS</a> <a href="/blog/tags/docker/" style="font-size: 14px;">Docker</a> <a href="/blog/tags/git/" style="font-size: 12px;">Git</a> <a href="/blog/tags/gitlab/" style="font-size: 10px;">Gitlab</a> <a href="/blog/tags/gulp/" style="font-size: 10px;">Gulp</a> <a href="/blog/tags/html/" style="font-size: 14px;">HTML</a> <a href="/blog/tags/html5/" style="font-size: 10px;">HTML5</a> <a href="/blog/tags/http/" style="font-size: 14px;">HTTP</a> <a href="/blog/tags/https/" style="font-size: 10px;">HTTPS</a> <a href="/blog/tags/javascript/" style="font-size: 20px;">JavaScript</a> <a href="/blog/tags/jenkins/" style="font-size: 10px;">Jenkins</a> <a href="/blog/tags/linux/" style="font-size: 12px;">Linux</a> <a href="/blog/tags/mac/" style="font-size: 10px;">Mac</a> <a href="/blog/tags/mysql/" style="font-size: 14px;">MySQL</a> <a href="/blog/tags/nginx/" style="font-size: 12px;">Nginx</a> <a href="/blog/tags/node-js/" style="font-size: 12px;">Node.js</a> <a href="/blog/tags/php/" style="font-size: 16px;">PHP</a> <a href="/blog/tags/photoshop/" style="font-size: 10px;">Photoshop</a> <a href="/blog/tags/react/" style="font-size: 10px;">React</a> <a href="/blog/tags/redux/" style="font-size: 10px;">Redux</a> <a href="/blog/tags/sublimetext3/" style="font-size: 10px;">SublimeText3</a> <a href="/blog/tags/typescript/" style="font-size: 12px;">Typescript</a> <a href="/blog/tags/vagrant/" style="font-size: 10px;">Vagrant</a> <a href="/blog/tags/vim/" style="font-size: 10px;">Vim</a> <a href="/blog/tags/vue/" style="font-size: 10px;">Vue</a> <a href="/blog/tags/web/" style="font-size: 16px;">WEB</a> <a href="/blog/tags/webpack/" style="font-size: 14px;">Webpack</a> <a href="/blog/tags/wireshark/" style="font-size: 12px;">Wireshark</a> <a href="/blog/tags/yii/" style="font-size: 10px;">Yii</a> <a href="/blog/tags/jquery/" style="font-size: 14px;">jQuery</a> <a href="/blog/tags/monitor/" style="font-size: 10px;">monitor</a> <a href="/blog/tags/ssh/" style="font-size: 10px;">ssh</a> <a href="/blog/tags/vite/" style="font-size: 10px;">vite</a> <a href="/blog/tags/vscode/" style="font-size: 10px;">vscode</a> <a href="/blog/tags/vue/" style="font-size: 10px;">vue</a> <a href="/blog/tags/%E5%BC%80%E5%8F%91%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/" style="font-size: 10px;">开发问题记录</a> <a href="/blog/tags/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F/" style="font-size: 10px;">微信小程序</a> <a href="/blog/tags/%E7%AE%97%E6%B3%95/" style="font-size: 14px;">算法</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-classify"></i> 分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/blog/categories/bootstrap/">Bootstrap</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/html-css/">HTML-CSS</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/html5/">HTML5</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/javascript/">JavaScript</a><span class="category-list-count">11</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/linux/">Linux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/mysql/">MySQL</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/node-js/">Node.js</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/php/">PHP</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/photoshop/">Photoshop</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/typescript/">Typescript</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/vue/">Vue</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/web/">WEB</a><span class="category-list-count">8</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/jquery/">jQuery</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/translation/">前端翻译</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/">开发工具</a><span class="category-list-count">15</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/%E5%BC%80%E5%8F%91%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/">开发问题记录</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/%E7%AE%97%E6%B3%95/">算法</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/notes/">读书笔记</a><span class="category-list-count">16</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-archive"></i> 归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2021/">2021年</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2020/">2020年</a><span class="archive-list-count">12</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2019/">2019年</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/">2018年</a><span class="archive-list-count">12</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2017/">2017年</a><span class="archive-list-count">26</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/">2016年</a><span class="archive-list-count">27</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-link"></i> 友情链接</h3>
+    <div class="widget">
+      <ul>
+      
+        <li>
+          <a target="_blank" rel="noopener" href="http://www.mahaixiang.cn/internet/300.html">深入理解互联网协议的原理</a>
+        </li>
+      
+        <li>
+          <a target="_blank" rel="noopener" href="http://javascript.ruanyifeng.com/">JavaScript 标准参考教程</a>
+        </li>
+      
+        <li>
+          <a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript">Mozilla Developer Network</a>
+        </li>
+      
+      </ul>
+    </div>
+  </div>
+
+
+  
+</aside>
+        
+      </div>
+      <a id="totop" href="#top"></a>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      <p>
+        <a href="/blog/sitemap.xml">网站地图</a>
+        <span> | </span><a href="/blog/atom.xml">订阅本站</a>
+        <span> | </span><a href="/blog/about/">联系博主</a>
+      </p>
+      
+        <p>
+          <i class="fa fa-visitors"></i>
+          <i id="busuanzi_container_site_uv"><i id="busuanzi_value_site_uv"></i></i>
+          ，
+          <i class="fa fa-views"></i>
+          <i id="busuanzi_container_site_pv"><i id="busuanzi_value_site_pv"></i></i>
+        </p>
+      
+      <p>
+        <span>Copyright &copy; 2022 Jesse.</span>
+        <span>Theme by <a href="https://github.com/chaooo/hexo-theme-BlueLake/" target="_blank">BlueLake.</a></span>
+        <span>Powered by <a href="https://hexo.io/" target="_blank">Hexo.</a></span>
+      </p>
+    </div>
+  </div>
+</footer>
+
+    </div>
+  </div>
+  
+<script src="/blog/js/jquery-3.4.1.min.js"></script>
+
+
+<script src="/blog/js/search.json.js"></script>
+
+
+  
+<script src="/blog/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/blog/js/script.js"></script>
+
+
+
+
+
+
+  
+<script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+  
+  
+
+
+  
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+ 
+<script src="//cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.js"></script>
+
+<script>
+  var gitalk = new Gitalk({
+    clientID: "1d84813ae13cd94072f0",
+    clientSecret: "4a4dd2af0c622e983dd90f5daf15c3ebd86b8ae9",
+    repo: "blog",
+    owner: "jesse121",
+    admin: ["jesse121"],
+    id: md5(window.location.pathname),
+    proxy: "https://gitalk-worker.jesse121.workers.dev/https://github.com/login/oauth/access_token,",
+    distractionFreeMode: false,
+    language: "zh-CN",
+    pagerDirection: "last",
+  });
+  gitalk.render("comments");
+</script>
+         
+
+
+
+</body>
+</html>

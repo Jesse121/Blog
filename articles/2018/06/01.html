@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>我是这样理解HTTP和HTTPS区别的 | 前端之路</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  
+    <meta name="description" content="专注前端开发，前端开发技术博客">
+  
+  
+    <meta name="keywords" content="Web前端开发，Javascript，前端开发博客">
+  
+  
+    <link rel="alternate" href="/blog/atom.xml" title="前端之路" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/blog/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/blog/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/blog/fancybox/jquery.fancybox.min.css">
+
+  
+  
+  
+    
+<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+
+  
+  
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/blog/" id="logo">前端之路</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/blog/" id="subtitle">路漫漫其修远兮，吾将上下而求索</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        
+          <a class="main-nav-link" href="/blog/."><i class="fa fa-home"></i> 首页</a>
+        
+          <a class="main-nav-link" href="/blog/archives/"><i class="fa fa-archive"></i> 归档</a>
+        
+          <a class="main-nav-link" href="/blog/about/"><i class="fa fa-user"></i> 关于</a>
+        
+      </nav>
+    </div>
+    <div id="search-form">
+      <div id="result-mask" class="hide"></div>
+      <label><input id="search-key" type="text" autocomplete="off" placeholder="搜索"></label>
+      <div id="result-wrap" class="hide">
+        <div id="search-result"></div>
+      </div>
+      <div class="hide">
+        <template id="search-tpl">
+          <div class="item">
+            <a href="/{path}" title="{title}">
+              <div class="title">{title}</div>
+              <div class="time">{date}</div>
+              <div class="tags">{tags}</div>
+            </a>
+          </div>
+        </template>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-web/我是这样理解HTTP和HTTPS区别的" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      我是这样理解HTTP和HTTPS区别的
+    </h1>
+  
+
+
+      </header>
+    
+    <div class="article-meta">
+      
+      <span class="article-date">
+  <i class="fa fa-date"></i>
+  <time class="dt-published" datetime="2018-06-01T00:08:12.000Z" itemprop="datePublished">2018年06月01日</time>
+</span>
+      
+  <div class="article-category">
+    <i class="fa fa-classify"></i>
+    <a class="article-category-link" href="/blog/categories/web/">WEB</a>
+  </div>
+
+      
+        <span class="article-views">
+  <i class="fa fa-views"></i>
+  <i id="busuanzi_container_page_pv">
+      <i id="busuanzi_value_page_pv"></i>
+  </i>
+</span>
+
+      
+      
+<a href="/blog/articles/2018/06/01.html#comments" class="article-comment-link">
+  
+    
+    
+    
+    
+    
+  
+  <i class="fa fa-commt"></i>
+  留言
+</a>
+
+
+    </div>
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h3 id="为何要用-https"><a href="#为何要用-https" class="headerlink" title="为何要用 https?"></a>为何要用 https?</h3><h4 id="http-协议的缺点"><a href="#http-协议的缺点" class="headerlink" title="http 协议的缺点"></a>http 协议的缺点</h4><ul>
+<li>通信使用明文，内容可能被窃听(重要密码泄露)</li>
+<li>不验证通信方身份，有可能遭遇伪装(跨站点请求伪造)</li>
+<li>无法证明报文的完整性，有可能已遭篡改(运营商劫持)</li>
+</ul>
+<span id="more"></span>
+
+<h4 id="用-https-能解决这些问题么？"><a href="#用-https-能解决这些问题么？" class="headerlink" title="用 https 能解决这些问题么？"></a>用 https 能解决这些问题么？</h4><p>https 是在 http 协议基础上加入加密处理和认证机制以及完整性保护，即 http+加密+认证+完整性保护&#x3D;https<br>https 并非应用层的一种新协议，只是 http 通信接口部分用 ssl&#x2F;tls 协议代替而已。通常 http 直接和 tcp 通信，当使用 ssl 时则演变成先和 ssl 通信，再由 ssl 和 tcp 通信。<br>所谓 https，其实就是身披 ssl 协议这层外壳的 http<br><img src="/blog/blog/static/images/https/1.png"></p>
+<h3 id="SSL-x2F-TLS-是什么？"><a href="#SSL-x2F-TLS-是什么？" class="headerlink" title="SSL&#x2F;TLS 是什么？"></a>SSL&#x2F;TLS 是什么？</h3><p>SSL 是“Secure Sockets Layer”的缩写，中文叫做“安全套接层”。它是在上世纪 90 年代中期，由网景公司设计的。<br>为啥要发明 SSL 这个协议？因为原先互联网上使用的 HTTP 协议是明文的，存在很多缺点——比如传输内容会被偷窥（嗅探）和篡改。发明 SSL 协议，就是为了解决这些问题。<br>到了 1999 年，SSL 因为应用广泛，已经成为互联网上的事实标准。IETF 就在那年把 SSL 标准化。标准化之后的名称改为 TLS（是“Transport Layer Security”的缩写），中文叫做“传输层安全协议”。<br>所以这两者其实就是同一种协议，只不过是在不同阶段的不同称呼。</p>
+<p>SSL 协议位于 TCP&#x2F;IP 协议与各种应用层协议之间，为数据通讯提供安全支持。SSL 协议可分为两层：<br>SSL 记录协议（SSL Record Protocol）：它建立在可靠的传输协议（如 TCP）之上，为高层协议提供数据封装、压缩、加密等基本功能的支持。<br>SSL 握手协议（SSL Handshake Protocol）：它建立在 SSL 记录协议之上，用于在实际的数据传输开始前，通讯双方进行身份认证、协商加密算法、交换加密密钥等。</p>
+<h3 id="对称秘钥加密和非对称秘钥加密"><a href="#对称秘钥加密和非对称秘钥加密" class="headerlink" title="对称秘钥加密和非对称秘钥加密"></a>对称秘钥加密和非对称秘钥加密</h3><p>对称密钥加密，又称私钥加密，即信息的发送方和接收方用同一个密钥去加密和解密数据。它的最大优势是加&#x2F;解密速度快，适合于对大数据量进行加密，但密钥管理困难。<br>非对称密钥加密，又称公钥加密，它需要使用一对密钥来分别完成加密和解密操作，一个公开发布，即公开密钥，另一个由用户自己秘密保存，即私用密钥。信息发送者用公开密钥去加密，而信息接收者则用私用密钥去解密。<br>从功能角度而言非对称加密比对称加密功能强大，但加密和解密速度却比对称密钥加密慢得多。<br>非对称密钥通信过程<br><img src="/blog/blog/static/images/https/2.png"></p>
+<h3 id="SSL-x2F-TLS-协议基本原理"><a href="#SSL-x2F-TLS-协议基本原理" class="headerlink" title="SSL&#x2F;TLS 协议基本原理"></a>SSL&#x2F;TLS 协议基本原理</h3><p>SSL&#x2F;TLS 协议的基本思路是采用公钥加密法，也就是说，客户端先向服务器端索要公钥，然后用公钥加密信息，服务器收到密文后，用自己的私钥解密，但是这里有两个问题：<br>（1）、如何保证公钥不被篡改？<br>解决方法：将公钥放在数字证书中，只要证书是可信的，公钥就是可信的。<br>（2）、公钥加密计算量太大，如何减少耗用的时间？<br>解决方法：每一次对话（session），客户端和服务器端都生成一个”对话密钥”（session key），用它来加密信息。由于”对话密钥”是对称加密，所以运算速度非常快，而服务器公钥只用于加密”对话密钥”本身，这样就减少了加密运算的消耗时间。</p>
+<p>因此，SSL&#x2F;TLS 协议的基本过程是这样的：</p>
+<ol>
+<li>客户端向服务器端索要并验证公钥。</li>
+<li>双方协商生成“对话密钥”。</li>
+<li>双方采用“对话密钥”进行加密通信。</li>
+</ol>
+<p>具体过程可参考下面的栗子<br>假定客户端叫做爱丽丝，服务器叫做鲍勃，整个握手过程可以用下图说明<br><img src="/blog/blog/static/images/https/3.png"><br>第一步，爱丽丝给出协议版本号、一个客户端生成的随机数（Client random），以及客户端支持的加密方法，具体的加密方法可参考<a target="_blank" rel="noopener" href="https://www.cnblogs.com/cioliuguilan/p/5518798.html">SSL 证书背后的加密算法</a>。<br>第二步，鲍勃确认双方使用的加密方法，并给出数字证书、以及一个服务器生成的随机数（Server random）。<br>第三步，爱丽丝确认数字证书有效，然后生成一个新的随机数（Premaster secret），并使用数字证书中的公钥，加密这个随机数，发给鲍勃。<br>第四步，鲍勃使用自己的私钥，获取爱丽丝发来的随机数（即 Premaster secret）。<br>第五步，爱丽丝和鲍勃根据约定的加密方法，使用前面的三个随机数，生成”对话密钥”（session key），用来加密接下来的整个对话过程。</p>
+<h3 id="HTTPS-工作原理"><a href="#HTTPS-工作原理" class="headerlink" title="HTTPS 工作原理"></a>HTTPS 工作原理</h3><p>1、客户端发起 HTTPS 请求<br>用户在浏览器里输入一个 https 网址，然后连接到 server 的 443 端口。<br>2、服务端的配置<br>采用 HTTPS 协议的服务器必须要有一套数字证书，可以自己制作，也可以向组织申请，区别就是自己颁发的证书需要客户端验证通过，才可以继续访问，而使用受信任的公司申请的证书则不会弹出提示页面。<br>3、传送证书<br>这个证书其实就是公钥，只是包含了很多信息，如证书的颁发机构，过期时间等等。<br>4、客户端解析证书<br>这部分工作是由客户端的 TLS 来完成的，首先会验证公钥是否有效，比如颁发机构，过期时间等等，如果发现异常，则会弹出一个警告框，提示证书存在问题。<br>（1）首先浏览器读取证书中的证书所有者、有效期等信息进行一一校验<br>（2）浏览器开始查找操作系统中已内置的受信任的证书发布机构 CA，与服务器发来的证书中的颁发者 CA 比对，用于校验证书是否为合法机构颁发<br>（3）如果找不到，浏览器就会报错，说明服务器发来的证书是不可信任的。<br>（4）如果找到，那么浏览器就会从操作系统中取出颁发者 CA 的公钥(多数浏览器开发商发布<br>版本时，会事先在内部植入常用认证机关的公开密钥)，然后对服务器发来的证书里面的签名进行解密<br>（5）浏览器使用相同的 hash 算法计算出服务器发来的证书的 hash 值，将这个计算的 hash 值与证书中签名做对比<br>（6）对比结果一致，则证明服务器发来的证书合法，没有被冒充<br>（7）此时浏览器就可以读取证书中的公钥，用于后续加密了<br>5、传送加密信息<br>这部分传送的是用证书加密后的随机值(私钥)，目的就是让服务端得到这个随机值，以后客户端和服务端的通信就可以通过这个随机值来进行加密解密了。<br>6、服务端解密信息<br>服务端用私钥解密后，得到了客户端传过来的随机值(私钥)，然后把内容通过该值进行对称加密<br>7、传输加密后的信息<br>这部分信息是服务端用私钥加密后的信息，可以在客户端被还原。<br>8、客户端解密信息<br>客户端用之前生成的私钥解密服务端传过来的信息，于是获取了解密后的内容，整个过程第三方即使监听到了数据，也束手无策。<br><strong>原理如下图</strong><br><img src="/blog/blog/static/images/https/4.png"></p>
+<h3 id="总结-HTTP-和-HTTPS-区别如下"><a href="#总结-HTTP-和-HTTPS-区别如下" class="headerlink" title="总结 HTTP 和 HTTPS 区别如下"></a>总结 HTTP 和 HTTPS 区别如下</h3><ol>
+<li>https 协议需要到 ca 申请证书，一般免费证书较少，因而需要一定费用。</li>
+<li>http 是超文本传输协议，信息是明文传输，https 则是具有安全性的 ssl 加密传输协议。</li>
+<li>http 和 https 使用的是完全不同的连接方式，用的端口也不一样，前者是 80，后者是 443。</li>
+<li>http 的连接很简单，是无状态的；HTTPS 协议是由 SSL+HTTP 协议构建的可进行加密传输、身份认证的网络协议，比 http 协议安全。</li>
+</ol>
+<h3 id="如何配置-https"><a href="#如何配置-https" class="headerlink" title="如何配置 https"></a>如何配置 https</h3><p>配置 https 最重要的是配置 ssl 证书，配置 SSL 证书可以参考<a target="_blank" rel="noopener" href="https://freessl.wosign.com/guide">SSL 证书部署指南</a><br>这里我们以自签证书来演示</p>
+<h4 id="生成自签证书"><a href="#生成自签证书" class="headerlink" title="生成自签证书"></a>生成自签证书</h4><p>生成私钥文件<br>sudo openssl genrsa -out server.key 2048<br>生成自签证书文件<br>sudo openssl req -new -x509 -days 1826 -key server.key -out server.crt</p>
+<h4 id="修改-apache-配置"><a href="#修改-apache-配置" class="headerlink" title="修改 apache 配置"></a>修改 apache 配置</h4><p>apache2.4<br>需开启的模块<br>LoadModule ssl_module libexec&#x2F;apache2&#x2F;mod_ssl.so<br>LoadModule socache_shmcb_module libexec&#x2F;apache2&#x2F;mod_socache_shmcb.so</p>
+<p>sudo vim httpd-ssl.conf</p>
+<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">&lt;VirtualHost *:<span class="number">443</span>&gt;</span><br><span class="line">    DocumentRoot <span class="string">&quot;/var/www/html&quot;</span></span><br><span class="line">    ServerName www.domain.com:<span class="number">443</span></span><br><span class="line">    SSLEngine on</span><br><span class="line">    SSLCertificateFile <span class="regexp">/usr/</span>local<span class="regexp">/apache/</span>conf/server.crt <span class="comment">#添加证书文件</span></span><br><span class="line">    SSLCertificateKeyFile <span class="regexp">/usr/</span>local<span class="regexp">/apache/</span>conf/server.key <span class="comment">#添加私钥文件</span></span><br><span class="line">&lt;/VirtualHost&gt;</span><br></pre></td></tr></table></figure>
+
+<p>检测配置文件是否有错误<br>sudo apachectl configtest<br>重启 apache<br>sudo apachectl restart</p>
+<h3 id="Fiddler-x2F-Charles-是如何监听-HTTPS"><a href="#Fiddler-x2F-Charles-是如何监听-HTTPS" class="headerlink" title="Fiddler&#x2F;Charles 是如何监听 HTTPS?"></a>Fiddler&#x2F;Charles 是如何监听 HTTPS?</h3><p>第一步，Fiddler 截获客户端发送给服务器的 HTTPS 请求，Fiddler 伪装成客户端向服务器发送请求进行握手 。<br>第二步，服务器发回相应，Fiddler 获取到服务器的 CA 证书， 用根证书（这里的根证书是 CA 认证中心给自己颁发的证书）公钥进行解密， 验证服务器数据签名， 获取到服务器 CA 证书公钥。然后 Fiddler 伪造自己的 CA 证书（这里的 CA 证书，也是根证书，只不过是 Fiddler 伪造的根证书）， 冒充服务器证书传递给客户端浏览器。<br>第三步，与普通过程中客户端的操作相同，客户端根据返回的数据进行证书校验、生成密码 Pre_master、用 Fiddler 伪造的证书公钥加密，并生成 HTTPS 通信用的对称密钥 enc_key。<br>第四步，客户端将重要信息传递给服务器， 又被 Fiddler 截获。Fiddler 将截获的密文用自己伪造证书的私钥解开， 获得并计算得到 HTTPS 通信用的对称密钥 enc_key。Fiddler 将对称密钥用服务器证书公钥加密传递给服务器。<br>第五步，与普通过程中服务器端的操作相同，服务器用私钥解开后建立信任，然后再发送加密的握手消息给客户端。<br>第六步，Fiddler 截获服务器发送的密文， 用对称密钥解开， 再用自己伪造证书的私钥加密传给客户端。<br>第七步，客户端拿到加密信息后，用公钥解开，验证 HASH。握手过程正式完成，客户端与服务器端就这样建立了”信任“。</p>
+<p>在之后的正常加密通信过程中，Fiddler 如何在服务器与客户端之间充当第三者呢？<br>服务器—&gt;客户端：Fiddler 接收到服务器发送的密文， 用对称密钥解开， 获得服务器发送的明文。再次加密， 发送给客户端。<br>客户端—&gt;服务端：客户端用对称密钥加密，被 Fiddler 截获后，解密获得明文。再次加密，发送给服务器端。由于 Fiddler 一直拥有通信用对称密钥 enc_key， 所以在整个 HTTPS 通信过程中信息对其透明。<br><img src="/blog/blog/static/images/https/5.png"></p>
+<h5 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h5><ul>
+<li><a target="_blank" rel="noopener" href="http://www.mahaixiang.cn/internet/1522.html">HTTP,SSL&#x2F;TLS 和 HTTPS 协议的区别与联系</a></li>
+<li><a target="_blank" rel="noopener" href="https://freessl.wosign.com/guide">SSL 证书部署指南</a></li>
+<li><a target="_blank" rel="noopener" href="http://www.ruanyifeng.com/blog/2014/09/illustration-ssl.html?utm_source=tuicool&utm_medium=referral">图解 SSL&#x2F;TLS 协议</a></li>
+</ul>
+
+        
+            <div id="toc-article">
+                
+  <div class="widget-wrap" id="toc-wrap">
+    <h3 class="widget-title"><i class="fa fa-toc"></i> 文章目录</h3>
+    <div class="widget">
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%BA%E4%BD%95%E8%A6%81%E7%94%A8-https"><span class="toc-text">为何要用 https?</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#http-%E5%8D%8F%E8%AE%AE%E7%9A%84%E7%BC%BA%E7%82%B9"><span class="toc-text">http 协议的缺点</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%94%A8-https-%E8%83%BD%E8%A7%A3%E5%86%B3%E8%BF%99%E4%BA%9B%E9%97%AE%E9%A2%98%E4%B9%88%EF%BC%9F"><span class="toc-text">用 https 能解决这些问题么？</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SSL-x2F-TLS-%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="toc-text">SSL&#x2F;TLS 是什么？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AF%B9%E7%A7%B0%E7%A7%98%E9%92%A5%E5%8A%A0%E5%AF%86%E5%92%8C%E9%9D%9E%E5%AF%B9%E7%A7%B0%E7%A7%98%E9%92%A5%E5%8A%A0%E5%AF%86"><span class="toc-text">对称秘钥加密和非对称秘钥加密</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SSL-x2F-TLS-%E5%8D%8F%E8%AE%AE%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86"><span class="toc-text">SSL&#x2F;TLS 协议基本原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#HTTPS-%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86"><span class="toc-text">HTTPS 工作原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%BB%E7%BB%93-HTTP-%E5%92%8C-HTTPS-%E5%8C%BA%E5%88%AB%E5%A6%82%E4%B8%8B"><span class="toc-text">总结 HTTP 和 HTTPS 区别如下</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E9%85%8D%E7%BD%AE-https"><span class="toc-text">如何配置 https</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%94%9F%E6%88%90%E8%87%AA%E7%AD%BE%E8%AF%81%E4%B9%A6"><span class="toc-text">生成自签证书</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9-apache-%E9%85%8D%E7%BD%AE"><span class="toc-text">修改 apache 配置</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Fiddler-x2F-Charles-%E6%98%AF%E5%A6%82%E4%BD%95%E7%9B%91%E5%90%AC-HTTPS"><span class="toc-text">Fiddler&#x2F;Charles 是如何监听 HTTPS?</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E7%AB%A0"><span class="toc-text">参考文章</span></a></li></ol></li></ol></li></ol>
+    </div>
+  </div>
+
+
+            </div>
+        
+        
+          <blockquote id="copyright">
+              <p>原文链接: <a href="https://jesse121.github.io/articles/2018/06/01.html">https://jesse121.github.io/articles/2018/06/01.html</a></p>
+              <p>版权声明: 转载请注明出处.</p>
+          </blockquote>
+        
+      
+    </div>
+    <footer class="article-footer">
+      
+        <div class="article-tag-wrap">
+          
+
+          
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/http/" rel="tag">HTTP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/https/" rel="tag">HTTPS</a></li></ul>
+
+          
+
+
+        </div>
+      
+      
+        
+<nav id="article-nav">
+  
+    <a href="/blog/articles/2018/05/27.html" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">older</strong>
+      <div class="article-nav-title">
+        
+          如何利用Vagrant快速搭建相同配置的开发环境？
+        
+      </div>
+    </a>
+  
+  
+    <a href="/blog/articles/2018/07/16.html" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">newer</strong>
+      <div class="article-nav-title">
+        
+          工作中遇到的细节问题总结(二)
+        
+      </div>
+    </a>
+  
+</nav>
+
+      
+      
+        
+  <div id="comments"></div>
+
+
+
+
+
+
+
+
+
+      
+    </footer>
+  </div>
+</article>
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-posts"></i> 最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/blog/articles/2021/06/11.html">如何用Vite快速搭建一个vue3项目</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2020/12/15.html">如何快速生成tsconfig.json文件</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2020/08/22.html">用Ssh连接docker容器</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2020/07/04.html">如何在Vscode上直接运行typescript?</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2020/06/13.html">Wireshark过滤器使用介绍</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2020/05/13.html">Webpack编译后的html中图片路径变为[object Module]的原因及解决办法</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2020/05/02.html">栈与队列</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2020/04/19.html">链表</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2020/04/19.html">算法的时间复杂度与空间复杂度分析</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2020/04/12.html">如何使用Wireshark抓取HTTP2报文？</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-tag"></i> 标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/blog/tags/angularjs/" style="font-size: 10px;">AngularJs</a> <a href="/blog/tags/apache/" style="font-size: 14px;">Apache</a> <a href="/blog/tags/bootstrap/" style="font-size: 14px;">Bootstrap</a> <a href="/blog/tags/css/" style="font-size: 18px;">CSS</a> <a href="/blog/tags/centos/" style="font-size: 10px;">CentOS</a> <a href="/blog/tags/docker/" style="font-size: 14px;">Docker</a> <a href="/blog/tags/git/" style="font-size: 12px;">Git</a> <a href="/blog/tags/gitlab/" style="font-size: 10px;">Gitlab</a> <a href="/blog/tags/gulp/" style="font-size: 10px;">Gulp</a> <a href="/blog/tags/html/" style="font-size: 14px;">HTML</a> <a href="/blog/tags/html5/" style="font-size: 10px;">HTML5</a> <a href="/blog/tags/http/" style="font-size: 14px;">HTTP</a> <a href="/blog/tags/https/" style="font-size: 10px;">HTTPS</a> <a href="/blog/tags/javascript/" style="font-size: 20px;">JavaScript</a> <a href="/blog/tags/jenkins/" style="font-size: 10px;">Jenkins</a> <a href="/blog/tags/linux/" style="font-size: 12px;">Linux</a> <a href="/blog/tags/mac/" style="font-size: 10px;">Mac</a> <a href="/blog/tags/mysql/" style="font-size: 14px;">MySQL</a> <a href="/blog/tags/nginx/" style="font-size: 12px;">Nginx</a> <a href="/blog/tags/node-js/" style="font-size: 12px;">Node.js</a> <a href="/blog/tags/php/" style="font-size: 16px;">PHP</a> <a href="/blog/tags/photoshop/" style="font-size: 10px;">Photoshop</a> <a href="/blog/tags/react/" style="font-size: 10px;">React</a> <a href="/blog/tags/redux/" style="font-size: 10px;">Redux</a> <a href="/blog/tags/sublimetext3/" style="font-size: 10px;">SublimeText3</a> <a href="/blog/tags/typescript/" style="font-size: 12px;">Typescript</a> <a href="/blog/tags/vagrant/" style="font-size: 10px;">Vagrant</a> <a href="/blog/tags/vim/" style="font-size: 10px;">Vim</a> <a href="/blog/tags/vue/" style="font-size: 10px;">Vue</a> <a href="/blog/tags/web/" style="font-size: 16px;">WEB</a> <a href="/blog/tags/webpack/" style="font-size: 14px;">Webpack</a> <a href="/blog/tags/wireshark/" style="font-size: 12px;">Wireshark</a> <a href="/blog/tags/yii/" style="font-size: 10px;">Yii</a> <a href="/blog/tags/jquery/" style="font-size: 14px;">jQuery</a> <a href="/blog/tags/monitor/" style="font-size: 10px;">monitor</a> <a href="/blog/tags/ssh/" style="font-size: 10px;">ssh</a> <a href="/blog/tags/vite/" style="font-size: 10px;">vite</a> <a href="/blog/tags/vscode/" style="font-size: 10px;">vscode</a> <a href="/blog/tags/vue/" style="font-size: 10px;">vue</a> <a href="/blog/tags/%E5%BC%80%E5%8F%91%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/" style="font-size: 10px;">开发问题记录</a> <a href="/blog/tags/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F/" style="font-size: 10px;">微信小程序</a> <a href="/blog/tags/%E7%AE%97%E6%B3%95/" style="font-size: 14px;">算法</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-classify"></i> 分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/blog/categories/bootstrap/">Bootstrap</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/html-css/">HTML-CSS</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/html5/">HTML5</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/javascript/">JavaScript</a><span class="category-list-count">11</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/linux/">Linux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/mysql/">MySQL</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/node-js/">Node.js</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/php/">PHP</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/photoshop/">Photoshop</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/typescript/">Typescript</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/vue/">Vue</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/web/">WEB</a><span class="category-list-count">8</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/jquery/">jQuery</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/translation/">前端翻译</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/">开发工具</a><span class="category-list-count">15</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/%E5%BC%80%E5%8F%91%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/">开发问题记录</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/%E7%AE%97%E6%B3%95/">算法</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/notes/">读书笔记</a><span class="category-list-count">16</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-archive"></i> 归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2021/">2021年</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2020/">2020年</a><span class="archive-list-count">12</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2019/">2019年</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/">2018年</a><span class="archive-list-count">12</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2017/">2017年</a><span class="archive-list-count">26</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/">2016年</a><span class="archive-list-count">27</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-link"></i> 友情链接</h3>
+    <div class="widget">
+      <ul>
+      
+        <li>
+          <a target="_blank" rel="noopener" href="http://www.mahaixiang.cn/internet/300.html">深入理解互联网协议的原理</a>
+        </li>
+      
+        <li>
+          <a target="_blank" rel="noopener" href="http://javascript.ruanyifeng.com/">JavaScript 标准参考教程</a>
+        </li>
+      
+        <li>
+          <a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript">Mozilla Developer Network</a>
+        </li>
+      
+      </ul>
+    </div>
+  </div>
+
+
+  
+</aside>
+        
+      </div>
+      <a id="totop" href="#top"></a>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      <p>
+        <a href="/blog/sitemap.xml">网站地图</a>
+        <span> | </span><a href="/blog/atom.xml">订阅本站</a>
+        <span> | </span><a href="/blog/about/">联系博主</a>
+      </p>
+      
+        <p>
+          <i class="fa fa-visitors"></i>
+          <i id="busuanzi_container_site_uv"><i id="busuanzi_value_site_uv"></i></i>
+          ，
+          <i class="fa fa-views"></i>
+          <i id="busuanzi_container_site_pv"><i id="busuanzi_value_site_pv"></i></i>
+        </p>
+      
+      <p>
+        <span>Copyright &copy; 2022 Jesse.</span>
+        <span>Theme by <a href="https://github.com/chaooo/hexo-theme-BlueLake/" target="_blank">BlueLake.</a></span>
+        <span>Powered by <a href="https://hexo.io/" target="_blank">Hexo.</a></span>
+      </p>
+    </div>
+  </div>
+</footer>
+
+    </div>
+  </div>
+  
+<script src="/blog/js/jquery-3.4.1.min.js"></script>
+
+
+<script src="/blog/js/search.json.js"></script>
+
+
+  
+<script src="/blog/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/blog/js/script.js"></script>
+
+
+
+
+
+
+  
+<script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+  
+  
+
+
+  
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+ 
+<script src="//cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.js"></script>
+
+<script>
+  var gitalk = new Gitalk({
+    clientID: "1d84813ae13cd94072f0",
+    clientSecret: "4a4dd2af0c622e983dd90f5daf15c3ebd86b8ae9",
+    repo: "blog",
+    owner: "jesse121",
+    admin: ["jesse121"],
+    id: md5(window.location.pathname),
+    proxy: "https://gitalk-worker.jesse121.workers.dev/https://github.com/login/oauth/access_token,",
+    distractionFreeMode: false,
+    language: "zh-CN",
+    pagerDirection: "last",
+  });
+  gitalk.render("comments");
+</script>
+         
+
+
+
+</body>
+</html>

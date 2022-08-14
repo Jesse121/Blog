@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>前端开发工作中常用的JavaScript片段 | 前端之路</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  
+    <meta name="description" content="专注前端开发，前端开发技术博客">
+  
+  
+    <meta name="keywords" content="Web前端开发，Javascript，前端开发博客">
+  
+  
+    <link rel="alternate" href="/blog/atom.xml" title="前端之路" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/blog/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/blog/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/blog/fancybox/jquery.fancybox.min.css">
+
+  
+  
+  
+    
+<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+
+  
+  
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/blog/" id="logo">前端之路</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/blog/" id="subtitle">路漫漫其修远兮，吾将上下而求索</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        
+          <a class="main-nav-link" href="/blog/."><i class="fa fa-home"></i> 首页</a>
+        
+          <a class="main-nav-link" href="/blog/archives/"><i class="fa fa-archive"></i> 归档</a>
+        
+          <a class="main-nav-link" href="/blog/about/"><i class="fa fa-user"></i> 关于</a>
+        
+      </nav>
+    </div>
+    <div id="search-form">
+      <div id="result-mask" class="hide"></div>
+      <label><input id="search-key" type="text" autocomplete="off" placeholder="搜索"></label>
+      <div id="result-wrap" class="hide">
+        <div id="search-result"></div>
+      </div>
+      <div class="hide">
+        <template id="search-tpl">
+          <div class="item">
+            <a href="/{path}" title="{title}">
+              <div class="title">{title}</div>
+              <div class="time">{date}</div>
+              <div class="tags">{tags}</div>
+            </a>
+          </div>
+        </template>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-javascript/前端开发工作中常用的JavaScript片段" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      前端开发工作中常用的JavaScript片段
+    </h1>
+  
+
+
+      </header>
+    
+    <div class="article-meta">
+      
+      <span class="article-date">
+  <i class="fa fa-date"></i>
+  <time class="dt-published" datetime="2017-05-02T16:00:00.000Z" itemprop="datePublished">2017年05月03日</time>
+</span>
+      
+  <div class="article-category">
+    <i class="fa fa-classify"></i>
+    <a class="article-category-link" href="/blog/categories/javascript/">JavaScript</a>
+  </div>
+
+      
+        <span class="article-views">
+  <i class="fa fa-views"></i>
+  <i id="busuanzi_container_page_pv">
+      <i id="busuanzi_value_page_pv"></i>
+  </i>
+</span>
+
+      
+      
+<a href="/blog/articles/2017/05/03.html#comments" class="article-comment-link">
+  
+    
+    
+    
+    
+    
+  
+  <i class="fa fa-commt"></i>
+  留言
+</a>
+
+
+    </div>
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>前端开发过程中总是会发现有些JS片段需要被经常使用，今天就来总结一下工作中常用到的一些JS片段，如果你经常使用jQuery库有可能很多片段用不到，但是我还是提倡大家使用原生JS，毕竟这才是根本，很多库文件的源码也是这么写的</p>
+<span id="more"></span>
+<h3 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h3><ul>
+<li>常用兼容方法(IE8+)<ul>
+<li><a href="#t1.1">insertAfter()</a> 紧挨着某元素后面插入DOM元素</li>
+<li><a href="#t1.2">getElementByClassName()</a> 根据类名获取DOM元素，IE9+已实现</li>
+<li><a href="#t1.3">trim()</a> 除去字符串左右空格</li>
+<li><a href="#t1.4">EventUtil</a> 跨浏览器的事件处理程序，属于一个名为EventUtil的对象</li>
+</ul>
+</li>
+<li>常用工具类<ul>
+<li><a href="#t2.1">移动端和PC端网址自动切换</a></li>
+<li><a href="#t2.2">常用正则表达式</a></li>
+<li><a href="#t2.3">获取DOM元素的实际样式</a></li>
+<li><a href="#t2.4">日期格式化</a></li>
+<li><a href="#t2.5">将url中参数以对象的形式输出</a></li>
+<li><a href="#t2.6">将cookie中内容以对象形似输出</a></li>
+<li><a href="#t2.7">设置cookie</a></li>
+<li><a href="#t2.8">浏览器类型及IE浏览器版本检测</a></li>
+</ul>
+</li>
+<li>简单特效类<ul>
+<li><a href="#t3.1">返回页面顶部</a></li>
+</ul>
+</li>
+</ul>
+<h3 id="常用兼容方法-IE8"><a href="#常用兼容方法-IE8" class="headerlink" title="常用兼容方法(IE8+)"></a>常用兼容方法(IE8+)</h3><h4 id="t1.1">insertAfter()</h4>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">insertAfter</span>(<span class="params">newElement, targetElement</span>) &#123;</span><br><span class="line">    <span class="keyword">var</span> parent = targetElement.<span class="property">parentNode</span>;</span><br><span class="line">    <span class="keyword">if</span> (parent.<span class="property">lastChild</span> == targetElement) &#123;</span><br><span class="line">        parent.<span class="title function_">appendChild</span>(newElement);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        parent.<span class="title function_">insertBefore</span>(newElement, targetElement.<span class="property">nextSibling</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h4 id="t1.2">getElementByClassName()</h4>
+这个方法比较少用，IE8+已支持querySelector()和querySelectorAll()
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">getElementsByClassName</span>(<span class="params">element, names</span>) &#123;</span><br><span class="line">    <span class="keyword">if</span> (element.<span class="property">getElementsByClassName</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> element.<span class="title function_">getElementsByClassName</span>(names);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">var</span> elements = element.<span class="title function_">getElementsByTagName</span>(<span class="string">&#x27;*&#x27;</span>);</span><br><span class="line">        <span class="keyword">var</span> result = [],</span><br><span class="line">            element,</span><br><span class="line">            classNameStr,</span><br><span class="line">            flag;</span><br><span class="line">        names = names.<span class="title function_">split</span>(<span class="string">&#x27; &#x27;</span>);</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; element = elements[i]; i++) &#123;</span><br><span class="line">            classNameStr = <span class="string">&#x27; &#x27;</span> + element.<span class="property">className</span> + <span class="string">&#x27; &#x27;</span>;</span><br><span class="line">            flag = <span class="literal">true</span>;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">var</span> j = <span class="number">0</span>, name; name = names[j]; j++) &#123;</span><br><span class="line">                <span class="keyword">if</span> (classNameStr.<span class="title function_">indexOf</span>(<span class="string">&#x27; &#x27;</span> + name + <span class="string">&#x27; &#x27;</span>) == -<span class="number">1</span>) &#123;</span><br><span class="line">                    flag = <span class="literal">false</span>;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (flag) &#123;</span><br><span class="line">                result.<span class="title function_">push</span>(element);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="t1.3">trim()</h4>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> (!<span class="title class_">String</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">trim</span>) &#123;</span><br><span class="line">    <span class="title class_">String</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">trim</span> = <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="title function_">replace</span>(<span class="regexp">/^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g</span>, <span class="string">&#x27;&#x27;</span>);</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="t1.4">EventUtil</h4>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> <span class="title class_">EventUtil</span> = &#123;</span><br><span class="line">    <span class="comment">//添加事件</span></span><br><span class="line">    <span class="attr">addHandler</span>: <span class="keyword">function</span>(<span class="params">element, type, handler</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (element.<span class="property">addEventListener</span>) &#123;</span><br><span class="line">            element.<span class="title function_">addEventListener</span>(type, handler, <span class="literal">false</span>); <span class="comment">//使用DOM2级方法添加事件</span></span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (element.<span class="property">attachEvent</span>) &#123; <span class="comment">//使用IE方法添加事件</span></span><br><span class="line">            element.<span class="title function_">attachEvent</span>(<span class="string">&quot;on&quot;</span> + type, handler);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            element[<span class="string">&quot;on&quot;</span> + type] = handler; <span class="comment">//使用DOM0级方法添加事件</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="comment">//取消事件</span></span><br><span class="line">    <span class="attr">removeHandler</span>: <span class="keyword">function</span>(<span class="params">element, type, handler</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (element.<span class="property">removeEventListener</span>) &#123;</span><br><span class="line">            element.<span class="title function_">removeEventListener</span>(type, handler, <span class="literal">false</span>);</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (element.<span class="property">detachEvent</span>) &#123;</span><br><span class="line">            element.<span class="title function_">detachEvent</span>(<span class="string">&quot;on&quot;</span> + type, handler);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            element[<span class="string">&quot;on&quot;</span> + type] = <span class="literal">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="comment">//使用这个方法跨浏览器取得event对象</span></span><br><span class="line">    <span class="attr">getEvent</span>: <span class="keyword">function</span>(<span class="params">event</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> event ? event : <span class="variable language_">window</span>.<span class="property">event</span>;</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="comment">//返回事件的实际目标</span></span><br><span class="line">    <span class="attr">getTarget</span>: <span class="keyword">function</span>(<span class="params">event</span>) &#123; </span><br><span class="line">        <span class="keyword">return</span> event.<span class="property">target</span> || event.<span class="property">srcElement</span>;</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="comment">//阻止事件的默认行为</span></span><br><span class="line">    <span class="attr">preventDefault</span>: <span class="keyword">function</span>(<span class="params">event</span>) &#123; </span><br><span class="line">        <span class="keyword">if</span> (event.<span class="property">preventDefault</span>) &#123;</span><br><span class="line">            event.<span class="title function_">preventDefault</span>();</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            event.<span class="property">returnValue</span> = <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="comment">//阻止事件冒泡</span></span><br><span class="line">    <span class="attr">stopPropagation</span>: <span class="keyword">function</span>(<span class="params">event</span>) &#123; </span><br><span class="line">        <span class="keyword">if</span> (event.<span class="property">stopPropagation</span>) &#123;</span><br><span class="line">            event.<span class="title function_">stopPropagation</span>();</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            event.<span class="property">cancelBubble</span> = <span class="literal">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="comment">//获取mouseover和mouseout相关元素</span></span><br><span class="line">    <span class="attr">getRelatedTarget</span>: <span class="keyword">function</span>(<span class="params">event</span>) &#123; </span><br><span class="line">        <span class="keyword">if</span> (event.<span class="property">relatedTarget</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> event.<span class="property">relatedTarget</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (event.<span class="property">toElement</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> event.<span class="property">toElement</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (event.<span class="property">formElement</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> event.<span class="property">formElement</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="comment">//获取mousedown或mouseup按下或释放的按钮是鼠标中的哪一个</span></span><br><span class="line">    <span class="attr">getButton</span>: <span class="keyword">function</span>(<span class="params">event</span>) &#123; </span><br><span class="line">        <span class="keyword">if</span> (<span class="variable language_">document</span>.<span class="property">implementation</span>.<span class="title function_">hasFeature</span>(<span class="string">&quot;MouseEvents&quot;</span>, <span class="string">&quot;2.0&quot;</span>)) &#123;</span><br><span class="line">            <span class="keyword">return</span> event.<span class="property">button</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">switch</span> (event.<span class="property">button</span>) &#123; <span class="comment">//将IE模型下的button属性映射为DOM模型下的button属性</span></span><br><span class="line">                <span class="keyword">case</span> <span class="number">0</span>:</span><br><span class="line">                <span class="keyword">case</span> <span class="number">1</span>:</span><br><span class="line">                <span class="keyword">case</span> <span class="number">3</span>:</span><br><span class="line">                <span class="keyword">case</span> <span class="number">5</span>:</span><br><span class="line">                <span class="keyword">case</span> <span class="number">7</span>:</span><br><span class="line">                    <span class="keyword">return</span> <span class="number">0</span>; <span class="comment">//按下的是鼠标主按钮（一般是左键）</span></span><br><span class="line">                <span class="keyword">case</span> <span class="number">2</span>:</span><br><span class="line">                <span class="keyword">case</span> <span class="number">6</span>:</span><br><span class="line">                    <span class="keyword">return</span> <span class="number">2</span>; <span class="comment">//按下的是中间的鼠标按钮</span></span><br><span class="line">                <span class="keyword">case</span> <span class="number">4</span>:</span><br><span class="line">                    <span class="keyword">return</span> <span class="number">1</span>; <span class="comment">//鼠标次按钮（一般是右键）</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="comment">//获取表示鼠标滚轮滚动方向的数值</span></span><br><span class="line">    <span class="attr">getWheelDelta</span>: <span class="keyword">function</span>(<span class="params">event</span>) &#123; </span><br><span class="line">        <span class="keyword">if</span> (event.<span class="property">wheelDelta</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> event.<span class="property">wheelDelta</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> -event.<span class="property">detail</span> * <span class="number">40</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="comment">//以跨浏览器取得相同的字符编码，需在keypress事件中使用</span></span><br><span class="line">    <span class="attr">getCharCode</span>: <span class="keyword">function</span>(<span class="params">event</span>) &#123; </span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">typeof</span> event.<span class="property">charCode</span> == <span class="string">&quot;number&quot;</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> event.<span class="property">charCode</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> event.<span class="property">keyCode</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+
+
+
+
+<h3 id="常用工具类"><a href="#常用工具类" class="headerlink" title="常用工具类"></a>常用工具类</h3><h4 id="t2.1">移动端和PC端网址自动切换</h4>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> system = &#123; </span><br><span class="line">    <span class="attr">win</span>: <span class="literal">false</span>, </span><br><span class="line">    <span class="attr">mac</span>: <span class="literal">false</span>, </span><br><span class="line">    <span class="attr">xll</span>: <span class="literal">false</span>, </span><br><span class="line">    <span class="attr">ipad</span>:<span class="literal">false</span> </span><br><span class="line">&#125;; </span><br><span class="line"><span class="keyword">var</span> p = navigator.<span class="property">platform</span>; </span><br><span class="line">system.<span class="property">win</span> = p.<span class="title function_">indexOf</span>(<span class="string">&quot;Win&quot;</span>) == <span class="number">0</span>; </span><br><span class="line">system.<span class="property">mac</span> = p.<span class="title function_">indexOf</span>(<span class="string">&quot;Mac&quot;</span>) == <span class="number">0</span>; </span><br><span class="line">system.<span class="property">x11</span> = (p == <span class="string">&quot;X11&quot;</span>) || (p.<span class="title function_">indexOf</span>(<span class="string">&quot;Linux&quot;</span>) == <span class="number">0</span>); </span><br><span class="line">system.<span class="property">ipad</span> = (navigator.<span class="property">userAgent</span>.<span class="title function_">match</span>(<span class="regexp">/iPad/i</span>) != <span class="literal">null</span>)?<span class="attr">true</span>:<span class="literal">false</span>; </span><br><span class="line"><span class="keyword">if</span> (system.<span class="property">win</span> || system.<span class="property">mac</span> || system.<span class="property">xll</span>||system.<span class="property">ipad</span>) &#123; </span><br><span class="line">    <span class="variable language_">window</span>.<span class="property">location</span>.<span class="property">href</span> = <span class="string">&quot;http://www.baidu.com/&quot;</span>; </span><br><span class="line">&#125; <span class="keyword">else</span> &#123; </span><br><span class="line">    <span class="variable language_">window</span>.<span class="property">location</span>.<span class="property">href</span> = <span class="string">&quot;http://wap.baidu.com/&quot;</span>; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="t2.2">常用正则表达式</h4>
+虽然这里列出了常用的正则表达式，但是还是建议各位看官在用的时候多加考虑一下是否适合你的项目
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">//验证邮箱</span></span><br><span class="line"><span class="comment">//验证规则：姑且把邮箱地址分成“第一部分@第二部分”这样</span></span><br><span class="line"><span class="comment">//第一部分：由字母、数字、下划线、中划线、点号组成，</span></span><br><span class="line"><span class="comment">//第二部分：为一个域名，域名由字母、数字、中划线、根域名组成，而根域名一般为.xx或.xxx</span></span><br><span class="line">/^[A-<span class="title class_">Za</span>-z0-<span class="number">9</span>]+([\-\_\.][A-<span class="title class_">Za</span>-z0-<span class="number">9</span>])*@[A-<span class="title class_">Za</span>-z0-<span class="number">9</span>]+([\-\.][A-<span class="title class_">Za</span>-z0-<span class="number">9</span>]+)*\.[A-<span class="title class_">Za</span>-z]&#123;<span class="number">2</span>,<span class="number">3</span>&#125;$/;</span><br><span class="line"></span><br><span class="line"><span class="comment">//验证固定电话（区号+号码 010-88888888,0955-7777777 ）</span></span><br><span class="line"><span class="comment">//验证规则:区号以0开头后面2~3位是数字,区号与号码之间可以无连接符，也可以“-”连接,后面的号码由7~8位数字组成,</span></span><br><span class="line"><span class="regexp">/^0\d&#123;2,3&#125;-?\d&#123;7,8&#125;$/</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//验证手机号</span></span><br><span class="line"><span class="comment">//验证规则：首位以数字1开头，第二位数字目前包括3,4,5,7,8，剩下的是9位数字</span></span><br><span class="line"><span class="regexp">/^1[3|4|5|7|8]\d&#123;9&#125;$/</span></span><br><span class="line"><span class="comment">//验证规则：11位数字，以1开头。</span></span><br><span class="line"><span class="regexp">/^1\d&#123;10&#125;$/</span></span><br><span class="line"><span class="comment">//考虑到第二位可能会出现新的数字，建议使用第二种方式  </span></span><br><span class="line"></span><br><span class="line"><span class="comment">//验证QQ</span></span><br><span class="line"><span class="comment">//验证规则：首位不以数字0开头，剩下的4~9位是数字</span></span><br><span class="line"><span class="regexp">/^[1-9]\d&#123;4,9&#125;$/</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//验证身份证号码 这里是非严格验证</span></span><br><span class="line"><span class="comment">//验证规则：这里分为18为纯数字的身份证号和17位数字加字母X或x的两种情况</span></span><br><span class="line"><span class="regexp">/(^\d&#123;18&#125;$)|(^\d&#123;17&#125;(\d|X|x)$)/</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//验证URL</span></span><br><span class="line"><span class="regexp">/^((https?|ftp|file):\/\/)?([\da-z\.-]+)\.([a-z\.]&#123;2,6&#125;)([\/\w \.-]*)*\/?$/</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//匹配字母、数字、中文字符</span></span><br><span class="line"><span class="regexp">/^([A-Za-z0-9]|[\u4e00-\u9fa5])*$/</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//匹配中文字符的正则表达式</span></span><br><span class="line"><span class="regexp">/[\u4e00-\u9fa5]/</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//匹配双字节字符(包括汉字在内)</span></span><br><span class="line"><span class="regexp">/[^\x00-\xff]/</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//密码强度正则</span></span><br><span class="line"><span class="comment">//最少6位，包括至少1个大写字母，1个小写字母，1个数字，1个特殊字符</span></span><br><span class="line"><span class="regexp">/^.*(?=.&#123;6,&#125;)(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[!@#$%^&amp;*? ]).*$/</span>;</span><br></pre></td></tr></table></figure>
+<h4 id="t2.3">获取DOM元素的实际样式</h4>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">getStyle</span>(<span class="params">element, cssPropertyName</span>) &#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="variable language_">window</span>.<span class="property">getComputedStyle</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="variable language_">window</span>.<span class="title function_">getComputedStyle</span>(element)[cssPropertyName];</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> element.<span class="property">currentStyle</span>[cssPropertyName];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="t2.4">日期格式化</h4>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">add0</span>(<span class="params">t</span>)&#123;<span class="keyword">return</span> t = t &lt; <span class="number">10</span> ? <span class="string">&#x27;0&#x27;</span>+ t : t&#125;</span><br><span class="line"><span class="keyword">function</span> <span class="title function_">format</span>(<span class="params">time</span>)&#123;</span><br><span class="line">    <span class="keyword">var</span> y = time.<span class="title function_">getFullYear</span>(),</span><br><span class="line">    m = time.<span class="title function_">getMonth</span>() + <span class="number">1</span>,</span><br><span class="line">    d = time.<span class="title function_">getDate</span>(),</span><br><span class="line">    hh = time.<span class="title function_">getHours</span>(),</span><br><span class="line">    mm = time.<span class="title function_">getMinutes</span>(),</span><br><span class="line">    ss = time.<span class="title function_">getSeconds</span>();</span><br><span class="line">    <span class="keyword">return</span> y+<span class="string">&quot;-&quot;</span>+<span class="title function_">add0</span>(m)+<span class="string">&quot;-&quot;</span>+<span class="title function_">add0</span>(d)+<span class="string">&quot; &quot;</span>+<span class="title function_">add0</span>(hh)+<span class="string">&quot;:&quot;</span>+<span class="title function_">add0</span>(mm)+<span class="string">&quot;:&quot;</span>+<span class="title function_">add0</span>(ss);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="t2.5">将url中参数以对象的形式输出</h4>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">parseQueryString</span>(<span class="params">url</span>)&#123;</span><br><span class="line">    <span class="keyword">var</span> str=url.<span class="title function_">split</span>(<span class="string">&quot;?&quot;</span>)[<span class="number">1</span>];</span><br><span class="line">    <span class="keyword">var</span> items=str.<span class="title function_">split</span>(<span class="string">&quot;&amp;&quot;</span>);</span><br><span class="line">    <span class="keyword">var</span> result=&#123;&#125;;</span><br><span class="line">    <span class="keyword">var</span> arr=[];</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>; i&lt;items.<span class="property">length</span>; i++)&#123;</span><br><span class="line">        arr=items[i].<span class="title function_">split</span>(<span class="string">&#x27;=&#x27;</span>);</span><br><span class="line">        result[arr[<span class="number">0</span>]]=arr[<span class="number">1</span>];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="t2.6">将cookie中内容以对象形似输出</h4>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 获取cookie并以对象形式输出</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span> &#123;<span class="type">name:value</span>&#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">getCookie</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">var</span> cookie = &#123;&#125;;</span><br><span class="line">    <span class="keyword">var</span> all = <span class="variable language_">document</span>.<span class="property">cookie</span>;</span><br><span class="line">    <span class="keyword">if</span> (all === <span class="string">&quot;&quot;</span>) <span class="keyword">return</span> cookie;</span><br><span class="line">    <span class="keyword">var</span> list = all.<span class="title function_">split</span>(<span class="string">&quot;;&quot;</span>);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; list.<span class="property">length</span>; i++) &#123;</span><br><span class="line">        <span class="keyword">var</span> item = list[i];</span><br><span class="line">        <span class="keyword">var</span> p = item.<span class="title function_">indexOf</span>(<span class="string">&quot;=&quot;</span>);</span><br><span class="line">        <span class="keyword">var</span> name = item.<span class="title function_">substring</span>(<span class="number">0</span>, p);</span><br><span class="line">        name = <span class="built_in">decodeURIComponent</span>(name);</span><br><span class="line">        <span class="keyword">var</span> value = item.<span class="title function_">substring</span>(p + <span class="number">1</span>);</span><br><span class="line">        value = <span class="built_in">decodeURIComponent</span>(value);</span><br><span class="line">        cookie[name] = value;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> cookie;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="t2.7">设置Cookie</h4>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 设置cookie</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> &#123;<span class="type">[type]</span>&#125; name    [设置的cookie名称]</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> &#123;<span class="type">[type]</span>&#125; value   [设置的cookie值]</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> &#123;<span class="type">[type]</span>&#125; expires [设置的cookie的过期时间]</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> &#123;<span class="type">[type]</span>&#125; path    [设置的cookie的路径]</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> &#123;<span class="type">[type]</span>&#125; domain  [设置的cookie关联的域名]</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> &#123;<span class="type">[type]</span>&#125; secure  [设置的cookie是否使用安全协议传输数据，默认为空]</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">setCookie</span>(<span class="params">name, value, expires, path, domain, secure</span>) &#123;</span><br><span class="line">    <span class="keyword">var</span> cookie = <span class="built_in">encodeURIComponent</span>(name) + <span class="string">&quot;=&quot;</span> + <span class="built_in">encodeURIComponent</span>(value);</span><br><span class="line">    <span class="keyword">if</span> (expires)</span><br><span class="line">        cookie += <span class="string">&quot;; expires=&quot;</span> + expires.<span class="title function_">toGMTString</span>();</span><br><span class="line">    <span class="keyword">if</span> (path)</span><br><span class="line">        cookie += <span class="string">&quot;; path=&quot;</span> + path;</span><br><span class="line">    <span class="keyword">if</span> (domain)</span><br><span class="line">        cookie += <span class="string">&quot;; domain=&quot;</span> + domain;</span><br><span class="line">    <span class="keyword">if</span> (secure)</span><br><span class="line">        cookie += <span class="string">&quot;; secure=&quot;</span> + secure;</span><br><span class="line">    <span class="variable language_">document</span>.<span class="property">cookie</span> = cookie;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="t2.8">浏览器类型及IE浏览器版本检测</h4>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">browserType</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">var</span> userAgent = navigator.<span class="property">userAgent</span>; <span class="comment">//取得浏览器的userAgent字符串  </span></span><br><span class="line">    <span class="keyword">var</span> isOpera = userAgent.<span class="title function_">indexOf</span>(<span class="string">&quot;Opera&quot;</span>) &gt; -<span class="number">1</span>; <span class="comment">//判断是否Opera浏览器  </span></span><br><span class="line">    <span class="keyword">var</span> isIE = userAgent.<span class="title function_">indexOf</span>(<span class="string">&quot;compatible&quot;</span>) &gt; -<span class="number">1</span> &amp;&amp; userAgent.<span class="title function_">indexOf</span>(<span class="string">&quot;MSIE&quot;</span>) &gt; -<span class="number">1</span> &amp;&amp; !isOpera; <span class="comment">//判断是否IE浏览器  </span></span><br><span class="line">    <span class="keyword">var</span> isEdge = userAgent.<span class="title function_">indexOf</span>(<span class="string">&quot;Windows NT 6.1; Trident/7.0;&quot;</span>) &gt; -<span class="number">1</span> &amp;&amp; !isIE; <span class="comment">//判断是否IE的Edge浏览器  </span></span><br><span class="line">    <span class="keyword">var</span> isFF = userAgent.<span class="title function_">indexOf</span>(<span class="string">&quot;Firefox&quot;</span>) &gt; -<span class="number">1</span>; <span class="comment">//判断是否Firefox浏览器  </span></span><br><span class="line">    <span class="keyword">var</span> isSafari = userAgent.<span class="title function_">indexOf</span>(<span class="string">&quot;Safari&quot;</span>) &gt; -<span class="number">1</span> &amp;&amp; userAgent.<span class="title function_">indexOf</span>(<span class="string">&quot;Chrome&quot;</span>) == -<span class="number">1</span>; <span class="comment">//判断是否Safari浏览器  </span></span><br><span class="line">    <span class="keyword">var</span> isChrome = userAgent.<span class="title function_">indexOf</span>(<span class="string">&quot;Chrome&quot;</span>) &gt; -<span class="number">1</span> &amp;&amp; userAgent.<span class="title function_">indexOf</span>(<span class="string">&quot;Safari&quot;</span>) &gt; -<span class="number">1</span>; <span class="comment">//判断Chrome浏览器  </span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (isIE) &#123;</span><br><span class="line">        <span class="keyword">var</span> reIE = <span class="keyword">new</span> <span class="title class_">RegExp</span>(<span class="string">&quot;MSIE (\\d+\\.\\d+);&quot;</span>);</span><br><span class="line">        reIE.<span class="title function_">test</span>(userAgent);</span><br><span class="line">        <span class="keyword">var</span> fIEVersion = <span class="built_in">parseFloat</span>(<span class="title class_">RegExp</span>[<span class="string">&quot;$1&quot;</span>]);</span><br><span class="line">        <span class="keyword">if</span> (fIEVersion == <span class="number">7</span>) &#123;</span><br><span class="line">            <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;this is IE7&quot;</span>);</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (fIEVersion == <span class="number">8</span>) &#123;</span><br><span class="line">            <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;this is IE8&quot;</span>);</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (fIEVersion == <span class="number">9</span>) &#123;</span><br><span class="line">            <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;this is IE9&quot;</span>);</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (fIEVersion == <span class="number">10</span>) &#123;</span><br><span class="line">            <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;this is IE10&quot;</span>);</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (fIEVersion == <span class="number">11</span>) &#123;</span><br><span class="line">            <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;this is IE11&quot;</span>);</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;IE版本过低&quot;</span>);</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (isFF) &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;this is firefox&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (isOpera) &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;this is opera&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (isSafari) &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;this is safari&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (isChrome) &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;this is chrome&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (isEdge) &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;this is edge&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+
+
+
+
+<h3 id="简单特效类"><a href="#简单特效类" class="headerlink" title="简单特效类"></a>简单特效类</h3><h4 id="t3.1">返回页面顶部</h4>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">$(<span class="variable language_">window</span>).<span class="title function_">scroll</span>(<span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">if</span>($(<span class="variable language_">window</span>).<span class="title function_">scrollTop</span>() &gt; $(<span class="variable language_">window</span>).<span class="title function_">height</span>() / <span class="number">2</span>) &#123;</span><br><span class="line">        $(<span class="string">&quot;#toTop&quot;</span>).<span class="title function_">show</span>(<span class="number">500</span>);</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        $(<span class="string">&quot;#toTop&quot;</span>).<span class="title function_">hide</span>(<span class="number">500</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br><span class="line">$(<span class="string">&quot;#toTop&quot;</span>).<span class="title function_">click</span>(<span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">    $(<span class="string">&quot;html,body&quot;</span>).<span class="title function_">animate</span>(&#123;</span><br><span class="line">        <span class="attr">scrollTop</span>: <span class="number">0</span></span><br><span class="line">    &#125;, <span class="number">500</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+
+
+
+
+        
+            <div id="toc-article">
+                
+  <div class="widget-wrap" id="toc-wrap">
+    <h3 class="widget-title"><i class="fa fa-toc"></i> 文章目录</h3>
+    <div class="widget">
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%9B%AE%E5%BD%95"><span class="toc-text">目录</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B8%B8%E7%94%A8%E5%85%BC%E5%AE%B9%E6%96%B9%E6%B3%95-IE8"><span class="toc-text">常用兼容方法(IE8+)</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#t1.1"><span class="toc-text">insertAfter()</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#t1.2"><span class="toc-text">getElementByClassName()</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#t1.3"><span class="toc-text">trim()</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#t1.4"><span class="toc-text">EventUtil</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B8%B8%E7%94%A8%E5%B7%A5%E5%85%B7%E7%B1%BB"><span class="toc-text">常用工具类</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#t2.1"><span class="toc-text">移动端和PC端网址自动切换</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#t2.2"><span class="toc-text">常用正则表达式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#t2.3"><span class="toc-text">获取DOM元素的实际样式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#t2.4"><span class="toc-text">日期格式化</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#t2.5"><span class="toc-text">将url中参数以对象的形式输出</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#t2.6"><span class="toc-text">将cookie中内容以对象形似输出</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#t2.7"><span class="toc-text">设置Cookie</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#t2.8"><span class="toc-text">浏览器类型及IE浏览器版本检测</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AE%80%E5%8D%95%E7%89%B9%E6%95%88%E7%B1%BB"><span class="toc-text">简单特效类</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#t3.1"><span class="toc-text">返回页面顶部</span></a></li></ol></li></ol>
+    </div>
+  </div>
+
+
+            </div>
+        
+        
+          <blockquote id="copyright">
+              <p>原文链接: <a href="https://jesse121.github.io/articles/2017/05/03.html">https://jesse121.github.io/articles/2017/05/03.html</a></p>
+              <p>版权声明: 转载请注明出处.</p>
+          </blockquote>
+        
+      
+    </div>
+    <footer class="article-footer">
+      
+        <div class="article-tag-wrap">
+          
+
+          
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/javascript/" rel="tag">JavaScript</a></li></ul>
+
+          
+
+
+        </div>
+      
+      
+        
+<nav id="article-nav">
+  
+    <a href="/blog/articles/2017/04/28.html" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">older</strong>
+      <div class="article-nav-title">
+        
+          【译】如何成为一个优秀的前端工程师？
+        
+      </div>
+    </a>
+  
+  
+    <a href="/blog/articles/2017/05/04.html" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">newer</strong>
+      <div class="article-nav-title">
+        
+          【译】编写整洁 CSS 代码的黄金法则
+        
+      </div>
+    </a>
+  
+</nav>
+
+      
+      
+        
+  <div id="comments"></div>
+
+
+
+
+
+
+
+
+
+      
+    </footer>
+  </div>
+</article>
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-posts"></i> 最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/blog/articles/2021/06/11.html">如何用Vite快速搭建一个vue3项目</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2020/12/15.html">如何快速生成tsconfig.json文件</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2020/08/22.html">用Ssh连接docker容器</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2020/07/04.html">如何在Vscode上直接运行typescript?</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2020/06/13.html">Wireshark过滤器使用介绍</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2020/05/13.html">Webpack编译后的html中图片路径变为[object Module]的原因及解决办法</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2020/05/02.html">栈与队列</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2020/04/19.html">链表</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2020/04/19.html">算法的时间复杂度与空间复杂度分析</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2020/04/12.html">如何使用Wireshark抓取HTTP2报文？</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-tag"></i> 标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/blog/tags/angularjs/" style="font-size: 10px;">AngularJs</a> <a href="/blog/tags/apache/" style="font-size: 14px;">Apache</a> <a href="/blog/tags/bootstrap/" style="font-size: 14px;">Bootstrap</a> <a href="/blog/tags/css/" style="font-size: 18px;">CSS</a> <a href="/blog/tags/centos/" style="font-size: 10px;">CentOS</a> <a href="/blog/tags/docker/" style="font-size: 14px;">Docker</a> <a href="/blog/tags/git/" style="font-size: 12px;">Git</a> <a href="/blog/tags/gitlab/" style="font-size: 10px;">Gitlab</a> <a href="/blog/tags/gulp/" style="font-size: 10px;">Gulp</a> <a href="/blog/tags/html/" style="font-size: 14px;">HTML</a> <a href="/blog/tags/html5/" style="font-size: 10px;">HTML5</a> <a href="/blog/tags/http/" style="font-size: 14px;">HTTP</a> <a href="/blog/tags/https/" style="font-size: 10px;">HTTPS</a> <a href="/blog/tags/javascript/" style="font-size: 20px;">JavaScript</a> <a href="/blog/tags/jenkins/" style="font-size: 10px;">Jenkins</a> <a href="/blog/tags/linux/" style="font-size: 12px;">Linux</a> <a href="/blog/tags/mac/" style="font-size: 10px;">Mac</a> <a href="/blog/tags/mysql/" style="font-size: 14px;">MySQL</a> <a href="/blog/tags/nginx/" style="font-size: 12px;">Nginx</a> <a href="/blog/tags/node-js/" style="font-size: 12px;">Node.js</a> <a href="/blog/tags/php/" style="font-size: 16px;">PHP</a> <a href="/blog/tags/photoshop/" style="font-size: 10px;">Photoshop</a> <a href="/blog/tags/react/" style="font-size: 10px;">React</a> <a href="/blog/tags/redux/" style="font-size: 10px;">Redux</a> <a href="/blog/tags/sublimetext3/" style="font-size: 10px;">SublimeText3</a> <a href="/blog/tags/typescript/" style="font-size: 12px;">Typescript</a> <a href="/blog/tags/vagrant/" style="font-size: 10px;">Vagrant</a> <a href="/blog/tags/vim/" style="font-size: 10px;">Vim</a> <a href="/blog/tags/vue/" style="font-size: 10px;">Vue</a> <a href="/blog/tags/web/" style="font-size: 16px;">WEB</a> <a href="/blog/tags/webpack/" style="font-size: 14px;">Webpack</a> <a href="/blog/tags/wireshark/" style="font-size: 12px;">Wireshark</a> <a href="/blog/tags/yii/" style="font-size: 10px;">Yii</a> <a href="/blog/tags/jquery/" style="font-size: 14px;">jQuery</a> <a href="/blog/tags/monitor/" style="font-size: 10px;">monitor</a> <a href="/blog/tags/ssh/" style="font-size: 10px;">ssh</a> <a href="/blog/tags/vite/" style="font-size: 10px;">vite</a> <a href="/blog/tags/vscode/" style="font-size: 10px;">vscode</a> <a href="/blog/tags/vue/" style="font-size: 10px;">vue</a> <a href="/blog/tags/%E5%BC%80%E5%8F%91%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/" style="font-size: 10px;">开发问题记录</a> <a href="/blog/tags/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F/" style="font-size: 10px;">微信小程序</a> <a href="/blog/tags/%E7%AE%97%E6%B3%95/" style="font-size: 14px;">算法</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-classify"></i> 分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/blog/categories/bootstrap/">Bootstrap</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/html-css/">HTML-CSS</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/html5/">HTML5</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/javascript/">JavaScript</a><span class="category-list-count">11</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/linux/">Linux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/mysql/">MySQL</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/node-js/">Node.js</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/php/">PHP</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/photoshop/">Photoshop</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/typescript/">Typescript</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/vue/">Vue</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/web/">WEB</a><span class="category-list-count">8</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/jquery/">jQuery</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/translation/">前端翻译</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/">开发工具</a><span class="category-list-count">15</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/%E5%BC%80%E5%8F%91%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/">开发问题记录</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/%E7%AE%97%E6%B3%95/">算法</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/notes/">读书笔记</a><span class="category-list-count">16</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-archive"></i> 归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2021/">2021年</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2020/">2020年</a><span class="archive-list-count">12</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2019/">2019年</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/">2018年</a><span class="archive-list-count">12</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2017/">2017年</a><span class="archive-list-count">26</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/">2016年</a><span class="archive-list-count">27</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-link"></i> 友情链接</h3>
+    <div class="widget">
+      <ul>
+      
+        <li>
+          <a target="_blank" rel="noopener" href="http://www.mahaixiang.cn/internet/300.html">深入理解互联网协议的原理</a>
+        </li>
+      
+        <li>
+          <a target="_blank" rel="noopener" href="http://javascript.ruanyifeng.com/">JavaScript 标准参考教程</a>
+        </li>
+      
+        <li>
+          <a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript">Mozilla Developer Network</a>
+        </li>
+      
+      </ul>
+    </div>
+  </div>
+
+
+  
+</aside>
+        
+      </div>
+      <a id="totop" href="#top"></a>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      <p>
+        <a href="/blog/sitemap.xml">网站地图</a>
+        <span> | </span><a href="/blog/atom.xml">订阅本站</a>
+        <span> | </span><a href="/blog/about/">联系博主</a>
+      </p>
+      
+        <p>
+          <i class="fa fa-visitors"></i>
+          <i id="busuanzi_container_site_uv"><i id="busuanzi_value_site_uv"></i></i>
+          ，
+          <i class="fa fa-views"></i>
+          <i id="busuanzi_container_site_pv"><i id="busuanzi_value_site_pv"></i></i>
+        </p>
+      
+      <p>
+        <span>Copyright &copy; 2022 Jesse.</span>
+        <span>Theme by <a href="https://github.com/chaooo/hexo-theme-BlueLake/" target="_blank">BlueLake.</a></span>
+        <span>Powered by <a href="https://hexo.io/" target="_blank">Hexo.</a></span>
+      </p>
+    </div>
+  </div>
+</footer>
+
+    </div>
+  </div>
+  
+<script src="/blog/js/jquery-3.4.1.min.js"></script>
+
+
+<script src="/blog/js/search.json.js"></script>
+
+
+  
+<script src="/blog/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/blog/js/script.js"></script>
+
+
+
+
+
+
+  
+<script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+  
+  
+
+
+  
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+ 
+<script src="//cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.js"></script>
+
+<script>
+  var gitalk = new Gitalk({
+    clientID: "1d84813ae13cd94072f0",
+    clientSecret: "4a4dd2af0c622e983dd90f5daf15c3ebd86b8ae9",
+    repo: "blog",
+    owner: "jesse121",
+    admin: ["jesse121"],
+    id: md5(window.location.pathname),
+    proxy: "https://gitalk-worker.jesse121.workers.dev/https://github.com/login/oauth/access_token,",
+    distractionFreeMode: false,
+    language: "zh-CN",
+    pagerDirection: "last",
+  });
+  gitalk.render("comments");
+</script>
+         
+
+
+
+</body>
+</html>

@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>常用的Git命令整理 | 前端之路</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  
+    <meta name="description" content="专注前端开发，前端开发技术博客">
+  
+  
+    <meta name="keywords" content="Web前端开发，Javascript，前端开发博客">
+  
+  
+    <link rel="alternate" href="/blog/atom.xml" title="前端之路" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/blog/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/blog/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/blog/fancybox/jquery.fancybox.min.css">
+
+  
+  
+  
+    
+<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+
+  
+  
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/blog/" id="logo">前端之路</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/blog/" id="subtitle">路漫漫其修远兮，吾将上下而求索</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        
+          <a class="main-nav-link" href="/blog/."><i class="fa fa-home"></i> 首页</a>
+        
+          <a class="main-nav-link" href="/blog/archives/"><i class="fa fa-archive"></i> 归档</a>
+        
+          <a class="main-nav-link" href="/blog/about/"><i class="fa fa-user"></i> 关于</a>
+        
+      </nav>
+    </div>
+    <div id="search-form">
+      <div id="result-mask" class="hide"></div>
+      <label><input id="search-key" type="text" autocomplete="off" placeholder="搜索"></label>
+      <div id="result-wrap" class="hide">
+        <div id="search-result"></div>
+      </div>
+      <div class="hide">
+        <template id="search-tpl">
+          <div class="item">
+            <a href="/{path}" title="{title}">
+              <div class="title">{title}</div>
+              <div class="time">{date}</div>
+              <div class="tags">{tags}</div>
+            </a>
+          </div>
+        </template>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-tool/常用的Git命令整理" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      常用的Git命令整理
+    </h1>
+  
+
+
+      </header>
+    
+    <div class="article-meta">
+      
+      <span class="article-date">
+  <i class="fa fa-date"></i>
+  <time class="dt-published" datetime="2017-08-07T22:39:30.000Z" itemprop="datePublished">2017年08月08日</time>
+</span>
+      
+  <div class="article-category">
+    <i class="fa fa-classify"></i>
+    <a class="article-category-link" href="/blog/categories/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/">开发工具</a>
+  </div>
+
+      
+        <span class="article-views">
+  <i class="fa fa-views"></i>
+  <i id="busuanzi_container_page_pv">
+      <i id="busuanzi_value_page_pv"></i>
+  </i>
+</span>
+
+      
+      
+<a href="/blog/articles/2017/08/08.html#comments" class="article-comment-link">
+  
+    
+    
+    
+    
+    
+  
+  <i class="fa fa-commt"></i>
+  留言
+</a>
+
+
+    </div>
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>之前一直忙于项目苦于没有时间总结，今天刚好有时间特来总结一下在工作中常用到的代码版本管理器 Git。至于为什么要用 Git？Git 相比 SVN 有哪些好处？我就不多说了,前人已经总结的很好。今天主要介绍的是常用的 Git 命令。</p>
+<span id="more"></span>
+
+<h4 id="Git-工作流"><a href="#Git-工作流" class="headerlink" title="Git 工作流"></a>Git 工作流</h4><p>一般来说，日常使用只要记住下图 6 个命令，就可以了。<br><img src="/blog/blog/static/images/git/1.png" alt="Git工作流"></p>
+<p>Remote：远程仓库<br>Repository：本地仓库<br>Index&#x2F;Stage：暂存区<br>Workspace：工作区</p>
+<h4 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h4><p>Git 的设置文件为.gitconfig，它可以在用户主目录下（全局配置），也可以在项目目录下（项目配置）。</p>
+<p>显示当前的 Git 配置<br>$ git config –list</p>
+<p>编辑 Git 配置文件<br>$ git config -e [–global]</p>
+<p>设置提交代码时的用户信息<br>$ git config [–global] user.name “[name]”<br>$ git config [–global] user.email “[email address]”</p>
+<h4 id="新建代码库"><a href="#新建代码库" class="headerlink" title="新建代码库"></a>新建代码库</h4><p>在当前目录新建一个 Git 代码库<br>$ git init</p>
+<p>新建一个目录，将其初始化为 Git 代码库<br>$ git init [project-name]</p>
+<p>下载一个项目和它的整个代码历史<br>$ git clone [url]</p>
+<h4 id="增加-x2F-删除文件"><a href="#增加-x2F-删除文件" class="headerlink" title="增加&#x2F;删除文件"></a>增加&#x2F;删除文件</h4><p>添加指定文件到暂存区<br>$ git add [file1] [file2] …</p>
+<p>添加指定目录到暂存区，包括子目录<br>$ git add [dir]</p>
+<p>添加当前目录的所有文件到暂存区<br>$ git add .</p>
+<p>删除工作区文件，并且将这次删除放入暂存区<br>$ git rm [file1] [file2] …</p>
+<p>停止追踪指定文件，但该文件会保留在工作区<br>$ git rm -r -–cached [file]</p>
+<p>改名文件，并且将这个改名放入暂存区<br>$ git mv [file-original] [file-renamed]</p>
+<h4 id="代码提交"><a href="#代码提交" class="headerlink" title="代码提交"></a>代码提交</h4><p>提交暂存区到仓库区<br>$ git commit -m [message]</p>
+<p>提交暂存区的指定文件到仓库区<br>$ git commit [file1] [file2] … -m [message]</p>
+<p>提交工作区自上次 commit 之后的变化，直接到仓库区<br>$ git commit -a</p>
+<p>提交时显示所有 diff 信息<br>$ git commit -v</p>
+<p>使用一次新的 commit，替代上一次提交，如果代码没有任何新变化，则用来改写上一次 commit 的提交信息<br>$ git commit –amend -m [message]</p>
+<p>重做上一次 commit，并包括指定文件的新变化<br>$ git commit –amend [file1] [file2] …</p>
+<h4 id="分支"><a href="#分支" class="headerlink" title="分支"></a>分支</h4><p>列出所有本地分支<br>$ git branch</p>
+<p>列出所有远程分支<br>$ git branch -r</p>
+<p>列出所有本地分支和远程分支<br>$ git branch -a</p>
+<p>新建一个分支，但依然停留在当前分支<br>$ git branch [branch-name]</p>
+<p>切换分支<br>$ git checkout [branch]</p>
+<p>新建一个分支，并切换到该分支<br>$ git checkout -b [branch]</p>
+<p>新建一个无根分支，并切换到该分支<br>$ git checkout –orphan [branch]</p>
+<p>新建一个分支，指向指定 commit<br>$ git branch [branch] [commit]</p>
+<p>新建一个分支，与指定的远程分支建立追踪关系<br>$ git branch –track [branch] [remote-branch]</p>
+<p>切换到指定分支，并更新工作区<br>$ git checkout [branch-name]</p>
+<p>建立追踪关系，在现有分支与指定的远程分支之间<br>$ git branch –set-upstream [branch] [remote-branch]</p>
+<p>合并指定分支到当前分支<br>$ git merge [branch]</p>
+<p>选择一个 commit，合并进当前分支<br>$ git cherry-pick [commit]</p>
+<p>删除分支<br>$ git branch -d [branch-name]</p>
+<p>删除远程跟踪分支<br>$ git branch -dr [remote&#x2F;branch]</p>
+<p>删除远程分支<br>$ git push origin –delete <branchName></p>
+<p>追加远程分支<br>$ git remote add &lt;主机名&gt; &lt;网址&gt;</p>
+<p>删除远程分支<br>$ git remote rm &lt;主机名&gt;</p>
+<h4 id="标签"><a href="#标签" class="headerlink" title="标签"></a>标签</h4><p>列出所有 tag<br>$ git tag</p>
+<p>新建一个 tag 在当前 commit<br>$ git tag [tag]</p>
+<p>新建一个 tag 在指定 commit<br>$ git tag [tag] [commit]</p>
+<p>删除本地 tag<br>$ git tag -d [tag]</p>
+<p>删除远程 tag<br>$ git push origin :refs&#x2F;tags&#x2F;[tagName]</p>
+<p>查看 tag 信息<br>$ git show [tag]</p>
+<p>提交指定 tag<br>$ git push [remote] [tag]</p>
+<p>提交所有 tag<br>$ git push [remote] –tags</p>
+<p>新建一个分支，指向某个 tag<br>$ git checkout -b [branch] [tag]</p>
+<h4 id="查看信息"><a href="#查看信息" class="headerlink" title="查看信息"></a>查看信息</h4><p>显示有变更的文件<br>$ git status</p>
+<p>显示当前分支的版本历史<br>$ git log</p>
+<p>显示 commit 历史，以及每次 commit 发生变更的文件<br>$ git log –stat</p>
+<p>显示某个文件的版本历史，包括文件改名<br>$ git log –follow [file]</p>
+<p>显示指定文件相关的每一次 diff<br>$ git log -p [file]</p>
+<p>显示指定文件是什么人在什么时间修改过<br>$ git blame [file]</p>
+<p>显示暂存区和工作区的差异<br>$ git diff</p>
+<p>显示暂存区和上一个 commit 的差异<br>$ git diff –cached [file]</p>
+<p>显示工作区与当前分支最新 commit 之间的差异<br>$ git diff HEAD</p>
+<p>显示两次提交之间的差异<br>$ git diff [first-branch]…[second-branch]</p>
+<p>显示某次提交的元数据和内容变化<br>$ git show [commit]</p>
+<p>显示某次提交发生变化的文件<br>$ git show –name-only [commit]</p>
+<p>显示某次提交时，某个文件的内容<br>$ git show [commit]:[filename]</p>
+<p>显示当前分支的最近几次提交<br>$ git reflog</p>
+<h4 id="远程同步"><a href="#远程同步" class="headerlink" title="远程同步"></a>远程同步</h4><p>下载远程仓库的所有变动<br>$ git fetch [remote]</p>
+<p>显示所有远程仓库<br>$ git remote -v</p>
+<p>显示某个远程仓库的信息<br>$ git remote show [remote]</p>
+<p>将本地仓库提交到远程仓库<br>$git remote add origin [url]</p>
+<p>取回远程仓库的变化，并与本地分支合并<br>$ git pull [remote] [branch]</p>
+<p>上传本地指定分支到远程仓库<br>$ git push [remote] [branch]</p>
+<p>强行推送当前分支到远程仓库，即使有冲突<br>$ git push [remote] –force</p>
+<p>推送所有分支到远程仓库<br>$ git push [remote] –all</p>
+<h4 id="撤销"><a href="#撤销" class="headerlink" title="撤销"></a>撤销</h4><p>恢复暂存区的指定文件到工作区<br>$ git checkout [file]</p>
+<p>恢复某个 commit 的指定文件到工作区<br>$ git checkout [commit] [file]</p>
+<p>恢复上一个 commit 的所有文件到工作区<br>$ git checkout .</p>
+<p>重置暂存区的指定文件，与上一次 commit 保持一致，但工作区不变<br>$ git reset [file]</p>
+<p>重置暂存区与工作区，与上一次 commit 保持一致<br>$ git reset –hard</p>
+<p>重置当前分支的指针为指定 commit，同时重置暂存区，但工作区不变<br>$ git reset [commit]</p>
+<p>重置当前分支的 HEAD 为指定 commit，同时重置暂存区和工作区，与指定 commit 一致<br>$ git reset –hard [commit]</p>
+<p>重置当前 HEAD 为指定 commit，但保持暂存区和工作区不变<br>$ git reset –keep [commit]</p>
+<p>新建一个 commit，用来撤销指定 commit，后者的所有变化都将被前者抵消，并且应用到当前分支<br>$ git revert [commit]</p>
+<h4 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h4><p>创建 git 忽略文件.gitignore<br>$ vim .gitignore<br>文件.gitignore 的格式规范如下：</p>
+<ul>
+<li>所有空行或者以注释符号＃ 开头的行都会被 Git 忽略。</li>
+<li>可以使用正则表达式模式匹配。</li>
+<li>匹配模式最后跟反斜杠（&#x2F;）说明要忽略的是目录。</li>
+<li>要忽略指定模式以外的文件或目录，可以在模式前加上惊叹号（!）取反。</li>
+</ul>
+<p>生成一个可供发布的压缩包<br>$ git archive</p>
+<p>在 windows 下面将已经 push 到远端的文件，改变其文件名的大小写时，git 默认会认为文件没有发生任何改动，从而拒绝提交和推送，原因是其默认配置为大小写不敏感，故须在 bash 下修改配置：</p>
+<p>$ git config core.ignorecase false</p>
+<h4 id="git-clean"><a href="#git-clean" class="headerlink" title="git clean"></a>git clean</h4><p>git clean 经常和 git reset –hard 一起结合使用. 记住 reset 只影响被 track 过的文件, 所以需要 clean 来删除没有 track 过的文件. 结合使用这两个命令能让你的工作目录完全回到一个指定的<commit>的状态</p>
+<p>告诉你哪些文件会被删除. 记住他不会真正的删除文件, 只是一个提醒<br>$ git clean -n</p>
+<p>删除当前目录下所有没有 track 过的文件. 他不会删除.gitignore 文件里面指定的文件夹和文件, 不管这些文件有没有被 track 过<br>$ git clean -f</p>
+<p>删除指定路径下的没有被 track 过的文件<br>$ git clean -f <path></p>
+<p>删除当前目录下没有被 track 过的文件和文件夹，这个经常使用<br>$ git clean -df</p>
+<p>删除当前目录下所有没有 track 过的文件. 不管他是否是.gitignore 文件里面指定的文件夹和文件<br>$ git clean -xf</p>
+<h4 id="git-设置-alias"><a href="#git-设置-alias" class="headerlink" title="git 设置 alias"></a>git 设置 alias</h4><p>$ git config –global alias.st status<br>$ git config –global alias.co checkout<br>$ git config –global alias.ci commit<br>$ git config –global alias.br branch</p>
+<h4 id="git-重命名分支"><a href="#git-重命名分支" class="headerlink" title="git 重命名分支"></a>git 重命名分支</h4><ol>
+<li>本地分支重命名(还没有推送到远程)<br>$ git branch -m oldName newName</li>
+<li>远程分支重命名 (已经推送远程-假设本地分支和远程对应分支名称相同)</li>
+</ol>
+<p>a. 重命名远程分支对应的本地分支<br>$ git branch -m oldName newName</p>
+<p>b. 删除远程分支<br>$ git push –delete origin oldName</p>
+<p>c. 上传新命名的本地分支<br>$ git push origin newName</p>
+<p>d.把修改后的本地分支与远程分支关联<br>$ git branch –set-upstream-to origin&#x2F;newName</p>
+<h4 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h4><blockquote>
+<p><a target="_blank" rel="noopener" href="http://blog.csdn.net/jackjia2015/article/details/50607408">SVN 和 Git 介绍,区别,优缺点,适用范围总结</a><br><a target="_blank" rel="noopener" href="http://www.ruanyifeng.com/blog/2015/12/git-cheat-sheet.html">常用 Git 命令清单</a></p>
+</blockquote>
+
+        
+            <div id="toc-article">
+                
+  <div class="widget-wrap" id="toc-wrap">
+    <h3 class="widget-title"><i class="fa fa-toc"></i> 文章目录</h3>
+    <div class="widget">
+      <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#Git-%E5%B7%A5%E4%BD%9C%E6%B5%81"><span class="toc-text">Git 工作流</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE"><span class="toc-text">配置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%96%B0%E5%BB%BA%E4%BB%A3%E7%A0%81%E5%BA%93"><span class="toc-text">新建代码库</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A2%9E%E5%8A%A0-x2F-%E5%88%A0%E9%99%A4%E6%96%87%E4%BB%B6"><span class="toc-text">增加&#x2F;删除文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E6%8F%90%E4%BA%A4"><span class="toc-text">代码提交</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%86%E6%94%AF"><span class="toc-text">分支</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A0%87%E7%AD%BE"><span class="toc-text">标签</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E4%BF%A1%E6%81%AF"><span class="toc-text">查看信息</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BF%9C%E7%A8%8B%E5%90%8C%E6%AD%A5"><span class="toc-text">远程同步</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%92%A4%E9%94%80"><span class="toc-text">撤销</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%B6%E4%BB%96"><span class="toc-text">其他</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#git-clean"><span class="toc-text">git clean</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#git-%E8%AE%BE%E7%BD%AE-alias"><span class="toc-text">git 设置 alias</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#git-%E9%87%8D%E5%91%BD%E5%90%8D%E5%88%86%E6%94%AF"><span class="toc-text">git 重命名分支</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E7%AB%A0"><span class="toc-text">参考文章</span></a></li></ol>
+    </div>
+  </div>
+
+
+            </div>
+        
+        
+          <blockquote id="copyright">
+              <p>原文链接: <a href="https://jesse121.github.io/articles/2017/08/08.html">https://jesse121.github.io/articles/2017/08/08.html</a></p>
+              <p>版权声明: 转载请注明出处.</p>
+          </blockquote>
+        
+      
+    </div>
+    <footer class="article-footer">
+      
+        <div class="article-tag-wrap">
+          
+
+          
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/git/" rel="tag">Git</a></li></ul>
+
+          
+
+
+        </div>
+      
+      
+        
+<nav id="article-nav">
+  
+    <a href="/blog/articles/2017/07/28.html" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">older</strong>
+      <div class="article-nav-title">
+        
+          CSS中各种长度单位总结
+        
+      </div>
+    </a>
+  
+  
+    <a href="/blog/articles/2017/08/17.html" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">newer</strong>
+      <div class="article-nav-title">
+        
+          H5页面开发常用的头部标签设置
+        
+      </div>
+    </a>
+  
+</nav>
+
+      
+      
+        
+  <div id="comments"></div>
+
+
+
+
+
+
+
+
+
+      
+    </footer>
+  </div>
+</article>
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-posts"></i> 最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/blog/articles/2021/06/11.html">如何用Vite快速搭建一个vue3项目</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2020/12/15.html">如何快速生成tsconfig.json文件</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2020/08/22.html">用Ssh连接docker容器</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2020/07/04.html">如何在Vscode上直接运行typescript?</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2020/06/13.html">Wireshark过滤器使用介绍</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2020/05/13.html">Webpack编译后的html中图片路径变为[object Module]的原因及解决办法</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2020/05/02.html">栈与队列</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2020/04/19.html">链表</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2020/04/19.html">算法的时间复杂度与空间复杂度分析</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2020/04/12.html">如何使用Wireshark抓取HTTP2报文？</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-tag"></i> 标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/blog/tags/angularjs/" style="font-size: 10px;">AngularJs</a> <a href="/blog/tags/apache/" style="font-size: 14px;">Apache</a> <a href="/blog/tags/bootstrap/" style="font-size: 14px;">Bootstrap</a> <a href="/blog/tags/css/" style="font-size: 18px;">CSS</a> <a href="/blog/tags/centos/" style="font-size: 10px;">CentOS</a> <a href="/blog/tags/docker/" style="font-size: 14px;">Docker</a> <a href="/blog/tags/git/" style="font-size: 12px;">Git</a> <a href="/blog/tags/gitlab/" style="font-size: 10px;">Gitlab</a> <a href="/blog/tags/gulp/" style="font-size: 10px;">Gulp</a> <a href="/blog/tags/html/" style="font-size: 14px;">HTML</a> <a href="/blog/tags/html5/" style="font-size: 10px;">HTML5</a> <a href="/blog/tags/http/" style="font-size: 14px;">HTTP</a> <a href="/blog/tags/https/" style="font-size: 10px;">HTTPS</a> <a href="/blog/tags/javascript/" style="font-size: 20px;">JavaScript</a> <a href="/blog/tags/jenkins/" style="font-size: 10px;">Jenkins</a> <a href="/blog/tags/linux/" style="font-size: 12px;">Linux</a> <a href="/blog/tags/mac/" style="font-size: 10px;">Mac</a> <a href="/blog/tags/mysql/" style="font-size: 14px;">MySQL</a> <a href="/blog/tags/nginx/" style="font-size: 12px;">Nginx</a> <a href="/blog/tags/node-js/" style="font-size: 12px;">Node.js</a> <a href="/blog/tags/php/" style="font-size: 16px;">PHP</a> <a href="/blog/tags/photoshop/" style="font-size: 10px;">Photoshop</a> <a href="/blog/tags/react/" style="font-size: 10px;">React</a> <a href="/blog/tags/redux/" style="font-size: 10px;">Redux</a> <a href="/blog/tags/sublimetext3/" style="font-size: 10px;">SublimeText3</a> <a href="/blog/tags/typescript/" style="font-size: 12px;">Typescript</a> <a href="/blog/tags/vagrant/" style="font-size: 10px;">Vagrant</a> <a href="/blog/tags/vim/" style="font-size: 10px;">Vim</a> <a href="/blog/tags/vue/" style="font-size: 10px;">Vue</a> <a href="/blog/tags/web/" style="font-size: 16px;">WEB</a> <a href="/blog/tags/webpack/" style="font-size: 14px;">Webpack</a> <a href="/blog/tags/wireshark/" style="font-size: 12px;">Wireshark</a> <a href="/blog/tags/yii/" style="font-size: 10px;">Yii</a> <a href="/blog/tags/jquery/" style="font-size: 14px;">jQuery</a> <a href="/blog/tags/monitor/" style="font-size: 10px;">monitor</a> <a href="/blog/tags/ssh/" style="font-size: 10px;">ssh</a> <a href="/blog/tags/vite/" style="font-size: 10px;">vite</a> <a href="/blog/tags/vscode/" style="font-size: 10px;">vscode</a> <a href="/blog/tags/vue/" style="font-size: 10px;">vue</a> <a href="/blog/tags/%E5%BC%80%E5%8F%91%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/" style="font-size: 10px;">开发问题记录</a> <a href="/blog/tags/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F/" style="font-size: 10px;">微信小程序</a> <a href="/blog/tags/%E7%AE%97%E6%B3%95/" style="font-size: 14px;">算法</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-classify"></i> 分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/blog/categories/bootstrap/">Bootstrap</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/html-css/">HTML-CSS</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/html5/">HTML5</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/javascript/">JavaScript</a><span class="category-list-count">11</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/linux/">Linux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/mysql/">MySQL</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/node-js/">Node.js</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/php/">PHP</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/photoshop/">Photoshop</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/typescript/">Typescript</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/vue/">Vue</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/web/">WEB</a><span class="category-list-count">8</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/jquery/">jQuery</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/translation/">前端翻译</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/">开发工具</a><span class="category-list-count">15</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/%E5%BC%80%E5%8F%91%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/">开发问题记录</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/%E7%AE%97%E6%B3%95/">算法</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/notes/">读书笔记</a><span class="category-list-count">16</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-archive"></i> 归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2021/">2021年</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2020/">2020年</a><span class="archive-list-count">12</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2019/">2019年</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/">2018年</a><span class="archive-list-count">12</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2017/">2017年</a><span class="archive-list-count">26</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/">2016年</a><span class="archive-list-count">27</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-link"></i> 友情链接</h3>
+    <div class="widget">
+      <ul>
+      
+        <li>
+          <a target="_blank" rel="noopener" href="http://www.mahaixiang.cn/internet/300.html">深入理解互联网协议的原理</a>
+        </li>
+      
+        <li>
+          <a target="_blank" rel="noopener" href="http://javascript.ruanyifeng.com/">JavaScript 标准参考教程</a>
+        </li>
+      
+        <li>
+          <a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript">Mozilla Developer Network</a>
+        </li>
+      
+      </ul>
+    </div>
+  </div>
+
+
+  
+</aside>
+        
+      </div>
+      <a id="totop" href="#top"></a>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      <p>
+        <a href="/blog/sitemap.xml">网站地图</a>
+        <span> | </span><a href="/blog/atom.xml">订阅本站</a>
+        <span> | </span><a href="/blog/about/">联系博主</a>
+      </p>
+      
+        <p>
+          <i class="fa fa-visitors"></i>
+          <i id="busuanzi_container_site_uv"><i id="busuanzi_value_site_uv"></i></i>
+          ，
+          <i class="fa fa-views"></i>
+          <i id="busuanzi_container_site_pv"><i id="busuanzi_value_site_pv"></i></i>
+        </p>
+      
+      <p>
+        <span>Copyright &copy; 2022 Jesse.</span>
+        <span>Theme by <a href="https://github.com/chaooo/hexo-theme-BlueLake/" target="_blank">BlueLake.</a></span>
+        <span>Powered by <a href="https://hexo.io/" target="_blank">Hexo.</a></span>
+      </p>
+    </div>
+  </div>
+</footer>
+
+    </div>
+  </div>
+  
+<script src="/blog/js/jquery-3.4.1.min.js"></script>
+
+
+<script src="/blog/js/search.json.js"></script>
+
+
+  
+<script src="/blog/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/blog/js/script.js"></script>
+
+
+
+
+
+
+  
+<script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+  
+  
+
+
+  
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+ 
+<script src="//cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.js"></script>
+
+<script>
+  var gitalk = new Gitalk({
+    clientID: "1d84813ae13cd94072f0",
+    clientSecret: "4a4dd2af0c622e983dd90f5daf15c3ebd86b8ae9",
+    repo: "blog",
+    owner: "jesse121",
+    admin: ["jesse121"],
+    id: md5(window.location.pathname),
+    proxy: "https://gitalk-worker.jesse121.workers.dev/https://github.com/login/oauth/access_token,",
+    distractionFreeMode: false,
+    language: "zh-CN",
+    pagerDirection: "last",
+  });
+  gitalk.render("comments");
+</script>
+         
+
+
+
+</body>
+</html>

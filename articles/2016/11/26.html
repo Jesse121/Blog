@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>《jQuery内核详解与实践》--读书笔记 | 前端之路</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  
+    <meta name="description" content="专注前端开发，前端开发技术博客">
+  
+  
+    <meta name="keywords" content="Web前端开发，Javascript，前端开发博客">
+  
+  
+    <link rel="alternate" href="/blog/atom.xml" title="前端之路" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/blog/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/blog/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/blog/fancybox/jquery.fancybox.min.css">
+
+  
+  
+  
+    
+<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+
+  
+  
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/blog/" id="logo">前端之路</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/blog/" id="subtitle">路漫漫其修远兮，吾将上下而求索</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        
+          <a class="main-nav-link" href="/blog/."><i class="fa fa-home"></i> 首页</a>
+        
+          <a class="main-nav-link" href="/blog/archives/"><i class="fa fa-archive"></i> 归档</a>
+        
+          <a class="main-nav-link" href="/blog/about/"><i class="fa fa-user"></i> 关于</a>
+        
+      </nav>
+    </div>
+    <div id="search-form">
+      <div id="result-mask" class="hide"></div>
+      <label><input id="search-key" type="text" autocomplete="off" placeholder="搜索"></label>
+      <div id="result-wrap" class="hide">
+        <div id="search-result"></div>
+      </div>
+      <div class="hide">
+        <template id="search-tpl">
+          <div class="item">
+            <a href="/{path}" title="{title}">
+              <div class="title">{title}</div>
+              <div class="time">{date}</div>
+              <div class="tags">{tags}</div>
+            </a>
+          </div>
+        </template>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-notes/《jQuery内核详解与实践》--读书笔记" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      《jQuery内核详解与实践》--读书笔记
+    </h1>
+  
+
+
+      </header>
+    
+    <div class="article-meta">
+      
+      <span class="article-date">
+  <i class="fa fa-date"></i>
+  <time class="dt-published" datetime="2016-11-25T16:00:00.000Z" itemprop="datePublished">2016年11月26日</time>
+</span>
+      
+  <div class="article-category">
+    <i class="fa fa-classify"></i>
+    <a class="article-category-link" href="/blog/categories/notes/">读书笔记</a>
+  </div>
+
+      
+        <span class="article-views">
+  <i class="fa fa-views"></i>
+  <i id="busuanzi_container_page_pv">
+      <i id="busuanzi_value_page_pv"></i>
+  </i>
+</span>
+
+      
+      
+<a href="/blog/articles/2016/11/26.html#comments" class="article-comment-link">
+  
+    
+    
+    
+    
+    
+  
+  <i class="fa fa-commt"></i>
+  留言
+</a>
+
+
+    </div>
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h2 id="第二章-jQuery技术解密"><a href="#第二章-jQuery技术解密" class="headerlink" title="第二章 jQuery技术解密"></a>第二章 jQuery技术解密</h2><h3 id="2-2-jQuery原型技术分解"><a href="#2-2-jQuery原型技术分解" class="headerlink" title="2.2 jQuery原型技术分解"></a>2.2 jQuery原型技术分解</h3><h4 id="2-2-1-起源–原型继承"><a href="#2-2-1-起源–原型继承" class="headerlink" title="2.2.1 起源–原型继承"></a>2.2.1 起源–原型继承</h4><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> $ = jQuery = <span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">    <span class="comment">// 函数体</span></span><br><span class="line">&#125;</span><br><span class="line">jQuery.<span class="property">fn</span> = jQuery.<span class="property"><span class="keyword">prototype</span></span> = &#123;</span><br><span class="line">    <span class="attr">jquery</span>: <span class="string">&quot;1.3.2&quot;</span>,</span><br><span class="line">    <span class="attr">size</span>: <span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="property">length</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<span id="more"></span>
+<h4 id="2-2-2-生命–返回实例"><a href="#2-2-2-生命–返回实例" class="headerlink" title="2.2.2 生命–返回实例"></a>2.2.2 生命–返回实例</h4><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> $ = jQuery = <span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">    <span class="keyword">return</span> jQuery.<span class="property">fn</span>.<span class="title function_">init</span>();</span><br><span class="line">&#125;</span><br><span class="line">jQuery.<span class="property">fn</span> = jQuery.<span class="property"><span class="keyword">prototype</span></span> = &#123;</span><br><span class="line">    <span class="attr">init</span>:<span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="variable language_">this</span>;  <span class="comment">//this指向jQuery.prototype</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">jquery</span>:<span class="string">&quot;1.3.2&quot;</span>,</span><br><span class="line">    <span class="attr">size</span>: <span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="property">length</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="title function_">alert</span>($().<span class="property">jquery</span>);  <span class="comment">//&quot;1.3.2&quot;</span></span><br></pre></td></tr></table></figure>
+<h4 id="2-2-3-学步–分隔作用域"><a href="#2-2-3-学步–分隔作用域" class="headerlink" title="2.2.3 学步–分隔作用域"></a>2.2.3 学步–分隔作用域</h4><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> $ =jQuery = <span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">    <span class="comment">//jQuery框架精彩之处</span></span><br><span class="line">    <span class="comment">//将jQuery.fn.init作为构造函数，此处返回init的实例，达到分离作用域的作用，方便调用</span></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> jQuery.<span class="property">fn</span>.<span class="title function_">init</span>();</span><br><span class="line">&#125;</span><br><span class="line">jQuery.<span class="property">fn</span> = jQuery.<span class="property"><span class="keyword">prototype</span></span> = &#123;</span><br><span class="line">    init : <span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">length</span> = <span class="number">0</span>;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">test</span> = <span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="property">length</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="variable language_">this</span>;</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">jquery</span>: <span class="string">&quot;1.3.2&quot;</span>,</span><br><span class="line">    <span class="attr">length</span>: <span class="number">1</span>,</span><br><span class="line">    <span class="attr">size</span>: <span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="property">length</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//无法访问jQuery.fn对象的属性或方法</span></span><br><span class="line"><span class="title function_">alert</span>( $().<span class="property">jquery</span> );    <span class="comment">//返回undefined    </span></span><br><span class="line"><span class="title function_">alert</span>( $().<span class="title function_">test</span>() );     <span class="comment">//返回0</span></span><br><span class="line"><span class="title function_">alert</span>( $().<span class="title function_">size</span>() );     <span class="comment">//抛出异常</span></span><br></pre></td></tr></table></figure>
+<h4 id="2-2-4-生长–跨域访问"><a href="#2-2-4-生长–跨域访问" class="headerlink" title="2.2.4 生长–跨域访问"></a>2.2.4 生长–跨域访问</h4><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> $ =jQuery = <span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> jQuery.<span class="property">fn</span>.<span class="title function_">init</span>();</span><br><span class="line">&#125;</span><br><span class="line">jQuery.<span class="property">fn</span> = jQuery.<span class="property"><span class="keyword">prototype</span></span> = &#123;</span><br><span class="line">    init : <span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">length</span> = <span class="number">0</span>;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">test</span> = <span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="property">length</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="variable language_">this</span>;</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">jquery</span>: <span class="string">&quot;1.3.2&quot;</span>,</span><br><span class="line">    <span class="attr">length</span>: <span class="number">1</span>,</span><br><span class="line">    <span class="attr">size</span>: <span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="property">length</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//jQuery框架精彩之处</span></span><br><span class="line"><span class="comment">//使用jquery的原型对象覆盖init的原型对象，</span></span><br><span class="line"><span class="comment">//这样通过init创建出来的实例对象就能访问到jQuery的原型方法及属性</span></span><br><span class="line">jQuery.<span class="property">fn</span>.<span class="property">init</span>.<span class="property"><span class="keyword">prototype</span></span> = jQuery.<span class="property">fn</span>;     </span><br><span class="line"><span class="title function_">alert</span>( $().<span class="property">jquery</span> );     <span class="comment">//返回&quot;1.3.2&quot;</span></span><br><span class="line"><span class="title function_">alert</span>( $().<span class="title function_">test</span>() );     <span class="comment">//返回0</span></span><br><span class="line"><span class="title function_">alert</span>( $().<span class="title function_">size</span>() );     <span class="comment">//返回0</span></span><br></pre></td></tr></table></figure>
+<h4 id="2-2-5-成熟–选择器"><a href="#2-2-5-成熟–选择器" class="headerlink" title="2.2.5 成熟–选择器"></a>2.2.5 成熟–选择器</h4><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">&quot;text/javascript&quot;</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript"><span class="keyword">var</span> $ =jQuery = <span class="keyword">function</span>(<span class="params">selector, context </span>)&#123;       <span class="comment">//定义类</span></span></span><br><span class="line"><span class="language-javascript">    <span class="keyword">return</span> <span class="keyword">new</span> jQuery.<span class="property">fn</span>.<span class="title function_">init</span>(selector, context );  <span class="comment">//返回选择器的实例</span></span></span><br><span class="line"><span class="language-javascript">&#125;</span></span><br><span class="line"><span class="language-javascript">jQuery.<span class="property">fn</span> = jQuery.<span class="property"><span class="keyword">prototype</span></span> = &#123;    <span class="comment">//jQuery类的原型对象</span></span></span><br><span class="line"><span class="language-javascript">    init : <span class="keyword">function</span>(<span class="params">selector, context</span>)&#123;     <span class="comment">//定义选择器构造器</span></span></span><br><span class="line"><span class="language-javascript">        selector = selector || <span class="variable language_">document</span>;        <span class="comment">//设置默认值为document</span></span></span><br><span class="line"><span class="language-javascript">        context = context || <span class="variable language_">document</span>;  <span class="comment">//设置默认值为document</span></span></span><br><span class="line"><span class="language-javascript">        <span class="keyword">if</span> ( selector.<span class="property">nodeType</span> ) &#123;  <span class="comment">//如果选择符为节点对象</span></span></span><br><span class="line"><span class="language-javascript">            <span class="variable language_">this</span>[<span class="number">0</span>] = selector;     <span class="comment">//把参数节点传递给实例对象的数组</span></span></span><br><span class="line"><span class="language-javascript">            <span class="variable language_">this</span>.<span class="property">length</span> = <span class="number">1</span>;    <span class="comment">//并设置实例对象的length属性，定义包含元素个数</span></span></span><br><span class="line"><span class="language-javascript">            <span class="variable language_">this</span>.<span class="property">context</span> = selector;    <span class="comment">//设置实例的属性，返回选择范围</span></span></span><br><span class="line"><span class="language-javascript">            <span class="keyword">return</span> <span class="variable language_">this</span>;    <span class="comment">//返回当前实例</span></span></span><br><span class="line"><span class="language-javascript">        &#125;</span></span><br><span class="line"><span class="language-javascript">        <span class="keyword">if</span> ( <span class="keyword">typeof</span> selector === <span class="string">&quot;string&quot;</span> ) &#123;   <span class="comment">//如果选择符是字符串</span></span></span><br><span class="line"><span class="language-javascript">            <span class="keyword">var</span> e = context.<span class="title function_">getElementsByTagName</span>(selector);     <span class="comment">//获取指定名称的元素</span></span></span><br><span class="line"><span class="language-javascript">            <span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>;i&lt;e.<span class="property">length</span>;i++)&#123;  <span class="comment">//遍历元素集合，并把所有元素填入到当前实例数组中</span></span></span><br><span class="line"><span class="language-javascript">                <span class="variable language_">this</span>[i] = e[i];</span></span><br><span class="line"><span class="language-javascript">            &#125;</span></span><br><span class="line"><span class="language-javascript">            <span class="variable language_">this</span>.<span class="property">length</span> = e.<span class="property">length</span>;     <span class="comment">//设置实例的length属性，即定义包含元素的个数</span></span></span><br><span class="line"><span class="language-javascript">            <span class="variable language_">this</span>.<span class="property">context</span> = context;     <span class="comment">//设置实例的属性，返回选择范围</span></span></span><br><span class="line"><span class="language-javascript">            <span class="keyword">return</span> <span class="variable language_">this</span>;    <span class="comment">//返回当前实例</span></span></span><br><span class="line"><span class="language-javascript">        &#125; <span class="keyword">else</span>&#123;</span></span><br><span class="line"><span class="language-javascript">            <span class="variable language_">this</span>.<span class="property">length</span> = <span class="number">0</span>;    <span class="comment">//否则，设置实例的length属性值为0</span></span></span><br><span class="line"><span class="language-javascript">            <span class="variable language_">this</span>.<span class="property">context</span> = context;     <span class="comment">//设置实例的属性，返回选择范围</span></span></span><br><span class="line"><span class="language-javascript">            <span class="keyword">return</span> <span class="variable language_">this</span>;    <span class="comment">//返回当前实例</span></span></span><br><span class="line"><span class="language-javascript">        &#125;</span></span><br><span class="line"><span class="language-javascript">    &#125;,</span></span><br><span class="line"><span class="language-javascript">    <span class="attr">jquery</span>: <span class="string">&quot;1.3.2&quot;</span>,</span></span><br><span class="line"><span class="language-javascript">    <span class="attr">size</span>: <span class="keyword">function</span>(<span class="params"></span>) &#123;</span></span><br><span class="line"><span class="language-javascript">        <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="property">length</span>;</span></span><br><span class="line"><span class="language-javascript">    &#125;</span></span><br><span class="line"><span class="language-javascript">&#125;</span></span><br><span class="line"><span class="language-javascript">jQuery.<span class="property">fn</span>.<span class="property">init</span>.<span class="property"><span class="keyword">prototype</span></span> = jQuery.<span class="property">fn</span>;</span></span><br><span class="line"><span class="language-javascript"><span class="title function_">alert</span>( $(<span class="string">&quot;div&quot;</span>).<span class="title function_">size</span>() );   <span class="comment">//返回3</span></span></span><br><span class="line"><span class="language-javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h4 id="2-6-延续–迭代器"><a href="#2-6-延续–迭代器" class="headerlink" title="2.6 延续–迭代器"></a>2.6 延续–迭代器</h4><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">&quot;text/javascript&quot;</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript"><span class="keyword">var</span> $ = jQuery = <span class="keyword">function</span>(<span class="params">selector, context</span>) &#123;</span></span><br><span class="line"><span class="language-javascript">    <span class="keyword">return</span> <span class="keyword">new</span> jQuery.<span class="property">fn</span>.<span class="title function_">init</span>(selector, context);</span></span><br><span class="line"><span class="language-javascript">&#125;</span></span><br><span class="line"><span class="language-javascript">jQuery.<span class="property">fn</span> = jQuery.<span class="property"><span class="keyword">prototype</span></span> = &#123;</span></span><br><span class="line"><span class="language-javascript">    <span class="attr">init</span>: <span class="keyword">function</span>(<span class="params">selector, context</span>) &#123;</span></span><br><span class="line"><span class="language-javascript">        <span class="comment">//参阅上节示例</span></span></span><br><span class="line"><span class="language-javascript">    &#125;,</span></span><br><span class="line"><span class="language-javascript">    <span class="attr">html</span>: <span class="keyword">function</span>(<span class="params">val</span>) &#123;</span></span><br><span class="line"><span class="language-javascript">        jQuery.<span class="title function_">each</span>(<span class="variable language_">this</span>, <span class="keyword">function</span>(<span class="params">val</span>) &#123;</span></span><br><span class="line"><span class="language-javascript">            <span class="variable language_">this</span>.<span class="property">innerHTML</span> = val;</span></span><br><span class="line"><span class="language-javascript">        &#125;, val);</span></span><br><span class="line"><span class="language-javascript">    &#125;</span></span><br><span class="line"><span class="language-javascript">&#125;</span></span><br><span class="line"><span class="language-javascript">jQuery.<span class="property">fn</span>.<span class="property">init</span>.<span class="property"><span class="keyword">prototype</span></span> = jQuery.<span class="property">fn</span>;</span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">jQuery.<span class="property">each</span> = <span class="keyword">function</span>(<span class="params">object, callback, args</span>) &#123;</span></span><br><span class="line"><span class="language-javascript">    <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; object.<span class="property">length</span>; i++) &#123;</span></span><br><span class="line"><span class="language-javascript">        callback.<span class="title function_">call</span>(object[i], args);</span></span><br><span class="line"><span class="language-javascript">    &#125;</span></span><br><span class="line"><span class="language-javascript">    <span class="keyword">return</span> object;</span></span><br><span class="line"><span class="language-javascript">&#125;</span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">$(<span class="string">&quot;div&quot;</span>).<span class="title function_">html</span>(<span class="string">&quot;测试代码&quot;</span>);</span></span><br><span class="line"><span class="language-javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h4 id="2-2-7-延续–功能扩展"><a href="#2-2-7-延续–功能扩展" class="headerlink" title="2.2.7 延续–功能扩展"></a>2.2.7 延续–功能扩展</h4><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> $ = jQuery = <span class="keyword">function</span>(<span class="params">selector, context</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> jQuery.<span class="property">fn</span>.<span class="title function_">init</span>(selector, context);</span><br><span class="line">&#125;</span><br><span class="line">jQuery.<span class="property">fn</span> = jQuery.<span class="property"><span class="keyword">prototype</span></span> = &#123;</span><br><span class="line">    <span class="attr">init</span>: <span class="keyword">function</span>(<span class="params">selector, context</span>) &#123;&#125;,</span><br><span class="line">    <span class="attr">html</span>: <span class="keyword">function</span>(<span class="params">val</span>) &#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line">jQuery.<span class="property">fn</span>.<span class="property">init</span>.<span class="property"><span class="keyword">prototype</span></span> = jQuery.<span class="property">fn</span>;</span><br><span class="line">jQuery.<span class="property">extend</span> = jQuery.<span class="property">fn</span>.<span class="property">extend</span> = <span class="keyword">function</span>(<span class="params">obj</span>) &#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> prop <span class="keyword">in</span> obj) &#123;</span><br><span class="line">        <span class="comment">//jquery精彩之处</span></span><br><span class="line">        <span class="comment">//把指定对象的方法赋值给jQuery或jQuery.fn,使得jquery可以不断扩充</span></span><br><span class="line">        <span class="variable language_">this</span>[prop] = obj[prop];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="variable language_">this</span>;</span><br><span class="line">&#125;</span><br><span class="line">jQuery.<span class="property">each</span> = <span class="keyword">function</span>(<span class="params">object, callback, args</span>) &#123;&#125;</span><br><span class="line"></span><br><span class="line">jQuery.<span class="property">fn</span>.<span class="title function_">extend</span>(&#123;</span><br><span class="line">    <span class="attr">test</span>: <span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="title function_">alert</span>(<span class="string">&quot;测试扩展功能&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h4 id="2-2-8-延续–参数处理"><a href="#2-2-8-延续–参数处理" class="headerlink" title="2.2.8 延续–参数处理"></a>2.2.8 延续–参数处理</h4><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> $ = jQuery = <span class="keyword">function</span>(<span class="params">selector, context</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> jQuery.<span class="property">fn</span>.<span class="title function_">init</span>(selector, context);</span><br><span class="line">&#125;</span><br><span class="line">jQuery.<span class="property">fn</span> = jQuery.<span class="property"><span class="keyword">prototype</span></span> = &#123;</span><br><span class="line">    <span class="attr">init</span>: <span class="keyword">function</span>(<span class="params">selector, context</span>) &#123;&#125;,</span><br><span class="line">    <span class="attr">html</span>: <span class="keyword">function</span>(<span class="params">val</span>) &#123;&#125;,</span><br><span class="line">    <span class="attr">setOptions</span>: <span class="keyword">function</span>(<span class="params">options</span>) &#123;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">options</span> = &#123;</span><br><span class="line">            <span class="title class_">StartColor</span>: <span class="string">&quot;#000&quot;</span>,</span><br><span class="line">            <span class="title class_">EndColor</span>: <span class="string">&quot;#DDC&quot;</span>,</span><br><span class="line">            <span class="title class_">Background</span>: <span class="literal">false</span>,</span><br><span class="line">            <span class="title class_">Step</span>: <span class="number">20</span>,</span><br><span class="line">            <span class="title class_">Speed</span>: <span class="number">10</span></span><br><span class="line">        &#125;;</span><br><span class="line">        jQuery.<span class="title function_">extend</span>(<span class="variable language_">this</span>.<span class="property">options</span>, options || &#123;&#125;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">jQuery.<span class="property">fn</span>.<span class="property">init</span>.<span class="property"><span class="keyword">prototype</span></span> = jQuery.<span class="property">fn</span>;</span><br><span class="line"></span><br><span class="line">jQuery.<span class="property">extend</span> = jQuery.<span class="property">fn</span>.<span class="property">extend</span> = <span class="keyword">function</span>(<span class="params">destination, source</span>) &#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> property <span class="keyword">in</span> source) &#123;</span><br><span class="line">        destination[property] = source[property];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> destination;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="2-2-9-涅槃–名字空间"><a href="#2-2-9-涅槃–名字空间" class="headerlink" title="2.2.9 涅槃–名字空间"></a>2.2.9 涅槃–名字空间</h4><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">(<span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">    <span class="keyword">var</span> <span class="variable language_">window</span> = <span class="variable language_">this</span>,<span class="literal">undefined</span>,_jQuery = <span class="variable language_">window</span>.<span class="property">jQuery</span>,_$ = <span class="variable language_">window</span>.<span class="property">$</span>,</span><br><span class="line">    jQuery = <span class="variable language_">window</span>.<span class="property">jQuery</span> = <span class="variable language_">window</span>.<span class="property">$</span> = <span class="keyword">function</span>(<span class="params">selector, context</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> jQuery.<span class="property">fn</span>.<span class="title function_">init</span>(selector, context);</span><br><span class="line">    &#125;;</span><br><span class="line">    jQuery.<span class="property">fn</span> = jQuery.<span class="property"><span class="keyword">prototype</span></span> = &#123;&#125;</span><br><span class="line">&#125;)()</span><br></pre></td></tr></table></figure>
+<h3 id="2-3-破解jQuery选择器接口"><a href="#2-3-破解jQuery选择器接口" class="headerlink" title="2.3 破解jQuery选择器接口"></a>2.3 破解jQuery选择器接口</h3><p>jQuery实例对象其实就是jQuery.fn.init构造器创建的对象，通过jQuery.fn.init.prototype &#x3D; jQuery.fn使得<br>jQuery实例对象继承了jQuery对象的方法。</p>
+<h2 id="第三章-高效选择的技巧与原理"><a href="#第三章-高效选择的技巧与原理" class="headerlink" title="第三章 高效选择的技巧与原理"></a>第三章 高效选择的技巧与原理</h2><h3 id="3-2-简单选择器"><a href="#3-2-简单选择器" class="headerlink" title="3.2 简单选择器"></a>3.2 简单选择器</h3><h4 id="3-2-1-选择指定ID元素"><a href="#3-2-1-选择指定ID元素" class="headerlink" title="3.2.1 选择指定ID元素"></a>3.2.1 选择指定ID元素</h4><p>javascript实现方法<code>document.getElementById(&quot;id&quot;)</code><br>javascript实现方法<code>document.querySelector(&quot;#id&quot;)</code><br>jqury实现方法<code>$(&#39;#id&#39;)</code><br>执行效率比较分析  </p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="variable language_">window</span>.<span class="property">onload</span> = <span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;<span class="number">1000</span>;i++)&#123;        </span><br><span class="line">        <span class="keyword">var</span> span = <span class="variable language_">document</span>.<span class="title function_">createElement</span>(<span class="string">&quot;span&quot;</span>);</span><br><span class="line">        span.<span class="title function_">setAttribute</span>(<span class="string">&quot;id&quot;</span>,<span class="string">&quot;span&quot;</span> + i);</span><br><span class="line">        <span class="variable language_">document</span>.<span class="title function_">getElementsByTagName</span>(<span class="string">&quot;body&quot;</span>)[<span class="number">0</span>].<span class="title function_">appendChild</span>(span);       </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">var</span> a = [];</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">time</span>(<span class="string">&quot;time&quot;</span>);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> j=<span class="number">0</span>;j&lt;<span class="number">1000</span>;j++)&#123;       </span><br><span class="line">        <span class="keyword">var</span> b = <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&quot;span&quot;</span>+j);     <span class="comment">//time: 1.201ms</span></span><br><span class="line">        <span class="comment">// var b = document.querySelector(&quot;#span&quot;+j);  //time: 5.045ms</span></span><br><span class="line">        <span class="comment">//var b = $(&quot;#span&quot;+j);                        //time: 5.092ms</span></span><br><span class="line">        a.<span class="title function_">push</span>(b);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">timeEnd</span>(<span class="string">&quot;time&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>由于jQuery需要对参数字符串进行分析，并匹配出所传递的参数值是ID值，然后才能调用getElementById()方法获取该ID元素，所以花费时间会更多</p>
+<h4 id="3-2-3-选择指定类元素"><a href="#3-2-3-选择指定类元素" class="headerlink" title="3.2.3 选择指定类元素"></a>3.2.3 选择指定类元素</h4><p>javascript实现方法</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="variable language_">document</span>.<span class="property">getElementsByClassName</span> = <span class="keyword">function</span>(<span class="params">className</span>) &#123; </span><br><span class="line">    <span class="keyword">var</span> el = [],</span><br><span class="line">        _el = <span class="variable language_">document</span>.<span class="title function_">getElementsByTagName</span>(<span class="string">&#x27;*&#x27;</span>);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> i=<span class="number">0</span>; i&lt;_el.<span class="property">length</span>; i++ ) &#123;</span><br><span class="line">       <span class="keyword">if</span> (_el[i].<span class="property">className</span> == className ) &#123;</span><br><span class="line">           el[el.<span class="property">length</span>] = _el[i];</span><br><span class="line">        &#125;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">return</span> el;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>javascript实现方法<code>document.querySelector(&quot;.className&quot;)</code><br>jquery实现方法<code>$(.className)</code><br>执行效率比较分析  </p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="variable language_">document</span>.<span class="property">getElementsByClassName</span> = <span class="keyword">function</span>(<span class="params">className</span>) &#123; </span><br><span class="line">    <span class="keyword">var</span> el = [],</span><br><span class="line">        _el = <span class="variable language_">document</span>.<span class="title function_">getElementsByTagName</span>(<span class="string">&#x27;*&#x27;</span>);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> i=<span class="number">0</span>; i&lt;_el.<span class="property">length</span>; i++ ) &#123;</span><br><span class="line">       <span class="keyword">if</span> (_el[i].<span class="property">className</span> == className ) &#123;</span><br><span class="line">           el[el.<span class="property">length</span>] = _el[i];</span><br><span class="line">        &#125;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">return</span> el;</span><br><span class="line">&#125;</span><br><span class="line"><span class="variable language_">window</span>.<span class="property">onload</span> = <span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="number">500</span>; i++) &#123;</span><br><span class="line">        <span class="keyword">var</span> span = <span class="variable language_">document</span>.<span class="title function_">createElement</span>(<span class="string">&quot;span&quot;</span>);</span><br><span class="line">        span.<span class="title function_">setAttribute</span>(<span class="string">&quot;class&quot;</span>, <span class="string">&quot;red&quot;</span>);</span><br><span class="line">        <span class="variable language_">document</span>.<span class="title function_">getElementsByTagName</span>(<span class="string">&quot;body&quot;</span>)[<span class="number">0</span>].<span class="title function_">appendChild</span>(span);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">var</span> a = [];</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">time</span>(<span class="string">&quot;time&quot;</span>);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> j = <span class="number">0</span>; j &lt; <span class="number">500</span>; j++) &#123;</span><br><span class="line">        <span class="comment">//var b = document.getElementsByClassName(&quot;red&quot;);//time: 132.483ms</span></span><br><span class="line">        <span class="keyword">var</span> b = <span class="variable language_">document</span>.<span class="title function_">querySelector</span>(<span class="string">&quot;.red&quot;</span>);          <span class="comment">//time: 0.867ms</span></span><br><span class="line">        <span class="comment">//var b = $(&quot;.red&quot;);                             //time: 140.824ms</span></span><br><span class="line">        a.<span class="title function_">push</span>(b);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">timeEnd</span>(<span class="string">&quot;time&quot;</span>);  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在类的查询中document.querySelector方法最快，IE8+都能兼容，所以实际使用中选择速度最快的那个了</p>
+<h2 id="第八章-高效开发和使用插件"><a href="#第八章-高效开发和使用插件" class="headerlink" title="第八章 高效开发和使用插件"></a>第八章 高效开发和使用插件</h2><h3 id="8-1创建jQuery插件"><a href="#8-1创建jQuery插件" class="headerlink" title="8.1创建jQuery插件"></a>8.1创建jQuery插件</h3><h4 id="8-1-2解析jQuery插件机制"><a href="#8-1-2解析jQuery插件机制" class="headerlink" title="8.1.2解析jQuery插件机制"></a>8.1.2解析jQuery插件机制</h4><p>jQuery.extend()能够创建全局函数或选择器<br>在实际开发中，常使用jQuery.extend()方法作为插件方法传递系列选项结构的参数</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> options = jQuery.<span class="title function_">extend</span>(&#123;&#125;,&#123;</span><br><span class="line">    name1 : value1;</span><br><span class="line">    name2 : value2;</span><br><span class="line">    name3 : value3;</span><br><span class="line">    &#125;,options);</span><br></pre></td></tr></table></figure>
+<p>jQuery.fn.extend()能够创建jQuery对象方法</p>
+<h4 id="8-1-3-创建jQuery全局函数"><a href="#8-1-3-创建jQuery全局函数" class="headerlink" title="8.1.3 创建jQuery全局函数"></a>8.1.3 创建jQuery全局函数</h4><p>建议把属于自己的插件都封装在一个对象中</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">jQuery.<span class="property">css8</span> = &#123;</span><br><span class="line">    minValue : <span class="keyword">function</span>(<span class="params">a, b</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> a &lt; b ? a : b;</span><br><span class="line">    &#125;,</span><br><span class="line">    maxValue : <span class="keyword">function</span>(<span class="params">a, b</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> a &lt; b ? b : a;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="8-1-4-使用jQuery-fn对象创建jQuery对象方法"><a href="#8-1-4-使用jQuery-fn对象创建jQuery对象方法" class="headerlink" title="8.1.4 使用jQuery.fn对象创建jQuery对象方法"></a>8.1.4 使用jQuery.fn对象创建jQuery对象方法</h4><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">jQuery.<span class="property">fn</span>.<span class="property">test</span> = <span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="title function_">each</span>(<span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">        <span class="title function_">alert</span>(<span class="variable language_">this</span>.<span class="property">nodeName</span>);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="8-1-5-使用extend-方法创建jQuery对象方法"><a href="#8-1-5-使用extend-方法创建jQuery对象方法" class="headerlink" title="8.1.5 使用extend()方法创建jQuery对象方法"></a>8.1.5 使用extend()方法创建jQuery对象方法</h4><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">jQuery.<span class="property">fn</span>.<span class="title function_">extend</span>(&#123;</span><br><span class="line">    test : <span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="title function_">each</span>(<span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">            <span class="title function_">alert</span>(<span class="variable language_">this</span>.<span class="property">nodeName</span>);</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h4 id="8-1-6-创建自定义选择器"><a href="#8-1-6-创建自定义选择器" class="headerlink" title="8.1.6 创建自定义选择器"></a>8.1.6 创建自定义选择器</h4><p>jQuery选择器会使用一组正则表达式来分析选择符，然后针对所解析出来的每一个选择符执行一个函数，这个函数被称为选择器函数，最后根据这个选择器函数的返回值是否为true决定是否保留当前元素，这样就可以找到所要匹配的元素节点。<br>其正则表达式直接量如下：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">match&#123;</span><br><span class="line">    <span class="attr">POS</span>:<span class="regexp">/(nth|eq|qt|lt|first|last|even|odd)(?:\((\d*)\))?(?=[^-]|$)/</span>   ???</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>自定义:ge(大于等于)和:le(小于等于)选择器</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">jQuery.<span class="title function_">extend</span>(jQuery.<span class="property">expr</span>[<span class="string">&quot;:&quot;</span>],&#123;</span><br><span class="line">    <span class="attr">le</span>:<span class="keyword">function</span>(<span class="params">elem, i, match</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> i &lt; match[<span class="number">3</span>] - <span class="number">0</span> || i == match[<span class="number">3</span>] - <span class="number">0</span>;  <span class="comment">//match[3] - 0强制转换为数值类型</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">ge</span>:<span class="keyword">function</span>(<span class="params">elem, i, match</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> i &gt; amtch[<span class="number">3</span>] - <span class="number">0</span> || i == match[<span class="number">3</span>] - <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h4 id="8-1-14-创建jQuery插件应注意的问题"><a href="#8-1-14-创建jQuery插件应注意的问题" class="headerlink" title="8.1.14 创建jQuery插件应注意的问题"></a>8.1.14 创建jQuery插件应注意的问题</h4><ol>
+<li>命名规则<br> jquery.pluginName.js</li>
+<li>基本思想<br> 所有新方法都附加到jQuery.fn对象上，所有新功能都附加到jQuery对象上</li>
+<li>方法内的this关键字<br> this关键字用于引用jQuery对象，在this.each()方法体内，this是引用当前匹配的DOM元素对象</li>
+<li>迭代匹配元素<br> 使用this.each()迭代匹配元素</li>
+<li>方法的返回值<br> 所有方法都必须放回jQuery对象</li>
+<li>方便压缩<br> 所有方法或函数，末尾必须加分号(;)</li>
+<li>建议框架  <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">(<span class="keyword">function</span>(<span class="params">$, <span class="variable language_">window</span>, <span class="variable language_">document</span>, <span class="literal">undefined</span></span>)&#123;</span><br><span class="line"></span><br><span class="line">&#125;)(jQuery, <span class="variable language_">window</span>, <span class="variable language_">document</span>);</span><br></pre></td></tr></table></figure></li>
+</ol>
+
+        
+            <div id="toc-article">
+                
+  <div class="widget-wrap" id="toc-wrap">
+    <h3 class="widget-title"><i class="fa fa-toc"></i> 文章目录</h3>
+    <div class="widget">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%BA%8C%E7%AB%A0-jQuery%E6%8A%80%E6%9C%AF%E8%A7%A3%E5%AF%86"><span class="toc-text">第二章 jQuery技术解密</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-jQuery%E5%8E%9F%E5%9E%8B%E6%8A%80%E6%9C%AF%E5%88%86%E8%A7%A3"><span class="toc-text">2.2 jQuery原型技术分解</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-1-%E8%B5%B7%E6%BA%90%E2%80%93%E5%8E%9F%E5%9E%8B%E7%BB%A7%E6%89%BF"><span class="toc-text">2.2.1 起源–原型继承</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-2-%E7%94%9F%E5%91%BD%E2%80%93%E8%BF%94%E5%9B%9E%E5%AE%9E%E4%BE%8B"><span class="toc-text">2.2.2 生命–返回实例</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-3-%E5%AD%A6%E6%AD%A5%E2%80%93%E5%88%86%E9%9A%94%E4%BD%9C%E7%94%A8%E5%9F%9F"><span class="toc-text">2.2.3 学步–分隔作用域</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-4-%E7%94%9F%E9%95%BF%E2%80%93%E8%B7%A8%E5%9F%9F%E8%AE%BF%E9%97%AE"><span class="toc-text">2.2.4 生长–跨域访问</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-5-%E6%88%90%E7%86%9F%E2%80%93%E9%80%89%E6%8B%A9%E5%99%A8"><span class="toc-text">2.2.5 成熟–选择器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-6-%E5%BB%B6%E7%BB%AD%E2%80%93%E8%BF%AD%E4%BB%A3%E5%99%A8"><span class="toc-text">2.6 延续–迭代器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-7-%E5%BB%B6%E7%BB%AD%E2%80%93%E5%8A%9F%E8%83%BD%E6%89%A9%E5%B1%95"><span class="toc-text">2.2.7 延续–功能扩展</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-8-%E5%BB%B6%E7%BB%AD%E2%80%93%E5%8F%82%E6%95%B0%E5%A4%84%E7%90%86"><span class="toc-text">2.2.8 延续–参数处理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-9-%E6%B6%85%E6%A7%83%E2%80%93%E5%90%8D%E5%AD%97%E7%A9%BA%E9%97%B4"><span class="toc-text">2.2.9 涅槃–名字空间</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-%E7%A0%B4%E8%A7%A3jQuery%E9%80%89%E6%8B%A9%E5%99%A8%E6%8E%A5%E5%8F%A3"><span class="toc-text">2.3 破解jQuery选择器接口</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%B8%89%E7%AB%A0-%E9%AB%98%E6%95%88%E9%80%89%E6%8B%A9%E7%9A%84%E6%8A%80%E5%B7%A7%E4%B8%8E%E5%8E%9F%E7%90%86"><span class="toc-text">第三章 高效选择的技巧与原理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-%E7%AE%80%E5%8D%95%E9%80%89%E6%8B%A9%E5%99%A8"><span class="toc-text">3.2 简单选择器</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-1-%E9%80%89%E6%8B%A9%E6%8C%87%E5%AE%9AID%E5%85%83%E7%B4%A0"><span class="toc-text">3.2.1 选择指定ID元素</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-3-%E9%80%89%E6%8B%A9%E6%8C%87%E5%AE%9A%E7%B1%BB%E5%85%83%E7%B4%A0"><span class="toc-text">3.2.3 选择指定类元素</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E5%85%AB%E7%AB%A0-%E9%AB%98%E6%95%88%E5%BC%80%E5%8F%91%E5%92%8C%E4%BD%BF%E7%94%A8%E6%8F%92%E4%BB%B6"><span class="toc-text">第八章 高效开发和使用插件</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#8-1%E5%88%9B%E5%BB%BAjQuery%E6%8F%92%E4%BB%B6"><span class="toc-text">8.1创建jQuery插件</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#8-1-2%E8%A7%A3%E6%9E%90jQuery%E6%8F%92%E4%BB%B6%E6%9C%BA%E5%88%B6"><span class="toc-text">8.1.2解析jQuery插件机制</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#8-1-3-%E5%88%9B%E5%BB%BAjQuery%E5%85%A8%E5%B1%80%E5%87%BD%E6%95%B0"><span class="toc-text">8.1.3 创建jQuery全局函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#8-1-4-%E4%BD%BF%E7%94%A8jQuery-fn%E5%AF%B9%E8%B1%A1%E5%88%9B%E5%BB%BAjQuery%E5%AF%B9%E8%B1%A1%E6%96%B9%E6%B3%95"><span class="toc-text">8.1.4 使用jQuery.fn对象创建jQuery对象方法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#8-1-5-%E4%BD%BF%E7%94%A8extend-%E6%96%B9%E6%B3%95%E5%88%9B%E5%BB%BAjQuery%E5%AF%B9%E8%B1%A1%E6%96%B9%E6%B3%95"><span class="toc-text">8.1.5 使用extend()方法创建jQuery对象方法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#8-1-6-%E5%88%9B%E5%BB%BA%E8%87%AA%E5%AE%9A%E4%B9%89%E9%80%89%E6%8B%A9%E5%99%A8"><span class="toc-text">8.1.6 创建自定义选择器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#8-1-14-%E5%88%9B%E5%BB%BAjQuery%E6%8F%92%E4%BB%B6%E5%BA%94%E6%B3%A8%E6%84%8F%E7%9A%84%E9%97%AE%E9%A2%98"><span class="toc-text">8.1.14 创建jQuery插件应注意的问题</span></a></li></ol></li></ol></li></ol>
+    </div>
+  </div>
+
+
+            </div>
+        
+        
+          <blockquote id="copyright">
+              <p>原文链接: <a href="https://jesse121.github.io/articles/2016/11/26.html">https://jesse121.github.io/articles/2016/11/26.html</a></p>
+              <p>版权声明: 转载请注明出处.</p>
+          </blockquote>
+        
+      
+    </div>
+    <footer class="article-footer">
+      
+        <div class="article-tag-wrap">
+          
+
+          
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/jquery/" rel="tag">jQuery</a></li></ul>
+
+          
+
+
+        </div>
+      
+      
+        
+<nav id="article-nav">
+  
+    <a href="/blog/articles/2016/11/12.html" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">older</strong>
+      <div class="article-nav-title">
+        
+          前端切图技巧
+        
+      </div>
+    </a>
+  
+  
+    <a href="/blog/articles/2016/12/05.html" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">newer</strong>
+      <div class="article-nav-title">
+        
+          CSS选择器性能分析
+        
+      </div>
+    </a>
+  
+</nav>
+
+      
+      
+        
+  <div id="comments"></div>
+
+
+
+
+
+
+
+
+
+      
+    </footer>
+  </div>
+</article>
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-posts"></i> 最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/blog/articles/2021/06/11.html">如何用Vite快速搭建一个vue3项目</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2020/12/15.html">如何快速生成tsconfig.json文件</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2020/08/22.html">用Ssh连接docker容器</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2020/07/04.html">如何在Vscode上直接运行typescript?</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2020/06/13.html">Wireshark过滤器使用介绍</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2020/05/13.html">Webpack编译后的html中图片路径变为[object Module]的原因及解决办法</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2020/05/02.html">栈与队列</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2020/04/19.html">链表</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2020/04/19.html">算法的时间复杂度与空间复杂度分析</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2020/04/12.html">如何使用Wireshark抓取HTTP2报文？</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-tag"></i> 标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/blog/tags/angularjs/" style="font-size: 10px;">AngularJs</a> <a href="/blog/tags/apache/" style="font-size: 14px;">Apache</a> <a href="/blog/tags/bootstrap/" style="font-size: 14px;">Bootstrap</a> <a href="/blog/tags/css/" style="font-size: 18px;">CSS</a> <a href="/blog/tags/centos/" style="font-size: 10px;">CentOS</a> <a href="/blog/tags/docker/" style="font-size: 14px;">Docker</a> <a href="/blog/tags/git/" style="font-size: 12px;">Git</a> <a href="/blog/tags/gitlab/" style="font-size: 10px;">Gitlab</a> <a href="/blog/tags/gulp/" style="font-size: 10px;">Gulp</a> <a href="/blog/tags/html/" style="font-size: 14px;">HTML</a> <a href="/blog/tags/html5/" style="font-size: 10px;">HTML5</a> <a href="/blog/tags/http/" style="font-size: 14px;">HTTP</a> <a href="/blog/tags/https/" style="font-size: 10px;">HTTPS</a> <a href="/blog/tags/javascript/" style="font-size: 20px;">JavaScript</a> <a href="/blog/tags/jenkins/" style="font-size: 10px;">Jenkins</a> <a href="/blog/tags/linux/" style="font-size: 12px;">Linux</a> <a href="/blog/tags/mac/" style="font-size: 10px;">Mac</a> <a href="/blog/tags/mysql/" style="font-size: 14px;">MySQL</a> <a href="/blog/tags/nginx/" style="font-size: 12px;">Nginx</a> <a href="/blog/tags/node-js/" style="font-size: 12px;">Node.js</a> <a href="/blog/tags/php/" style="font-size: 16px;">PHP</a> <a href="/blog/tags/photoshop/" style="font-size: 10px;">Photoshop</a> <a href="/blog/tags/react/" style="font-size: 10px;">React</a> <a href="/blog/tags/redux/" style="font-size: 10px;">Redux</a> <a href="/blog/tags/sublimetext3/" style="font-size: 10px;">SublimeText3</a> <a href="/blog/tags/typescript/" style="font-size: 12px;">Typescript</a> <a href="/blog/tags/vagrant/" style="font-size: 10px;">Vagrant</a> <a href="/blog/tags/vim/" style="font-size: 10px;">Vim</a> <a href="/blog/tags/vue/" style="font-size: 10px;">Vue</a> <a href="/blog/tags/web/" style="font-size: 16px;">WEB</a> <a href="/blog/tags/webpack/" style="font-size: 14px;">Webpack</a> <a href="/blog/tags/wireshark/" style="font-size: 12px;">Wireshark</a> <a href="/blog/tags/yii/" style="font-size: 10px;">Yii</a> <a href="/blog/tags/jquery/" style="font-size: 14px;">jQuery</a> <a href="/blog/tags/monitor/" style="font-size: 10px;">monitor</a> <a href="/blog/tags/ssh/" style="font-size: 10px;">ssh</a> <a href="/blog/tags/vite/" style="font-size: 10px;">vite</a> <a href="/blog/tags/vscode/" style="font-size: 10px;">vscode</a> <a href="/blog/tags/vue/" style="font-size: 10px;">vue</a> <a href="/blog/tags/%E5%BC%80%E5%8F%91%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/" style="font-size: 10px;">开发问题记录</a> <a href="/blog/tags/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F/" style="font-size: 10px;">微信小程序</a> <a href="/blog/tags/%E7%AE%97%E6%B3%95/" style="font-size: 14px;">算法</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-classify"></i> 分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/blog/categories/bootstrap/">Bootstrap</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/html-css/">HTML-CSS</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/html5/">HTML5</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/javascript/">JavaScript</a><span class="category-list-count">11</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/linux/">Linux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/mysql/">MySQL</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/node-js/">Node.js</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/php/">PHP</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/photoshop/">Photoshop</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/typescript/">Typescript</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/vue/">Vue</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/web/">WEB</a><span class="category-list-count">8</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/jquery/">jQuery</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/translation/">前端翻译</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/">开发工具</a><span class="category-list-count">15</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/%E5%BC%80%E5%8F%91%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/">开发问题记录</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/%E7%AE%97%E6%B3%95/">算法</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/notes/">读书笔记</a><span class="category-list-count">16</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-archive"></i> 归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2021/">2021年</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2020/">2020年</a><span class="archive-list-count">12</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2019/">2019年</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/">2018年</a><span class="archive-list-count">12</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2017/">2017年</a><span class="archive-list-count">26</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/">2016年</a><span class="archive-list-count">27</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-link"></i> 友情链接</h3>
+    <div class="widget">
+      <ul>
+      
+        <li>
+          <a target="_blank" rel="noopener" href="http://www.mahaixiang.cn/internet/300.html">深入理解互联网协议的原理</a>
+        </li>
+      
+        <li>
+          <a target="_blank" rel="noopener" href="http://javascript.ruanyifeng.com/">JavaScript 标准参考教程</a>
+        </li>
+      
+        <li>
+          <a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript">Mozilla Developer Network</a>
+        </li>
+      
+      </ul>
+    </div>
+  </div>
+
+
+  
+</aside>
+        
+      </div>
+      <a id="totop" href="#top"></a>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      <p>
+        <a href="/blog/sitemap.xml">网站地图</a>
+        <span> | </span><a href="/blog/atom.xml">订阅本站</a>
+        <span> | </span><a href="/blog/about/">联系博主</a>
+      </p>
+      
+        <p>
+          <i class="fa fa-visitors"></i>
+          <i id="busuanzi_container_site_uv"><i id="busuanzi_value_site_uv"></i></i>
+          ，
+          <i class="fa fa-views"></i>
+          <i id="busuanzi_container_site_pv"><i id="busuanzi_value_site_pv"></i></i>
+        </p>
+      
+      <p>
+        <span>Copyright &copy; 2022 Jesse.</span>
+        <span>Theme by <a href="https://github.com/chaooo/hexo-theme-BlueLake/" target="_blank">BlueLake.</a></span>
+        <span>Powered by <a href="https://hexo.io/" target="_blank">Hexo.</a></span>
+      </p>
+    </div>
+  </div>
+</footer>
+
+    </div>
+  </div>
+  
+<script src="/blog/js/jquery-3.4.1.min.js"></script>
+
+
+<script src="/blog/js/search.json.js"></script>
+
+
+  
+<script src="/blog/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/blog/js/script.js"></script>
+
+
+
+
+
+
+  
+<script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+  
+  
+
+
+  
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+ 
+<script src="//cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.js"></script>
+
+<script>
+  var gitalk = new Gitalk({
+    clientID: "1d84813ae13cd94072f0",
+    clientSecret: "4a4dd2af0c622e983dd90f5daf15c3ebd86b8ae9",
+    repo: "blog",
+    owner: "jesse121",
+    admin: ["jesse121"],
+    id: md5(window.location.pathname),
+    proxy: "https://gitalk-worker.jesse121.workers.dev/https://github.com/login/oauth/access_token,",
+    distractionFreeMode: false,
+    language: "zh-CN",
+    pagerDirection: "last",
+  });
+  gitalk.render("comments");
+</script>
+         
+
+
+
+</body>
+</html>

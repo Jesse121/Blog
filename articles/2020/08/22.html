@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>用Ssh连接docker容器 | 前端之路</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  
+    <meta name="description" content="专注前端开发，前端开发技术博客">
+  
+  
+    <meta name="keywords" content="Web前端开发，Javascript，前端开发博客">
+  
+  
+    <link rel="alternate" href="/blog/atom.xml" title="前端之路" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/blog/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/blog/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/blog/fancybox/jquery.fancybox.min.css">
+
+  
+  
+  
+    
+<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+
+  
+  
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/blog/" id="logo">前端之路</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/blog/" id="subtitle">路漫漫其修远兮，吾将上下而求索</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        
+          <a class="main-nav-link" href="/blog/."><i class="fa fa-home"></i> 首页</a>
+        
+          <a class="main-nav-link" href="/blog/archives/"><i class="fa fa-archive"></i> 归档</a>
+        
+          <a class="main-nav-link" href="/blog/about/"><i class="fa fa-user"></i> 关于</a>
+        
+      </nav>
+    </div>
+    <div id="search-form">
+      <div id="result-mask" class="hide"></div>
+      <label><input id="search-key" type="text" autocomplete="off" placeholder="搜索"></label>
+      <div id="result-wrap" class="hide">
+        <div id="search-result"></div>
+      </div>
+      <div class="hide">
+        <template id="search-tpl">
+          <div class="item">
+            <a href="/{path}" title="{title}">
+              <div class="title">{title}</div>
+              <div class="time">{date}</div>
+              <div class="tags">{tags}</div>
+            </a>
+          </div>
+        </template>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-tool/用ssh连接docker容器" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      用Ssh连接docker容器
+    </h1>
+  
+
+
+      </header>
+    
+    <div class="article-meta">
+      
+      <span class="article-date">
+  <i class="fa fa-date"></i>
+  <time class="dt-published" datetime="2020-08-22T02:26:30.000Z" itemprop="datePublished">2020年08月22日</time>
+</span>
+      
+  <div class="article-category">
+    <i class="fa fa-classify"></i>
+    <a class="article-category-link" href="/blog/categories/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/">开发工具</a>
+  </div>
+
+      
+        <span class="article-views">
+  <i class="fa fa-views"></i>
+  <i id="busuanzi_container_page_pv">
+      <i id="busuanzi_value_page_pv"></i>
+  </i>
+</span>
+
+      
+      
+<a href="/blog/articles/2020/08/22.html#comments" class="article-comment-link">
+  
+    
+    
+    
+    
+    
+  
+  <i class="fa fa-commt"></i>
+  留言
+</a>
+
+
+    </div>
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h3 id="用-docker-commit-的方式创建-ssh-直连-docker-容器镜像"><a href="#用-docker-commit-的方式创建-ssh-直连-docker-容器镜像" class="headerlink" title="用 docker commit 的方式创建 ssh 直连 docker 容器镜像"></a>用 docker commit 的方式创建 ssh 直连 docker 容器镜像</h3><ol>
+<li>拉取镜像，这里采用 centos:7 作为基础镜像</li>
+</ol>
+<figure class="highlight apache"><table><tr><td class="code"><pre><span class="line"><span class="attribute">docker</span> pull centos:<span class="number">7</span></span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>运行镜像，生成容器</li>
+</ol>
+<figure class="highlight dockerfile"><table><tr><td class="code"><pre><span class="line">docker <span class="keyword">run</span><span class="language-bash"> -d --name ssh_box --privileged=<span class="literal">true</span> centos:7 /usr/sbin/init</span></span><br><span class="line"><span class="number">07228</span>ec257564c4874ca24216d651bda65573d49e4149064a079cacca27de4e1 <span class="comment"># 生成的容器ID</span></span><br></pre></td></tr></table></figure>
+
+<span id="more"></span>
+
+<p>–name 给新生成的容器命名<br>–privileged&#x3D;true 给容器访问 Linux 内核特权,后面要访问 systemctl<br>返回一串容器 ID 表示容器生成成功</p>
+<ol start="3">
+<li>进入刚刚生成的容器</li>
+</ol>
+<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">docker exec -it <span class="number">07228</span>ec25756 <span class="regexp">/bin/</span>bash</span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>进入容器后，使用 passwd 密码来修改密码（如提示没有这个命令行使用 yum install passwd 安装）</li>
+</ol>
+<figure class="highlight ebnf"><table><tr><td class="code"><pre><span class="line"><span class="attribute">passwd</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/Jesse121/publicPic/master/blog/pictures/801336-20200821203112524-490844386.png" alt="801336-20200821203112524-490844386"></p>
+<p>5.安装 vim 和 Openssh（docker 容器中执行）</p>
+<figure class="highlight axapta"><table><tr><td class="code"><pre><span class="line">yum install vim openssh-<span class="keyword">server</span> openssh-clients -y</span><br></pre></td></tr></table></figure>
+
+<p>6.修改 SSH 配置文件</p>
+<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line"> vim <span class="regexp">/etc/</span>ssh/sshd_config</span><br></pre></td></tr></table></figure>
+
+<p>修改如下：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">PubkeyAuthentication <span class="built_in">yes</span> <span class="comment">#启用公钥私钥配对认证方式</span></span><br><span class="line">AuthorizedKeysFile .ssh/authorized_keys <span class="comment">#公钥文件路径（和上面生成的文件同）</span></span><br><span class="line">PermitRootLogin <span class="built_in">yes</span> <span class="comment">#root能使用ssh登录</span></span><br><span class="line">ClientAliveInterval 60  <span class="comment">#参数数值是秒 , 是指超时时间</span></span><br><span class="line">ClientAliveCountMax 3 <span class="comment">#设置允许超时的次数</span></span><br></pre></td></tr></table></figure>
+
+<ol start="7">
+<li>重启 ssh 服务，并设置开机启动</li>
+</ol>
+<figure class="highlight nsis"><table><tr><td class="code"><pre><span class="line"><span class="params">system</span>ctl restart sshd.service</span><br><span class="line"><span class="params">system</span>ctl enable sshd.service</span><br></pre></td></tr></table></figure>
+
+<p><strong>Failed to get D-Bus connection: Operation not permitted</strong><br>这里如果报这个错误说明容器权限不足,第 2 步执行有误 8.退出容器并保存更改</p>
+<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line"><span class="keyword">exit</span></span><br></pre></td></tr></table></figure>
+
+<ol start="9">
+<li>用刚才生成的容器创建镜像</li>
+</ol>
+<figure class="highlight livecodeserver"><table><tr><td class="code"><pre><span class="line">docker commit -m <span class="string">&#x27;openssh&#x27;</span> -<span class="keyword">a</span> <span class="string">&#x27;Docker for ssh&#x27;</span> ffe81683c404 ssh_box</span><br></pre></td></tr></table></figure>
+
+<p>-m:来指定提交的说明信息，跟我们使用的版本控制工具一样<br>-a  可以指定更新的用户信息<br>ffe81683c404： 创建镜像的容器的 ID，就是上面的容器 id，也就是我们刚才进入的容器 id<br>ssh_box: 目标镜像的仓库名</p>
+<p><code>docker images</code>可以查看到新生成的镜像<br><img src="https://raw.githubusercontent.com/Jesse121/publicPic/master/blog/pictures/801336-20200822081615017-1067003193.jpg" alt="801336-20200822081615017-1067003193"></p>
+<p>10.删除构建容器（可选）<br>我们用 centos 基础容器修改配置后已经生成了所需要的镜像，之前的构建容器就可以删除了</p>
+<figure class="highlight apache"><table><tr><td class="code"><pre><span class="line"><span class="attribute">docker</span> stop <span class="number">07228</span>ec25756</span><br><span class="line"><span class="attribute">docker</span> rm <span class="number">07228</span>ec25756</span><br></pre></td></tr></table></figure>
+
+<ol start="11">
+<li>用新生成的镜像启动新的容器并打通 22 端口</li>
+</ol>
+<figure class="highlight apache"><table><tr><td class="code"><pre><span class="line"><span class="attribute">docker</span> run -d -p <span class="number">2222</span>:<span class="number">22</span> ssh_box /usr/sbin/sshd -D</span><br></pre></td></tr></table></figure>
+
+<p>12.然后可以使用 xshell 连接新生成的容器</p>
+<p>ip: 为宿主主机的 ip，而不是 docker 容器的 ip<br>端口:就是上面的 2222<br>用户名： root<br>密码： 就是上面 password 部分设置的密码<br>在 mac 上可通过 ssh <a href="mailto:&#x72;&#x6f;&#111;&#x74;&#64;&#x31;&#50;&#55;&#46;&#48;&#x2e;&#x30;&#x2e;&#49;">&#x72;&#x6f;&#111;&#x74;&#64;&#x31;&#50;&#55;&#46;&#48;&#x2e;&#x30;&#x2e;&#49;</a> -p:2222 登录新生成的容器</p>
+<p>至此 ssh 连接 docker 容器连接成功</p>
+<h3 id="以-Dockerfile-的方式创建-ssh-直连-docker-容器"><a href="#以-Dockerfile-的方式创建-ssh-直连-docker-容器" class="headerlink" title="以 Dockerfile 的方式创建 ssh 直连 docker 容器"></a>以 Dockerfile 的方式创建 ssh 直连 docker 容器</h3><ol>
+<li>创建 Dockerfile 文件</li>
+</ol>
+<figure class="highlight dockerfile"><table><tr><td class="code"><pre><span class="line"><span class="comment">#生成的新镜像以centos7镜像为基础</span></span><br><span class="line"><span class="keyword">FROM</span> centos:<span class="number">7</span></span><br><span class="line"><span class="keyword">MAINTAINER</span> by jesse (jesse152@<span class="number">163</span>.com)</span><br><span class="line"><span class="comment">#升级系统</span></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> yum -y update</span></span><br><span class="line"><span class="comment">#安装openssh-server</span></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> yum -y install openssh-server</span></span><br><span class="line"><span class="comment">#修改/etc/ssh/sshd_config</span></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> sed -i <span class="string">&#x27;s/UsePAM yes/UsePAM no/g&#x27;</span> /etc/ssh/sshd_config</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 生成sshkey</span></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> ssh-keygen -t dsa -f /etc/ssh/ssh_host_dsa_key</span></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> ssh-keygen -t rsa -f /etc/ssh/ssh_host_rsa_key</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#变更root密码</span></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> <span class="built_in">echo</span> <span class="string">&quot;root:jesse131978&quot;</span>|chpasswd</span></span><br><span class="line"><span class="comment">#开放窗口的22端口</span></span><br><span class="line"><span class="keyword">EXPOSE</span> <span class="number">22</span></span><br><span class="line"><span class="comment">#运行脚本，启动sshd服务</span></span><br><span class="line"><span class="keyword">CMD</span><span class="language-bash">    [<span class="string">&quot;/usr/sbin/sshd&quot;</span>, <span class="string">&quot;-D&quot;</span>]</span></span><br></pre></td></tr></table></figure>
+
+<p>2.在 dockerfile 文件同级目录中运行创建命令</p>
+<figure class="highlight erlang"><table><tr><td class="code"><pre><span class="line">docker build -t centos7_ssh .</span><br></pre></td></tr></table></figure>
+
+<p>命令成功后，就会创建一个名字为 centos7_ssh 的 image，可以使用“docker images”来查看 3. 根据镜像创建容器</p>
+<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">docker <span class="built_in">run</span> -d -P <span class="attribute">--name</span>=ssh_box centos7_ssh</span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>查看容器 ip</li>
+</ol>
+<figure class="highlight ebnf"><table><tr><td class="code"><pre><span class="line"><span class="attribute">docker inspect ssh_box</span></span><br></pre></td></tr></table></figure>
+
+<p>5.查看端口</p>
+<figure class="highlight apache"><table><tr><td class="code"><pre><span class="line"><span class="attribute">docker</span> port ssh_box <span class="number">22</span></span><br></pre></td></tr></table></figure>
+
+<p>知道 ip 和端口后就可以通过 ssh 建立连接了</p>
+<h3 id="远程-Dockerfile"><a href="#远程-Dockerfile" class="headerlink" title="远程 Dockerfile"></a>远程 Dockerfile</h3><p>我将 Dockerfile 文件上传至 github,可通过命令直接用 github 上的 Dockerfile</p>
+<figure class="highlight nginx"><table><tr><td class="code"><pre><span class="line"><span class="attribute">docker</span> build -t linux git<span class="variable">@github</span>.com:Jesse121/mylinux.git</span><br></pre></td></tr></table></figure>
+
+<h5 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h5><ol>
+<li><a target="_blank" rel="noopener" href="https://blog.51cto.com/lizhenliang/1975466">Docker 容器使用问题：Failed to get D-Bus connection: Operation not permitted</a></li>
+<li><a target="_blank" rel="noopener" href="http://www.fecmall.com/topic/592">ssh 直接登录 docker 容器</a></li>
+</ol>
+
+        
+            <div id="toc-article">
+                
+  <div class="widget-wrap" id="toc-wrap">
+    <h3 class="widget-title"><i class="fa fa-toc"></i> 文章目录</h3>
+    <div class="widget">
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%94%A8-docker-commit-%E7%9A%84%E6%96%B9%E5%BC%8F%E5%88%9B%E5%BB%BA-ssh-%E7%9B%B4%E8%BF%9E-docker-%E5%AE%B9%E5%99%A8%E9%95%9C%E5%83%8F"><span class="toc-text">用 docker commit 的方式创建 ssh 直连 docker 容器镜像</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%A5-Dockerfile-%E7%9A%84%E6%96%B9%E5%BC%8F%E5%88%9B%E5%BB%BA-ssh-%E7%9B%B4%E8%BF%9E-docker-%E5%AE%B9%E5%99%A8"><span class="toc-text">以 Dockerfile 的方式创建 ssh 直连 docker 容器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%9C%E7%A8%8B-Dockerfile"><span class="toc-text">远程 Dockerfile</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E7%AB%A0"><span class="toc-text">参考文章</span></a></li></ol></li></ol></li></ol>
+    </div>
+  </div>
+
+
+            </div>
+        
+        
+          <blockquote id="copyright">
+              <p>原文链接: <a href="https://jesse121.github.io/articles/2020/08/22.html">https://jesse121.github.io/articles/2020/08/22.html</a></p>
+              <p>版权声明: 转载请注明出处.</p>
+          </blockquote>
+        
+      
+    </div>
+    <footer class="article-footer">
+      
+        <div class="article-tag-wrap">
+          
+
+          
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/docker/" rel="tag">Docker</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/ssh/" rel="tag">ssh</a></li></ul>
+
+          
+
+
+        </div>
+      
+      
+        
+<nav id="article-nav">
+  
+    <a href="/blog/articles/2020/07/04.html" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">older</strong>
+      <div class="article-nav-title">
+        
+          如何在Vscode上直接运行typescript?
+        
+      </div>
+    </a>
+  
+  
+    <a href="/blog/articles/2020/12/15.html" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">newer</strong>
+      <div class="article-nav-title">
+        
+          如何快速生成tsconfig.json文件
+        
+      </div>
+    </a>
+  
+</nav>
+
+      
+      
+        
+  <div id="comments"></div>
+
+
+
+
+
+
+
+
+
+      
+    </footer>
+  </div>
+</article>
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-posts"></i> 最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/blog/articles/2021/06/11.html">如何用Vite快速搭建一个vue3项目</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2020/12/15.html">如何快速生成tsconfig.json文件</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2020/08/22.html">用Ssh连接docker容器</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2020/07/04.html">如何在Vscode上直接运行typescript?</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2020/06/13.html">Wireshark过滤器使用介绍</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2020/05/13.html">Webpack编译后的html中图片路径变为[object Module]的原因及解决办法</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2020/05/02.html">栈与队列</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2020/04/19.html">链表</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2020/04/19.html">算法的时间复杂度与空间复杂度分析</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2020/04/12.html">如何使用Wireshark抓取HTTP2报文？</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-tag"></i> 标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/blog/tags/angularjs/" style="font-size: 10px;">AngularJs</a> <a href="/blog/tags/apache/" style="font-size: 14px;">Apache</a> <a href="/blog/tags/bootstrap/" style="font-size: 14px;">Bootstrap</a> <a href="/blog/tags/css/" style="font-size: 18px;">CSS</a> <a href="/blog/tags/centos/" style="font-size: 10px;">CentOS</a> <a href="/blog/tags/docker/" style="font-size: 14px;">Docker</a> <a href="/blog/tags/git/" style="font-size: 12px;">Git</a> <a href="/blog/tags/gitlab/" style="font-size: 10px;">Gitlab</a> <a href="/blog/tags/gulp/" style="font-size: 10px;">Gulp</a> <a href="/blog/tags/html/" style="font-size: 14px;">HTML</a> <a href="/blog/tags/html5/" style="font-size: 10px;">HTML5</a> <a href="/blog/tags/http/" style="font-size: 14px;">HTTP</a> <a href="/blog/tags/https/" style="font-size: 10px;">HTTPS</a> <a href="/blog/tags/javascript/" style="font-size: 20px;">JavaScript</a> <a href="/blog/tags/jenkins/" style="font-size: 10px;">Jenkins</a> <a href="/blog/tags/linux/" style="font-size: 12px;">Linux</a> <a href="/blog/tags/mac/" style="font-size: 10px;">Mac</a> <a href="/blog/tags/mysql/" style="font-size: 14px;">MySQL</a> <a href="/blog/tags/nginx/" style="font-size: 12px;">Nginx</a> <a href="/blog/tags/node-js/" style="font-size: 12px;">Node.js</a> <a href="/blog/tags/php/" style="font-size: 16px;">PHP</a> <a href="/blog/tags/photoshop/" style="font-size: 10px;">Photoshop</a> <a href="/blog/tags/react/" style="font-size: 10px;">React</a> <a href="/blog/tags/redux/" style="font-size: 10px;">Redux</a> <a href="/blog/tags/sublimetext3/" style="font-size: 10px;">SublimeText3</a> <a href="/blog/tags/typescript/" style="font-size: 12px;">Typescript</a> <a href="/blog/tags/vagrant/" style="font-size: 10px;">Vagrant</a> <a href="/blog/tags/vim/" style="font-size: 10px;">Vim</a> <a href="/blog/tags/vue/" style="font-size: 10px;">Vue</a> <a href="/blog/tags/web/" style="font-size: 16px;">WEB</a> <a href="/blog/tags/webpack/" style="font-size: 14px;">Webpack</a> <a href="/blog/tags/wireshark/" style="font-size: 12px;">Wireshark</a> <a href="/blog/tags/yii/" style="font-size: 10px;">Yii</a> <a href="/blog/tags/jquery/" style="font-size: 14px;">jQuery</a> <a href="/blog/tags/monitor/" style="font-size: 10px;">monitor</a> <a href="/blog/tags/ssh/" style="font-size: 10px;">ssh</a> <a href="/blog/tags/vite/" style="font-size: 10px;">vite</a> <a href="/blog/tags/vscode/" style="font-size: 10px;">vscode</a> <a href="/blog/tags/vue/" style="font-size: 10px;">vue</a> <a href="/blog/tags/%E5%BC%80%E5%8F%91%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/" style="font-size: 10px;">开发问题记录</a> <a href="/blog/tags/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F/" style="font-size: 10px;">微信小程序</a> <a href="/blog/tags/%E7%AE%97%E6%B3%95/" style="font-size: 14px;">算法</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-classify"></i> 分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/blog/categories/bootstrap/">Bootstrap</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/html-css/">HTML-CSS</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/html5/">HTML5</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/javascript/">JavaScript</a><span class="category-list-count">11</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/linux/">Linux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/mysql/">MySQL</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/node-js/">Node.js</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/php/">PHP</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/photoshop/">Photoshop</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/typescript/">Typescript</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/vue/">Vue</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/web/">WEB</a><span class="category-list-count">8</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/jquery/">jQuery</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/translation/">前端翻译</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/">开发工具</a><span class="category-list-count">15</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/%E5%BC%80%E5%8F%91%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/">开发问题记录</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/%E7%AE%97%E6%B3%95/">算法</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/notes/">读书笔记</a><span class="category-list-count">16</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-archive"></i> 归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2021/">2021年</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2020/">2020年</a><span class="archive-list-count">12</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2019/">2019年</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/">2018年</a><span class="archive-list-count">12</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2017/">2017年</a><span class="archive-list-count">26</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/">2016年</a><span class="archive-list-count">27</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-link"></i> 友情链接</h3>
+    <div class="widget">
+      <ul>
+      
+        <li>
+          <a target="_blank" rel="noopener" href="http://www.mahaixiang.cn/internet/300.html">深入理解互联网协议的原理</a>
+        </li>
+      
+        <li>
+          <a target="_blank" rel="noopener" href="http://javascript.ruanyifeng.com/">JavaScript 标准参考教程</a>
+        </li>
+      
+        <li>
+          <a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript">Mozilla Developer Network</a>
+        </li>
+      
+      </ul>
+    </div>
+  </div>
+
+
+  
+</aside>
+        
+      </div>
+      <a id="totop" href="#top"></a>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      <p>
+        <a href="/blog/sitemap.xml">网站地图</a>
+        <span> | </span><a href="/blog/atom.xml">订阅本站</a>
+        <span> | </span><a href="/blog/about/">联系博主</a>
+      </p>
+      
+        <p>
+          <i class="fa fa-visitors"></i>
+          <i id="busuanzi_container_site_uv"><i id="busuanzi_value_site_uv"></i></i>
+          ，
+          <i class="fa fa-views"></i>
+          <i id="busuanzi_container_site_pv"><i id="busuanzi_value_site_pv"></i></i>
+        </p>
+      
+      <p>
+        <span>Copyright &copy; 2022 Jesse.</span>
+        <span>Theme by <a href="https://github.com/chaooo/hexo-theme-BlueLake/" target="_blank">BlueLake.</a></span>
+        <span>Powered by <a href="https://hexo.io/" target="_blank">Hexo.</a></span>
+      </p>
+    </div>
+  </div>
+</footer>
+
+    </div>
+  </div>
+  
+<script src="/blog/js/jquery-3.4.1.min.js"></script>
+
+
+<script src="/blog/js/search.json.js"></script>
+
+
+  
+<script src="/blog/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/blog/js/script.js"></script>
+
+
+
+
+
+
+  
+<script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+  
+  
+
+
+  
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+ 
+<script src="//cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.js"></script>
+
+<script>
+  var gitalk = new Gitalk({
+    clientID: "1d84813ae13cd94072f0",
+    clientSecret: "4a4dd2af0c622e983dd90f5daf15c3ebd86b8ae9",
+    repo: "blog",
+    owner: "jesse121",
+    admin: ["jesse121"],
+    id: md5(window.location.pathname),
+    proxy: "https://gitalk-worker.jesse121.workers.dev/https://github.com/login/oauth/access_token,",
+    distractionFreeMode: false,
+    language: "zh-CN",
+    pagerDirection: "last",
+  });
+  gitalk.render("comments");
+</script>
+         
+
+
+
+</body>
+</html>

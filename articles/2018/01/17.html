@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>利用Webpack搭建的前端工程化环境 | 前端之路</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  
+    <meta name="description" content="专注前端开发，前端开发技术博客">
+  
+  
+    <meta name="keywords" content="Web前端开发，Javascript，前端开发博客">
+  
+  
+    <link rel="alternate" href="/blog/atom.xml" title="前端之路" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/blog/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/blog/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/blog/fancybox/jquery.fancybox.min.css">
+
+  
+  
+  
+    
+<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+
+  
+  
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/blog/" id="logo">前端之路</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/blog/" id="subtitle">路漫漫其修远兮，吾将上下而求索</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        
+          <a class="main-nav-link" href="/blog/."><i class="fa fa-home"></i> 首页</a>
+        
+          <a class="main-nav-link" href="/blog/archives/"><i class="fa fa-archive"></i> 归档</a>
+        
+          <a class="main-nav-link" href="/blog/about/"><i class="fa fa-user"></i> 关于</a>
+        
+      </nav>
+    </div>
+    <div id="search-form">
+      <div id="result-mask" class="hide"></div>
+      <label><input id="search-key" type="text" autocomplete="off" placeholder="搜索"></label>
+      <div id="result-wrap" class="hide">
+        <div id="search-result"></div>
+      </div>
+      <div class="hide">
+        <template id="search-tpl">
+          <div class="item">
+            <a href="/{path}" title="{title}">
+              <div class="title">{title}</div>
+              <div class="time">{date}</div>
+              <div class="tags">{tags}</div>
+            </a>
+          </div>
+        </template>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-tool/利用webpack搭建的前端工程化环境" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      利用Webpack搭建的前端工程化环境
+    </h1>
+  
+
+
+      </header>
+    
+    <div class="article-meta">
+      
+      <span class="article-date">
+  <i class="fa fa-date"></i>
+  <time class="dt-published" datetime="2018-01-17T00:06:27.000Z" itemprop="datePublished">2018年01月17日</time>
+</span>
+      
+  <div class="article-category">
+    <i class="fa fa-classify"></i>
+    <a class="article-category-link" href="/blog/categories/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/">开发工具</a>
+  </div>
+
+      
+        <span class="article-views">
+  <i class="fa fa-views"></i>
+  <i id="busuanzi_container_page_pv">
+      <i id="busuanzi_value_page_pv"></i>
+  </i>
+</span>
+
+      
+      
+<a href="/blog/articles/2018/01/17.html#comments" class="article-comment-link">
+  
+    
+    
+    
+    
+    
+  
+  <i class="fa fa-commt"></i>
+  留言
+</a>
+
+
+    </div>
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>随着webpack3.x的发布，其功能也越来越强大，很多的项目的编译打包工具也由gulp逐渐转移到webpack。最近因为项目重构考虑使用使用vue，同时想从原来的gulp切换到webpack，所以搭建了webpack-vue的前端脚手架工具，这里记录下搭建的过程中的要点。<a target="_blank" rel="noopener" href="https://github.com/Jesse121/Webpack-Vue">项目源码</a></p>
+<span id="more"></span>
+<h3 id="1-用yarn代替npm"><a href="#1-用yarn代替npm" class="headerlink" title="1. 用yarn代替npm"></a>1. 用yarn代替npm</h3><p>npm是一款非常好的包管理工具，之前在用npm安装项目依赖的时候总会因为某些依赖包推出了新版本从而导致编译结果不一样的问题，这是因为在安装依赖的时候npm并没有锁定依赖包的版本号(npm5好像已经解决了这个问题)，每次安装的时候总是获取最新的依赖包，导致编译结果不一样。用yarn安装依赖包可以完美的解决这个问题。<br>去<a target="_blank" rel="noopener" href="https://yarnpkg.com/zh-Hans/">官网</a>下载并安装yarn<br>在命令行中执行yarn -versions,若能输出版本号表示安装成功    </p>
+<h3 id="2-初始化生成package-json文件"><a href="#2-初始化生成package-json文件" class="headerlink" title="2. 初始化生成package.json文件"></a>2. 初始化生成package.json文件</h3><p>执行yarn init,填写项目相关信息</p>
+<h3 id="3-安装项目依赖包和开发依赖包"><a href="#3-安装项目依赖包和开发依赖包" class="headerlink" title="3. 安装项目依赖包和开发依赖包"></a>3. 安装项目依赖包和开发依赖包</h3><p>执行yarn add *** ,安装项目依赖包，添加–dev表示安装成开发依赖，具体安装的依赖包可查阅项目源码中package.json文件  </p>
+<h3 id="4-建立常用库配置文件并打包常用库文件"><a href="#4-建立常用库配置文件并打包常用库文件" class="headerlink" title="4. 建立常用库配置文件并打包常用库文件"></a>4. 建立常用库配置文件并打包常用库文件</h3><h4 id="1-新建webpack-dll-config-js文件"><a href="#1-新建webpack-dll-config-js文件" class="headerlink" title="1. 新建webpack-dll.config.js文件"></a>1. 新建webpack-dll.config.js文件</h4><p>这个配置文件只要是用来打包库文件的，这里介绍下几个重点配置</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="attr">output</span>: &#123;</span><br><span class="line">    <span class="attr">path</span>: outputDir,</span><br><span class="line">    <span class="attr">filename</span>: <span class="string">&#x27;js/lib/[name].js&#x27;</span>,</span><br><span class="line">    <span class="attr">library</span>: <span class="string">&#x27;[name]_library&#x27;</span>,</span><br><span class="line">    <span class="comment">/*libraryTarget: &#x27;umd&#x27;*/</span></span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+<p>output中的library和libraryTarget是为了自定义打包后的文件以怎样的形式输出，这里采用默认的var形式</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">new</span> webpack.<span class="title class_">DefinePlugin</span>(&#123;</span><br><span class="line">    <span class="string">&#x27;process.env&#x27;</span>: &#123;</span><br><span class="line">        <span class="attr">NODE_ENV</span>: <span class="title class_">JSON</span>.<span class="title function_">stringify</span>(<span class="string">&#x27;production&#x27;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;),</span><br></pre></td></tr></table></figure>
+<p>这里定义环境为开发环境，方便生成的库文件直接用于开发环境 </p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"> <span class="comment">//稳定模块ID</span></span><br><span class="line"><span class="keyword">new</span> webpack.<span class="title class_">HashedModuleIdsPlugin</span>(),</span><br><span class="line"></span><br><span class="line"><span class="keyword">new</span> webpack.<span class="title class_">DllPlugin</span>(&#123;</span><br><span class="line">    <span class="comment">// 本Dll文件中各模块的索引，供DllReferencePlugin读取使用</span></span><br><span class="line">    <span class="attr">path</span>: dll_manifest_name + <span class="string">&#x27;.json&#x27;</span>,</span><br><span class="line">    <span class="comment">//当前Dll的所有内容都会存放在这个参数指定变量名的一个全局变量下，注意与参数output.library保持一致</span></span><br><span class="line">    <span class="attr">name</span>: <span class="string">&#x27;[name]_library&#x27;</span>,</span><br><span class="line">    <span class="comment">// 指定一个路径作为上下文环境，需要与DllReferencePlugin的context参数保持一致，建议统一设置为项目根目录</span></span><br><span class="line">    <span class="attr">context</span>: __dirname,</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>这个是为了稳定模块ID并生成manifest文件，方便在生产环境中通过读取dll_manifest知道哪些文件已经被dll打包，而不需要再次打包  </p>
+<h4 id="2-生成库文件dll-js"><a href="#2-生成库文件dll-js" class="headerlink" title="2. 生成库文件dll.js"></a>2. 生成库文件dll.js</h4><p>执行 yarn dll,会在src&#x2F;app&#x2F;js&#x2F;lib&#x2F;文件夹下生成dll.js文件，该文件打包了vue2.5.13,axios0.17.1,flexible,webpack-zepto，具体要打包哪些文件可由webpack-dll.config.js中的entries来配置<br>若有必要可考虑生成dll.css</p>
+<h3 id="5-建立配置文件"><a href="#5-建立配置文件" class="headerlink" title="5. 建立配置文件"></a>5. 建立配置文件</h3><p>这里我将配置文件分为3个，一个基础配置文件，一个开发环境配置文件，一个生产环境配置文件，开发环境和生产环境配置文件通过webpack-merge插件调用基础配置文件。</p>
+<h4 id="基础配置文件webpack-base-js"><a href="#基础配置文件webpack-base-js" class="headerlink" title="基础配置文件webpack.base.js"></a>基础配置文件webpack.base.js</h4><p>在基础配置文件中包含了基本的配置信息，这里主要介绍下多页面配置中的htmlWebpackPlugin插件的使用。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> pages = <span class="title function_">getEntry</span>(entryDir + <span class="string">&#x27;/html/**/*.ejs&#x27;</span>);</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> pathname <span class="keyword">in</span> pages) &#123;</span><br><span class="line">    <span class="keyword">var</span> conf = &#123;</span><br><span class="line">        <span class="comment">// html模板文件输入路径</span></span><br><span class="line">        <span class="attr">template</span>: entryDir + <span class="string">&#x27;/html/&#x27;</span> + pathname + <span class="string">&#x27;.js&#x27;</span>,</span><br><span class="line">        <span class="comment">// html文件输出路径</span></span><br><span class="line">        <span class="attr">filename</span>: outputDir + <span class="string">&#x27;/html/&#x27;</span> + pathname + <span class="string">&#x27;.html&#x27;</span>,</span><br><span class="line">        <span class="attr">inject</span>: <span class="literal">true</span>,</span><br><span class="line">        <span class="attr">cache</span>: <span class="literal">true</span>, <span class="comment">//只改动变动的文件</span></span><br><span class="line">        <span class="attr">minify</span>: &#123;</span><br><span class="line">            <span class="attr">removeComments</span>: <span class="literal">true</span>,</span><br><span class="line">            <span class="attr">collapseWhitespace</span>: <span class="literal">false</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="comment">//根据chunks提取页面js,css和公共verdors</span></span><br><span class="line">    <span class="keyword">if</span> (pathname <span class="keyword">in</span> <span class="variable language_">module</span>.<span class="property">exports</span>.<span class="property">entry</span>) &#123;</span><br><span class="line">        conf.<span class="property">chunks</span> = [pathname, <span class="string">&#x27;vendors&#x27;</span>];</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        conf.<span class="property">chunks</span> = [<span class="string">&#x27;vendors&#x27;</span>];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="variable language_">module</span>.<span class="property">exports</span>.<span class="property">plugins</span>.<span class="title function_">push</span>(<span class="keyword">new</span> <span class="title function_">htmlWebpackPlugin</span>(conf));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里多页面配置采用的是ejs模板，通过循环入口文件，每个模板文件都配置一个htmlWebpackPlugin插件编译，最后达到生成多个页面的目的，通过chunks来提取页面的js&#x2F;css&#x2F;img等</p>
+<h4 id="开发环境配置文件webpack-dev-js"><a href="#开发环境配置文件webpack-dev-js" class="headerlink" title="开发环境配置文件webpack.dev.js"></a>开发环境配置文件webpack.dev.js</h4><p>在开发环境配置文件，通过使用webpack-dev-server插件来建立一个静态服务器提供服务</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="attr">devServer</span>: &#123;</span><br><span class="line">    <span class="comment">//设置服务器主文件夹，默认情况下，从项目的根目录提供文件</span></span><br><span class="line">    <span class="attr">contentBase</span>: outputDir,</span><br><span class="line">    <span class="comment">//自动开启默认浏览器</span></span><br><span class="line">    <span class="comment">//open: true,</span></span><br><span class="line">    <span class="comment">//开启热模块替换,只重载页面中变化了的部分</span></span><br><span class="line">    <span class="comment">//hot: true,</span></span><br><span class="line">    <span class="comment">//hotOnly:true,</span></span><br><span class="line">    <span class="comment">//开启gzip压缩</span></span><br><span class="line">    <span class="attr">compress</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="comment">//使用inlilne模式,会触发页面的动态重载</span></span><br><span class="line">    <span class="attr">inline</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="comment">//当编译错误的时候，网页上显示错误信息</span></span><br><span class="line">    <span class="attr">overlay</span>: &#123;</span><br><span class="line">        <span class="attr">warnings</span>: <span class="literal">true</span>,</span><br><span class="line">        <span class="attr">errors</span>: <span class="literal">true</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="comment">//浏览器自动打开的文件夹</span></span><br><span class="line">    <span class="comment">//openPage: &#x27;html/&#x27;,</span></span><br><span class="line">    <span class="comment">//只在shell中展示错误信息</span></span><br><span class="line">    <span class="comment">//stats: &#x27;errors-only&#x27;,</span></span><br><span class="line">    <span class="comment">//设置域名，默认是localhost</span></span><br><span class="line">    <span class="attr">host</span>: <span class="string">&#x27;localhost&#x27;</span>,</span><br><span class="line">    <span class="attr">port</span>: <span class="number">8080</span></span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+<p>在使用热更新时需要使用热更新插件</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">//热模块替换插件</span></span><br><span class="line"><span class="keyword">new</span> webpack.<span class="title class_">HotModuleReplacementPlugin</span>()</span><br></pre></td></tr></table></figure>
+<h4 id="生产环境配置文件webpack-prod-js"><a href="#生产环境配置文件webpack-prod-js" class="headerlink" title="生产环境配置文件webpack.prod.js"></a>生产环境配置文件webpack.prod.js</h4><p>在生产环境中我们需要关注公共组件的分离，代码压缩，文件缓存等问题，在公共组件分离时通过读取dll_manifest文件知道哪些文件不用打包，从而减少打包后的文件大小</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">new</span> webpack.<span class="title class_">HashedModuleIdsPlugin</span>(),</span><br><span class="line"><span class="keyword">new</span> webpack.<span class="title class_">DllReferencePlugin</span>(&#123;</span><br><span class="line">    <span class="comment">// 指定一个路径作为上下文环境，需要与DllPlugin的context参数保持一致，建议统一设置为项目根目录</span></span><br><span class="line">    <span class="attr">context</span>: __dirname,</span><br><span class="line">    <span class="comment">// 指定manifest.json</span></span><br><span class="line">    <span class="attr">manifest</span>: <span class="built_in">require</span>(<span class="string">&#x27;../&#x27;</span> + dll_manifest_name + <span class="string">&#x27;.json&#x27;</span>),</span><br><span class="line">    <span class="comment">// 当前Dll的所有内容都会存放在这个参数指定变量名的一个全局变量下，注意与DllPlugin的name参数保持一致</span></span><br><span class="line">    <span class="attr">name</span>: <span class="string">&#x27;dll_library&#x27;</span>,</span><br><span class="line">&#125;),</span><br></pre></td></tr></table></figure>
+<p>在考虑代码压缩时通过使用以下配置</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">//压缩css代码</span></span><br><span class="line"><span class="keyword">new</span> <span class="title class_">OptimizeCssAssetsPlugin</span>(&#123;</span><br><span class="line">    <span class="attr">assetNameRegExp</span>: <span class="regexp">/\.css\.*(?!.*map)/g</span>, <span class="comment">//注意不要写成 /\.css$/g</span></span><br><span class="line">    <span class="attr">cssProcessor</span>: <span class="built_in">require</span>(<span class="string">&#x27;cssnano&#x27;</span>),</span><br><span class="line">    <span class="attr">cssProcessorOptions</span>: &#123;</span><br><span class="line">        <span class="attr">discardComments</span>: &#123; <span class="attr">removeAll</span>: <span class="literal">true</span> &#125;,</span><br><span class="line">        <span class="comment">// 避免 cssnano 重新计算 z-index</span></span><br><span class="line">        <span class="attr">safe</span>: <span class="literal">true</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">canPrint</span>: <span class="literal">true</span></span><br><span class="line">&#125;),</span><br><span class="line"><span class="comment">//提取css</span></span><br><span class="line"><span class="keyword">new</span> <span class="title class_">ExtractTextPlugin</span>(<span class="string">&#x27;css/[name].css?v=[contenthash:8]&#x27;</span>),</span><br><span class="line"><span class="comment">//压缩JS代码</span></span><br><span class="line"><span class="keyword">new</span> webpack.<span class="property">optimize</span>.<span class="title class_">UglifyJsPlugin</span>(&#123;</span><br><span class="line">    <span class="attr">compress</span>: &#123;</span><br><span class="line">        <span class="attr">warnings</span>: <span class="literal">false</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">output</span>: &#123;</span><br><span class="line">        <span class="attr">comments</span>: <span class="literal">false</span>,</span><br><span class="line">    &#125;</span><br><span class="line">&#125;),</span><br></pre></td></tr></table></figure>
+<p>在考虑线上文件缓存问题时可以使用以下配置</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="attr">output</span>: &#123;</span><br><span class="line">    <span class="comment">//publicPath: &#x27;http://localhost:8080/&#x27;,</span></span><br><span class="line">    <span class="attr">filename</span>: <span class="string">&#x27;js/[name].js?v=[chunkhash:8]&#x27;</span></span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+<p>这里建议使用chunkhash,使用hash每次编译都会变化</p>
+<p>至此配置以基本完成，目前仍有一些不足之处，一直在改进。源码src&#x2F;app&#x2F;文件夹下有一demo，大家可参考demo愉快的进行开发了，有问题欢迎评论提出</p>
+<h5 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h5><ol>
+<li><a target="_blank" rel="noopener" href="https://doc.webpack-china.org/concepts/">webpack官方文档</a>,</li>
+<li><a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000005969643">Webpack的dll功能</a>,</li>
+<li><a target="_blank" rel="noopener" href="http://www.jb51.net/article/132275.htm">详解webpack中的hash、chunkhash、contenthash区别</a></li>
+</ol>
+
+        
+            <div id="toc-article">
+                
+  <div class="widget-wrap" id="toc-wrap">
+    <h3 class="widget-title"><i class="fa fa-toc"></i> 文章目录</h3>
+    <div class="widget">
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E7%94%A8yarn%E4%BB%A3%E6%9B%BFnpm"><span class="toc-text">1. 用yarn代替npm</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E5%88%9D%E5%A7%8B%E5%8C%96%E7%94%9F%E6%88%90package-json%E6%96%87%E4%BB%B6"><span class="toc-text">2. 初始化生成package.json文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E5%AE%89%E8%A3%85%E9%A1%B9%E7%9B%AE%E4%BE%9D%E8%B5%96%E5%8C%85%E5%92%8C%E5%BC%80%E5%8F%91%E4%BE%9D%E8%B5%96%E5%8C%85"><span class="toc-text">3. 安装项目依赖包和开发依赖包</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E5%BB%BA%E7%AB%8B%E5%B8%B8%E7%94%A8%E5%BA%93%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E5%B9%B6%E6%89%93%E5%8C%85%E5%B8%B8%E7%94%A8%E5%BA%93%E6%96%87%E4%BB%B6"><span class="toc-text">4. 建立常用库配置文件并打包常用库文件</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E6%96%B0%E5%BB%BAwebpack-dll-config-js%E6%96%87%E4%BB%B6"><span class="toc-text">1. 新建webpack-dll.config.js文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E7%94%9F%E6%88%90%E5%BA%93%E6%96%87%E4%BB%B6dll-js"><span class="toc-text">2. 生成库文件dll.js</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E5%BB%BA%E7%AB%8B%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="toc-text">5. 建立配置文件</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9F%BA%E7%A1%80%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6webpack-base-js"><span class="toc-text">基础配置文件webpack.base.js</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6webpack-dev-js"><span class="toc-text">开发环境配置文件webpack.dev.js</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%94%9F%E4%BA%A7%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6webpack-prod-js"><span class="toc-text">生产环境配置文件webpack.prod.js</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE"><span class="toc-text">参考文献</span></a></li></ol></li></ol></li></ol>
+    </div>
+  </div>
+
+
+            </div>
+        
+        
+          <blockquote id="copyright">
+              <p>原文链接: <a href="https://jesse121.github.io/articles/2018/01/17.html">https://jesse121.github.io/articles/2018/01/17.html</a></p>
+              <p>版权声明: 转载请注明出处.</p>
+          </blockquote>
+        
+      
+    </div>
+    <footer class="article-footer">
+      
+        <div class="article-tag-wrap">
+          
+
+          
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/vue/" rel="tag">Vue</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/webpack/" rel="tag">Webpack</a></li></ul>
+
+          
+
+
+        </div>
+      
+      
+        
+<nav id="article-nav">
+  
+    <a href="/blog/articles/2017/12/23.html" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">older</strong>
+      <div class="article-nav-title">
+        
+          针对模拟滚动条插件(jQuery.slimscroll.js)的修改
+        
+      </div>
+    </a>
+  
+  
+    <a href="/blog/articles/2018/02/11.html" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">newer</strong>
+      <div class="article-nav-title">
+        
+          LNMP + Apache 架构配置
+        
+      </div>
+    </a>
+  
+</nav>
+
+      
+      
+        
+  <div id="comments"></div>
+
+
+
+
+
+
+
+
+
+      
+    </footer>
+  </div>
+</article>
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-posts"></i> 最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/blog/articles/2021/06/11.html">如何用Vite快速搭建一个vue3项目</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2020/12/15.html">如何快速生成tsconfig.json文件</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2020/08/22.html">用Ssh连接docker容器</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2020/07/04.html">如何在Vscode上直接运行typescript?</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2020/06/13.html">Wireshark过滤器使用介绍</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2020/05/13.html">Webpack编译后的html中图片路径变为[object Module]的原因及解决办法</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2020/05/02.html">栈与队列</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2020/04/19.html">链表</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2020/04/19.html">算法的时间复杂度与空间复杂度分析</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2020/04/12.html">如何使用Wireshark抓取HTTP2报文？</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-tag"></i> 标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/blog/tags/angularjs/" style="font-size: 10px;">AngularJs</a> <a href="/blog/tags/apache/" style="font-size: 14px;">Apache</a> <a href="/blog/tags/bootstrap/" style="font-size: 14px;">Bootstrap</a> <a href="/blog/tags/css/" style="font-size: 18px;">CSS</a> <a href="/blog/tags/centos/" style="font-size: 10px;">CentOS</a> <a href="/blog/tags/docker/" style="font-size: 14px;">Docker</a> <a href="/blog/tags/git/" style="font-size: 12px;">Git</a> <a href="/blog/tags/gitlab/" style="font-size: 10px;">Gitlab</a> <a href="/blog/tags/gulp/" style="font-size: 10px;">Gulp</a> <a href="/blog/tags/html/" style="font-size: 14px;">HTML</a> <a href="/blog/tags/html5/" style="font-size: 10px;">HTML5</a> <a href="/blog/tags/http/" style="font-size: 14px;">HTTP</a> <a href="/blog/tags/https/" style="font-size: 10px;">HTTPS</a> <a href="/blog/tags/javascript/" style="font-size: 20px;">JavaScript</a> <a href="/blog/tags/jenkins/" style="font-size: 10px;">Jenkins</a> <a href="/blog/tags/linux/" style="font-size: 12px;">Linux</a> <a href="/blog/tags/mac/" style="font-size: 10px;">Mac</a> <a href="/blog/tags/mysql/" style="font-size: 14px;">MySQL</a> <a href="/blog/tags/nginx/" style="font-size: 12px;">Nginx</a> <a href="/blog/tags/node-js/" style="font-size: 12px;">Node.js</a> <a href="/blog/tags/php/" style="font-size: 16px;">PHP</a> <a href="/blog/tags/photoshop/" style="font-size: 10px;">Photoshop</a> <a href="/blog/tags/react/" style="font-size: 10px;">React</a> <a href="/blog/tags/redux/" style="font-size: 10px;">Redux</a> <a href="/blog/tags/sublimetext3/" style="font-size: 10px;">SublimeText3</a> <a href="/blog/tags/typescript/" style="font-size: 12px;">Typescript</a> <a href="/blog/tags/vagrant/" style="font-size: 10px;">Vagrant</a> <a href="/blog/tags/vim/" style="font-size: 10px;">Vim</a> <a href="/blog/tags/vue/" style="font-size: 10px;">Vue</a> <a href="/blog/tags/web/" style="font-size: 16px;">WEB</a> <a href="/blog/tags/webpack/" style="font-size: 14px;">Webpack</a> <a href="/blog/tags/wireshark/" style="font-size: 12px;">Wireshark</a> <a href="/blog/tags/yii/" style="font-size: 10px;">Yii</a> <a href="/blog/tags/jquery/" style="font-size: 14px;">jQuery</a> <a href="/blog/tags/monitor/" style="font-size: 10px;">monitor</a> <a href="/blog/tags/ssh/" style="font-size: 10px;">ssh</a> <a href="/blog/tags/vite/" style="font-size: 10px;">vite</a> <a href="/blog/tags/vscode/" style="font-size: 10px;">vscode</a> <a href="/blog/tags/vue/" style="font-size: 10px;">vue</a> <a href="/blog/tags/%E5%BC%80%E5%8F%91%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/" style="font-size: 10px;">开发问题记录</a> <a href="/blog/tags/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F/" style="font-size: 10px;">微信小程序</a> <a href="/blog/tags/%E7%AE%97%E6%B3%95/" style="font-size: 14px;">算法</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-classify"></i> 分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/blog/categories/bootstrap/">Bootstrap</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/html-css/">HTML-CSS</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/html5/">HTML5</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/javascript/">JavaScript</a><span class="category-list-count">11</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/linux/">Linux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/mysql/">MySQL</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/node-js/">Node.js</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/php/">PHP</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/photoshop/">Photoshop</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/typescript/">Typescript</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/vue/">Vue</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/web/">WEB</a><span class="category-list-count">8</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/jquery/">jQuery</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/translation/">前端翻译</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/">开发工具</a><span class="category-list-count">15</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/%E5%BC%80%E5%8F%91%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/">开发问题记录</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/%E7%AE%97%E6%B3%95/">算法</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/notes/">读书笔记</a><span class="category-list-count">16</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-archive"></i> 归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2021/">2021年</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2020/">2020年</a><span class="archive-list-count">12</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2019/">2019年</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/">2018年</a><span class="archive-list-count">12</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2017/">2017年</a><span class="archive-list-count">26</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/">2016年</a><span class="archive-list-count">27</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-link"></i> 友情链接</h3>
+    <div class="widget">
+      <ul>
+      
+        <li>
+          <a target="_blank" rel="noopener" href="http://www.mahaixiang.cn/internet/300.html">深入理解互联网协议的原理</a>
+        </li>
+      
+        <li>
+          <a target="_blank" rel="noopener" href="http://javascript.ruanyifeng.com/">JavaScript 标准参考教程</a>
+        </li>
+      
+        <li>
+          <a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript">Mozilla Developer Network</a>
+        </li>
+      
+      </ul>
+    </div>
+  </div>
+
+
+  
+</aside>
+        
+      </div>
+      <a id="totop" href="#top"></a>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      <p>
+        <a href="/blog/sitemap.xml">网站地图</a>
+        <span> | </span><a href="/blog/atom.xml">订阅本站</a>
+        <span> | </span><a href="/blog/about/">联系博主</a>
+      </p>
+      
+        <p>
+          <i class="fa fa-visitors"></i>
+          <i id="busuanzi_container_site_uv"><i id="busuanzi_value_site_uv"></i></i>
+          ，
+          <i class="fa fa-views"></i>
+          <i id="busuanzi_container_site_pv"><i id="busuanzi_value_site_pv"></i></i>
+        </p>
+      
+      <p>
+        <span>Copyright &copy; 2022 Jesse.</span>
+        <span>Theme by <a href="https://github.com/chaooo/hexo-theme-BlueLake/" target="_blank">BlueLake.</a></span>
+        <span>Powered by <a href="https://hexo.io/" target="_blank">Hexo.</a></span>
+      </p>
+    </div>
+  </div>
+</footer>
+
+    </div>
+  </div>
+  
+<script src="/blog/js/jquery-3.4.1.min.js"></script>
+
+
+<script src="/blog/js/search.json.js"></script>
+
+
+  
+<script src="/blog/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/blog/js/script.js"></script>
+
+
+
+
+
+
+  
+<script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+  
+  
+
+
+  
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+ 
+<script src="//cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.js"></script>
+
+<script>
+  var gitalk = new Gitalk({
+    clientID: "1d84813ae13cd94072f0",
+    clientSecret: "4a4dd2af0c622e983dd90f5daf15c3ebd86b8ae9",
+    repo: "blog",
+    owner: "jesse121",
+    admin: ["jesse121"],
+    id: md5(window.location.pathname),
+    proxy: "https://gitalk-worker.jesse121.workers.dev/https://github.com/login/oauth/access_token,",
+    distractionFreeMode: false,
+    language: "zh-CN",
+    pagerDirection: "last",
+  });
+  gitalk.render("comments");
+</script>
+         
+
+
+
+</body>
+</html>

@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>CSS3新特性，兼容性，兼容方法总结 | 前端之路</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  
+    <meta name="description" content="专注前端开发，前端开发技术博客">
+  
+  
+    <meta name="keywords" content="Web前端开发，Javascript，前端开发博客">
+  
+  
+    <link rel="alternate" href="/blog/atom.xml" title="前端之路" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/blog/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/blog/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/blog/fancybox/jquery.fancybox.min.css">
+
+  
+  
+  
+    
+<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+
+  
+  
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/blog/" id="logo">前端之路</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/blog/" id="subtitle">路漫漫其修远兮，吾将上下而求索</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        
+          <a class="main-nav-link" href="/blog/."><i class="fa fa-home"></i> 首页</a>
+        
+          <a class="main-nav-link" href="/blog/archives/"><i class="fa fa-archive"></i> 归档</a>
+        
+          <a class="main-nav-link" href="/blog/about/"><i class="fa fa-user"></i> 关于</a>
+        
+      </nav>
+    </div>
+    <div id="search-form">
+      <div id="result-mask" class="hide"></div>
+      <label><input id="search-key" type="text" autocomplete="off" placeholder="搜索"></label>
+      <div id="result-wrap" class="hide">
+        <div id="search-result"></div>
+      </div>
+      <div class="hide">
+        <template id="search-tpl">
+          <div class="item">
+            <a href="/{path}" title="{title}">
+              <div class="title">{title}</div>
+              <div class="time">{date}</div>
+              <div class="tags">{tags}</div>
+            </a>
+          </div>
+        </template>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-html-css/CSS3新特性，兼容性，兼容方法总结" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      CSS3新特性，兼容性，兼容方法总结
+    </h1>
+  
+
+
+      </header>
+    
+    <div class="article-meta">
+      
+      <span class="article-date">
+  <i class="fa fa-date"></i>
+  <time class="dt-published" datetime="2016-04-28T14:46:26.000Z" itemprop="datePublished">2016年04月28日</time>
+</span>
+      
+  <div class="article-category">
+    <i class="fa fa-classify"></i>
+    <a class="article-category-link" href="/blog/categories/html-css/">HTML-CSS</a>
+  </div>
+
+      
+        <span class="article-views">
+  <i class="fa fa-views"></i>
+  <i id="busuanzi_container_page_pv">
+      <i id="busuanzi_value_page_pv"></i>
+  </i>
+</span>
+
+      
+      
+<a href="/blog/articles/2016/04/28.html#comments" class="article-comment-link">
+  
+    
+    
+    
+    
+    
+  
+  <i class="fa fa-commt"></i>
+  留言
+</a>
+
+
+    </div>
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>参考工具<br><a target="_blank" rel="noopener" href="http://www.css88.com/book/css/">css3手册</a><br><a target="_blank" rel="noopener" href="http://css3clickchart.com/#box-sizing">CSS3 click chart</a></p>
+<h3 id="border-radius"><a href="#border-radius" class="headerlink" title="border-radius"></a>border-radius</h3><p>用于添加圆角效果</p>
+<h4 id="语法"><a href="#语法" class="headerlink" title="语法:"></a>语法:</h4><figure class="highlight dust"><table><tr><td class="code"><pre><span class="line"><span class="language-xml">border-radius：[ <span class="tag">&lt;<span class="name">length</span>&gt;</span> | <span class="tag">&lt;<span class="name">percentage</span>&gt;</span> ]</span><span class="template-variable">&#123;1,4&#125;</span><span class="language-xml"> [ / [ <span class="tag">&lt;<span class="name">length</span>&gt;</span> | <span class="tag">&lt;<span class="name">percentage</span>&gt;</span> ]</span><span class="template-variable">&#123;1,4&#125;</span><span class="language-xml"> ]?</span></span><br></pre></td></tr></table></figure>
+<p><code>&lt;length&gt;：</code>用长度值设置对象的圆角半径长度。不允许负值<br><code>&lt;percentage&gt;：</code>用百分比设置对象的圆角半径长度。不允许负值  </p>
+<span id="more"></span>
+<h4 id="实例"><a href="#实例" class="headerlink" title="实例:"></a>实例:</h4><p><code>border-radius:10px;</code></p>
+<div style="width:100px;height:100px;border:1px solid red;-webkit-border-radius:10px;-moz-border-radius:10px;border-radius: 10px;"></div>
+`border-radius:5px 10px 15px 20px; //顺序是顺时针`
+<div style="width:100px;height:100px;border:1px solid red;border-radius: 5px 10px 15px 20px;"></div>
+`border-radius:26px 106px 162px 32px/28px 80px 178px 26px; //标准语法格式`
+<div style="width:100px;height:100px;border-radius:26px 106px 162px 32px/28px 80px 178px 26px;background-color:red"></div>
+`border-radius:50%;  //是相对于元素占据尺寸的百分比，即包含边框和padding后的尺寸`
+<div style="width:100px;height:100px;border:1px solid red;border-radius: 50%;"></div>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.radius</span>&#123;</span><br><span class="line">    <span class="attribute">border-top-left-radius</span>:<span class="number">5px</span>;      <span class="comment">/*左上角，注意顺序是先上下后左右*/</span></span><br><span class="line">    <span class="attribute">border-top-right-radius</span>:<span class="number">10px</span>;    <span class="comment">/*右上角*/</span></span><br><span class="line">    <span class="attribute">border-bottom-left-radius</span>:<span class="number">15px</span>;  <span class="comment">/*左下角*/</span></span><br><span class="line">    <span class="attribute">border-bottom-left-radius</span>:<span class="number">20px</span>;  <span class="comment">/*右下角*/</span></span><br><span class="line">    <span class="comment">/*即使元素没有边框，圆角也可以用到 background 上面，</span></span><br><span class="line"><span class="comment">    具体效果受 background-clip 影响。*/</span></span><br><span class="line">    <span class="attribute">background-color</span>:red;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<div style="width:100px;height:100px;border-top-left-radius:5px;border-top-right-radius:10px;border-bottom-left-radius:15px;border-bottom-right-radius:20px;background-color:red;"></div>
+
+<h4 id="兼容性："><a href="#兼容性：" class="headerlink" title="兼容性："></a>兼容性：</h4><p>IE9+,Firefox4+,Chrome5+,Safari5+,Opera01.5+,iOS Safari4+,Android Browser2.2+ ,Android Chrome18+</p>
+<h4 id="兼容方法："><a href="#兼容方法：" class="headerlink" title="兼容方法："></a>兼容方法：</h4><p>低版本的chrome:<code>-webkit-border-radius:10px;</code><br>低版本的firefox:<code>-moz-border-radius:10px;</code><br>IE6&#x2F;7&#x2F;8:</p>
+<ul>
+<li>使用DD_roudies.js(推荐)，详情参考<a target="_blank" rel="noopener" href="http://dillerdesign.com/experiment/DD_roundies/">DD_roundies</a><figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span> <span class="attr">type</span>=<span class="string">&quot;text/css&quot;</span>&gt;</span><span class="language-css"></span></span><br><span class="line"><span class="language-css"><span class="selector-class">.radius</span> &#123;</span></span><br><span class="line"><span class="language-css">    <span class="attribute">width</span>: <span class="number">300px</span>;</span></span><br><span class="line"><span class="language-css">    <span class="attribute">height</span>: <span class="number">300px</span>;</span></span><br><span class="line"><span class="language-css">    <span class="attribute">border</span>:<span class="number">1px</span> solid red;</span></span><br><span class="line"><span class="language-css">&#125;</span></span><br><span class="line"><span class="language-css"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;radius&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;http://dillerdesign.com/experiment/DD_roundies/DD_roundies_0.0.2a-min.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">&quot;text/javascript&quot;</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">    DD_roundies.<span class="title function_">addRule</span>(<span class="string">&#x27;.radius&#x27;</span>, <span class="string">&#x27;10px 15px 30px 0&#x27;</span>,<span class="literal">false</span>);</span></span><br><span class="line"><span class="language-javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
+<li>使用jquery.corner.js，详情参考<a target="_blank" rel="noopener" href="http://www.zhangxinxu.com/study/201001/jquery-plugin-round-corner.html">jquery.corner.js</a><figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span> <span class="attr">type</span>=<span class="string">&quot;text/css&quot;</span>&gt;</span><span class="language-css"></span></span><br><span class="line"><span class="language-css"><span class="selector-class">.render</span> &#123;</span></span><br><span class="line"><span class="language-css">    <span class="attribute">width</span>: <span class="number">300px</span>;</span></span><br><span class="line"><span class="language-css">    <span class="attribute">height</span>: <span class="number">300px</span>;</span></span><br><span class="line"><span class="language-css">    <span class="attribute">background</span>: red;</span></span><br><span class="line"><span class="language-css">&#125;</span></span><br><span class="line"><span class="language-css"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;render&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;http://apps.bdimg.com/libs/jquery/1.2.6/jquery.min.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;jquery.corner.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">&quot;text/javascript&quot;</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">    $(<span class="string">&#x27;.render&#x27;</span>).<span class="title function_">corner</span>(<span class="string">&quot;top 30px&quot;</span>);</span></span><br><span class="line"><span class="language-javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
+<li>引入ie-css3兼容文件，详情参阅<a target="_blank" rel="noopener" href="http://www.zhangxinxu.com/wordpress/2010/04/%E8%AE%A9ie6ie7ie8%E6%B5%8F%E8%A7%88%E5%99%A8%E6%94%AF%E6%8C%81css3%E5%B1%9E%E6%80%A7/">让IE6&#x2F;IE7&#x2F;IE8浏览器支持CSS3属性</a> <figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.radius</span>&#123;</span><br><span class="line">    -moz-<span class="attribute">border-radius</span>: <span class="number">15px</span>; <span class="comment">/* Firefox */</span></span><br><span class="line">    -webkit-<span class="attribute">border-radius</span>: <span class="number">15px</span>; <span class="comment">/* Safari 和 Chrome */</span></span><br><span class="line">    <span class="attribute">border-radius</span>: <span class="number">15px</span>; <span class="comment">/* Opera 10.5+, 以及使用了IE-CSS3的IE浏览器 */</span></span><br><span class="line">    behavior: <span class="built_in">url</span>(<span class="string">ie-css3.htc</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p>详情参阅<a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/border-radius">border-radius</a></p>
+<h3 id="box-shadow"><a href="#box-shadow" class="headerlink" title="box-shadow"></a>box-shadow</h3><p>用于添加阴影效果</p>
+<h4 id="语法："><a href="#语法：" class="headerlink" title="语法："></a>语法：</h4><figure class="highlight pf"><table><tr><td class="code"><pre><span class="line">box-shadow：<span class="keyword">none</span>|[inset? &amp;&amp; [<span class="variable">&lt;offset-x&gt;</span><span class="variable">&lt;offset-y&gt;</span><span class="variable">&lt;blur-radius&gt;</span>?<span class="variable">&lt;spread-radius&gt;</span>?<span class="variable">&lt;color&gt;</span>?]]<span class="comment">#</span></span><br></pre></td></tr></table></figure>
+<p>inset：设置对象的阴影类型为内阴影。该值为空时，则对象的阴影类型为外阴影<br><code>&lt;offset-x&gt;</code>: 这是第一个 length值设置水平偏移量，如果是负值则阴影位于元素左边。<br><code>&lt;offset-y&gt;</code>: 这是第二个 length值设置垂直偏移量，如果是负值则阴影位于元素上面。<br><code>&lt;blur-radius&gt;</code>:这是第三个 length值。值越大，糊糊面积越大，阴影就越大越淡。不能为负值。默认为0，此时阴影边缘锐利。<br><code>&lt;color&gt;</code>：设置对象的阴影的颜色。  </p>
+<h4 id="实例："><a href="#实例：" class="headerlink" title="实例："></a>实例：</h4><p><code>box-shadow: 10px 10px 5px gray;</code></p>
+<div style="width:100px;height:100px;background-color:red;-webkit-box-shadow:10px 10px 5px gray;-moz-box-shadow:10px 10px 5px gray;box-shadow: 10px 10px 5px gray;"></div>
+`box-shadow: 3px 3px green, -1em 0 0.4em gold;`
+<div style="width:100px;height:100px;margin:20px;background-color:red;box-shadow: 3px 3px green, 0 0 1em black;"></div>
+
+<h4 id="兼容性：-1"><a href="#兼容性：-1" class="headerlink" title="兼容性："></a>兼容性：</h4><p>IE9.0+,Firefox4.0+,Chrome10.0+,Safari5.1+,Opera10.5+,Safari5.0+,Android Browser4.0+,Android Chrome18.0+</p>
+<h4 id="兼容方法：-1"><a href="#兼容方法：-1" class="headerlink" title="兼容方法："></a>兼容方法：</h4><p>低版本的chrome:<code>-webkit-box-shadow:10px 10px 5px #888;</code><br>低版本的firefox:<code>-moz-box-shadow:10px 10px 5px #888;</code><br>IE6&#x2F;7&#x2F;8:</p>
+<ul>
+<li>引入ie-css3兼容文件(推荐)，缺点：不支持除了黑色(#000)以外的其他颜色，详情参阅<a target="_blank" rel="noopener" href="http://www.zhangxinxu.com/wordpress/2010/04/%E8%AE%A9ie6ie7ie8%E6%B5%8F%E8%A7%88%E5%99%A8%E6%94%AF%E6%8C%81css3%E5%B1%9E%E6%80%A7/">让IE6&#x2F;IE7&#x2F;IE8浏览器支持CSS3属性</a><figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.box</span>&#123;</span><br><span class="line">    <span class="attribute">width</span>:<span class="number">100px</span>;</span><br><span class="line">    <span class="attribute">height</span>:<span class="number">100px</span>;</span><br><span class="line">    <span class="attribute">background-color</span>:red;</span><br><span class="line">    -webkit-<span class="attribute">box-shadow</span>:<span class="number">10px</span> <span class="number">10px</span> <span class="number">5px</span> gray;</span><br><span class="line">    -moz-<span class="attribute">box-shadow</span>:<span class="number">10px</span> <span class="number">10px</span> <span class="number">5px</span> gray;</span><br><span class="line">    <span class="attribute">box-shadow</span>: <span class="number">10px</span> <span class="number">10px</span> <span class="number">5px</span> gray;</span><br><span class="line">    behavior:<span class="built_in">url</span>(<span class="string">ie-css3.htc</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>使用DropShadow滤镜，缺点：阴影不能边缘模糊<figure class="highlight reasonml"><table><tr><td class="code"><pre><span class="line">filter:progid:dXImageTransform.Microsoft.<span class="constructor">DropShadow(<span class="params">color</span>=#888888,<span class="params">offX</span>=10,<span class="params">offY</span>=10,<span class="params">positives</span>=<span class="params">true</span>)</span>;</span><br></pre></td></tr></table></figure></li>
+<li>使用Shadow滤镜，类似于投影效果，缺点：阴影不能边缘模糊<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">filter:progid:DXImageTransform.Microsoft.Shadow(<span class="attribute">color</span>=<span class="string">&#x27;#0099ff&#x27;</span>, <span class="attribute">Direction</span>=<span class="string">&#x27;120&#x27;</span>, <span class="attribute">Strength</span>=<span class="string">&#x27;10&#x27;</span>);</span><br></pre></td></tr></table></figure>
+详情参阅<a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/box-shadow">box-shadow</a></li>
+</ul>
+<h3 id="border-image"><a href="#border-image" class="headerlink" title="border-image"></a>border-image</h3><p>用来给元素边框添加背景图片</p>
+<h4 id="语法：-1"><a href="#语法：-1" class="headerlink" title="语法："></a>语法：</h4><figure class="highlight maxima"><table><tr><td class="code"><pre><span class="line"><span class="built_in">border</span>-<span class="built_in">image</span>：&lt;&#x27; <span class="built_in">border</span>-<span class="built_in">image</span>-source &#x27;&gt; || &lt;&#x27; <span class="built_in">border</span>-<span class="built_in">image</span>-slice &#x27;&gt; [ / &lt;&#x27; <span class="built_in">border</span>-<span class="built_in">image</span>-<span class="built_in">width</span> &#x27;&gt; | </span><br><span class="line">/ &lt;&#x27; <span class="built_in">border</span>-<span class="built_in">image</span>-<span class="built_in">width</span> &#x27;&gt;? / &lt;&#x27; <span class="built_in">border</span>-<span class="built_in">image</span>-outset &#x27;&gt; ]? || &lt;&#x27; <span class="built_in">border</span>-<span class="built_in">image</span>-repeat &#x27;&gt;</span><br></pre></td></tr></table></figure>
+<p>&lt;’ border-image-source ‘&gt;：设置或检索对象的边框是否用图像定义样式或图像来源路径。<br>&lt;’ border-image-slice ‘&gt;： 设置或检索对象的边框背景图的分割方式,该属性指定从上，右，下，左方位来分隔图像，将图像分成4个角，4条边和中间区域共9份，中间区域始终是透明的（即没图像填充），除非加上关键字 fill。<br>&lt;’ border-image-width ‘&gt;： 设置或检索对象的边框厚度。<br>&lt;’ border-image-outset ‘&gt;：设置或检索对象的边框图像可超出边框盒的大小。<br>&lt;’ border-image-repeat ‘&gt;：设置或检索对象的边框图像的平铺方式repeat,round,stretch。</p>
+<h4 id="实例：-1"><a href="#实例：-1" class="headerlink" title="实例："></a>实例：</h4><p><code>border-image:url(&quot;http://www.w3school.com.cn/i/border.png&quot;) 30 30 round;</code></p>
+<div style="width:100px;height:100px;padding: 10px 20px;border: 15px solid transparent;-webkit-border-image:url('http://www.w3school.com.cn/i/border.png') 30 30 stretch;-moz-border-image:url('http://www.w3school.com.cn/i/border.png') 30 30 stretch;-o-border-image:url('http://www.w3school.com.cn/i/border.png') 30 30 stretch;border-image:url('http://www.w3school.com.cn/i/border.png')30 30 round;"></div>
+`border-image:url("http://www.w3school.com.cn/i/border.png") 30 30 stretch;`
+<div style="width:100px;height:100px;padding: 10px 20px;border: 15px solid transparent;border-image:url('http://www.w3school.com.cn/i/border.png')30 30 stretch;"></div>
+
+<h4 id="兼容性：-2"><a href="#兼容性：-2" class="headerlink" title="兼容性："></a>兼容性：</h4><p>IE11+, Firefox15+, Chrome16+ , Safari6+,Opera15+,iOS Safari6+,Android Browser4.4+, Android Chrome18+</p>
+<h4 id="兼容方法：-2"><a href="#兼容方法：-2" class="headerlink" title="兼容方法："></a>兼容方法：</h4><p>低版本的chrome:<code>-webkit-border-image:url(&quot;http://www.w3school.com.cn/i/border.png&quot;) 30 30 stretch;</code><br>低版本的firefox:<code>-moz-border-image:url(&quot;http://www.w3school.com.cn/i/border.png&quot;) 30 30 stretch;</code><br>低版本的Opera:<code>-o-border-image:url(&quot;http://www.w3school.com.cn/i/border.png&quot;) 30 30 stretch;</code><br>IE未解决<br>详情参阅<a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/border-image">border-image</a>,<a target="_blank" rel="noopener" href="http://www.360doc.com/content/14/1016/13/2792772_417403574.shtml">border-image</a></p>
+<h3 id="background-size"><a href="#background-size" class="headerlink" title="background-size"></a>background-size</h3><p>设置背景图片大小。</p>
+<h4 id="语法：-2"><a href="#语法：-2" class="headerlink" title="语法："></a>语法：</h4><p><code>background-size：&lt;bg-size&gt;#</code><br><code>&lt;bg-size&gt; = [ &lt;length&gt; | &lt;percentage&gt; | auto ]&#123;1,2&#125; | cover | contain</code><br><code>&lt;length&gt;：</code>用长度值指定背景图像大小。不允许负值。<br><code>&lt;percentage&gt;：</code>用百分比指定背景图像大小。不允许负值。<br>auto：背景图像的真实大小。<br>cover：将背景图像等比缩放到<strong>完全覆盖容器</strong>，背景图像有可能超出容器。<br>contain：将背景图像等比缩放到宽度或高度与容器的宽度或高度相等，背景图像始终被<strong>包含在容器内</strong>。  </p>
+<h4 id="实例：-2"><a href="#实例：-2" class="headerlink" title="实例："></a>实例：</h4><p><code>background-size: cover;</code></p>
+<div style="width:200px;height:100px;background: green url(http://www.w3school.com.cn/i/border.png) no-repeat scroll 0 0;background-size:cover; "></div>
+`background-size: contain;`
+<div style="width:200px;height:100px;background: green url(http://www.w3school.com.cn/i/border.png) no-repeat scroll 0 0;background-size:contain; "></div>
+
+<h4 id="兼容性：-3"><a href="#兼容性：-3" class="headerlink" title="兼容性："></a>兼容性：</h4><p>IE9+,Firefox4+, Chrome15+,Safari7+, Opera15+,   iOS Safari7+,  Android Browser4.4+, Android Chrome18+</p>
+<h4 id="兼容方法：-3"><a href="#兼容方法：-3" class="headerlink" title="兼容方法："></a>兼容方法：</h4><p>低版本的chrome:<code>-webkit-background-size:10px 10px 5px #888; //不支持background简写</code><br>低版本的firefox:<code>-moz-background-size:10px 10px 5px #888;</code><br>IE8：</p>
+<ul>
+<li>方法一(推荐)、引入backgroundsize.min.htc兼容文件<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.size</span> &#123;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">400px</span>;</span><br><span class="line">    <span class="attribute">height</span>: <span class="number">400px</span>;</span><br><span class="line">    <span class="attribute">margin</span>: <span class="number">20px</span> auto <span class="number">0</span>;</span><br><span class="line">    <span class="attribute">background</span>:  green <span class="built_in">url</span>(<span class="string">img/1.jpg</span>) no-repeat scroll center <span class="number">0</span>;</span><br><span class="line">    <span class="attribute">background-size</span>: cover;</span><br><span class="line">    -ms-behavior: <span class="built_in">url</span>(<span class="string">js/backgroundsize.min.htc</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>方法二、针对IE8的hack<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!--[if IE 8]&gt;</span></span><br><span class="line"><span class="comment">&lt;style type=&quot;text/css&quot;&gt;</span></span><br><span class="line"><span class="comment">.size&#123;</span></span><br><span class="line"><span class="comment">    -ms-filter: &quot;progid:DXImageTransform.Microsoft.AlphaImageLoader(src=&#x27;img/1.jpg&#x27;, sizingMethod=&#x27;scale&#x27;)&quot;;</span></span><br><span class="line"><span class="comment">&#125;  </span></span><br><span class="line"><span class="comment">//该函数只能模仿cover值,IE8下效果与IE9/10稍有不同,图片占满背景大小且不超出,而且可能会带来其他影响</span></span><br><span class="line"><span class="comment">&lt;/style&gt;</span></span><br><span class="line"><span class="comment">&lt;![endif]--&gt;</span></span><br></pre></td></tr></table></figure>
+详情参阅<a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/background-size">background-size</a></li>
+</ul>
+<h3 id="background-origin"><a href="#background-origin" class="headerlink" title="background-origin"></a>background-origin</h3><p>指定背景图片background-image 属性的原点位置的背景相对区域,当使用 background-attachment 为fixed时，该属性将被忽略不起作用 </p>
+<h4 id="语法：-3"><a href="#语法：-3" class="headerlink" title="语法："></a>语法：</h4><p><code>background-origin：&lt;box&gt;#</code><br><code>&lt;box&gt; = border-box | padding-box | content-box</code><br>padding-box：从padding区域（含padding）开始显示背景图像。<br>border-box： 从border区域（含border）开始显示背景图像。<br>content-box：从content区域开始显示背景图像<br><img src="http://www.w3school.com.cn/i/background-origin.gif" alt="background-origin">  </p>
+<h4 id="实例：-3"><a href="#实例：-3" class="headerlink" title="实例："></a>实例：</h4><p><code>background-origin:content-box;padding:10px;</code>  </p>
+<div style="width:100px;height:100px;padding:10px;background-image:url(http://www.w3school.com.cn/i/border.png);background-origin:conten-box;">111111111111111111111111111</div>
+`background-origin:border-box;padding:10px;border:15px solid transparent;`  
+<div style="width:100px;height:100px;padding:10px;border:15px solid transparent;background-image:url(http://www.w3school.com.cn/i/border.png);background-origin:border-box;">111111111111111111</div>
+
+<h4 id="兼容性：-4"><a href="#兼容性：-4" class="headerlink" title="兼容性："></a>兼容性：</h4><p>IE9+,Firefox4.0+ Chrome4.0+  Safari6.0+, iOS Safari6.0+,  Android Browser3.0+, Android Chrome18+</p>
+<h4 id="兼容方法：-4"><a href="#兼容方法：-4" class="headerlink" title="兼容方法："></a>兼容方法：</h4><p>firefox4.0以下：<code>-moz-background-origin:padding | border; //没有content</code><br>IE8下background-origin默认为padding-box<br>详情参阅<a target="_blank" rel="noopener" href="http://www.jb51.net/css/34219.html">background-origin</a></p>
+<h3 id="background-clip"><a href="#background-clip" class="headerlink" title="background-clip"></a>background-clip</h3><p>设置元素的背景（背景图片或颜色）是否延伸到边框下面。</p>
+<h4 id="语法：-4"><a href="#语法：-4" class="headerlink" title="语法："></a>语法：</h4><p><code>background-clip：&lt;box&gt;#</code><br><code>&lt;box&gt; = border-box | padding-box | content-box | inherit</code><br>border-box背景延伸到边框外沿（但是在边框之下）。<br>padding-box边框下面没有背景，即背景延伸到内边距外沿。<br>content-box背景裁剪到内容区 (content-box) 外沿。  </p>
+<h4 id="实例：-4"><a href="#实例：-4" class="headerlink" title="实例："></a>实例：</h4><p><code>background-clip:border-box;</code></p>
+<div style="width:100px;height:100px;border:10px solid transparent;background-clip:border-box;background-color:red;">111111111111111</div>
+
+<h4 id="兼容性：-5"><a href="#兼容性：-5" class="headerlink" title="兼容性："></a>兼容性：</h4><p>IE9+,Firefox4.0+, Chrome4.0+,  Safari6.0+,iOS Safari6.0+, Android Browser3.0+, Android Chrome18.0+</p>
+<h4 id="兼容方法：-5"><a href="#兼容方法：-5" class="headerlink" title="兼容方法："></a>兼容方法：</h4><p>firefox4.0以下：<code>-moz-background-clip:padding | border; //没有content</code><br>IE8下background-clip默认为padding-box</p>
+<h3 id="multiple-backgrounds"><a href="#multiple-backgrounds" class="headerlink" title="multiple backgrounds"></a>multiple backgrounds</h3><h4 id="语法：-5"><a href="#语法：-5" class="headerlink" title="语法："></a>语法：</h4><figure class="highlight bnf"><table><tr><td class="code"><pre><span class="line">background：[<span class="attribute">&lt;bg-layer&gt;</span>,]*<span class="attribute">&lt;final-bg-layer&gt;</span><span class="attribute">&lt;bg-layer&gt;</span>=<span class="attribute">&lt;bg-image&gt;</span>||<span class="attribute">&lt;position&gt;</span>[/<span class="attribute">&lt;bg-size&gt;</span>]?</span><br><span class="line">||<span class="attribute">&lt;repeat-style&gt;</span>||<span class="attribute">&lt;attachment&gt;</span>||<span class="attribute">&lt;box&gt;</span>||<span class="attribute">&lt;box&gt;</span><span class="attribute">&lt;final-bg-layer&gt;</span>=<span class="attribute">&lt;bg-image&gt;</span></span><br><span class="line">||<span class="attribute">&lt;position&gt;</span>[/<span class="attribute">&lt;bg-size&gt;</span>]?||<span class="attribute">&lt;repeat-style&gt;</span>||<span class="attribute">&lt;attachment&gt;</span></span><br><span class="line">||<span class="attribute">&lt;box&gt;</span>||box&gt;||<span class="attribute">&lt;&#x27;background-color&#x27;&gt;</span></span><br></pre></td></tr></table></figure>
+<h4 id="实例：-5"><a href="#实例：-5" class="headerlink" title="实例："></a>实例：</h4><figure class="highlight apache"><table><tr><td class="code"><pre><span class="line"><span class="attribute">background</span>:</span><br><span class="line">    <span class="attribute">url</span>(test1.jpg) no-repeat scroll <span class="number">10</span>px <span class="number">20</span>px/<span class="number">50</span>px <span class="number">60</span>px padding-box,</span><br><span class="line">    <span class="attribute">url</span>(test1.jpg) no-repeat scroll <span class="number">10</span>px <span class="number">20</span>px/<span class="number">70</span>px <span class="number">90</span>px padding-box,</span><br><span class="line">    <span class="attribute">url</span>(test1.jpg) no-repeat scroll <span class="number">10</span>px <span class="number">20</span>px/<span class="number">110</span>px <span class="number">130</span>px padding-box #aaa;</span><br></pre></td></tr></table></figure>
+<h4 id="兼容性：-6"><a href="#兼容性：-6" class="headerlink" title="兼容性："></a>兼容性：</h4><p>IE9+,Firefox3.6+, Chrome4.0+,  Safari3.1+</p>
+<h4 id="兼容方法：-6"><a href="#兼容方法：-6" class="headerlink" title="兼容方法："></a>兼容方法：</h4><p>未解决</p>
+<h3 id="text-shadow"><a href="#text-shadow" class="headerlink" title="text-shadow"></a>text-shadow</h3><p>为文字添加阴影</p>
+<h4 id="语法：-6"><a href="#语法：-6" class="headerlink" title="语法："></a>语法：</h4><p><code>textshadow：none | [inset? &amp;&amp; [ &lt;offset-x&gt; &lt;offset-y&gt; &lt;blur-radius&gt;?&lt;color&gt;? ] ]#</code><br>inset：设置对象的阴影类型为内阴影。该值为空时，则对象的阴影类型为外阴影<br><code>&lt;offset-x&gt;</code>: 这是第一个 length值设置水平偏移量，如果是负值则阴影位于元素左边。<br><code>&lt;offset-y&gt;</code>: 这是第二个 length值设置垂直偏移量，如果是负值则阴影位于元素上面。<br><code>&lt;blur-radius&gt;</code>:这是第三个 length值。值越大，糊糊面积越大，阴影就越大越淡。 不能为负值。默认为0，此时阴影边缘锐利。<br><code>&lt;color&gt;</code>：设置对象的阴影的颜色。 </p>
+<h4 id="实例：-6"><a href="#实例：-6" class="headerlink" title="实例："></a>实例：</h4><p><code>text-shadow:1px 1px 2px red;</code></p>
+<div style="width:100px;height:10px;text-shadow:1px 1px 2px red;">12212121</div>
+
+<h4 id="兼容性：-7"><a href="#兼容性：-7" class="headerlink" title="兼容性："></a>兼容性：</h4><p>IE10+,  Firefox3.5+, Chrome4.0+,  Safari6.0+</p>
+<h4 id="兼容方法：-7"><a href="#兼容方法：-7" class="headerlink" title="兼容方法："></a>兼容方法：</h4><p>低版本的chrome:<code>-webkit-text-shadow:1px 1px 1px #000;</code><br>低版本的firefox:<code>-moz-text-shadow:1px 1px 1px #000;</code><br>IE6&#x2F;7&#x2F;8:  </p>
+<ul>
+<li>方法一、引入ie-css3兼容文件<code>behavior:url(ie-css3.htc);</code>  </li>
+<li>方法二、 <code>filter:shadow(color=blue,direction=225)</code>,direction表示投影角度</li>
+</ul>
+<p>详情参阅<a target="_blank" rel="noopener" href="http://www.zhangxinxu.com/wordpress/2010/04/%E8%AE%A9ie6ie7ie8%E6%B5%8F%E8%A7%88%E5%99%A8%E6%94%AF%E6%8C%81css3%E5%B1%9E%E6%80%A7/">让IE6&#x2F;IE7&#x2F;IE8浏览器支持CSS3属性</a></p>
+<h3 id="word-wrap"><a href="#word-wrap" class="headerlink" title="word-wrap"></a>word-wrap</h3><p>浏览器是否允许单词中断换行<br>word-wrap 属性原本属于微软的一个私有属性，在 CSS3 现在的文本规范草案中已经被重名为 overflow-wrap<br>当你使用 &lt;’ overflow-wrap ‘&gt; 时，最好同时使用 &lt;’ word-wrap ‘&gt; 作为备选，作向前兼容。</p>
+<h4 id="语法：-7"><a href="#语法：-7" class="headerlink" title="语法："></a>语法：</h4><p><code>word-wrap：normal | break-word</code></p>
+<h4 id="实例：-7"><a href="#实例：-7" class="headerlink" title="实例："></a>实例：</h4><p><code>word-wrap: break-word;</code></p>
+<div style="width:13em;background-color:gold;word-wrap: break-word;">FStrPrivFinÄndG (Gesetz zur Änderung des Fernstraßenbauprivatfinanzierungsgesetzes und straßenverkehrsrechtlicher Vorschriften)</div>
+
+<h4 id="兼容性：-8"><a href="#兼容性：-8" class="headerlink" title="兼容性："></a>兼容性：</h4><p>IE6+,Firefox3.5+, Chrome4+,  Safari6+,  iOS Safari6+,  Android Browser2.1+, Android Chrome18+</p>
+<h4 id="兼容方法：-8"><a href="#兼容方法：-8" class="headerlink" title="兼容方法："></a>兼容方法：</h4><p>现代浏览器几乎都支持</p>
+<h3 id="font-face"><a href="#font-face" class="headerlink" title="@font-face"></a>@font-face</h3><p>能够加载服务器端的字体文件，让客户端显示客户端所没有安装的字体。</p>
+<h4 id="语法：-8"><a href="#语法：-8" class="headerlink" title="语法："></a>语法：</h4><figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="keyword">@font-face</span> &#123;</span><br><span class="line">    <span class="attribute">font-family</span>: &lt;YourWebFontName&gt;;</span><br><span class="line">    <span class="attribute">src</span>: &lt;source&gt; [&lt;format&gt;][,&lt;source&gt; [&lt;format&gt;]]*;</span><br><span class="line">    <span class="selector-attr">[font-weight: &lt;weight&gt;]</span>;</span><br><span class="line">    <span class="selector-attr">[font-style: &lt;style&gt;]</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="实例：-8"><a href="#实例：-8" class="headerlink" title="实例："></a>实例：</h4><figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="keyword">@font-face</span> &#123;</span><br><span class="line">    <span class="attribute">font-family</span>: <span class="string">&#x27;YourWebFontName&#x27;</span>;</span><br><span class="line">    <span class="attribute">src</span>: <span class="built_in">url</span>(<span class="string">&#x27;YourWebFontName.eot&#x27;</span>); <span class="comment">/* IE9 Compat Modes */</span></span><br><span class="line">    <span class="attribute">src</span>: <span class="built_in">url</span>(<span class="string">&#x27;YourWebFontName.eot?#iefix&#x27;</span>) <span class="built_in">format</span>(<span class="string">&#x27;embedded-opentype&#x27;</span>), <span class="comment">/* IE6-IE8 */</span></span><br><span class="line">         <span class="built_in">url</span>(<span class="string">&#x27;YourWebFontName.woff&#x27;</span>) <span class="built_in">format</span>(<span class="string">&#x27;woff&#x27;</span>), <span class="comment">/* Modern Browsers */</span></span><br><span class="line">         <span class="built_in">url</span>(<span class="string">&#x27;YourWebFontName.ttf&#x27;</span>)  <span class="built_in">format</span>(<span class="string">&#x27;truetype&#x27;</span>), <span class="comment">/* Safari, Android, iOS */</span></span><br><span class="line">         <span class="built_in">url</span>(<span class="string">&#x27;YourWebFontName.svg#YourWebFontName&#x27;</span>) <span class="built_in">format</span>(<span class="string">&#x27;svg&#x27;</span>); <span class="comment">/* Legacy iOS */</span></span><br><span class="line">    <span class="attribute">font-weight</span>: normal;</span><br><span class="line">    <span class="attribute">font-style</span>: normal;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="兼容性：-9"><a href="#兼容性：-9" class="headerlink" title="兼容性："></a>兼容性：</h4><p>几乎所有浏览器支持网络字体@font-face的用法</p>
+<h4 id="兼容方法：-9"><a href="#兼容方法：-9" class="headerlink" title="兼容方法："></a>兼容方法：</h4><p>详情参阅<a target="_blank" rel="noopener" href="http://www.w3cplus.com/content/css3-font-face"> @font-face</a></p>
+<h3 id="transform"><a href="#transform" class="headerlink" title="transform"></a>transform</h3><p>元素可以按照设定的值变形、旋转、缩放、倾斜</p>
+<h4 id="语法：-9"><a href="#语法：-9" class="headerlink" title="语法："></a>语法：</h4><p><code>transform ： none | &lt;transform-function&gt; [ &lt;transform-function&gt; ]* </code><br>transform-function list:</p>
+<ul>
+<li><code>matrix() = matrix(&lt;number&gt;[,&lt;number&gt;]&#123;5,5&#125;)</code></li>
+<li><code>matrix3d() = matrix3d(&lt;number&gt;[,&lt;number&gt;]&#123;15,15&#125;)</code></li>
+<li><code>translate() = translate(&lt;translation-value&gt;[,&lt;translation-value&gt;]?)</code></li>
+<li><code>translate3d() = translate3d(&lt;translation-value&gt;,&lt;translation-value&gt;,&lt;length&gt;)</code></li>
+<li><code>translatex() = translatex(&lt;translation-value&gt;)</code></li>
+<li><code>translatey() = translatey(&lt;translation-value&gt;)</code></li>
+<li><code>translatez() = translatez(&lt;length&gt;)</code></li>
+<li><code>rotate() = rotate(&lt;angle&gt;)</code></li>
+<li><code>rotate3d() = rotate3d(&lt;number&gt;,&lt;number&gt;,&lt;number&gt;,&lt;angle&gt;)</code></li>
+<li><code>rotatex() = rotatex(&lt;angle&gt;)</code></li>
+<li><code>rotatey() = rotatey(&lt;angle&gt;)</code></li>
+<li><code>rotatez() = rotatez(&lt;angle&gt;)</code></li>
+<li><code>scale() = scale(&lt;number&gt;[,&lt;number&gt;]?)</code></li>
+<li><code>scale3d() = scale3d(&lt;number&gt;,&lt;number&gt;,&lt;number&gt;)</code></li>
+<li><code>scalex() = scalex(&lt;number&gt;)</code></li>
+<li><code>scaley() = scaley(&lt;number&gt;)</code></li>
+<li><code>scalez() = scalez(&lt;number&gt;)</code></li>
+<li><code>skew() = skew(&lt;angle&gt;[,&lt;angle&gt;]?)</code></li>
+<li><code>skewx() = skewx(&lt;angle&gt;)</code></li>
+<li><code>skewy() = skewy(&lt;angle&gt;)</code></li>
+<li><code>perspective() = perspective(&lt;length&gt;)</code></li>
+<li><code>&lt;translation-value&gt; = &lt;length&gt; | &lt;percentage&gt;</code></li>
+</ul>
+<h4 id="实例：-9"><a href="#实例：-9" class="headerlink" title="实例："></a>实例：</h4><p><code>transform:none;</code></p>
+<div style="width:100px;height:100px;background-color:red;transform:none;"></div>
+`transform:rotate(30deg) scale(0.5);//大家记住了是空格隔开`
+<div style="width:100px;height:100px;background-color:red;transform:rotate(30deg) scale(.5);"></div>
+`transform:skew(45deg);`
+<div style="width:100px;height:100px;background-color:red;transform:skew(45deg);"></div>
+`transform:translate(100px 20px);`
+<div style="width:100px;height:100px;background-color:red;transform:translate(100px,20px);"></div>
+
+<h4 id="兼容性：-10"><a href="#兼容性：-10" class="headerlink" title="兼容性："></a>兼容性：</h4><p>IE9+, Firefox3.5+, Chrome4.0+,  Safari6.0+,  iOS Safari8.4+,  Android Browser4.4+, Android Chrome34+</p>
+<h4 id="兼容方法：-10"><a href="#兼容方法：-10" class="headerlink" title="兼容方法："></a>兼容方法：</h4><figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.transform</span>&#123;</span><br><span class="line">    -webkit-<span class="attribute">transform</span>: x,y;</span><br><span class="line">    -moz-<span class="attribute">transform</span>: x,y;</span><br><span class="line">    -ms-<span class="attribute">transform</span>: x,y;</span><br><span class="line">    -o-<span class="attribute">transform</span>: x,y;</span><br><span class="line">    <span class="attribute">transform</span>: x,y;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>IE8及以下：用IE滤镜 </p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attribute">filter</span>:fliph;<span class="comment">/*水平翻转相当于transform:rotateY(180deg)*/</span></span><br><span class="line">    <span class="attribute">filter</span>:flipv;<span class="comment">/*垂直翻转相当于transform:rotateX(180deg)*/</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>详情参阅<a target="_blank" rel="noopener" href="http://www.w3cplus.com/content/css3-transform">transform</a></p>
+<h3 id="transition"><a href="#transition" class="headerlink" title="transition"></a>transition</h3><p>css的属性值在一定的时间区间内平滑地过渡</p>
+<h4 id="语法：-10"><a href="#语法：-10" class="headerlink" title="语法："></a>语法：</h4><figure class="highlight sml"><table><tr><td class="code"><pre><span class="line">transition ：[&lt;<span class="symbol">&#x27;transition</span>-property&#x27;&gt; || &lt;<span class="symbol">&#x27;transition</span>-duration&#x27;&gt; ||</span><br><span class="line">&lt;<span class="symbol">&#x27;transition</span>-timing-function&#x27;&gt; || &lt;<span class="symbol">&#x27;transition</span>-delay&#x27;&gt; [, [&lt;<span class="symbol">&#x27;transition</span>-property&#x27;&gt; </span><br><span class="line">|| &lt;<span class="symbol">&#x27;transition</span>-duration&#x27;&gt; || &lt;<span class="symbol">&#x27;transition</span>-timing-function&#x27;&gt; || &lt;<span class="symbol">&#x27;transition</span>-delay&#x27;&gt;]]* </span><br></pre></td></tr></table></figure>
+<p><code>transition-property ： none | all | [ &lt;ident&gt; ] [, &lt;ident&gt; ]*</code>检索或设置对象中的参与过渡的属性<br><code>transition-duration ： &lt;time&gt; [, &lt;time&gt;]* </code>检索或设置对象过渡的持续时间  </p>
+<figure class="highlight coq"><table><tr><td class="code"><pre><span class="line">transition-timing-function ：ease | <span class="type">linear</span> | <span class="type">ease</span>-<span class="built_in">in</span> | <span class="type">ease</span>-out | <span class="type">ease</span>-<span class="built_in">in</span>-out | <span class="type">step</span>-start </span><br><span class="line">| <span class="type">step</span>-<span class="keyword">end</span> | <span class="type">steps</span>(&lt;integer&gt;[, [ start | <span class="type">end</span> ] ]?) | <span class="type">cubic</span>-bezier(&lt;number&gt;, &lt;number&gt;, &lt;number&gt;, &lt;number&gt;)</span><br><span class="line">[,ease | <span class="type">linear</span> | <span class="type">ease</span>-<span class="built_in">in</span> | <span class="type">ease</span>-out | <span class="type">ease</span>-<span class="built_in">in</span>-out | <span class="type">step</span>-start | <span class="type">step</span>-<span class="keyword">end</span> | <span class="type">steps</span>(&lt;integer&gt;[, </span><br><span class="line">[ start | <span class="type">end</span> ] ]?) | <span class="type">cubic</span>-bezier(&lt;number&gt;, &lt;number&gt;, &lt;number&gt;, &lt;number&gt;)]*</span><br></pre></td></tr></table></figure>
+<p>检索或设置对象中过渡的动画类型  </p>
+<p><code>transition-delay ： &lt;time&gt; [, &lt;time&gt;]*</code> 检索或设置对象延迟过渡的时间  </p>
+<h4 id="实例：-10"><a href="#实例：-10" class="headerlink" title="实例："></a>实例：</h4><p><code>transition: all .5s ease-in-out 1s;</code></p>
+<style type="text/css">.transition{width:100px;height:100px;background-color:red;transition: all .5s ease-in-out 1s;}.transition:hover{width:200px;transform:rotate(45deg);}</style>
+<div class="transition"></div>
+
+<h4 id="兼容性：-11"><a href="#兼容性：-11" class="headerlink" title="兼容性："></a>兼容性：</h4><p>IE10+,  Firefox16+,  Chrome26+  ,Safari6.1+ , iOS Safari7+,  Android Browser4.4+, Android Chrome25+</p>
+<h4 id="兼容方法：-11"><a href="#兼容方法：-11" class="headerlink" title="兼容方法："></a>兼容方法：</h4><figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">p</span> &#123;</span><br><span class="line">  -webkit-<span class="attribute">transition</span>: all .<span class="number">5s</span> ease-in-out <span class="number">1s</span>;</span><br><span class="line">  -moz-<span class="attribute">transition</span>: all .<span class="number">5s</span> ease-in-out <span class="number">1s</span>;</span><br><span class="line">  -o-<span class="attribute">transition</span>: all .<span class="number">5s</span> ease-in-out <span class="number">1s</span>;</span><br><span class="line">  <span class="attribute">transition</span>: all .<span class="number">5s</span> ease-in-out <span class="number">1s</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>IE9以及更早的版本，不支持 transition 属性。<br>详情参阅<a target="_blank" rel="noopener" href="http://www.w3cplus.com/content/css3-transition">transition</a></p>
+<h3 id="animation"><a href="#animation" class="headerlink" title="animation"></a>animation</h3><p>检索或设置对象所应用的动画特效。</p>
+<h4 id="语法：-11"><a href="#语法：-11" class="headerlink" title="语法："></a>语法：</h4><p><code>animation：&lt;single-animation&gt;[,&lt;single-animation&gt;]*</code>  </p>
+<figure class="highlight gherkin"><table><tr><td class="code"><pre><span class="line"><span class="variable">&lt;single-animation&gt;</span> = <span class="variable">&lt;single-animation-name&gt;</span> ||<span class="string"> &lt;time&gt; </span>||<span class="string"> &lt;single-animation-timing-function&gt;</span></span><br><span class="line"><span class="string"> </span>||<span class="string"> &lt;time&gt; </span>||<span class="string"> &lt;single-animation-iteration-count&gt; </span>||<span class="string"> &lt;single-animation-direction&gt; </span>||</span><br><span class="line">  <span class="variable">&lt;single-animation-fill-mode&gt;</span> ||<span class="string"> &lt;single-animation-play-state&gt;</span></span><br></pre></td></tr></table></figure>
+<p>&lt;’ animation-name ‘&gt;：检索或设置对象所应用的动画名称<br>&lt;’ animation-duration ‘&gt;：检索或设置对象动画的持续时间<br>&lt;’ animation-timing-function ‘&gt;：检索或设置对象动画的过渡类型<br>&lt;’ animation-delay ‘&gt;：检索或设置对象动画延迟的时间<br>&lt;’ animation-iteration-count ‘&gt;：检索或设置对象动画的循环次数<br>&lt;’ animation-direction ‘&gt;：检索或设置对象动画在循环中是否反向运动<br>&lt;’ animation-fill-mode ‘&gt;：检索或设置对象动画时间之外的状态<br>&lt;’ animation-play-state ‘&gt;：检索或设置对象动画的状态。</p>
+<h4 id="实例：-11"><a href="#实例：-11" class="headerlink" title="实例："></a>实例：</h4><iframe style="width: 100%; height: 100px" src="http://sandbox.runjs.cn/show/2fkpryt4" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
+
+<h4 id="兼容性：-12"><a href="#兼容性：-12" class="headerlink" title="兼容性："></a>兼容性：</h4><p>IE10+,Firefox16+, Chrome43+,  Safari9+</p>
+<h4 id="兼容方法：-12"><a href="#兼容方法：-12" class="headerlink" title="兼容方法："></a>兼容方法：</h4><p>低版本的chrome:-webkit-<br>低版本的firefox：-moz-<br>IE9及以下不支持<br>详情参阅<a target="_blank" rel="noopener" href="http://www.w3cplus.com/content/css3-animation">animation</a></p>
+<h3 id="keyframes"><a href="#keyframes" class="headerlink" title="@keyframes"></a>@keyframes</h3><p>用于创建动画</p>
+<h4 id="语法：-12"><a href="#语法：-12" class="headerlink" title="语法："></a>语法：</h4><figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="keyword">@keyframes</span> IDENT &#123;</span><br><span class="line">      <span class="number">0%</span> &#123;</span><br><span class="line">         Properties:Properties value;</span><br><span class="line">      &#125;</span><br><span class="line">      Percentage &#123;</span><br><span class="line">         Properties:Properties value;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="number">100%</span> &#123;</span><br><span class="line">         Properties:Properties value;</span><br><span class="line">      &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="实例：-12"><a href="#实例：-12" class="headerlink" title="实例："></a>实例：</h4><p>见上例</p>
+<h4 id="兼容性：-13"><a href="#兼容性：-13" class="headerlink" title="兼容性："></a>兼容性：</h4><p>IE10+,Firefox16+, Chrome43+,  Safari9+</p>
+<h4 id="兼容方法：-13"><a href="#兼容方法：-13" class="headerlink" title="兼容方法："></a>兼容方法：</h4><p>低版本的chrome:-webkit-<br>低版本的firefox：-moz-<br>IE9及以下不支持<br>详情参阅<a target="_blank" rel="noopener" href="http://www.w3cplus.com/content/css3-animation">animation</a></p>
+<h3 id="linear-gradient-amp-radial-gradient"><a href="#linear-gradient-amp-radial-gradient" class="headerlink" title="linear-gradient &amp; radial-gradient"></a>linear-gradient &amp; radial-gradient</h3><p>实现真实的渐变效果。</p>
+<h4 id="语法：-13"><a href="#语法：-13" class="headerlink" title="语法："></a>语法：</h4><p><code>&lt;linear-gradient&gt; = linear-gradient([ [ &lt;angle&gt; | to &lt;side-or-corner&gt; ] ,]? &lt;color-stop&gt;[, &lt;color-stop&gt;]+)</code><br><code>&lt;side-or-corner&gt; = [left | right] || [top | bottom]</code><br><code>&lt;color-stop&gt; = &lt;color&gt; [ &lt;length&gt; | &lt;percentage&gt; ]?</code><br><code>&lt;angle&gt;：用角度值指定渐变的方向（或角度）。</code><br><code>&lt;color-stop&gt; 用于指定渐变的起止颜色：</code></p>
+<h4 id="实例：-13"><a href="#实例：-13" class="headerlink" title="实例："></a>实例：</h4><p><code>background:linear-gradient(to bottom, #fff 0%, red 100%);</code></p>
+<div style="width:100px;height:100px;background:linear-gradient(to bottom, #fff 0%, red 100%);"></div>
+`background:radial-gradient(#fff 0%, red 100%);`
+<div style="width:100px;height:100px;background:radial-gradient(#fff 0%, red 100%);"></div>
+
+<h4 id="兼容性：-14"><a href="#兼容性：-14" class="headerlink" title="兼容性："></a>兼容性：</h4><p>IE10+,  Firefox16+, Chrome26+,  Safari6.1+</p>
+<h4 id="兼容方法：-14"><a href="#兼容方法：-14" class="headerlink" title="兼容方法："></a>兼容方法：</h4><p>低版本的chrome:-webkit-<br>低版本的firefox：-moz-<br>IE9及以下可使用 IE 滤镜处理:</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="attribute">filter</span>:progid:DXImageTransform.Microsoft.<span class="built_in">gradient</span>(startColorstr=<span class="string">&#x27;#000000&#x27;</span>,endColorstr=<span class="string">&#x27;#ffffff&#x27;</span>);</span><br></pre></td></tr></table></figure>
+<p>详情参阅<a target="_blank" rel="noopener" href="http://www.w3cplus.com/content/css3-gradient">gradient</a></p>
+<h3 id="rgba-r-g-b-a"><a href="#rgba-r-g-b-a" class="headerlink" title="rgba(r,g,b,a)"></a>rgba(r,g,b,a)</h3><p>设置颜色red+green+blue+alpha</p>
+<h4 id="语法：-14"><a href="#语法：-14" class="headerlink" title="语法："></a>语法：</h4><p><code>rgba(r,g,b,alpha)</code></p>
+<h4 id="实例：-14"><a href="#实例：-14" class="headerlink" title="实例："></a>实例：</h4><p><code>rgba(255,0,0,.2)</code></p>
+<div style="width:100px;height:100px;background:rgba(255,0,0,.2);"></div>
+
+<h4 id="兼容性：-15"><a href="#兼容性：-15" class="headerlink" title="兼容性："></a>兼容性：</h4><p>IE9+,  Firefox2+, Chrome4+,  Safari3+, iOS Safari3.2+,  Android Browser2.1+, Android Chrome18+</p>
+<h4 id="兼容方法：-15"><a href="#兼容方法：-15" class="headerlink" title="兼容方法："></a>兼容方法：</h4><p>IE6&#x2F;7&#x2F;8不支持使用 rgba 模式实现透明度，可使用 IE 滤镜处理  </p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="attribute">filter</span>:progid:DXImageTransform.Microsoft.<span class="built_in">gradient</span>(startColorstr=<span class="number">#7fff0000</span>,endColorstr=<span class="number">#7fff0000</span>);</span><br></pre></td></tr></table></figure>
+<p>详情参阅<a target="_blank" rel="noopener" href="http://www.cnblogs.com/jesse131/p/4771611.html">IE8下兼容rgba颜色的半透明背景</a></p>
+<h3 id="flex"><a href="#flex" class="headerlink" title="flex"></a>flex</h3><p>设置或检索弹性盒模型对象的子元素如何分配空间。用在子容器上</p>
+<h4 id="语法：-15"><a href="#语法：-15" class="headerlink" title="语法："></a>语法：</h4><p><code>flex：none | &lt;&#39; flex-grow &#39;&gt; &lt;&#39; flex-shrink &gt;&#39;? || &lt;&#39; flex-basis &#39;&gt; </code><br>默认值为0 1 auto，建议优先使用这个属性，而不是单独写三个分离的属性，因为浏览器会推算相关值。<br><code>flex-grow：&lt;number&gt;设置或检索弹性盒的扩展比率。</code><br>默认为0,如果所有子容器的flex-grow属性都为1，则它们将等分剩余空间（如果有的话）。如果一个子容器的flex-grow属性为2，其他都为1，则前者占据的剩余空间将比其他项多一倍。<br><code>flex-shrink：&lt;number&gt;设置或检索弹性盒的收缩比率。</code><br>如果所有子容器的flex-shrink属性都为1，当空间不足时，都将等比例缩小。如果一个子容器的flex-shrink属性为0，其他子容器都为1，则空间不足时，前者不缩小。<br><code>flex-basis：&lt;length&gt; | &lt;percentage&gt; | auto | content </code><br>定义了在分配多余空间之前，子容器占据的主轴空间（main size）。浏览器根据这个属性，计算主轴是否有多余空间。它的默认值为auto，即子容器的本来大小。</p>
+<h4 id="实例：-15"><a href="#实例：-15" class="headerlink" title="实例："></a>实例：</h4><div style="display:-webkit-flex; display:-moz-box; display:-ms-flexbox;display:flex; width:100%; height:100px;border:1px solid #000;">
+<div style="border:1px solid red;-webkit-flex:1;-moz-box-flex:1;-ms-flex:1;flex:1;">children1</div>
+<div style="border:1px solid red;-webkit-flex:1;-moz-box-flex:1;-ms-flex:1;flex:1;">children2</div>
+<div style="border:1px solid red;-webkit-flex:1;-moz-box-flex:1;-ms-flex:1;flex:1;">children3</div>
+</div>
+
+<h4 id="兼容性：-16"><a href="#兼容性：-16" class="headerlink" title="兼容性："></a>兼容性：</h4><p>IE11+,Firefox22+, Chrome21+,  Safari6.1+</p>
+<h4 id="兼容方法：-16"><a href="#兼容方法：-16" class="headerlink" title="兼容方法："></a>兼容方法：</h4><p>低版本的chrome:-webkit-  或者 -webkit-box-flex<br>低版本的firefox：-moz-box-flex:1;<br>IE10:-ms-flex:1;<br>box-flex效果类似于过渡版本和新版本的flex属性；<br>详情参阅<a target="_blank" rel="noopener" href="http://www.webclks.com/archives/3035">flex</a></p>
+<h3 id="flex-flow"><a href="#flex-flow" class="headerlink" title="flex-flow"></a>flex-flow</h3><p>设置或检索弹性盒模型对象的子元素排列方式。用在父容器上</p>
+<h4 id="语法：-16"><a href="#语法：-16" class="headerlink" title="语法："></a>语法：</h4><p><code>flex-flow：&lt;&#39; flex-direction &#39;&gt; || &lt;&#39; flex-wrap &#39;&gt;</code><br>&lt;’ flex-direction ‘&gt;：定义弹性盒子元素的排列方向。<br><code>flex-direction：row | row-reverse | column | column-reverse</code>  </p>
+<ul>
+<li>row：主轴与行内轴方向作为默认的书写模式。即横向从左到右排列（左对齐）。  </li>
+<li>row-reverse：对齐方式与row相反。  </li>
+<li>column：主轴与块轴方向作为默认的书写模式。即纵向从上往下排列（顶对齐）。  </li>
+<li>column-reverse：对齐方式与column相反。</li>
+</ul>
+<p>&lt;’ flex-wrap ‘&gt;控制flex容器是单行或者多行.<code>flex-wrap：nowrap | wrap | wrap-reverse</code>  </p>
+<ul>
+<li>nowrap：flex容器为单行。该情况下flex子项可能会溢出容器  </li>
+<li>wrap：flex容器为多行。该情况下flex子项溢出的部分会被放置到新行，子项内部会发生断行  </li>
+<li>wrap-reverse：反转 wrap 排列。</li>
+</ul>
+<h4 id="实例：-16"><a href="#实例：-16" class="headerlink" title="实例："></a>实例：</h4><iframe style="width: 100%; height: 800px" src="http://sandbox.runjs.cn/show/sctaj5oj" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
+
+<h4 id="兼容性：-17"><a href="#兼容性：-17" class="headerlink" title="兼容性："></a>兼容性：</h4><p>IE11+,  Firefox28+, Chrome29+,  Safari9+ </p>
+<h4 id="兼容方法：-17"><a href="#兼容方法：-17" class="headerlink" title="兼容方法："></a>兼容方法：</h4><p>可以通过box-orient:horizontal + box-direction:normal 达到新版本 flex-direction:row 的效果；<br>可以通过box-orient:horizontal + box-direction:reverse 达到新版本 flex-direction:row-reverse 的效果；<br>可以通过box-orient:vertical + box-direction:normal 达到新版本 flex-direction:column 的效果；<br>可以通过box-orient:horizontal + box-direction:reverse 达到新版本 flex-direction:column-reverse 的效果；<br>box-lines效果类似于过渡版本和新版本的flex-wrap属性</p>
+<h3 id="justify-content"><a href="#justify-content" class="headerlink" title="justify-content"></a>justify-content</h3><p>设置或检索弹性盒子元素在主轴（横轴）方向上的定位方式。</p>
+<h4 id="语法：-17"><a href="#语法：-17" class="headerlink" title="语法："></a>语法：</h4><p><code>justify-content：flex-start | flex-end | center | space-between | space-around</code>  </p>
+<ul>
+<li>flex-start（默认值）：左对齐</li>
+<li>flex-end：右对齐</li>
+<li>center： 居中</li>
+<li>space-between：两端对齐，项目之间的间隔都相等。</li>
+<li>space-around：每个子元素两侧的间隔相等。所以，子元素之间的间隔比子元素与边框的间隔大一倍</li>
+</ul>
+<h4 id="实例：-17"><a href="#实例：-17" class="headerlink" title="实例："></a>实例：</h4><p><img src="http://o8l2fza1x.bkt.clouddn.com/justify-content.png" alt="justify-content"></p>
+<h4 id="兼容性：-18"><a href="#兼容性：-18" class="headerlink" title="兼容性："></a>兼容性：</h4><p>IE11+, Firefox22+, Chrome29+,  Safari9+</p>
+<h4 id="兼容方法：-18"><a href="#兼容方法：-18" class="headerlink" title="兼容方法："></a>兼容方法：</h4><p>详情参阅<a target="_blank" rel="noopener" href="http://www.ruanyifeng.com/blog/2015/07/flex-grammar.html">justify-content</a></p>
+<h3 id="align-content"><a href="#align-content" class="headerlink" title="align-content"></a>align-content</h3><p>调整伸缩子元素在侧轴(纵轴)上的定位方式，如果子元素只有一根轴线，该属性不起作用</p>
+<h4 id="语法：-18"><a href="#语法：-18" class="headerlink" title="语法："></a>语法：</h4><p><code>align-content：flex-start | flex-end | center | space-between | space-around | stretch</code>  </p>
+<ul>
+<li>flex-start：与交叉轴的起点对齐。</li>
+<li>flex-end：与交叉轴的终点对齐。</li>
+<li>center：与交叉轴的中点对齐。</li>
+<li>space-between：与交叉轴两端对齐，轴线之间的间隔平均分布。</li>
+<li>space-around：每根轴线两侧的间隔都相等。所以，轴线之间的间隔比轴线与边框的间隔大一倍。</li>
+<li>stretch（默认值）：轴线占满整个交叉轴。</li>
+</ul>
+<h4 id="实例：-18"><a href="#实例：-18" class="headerlink" title="实例："></a>实例：</h4><p><img src="http://o8l2fza1x.bkt.clouddn.com/align-content.png" alt="align-content"></p>
+<h4 id="兼容性：-19"><a href="#兼容性：-19" class="headerlink" title="兼容性："></a>兼容性：</h4><p>IE11+,  Firefox22+, Chrome29+,  Safari9+</p>
+<h4 id="兼容方法：-19"><a href="#兼容方法：-19" class="headerlink" title="兼容方法："></a>兼容方法：</h4><p>低版本的chrome：-webkit-  </p>
+<p>box-pack效果等同于过渡版本的flex-pack属性和新版本的justify-content属性；  </p>
+<p>详情参阅<a target="_blank" rel="noopener" href="http://www.ruanyifeng.com/blog/2015/07/flex-grammar.html">align-content</a></p>
+<h3 id="align-items"><a href="#align-items" class="headerlink" title="align-items"></a>align-items</h3><p>定义flex子项在flex容器的当前行的侧轴（纵轴）方向上的定位方式。</p>
+<h4 id="语法：-19"><a href="#语法：-19" class="headerlink" title="语法："></a>语法：</h4><p><code>align-items：flex-start | flex-end | center | baseline | stretch</code>  </p>
+<ul>
+<li>flex-start：交叉轴的起点对齐。</li>
+<li>flex-end：交叉轴的终点对齐。</li>
+<li>center：交叉轴的中点对齐。</li>
+<li>baseline: 项目的第一行文字的基线对齐。</li>
+<li>stretch（默认值）：如果项目未设置高度或设为auto，将占满整个容器的高度。</li>
+</ul>
+<h4 id="实例：-19"><a href="#实例：-19" class="headerlink" title="实例："></a>实例：</h4><p><img src="http://o8l2fza1x.bkt.clouddn.com/align-items.png" alt="align-items"></p>
+<h4 id="兼容性：-20"><a href="#兼容性：-20" class="headerlink" title="兼容性："></a>兼容性：</h4><p>IE11+,  Firefox22+, Chrome29+,  Safari9+</p>
+<h4 id="兼容方法：-20"><a href="#兼容方法：-20" class="headerlink" title="兼容方法："></a>兼容方法：</h4><p>低版本的chrome：-webkit-  </p>
+<p>box-align效果等同于过渡版本的flex-align属性和新版本的align-items属性；</p>
+<p>详情参阅<a target="_blank" rel="noopener" href="http://www.ruanyifeng.com/blog/2015/07/flex-grammar.html">align-items</a></p>
+<h3 id="align-self"><a href="#align-self" class="headerlink" title="align-self"></a>align-self</h3><p>定义flex子项单独在侧轴（纵轴）方向上的对齐方式。align-self属性允许单个项目有与其他项目不一样的对齐方式，可覆盖align-items属性。默认值为auto，表示继承父元素的align-items属性，如果没有父元素，则等同于stretch。</p>
+<h4 id="语法：-20"><a href="#语法：-20" class="headerlink" title="语法："></a>语法：</h4><p><code>align-self：auto | flex-start | flex-end | center | baseline | stretch</code>  </p>
+<h4 id="实例：-20"><a href="#实例：-20" class="headerlink" title="实例："></a>实例：</h4><p><img src="http://o8l2fza1x.bkt.clouddn.com/align-self.png" alt="align-self"></p>
+<h4 id="兼容性：-21"><a href="#兼容性：-21" class="headerlink" title="兼容性："></a>兼容性：</h4><p>IE11+,  Firefox22+, Chrome29+,  Safari9+</p>
+<h4 id="兼容方法：-21"><a href="#兼容方法：-21" class="headerlink" title="兼容方法："></a>兼容方法：</h4><p>低版本的chrome：-webkit-<br>详情参阅<a target="_blank" rel="noopener" href="http://www.ruanyifeng.com/blog/2015/07/flex-grammar.html">align-self</a></p>
+<h3 id="order"><a href="#order" class="headerlink" title="order"></a>order</h3><p>设置或检索弹性盒模型对象的子元素的排列顺序。数值越小，排列越靠前，默认为0。</p>
+<h4 id="语法：-21"><a href="#语法：-21" class="headerlink" title="语法："></a>语法：</h4><p><code>order：&lt;integer&gt;默认为0</code></p>
+<h4 id="实例：-21"><a href="#实例：-21" class="headerlink" title="实例："></a>实例：</h4><p><img src="http://o8l2fza1x.bkt.clouddn.com/order.png" alt="order"></p>
+<h4 id="兼容性：-22"><a href="#兼容性：-22" class="headerlink" title="兼容性："></a>兼容性：</h4><p>IE11+,  Firefox22+, Chrome29+,  Safari9+</p>
+<h4 id="兼容方法：-22"><a href="#兼容方法：-22" class="headerlink" title="兼容方法："></a>兼容方法：</h4><p>低版本的chrome：-webkit-  </p>
+<p>box-oridinal-group效果等同于过渡版本的flex-order属性和新版本的order属性；<br>详情参阅<a target="_blank" rel="noopener" href="http://www.ruanyifeng.com/blog/2015/07/flex-grammar.html">order</a></p>
+<h3 id="box-sizing"><a href="#box-sizing" class="headerlink" title="box-sizing"></a>box-sizing</h3><p>用来改变默认的 CSS 盒模型 对元素宽高的计算方式</p>
+<h4 id="语法：-22"><a href="#语法：-22" class="headerlink" title="语法："></a>语法：</h4><p><code>box-sizing：content-box | border-box</code><br>content-box：<br>padding和border不被包含在定义的width和height之内。对象的实际宽度等于设置的width值和border、padding之和，即 ( Element width &#x3D; width + border + padding )<br>border-box：<br>padding和border被包含在定义的width和height之内。对象的实际宽度就等于设置的width值，即使定义有border和padding也不会改变对象的实际宽度，即 ( Element width &#x3D; width )</p>
+<h4 id="实例：-22"><a href="#实例：-22" class="headerlink" title="实例："></a>实例：</h4><p><code>box-sizing：content-box</code>  </p>
+<div style="width:100px;height:100px;padding:10px;box-sizing:content-box;border:1px solid red;"></div>
+`box-sizing：border-box`  
+<div style="width:100px;height:100px;padding:10px;box-sizing:border-box;border:1px solid red;"></div>
+
+<h4 id="兼容性：-23"><a href="#兼容性：-23" class="headerlink" title="兼容性："></a>兼容性：</h4><p>IE8+, Firefox29+, Chrome10+,  Safari6+<br>#####兼容方法：<br>详情参阅<a target="_blank" rel="noopener" href="http://www.w3cplus.com/content/css3-box-sizing">box-sizing</a></p>
+<h3 id="resize"><a href="#resize" class="headerlink" title="resize"></a>resize</h3><p>设置或检索对象的区域是否允许用户缩放，调节元素尺寸大小。多用于textarea元素</p>
+<h4 id="语法：-23"><a href="#语法：-23" class="headerlink" title="语法："></a>语法：</h4><p><code>resize：none | both | horizontal | vertical</code></p>
+<h4 id="实例：-23"><a href="#实例：-23" class="headerlink" title="实例："></a>实例：</h4><p><code>resize:none</code>  </p>
+<textarea style="width:100px;height:100px;resize:none"></textarea>
+<h4 id="兼容性：-24"><a href="#兼容性：-24" class="headerlink" title="兼容性："></a>兼容性：</h4><p>Firefox Chrome  Safari现代版都兼容</p>
+<h4 id="兼容方法：-23"><a href="#兼容方法：-23" class="headerlink" title="兼容方法："></a>兼容方法：</h4><p>IE全不兼容</p>
+<h3 id="opacity"><a href="#opacity" class="headerlink" title="opacity"></a>opacity</h3><p>设置设置元素的不透明级别</p>
+<h4 id="语法：-24"><a href="#语法：-24" class="headerlink" title="语法："></a>语法：</h4><p><code>opacity: value|inherit;</code></p>
+<h4 id="实例：-24"><a href="#实例：-24" class="headerlink" title="实例："></a>实例：</h4><p><code>opacity:0.5;</code>  </p>
+<div style="width:100px;height:100px;background-color: red;opacity:0.5;"></div>
+#### 兼容性：
+IE8不兼容 Firefox Chrome Safari现代版都兼容 
+#### 兼容方法：
+IE8及以下可使用IE滤镜处理
+<figure class="highlight scss"><table><tr><td class="code"><pre><span class="line"><span class="attribute">filter</span>：<span class="built_in">alpha</span>(opacity=<span class="number">50</span>);</span><br></pre></td></tr></table></figure>
+对于行内元素需要先将其转化为块状元素才行
+
+
+        
+            <div id="toc-article">
+                
+  <div class="widget-wrap" id="toc-wrap">
+    <h3 class="widget-title"><i class="fa fa-toc"></i> 文章目录</h3>
+    <div class="widget">
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#border-radius"><span class="toc-text">border-radius</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AF%AD%E6%B3%95"><span class="toc-text">语法:</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B"><span class="toc-text">实例:</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%BC%E5%AE%B9%E6%80%A7%EF%BC%9A"><span class="toc-text">兼容性：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%BC%E5%AE%B9%E6%96%B9%E6%B3%95%EF%BC%9A"><span class="toc-text">兼容方法：</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#box-shadow"><span class="toc-text">box-shadow</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AF%AD%E6%B3%95%EF%BC%9A"><span class="toc-text">语法：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B%EF%BC%9A"><span class="toc-text">实例：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%BC%E5%AE%B9%E6%80%A7%EF%BC%9A-1"><span class="toc-text">兼容性：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%BC%E5%AE%B9%E6%96%B9%E6%B3%95%EF%BC%9A-1"><span class="toc-text">兼容方法：</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#border-image"><span class="toc-text">border-image</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AF%AD%E6%B3%95%EF%BC%9A-1"><span class="toc-text">语法：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B%EF%BC%9A-1"><span class="toc-text">实例：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%BC%E5%AE%B9%E6%80%A7%EF%BC%9A-2"><span class="toc-text">兼容性：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%BC%E5%AE%B9%E6%96%B9%E6%B3%95%EF%BC%9A-2"><span class="toc-text">兼容方法：</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#background-size"><span class="toc-text">background-size</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AF%AD%E6%B3%95%EF%BC%9A-2"><span class="toc-text">语法：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B%EF%BC%9A-2"><span class="toc-text">实例：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%BC%E5%AE%B9%E6%80%A7%EF%BC%9A-3"><span class="toc-text">兼容性：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%BC%E5%AE%B9%E6%96%B9%E6%B3%95%EF%BC%9A-3"><span class="toc-text">兼容方法：</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#background-origin"><span class="toc-text">background-origin</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AF%AD%E6%B3%95%EF%BC%9A-3"><span class="toc-text">语法：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B%EF%BC%9A-3"><span class="toc-text">实例：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%BC%E5%AE%B9%E6%80%A7%EF%BC%9A-4"><span class="toc-text">兼容性：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%BC%E5%AE%B9%E6%96%B9%E6%B3%95%EF%BC%9A-4"><span class="toc-text">兼容方法：</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#background-clip"><span class="toc-text">background-clip</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AF%AD%E6%B3%95%EF%BC%9A-4"><span class="toc-text">语法：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B%EF%BC%9A-4"><span class="toc-text">实例：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%BC%E5%AE%B9%E6%80%A7%EF%BC%9A-5"><span class="toc-text">兼容性：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%BC%E5%AE%B9%E6%96%B9%E6%B3%95%EF%BC%9A-5"><span class="toc-text">兼容方法：</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#multiple-backgrounds"><span class="toc-text">multiple backgrounds</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AF%AD%E6%B3%95%EF%BC%9A-5"><span class="toc-text">语法：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B%EF%BC%9A-5"><span class="toc-text">实例：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%BC%E5%AE%B9%E6%80%A7%EF%BC%9A-6"><span class="toc-text">兼容性：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%BC%E5%AE%B9%E6%96%B9%E6%B3%95%EF%BC%9A-6"><span class="toc-text">兼容方法：</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#text-shadow"><span class="toc-text">text-shadow</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AF%AD%E6%B3%95%EF%BC%9A-6"><span class="toc-text">语法：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B%EF%BC%9A-6"><span class="toc-text">实例：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%BC%E5%AE%B9%E6%80%A7%EF%BC%9A-7"><span class="toc-text">兼容性：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%BC%E5%AE%B9%E6%96%B9%E6%B3%95%EF%BC%9A-7"><span class="toc-text">兼容方法：</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#word-wrap"><span class="toc-text">word-wrap</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AF%AD%E6%B3%95%EF%BC%9A-7"><span class="toc-text">语法：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B%EF%BC%9A-7"><span class="toc-text">实例：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%BC%E5%AE%B9%E6%80%A7%EF%BC%9A-8"><span class="toc-text">兼容性：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%BC%E5%AE%B9%E6%96%B9%E6%B3%95%EF%BC%9A-8"><span class="toc-text">兼容方法：</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#font-face"><span class="toc-text">@font-face</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AF%AD%E6%B3%95%EF%BC%9A-8"><span class="toc-text">语法：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B%EF%BC%9A-8"><span class="toc-text">实例：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%BC%E5%AE%B9%E6%80%A7%EF%BC%9A-9"><span class="toc-text">兼容性：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%BC%E5%AE%B9%E6%96%B9%E6%B3%95%EF%BC%9A-9"><span class="toc-text">兼容方法：</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#transform"><span class="toc-text">transform</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AF%AD%E6%B3%95%EF%BC%9A-9"><span class="toc-text">语法：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B%EF%BC%9A-9"><span class="toc-text">实例：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%BC%E5%AE%B9%E6%80%A7%EF%BC%9A-10"><span class="toc-text">兼容性：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%BC%E5%AE%B9%E6%96%B9%E6%B3%95%EF%BC%9A-10"><span class="toc-text">兼容方法：</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#transition"><span class="toc-text">transition</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AF%AD%E6%B3%95%EF%BC%9A-10"><span class="toc-text">语法：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B%EF%BC%9A-10"><span class="toc-text">实例：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%BC%E5%AE%B9%E6%80%A7%EF%BC%9A-11"><span class="toc-text">兼容性：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%BC%E5%AE%B9%E6%96%B9%E6%B3%95%EF%BC%9A-11"><span class="toc-text">兼容方法：</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#animation"><span class="toc-text">animation</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AF%AD%E6%B3%95%EF%BC%9A-11"><span class="toc-text">语法：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B%EF%BC%9A-11"><span class="toc-text">实例：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%BC%E5%AE%B9%E6%80%A7%EF%BC%9A-12"><span class="toc-text">兼容性：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%BC%E5%AE%B9%E6%96%B9%E6%B3%95%EF%BC%9A-12"><span class="toc-text">兼容方法：</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#keyframes"><span class="toc-text">@keyframes</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AF%AD%E6%B3%95%EF%BC%9A-12"><span class="toc-text">语法：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B%EF%BC%9A-12"><span class="toc-text">实例：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%BC%E5%AE%B9%E6%80%A7%EF%BC%9A-13"><span class="toc-text">兼容性：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%BC%E5%AE%B9%E6%96%B9%E6%B3%95%EF%BC%9A-13"><span class="toc-text">兼容方法：</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#linear-gradient-amp-radial-gradient"><span class="toc-text">linear-gradient &amp; radial-gradient</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AF%AD%E6%B3%95%EF%BC%9A-13"><span class="toc-text">语法：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B%EF%BC%9A-13"><span class="toc-text">实例：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%BC%E5%AE%B9%E6%80%A7%EF%BC%9A-14"><span class="toc-text">兼容性：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%BC%E5%AE%B9%E6%96%B9%E6%B3%95%EF%BC%9A-14"><span class="toc-text">兼容方法：</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#rgba-r-g-b-a"><span class="toc-text">rgba(r,g,b,a)</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AF%AD%E6%B3%95%EF%BC%9A-14"><span class="toc-text">语法：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B%EF%BC%9A-14"><span class="toc-text">实例：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%BC%E5%AE%B9%E6%80%A7%EF%BC%9A-15"><span class="toc-text">兼容性：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%BC%E5%AE%B9%E6%96%B9%E6%B3%95%EF%BC%9A-15"><span class="toc-text">兼容方法：</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#flex"><span class="toc-text">flex</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AF%AD%E6%B3%95%EF%BC%9A-15"><span class="toc-text">语法：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B%EF%BC%9A-15"><span class="toc-text">实例：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%BC%E5%AE%B9%E6%80%A7%EF%BC%9A-16"><span class="toc-text">兼容性：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%BC%E5%AE%B9%E6%96%B9%E6%B3%95%EF%BC%9A-16"><span class="toc-text">兼容方法：</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#flex-flow"><span class="toc-text">flex-flow</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AF%AD%E6%B3%95%EF%BC%9A-16"><span class="toc-text">语法：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B%EF%BC%9A-16"><span class="toc-text">实例：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%BC%E5%AE%B9%E6%80%A7%EF%BC%9A-17"><span class="toc-text">兼容性：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%BC%E5%AE%B9%E6%96%B9%E6%B3%95%EF%BC%9A-17"><span class="toc-text">兼容方法：</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#justify-content"><span class="toc-text">justify-content</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AF%AD%E6%B3%95%EF%BC%9A-17"><span class="toc-text">语法：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B%EF%BC%9A-17"><span class="toc-text">实例：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%BC%E5%AE%B9%E6%80%A7%EF%BC%9A-18"><span class="toc-text">兼容性：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%BC%E5%AE%B9%E6%96%B9%E6%B3%95%EF%BC%9A-18"><span class="toc-text">兼容方法：</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#align-content"><span class="toc-text">align-content</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AF%AD%E6%B3%95%EF%BC%9A-18"><span class="toc-text">语法：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B%EF%BC%9A-18"><span class="toc-text">实例：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%BC%E5%AE%B9%E6%80%A7%EF%BC%9A-19"><span class="toc-text">兼容性：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%BC%E5%AE%B9%E6%96%B9%E6%B3%95%EF%BC%9A-19"><span class="toc-text">兼容方法：</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#align-items"><span class="toc-text">align-items</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AF%AD%E6%B3%95%EF%BC%9A-19"><span class="toc-text">语法：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B%EF%BC%9A-19"><span class="toc-text">实例：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%BC%E5%AE%B9%E6%80%A7%EF%BC%9A-20"><span class="toc-text">兼容性：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%BC%E5%AE%B9%E6%96%B9%E6%B3%95%EF%BC%9A-20"><span class="toc-text">兼容方法：</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#align-self"><span class="toc-text">align-self</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AF%AD%E6%B3%95%EF%BC%9A-20"><span class="toc-text">语法：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B%EF%BC%9A-20"><span class="toc-text">实例：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%BC%E5%AE%B9%E6%80%A7%EF%BC%9A-21"><span class="toc-text">兼容性：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%BC%E5%AE%B9%E6%96%B9%E6%B3%95%EF%BC%9A-21"><span class="toc-text">兼容方法：</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#order"><span class="toc-text">order</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AF%AD%E6%B3%95%EF%BC%9A-21"><span class="toc-text">语法：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B%EF%BC%9A-21"><span class="toc-text">实例：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%BC%E5%AE%B9%E6%80%A7%EF%BC%9A-22"><span class="toc-text">兼容性：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%BC%E5%AE%B9%E6%96%B9%E6%B3%95%EF%BC%9A-22"><span class="toc-text">兼容方法：</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#box-sizing"><span class="toc-text">box-sizing</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AF%AD%E6%B3%95%EF%BC%9A-22"><span class="toc-text">语法：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B%EF%BC%9A-22"><span class="toc-text">实例：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%BC%E5%AE%B9%E6%80%A7%EF%BC%9A-23"><span class="toc-text">兼容性：</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#resize"><span class="toc-text">resize</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AF%AD%E6%B3%95%EF%BC%9A-23"><span class="toc-text">语法：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B%EF%BC%9A-23"><span class="toc-text">实例：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%BC%E5%AE%B9%E6%80%A7%EF%BC%9A-24"><span class="toc-text">兼容性：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%BC%E5%AE%B9%E6%96%B9%E6%B3%95%EF%BC%9A-23"><span class="toc-text">兼容方法：</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#opacity"><span class="toc-text">opacity</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AF%AD%E6%B3%95%EF%BC%9A-24"><span class="toc-text">语法：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B%EF%BC%9A-24"><span class="toc-text">实例：</span></a></li></ol></li></ol>
+    </div>
+  </div>
+
+
+            </div>
+        
+        
+          <blockquote id="copyright">
+              <p>原文链接: <a href="https://jesse121.github.io/articles/2016/04/28.html">https://jesse121.github.io/articles/2016/04/28.html</a></p>
+              <p>版权声明: 转载请注明出处.</p>
+          </blockquote>
+        
+      
+    </div>
+    <footer class="article-footer">
+      
+        <div class="article-tag-wrap">
+          
+
+          
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/css/" rel="tag">CSS</a></li></ul>
+
+          
+
+
+        </div>
+      
+      
+        
+<nav id="article-nav">
+  
+    <a href="/blog/articles/2016/04/02.html" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">older</strong>
+      <div class="article-nav-title">
+        
+          《图解HTTP》--读书笔记
+        
+      </div>
+    </a>
+  
+  
+    <a href="/blog/articles/2016/05/16.html" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">newer</strong>
+      <div class="article-nav-title">
+        
+          jQuery插件开发总结
+        
+      </div>
+    </a>
+  
+</nav>
+
+      
+      
+        
+  <div id="comments"></div>
+
+
+
+
+
+
+
+
+
+      
+    </footer>
+  </div>
+</article>
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-posts"></i> 最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/blog/articles/2021/06/11.html">如何用Vite快速搭建一个vue3项目</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2020/12/15.html">如何快速生成tsconfig.json文件</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2020/08/22.html">用Ssh连接docker容器</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2020/07/04.html">如何在Vscode上直接运行typescript?</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2020/06/13.html">Wireshark过滤器使用介绍</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2020/05/13.html">Webpack编译后的html中图片路径变为[object Module]的原因及解决办法</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2020/05/02.html">栈与队列</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2020/04/19.html">链表</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2020/04/19.html">算法的时间复杂度与空间复杂度分析</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2020/04/12.html">如何使用Wireshark抓取HTTP2报文？</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-tag"></i> 标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/blog/tags/angularjs/" style="font-size: 10px;">AngularJs</a> <a href="/blog/tags/apache/" style="font-size: 14px;">Apache</a> <a href="/blog/tags/bootstrap/" style="font-size: 14px;">Bootstrap</a> <a href="/blog/tags/css/" style="font-size: 18px;">CSS</a> <a href="/blog/tags/centos/" style="font-size: 10px;">CentOS</a> <a href="/blog/tags/docker/" style="font-size: 14px;">Docker</a> <a href="/blog/tags/git/" style="font-size: 12px;">Git</a> <a href="/blog/tags/gitlab/" style="font-size: 10px;">Gitlab</a> <a href="/blog/tags/gulp/" style="font-size: 10px;">Gulp</a> <a href="/blog/tags/html/" style="font-size: 14px;">HTML</a> <a href="/blog/tags/html5/" style="font-size: 10px;">HTML5</a> <a href="/blog/tags/http/" style="font-size: 14px;">HTTP</a> <a href="/blog/tags/https/" style="font-size: 10px;">HTTPS</a> <a href="/blog/tags/javascript/" style="font-size: 20px;">JavaScript</a> <a href="/blog/tags/jenkins/" style="font-size: 10px;">Jenkins</a> <a href="/blog/tags/linux/" style="font-size: 12px;">Linux</a> <a href="/blog/tags/mac/" style="font-size: 10px;">Mac</a> <a href="/blog/tags/mysql/" style="font-size: 14px;">MySQL</a> <a href="/blog/tags/nginx/" style="font-size: 12px;">Nginx</a> <a href="/blog/tags/node-js/" style="font-size: 12px;">Node.js</a> <a href="/blog/tags/php/" style="font-size: 16px;">PHP</a> <a href="/blog/tags/photoshop/" style="font-size: 10px;">Photoshop</a> <a href="/blog/tags/react/" style="font-size: 10px;">React</a> <a href="/blog/tags/redux/" style="font-size: 10px;">Redux</a> <a href="/blog/tags/sublimetext3/" style="font-size: 10px;">SublimeText3</a> <a href="/blog/tags/typescript/" style="font-size: 12px;">Typescript</a> <a href="/blog/tags/vagrant/" style="font-size: 10px;">Vagrant</a> <a href="/blog/tags/vim/" style="font-size: 10px;">Vim</a> <a href="/blog/tags/vue/" style="font-size: 10px;">Vue</a> <a href="/blog/tags/web/" style="font-size: 16px;">WEB</a> <a href="/blog/tags/webpack/" style="font-size: 14px;">Webpack</a> <a href="/blog/tags/wireshark/" style="font-size: 12px;">Wireshark</a> <a href="/blog/tags/yii/" style="font-size: 10px;">Yii</a> <a href="/blog/tags/jquery/" style="font-size: 14px;">jQuery</a> <a href="/blog/tags/monitor/" style="font-size: 10px;">monitor</a> <a href="/blog/tags/ssh/" style="font-size: 10px;">ssh</a> <a href="/blog/tags/vite/" style="font-size: 10px;">vite</a> <a href="/blog/tags/vscode/" style="font-size: 10px;">vscode</a> <a href="/blog/tags/vue/" style="font-size: 10px;">vue</a> <a href="/blog/tags/%E5%BC%80%E5%8F%91%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/" style="font-size: 10px;">开发问题记录</a> <a href="/blog/tags/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F/" style="font-size: 10px;">微信小程序</a> <a href="/blog/tags/%E7%AE%97%E6%B3%95/" style="font-size: 14px;">算法</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-classify"></i> 分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/blog/categories/bootstrap/">Bootstrap</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/html-css/">HTML-CSS</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/html5/">HTML5</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/javascript/">JavaScript</a><span class="category-list-count">11</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/linux/">Linux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/mysql/">MySQL</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/node-js/">Node.js</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/php/">PHP</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/photoshop/">Photoshop</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/typescript/">Typescript</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/vue/">Vue</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/web/">WEB</a><span class="category-list-count">8</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/jquery/">jQuery</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/translation/">前端翻译</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/">开发工具</a><span class="category-list-count">15</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/%E5%BC%80%E5%8F%91%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/">开发问题记录</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/%E7%AE%97%E6%B3%95/">算法</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/notes/">读书笔记</a><span class="category-list-count">16</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-archive"></i> 归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2021/">2021年</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2020/">2020年</a><span class="archive-list-count">12</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2019/">2019年</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/">2018年</a><span class="archive-list-count">12</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2017/">2017年</a><span class="archive-list-count">26</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/">2016年</a><span class="archive-list-count">27</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-link"></i> 友情链接</h3>
+    <div class="widget">
+      <ul>
+      
+        <li>
+          <a target="_blank" rel="noopener" href="http://www.mahaixiang.cn/internet/300.html">深入理解互联网协议的原理</a>
+        </li>
+      
+        <li>
+          <a target="_blank" rel="noopener" href="http://javascript.ruanyifeng.com/">JavaScript 标准参考教程</a>
+        </li>
+      
+        <li>
+          <a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript">Mozilla Developer Network</a>
+        </li>
+      
+      </ul>
+    </div>
+  </div>
+
+
+  
+</aside>
+        
+      </div>
+      <a id="totop" href="#top"></a>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      <p>
+        <a href="/blog/sitemap.xml">网站地图</a>
+        <span> | </span><a href="/blog/atom.xml">订阅本站</a>
+        <span> | </span><a href="/blog/about/">联系博主</a>
+      </p>
+      
+        <p>
+          <i class="fa fa-visitors"></i>
+          <i id="busuanzi_container_site_uv"><i id="busuanzi_value_site_uv"></i></i>
+          ，
+          <i class="fa fa-views"></i>
+          <i id="busuanzi_container_site_pv"><i id="busuanzi_value_site_pv"></i></i>
+        </p>
+      
+      <p>
+        <span>Copyright &copy; 2022 Jesse.</span>
+        <span>Theme by <a href="https://github.com/chaooo/hexo-theme-BlueLake/" target="_blank">BlueLake.</a></span>
+        <span>Powered by <a href="https://hexo.io/" target="_blank">Hexo.</a></span>
+      </p>
+    </div>
+  </div>
+</footer>
+
+    </div>
+  </div>
+  
+<script src="/blog/js/jquery-3.4.1.min.js"></script>
+
+
+<script src="/blog/js/search.json.js"></script>
+
+
+  
+<script src="/blog/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/blog/js/script.js"></script>
+
+
+
+
+
+
+  
+<script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+  
+  
+
+
+  
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+ 
+<script src="//cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.js"></script>
+
+<script>
+  var gitalk = new Gitalk({
+    clientID: "1d84813ae13cd94072f0",
+    clientSecret: "4a4dd2af0c622e983dd90f5daf15c3ebd86b8ae9",
+    repo: "blog",
+    owner: "jesse121",
+    admin: ["jesse121"],
+    id: md5(window.location.pathname),
+    proxy: "https://gitalk-worker.jesse121.workers.dev/https://github.com/login/oauth/access_token,",
+    distractionFreeMode: false,
+    language: "zh-CN",
+    pagerDirection: "last",
+  });
+  gitalk.render("comments");
+</script>
+         
+
+
+
+</body>
+</html>

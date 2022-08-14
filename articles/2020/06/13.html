@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Wireshark过滤器使用介绍 | 前端之路</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  
+    <meta name="description" content="专注前端开发，前端开发技术博客">
+  
+  
+    <meta name="keywords" content="Web前端开发，Javascript，前端开发博客">
+  
+  
+    <link rel="alternate" href="/blog/atom.xml" title="前端之路" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/blog/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/blog/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/blog/fancybox/jquery.fancybox.min.css">
+
+  
+  
+  
+    
+<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+
+  
+  
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/blog/" id="logo">前端之路</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/blog/" id="subtitle">路漫漫其修远兮，吾将上下而求索</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        
+          <a class="main-nav-link" href="/blog/."><i class="fa fa-home"></i> 首页</a>
+        
+          <a class="main-nav-link" href="/blog/archives/"><i class="fa fa-archive"></i> 归档</a>
+        
+          <a class="main-nav-link" href="/blog/about/"><i class="fa fa-user"></i> 关于</a>
+        
+      </nav>
+    </div>
+    <div id="search-form">
+      <div id="result-mask" class="hide"></div>
+      <label><input id="search-key" type="text" autocomplete="off" placeholder="搜索"></label>
+      <div id="result-wrap" class="hide">
+        <div id="search-result"></div>
+      </div>
+      <div class="hide">
+        <template id="search-tpl">
+          <div class="item">
+            <a href="/{path}" title="{title}">
+              <div class="title">{title}</div>
+              <div class="time">{date}</div>
+              <div class="tags">{tags}</div>
+            </a>
+          </div>
+        </template>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-tool/Wireshark过滤器使用介绍" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      Wireshark过滤器使用介绍
+    </h1>
+  
+
+
+      </header>
+    
+    <div class="article-meta">
+      
+      <span class="article-date">
+  <i class="fa fa-date"></i>
+  <time class="dt-published" datetime="2020-06-13T01:59:30.000Z" itemprop="datePublished">2020年06月13日</time>
+</span>
+      
+  <div class="article-category">
+    <i class="fa fa-classify"></i>
+    <a class="article-category-link" href="/blog/categories/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/">开发工具</a>
+  </div>
+
+      
+        <span class="article-views">
+  <i class="fa fa-views"></i>
+  <i id="busuanzi_container_page_pv">
+      <i id="busuanzi_value_page_pv"></i>
+  </i>
+</span>
+
+      
+      
+<a href="/blog/articles/2020/06/13.html#comments" class="article-comment-link">
+  
+    
+    
+    
+    
+    
+  
+  <i class="fa fa-commt"></i>
+  留言
+</a>
+
+
+    </div>
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>在工作中我们常会用到 wireshark 抓取数据包进行分析，当使用 wireshark 默认设置时，会捕获到大量冗余的数据包，如果没有过滤器过滤，我们很难找到自己想要抓取的数据，这个时候就需要用到 wireshark 的过滤器来过滤，它们可以帮助我们在庞杂的结果中迅速找到我们需要的信息。<br>wireshark 提供的过滤器有捕捉过滤器和显示过滤器。</p>
+<span id="more"></span>
+
+<p>捕捉过滤器：用于决定将什么样的信息记录在捕捉结果中。需要在开始捕捉前设置。<br>显示过滤器：在捕捉结果中进行详细查找。他们可以在得到捕捉结果后随意修改。</p>
+<p>那么我应该使用哪一种过滤器呢？</p>
+<p>两种过滤器的目的是不同的。<br>捕捉过滤器是数据经过的第一层过滤器，它用于控制捕捉数据的数量，以避免产生过大的日志文件。<br>显示过滤器是一种更为强大（复杂）的过滤器。它允许您在日志文件中迅速准确地找到所需要的记录。</p>
+<p>两种过滤器使用的语法是完全不同的。我们将在接下来对它们进行介绍：</p>
+<h3 id="捕捉过滤器"><a href="#捕捉过滤器" class="headerlink" title="捕捉过滤器"></a>捕捉过滤器</h3><p>捕捉过滤器的语法与其它使用 Lipcap（Linux）或者 Winpcap（Windows）库开发的软件一样，比如著名的 TCPdump。捕捉过滤器必须在开始捕捉前设置完毕，这一点跟显示过滤器是不同的。</p>
+<p>设置捕捉过滤器的步骤是： 1.选择 capture -&gt; options。 2.填写”capture filter”栏或者点击”capture filter”按钮为您的过滤器起一个名字并保存，以便在今后的捕捉中继续使用这个过滤器。 3.点击开始（Start）进行捕捉。<br><img src="https://raw.githubusercontent.com/Jesse121/publicPic/master/blog/pictures/801336-20200613093829175-464875647.jpg" alt="801336-20200613093829175-464875647"></p>
+<table>
+<thead>
+<tr>
+<th>语法</th>
+<th>Protocol</th>
+<th>Direction</th>
+<th>Host(s)</th>
+<th>Value</th>
+<th>Logical Operations</th>
+<th>Other expression</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>例子</td>
+<td>tcp</td>
+<td>dst</td>
+<td>10.1.1.1</td>
+<td>80</td>
+<td>and</td>
+<td>tcp dst 10.2.2.2 3128</td>
+</tr>
+</tbody></table>
+<p>Protocol（协议）:<br>可能的值: ether, fddi, ip, arp, rarp, decnet, lat, sca, moprc, mopdl, tcp and udp.<br>如果没有特别指明是什么协议，则默认使用所有支持的协议。</p>
+<p>Direction（方向）:<br>可能的值: src, dst, src and dst, src or dst<br>如果没有特别指明来源或目的地，则默认使用 “src or dst” 作为关键字。<br>例如，”host 10.2.2.2”与”src or dst host 10.2.2.2”是一样的。</p>
+<p>Host(s):<br>可能的值： net, port, host, portrange.<br>如果没有指定此值，则默认使用”host”关键字。<br>例如，”src 10.1.1.1”与”src host 10.1.1.1”相同。</p>
+<p>Logical Operations（逻辑运算）:<br>可能的值：not, and, or.<br>否(“not”)具有最高的优先级。或(“or”)和与(“and”)具有相同的优先级，运算时从左至右进行。<br>例如，<br>“not tcp port 3128 and tcp port 23”与”(not tcp port 3128) and tcp port 23”相同。<br>“not tcp port 3128 and tcp port 23”与”not (tcp port 3128 and tcp port 23)”不同。</p>
+<p><strong>例子：</strong><br>tcp dst port 3128<br>显示目的 TCP 端口为 3128 的封包。</p>
+<p>ip src host 10.1.1.1<br>显示来源 IP 地址为 10.1.1.1 的封包。</p>
+<p>host 10.1.2.3<br>显示目的或来源 IP 地址为 10.1.2.3 的封包。</p>
+<p>src portrange 2000-2500<br>显示来源为 UDP 或 TCP，并且端口号在 2000 至 2500 范围内的封包。</p>
+<p>not imcp<br>显示除了 icmp 以外的所有封包。（icmp 通常被 ping 工具使用）</p>
+<p>src host 10.7.2.12 and not dst net 10.200.0.0&#x2F;16<br>显示来源 IP 地址为 10.7.2.12，但目的地不是 10.200.0.0&#x2F;16 的封包。</p>
+<p>(src host 10.4.1.12 or src net 10.6.0.0&#x2F;16) and tcp dst portrange 200-10000 and dst net 10.0.0.0&#x2F;8<br>显示来源 IP 为 10.4.1.12 或者来源网络为 10.6.0.0&#x2F;16，目的地 TCP 端口号在 200 至 10000 之间，并且目的位于网络 10.0.0.0&#x2F;8 内的所有封包。</p>
+<p><strong>注意事项：</strong></p>
+<p>当使用关键字作为值时，需使用反斜杠“\”。<br>“ether proto \ip” (与关键字”ip”相同).<br>这样写将会以 IP 协议作为目标。</p>
+<p>“ip proto \icmp” (与关键字”icmp”相同).<br>这样写将会以 ping 工具常用的 icmp 作为目标。</p>
+<p>可以在”ip”或”ether”后面使用”multicast”及”broadcast”关键字。<br>当您想排除广播请求时，”no broadcast”就会非常有用。</p>
+<h3 id="显示过滤器"><a href="#显示过滤器" class="headerlink" title="显示过滤器"></a>显示过滤器</h3><p>通常经过捕捉过滤器过滤后的数据还是很复杂。此时您可以使用显示过滤器进行更加细致的查找。<br>它的功能比捕捉过滤器更为强大，而且在您想修改过滤器条件时，并不需要重新捕捉一次。<br><img src="https://raw.githubusercontent.com/Jesse121/publicPic/master/blog/pictures/801336-20200613100550359-1665298952.jpg" alt="801336-20200613100550359-1665298952"></p>
+<table>
+<thead>
+<tr>
+<th>语法</th>
+<th>Protocol</th>
+<th>. String 1</th>
+<th>.String 2</th>
+<th>Comparison operator</th>
+<th>Value</th>
+<th>Logical Operations</th>
+<th>Other expression</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>例子</td>
+<td>ftp</td>
+<td>passive</td>
+<td>ip</td>
+<td>&#x3D;&#x3D;</td>
+<td>10.2.3.4</td>
+<td>xor</td>
+<td>icmp.type</td>
+</tr>
+</tbody></table>
+<p>Protocol（协议）:<br>您可以使用大量位于 OSI 模型第 2 至 7 层的协议。点击”Expression…”按钮后，您可以看到它们。<br>比如：IP，TCP，DNS，SSH</p>
+<p>String1, String2 (可选项):<br>协议的子类。<br>点击相关父类旁的”+”号，然后选择其子类。</p>
+<p>Comparison operators （比较运算符）:<br>可以使用 6 种比较运算符：</p>
+<table>
+<thead>
+<tr>
+<th>英文写法</th>
+<th>C 语言写法</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>eq</td>
+<td>&#x3D;&#x3D;</td>
+<td>等于</td>
+</tr>
+<tr>
+<td>ne</td>
+<td>!&#x3D;</td>
+<td>不等于</td>
+</tr>
+<tr>
+<td>gt</td>
+<td>&gt;</td>
+<td>大于</td>
+</tr>
+<tr>
+<td>lt</td>
+<td>&lt;</td>
+<td>小于</td>
+</tr>
+<tr>
+<td>ge</td>
+<td>&gt;&#x3D;</td>
+<td>大于等于</td>
+</tr>
+<tr>
+<td>le</td>
+<td>&lt;&#x3D;</td>
+<td>小于等于</td>
+</tr>
+</tbody></table>
+<p>Logical expressions（逻辑运算符）:</p>
+<table>
+<thead>
+<tr>
+<th>英文写法</th>
+<th>C 语言写法</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>and</td>
+<td>&amp;&amp;</td>
+<td>逻辑与</td>
+</tr>
+<tr>
+<td>or</td>
+<td>&#96;</td>
+<td></td>
+</tr>
+<tr>
+<td>xor</td>
+<td>^^</td>
+<td>逻辑异或</td>
+</tr>
+<tr>
+<td>not</td>
+<td>!</td>
+<td>逻辑非</td>
+</tr>
+</tbody></table>
+<p>被程序员们熟知的逻辑异或是一种排除性的或。当其被用在过滤器的两个条件之间时，只有当且仅当其中的一个条件满足时，这样的结果才会被显示在屏幕上。<br>让我们举个例子：<br>“tcp.dstport 80 xor tcp.dstport 1025”<br>只有当目的 TCP 端口为 80 或者来源于端口 1025（但又不能同时满足这两点）时，这样的封包才会被显示。</p>
+<p><strong>例子：</strong></p>
+<p>snmp || dns || icmp<br>显示 SNMP 或 DNS 或 ICMP 封包。</p>
+<p>ip.addr &#x3D;&#x3D; 10.1.1.1<br>显示来源或目的 IP 地址为 10.1.1.1 的封包。</p>
+<p>ip.src !&#x3D; 10.1.2.3 or ip.dst !&#x3D; 10.4.5.6<br>显示来源不为 10.1.2.3 或者目的不为 10.4.5.6 的封包。<br>换句话说，显示的封包将会为：<br>来源 IP：除了 10.1.2.3 以外任意；目的 IP：任意<br>以及<br>来源 IP：任意；目的 IP：除了 10.4.5.6 以外任意</p>
+<p>ip.src !&#x3D; 10.1.2.3 and ip.dst !&#x3D; 10.4.5.6<br>显示来源不为 10.1.2.3 并且目的 IP 不为 10.4.5.6 的封包。<br>换句话说，显示的封包将会为：<br>来源 IP：除了 10.1.2.3 以外任意；同时须满足，目的 IP：除了 10.4.5.6 以外任意</p>
+<p>tcp.port &#x3D;&#x3D; 25 显示来源或目的 TCP 端口号为 25 的封包。<br>tcp.dstport &#x3D;&#x3D; 25 显示目的 TCP 端口号为 25 的封包。<br>tcp.flags 显示包含 TCP 标志的封包。<br>tcp.flags.syn &#x3D;&#x3D; 0x02 显示包含 TCP SYN 标志的封包。</p>
+<p>如果过滤器的语法是正确的，表达式的背景呈绿色。如果呈红色，说明表达式有误。</p>
+<h5 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h5><ol>
+<li><a target="_blank" rel="noopener" href="http://openmaniak.com/cn/wireshark_filters.php">wireshark</a></li>
+</ol>
+
+        
+            <div id="toc-article">
+                
+  <div class="widget-wrap" id="toc-wrap">
+    <h3 class="widget-title"><i class="fa fa-toc"></i> 文章目录</h3>
+    <div class="widget">
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8D%95%E6%8D%89%E8%BF%87%E6%BB%A4%E5%99%A8"><span class="toc-text">捕捉过滤器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%98%BE%E7%A4%BA%E8%BF%87%E6%BB%A4%E5%99%A8"><span class="toc-text">显示过滤器</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E7%AB%A0"><span class="toc-text">参考文章</span></a></li></ol></li></ol></li></ol>
+    </div>
+  </div>
+
+
+            </div>
+        
+        
+          <blockquote id="copyright">
+              <p>原文链接: <a href="https://jesse121.github.io/articles/2020/06/13.html">https://jesse121.github.io/articles/2020/06/13.html</a></p>
+              <p>版权声明: 转载请注明出处.</p>
+          </blockquote>
+        
+      
+    </div>
+    <footer class="article-footer">
+      
+        <div class="article-tag-wrap">
+          
+
+          
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/wireshark/" rel="tag">Wireshark</a></li></ul>
+
+          
+
+
+        </div>
+      
+      
+        
+<nav id="article-nav">
+  
+    <a href="/blog/articles/2020/05/13.html" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">older</strong>
+      <div class="article-nav-title">
+        
+          Webpack编译后的html中图片路径变为[object Module]的原因及解决办法
+        
+      </div>
+    </a>
+  
+  
+    <a href="/blog/articles/2020/07/04.html" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">newer</strong>
+      <div class="article-nav-title">
+        
+          如何在Vscode上直接运行typescript?
+        
+      </div>
+    </a>
+  
+</nav>
+
+      
+      
+        
+  <div id="comments"></div>
+
+
+
+
+
+
+
+
+
+      
+    </footer>
+  </div>
+</article>
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-posts"></i> 最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/blog/articles/2021/06/11.html">如何用Vite快速搭建一个vue3项目</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2020/12/15.html">如何快速生成tsconfig.json文件</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2020/08/22.html">用Ssh连接docker容器</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2020/07/04.html">如何在Vscode上直接运行typescript?</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2020/06/13.html">Wireshark过滤器使用介绍</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2020/05/13.html">Webpack编译后的html中图片路径变为[object Module]的原因及解决办法</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2020/05/02.html">栈与队列</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2020/04/19.html">链表</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2020/04/19.html">算法的时间复杂度与空间复杂度分析</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2020/04/12.html">如何使用Wireshark抓取HTTP2报文？</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-tag"></i> 标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/blog/tags/angularjs/" style="font-size: 10px;">AngularJs</a> <a href="/blog/tags/apache/" style="font-size: 14px;">Apache</a> <a href="/blog/tags/bootstrap/" style="font-size: 14px;">Bootstrap</a> <a href="/blog/tags/css/" style="font-size: 18px;">CSS</a> <a href="/blog/tags/centos/" style="font-size: 10px;">CentOS</a> <a href="/blog/tags/docker/" style="font-size: 14px;">Docker</a> <a href="/blog/tags/git/" style="font-size: 12px;">Git</a> <a href="/blog/tags/gitlab/" style="font-size: 10px;">Gitlab</a> <a href="/blog/tags/gulp/" style="font-size: 10px;">Gulp</a> <a href="/blog/tags/html/" style="font-size: 14px;">HTML</a> <a href="/blog/tags/html5/" style="font-size: 10px;">HTML5</a> <a href="/blog/tags/http/" style="font-size: 14px;">HTTP</a> <a href="/blog/tags/https/" style="font-size: 10px;">HTTPS</a> <a href="/blog/tags/javascript/" style="font-size: 20px;">JavaScript</a> <a href="/blog/tags/jenkins/" style="font-size: 10px;">Jenkins</a> <a href="/blog/tags/linux/" style="font-size: 12px;">Linux</a> <a href="/blog/tags/mac/" style="font-size: 10px;">Mac</a> <a href="/blog/tags/mysql/" style="font-size: 14px;">MySQL</a> <a href="/blog/tags/nginx/" style="font-size: 12px;">Nginx</a> <a href="/blog/tags/node-js/" style="font-size: 12px;">Node.js</a> <a href="/blog/tags/php/" style="font-size: 16px;">PHP</a> <a href="/blog/tags/photoshop/" style="font-size: 10px;">Photoshop</a> <a href="/blog/tags/react/" style="font-size: 10px;">React</a> <a href="/blog/tags/redux/" style="font-size: 10px;">Redux</a> <a href="/blog/tags/sublimetext3/" style="font-size: 10px;">SublimeText3</a> <a href="/blog/tags/typescript/" style="font-size: 12px;">Typescript</a> <a href="/blog/tags/vagrant/" style="font-size: 10px;">Vagrant</a> <a href="/blog/tags/vim/" style="font-size: 10px;">Vim</a> <a href="/blog/tags/vue/" style="font-size: 10px;">Vue</a> <a href="/blog/tags/web/" style="font-size: 16px;">WEB</a> <a href="/blog/tags/webpack/" style="font-size: 14px;">Webpack</a> <a href="/blog/tags/wireshark/" style="font-size: 12px;">Wireshark</a> <a href="/blog/tags/yii/" style="font-size: 10px;">Yii</a> <a href="/blog/tags/jquery/" style="font-size: 14px;">jQuery</a> <a href="/blog/tags/monitor/" style="font-size: 10px;">monitor</a> <a href="/blog/tags/ssh/" style="font-size: 10px;">ssh</a> <a href="/blog/tags/vite/" style="font-size: 10px;">vite</a> <a href="/blog/tags/vscode/" style="font-size: 10px;">vscode</a> <a href="/blog/tags/vue/" style="font-size: 10px;">vue</a> <a href="/blog/tags/%E5%BC%80%E5%8F%91%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/" style="font-size: 10px;">开发问题记录</a> <a href="/blog/tags/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F/" style="font-size: 10px;">微信小程序</a> <a href="/blog/tags/%E7%AE%97%E6%B3%95/" style="font-size: 14px;">算法</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-classify"></i> 分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/blog/categories/bootstrap/">Bootstrap</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/html-css/">HTML-CSS</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/html5/">HTML5</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/javascript/">JavaScript</a><span class="category-list-count">11</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/linux/">Linux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/mysql/">MySQL</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/node-js/">Node.js</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/php/">PHP</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/photoshop/">Photoshop</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/typescript/">Typescript</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/vue/">Vue</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/web/">WEB</a><span class="category-list-count">8</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/jquery/">jQuery</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/translation/">前端翻译</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/">开发工具</a><span class="category-list-count">15</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/%E5%BC%80%E5%8F%91%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/">开发问题记录</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/%E7%AE%97%E6%B3%95/">算法</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/notes/">读书笔记</a><span class="category-list-count">16</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-archive"></i> 归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2021/">2021年</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2020/">2020年</a><span class="archive-list-count">12</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2019/">2019年</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/">2018年</a><span class="archive-list-count">12</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2017/">2017年</a><span class="archive-list-count">26</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/">2016年</a><span class="archive-list-count">27</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-link"></i> 友情链接</h3>
+    <div class="widget">
+      <ul>
+      
+        <li>
+          <a target="_blank" rel="noopener" href="http://www.mahaixiang.cn/internet/300.html">深入理解互联网协议的原理</a>
+        </li>
+      
+        <li>
+          <a target="_blank" rel="noopener" href="http://javascript.ruanyifeng.com/">JavaScript 标准参考教程</a>
+        </li>
+      
+        <li>
+          <a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript">Mozilla Developer Network</a>
+        </li>
+      
+      </ul>
+    </div>
+  </div>
+
+
+  
+</aside>
+        
+      </div>
+      <a id="totop" href="#top"></a>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      <p>
+        <a href="/blog/sitemap.xml">网站地图</a>
+        <span> | </span><a href="/blog/atom.xml">订阅本站</a>
+        <span> | </span><a href="/blog/about/">联系博主</a>
+      </p>
+      
+        <p>
+          <i class="fa fa-visitors"></i>
+          <i id="busuanzi_container_site_uv"><i id="busuanzi_value_site_uv"></i></i>
+          ，
+          <i class="fa fa-views"></i>
+          <i id="busuanzi_container_site_pv"><i id="busuanzi_value_site_pv"></i></i>
+        </p>
+      
+      <p>
+        <span>Copyright &copy; 2022 Jesse.</span>
+        <span>Theme by <a href="https://github.com/chaooo/hexo-theme-BlueLake/" target="_blank">BlueLake.</a></span>
+        <span>Powered by <a href="https://hexo.io/" target="_blank">Hexo.</a></span>
+      </p>
+    </div>
+  </div>
+</footer>
+
+    </div>
+  </div>
+  
+<script src="/blog/js/jquery-3.4.1.min.js"></script>
+
+
+<script src="/blog/js/search.json.js"></script>
+
+
+  
+<script src="/blog/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/blog/js/script.js"></script>
+
+
+
+
+
+
+  
+<script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+  
+  
+
+
+  
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+ 
+<script src="//cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.js"></script>
+
+<script>
+  var gitalk = new Gitalk({
+    clientID: "1d84813ae13cd94072f0",
+    clientSecret: "4a4dd2af0c622e983dd90f5daf15c3ebd86b8ae9",
+    repo: "blog",
+    owner: "jesse121",
+    admin: ["jesse121"],
+    id: md5(window.location.pathname),
+    proxy: "https://gitalk-worker.jesse121.workers.dev/https://github.com/login/oauth/access_token,",
+    distractionFreeMode: false,
+    language: "zh-CN",
+    pagerDirection: "last",
+  });
+  gitalk.render("comments");
+</script>
+         
+
+
+
+</body>
+</html>

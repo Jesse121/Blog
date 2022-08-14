@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>如何做好前端页面异常监控？ | 前端之路</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  
+    <meta name="description" content="专注前端开发，前端开发技术博客">
+  
+  
+    <meta name="keywords" content="Web前端开发，Javascript，前端开发博客">
+  
+  
+    <link rel="alternate" href="/blog/atom.xml" title="前端之路" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/blog/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/blog/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/blog/fancybox/jquery.fancybox.min.css">
+
+  
+  
+  
+    
+<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+
+  
+  
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/blog/" id="logo">前端之路</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/blog/" id="subtitle">路漫漫其修远兮，吾将上下而求索</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        
+          <a class="main-nav-link" href="/blog/."><i class="fa fa-home"></i> 首页</a>
+        
+          <a class="main-nav-link" href="/blog/archives/"><i class="fa fa-archive"></i> 归档</a>
+        
+          <a class="main-nav-link" href="/blog/about/"><i class="fa fa-user"></i> 关于</a>
+        
+      </nav>
+    </div>
+    <div id="search-form">
+      <div id="result-mask" class="hide"></div>
+      <label><input id="search-key" type="text" autocomplete="off" placeholder="搜索"></label>
+      <div id="result-wrap" class="hide">
+        <div id="search-result"></div>
+      </div>
+      <div class="hide">
+        <template id="search-tpl">
+          <div class="item">
+            <a href="/{path}" title="{title}">
+              <div class="title">{title}</div>
+              <div class="time">{date}</div>
+              <div class="tags">{tags}</div>
+            </a>
+          </div>
+        </template>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-tool/如何做好前端页面异常监控?" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      如何做好前端页面异常监控？
+    </h1>
+  
+
+
+      </header>
+    
+    <div class="article-meta">
+      
+      <span class="article-date">
+  <i class="fa fa-date"></i>
+  <time class="dt-published" datetime="2020-01-11T02:07:10.000Z" itemprop="datePublished">2020年01月11日</time>
+</span>
+      
+  <div class="article-category">
+    <i class="fa fa-classify"></i>
+    <a class="article-category-link" href="/blog/categories/web/">WEB</a>
+  </div>
+
+      
+        <span class="article-views">
+  <i class="fa fa-views"></i>
+  <i id="busuanzi_container_page_pv">
+      <i id="busuanzi_value_page_pv"></i>
+  </i>
+</span>
+
+      
+      
+<a href="/blog/articles/2020/01/11.html#comments" class="article-comment-link">
+  
+    
+    
+    
+    
+    
+  
+  <i class="fa fa-commt"></i>
+  留言
+</a>
+
+
+    </div>
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>在开发工作中难免会出现 bug,一般项目都是测试检查通过后就可以发线上，可是在线上仍旧会出现各种意料之外或者未测试到的问题，这个时候有的用户会向客服反馈说哪里哪里有问题，这是一种被动的错误上报方式，毕竟不是所有的用户都会上报问题，更多的则是出现问题后直接离开我们的 APP。所以异常监控这块就显得越来越重要。</p>
+<span id="more"></span>
+
+<h3 id="页面异常分类"><a href="#页面异常分类" class="headerlink" title="页面异常分类"></a>页面异常分类</h3><p>在我们的项目中我将页面异常分为以下几种情况：</p>
+<ol>
+<li>javascript 异常（语法错误，运行时错误，跨域脚本）</li>
+<li>资源加载异常（img js css）</li>
+<li>ajax 请求异常</li>
+<li>promise 异常</li>
+<li>vue 项目中全局异常捕获</li>
+</ol>
+<p>接下来介绍如何捕获这些异常</p>
+<h3 id="前端页面异常捕获方式"><a href="#前端页面异常捕获方式" class="headerlink" title="前端页面异常捕获方式"></a>前端页面异常捕获方式</h3><h4 id="window-onerror-捕获-javascript-异常"><a href="#window-onerror-捕获-javascript-异常" class="headerlink" title="window.onerror 捕获 javascript 异常"></a>window.onerror 捕获 javascript 异常</h4><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 捕获javascript异常</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> &#123;<span class="type">String</span>&#125;  message    错误信息</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> &#123;<span class="type">String</span>&#125;  source     出错文件</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> &#123;<span class="type">Number</span>&#125;  lineno     行号</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> &#123;<span class="type">Number</span>&#125;  colno      列号</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> &#123;<span class="type">Object</span>&#125;  error      Error对象（对象）</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="variable language_">window</span>.<span class="property">onerror</span> = <span class="keyword">function</span> (<span class="params">message, source, lineno, colno, error</span>) &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;捕获到异常：&quot;</span>, &#123; message, source, lineno, colno, error &#125;);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h4 id="跨域脚本异常捕获"><a href="#跨域脚本异常捕获" class="headerlink" title="跨域脚本异常捕获"></a>跨域脚本异常捕获</h4><p>一般涉及跨域的 js 运行错误时会抛出错误提示 script error.，但没有具体信息（如出错文件，行列号提示等）, 可利用资源共享策略来捕获跨域 js 错误<br>客户端：在 script 标签增加 crossorigin&#x3D;”anonymous”属性<br>服务端：静态资源响应头 Access-Control-Allow-Origin: *</p>
+<h4 id="window-addEventListener-‘error’-cb-true-捕获资源加载异常"><a href="#window-addEventListener-‘error’-cb-true-捕获资源加载异常" class="headerlink" title="window.addEventListener(‘error’,cb,true)捕获资源加载异常"></a>window.addEventListener(‘error’,cb,true)捕获资源加载异常</h4><p>img 加载异常时会触发 img.onerror 函数</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 捕获资源加载异常</span></span><br><span class="line"><span class="variable language_">window</span>.<span class="title function_">addEventListener</span>(</span><br><span class="line">  <span class="string">&quot;error&quot;</span>,</span><br><span class="line">  <span class="keyword">function</span> (<span class="params">e</span>) &#123;</span><br><span class="line">    <span class="keyword">const</span> err = e.<span class="property">target</span>.<span class="property">src</span> || e.<span class="property">target</span>.<span class="property">href</span>;</span><br><span class="line">    <span class="keyword">if</span> (err) &#123;</span><br><span class="line">      <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;捕获到资源加载异常&quot;</span>, err);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="literal">true</span></span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+
+<h4 id="ajax-接口请求异常捕获"><a href="#ajax-接口请求异常捕获" class="headerlink" title="ajax 接口请求异常捕获"></a>ajax 接口请求异常捕获</h4><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 统一拦截ajax请求</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">ajaxEventTrigger</span>(<span class="params">event</span>) &#123;</span><br><span class="line">  <span class="keyword">var</span> ajaxEvent = <span class="keyword">new</span> <span class="title class_">CustomEvent</span>(event, &#123; <span class="attr">detail</span>: <span class="variable language_">this</span> &#125;);</span><br><span class="line">  <span class="variable language_">window</span>.<span class="title function_">dispatchEvent</span>(ajaxEvent);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> oldXHR = <span class="variable language_">window</span>.<span class="property">XMLHttpRequest</span>;</span><br><span class="line"><span class="keyword">function</span> <span class="title function_">newXHR</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">var</span> realXHR = <span class="keyword">new</span> <span class="title function_">oldXHR</span>();</span><br><span class="line">  realXHR.<span class="title function_">addEventListener</span>(</span><br><span class="line">    <span class="string">&quot;readystatechange&quot;</span>,</span><br><span class="line">    <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">      ajaxEventTrigger.<span class="title function_">call</span>(<span class="variable language_">this</span>, <span class="string">&quot;ajaxReadyStateChange&quot;</span>);</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="literal">false</span></span><br><span class="line">  );</span><br><span class="line">  <span class="keyword">return</span> realXHR;</span><br><span class="line">&#125;</span><br><span class="line"><span class="variable language_">window</span>.<span class="property">XMLHttpRequest</span> = newXHR;</span><br><span class="line"><span class="keyword">var</span> startTime = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">var</span> gapTime = <span class="number">0</span>; <span class="comment">// 计算请求延时</span></span><br><span class="line"><span class="variable language_">window</span>.<span class="title function_">addEventListener</span>(<span class="string">&quot;ajaxReadyStateChange&quot;</span>, <span class="keyword">function</span> (<span class="params">e</span>) &#123;</span><br><span class="line">  <span class="keyword">var</span> xhr = e.<span class="property">detail</span>;</span><br><span class="line">  <span class="keyword">var</span> status = xhr.<span class="property">status</span>;</span><br><span class="line">  <span class="keyword">var</span> readyState = xhr.<span class="property">readyState</span>;</span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">   * 计算请求延时</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  <span class="keyword">if</span> (readyState === <span class="number">1</span>) &#123;</span><br><span class="line">    startTime = <span class="keyword">new</span> <span class="title class_">Date</span>().<span class="title function_">getTime</span>();</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">if</span> (readyState === <span class="number">4</span>) &#123;</span><br><span class="line">    gapTime = <span class="keyword">new</span> <span class="title class_">Date</span>().<span class="title function_">getTime</span>() - startTime;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">   * 上报请求信息</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  <span class="keyword">if</span> (readyState === <span class="number">4</span>) &#123;</span><br><span class="line">    <span class="keyword">if</span> (status === <span class="number">200</span>) &#123;</span><br><span class="line">      <span class="comment">// 接口正常响应时捕获接口响应耗时</span></span><br><span class="line">      <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;接口&quot;</span>, xhr.<span class="property">responseURL</span>, <span class="string">&quot;耗时&quot;</span>, gapTime);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="comment">// 接口异常时捕获异常接口及状态码</span></span><br><span class="line">      <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;异常接口&quot;</span>, xhr.<span class="property">responseURL</span>, <span class="string">&quot;状态码&quot;</span>, status);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h4 id="promise-异常捕获"><a href="#promise-异常捕获" class="headerlink" title="promise 异常捕获"></a>promise 异常捕获</h4><p>promise 中的报错顺序是：<br>如果有 catch 等捕获函数，则走 catch 捕获函数。catch 捕获函数如果没有抛出新的异常，则下一个 then 将会认为没有什么报错，会继续执行。<br>如果没有 catch 等捕获函数，我们需要注册 window.addEventListener(‘unhandledrejection’) 来处理</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Promise catch错误上报，需要在使用promise的地方显示调用.catch()，否则不会捕获错误</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">if</span> (<span class="keyword">typeof</span> <span class="title class_">Promise</span> !== <span class="string">&quot;undefined&quot;</span>) &#123;</span><br><span class="line">  <span class="keyword">var</span> _promiseCatch = <span class="title class_">Promise</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">catch</span>;</span><br><span class="line">  <span class="title class_">Promise</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">catch</span> = <span class="keyword">function</span> (<span class="params">foo</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> _promiseCatch.<span class="title function_">call</span>(<span class="variable language_">this</span>, <span class="title function_">catCatch</span>(foo));</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">function</span> <span class="title function_">catCatch</span>(<span class="params">foo</span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">function</span> (<span class="params">args</span>) &#123;</span><br><span class="line">    <span class="keyword">let</span> msg = args.<span class="property">stack</span> ? args.<span class="property">stack</span> : args;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;捕获到catch中的异常&quot;</span>, msg);</span><br><span class="line">    foo &amp;&amp; foo.<span class="title function_">call</span>(<span class="variable language_">this</span>, args);</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 监听promise未处理的reject错误, 跨域情况下监控不到</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="variable language_">window</span>.<span class="title function_">addEventListener</span>(<span class="string">&quot;unhandledrejection&quot;</span>, <span class="function">(<span class="params">event</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;捕获到未处理的promise异常&quot;</span>, event.<span class="property">reson</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h4 id="vue-项目全局异常捕获"><a href="#vue-项目全局异常捕获" class="headerlink" title="vue 项目全局异常捕获"></a>vue 项目全局异常捕获</h4><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="title class_">Vue</span>.<span class="property">config</span>.<span class="property">errorHandler</span> = <span class="keyword">function</span> (<span class="params">err, vm, info</span>) &#123;</span><br><span class="line">  <span class="comment">// `info` 是 Vue 特定的错误信息，比如错误所在的生命周期钩子</span></span><br><span class="line">  <span class="comment">// 只在 2.2.0+ 可用</span></span><br><span class="line">  <span class="keyword">let</span> msg = <span class="string">`错误发生在：<span class="subst">$&#123;info&#125;</span>中，具体信息：<span class="subst">$&#123;err.stack&#125;</span>`</span>;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(msg);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>捕获到这些异常后我们需要将这些异常上报给服务器，我们直接以请求图片的形式发送上报内容</p>
+<h3 id="异常上报"><a href="#异常上报" class="headerlink" title="异常上报"></a>异常上报</h3><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">report</span>(<span class="params">msg</span>) &#123;</span><br><span class="line">  <span class="keyword">var</span> reportUrl = <span class="string">&quot;http://xxxx/report&quot;</span>;</span><br><span class="line">  <span class="keyword">new</span> <span class="title class_">Image</span>().<span class="property">src</span> = reportUrl + <span class="built_in">encodeURIComponent</span>(<span class="title class_">JSON</span>.<span class="title function_">stringify</span>(msg));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+        
+            <div id="toc-article">
+                
+  <div class="widget-wrap" id="toc-wrap">
+    <h3 class="widget-title"><i class="fa fa-toc"></i> 文章目录</h3>
+    <div class="widget">
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A1%B5%E9%9D%A2%E5%BC%82%E5%B8%B8%E5%88%86%E7%B1%BB"><span class="toc-text">页面异常分类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%89%8D%E7%AB%AF%E9%A1%B5%E9%9D%A2%E5%BC%82%E5%B8%B8%E6%8D%95%E8%8E%B7%E6%96%B9%E5%BC%8F"><span class="toc-text">前端页面异常捕获方式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#window-onerror-%E6%8D%95%E8%8E%B7-javascript-%E5%BC%82%E5%B8%B8"><span class="toc-text">window.onerror 捕获 javascript 异常</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%B7%A8%E5%9F%9F%E8%84%9A%E6%9C%AC%E5%BC%82%E5%B8%B8%E6%8D%95%E8%8E%B7"><span class="toc-text">跨域脚本异常捕获</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#window-addEventListener-%E2%80%98error%E2%80%99-cb-true-%E6%8D%95%E8%8E%B7%E8%B5%84%E6%BA%90%E5%8A%A0%E8%BD%BD%E5%BC%82%E5%B8%B8"><span class="toc-text">window.addEventListener(‘error’,cb,true)捕获资源加载异常</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ajax-%E6%8E%A5%E5%8F%A3%E8%AF%B7%E6%B1%82%E5%BC%82%E5%B8%B8%E6%8D%95%E8%8E%B7"><span class="toc-text">ajax 接口请求异常捕获</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#promise-%E5%BC%82%E5%B8%B8%E6%8D%95%E8%8E%B7"><span class="toc-text">promise 异常捕获</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#vue-%E9%A1%B9%E7%9B%AE%E5%85%A8%E5%B1%80%E5%BC%82%E5%B8%B8%E6%8D%95%E8%8E%B7"><span class="toc-text">vue 项目全局异常捕获</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%82%E5%B8%B8%E4%B8%8A%E6%8A%A5"><span class="toc-text">异常上报</span></a></li></ol>
+    </div>
+  </div>
+
+
+            </div>
+        
+        
+          <blockquote id="copyright">
+              <p>原文链接: <a href="https://jesse121.github.io/articles/2020/01/11.html">https://jesse121.github.io/articles/2020/01/11.html</a></p>
+              <p>版权声明: 转载请注明出处.</p>
+          </blockquote>
+        
+      
+    </div>
+    <footer class="article-footer">
+      
+        <div class="article-tag-wrap">
+          
+
+          
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/monitor/" rel="tag">monitor</a></li></ul>
+
+          
+
+
+        </div>
+      
+      
+        
+<nav id="article-nav">
+  
+    <a href="/blog/articles/2019/10/20.html" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">older</strong>
+      <div class="article-nav-title">
+        
+          解读setTimeout, promise.then, process.nextTick, setImmediate的执行顺序
+        
+      </div>
+    </a>
+  
+  
+    <a href="/blog/articles/2020/02/18.html" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">newer</strong>
+      <div class="article-nav-title">
+        
+          Mac OS下如何把软件卸载干净？
+        
+      </div>
+    </a>
+  
+</nav>
+
+      
+      
+        
+  <div id="comments"></div>
+
+
+
+
+
+
+
+
+
+      
+    </footer>
+  </div>
+</article>
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-posts"></i> 最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/blog/articles/2021/06/11.html">如何用Vite快速搭建一个vue3项目</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2020/12/15.html">如何快速生成tsconfig.json文件</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2020/08/22.html">用Ssh连接docker容器</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2020/07/04.html">如何在Vscode上直接运行typescript?</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2020/06/13.html">Wireshark过滤器使用介绍</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2020/05/13.html">Webpack编译后的html中图片路径变为[object Module]的原因及解决办法</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2020/05/02.html">栈与队列</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2020/04/19.html">链表</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2020/04/19.html">算法的时间复杂度与空间复杂度分析</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2020/04/12.html">如何使用Wireshark抓取HTTP2报文？</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-tag"></i> 标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/blog/tags/angularjs/" style="font-size: 10px;">AngularJs</a> <a href="/blog/tags/apache/" style="font-size: 14px;">Apache</a> <a href="/blog/tags/bootstrap/" style="font-size: 14px;">Bootstrap</a> <a href="/blog/tags/css/" style="font-size: 18px;">CSS</a> <a href="/blog/tags/centos/" style="font-size: 10px;">CentOS</a> <a href="/blog/tags/docker/" style="font-size: 14px;">Docker</a> <a href="/blog/tags/git/" style="font-size: 12px;">Git</a> <a href="/blog/tags/gitlab/" style="font-size: 10px;">Gitlab</a> <a href="/blog/tags/gulp/" style="font-size: 10px;">Gulp</a> <a href="/blog/tags/html/" style="font-size: 14px;">HTML</a> <a href="/blog/tags/html5/" style="font-size: 10px;">HTML5</a> <a href="/blog/tags/http/" style="font-size: 14px;">HTTP</a> <a href="/blog/tags/https/" style="font-size: 10px;">HTTPS</a> <a href="/blog/tags/javascript/" style="font-size: 20px;">JavaScript</a> <a href="/blog/tags/jenkins/" style="font-size: 10px;">Jenkins</a> <a href="/blog/tags/linux/" style="font-size: 12px;">Linux</a> <a href="/blog/tags/mac/" style="font-size: 10px;">Mac</a> <a href="/blog/tags/mysql/" style="font-size: 14px;">MySQL</a> <a href="/blog/tags/nginx/" style="font-size: 12px;">Nginx</a> <a href="/blog/tags/node-js/" style="font-size: 12px;">Node.js</a> <a href="/blog/tags/php/" style="font-size: 16px;">PHP</a> <a href="/blog/tags/photoshop/" style="font-size: 10px;">Photoshop</a> <a href="/blog/tags/react/" style="font-size: 10px;">React</a> <a href="/blog/tags/redux/" style="font-size: 10px;">Redux</a> <a href="/blog/tags/sublimetext3/" style="font-size: 10px;">SublimeText3</a> <a href="/blog/tags/typescript/" style="font-size: 12px;">Typescript</a> <a href="/blog/tags/vagrant/" style="font-size: 10px;">Vagrant</a> <a href="/blog/tags/vim/" style="font-size: 10px;">Vim</a> <a href="/blog/tags/vue/" style="font-size: 10px;">Vue</a> <a href="/blog/tags/web/" style="font-size: 16px;">WEB</a> <a href="/blog/tags/webpack/" style="font-size: 14px;">Webpack</a> <a href="/blog/tags/wireshark/" style="font-size: 12px;">Wireshark</a> <a href="/blog/tags/yii/" style="font-size: 10px;">Yii</a> <a href="/blog/tags/jquery/" style="font-size: 14px;">jQuery</a> <a href="/blog/tags/monitor/" style="font-size: 10px;">monitor</a> <a href="/blog/tags/ssh/" style="font-size: 10px;">ssh</a> <a href="/blog/tags/vite/" style="font-size: 10px;">vite</a> <a href="/blog/tags/vscode/" style="font-size: 10px;">vscode</a> <a href="/blog/tags/vue/" style="font-size: 10px;">vue</a> <a href="/blog/tags/%E5%BC%80%E5%8F%91%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/" style="font-size: 10px;">开发问题记录</a> <a href="/blog/tags/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F/" style="font-size: 10px;">微信小程序</a> <a href="/blog/tags/%E7%AE%97%E6%B3%95/" style="font-size: 14px;">算法</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-classify"></i> 分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/blog/categories/bootstrap/">Bootstrap</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/html-css/">HTML-CSS</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/html5/">HTML5</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/javascript/">JavaScript</a><span class="category-list-count">11</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/linux/">Linux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/mysql/">MySQL</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/node-js/">Node.js</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/php/">PHP</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/photoshop/">Photoshop</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/typescript/">Typescript</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/vue/">Vue</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/web/">WEB</a><span class="category-list-count">8</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/jquery/">jQuery</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/translation/">前端翻译</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/">开发工具</a><span class="category-list-count">15</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/%E5%BC%80%E5%8F%91%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/">开发问题记录</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/%E7%AE%97%E6%B3%95/">算法</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/notes/">读书笔记</a><span class="category-list-count">16</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-archive"></i> 归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2021/">2021年</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2020/">2020年</a><span class="archive-list-count">12</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2019/">2019年</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/">2018年</a><span class="archive-list-count">12</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2017/">2017年</a><span class="archive-list-count">26</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/">2016年</a><span class="archive-list-count">27</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-link"></i> 友情链接</h3>
+    <div class="widget">
+      <ul>
+      
+        <li>
+          <a target="_blank" rel="noopener" href="http://www.mahaixiang.cn/internet/300.html">深入理解互联网协议的原理</a>
+        </li>
+      
+        <li>
+          <a target="_blank" rel="noopener" href="http://javascript.ruanyifeng.com/">JavaScript 标准参考教程</a>
+        </li>
+      
+        <li>
+          <a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript">Mozilla Developer Network</a>
+        </li>
+      
+      </ul>
+    </div>
+  </div>
+
+
+  
+</aside>
+        
+      </div>
+      <a id="totop" href="#top"></a>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      <p>
+        <a href="/blog/sitemap.xml">网站地图</a>
+        <span> | </span><a href="/blog/atom.xml">订阅本站</a>
+        <span> | </span><a href="/blog/about/">联系博主</a>
+      </p>
+      
+        <p>
+          <i class="fa fa-visitors"></i>
+          <i id="busuanzi_container_site_uv"><i id="busuanzi_value_site_uv"></i></i>
+          ，
+          <i class="fa fa-views"></i>
+          <i id="busuanzi_container_site_pv"><i id="busuanzi_value_site_pv"></i></i>
+        </p>
+      
+      <p>
+        <span>Copyright &copy; 2022 Jesse.</span>
+        <span>Theme by <a href="https://github.com/chaooo/hexo-theme-BlueLake/" target="_blank">BlueLake.</a></span>
+        <span>Powered by <a href="https://hexo.io/" target="_blank">Hexo.</a></span>
+      </p>
+    </div>
+  </div>
+</footer>
+
+    </div>
+  </div>
+  
+<script src="/blog/js/jquery-3.4.1.min.js"></script>
+
+
+<script src="/blog/js/search.json.js"></script>
+
+
+  
+<script src="/blog/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/blog/js/script.js"></script>
+
+
+
+
+
+
+  
+<script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+  
+  
+
+
+  
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+ 
+<script src="//cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.js"></script>
+
+<script>
+  var gitalk = new Gitalk({
+    clientID: "1d84813ae13cd94072f0",
+    clientSecret: "4a4dd2af0c622e983dd90f5daf15c3ebd86b8ae9",
+    repo: "blog",
+    owner: "jesse121",
+    admin: ["jesse121"],
+    id: md5(window.location.pathname),
+    proxy: "https://gitalk-worker.jesse121.workers.dev/https://github.com/login/oauth/access_token,",
+    distractionFreeMode: false,
+    language: "zh-CN",
+    pagerDirection: "last",
+  });
+  gitalk.render("comments");
+</script>
+         
+
+
+
+</body>
+</html>

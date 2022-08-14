@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>CSS中各种长度单位总结 | 前端之路</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  
+    <meta name="description" content="专注前端开发，前端开发技术博客">
+  
+  
+    <meta name="keywords" content="Web前端开发，Javascript，前端开发博客">
+  
+  
+    <link rel="alternate" href="/blog/atom.xml" title="前端之路" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/blog/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/blog/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/blog/fancybox/jquery.fancybox.min.css">
+
+  
+  
+  
+    
+<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+
+  
+  
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/blog/" id="logo">前端之路</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/blog/" id="subtitle">路漫漫其修远兮，吾将上下而求索</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        
+          <a class="main-nav-link" href="/blog/."><i class="fa fa-home"></i> 首页</a>
+        
+          <a class="main-nav-link" href="/blog/archives/"><i class="fa fa-archive"></i> 归档</a>
+        
+          <a class="main-nav-link" href="/blog/about/"><i class="fa fa-user"></i> 关于</a>
+        
+      </nav>
+    </div>
+    <div id="search-form">
+      <div id="result-mask" class="hide"></div>
+      <label><input id="search-key" type="text" autocomplete="off" placeholder="搜索"></label>
+      <div id="result-wrap" class="hide">
+        <div id="search-result"></div>
+      </div>
+      <div class="hide">
+        <template id="search-tpl">
+          <div class="item">
+            <a href="/{path}" title="{title}">
+              <div class="title">{title}</div>
+              <div class="time">{date}</div>
+              <div class="tags">{tags}</div>
+            </a>
+          </div>
+        </template>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-html-css/CSS中各种长度单位总结" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      CSS中各种长度单位总结
+    </h1>
+  
+
+
+      </header>
+    
+    <div class="article-meta">
+      
+      <span class="article-date">
+  <i class="fa fa-date"></i>
+  <time class="dt-published" datetime="2017-07-27T23:48:54.000Z" itemprop="datePublished">2017年07月28日</time>
+</span>
+      
+  <div class="article-category">
+    <i class="fa fa-classify"></i>
+    <a class="article-category-link" href="/blog/categories/html-css/">HTML-CSS</a>
+  </div>
+
+      
+        <span class="article-views">
+  <i class="fa fa-views"></i>
+  <i id="busuanzi_container_page_pv">
+      <i id="busuanzi_value_page_pv"></i>
+  </i>
+</span>
+
+      
+      
+<a href="/blog/articles/2017/07/28.html#comments" class="article-comment-link">
+  
+    
+    
+    
+    
+    
+  
+  <i class="fa fa-commt"></i>
+  留言
+</a>
+
+
+    </div>
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>在前端开发工作过程中曾碰到这样一问题:</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span> <span class="attr">type</span>=<span class="string">&quot;text/css&quot;</span>&gt;</span><span class="language-css"></span></span><br><span class="line"><span class="language-css"><span class="selector-class">.parent</span>&#123; <span class="attribute">width</span>:<span class="number">400px</span>; <span class="attribute">height</span>:<span class="number">300px</span>; <span class="attribute">border</span>:<span class="number">1px</span> solid <span class="number">#ccc</span>; &#125;</span></span><br><span class="line"><span class="language-css"><span class="selector-class">.child</span>&#123; <span class="attribute">margin</span>:<span class="number">10%</span>; <span class="attribute">background-color</span>: red; &#125;</span></span><br><span class="line"><span class="language-css"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;parent&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;child&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>问这类名为child元素在网页中显示的高宽？  </p>
+<span id="more"></span>
+<p>答案：width:320px;height:160px;<br>如果您的答案正确，那说明您CSS功底比较强，如果您也不知所以然，希望这篇博文对您有所帮助  </p>
+<h3 id="CSS中长度单位类型"><a href="#CSS中长度单位类型" class="headerlink" title="CSS中长度单位类型"></a>CSS中长度单位类型</h3><p>css中长度单位有很多，可谓五花八门，但可分为这两类：</p>
+<ol>
+<li>绝对长度单位<br>彼此固定，不会因为其他元素的尺寸变化而变化。主要有<code>cm</code> <code>mm</code> <code>Q</code> <code>in</code> <code>pc</code> <code>pt</code> <code>px</code></li>
+<li>相对长度单位<br>指定相对于另一长度的长度。主要有<code>em</code> <code>ex</code> <code>ch</code> <code>rem</code> <code>%</code>和可视区百分比长度单位 <code>vm</code> <code>vh</code> <code>vmin</code> <code>vmax</code></li>
+</ol>
+<p>由于各种单位比较多，我们这里只介绍常用的一些单位,其他单位的详细情况可查询<a target="_blank" rel="noopener" href="https://www.w3.org/TR/css3-values/#absolute-lengths">W3C规范</a>  </p>
+<h4 id="px"><a href="#px" class="headerlink" title="px"></a>px</h4><p>px单位名称为像素，像素是固定大小的单元,用于屏幕媒体(即在电脑屏幕上读取)。一个像素等于电脑屏幕上的一个点 (是你屏幕分辨率的最小分割)。许多网页设计师在web文档使用像素单位以生产浏览器渲染的像素完美呈现的网站。</p>
+<p>像素单位的一个问题是在IE下无法用浏览器字体缩放的功能(影响不是很大)。</p>
+<h4 id=""><a href="#" class="headerlink" title="%"></a>%</h4><p>百分比是一个相对长度单位，相对于包含块（containing block）的高宽或字体大小。<br>关于包含块（containing block）的概念，不能简单地理解成是父元素。<br>如果是静态定位和相对定位，包含块一般就是其父元素。<br>如果是绝对定位的元素，包含块应该是离它最近的 position为非static属性的祖先元素。<br>如果是固定定位的元素，它的包含块是视口（viewport）。<br>具体可以参考 <a target="_blank" rel="noopener" href="http://www.w3help.org/zh-cn/kb/008/">W3Help</a>。</p>
+<p>在使用百分比单位的时候，最让人困惑的就是不清楚它到底是相对于谁计算的，下面将详细介绍列出</p>
+<ul>
+<li><p>相对于包含块的宽度<br>left、right、<br>width、max-width、min-width、<br>margin、padding、<br>text-indent;  </p>
+</li>
+<li><p>相对于包含块的高度<br>top、 bottom、<br>height、 max-height、 min-height;  </p>
+</li>
+<li><p>相对于自身的高宽<br>border-radius、background-size、transform: translate()、transform-origin、zoom(css3缩放)、clip-path </p>
+</li>
+<li><p>相对于自身的字体大小<br>line-height</p>
+</li>
+<li><p>相对于自身的行高（不常用）<br>vertical-align</p>
+</li>
+<li><p>相对于继承字体大小<br>font-size </p>
+</li>
+<li><p>特殊对象  </p>
+<ul>
+<li>背景定位中的百分比 background-position 分别设置水平方向和垂直方向上的两个值，如果使用百分比，那么百分比值会同时应用于元素和图像。例如 50% 50% 会把图片的（50%, 50%）这一点与框的（50%, 50%）处对齐，相当于设置了 center center。同理 0% 0% 相当于 left top，100% 100% 相当于 right bottom。  </li>
+<li>filter(css3滤镜，不常用) <code>filter: none | blur(%) | brightness(%) | contrast(%) | drop-shadow(%) | grayscale(%) | hue-rotate(%) | invert(%) | opacity(%) | saturate(%) | sepia(%) | url(%);</code></li>
+</ul>
+</li>
+</ul>
+<h5 id="百分比的继承"><a href="#百分比的继承" class="headerlink" title="百分比的继承"></a>百分比的继承</h5><p>如果某个元素设置了百分比的属性，则后代元素继承的是计算后的值。例如：</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">p</span> &#123; <span class="attribute">font-size</span>: <span class="number">10px</span>;<span class="attribute">line-height</span>: <span class="number">120%</span>; &#125;</span><br></pre></td></tr></table></figure>
+<p>那么p的子元素继承到的值是 line-height: 12px，而不是 line-height: 120%。</p>
+<h4 id="em"><a href="#em" class="headerlink" title="em"></a>em</h4><p>em是相对字体长度单位。如果用于font-size属性本身，则是相对于父元素的font-size。若用于其他属性（width,height），则是相对于本身元素的font-size。国外使用比较多；</p>
+<p>em单位有如下特点：</p>
+<ol>
+<li>em的值并不是固定的;</li>
+<li>em会继承父级元素的字体大小。</li>
+</ol>
+<p>我们知道任意浏览器的默认字体大小都是16px。所有未经调整的浏览器都符合: 1em&#x3D;16px。那么12px&#x3D;0.75em,10px&#x3D;0.625em。为了简化font-size的换算，需要在css中的body选择器中声明font-size&#x3D;62.5%，这就使em值变为 16px*62.5%&#x3D;10px, 这样12px&#x3D;1.2em, 10px&#x3D;1em, 也就是说只需要将你的原来的px数值除以10，然后换上em作为单位就行了。</p>
+<p>em是继承父元素的字体大小，可是当父元素字体大小改变时，又得重新计算了，这不怎么方便，还好rem解决了这个问题</p>
+<h4 id="rem"><a href="#rem" class="headerlink" title="rem"></a>rem</h4><p>rem是CSS3新增的一个相对字体长度单位，只相对根元素即html元素字体大小<br>所以我们只要在html标签上设置字体大小为标准，文档中的字体大小都会以此为参照</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">html</span>&#123;<span class="attribute">font-size</span>:<span class="number">62.5%</span>; &#125;</span><br><span class="line"><span class="selector-tag">body</span>&#123;<span class="attribute">font-size</span>:<span class="number">12px</span>;<span class="attribute">font-size</span>:<span class="number">1.2rem</span> ;&#125;</span><br><span class="line"><span class="selector-tag">p</span>&#123;<span class="attribute">font-size</span>:<span class="number">14px</span>;<span class="attribute">font-size</span>:<span class="number">1.4rem</span>;&#125;</span><br></pre></td></tr></table></figure>
+<p>兼容性：</p>
+<blockquote>
+<p>IE 9 &amp; IE 10 do not support rem units when used in the font shorthand property (the entire declaration is ignored) or when used on pseudo elements.</p>
+</blockquote>
+<p>IE9&#x2F;10中font缩写和伪元素中不支持rem单位<br>IE9&#x2F;10部分支持，IE11+、Firefox、Chrome、Safari、Opera 的主流版本都支持，为了兼容不支持 rem 的浏览器，我们需要在 rem 前面写上对应的 px 值，这样不支持的浏览器可以优雅降级。</p>
+<h4 id="vm-vh-vmin-vmax"><a href="#vm-vh-vmin-vmax" class="headerlink" title="vm vh vmin vmax"></a>vm vh vmin vmax</h4><p>响应式布局的实现依靠媒体查询（ Media Queries ）来实现，选取主流设备宽度尺寸作为断点针对性写额外的样式进行适配，但这样做会比较麻烦，只能在选取的几个主流设备尺寸下呈现完美适配。CSS3中引入一种新的办法去真正地适配所有设备尺寸。</p>
+<h5 id="视口单位"><a href="#视口单位" class="headerlink" title="视口单位"></a>视口单位</h5><p>视口在桌面端，指的是浏览器的可视区域；而在移动端较为复杂，它涉及到三个视口：分别是 Layout Viewport（布局视口）、 Visual Viewport（视觉视口）、Ideal Viewport。<br>视口单位中的“视口”，在桌面端，毫无疑问指的就是浏览器的可视区域；但是在移动端，它指的则是Layout Viewport（布局视口） 。</p>
+<p>根据CSS3规范，视口单位主要包括以下4个：</p>
+<ul>
+<li>vw : 1vw 等于视口宽度的1%</li>
+<li>vh : 1vh 等于视口高度的1%</li>
+<li>vmin : 选取 vw 和 vh 中最小的那个</li>
+<li>vmax : 选取 vw 和 vh 中最大的那个</li>
+</ul>
+<h5 id="兼容性"><a href="#兼容性" class="headerlink" title="兼容性"></a>兼容性</h5><p>在PC端用的很少，主要在移动端<br>在移动端 ios 8 以上以及 Android 4.4 以上获得支持，并且在微信 x5 内核中也得到完美的全面支持。</p>
+<h5 id="搭配vw和rem，布局更优化"><a href="#搭配vw和rem，布局更优化" class="headerlink" title="搭配vw和rem，布局更优化"></a>搭配vw和rem，布局更优化</h5><ul>
+<li>给根元素大小设置随着视口变化而变化的 vw 单位，这样就可以实现动态改变其大小。</li>
+<li>限制根元素字体大小的最大最小值，配合 body 加上最大宽度和最小宽度</li>
+</ul>
+<h4 id="个人总结"><a href="#个人总结" class="headerlink" title="个人总结"></a>个人总结</h4><p>在一般的PC端网页制作过程中，一般直接用px为单位，在移动端由于vw,vh单位的兼容性，目前一般采用rem + %或者rem + vw&#x2F;vh。</p>
+<h4 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h4><blockquote>
+<p><a target="_blank" rel="noopener" href="https://www.w3.org/TR/css3-values/#lengths">CSS Values and Units Module Level 3</a><br><a target="_blank" rel="noopener" href="http://www.w3help.org/zh-cn/kb/008/">KB008: 包含块( Containing block )</a><br><a target="_blank" rel="noopener" href="https://www.zhihu.com/question/36079531/answer/67758806">css样式的百分比都相对于谁？</a><br><a target="_blank" rel="noopener" href="http://css.doyoe.com/">CSS参考手册</a><br><a target="_blank" rel="noopener" href="http://caibaojian.com/vw-vh.html">纯CSS3使用vw和vh视口单位实现自适应</a></p>
+</blockquote>
+
+        
+            <div id="toc-article">
+                
+  <div class="widget-wrap" id="toc-wrap">
+    <h3 class="widget-title"><i class="fa fa-toc"></i> 文章目录</h3>
+    <div class="widget">
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#CSS%E4%B8%AD%E9%95%BF%E5%BA%A6%E5%8D%95%E4%BD%8D%E7%B1%BB%E5%9E%8B"><span class="toc-text">CSS中长度单位类型</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#px"><span class="toc-text">px</span></a></li><li class="toc-item toc-level-4"><a class="toc-link"><span class="toc-text">%</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%99%BE%E5%88%86%E6%AF%94%E7%9A%84%E7%BB%A7%E6%89%BF"><span class="toc-text">百分比的继承</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#em"><span class="toc-text">em</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#rem"><span class="toc-text">rem</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#vm-vh-vmin-vmax"><span class="toc-text">vm vh vmin vmax</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%A7%86%E5%8F%A3%E5%8D%95%E4%BD%8D"><span class="toc-text">视口单位</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%85%BC%E5%AE%B9%E6%80%A7"><span class="toc-text">兼容性</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%90%AD%E9%85%8Dvw%E5%92%8Crem%EF%BC%8C%E5%B8%83%E5%B1%80%E6%9B%B4%E4%BC%98%E5%8C%96"><span class="toc-text">搭配vw和rem，布局更优化</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%AA%E4%BA%BA%E6%80%BB%E7%BB%93"><span class="toc-text">个人总结</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E7%AB%A0"><span class="toc-text">参考文章</span></a></li></ol></li></ol>
+    </div>
+  </div>
+
+
+            </div>
+        
+        
+          <blockquote id="copyright">
+              <p>原文链接: <a href="https://jesse121.github.io/articles/2017/07/28.html">https://jesse121.github.io/articles/2017/07/28.html</a></p>
+              <p>版权声明: 转载请注明出处.</p>
+          </blockquote>
+        
+      
+    </div>
+    <footer class="article-footer">
+      
+        <div class="article-tag-wrap">
+          
+
+          
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/css/" rel="tag">CSS</a></li></ul>
+
+          
+
+
+        </div>
+      
+      
+        
+<nav id="article-nav">
+  
+    <a href="/blog/articles/2017/07/18.html" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">older</strong>
+      <div class="article-nav-title">
+        
+          innerHTML,innerText,textContent的区别详解
+        
+      </div>
+    </a>
+  
+  
+    <a href="/blog/articles/2017/08/08.html" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">newer</strong>
+      <div class="article-nav-title">
+        
+          常用的Git命令整理
+        
+      </div>
+    </a>
+  
+</nav>
+
+      
+      
+        
+  <div id="comments"></div>
+
+
+
+
+
+
+
+
+
+      
+    </footer>
+  </div>
+</article>
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-posts"></i> 最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/blog/articles/2021/06/11.html">如何用Vite快速搭建一个vue3项目</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2020/12/15.html">如何快速生成tsconfig.json文件</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2020/08/22.html">用Ssh连接docker容器</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2020/07/04.html">如何在Vscode上直接运行typescript?</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2020/06/13.html">Wireshark过滤器使用介绍</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2020/05/13.html">Webpack编译后的html中图片路径变为[object Module]的原因及解决办法</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2020/05/02.html">栈与队列</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2020/04/19.html">链表</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2020/04/19.html">算法的时间复杂度与空间复杂度分析</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2020/04/12.html">如何使用Wireshark抓取HTTP2报文？</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-tag"></i> 标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/blog/tags/angularjs/" style="font-size: 10px;">AngularJs</a> <a href="/blog/tags/apache/" style="font-size: 14px;">Apache</a> <a href="/blog/tags/bootstrap/" style="font-size: 14px;">Bootstrap</a> <a href="/blog/tags/css/" style="font-size: 18px;">CSS</a> <a href="/blog/tags/centos/" style="font-size: 10px;">CentOS</a> <a href="/blog/tags/docker/" style="font-size: 14px;">Docker</a> <a href="/blog/tags/git/" style="font-size: 12px;">Git</a> <a href="/blog/tags/gitlab/" style="font-size: 10px;">Gitlab</a> <a href="/blog/tags/gulp/" style="font-size: 10px;">Gulp</a> <a href="/blog/tags/html/" style="font-size: 14px;">HTML</a> <a href="/blog/tags/html5/" style="font-size: 10px;">HTML5</a> <a href="/blog/tags/http/" style="font-size: 14px;">HTTP</a> <a href="/blog/tags/https/" style="font-size: 10px;">HTTPS</a> <a href="/blog/tags/javascript/" style="font-size: 20px;">JavaScript</a> <a href="/blog/tags/jenkins/" style="font-size: 10px;">Jenkins</a> <a href="/blog/tags/linux/" style="font-size: 12px;">Linux</a> <a href="/blog/tags/mac/" style="font-size: 10px;">Mac</a> <a href="/blog/tags/mysql/" style="font-size: 14px;">MySQL</a> <a href="/blog/tags/nginx/" style="font-size: 12px;">Nginx</a> <a href="/blog/tags/node-js/" style="font-size: 12px;">Node.js</a> <a href="/blog/tags/php/" style="font-size: 16px;">PHP</a> <a href="/blog/tags/photoshop/" style="font-size: 10px;">Photoshop</a> <a href="/blog/tags/react/" style="font-size: 10px;">React</a> <a href="/blog/tags/redux/" style="font-size: 10px;">Redux</a> <a href="/blog/tags/sublimetext3/" style="font-size: 10px;">SublimeText3</a> <a href="/blog/tags/typescript/" style="font-size: 12px;">Typescript</a> <a href="/blog/tags/vagrant/" style="font-size: 10px;">Vagrant</a> <a href="/blog/tags/vim/" style="font-size: 10px;">Vim</a> <a href="/blog/tags/vue/" style="font-size: 10px;">Vue</a> <a href="/blog/tags/web/" style="font-size: 16px;">WEB</a> <a href="/blog/tags/webpack/" style="font-size: 14px;">Webpack</a> <a href="/blog/tags/wireshark/" style="font-size: 12px;">Wireshark</a> <a href="/blog/tags/yii/" style="font-size: 10px;">Yii</a> <a href="/blog/tags/jquery/" style="font-size: 14px;">jQuery</a> <a href="/blog/tags/monitor/" style="font-size: 10px;">monitor</a> <a href="/blog/tags/ssh/" style="font-size: 10px;">ssh</a> <a href="/blog/tags/vite/" style="font-size: 10px;">vite</a> <a href="/blog/tags/vscode/" style="font-size: 10px;">vscode</a> <a href="/blog/tags/vue/" style="font-size: 10px;">vue</a> <a href="/blog/tags/%E5%BC%80%E5%8F%91%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/" style="font-size: 10px;">开发问题记录</a> <a href="/blog/tags/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F/" style="font-size: 10px;">微信小程序</a> <a href="/blog/tags/%E7%AE%97%E6%B3%95/" style="font-size: 14px;">算法</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-classify"></i> 分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/blog/categories/bootstrap/">Bootstrap</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/html-css/">HTML-CSS</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/html5/">HTML5</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/javascript/">JavaScript</a><span class="category-list-count">11</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/linux/">Linux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/mysql/">MySQL</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/node-js/">Node.js</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/php/">PHP</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/photoshop/">Photoshop</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/typescript/">Typescript</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/vue/">Vue</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/web/">WEB</a><span class="category-list-count">8</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/jquery/">jQuery</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/translation/">前端翻译</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/">开发工具</a><span class="category-list-count">15</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/%E5%BC%80%E5%8F%91%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/">开发问题记录</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/%E7%AE%97%E6%B3%95/">算法</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/notes/">读书笔记</a><span class="category-list-count">16</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-archive"></i> 归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2021/">2021年</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2020/">2020年</a><span class="archive-list-count">12</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2019/">2019年</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/">2018年</a><span class="archive-list-count">12</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2017/">2017年</a><span class="archive-list-count">26</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/">2016年</a><span class="archive-list-count">27</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-link"></i> 友情链接</h3>
+    <div class="widget">
+      <ul>
+      
+        <li>
+          <a target="_blank" rel="noopener" href="http://www.mahaixiang.cn/internet/300.html">深入理解互联网协议的原理</a>
+        </li>
+      
+        <li>
+          <a target="_blank" rel="noopener" href="http://javascript.ruanyifeng.com/">JavaScript 标准参考教程</a>
+        </li>
+      
+        <li>
+          <a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript">Mozilla Developer Network</a>
+        </li>
+      
+      </ul>
+    </div>
+  </div>
+
+
+  
+</aside>
+        
+      </div>
+      <a id="totop" href="#top"></a>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      <p>
+        <a href="/blog/sitemap.xml">网站地图</a>
+        <span> | </span><a href="/blog/atom.xml">订阅本站</a>
+        <span> | </span><a href="/blog/about/">联系博主</a>
+      </p>
+      
+        <p>
+          <i class="fa fa-visitors"></i>
+          <i id="busuanzi_container_site_uv"><i id="busuanzi_value_site_uv"></i></i>
+          ，
+          <i class="fa fa-views"></i>
+          <i id="busuanzi_container_site_pv"><i id="busuanzi_value_site_pv"></i></i>
+        </p>
+      
+      <p>
+        <span>Copyright &copy; 2022 Jesse.</span>
+        <span>Theme by <a href="https://github.com/chaooo/hexo-theme-BlueLake/" target="_blank">BlueLake.</a></span>
+        <span>Powered by <a href="https://hexo.io/" target="_blank">Hexo.</a></span>
+      </p>
+    </div>
+  </div>
+</footer>
+
+    </div>
+  </div>
+  
+<script src="/blog/js/jquery-3.4.1.min.js"></script>
+
+
+<script src="/blog/js/search.json.js"></script>
+
+
+  
+<script src="/blog/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/blog/js/script.js"></script>
+
+
+
+
+
+
+  
+<script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+  
+  
+
+
+  
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+ 
+<script src="//cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.js"></script>
+
+<script>
+  var gitalk = new Gitalk({
+    clientID: "1d84813ae13cd94072f0",
+    clientSecret: "4a4dd2af0c622e983dd90f5daf15c3ebd86b8ae9",
+    repo: "blog",
+    owner: "jesse121",
+    admin: ["jesse121"],
+    id: md5(window.location.pathname),
+    proxy: "https://gitalk-worker.jesse121.workers.dev/https://github.com/login/oauth/access_token,",
+    distractionFreeMode: false,
+    language: "zh-CN",
+    pagerDirection: "last",
+  });
+  gitalk.render("comments");
+</script>
+         
+
+
+
+</body>
+</html>

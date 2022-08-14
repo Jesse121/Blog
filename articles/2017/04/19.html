@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Apache Web服务器安全配置 | 前端之路</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  
+    <meta name="description" content="专注前端开发，前端开发技术博客">
+  
+  
+    <meta name="keywords" content="Web前端开发，Javascript，前端开发博客">
+  
+  
+    <link rel="alternate" href="/blog/atom.xml" title="前端之路" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/blog/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/blog/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/blog/fancybox/jquery.fancybox.min.css">
+
+  
+  
+  
+    
+<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+
+  
+  
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/blog/" id="logo">前端之路</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/blog/" id="subtitle">路漫漫其修远兮，吾将上下而求索</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        
+          <a class="main-nav-link" href="/blog/."><i class="fa fa-home"></i> 首页</a>
+        
+          <a class="main-nav-link" href="/blog/archives/"><i class="fa fa-archive"></i> 归档</a>
+        
+          <a class="main-nav-link" href="/blog/about/"><i class="fa fa-user"></i> 关于</a>
+        
+      </nav>
+    </div>
+    <div id="search-form">
+      <div id="result-mask" class="hide"></div>
+      <label><input id="search-key" type="text" autocomplete="off" placeholder="搜索"></label>
+      <div id="result-wrap" class="hide">
+        <div id="search-result"></div>
+      </div>
+      <div class="hide">
+        <template id="search-tpl">
+          <div class="item">
+            <a href="/{path}" title="{title}">
+              <div class="title">{title}</div>
+              <div class="time">{date}</div>
+              <div class="tags">{tags}</div>
+            </a>
+          </div>
+        </template>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-web/Apache Web服务器安全配置" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      Apache Web服务器安全配置
+    </h1>
+  
+
+
+      </header>
+    
+    <div class="article-meta">
+      
+      <span class="article-date">
+  <i class="fa fa-date"></i>
+  <time class="dt-published" datetime="2017-04-18T16:00:00.000Z" itemprop="datePublished">2017年04月19日</time>
+</span>
+      
+  <div class="article-category">
+    <i class="fa fa-classify"></i>
+    <a class="article-category-link" href="/blog/categories/web/">WEB</a>
+  </div>
+
+      
+        <span class="article-views">
+  <i class="fa fa-views"></i>
+  <i id="busuanzi_container_page_pv">
+      <i id="busuanzi_value_page_pv"></i>
+  </i>
+</span>
+
+      
+      
+<a href="/blog/articles/2017/04/19.html#comments" class="article-comment-link">
+  
+    
+    
+    
+    
+    
+  
+  <i class="fa fa-commt"></i>
+  留言
+</a>
+
+
+    </div>
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>尽管现在购买的云服务器很多都有一键 web 环境安装包，但是如果是自己配置 web 环境则需要对各种安全配置十分了解，今天我们就来尝试这做好 web 服务器安全配置。这里的配置不尽完善，若有纰漏之处还望指出。</p>
+<span id="more"></span>
+
+<h3 id="修改-Apache-配置文件-http-conf"><a href="#修改-Apache-配置文件-http-conf" class="headerlink" title="修改 Apache 配置文件 http.conf"></a>修改 Apache 配置文件 http.conf</h3><h4 id="以专用的-apache-用户运行"><a href="#以专用的-apache-用户运行" class="headerlink" title="以专用的 apache 用户运行"></a>以专用的 apache 用户运行</h4><p>一般情况下，Apache 是由 Root 来安装和运行的。如果 Apache Server 进程具有 Root 用户特权，那么它将给系统的安全构成很大的威胁，应确保 Apache Server 进程以最可能低的权限用户来运行。<br>1.window 系统中创建 apache 用户<br>在命令行中输入</p>
+<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">net<span class="built_in"> user </span>查看系统已经存在的用户</span><br><span class="line">net<span class="built_in"> user </span>apache 131978jesse /<span class="built_in">add</span> 添加apahce用户</span><br><span class="line">net localgroup apachegroup /<span class="built_in">add</span> 添加apachegroup用户组</span><br><span class="line">net localgroup apachegroup apache /<span class="built_in">add</span> 将apache添加进apachegroup用户组</span><br></pre></td></tr></table></figure>
+
+<p>2.给予 apache 用户读取和执行所有文档和脚本目录(例如：htdocs 和 cgi-bin)的权限。 对 Apache 的 logs 目录具有读&#x2F;写&#x2F;删除(RWD)的权限。<br>3.在 http.conf 文件中修改以下内容：</p>
+<figure class="highlight crmsh"><table><tr><td class="code"><pre><span class="line"><span class="keyword">User</span> <span class="title">apache</span></span><br><span class="line"><span class="keyword">Group</span> <span class="title">apachegroup</span></span><br></pre></td></tr></table></figure>
+
+<p>4.在 service.msc 服务中选择 Aapche 属性，登录账号改为 apache，重启 apache 即可</p>
+<h4 id="apache-目录禁止访问"><a href="#apache-目录禁止访问" class="headerlink" title="apache 目录禁止访问"></a>apache 目录禁止访问</h4><p>Indexes  的作用就是当该目录下没有  index.html 文件时，就显示目录结构。<br>默认 apache 在当前目录下没有 index.html 入口就会显示目录。让目录暴露在外面是非常危险的事，如下操作禁止 apache 显示目录：</p>
+<figure class="highlight apache"><table><tr><td class="code"><pre><span class="line"><span class="attribute">Options</span> FollowSymLinks</span><br></pre></td></tr></table></figure>
+
+<p>将 Options Indexes FollowSymLinks 中的 Indexes  去掉，就可以禁止  Apache  显示该目录结构。</p>
+<h4 id="阻止用户修改系统设置"><a href="#阻止用户修改系统设置" class="headerlink" title="阻止用户修改系统设置"></a>阻止用户修改系统设置</h4><p>在 Apache 服务器的配置文件中进行以下的设置，阻止用户建立、修改 .htaccess 文件，防止用户超越能定义的系统安全特性。</p>
+<figure class="highlight pgsql"><table><tr><td class="code"><pre><span class="line">AllowOveride <span class="keyword">None</span></span><br><span class="line"><span class="keyword">Options</span> <span class="keyword">None</span></span><br><span class="line">Allow <span class="keyword">from</span> <span class="keyword">all</span></span><br></pre></td></tr></table></figure>
+
+<p>然后再分别对特定的目录进行适当的配置。</p>
+<h4 id="apache-隐藏版本信息"><a href="#apache-隐藏版本信息" class="headerlink" title="apache 隐藏版本信息"></a>apache 隐藏版本信息</h4><figure class="highlight apache"><table><tr><td class="code"><pre><span class="line"><span class="attribute">ServerSignature</span> <span class="literal">Off</span></span><br><span class="line"><span class="attribute">ServerTokens</span> Prod</span><br></pre></td></tr></table></figure>
+
+<h4 id="自定义错误页面"><a href="#自定义错误页面" class="headerlink" title="自定义错误页面"></a>自定义错误页面</h4><figure class="highlight apache"><table><tr><td class="code"><pre><span class="line"><span class="attribute">ErrorDocument</span> <span class="number">400</span> /custom400.html</span><br><span class="line"><span class="attribute">ErrorDocument</span> <span class="number">401</span> /custom401.html</span><br><span class="line"><span class="attribute">ErrorDocument</span> <span class="number">403</span> /custom403.html</span><br><span class="line"><span class="attribute">ErrorDocument</span> <span class="number">404</span> /custom404.html</span><br><span class="line"><span class="attribute">ErrorDocument</span> <span class="number">405</span> /custom405.html</span><br><span class="line"><span class="attribute">ErrorDocument</span> <span class="number">500</span> /custom500.html</span><br></pre></td></tr></table></figure>
+
+<h4 id="删除如下-apache-的默认文件"><a href="#删除如下-apache-的默认文件" class="headerlink" title="删除如下 apache 的默认文件"></a>删除如下 apache 的默认文件</h4><figure class="highlight objectivec"><table><tr><td class="code"><pre><span class="line">删除默认的HTML文件：   <span class="meta"># apache网页根目录htdocs下的html文件</span></span><br><span class="line">删除默认的icons文件：  <span class="meta"># apache安装目录下的icons文件夹及里面的文件</span></span><br><span class="line">删除默认的的<span class="built_in">CGI</span>脚本：  <span class="meta"># apache安装目录下的cgi-bin文件夹及里面的文件</span></span><br><span class="line">删除Apache说明文件：   <span class="meta"># apache安装目录下的manual文件夹及里面的文件以及安装目录下的其他介绍性文件</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="使用-rotatelogs-每隔一天记录一个日志"><a href="#使用-rotatelogs-每隔一天记录一个日志" class="headerlink" title="使用 rotatelogs 每隔一天记录一个日志"></a>使用 rotatelogs 每隔一天记录一个日志</h3><figure class="highlight nginx"><table><tr><td class="code"><pre><span class="line"><span class="attribute">CustomLog</span> <span class="string">&quot;|bin/rotatelogs.exe logs/access.log 86400 480&quot;</span> combined</span><br></pre></td></tr></table></figure>
+
+<p>rotatelogs logfile [ rotationtime [ offset ]] | [ filesizeM ]<br>logfile：它加上基准名就是日志文件名。如果 logfile 中包含’%’，则它会被视为用于的 strftime(3)的格式字串；否则，它会被自动加上以秒为单位的.nnnnnnnnnn 后缀。这两种格式都表示新的日志开始使用的时间。<br>rotationtime：日志文件回卷的以秒为单位的间隔时间，86400 表示一天，即每天生成一个新的日志文件。<br>offset：相对于 UTC 的时差的分钟数。如果省略，则默认为 0，并使用 UTC 时间。比如，要指定 UTC 时差为-5 小时的地区的当地时间，则此参数应为-300，北京时间为+8 时间，应设置为 480。这样日志里的时间才会和服务器上的时间一致，方便查看日志。<br>filesizeM：指定回卷时以兆字节为单位的后缀字母 M 的文件大小，而不是指定回卷时间或时差。</p>
+<h3 id="修改-PHP-配置文件-php-ini"><a href="#修改-PHP-配置文件-php-ini" class="headerlink" title="修改 PHP 配置文件 php.ini"></a>修改 PHP 配置文件 php.ini</h3><h4 id="将时区修改为东八区北京时间"><a href="#将时区修改为东八区北京时间" class="headerlink" title="将时区修改为东八区北京时间"></a>将时区修改为东八区北京时间</h4><p>date.timezone &#x3D; “PRC”</p>
+<h4 id="响应头中-y-隐藏-PHP-版本信息"><a href="#响应头中-y-隐藏-PHP-版本信息" class="headerlink" title="响应头中 y 隐藏 PHP 版本信息"></a>响应头中 y 隐藏 PHP 版本信息</h4><p>expose_php &#x3D; Off</p>
+<h4 id="禁止相关函数"><a href="#禁止相关函数" class="headerlink" title="禁止相关函数"></a>禁止相关函数</h4><p>disable_functions &#x3D; phpinfo, get_cfg_var<br>safe_mode &#x3D; On &#x2F;&#x2F;开启安全模式，这个开了，可能会有些 php 功能没办法使用了</p>
+
+        
+            <div id="toc-article">
+                
+  <div class="widget-wrap" id="toc-wrap">
+    <h3 class="widget-title"><i class="fa fa-toc"></i> 文章目录</h3>
+    <div class="widget">
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9-Apache-%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6-http-conf"><span class="toc-text">修改 Apache 配置文件 http.conf</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BB%A5%E4%B8%93%E7%94%A8%E7%9A%84-apache-%E7%94%A8%E6%88%B7%E8%BF%90%E8%A1%8C"><span class="toc-text">以专用的 apache 用户运行</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#apache-%E7%9B%AE%E5%BD%95%E7%A6%81%E6%AD%A2%E8%AE%BF%E9%97%AE"><span class="toc-text">apache 目录禁止访问</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%98%BB%E6%AD%A2%E7%94%A8%E6%88%B7%E4%BF%AE%E6%94%B9%E7%B3%BB%E7%BB%9F%E8%AE%BE%E7%BD%AE"><span class="toc-text">阻止用户修改系统设置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#apache-%E9%9A%90%E8%97%8F%E7%89%88%E6%9C%AC%E4%BF%A1%E6%81%AF"><span class="toc-text">apache 隐藏版本信息</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E9%94%99%E8%AF%AF%E9%A1%B5%E9%9D%A2"><span class="toc-text">自定义错误页面</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%A0%E9%99%A4%E5%A6%82%E4%B8%8B-apache-%E7%9A%84%E9%BB%98%E8%AE%A4%E6%96%87%E4%BB%B6"><span class="toc-text">删除如下 apache 的默认文件</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8-rotatelogs-%E6%AF%8F%E9%9A%94%E4%B8%80%E5%A4%A9%E8%AE%B0%E5%BD%95%E4%B8%80%E4%B8%AA%E6%97%A5%E5%BF%97"><span class="toc-text">使用 rotatelogs 每隔一天记录一个日志</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9-PHP-%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6-php-ini"><span class="toc-text">修改 PHP 配置文件 php.ini</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B0%86%E6%97%B6%E5%8C%BA%E4%BF%AE%E6%94%B9%E4%B8%BA%E4%B8%9C%E5%85%AB%E5%8C%BA%E5%8C%97%E4%BA%AC%E6%97%B6%E9%97%B4"><span class="toc-text">将时区修改为东八区北京时间</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%93%8D%E5%BA%94%E5%A4%B4%E4%B8%AD-y-%E9%9A%90%E8%97%8F-PHP-%E7%89%88%E6%9C%AC%E4%BF%A1%E6%81%AF"><span class="toc-text">响应头中 y 隐藏 PHP 版本信息</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%A6%81%E6%AD%A2%E7%9B%B8%E5%85%B3%E5%87%BD%E6%95%B0"><span class="toc-text">禁止相关函数</span></a></li></ol></li></ol>
+    </div>
+  </div>
+
+
+            </div>
+        
+        
+          <blockquote id="copyright">
+              <p>原文链接: <a href="https://jesse121.github.io/articles/2017/04/19.html">https://jesse121.github.io/articles/2017/04/19.html</a></p>
+              <p>版权声明: 转载请注明出处.</p>
+          </blockquote>
+        
+      
+    </div>
+    <footer class="article-footer">
+      
+        <div class="article-tag-wrap">
+          
+
+          
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/apache/" rel="tag">Apache</a></li></ul>
+
+          
+
+
+        </div>
+      
+      
+        
+<nav id="article-nav">
+  
+    <a href="/blog/articles/2017/04/15.html" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">older</strong>
+      <div class="article-nav-title">
+        
+          Apache2.4.23 + PHP5.6.30 + MySQL5.7.18安装教程
+        
+      </div>
+    </a>
+  
+  
+    <a href="/blog/articles/2017/04/28.html" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">newer</strong>
+      <div class="article-nav-title">
+        
+          【译】如何成为一个优秀的前端工程师？
+        
+      </div>
+    </a>
+  
+</nav>
+
+      
+      
+        
+  <div id="comments"></div>
+
+
+
+
+
+
+
+
+
+      
+    </footer>
+  </div>
+</article>
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-posts"></i> 最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/blog/articles/2021/06/11.html">如何用Vite快速搭建一个vue3项目</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2020/12/15.html">如何快速生成tsconfig.json文件</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2020/08/22.html">用Ssh连接docker容器</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2020/07/04.html">如何在Vscode上直接运行typescript?</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2020/06/13.html">Wireshark过滤器使用介绍</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2020/05/13.html">Webpack编译后的html中图片路径变为[object Module]的原因及解决办法</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2020/05/02.html">栈与队列</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2020/04/19.html">链表</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2020/04/19.html">算法的时间复杂度与空间复杂度分析</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2020/04/12.html">如何使用Wireshark抓取HTTP2报文？</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-tag"></i> 标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/blog/tags/angularjs/" style="font-size: 10px;">AngularJs</a> <a href="/blog/tags/apache/" style="font-size: 14px;">Apache</a> <a href="/blog/tags/bootstrap/" style="font-size: 14px;">Bootstrap</a> <a href="/blog/tags/css/" style="font-size: 18px;">CSS</a> <a href="/blog/tags/centos/" style="font-size: 10px;">CentOS</a> <a href="/blog/tags/docker/" style="font-size: 14px;">Docker</a> <a href="/blog/tags/git/" style="font-size: 12px;">Git</a> <a href="/blog/tags/gitlab/" style="font-size: 10px;">Gitlab</a> <a href="/blog/tags/gulp/" style="font-size: 10px;">Gulp</a> <a href="/blog/tags/html/" style="font-size: 14px;">HTML</a> <a href="/blog/tags/html5/" style="font-size: 10px;">HTML5</a> <a href="/blog/tags/http/" style="font-size: 14px;">HTTP</a> <a href="/blog/tags/https/" style="font-size: 10px;">HTTPS</a> <a href="/blog/tags/javascript/" style="font-size: 20px;">JavaScript</a> <a href="/blog/tags/jenkins/" style="font-size: 10px;">Jenkins</a> <a href="/blog/tags/linux/" style="font-size: 12px;">Linux</a> <a href="/blog/tags/mac/" style="font-size: 10px;">Mac</a> <a href="/blog/tags/mysql/" style="font-size: 14px;">MySQL</a> <a href="/blog/tags/nginx/" style="font-size: 12px;">Nginx</a> <a href="/blog/tags/node-js/" style="font-size: 12px;">Node.js</a> <a href="/blog/tags/php/" style="font-size: 16px;">PHP</a> <a href="/blog/tags/photoshop/" style="font-size: 10px;">Photoshop</a> <a href="/blog/tags/react/" style="font-size: 10px;">React</a> <a href="/blog/tags/redux/" style="font-size: 10px;">Redux</a> <a href="/blog/tags/sublimetext3/" style="font-size: 10px;">SublimeText3</a> <a href="/blog/tags/typescript/" style="font-size: 12px;">Typescript</a> <a href="/blog/tags/vagrant/" style="font-size: 10px;">Vagrant</a> <a href="/blog/tags/vim/" style="font-size: 10px;">Vim</a> <a href="/blog/tags/vue/" style="font-size: 10px;">Vue</a> <a href="/blog/tags/web/" style="font-size: 16px;">WEB</a> <a href="/blog/tags/webpack/" style="font-size: 14px;">Webpack</a> <a href="/blog/tags/wireshark/" style="font-size: 12px;">Wireshark</a> <a href="/blog/tags/yii/" style="font-size: 10px;">Yii</a> <a href="/blog/tags/jquery/" style="font-size: 14px;">jQuery</a> <a href="/blog/tags/monitor/" style="font-size: 10px;">monitor</a> <a href="/blog/tags/ssh/" style="font-size: 10px;">ssh</a> <a href="/blog/tags/vite/" style="font-size: 10px;">vite</a> <a href="/blog/tags/vscode/" style="font-size: 10px;">vscode</a> <a href="/blog/tags/vue/" style="font-size: 10px;">vue</a> <a href="/blog/tags/%E5%BC%80%E5%8F%91%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/" style="font-size: 10px;">开发问题记录</a> <a href="/blog/tags/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F/" style="font-size: 10px;">微信小程序</a> <a href="/blog/tags/%E7%AE%97%E6%B3%95/" style="font-size: 14px;">算法</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-classify"></i> 分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/blog/categories/bootstrap/">Bootstrap</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/html-css/">HTML-CSS</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/html5/">HTML5</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/javascript/">JavaScript</a><span class="category-list-count">11</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/linux/">Linux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/mysql/">MySQL</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/node-js/">Node.js</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/php/">PHP</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/photoshop/">Photoshop</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/typescript/">Typescript</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/vue/">Vue</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/web/">WEB</a><span class="category-list-count">8</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/jquery/">jQuery</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/translation/">前端翻译</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/">开发工具</a><span class="category-list-count">15</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/%E5%BC%80%E5%8F%91%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/">开发问题记录</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/%E7%AE%97%E6%B3%95/">算法</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/notes/">读书笔记</a><span class="category-list-count">16</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-archive"></i> 归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2021/">2021年</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2020/">2020年</a><span class="archive-list-count">12</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2019/">2019年</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/">2018年</a><span class="archive-list-count">12</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2017/">2017年</a><span class="archive-list-count">26</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/">2016年</a><span class="archive-list-count">27</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-link"></i> 友情链接</h3>
+    <div class="widget">
+      <ul>
+      
+        <li>
+          <a target="_blank" rel="noopener" href="http://www.mahaixiang.cn/internet/300.html">深入理解互联网协议的原理</a>
+        </li>
+      
+        <li>
+          <a target="_blank" rel="noopener" href="http://javascript.ruanyifeng.com/">JavaScript 标准参考教程</a>
+        </li>
+      
+        <li>
+          <a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript">Mozilla Developer Network</a>
+        </li>
+      
+      </ul>
+    </div>
+  </div>
+
+
+  
+</aside>
+        
+      </div>
+      <a id="totop" href="#top"></a>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      <p>
+        <a href="/blog/sitemap.xml">网站地图</a>
+        <span> | </span><a href="/blog/atom.xml">订阅本站</a>
+        <span> | </span><a href="/blog/about/">联系博主</a>
+      </p>
+      
+        <p>
+          <i class="fa fa-visitors"></i>
+          <i id="busuanzi_container_site_uv"><i id="busuanzi_value_site_uv"></i></i>
+          ，
+          <i class="fa fa-views"></i>
+          <i id="busuanzi_container_site_pv"><i id="busuanzi_value_site_pv"></i></i>
+        </p>
+      
+      <p>
+        <span>Copyright &copy; 2022 Jesse.</span>
+        <span>Theme by <a href="https://github.com/chaooo/hexo-theme-BlueLake/" target="_blank">BlueLake.</a></span>
+        <span>Powered by <a href="https://hexo.io/" target="_blank">Hexo.</a></span>
+      </p>
+    </div>
+  </div>
+</footer>
+
+    </div>
+  </div>
+  
+<script src="/blog/js/jquery-3.4.1.min.js"></script>
+
+
+<script src="/blog/js/search.json.js"></script>
+
+
+  
+<script src="/blog/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/blog/js/script.js"></script>
+
+
+
+
+
+
+  
+<script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+  
+  
+
+
+  
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+ 
+<script src="//cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.js"></script>
+
+<script>
+  var gitalk = new Gitalk({
+    clientID: "1d84813ae13cd94072f0",
+    clientSecret: "4a4dd2af0c622e983dd90f5daf15c3ebd86b8ae9",
+    repo: "blog",
+    owner: "jesse121",
+    admin: ["jesse121"],
+    id: md5(window.location.pathname),
+    proxy: "https://gitalk-worker.jesse121.workers.dev/https://github.com/login/oauth/access_token,",
+    distractionFreeMode: false,
+    language: "zh-CN",
+    pagerDirection: "last",
+  });
+  gitalk.render("comments");
+</script>
+         
+
+
+
+</body>
+</html>

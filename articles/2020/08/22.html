@@ -88,12 +88,17 @@
 </header>
 
       <div class="outer">
-        <section id="main"><article id="post-tool/用ssh连接docker容器" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+        <section id="main"><article
+  id="post-tool/用ssh连接docker容器"
+  class="h-entry article article-type-post"
+  itemprop="blogPost"
+  itemscope
+  itemtype="https://schema.org/BlogPosting"
+>
   <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
+     
+    <header class="article-header">
+      
   
     <h1 class="p-name article-title" itemprop="headline name">
       用Ssh连接docker容器
@@ -101,30 +106,24 @@
   
 
 
-      </header>
+    </header>
     
     <div class="article-meta">
-      
-      <span class="article-date">
+       <span class="article-date">
   <i class="fa fa-date"></i>
   <time class="dt-published" datetime="2020-08-22T02:26:30.000Z" itemprop="datePublished">2020年08月22日</time>
-</span>
-      
+</span> 
   <div class="article-category">
     <i class="fa fa-classify"></i>
     <a class="article-category-link" href="/blog/categories/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/">开发工具</a>
   </div>
-
-      
-        <span class="article-views">
+  <span class="article-views">
   <i class="fa fa-views"></i>
   <i id="busuanzi_container_page_pv">
       <i id="busuanzi_value_page_pv"></i>
   </i>
 </span>
-
-      
-      
+  
 <a href="/blog/articles/2020/08/22.html#comments" class="article-comment-link">
   
     
@@ -140,8 +139,7 @@
 
     </div>
     <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h3 id="用-docker-commit-的方式创建-ssh-直连-docker-容器镜像"><a href="#用-docker-commit-的方式创建-ssh-直连-docker-容器镜像" class="headerlink" title="用 docker commit 的方式创建 ssh 直连 docker 容器镜像"></a>用 docker commit 的方式创建 ssh 直连 docker 容器镜像</h3><ol>
+       <h3 id="用-docker-commit-的方式创建-ssh-直连-docker-容器镜像"><a href="#用-docker-commit-的方式创建-ssh-直连-docker-容器镜像" class="headerlink" title="用 docker commit 的方式创建 ssh 直连 docker 容器镜像"></a>用 docker commit 的方式创建 ssh 直连 docker 容器镜像</h3><ol>
 <li>拉取镜像，这里采用 centos:7 作为基础镜像</li>
 </ol>
 <figure class="highlight apache"><table><tr><td class="code"><pre><span class="line"><span class="attribute">docker</span> pull centos:<span class="number">7</span></span><br></pre></td></tr></table></figure>
@@ -198,7 +196,7 @@
 <figure class="highlight apache"><table><tr><td class="code"><pre><span class="line"><span class="attribute">docker</span> run -d -p <span class="number">2222</span>:<span class="number">22</span> ssh_box /usr/sbin/sshd -D</span><br></pre></td></tr></table></figure>
 
 <p>12.然后可以使用 xshell 连接新生成的容器</p>
-<p>ip: 为宿主主机的 ip，而不是 docker 容器的 ip<br>端口:就是上面的 2222<br>用户名： root<br>密码： 就是上面 password 部分设置的密码<br>在 mac 上可通过 ssh <a href="mailto:&#x72;&#x6f;&#111;&#x74;&#64;&#x31;&#50;&#55;&#46;&#48;&#x2e;&#x30;&#x2e;&#49;">&#x72;&#x6f;&#111;&#x74;&#64;&#x31;&#50;&#55;&#46;&#48;&#x2e;&#x30;&#x2e;&#49;</a> -p:2222 登录新生成的容器</p>
+<p>ip: 为宿主主机的 ip，而不是 docker 容器的 ip<br>端口:就是上面的 2222<br>用户名： root<br>密码： 就是上面 password 部分设置的密码<br>在 mac 上可通过 ssh <a href="mailto:&#114;&#111;&#111;&#116;&#64;&#x31;&#50;&#x37;&#46;&#x30;&#x2e;&#48;&#46;&#x31;">&#114;&#111;&#111;&#116;&#64;&#x31;&#50;&#x37;&#46;&#x30;&#x2e;&#48;&#46;&#x31;</a> -p:2222 登录新生成的容器</p>
 <p>至此 ssh 连接 docker 容器连接成功</p>
 <h3 id="以-Dockerfile-的方式创建-ssh-直连-docker-容器"><a href="#以-Dockerfile-的方式创建-ssh-直连-docker-容器" class="headerlink" title="以 Dockerfile 的方式创建 ssh 直连 docker 容器"></a>以 Dockerfile 的方式创建 ssh 直连 docker 容器</h3><ol>
 <li>创建 Dockerfile 文件</li>
@@ -227,10 +225,8 @@
 <li><a target="_blank" rel="noopener" href="https://blog.51cto.com/lizhenliang/1975466">Docker 容器使用问题：Failed to get D-Bus connection: Operation not permitted</a></li>
 <li><a target="_blank" rel="noopener" href="http://www.fecmall.com/topic/592">ssh 直接登录 docker 容器</a></li>
 </ol>
-
-        
-            <div id="toc-article">
-                
+ 
+      <div id="toc-article">
   <div class="widget-wrap" id="toc-wrap">
     <h3 class="widget-title"><i class="fa fa-toc"></i> 文章目录</h3>
     <div class="widget">
@@ -238,31 +234,29 @@
     </div>
   </div>
 
-
-            </div>
-        
-        
-          <blockquote id="copyright">
-              <p>原文链接: <a href="https://jesse121.github.io/articles/2020/08/22.html">https://jesse121.github.io/articles/2020/08/22.html</a></p>
-              <p>版权声明: 转载请注明出处.</p>
-          </blockquote>
-        
-      
+</div>
+       
+      <blockquote id="copyright">
+        <p>
+          原文链接:
+          <a href="https://jesse121.github.io/blog/articles/2020/08/22.html"
+            >https://jesse121.github.io/blog/articles/2020/08/22.html</a
+          >
+        </p>
+        <p>版权声明: 转载请注明出处.</p>
+      </blockquote>
+       
     </div>
     <footer class="article-footer">
       
-        <div class="article-tag-wrap">
-          
-
-          
+      <div class="article-tag-wrap">
+        
+ 
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/docker/" rel="tag">Docker</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/ssh/" rel="tag">ssh</a></li></ul>
+ 
 
-          
 
-
-        </div>
-      
-      
+      </div>
         
 <nav id="article-nav">
   
@@ -286,10 +280,7 @@
     </a>
   
 </nav>
-
-      
-      
-        
+   
   <div id="comments"></div>
 
 
@@ -299,8 +290,7 @@
 
 
 
-
-      
+ 
     </footer>
   </div>
 </article>

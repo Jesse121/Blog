@@ -88,12 +88,17 @@
 </header>
 
       <div class="outer">
-        <section id="main"><article id="post-tool/前端开发实现自动化编译与部署" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+        <section id="main"><article
+  id="post-tool/前端开发实现自动化编译与部署"
+  class="h-entry article article-type-post"
+  itemprop="blogPost"
+  itemscope
+  itemtype="https://schema.org/BlogPosting"
+>
   <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
+     
+    <header class="article-header">
+      
   
     <h1 class="p-name article-title" itemprop="headline name">
       前端开发如何实现自动化编译与部署？
@@ -101,30 +106,24 @@
   
 
 
-      </header>
+    </header>
     
     <div class="article-meta">
-      
-      <span class="article-date">
+       <span class="article-date">
   <i class="fa fa-date"></i>
   <time class="dt-published" datetime="2018-08-03T00:06:27.000Z" itemprop="datePublished">2018年08月03日</time>
-</span>
-      
+</span> 
   <div class="article-category">
     <i class="fa fa-classify"></i>
     <a class="article-category-link" href="/blog/categories/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/">开发工具</a>
   </div>
-
-      
-        <span class="article-views">
+  <span class="article-views">
   <i class="fa fa-views"></i>
   <i id="busuanzi_container_page_pv">
       <i id="busuanzi_value_page_pv"></i>
   </i>
 </span>
-
-      
-      
+  
 <a href="/blog/articles/2018/08/03.html#comments" class="article-comment-link">
   
     
@@ -140,8 +139,7 @@
 
     </div>
     <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>如今的前端开发早已不用之前的刀耕火种的方式写代码了，项目开始时会考虑各种前端框架 react vue angular 等，然后就是用 webpack 搭建项目开发架构。开发完后我们会将 webpack 编译后的文件通过 svn 发到服务器上，但是这样很容易存在文件漏发，且多人参与发开易冲突等。经过多次开发实践，目前我们的项目采用 jenkins+gitlab 实现自动化编译与部署，这样简化了项目部署等问题，极大的减少了因代码发布而引起的 bug 数量。</p>
+       <p>如今的前端开发早已不用之前的刀耕火种的方式写代码了，项目开始时会考虑各种前端框架 react vue angular 等，然后就是用 webpack 搭建项目开发架构。开发完后我们会将 webpack 编译后的文件通过 svn 发到服务器上，但是这样很容易存在文件漏发，且多人参与发开易冲突等。经过多次开发实践，目前我们的项目采用 jenkins+gitlab 实现自动化编译与部署，这样简化了项目部署等问题，极大的减少了因代码发布而引起的 bug 数量。</p>
 <span id="more"></span>
 
 <h3 id="自动化编译部署介绍"><a href="#自动化编译部署介绍" class="headerlink" title="自动化编译部署介绍"></a>自动化编译部署介绍</h3><p>通过搭建 gitlab 服务器从而在 gitlab 上管理项目代码，在 gitlab 上分别建立 master,release&#x2F;test 分支，每次开发前需要从 master 分支上拉取新的开发分支 feature，开发完后提交开发分支并将其合并到测试分支 release&#x2F;test 上，合并操作通过 webhook 触发 jenkins 上已写好的 webpack 编译脚本，从而达到自动编译并部署到测试环境。测试完成后在发布到线上环境时，我们先从 master 分支上拉取新的发布分支 release&#x2F;prod,将开发分支 feature 合并到发布分支 release&#x2F;prod 上，合并操作同发布测试一样会触发自动编译与部署。<br><img src="/blog/blog/static/images/jenkins/1.png"></p>
@@ -192,10 +190,8 @@
 <li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/saysmy/p/8806975.html">jenkins+gitlab 自动化编译部署方案探索及服务端编译 webpack 实战</a></li>
 <li><a target="_blank" rel="noopener" href="https://blog.csdn.net/abcdocker/article/details/53840449">持续集成之 Jenkins+Gitlab</a></li>
 </ul>
-
-        
-            <div id="toc-article">
-                
+ 
+      <div id="toc-article">
   <div class="widget-wrap" id="toc-wrap">
     <h3 class="widget-title"><i class="fa fa-toc"></i> 文章目录</h3>
     <div class="widget">
@@ -203,31 +199,29 @@
     </div>
   </div>
 
-
-            </div>
-        
-        
-          <blockquote id="copyright">
-              <p>原文链接: <a href="https://jesse121.github.io/articles/2018/08/03.html">https://jesse121.github.io/articles/2018/08/03.html</a></p>
-              <p>版权声明: 转载请注明出处.</p>
-          </blockquote>
-        
-      
+</div>
+       
+      <blockquote id="copyright">
+        <p>
+          原文链接:
+          <a href="https://jesse121.github.io/blog/articles/2018/08/03.html"
+            >https://jesse121.github.io/blog/articles/2018/08/03.html</a
+          >
+        </p>
+        <p>版权声明: 转载请注明出处.</p>
+      </blockquote>
+       
     </div>
     <footer class="article-footer">
       
-        <div class="article-tag-wrap">
-          
-
-          
+      <div class="article-tag-wrap">
+        
+ 
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/gitlab/" rel="tag">Gitlab</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/jenkins/" rel="tag">Jenkins</a></li></ul>
+ 
 
-          
 
-
-        </div>
-      
-      
+      </div>
         
 <nav id="article-nav">
   
@@ -251,10 +245,7 @@
     </a>
   
 </nav>
-
-      
-      
-        
+   
   <div id="comments"></div>
 
 
@@ -264,8 +255,7 @@
 
 
 
-
-      
+ 
     </footer>
   </div>
 </article>

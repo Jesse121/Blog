@@ -88,12 +88,17 @@
 </header>
 
       <div class="outer">
-        <section id="main"><article id="post-javascript/解读setTimeout, promise.then, process.nextTick, setImmediate的执行顺序" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+        <section id="main"><article
+  id="post-javascript/解读setTimeout, promise.then, process.nextTick, setImmediate的执行顺序"
+  class="h-entry article article-type-post"
+  itemprop="blogPost"
+  itemscope
+  itemtype="https://schema.org/BlogPosting"
+>
   <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
+     
+    <header class="article-header">
+      
   
     <h1 class="p-name article-title" itemprop="headline name">
       解读setTimeout, promise.then, process.nextTick, setImmediate的执行顺序
@@ -101,30 +106,24 @@
   
 
 
-      </header>
+    </header>
     
     <div class="article-meta">
-      
-      <span class="article-date">
+       <span class="article-date">
   <i class="fa fa-date"></i>
   <time class="dt-published" datetime="2019-10-20T09:25:23.000Z" itemprop="datePublished">2019年10月20日</time>
-</span>
-      
+</span> 
   <div class="article-category">
     <i class="fa fa-classify"></i>
     <a class="article-category-link" href="/blog/categories/javascript/">JavaScript</a>
   </div>
-
-      
-        <span class="article-views">
+  <span class="article-views">
   <i class="fa fa-views"></i>
   <i id="busuanzi_container_page_pv">
       <i id="busuanzi_value_page_pv"></i>
   </i>
 </span>
-
-      
-      
+  
 <a href="/blog/articles/2019/10/20.html#comments" class="article-comment-link">
   
     
@@ -140,8 +139,7 @@
 
     </div>
     <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>最近在看《Node.js 调试指南》的时候遇到有意思的几道题，是关于 setTimeout, promise.then, process.nextTick, setImmediate 的执行顺序。今天抽空记录下这道题的分析过程及背后的原理与知识点。</p>
+       <p>最近在看《Node.js 调试指南》的时候遇到有意思的几道题，是关于 setTimeout, promise.then, process.nextTick, setImmediate 的执行顺序。今天抽空记录下这道题的分析过程及背后的原理与知识点。</p>
 <span id="more"></span>
 
 <p>题目如下：</p>
@@ -279,10 +277,8 @@
 <p>题目四的执行结果是<br>永远不会打印 setInterval</p>
 <p>process.nextTick 会无限循环，将 event loop 阻塞在 microtask 阶段，导致 event loop 上其他 macrotask 阶段的回调函数没有机会执行<br>解决方法通常是用 setImmediate 代替 process.nextTick.<br>在 setImmediate 内执行 setImmedaite 时会将 immediate 注册到下一次 event loop 的 check 阶段，这样其他 macrotask 就有机会执行</p>
 <p>至此终于将 node.js 事件循环宏任务与微任务分析清楚了</p>
-
-        
-            <div id="toc-article">
-                
+ 
+      <div id="toc-article">
   <div class="widget-wrap" id="toc-wrap">
     <h3 class="widget-title"><i class="fa fa-toc"></i> 文章目录</h3>
     <div class="widget">
@@ -290,31 +286,29 @@
     </div>
   </div>
 
-
-            </div>
-        
-        
-          <blockquote id="copyright">
-              <p>原文链接: <a href="https://jesse121.github.io/articles/2019/10/20.html">https://jesse121.github.io/articles/2019/10/20.html</a></p>
-              <p>版权声明: 转载请注明出处.</p>
-          </blockquote>
-        
-      
+</div>
+       
+      <blockquote id="copyright">
+        <p>
+          原文链接:
+          <a href="https://jesse121.github.io/blog/articles/2019/10/20.html"
+            >https://jesse121.github.io/blog/articles/2019/10/20.html</a
+          >
+        </p>
+        <p>版权声明: 转载请注明出处.</p>
+      </blockquote>
+       
     </div>
     <footer class="article-footer">
       
-        <div class="article-tag-wrap">
-          
-
-          
+      <div class="article-tag-wrap">
+        
+ 
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/javascript/" rel="tag">JavaScript</a></li></ul>
+ 
 
-          
 
-
-        </div>
-      
-      
+      </div>
         
 <nav id="article-nav">
   
@@ -338,10 +332,7 @@
     </a>
   
 </nav>
-
-      
-      
-        
+   
   <div id="comments"></div>
 
 
@@ -351,8 +342,7 @@
 
 
 
-
-      
+ 
     </footer>
   </div>
 </article>

@@ -88,12 +88,17 @@
 </header>
 
       <div class="outer">
-        <section id="main"><article id="post-question/webpack编译后的html中图片路径变为[object Module]的原因及解决办法" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+        <section id="main"><article
+  id="post-question/webpack编译后的html中图片路径变为[object Module]的原因及解决办法"
+  class="h-entry article article-type-post"
+  itemprop="blogPost"
+  itemscope
+  itemtype="https://schema.org/BlogPosting"
+>
   <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
+     
+    <header class="article-header">
+      
   
     <h1 class="p-name article-title" itemprop="headline name">
       Webpack编译后的html中图片路径变为[object Module]的原因及解决办法
@@ -101,30 +106,24 @@
   
 
 
-      </header>
+    </header>
     
     <div class="article-meta">
-      
-      <span class="article-date">
+       <span class="article-date">
   <i class="fa fa-date"></i>
   <time class="dt-published" datetime="2020-05-13T10:28:00.000Z" itemprop="datePublished">2020年05月13日</time>
-</span>
-      
+</span> 
   <div class="article-category">
     <i class="fa fa-classify"></i>
     <a class="article-category-link" href="/blog/categories/%E5%BC%80%E5%8F%91%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/">开发问题记录</a>
   </div>
-
-      
-        <span class="article-views">
+  <span class="article-views">
   <i class="fa fa-views"></i>
   <i id="busuanzi_container_page_pv">
       <i id="busuanzi_value_page_pv"></i>
   </i>
 </span>
-
-      
-      
+  
 <a href="/blog/articles/2020/05/13.html#comments" class="article-comment-link">
   
     
@@ -140,8 +139,7 @@
 
     </div>
     <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h3 id="问题缘由"><a href="#问题缘由" class="headerlink" title="问题缘由"></a>问题缘由</h3><p>在 html 模板页面中我们有时候要直接插入图片 img。如果直接写绝对路径例如<code>&lt;img src=&quot;https://static.yidongtimes.com/dist/mobile/v2/img/notice/fishingTips/waiting.png&quot; alt=&quot;&quot;&gt;</code>，页面可以访问到图片但是图片不经过 webpack 处理（压缩，添加哈希后缀等）。这样操作图片也不能作为资源一起编译处理到 dist 文件夹中。因此需要找到更好的解决办法</p>
+       <h3 id="问题缘由"><a href="#问题缘由" class="headerlink" title="问题缘由"></a>问题缘由</h3><p>在 html 模板页面中我们有时候要直接插入图片 img。如果直接写绝对路径例如<code>&lt;img src=&quot;https://static.yidongtimes.com/dist/mobile/v2/img/notice/fishingTips/waiting.png&quot; alt=&quot;&quot;&gt;</code>，页面可以访问到图片但是图片不经过 webpack 处理（压缩，添加哈希后缀等）。这样操作图片也不能作为资源一起编译处理到 dist 文件夹中。因此需要找到更好的解决办法</p>
 <span id="more"></span>
 
 <h3 id="提出问题"><a href="#提出问题" class="headerlink" title="提出问题"></a>提出问题</h3><p>html 中如何正确的引入图片供 webpack 编译？</p>
@@ -163,10 +161,8 @@
 <figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">test:</span> <span class="string">/\.(jpeg|jpg|png)$/</span>,</span><br><span class="line">    <span class="attr">use:</span> [</span><br><span class="line">      <span class="attr">loader:</span> <span class="string">&#x27;file-loader&#x27;</span>,</span><br><span class="line">      <span class="attr">options:</span> &#123;</span><br><span class="line">        <span class="attr">esModule:</span> <span class="literal">false</span></span><br><span class="line">      &#125;</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p><strong>参考资料</strong><br><a target="_blank" rel="noopener" href="https://juejin.im/post/5de1dd566fb9a07164727a75">webpack 踩坑记录</a><br><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/59114479/when-i-using-file-loader-and-html-loader-in-webpack-the-src-attr-of-image-gonna/59115624#59115624">When i using file-loader and html-loader in webpack. The src attr of image gonna be like ‘[object Module]’</a></p>
-
-        
-            <div id="toc-article">
-                
+ 
+      <div id="toc-article">
   <div class="widget-wrap" id="toc-wrap">
     <h3 class="widget-title"><i class="fa fa-toc"></i> 文章目录</h3>
     <div class="widget">
@@ -174,31 +170,29 @@
     </div>
   </div>
 
-
-            </div>
-        
-        
-          <blockquote id="copyright">
-              <p>原文链接: <a href="https://jesse121.github.io/articles/2020/05/13.html">https://jesse121.github.io/articles/2020/05/13.html</a></p>
-              <p>版权声明: 转载请注明出处.</p>
-          </blockquote>
-        
-      
+</div>
+       
+      <blockquote id="copyright">
+        <p>
+          原文链接:
+          <a href="https://jesse121.github.io/blog/articles/2020/05/13.html"
+            >https://jesse121.github.io/blog/articles/2020/05/13.html</a
+          >
+        </p>
+        <p>版权声明: 转载请注明出处.</p>
+      </blockquote>
+       
     </div>
     <footer class="article-footer">
       
-        <div class="article-tag-wrap">
-          
-
-          
+      <div class="article-tag-wrap">
+        
+ 
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/webpack/" rel="tag">Webpack</a></li></ul>
+ 
 
-          
 
-
-        </div>
-      
-      
+      </div>
         
 <nav id="article-nav">
   
@@ -222,10 +216,7 @@
     </a>
   
 </nav>
-
-      
-      
-        
+   
   <div id="comments"></div>
 
 
@@ -235,8 +226,7 @@
 
 
 
-
-      
+ 
     </footer>
   </div>
 </article>

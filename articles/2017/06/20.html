@@ -88,12 +88,17 @@
 </header>
 
       <div class="outer">
-        <section id="main"><article id="post-tool/搭建自己的webpack前端构建工具" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+        <section id="main"><article
+  id="post-tool/搭建自己的webpack前端构建工具"
+  class="h-entry article article-type-post"
+  itemprop="blogPost"
+  itemscope
+  itemtype="https://schema.org/BlogPosting"
+>
   <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
+     
+    <header class="article-header">
+      
   
     <h1 class="p-name article-title" itemprop="headline name">
       搭建自己的Webpack前端构建工具
@@ -101,30 +106,24 @@
   
 
 
-      </header>
+    </header>
     
     <div class="article-meta">
-      
-      <span class="article-date">
+       <span class="article-date">
   <i class="fa fa-date"></i>
   <time class="dt-published" datetime="2017-06-19T16:00:00.000Z" itemprop="datePublished">2017年06月20日</time>
-</span>
-      
+</span> 
   <div class="article-category">
     <i class="fa fa-classify"></i>
     <a class="article-category-link" href="/blog/categories/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/">开发工具</a>
   </div>
-
-      
-        <span class="article-views">
+  <span class="article-views">
   <i class="fa fa-views"></i>
   <i id="busuanzi_container_page_pv">
       <i id="busuanzi_value_page_pv"></i>
   </i>
 </span>
-
-      
-      
+  
 <a href="/blog/articles/2017/06/20.html#comments" class="article-comment-link">
   
     
@@ -140,8 +139,7 @@
 
     </div>
     <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>前端开发技术的更新速度可谓是越来越快，前段时间还在用Gulp打包工具，转眼间Webpack就要一统江湖了。为了体验一下webpack新技术带来的好处，于是就用webpack搭建了一款适合自己使用的前端脚手架，主要用于提高开发速度。在前端开发中切记不要因为某种新技术很火就盲目跟风的在实际项目中使用，而是要根据项目自身特点来选择工具。  </p>
+       <p>前端开发技术的更新速度可谓是越来越快，前段时间还在用Gulp打包工具，转眼间Webpack就要一统江湖了。为了体验一下webpack新技术带来的好处，于是就用webpack搭建了一款适合自己使用的前端脚手架，主要用于提高开发速度。在前端开发中切记不要因为某种新技术很火就盲目跟风的在实际项目中使用，而是要根据项目自身特点来选择工具。  </p>
 <span id="more"></span>
 <p>网上关于webpack工具的使用教程也是非常多，写下此篇博客的目的是记录下自己的搭建过程，熟悉webpack工具打包流程并用于交流。目前配置的是适用于多个项目的单页应用。其中React-app是用于快速构建基于webpack打包的React项目，暂不做介绍。<br>工具的基本功能：</p>
 <ol>
@@ -168,10 +166,8 @@
 <figure class="highlight stylus"><table><tr><td class="code"><pre><span class="line"><span class="comment">//下载webpack脚手架工具</span></span><br><span class="line">git clone git@github<span class="selector-class">.com</span>:Jess121/Webpack<span class="selector-class">.git</span></span><br><span class="line"><span class="comment">//安装依赖 在此之前需要全局安转webpack和webpack-dev-server</span></span><br><span class="line">npm <span class="selector-tag">i</span> -g webpack@<span class="number">2.2</span>.<span class="number">1</span> webpack-dev-server@<span class="number">2.5</span>.<span class="number">0</span> </span><br><span class="line">npm install</span><br><span class="line"><span class="comment">//启动项目，输入以下命令会自动打浏览器并访问localhost:8080(而配置中未修改host和port)</span></span><br><span class="line">webpack-dev-server <span class="attr">--open</span></span><br><span class="line"><span class="comment">//打包项目，并展示打包进度</span></span><br><span class="line">webpack <span class="attr">--progress</span></span><br></pre></td></tr></table></figure>
 
 <p><strong>PS:</strong> 以上展示的是脚手架工具的基本功能，其他功能结合项目需要后期在做补充</p>
-
-        
-            <div id="toc-article">
-                
+ 
+      <div id="toc-article">
   <div class="widget-wrap" id="toc-wrap">
     <h3 class="widget-title"><i class="fa fa-toc"></i> 文章目录</h3>
     <div class="widget">
@@ -179,31 +175,29 @@
     </div>
   </div>
 
-
-            </div>
-        
-        
-          <blockquote id="copyright">
-              <p>原文链接: <a href="https://jesse121.github.io/articles/2017/06/20.html">https://jesse121.github.io/articles/2017/06/20.html</a></p>
-              <p>版权声明: 转载请注明出处.</p>
-          </blockquote>
-        
-      
+</div>
+       
+      <blockquote id="copyright">
+        <p>
+          原文链接:
+          <a href="https://jesse121.github.io/blog/articles/2017/06/20.html"
+            >https://jesse121.github.io/blog/articles/2017/06/20.html</a
+          >
+        </p>
+        <p>版权声明: 转载请注明出处.</p>
+      </blockquote>
+       
     </div>
     <footer class="article-footer">
       
-        <div class="article-tag-wrap">
-          
-
-          
+      <div class="article-tag-wrap">
+        
+ 
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/webpack/" rel="tag">Webpack</a></li></ul>
+ 
 
-          
 
-
-        </div>
-      
-      
+      </div>
         
 <nav id="article-nav">
   
@@ -227,10 +221,7 @@
     </a>
   
 </nav>
-
-      
-      
-        
+   
   <div id="comments"></div>
 
 
@@ -240,8 +231,7 @@
 
 
 
-
-      
+ 
     </footer>
   </div>
 </article>

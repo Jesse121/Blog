@@ -88,12 +88,17 @@
 </header>
 
       <div class="outer">
-        <section id="main"><article id="post-javascript/javascript获取网页各种高宽及位置总结" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+        <section id="main"><article
+  id="post-javascript/javascript获取网页各种高宽及位置总结"
+  class="h-entry article article-type-post"
+  itemprop="blogPost"
+  itemscope
+  itemtype="https://schema.org/BlogPosting"
+>
   <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
+     
+    <header class="article-header">
+      
   
     <h1 class="p-name article-title" itemprop="headline name">
       Javascript获取网页各种高宽及位置总结
@@ -101,30 +106,24 @@
   
 
 
-      </header>
+    </header>
     
     <div class="article-meta">
-      
-      <span class="article-date">
+       <span class="article-date">
   <i class="fa fa-date"></i>
   <time class="dt-published" datetime="2016-07-26T15:00:00.000Z" itemprop="datePublished">2016年07月26日</time>
-</span>
-      
+</span> 
   <div class="article-category">
     <i class="fa fa-classify"></i>
     <a class="article-category-link" href="/blog/categories/javascript/">JavaScript</a>
   </div>
-
-      
-        <span class="article-views">
+  <span class="article-views">
   <i class="fa fa-views"></i>
   <i id="busuanzi_container_page_pv">
       <i id="busuanzi_value_page_pv"></i>
   </i>
 </span>
-
-      
-      
+  
 <a href="/blog/articles/2016/07/26.html#comments" class="article-comment-link">
   
     
@@ -140,8 +139,7 @@
 
     </div>
     <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h3 id="screen-对象"><a href="#screen-对象" class="headerlink" title="screen 对象"></a>screen 对象</h3><h4 id="获取屏幕的高宽（分辨率）"><a href="#获取屏幕的高宽（分辨率）" class="headerlink" title="获取屏幕的高宽（分辨率）"></a>获取屏幕的高宽（分辨率）</h4><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">screen.<span class="property">width</span>; <span class="comment">//屏幕的宽</span></span><br><span class="line">screen.<span class="property">height</span>; <span class="comment">//屏幕的高</span></span><br><span class="line">screen.<span class="property">availWidth</span>; <span class="comment">//屏幕可用宽度   屏幕的像素高度减去系统部件高度之后的值</span></span><br><span class="line">screen.<span class="property">availHeight</span>; <span class="comment">//屏幕可用高度   屏幕的像素宽度减去系统部件宽度之后的值</span></span><br></pre></td></tr></table></figure>
+       <h3 id="screen-对象"><a href="#screen-对象" class="headerlink" title="screen 对象"></a>screen 对象</h3><h4 id="获取屏幕的高宽（分辨率）"><a href="#获取屏幕的高宽（分辨率）" class="headerlink" title="获取屏幕的高宽（分辨率）"></a>获取屏幕的高宽（分辨率）</h4><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">screen.<span class="property">width</span>; <span class="comment">//屏幕的宽</span></span><br><span class="line">screen.<span class="property">height</span>; <span class="comment">//屏幕的高</span></span><br><span class="line">screen.<span class="property">availWidth</span>; <span class="comment">//屏幕可用宽度   屏幕的像素高度减去系统部件高度之后的值</span></span><br><span class="line">screen.<span class="property">availHeight</span>; <span class="comment">//屏幕可用高度   屏幕的像素宽度减去系统部件宽度之后的值</span></span><br></pre></td></tr></table></figure>
 
 <span id="more"></span>
 
@@ -170,10 +168,8 @@
 
 <h3 id="event-对象"><a href="#event-对象" class="headerlink" title="event 对象"></a>event 对象</h3><p>event 对象代表事件的状态，比如事件在其中发生的元素、键盘按键的状态、鼠标的位置、鼠标按钮的状态。<br>event.screenX:相对电脑屏幕的坐标，以屏幕左上角为坐标原点到鼠标所在点的水平距离<br>event.screenY:相对电脑屏幕的坐标，以屏幕左上角为坐标原点到鼠标所在点的垂直距离<br>event.pageX:相对整个页面的坐标，以页面的左上角为坐标原点到鼠标所在点的水平距离（IE8 不支持）<br>event.pageY:相对整个页面的坐标，以页面的左上角为坐标原点到鼠标所在点的垂直距离（IE8 不支持）<br>event.clientX:相对可视区域的坐标，以浏览器可视区域左上角为坐标原点到鼠标所在点的水平距离<br>event.clientY:相对可视区域的坐标，以浏览器可视区域左上角为坐标原点到鼠标所在点的垂直距离<br>event.offsetX:相对于自身的坐标，以自身的 padding 左上角为坐标原点到鼠标所在点的水平距离<br>event.offsetY:相对于自身的坐标，以自身的 padding 左上角为坐标原点到鼠标所在点的水平距离<br><img src="http://o8l2fza1x.bkt.clouddn.com/all-width-and-position%2Fimages%2Fevent.png" alt="event"></p>
 <h3 id="获取鼠标相对于可视窗口的位置坐标"><a href="#获取鼠标相对于可视窗口的位置坐标" class="headerlink" title="获取鼠标相对于可视窗口的位置坐标"></a>获取鼠标相对于可视窗口的位置坐标</h3><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">label</span> <span class="attr">for</span>=<span class="string">&quot;mouseXPosition&quot;</span>&gt;</span>鼠标的X坐标为：<span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">id</span>=<span class="string">&quot;mouseXPosition&quot;</span> <span class="attr">name</span>=<span class="string">&quot;mouseXPosition&quot;</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">label</span> <span class="attr">for</span>=<span class="string">&quot;mouseYPosition&quot;</span>&gt;</span>鼠标的Y坐标为：<span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">id</span>=<span class="string">&quot;mouseYPosition&quot;</span> <span class="attr">name</span>=<span class="string">&quot;mouseYPosition&quot;</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">&quot;text/javascript&quot;</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">  <span class="variable language_">document</span>.<span class="property">onmousemove</span> = mouseMove;</span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">  <span class="keyword">function</span> <span class="title function_">mouseMove</span>(<span class="params">event</span>) &#123;</span></span><br><span class="line"><span class="language-javascript">    event = event || <span class="variable language_">window</span>.<span class="property">event</span>;</span></span><br><span class="line"><span class="language-javascript">    <span class="keyword">var</span> mousePos = <span class="title function_">mousePosition</span>(event);</span></span><br><span class="line"><span class="language-javascript">    <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&quot;mouseXPosition&quot;</span>).<span class="property">value</span> = mousePos.<span class="property">x</span>;</span></span><br><span class="line"><span class="language-javascript">    <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&quot;mouseYPosition&quot;</span>).<span class="property">value</span> = mousePos.<span class="property">y</span>;</span></span><br><span class="line"><span class="language-javascript">  &#125;</span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">  <span class="keyword">function</span> <span class="title function_">mousePosition</span>(<span class="params">event</span>) &#123;</span></span><br><span class="line"><span class="language-javascript">    <span class="keyword">if</span> (event.<span class="property">pageX</span> || event.<span class="property">pageY</span>) &#123;</span></span><br><span class="line"><span class="language-javascript">      <span class="keyword">return</span> &#123;</span></span><br><span class="line"><span class="language-javascript">        <span class="attr">x</span>: event.<span class="property">pageX</span>,</span></span><br><span class="line"><span class="language-javascript">        <span class="attr">y</span>: event.<span class="property">pageY</span>,</span></span><br><span class="line"><span class="language-javascript">      &#125;;</span></span><br><span class="line"><span class="language-javascript">    &#125; <span class="keyword">else</span> &#123;</span></span><br><span class="line"><span class="language-javascript">      <span class="keyword">return</span> &#123;</span></span><br><span class="line"><span class="language-javascript">        <span class="attr">x</span>: event.<span class="property">clientX</span> + <span class="variable language_">document</span>.<span class="property">body</span>.<span class="property">scrollLeft</span> - <span class="variable language_">document</span>.<span class="property">body</span>.<span class="property">clientLeft</span>,</span></span><br><span class="line"><span class="language-javascript">        <span class="attr">y</span>: event.<span class="property">clientY</span> + <span class="variable language_">document</span>.<span class="property">body</span>.<span class="property">scrollTop</span> - <span class="variable language_">document</span>.<span class="property">body</span>.<span class="property">clientTop</span>,</span></span><br><span class="line"><span class="language-javascript">      &#125;;</span></span><br><span class="line"><span class="language-javascript">    &#125;</span></span><br><span class="line"><span class="language-javascript">  &#125;</span></span><br><span class="line"><span class="language-javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-        
-            <div id="toc-article">
-                
+ 
+      <div id="toc-article">
   <div class="widget-wrap" id="toc-wrap">
     <h3 class="widget-title"><i class="fa fa-toc"></i> 文章目录</h3>
     <div class="widget">
@@ -181,31 +177,29 @@
     </div>
   </div>
 
-
-            </div>
-        
-        
-          <blockquote id="copyright">
-              <p>原文链接: <a href="https://jesse121.github.io/articles/2016/07/26.html">https://jesse121.github.io/articles/2016/07/26.html</a></p>
-              <p>版权声明: 转载请注明出处.</p>
-          </blockquote>
-        
-      
+</div>
+       
+      <blockquote id="copyright">
+        <p>
+          原文链接:
+          <a href="https://jesse121.github.io/blog/articles/2016/07/26.html"
+            >https://jesse121.github.io/blog/articles/2016/07/26.html</a
+          >
+        </p>
+        <p>版权声明: 转载请注明出处.</p>
+      </blockquote>
+       
     </div>
     <footer class="article-footer">
       
-        <div class="article-tag-wrap">
-          
-
-          
+      <div class="article-tag-wrap">
+        
+ 
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/javascript/" rel="tag">JavaScript</a></li></ul>
+ 
 
-          
 
-
-        </div>
-      
-      
+      </div>
         
 <nav id="article-nav">
   
@@ -229,10 +223,7 @@
     </a>
   
 </nav>
-
-      
-      
-        
+   
   <div id="comments"></div>
 
 
@@ -242,8 +233,7 @@
 
 
 
-
-      
+ 
     </footer>
   </div>
 </article>

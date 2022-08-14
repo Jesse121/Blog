@@ -88,12 +88,17 @@
 </header>
 
       <div class="outer">
-        <section id="main"><article id="post-tool/如何做好前端页面异常监控?" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+        <section id="main"><article
+  id="post-tool/如何做好前端页面异常监控?"
+  class="h-entry article article-type-post"
+  itemprop="blogPost"
+  itemscope
+  itemtype="https://schema.org/BlogPosting"
+>
   <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
+     
+    <header class="article-header">
+      
   
     <h1 class="p-name article-title" itemprop="headline name">
       如何做好前端页面异常监控？
@@ -101,30 +106,24 @@
   
 
 
-      </header>
+    </header>
     
     <div class="article-meta">
-      
-      <span class="article-date">
+       <span class="article-date">
   <i class="fa fa-date"></i>
   <time class="dt-published" datetime="2020-01-11T02:07:10.000Z" itemprop="datePublished">2020年01月11日</time>
-</span>
-      
+</span> 
   <div class="article-category">
     <i class="fa fa-classify"></i>
     <a class="article-category-link" href="/blog/categories/web/">WEB</a>
   </div>
-
-      
-        <span class="article-views">
+  <span class="article-views">
   <i class="fa fa-views"></i>
   <i id="busuanzi_container_page_pv">
       <i id="busuanzi_value_page_pv"></i>
   </i>
 </span>
-
-      
-      
+  
 <a href="/blog/articles/2020/01/11.html#comments" class="article-comment-link">
   
     
@@ -140,8 +139,7 @@
 
     </div>
     <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>在开发工作中难免会出现 bug,一般项目都是测试检查通过后就可以发线上，可是在线上仍旧会出现各种意料之外或者未测试到的问题，这个时候有的用户会向客服反馈说哪里哪里有问题，这是一种被动的错误上报方式，毕竟不是所有的用户都会上报问题，更多的则是出现问题后直接离开我们的 APP。所以异常监控这块就显得越来越重要。</p>
+       <p>在开发工作中难免会出现 bug,一般项目都是测试检查通过后就可以发线上，可是在线上仍旧会出现各种意料之外或者未测试到的问题，这个时候有的用户会向客服反馈说哪里哪里有问题，这是一种被动的错误上报方式，毕竟不是所有的用户都会上报问题，更多的则是出现问题后直接离开我们的 APP。所以异常监控这块就显得越来越重要。</p>
 <span id="more"></span>
 
 <h3 id="页面异常分类"><a href="#页面异常分类" class="headerlink" title="页面异常分类"></a>页面异常分类</h3><p>在我们的项目中我将页面异常分为以下几种情况：</p>
@@ -168,10 +166,8 @@
 
 <p>捕获到这些异常后我们需要将这些异常上报给服务器，我们直接以请求图片的形式发送上报内容</p>
 <h3 id="异常上报"><a href="#异常上报" class="headerlink" title="异常上报"></a>异常上报</h3><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">report</span>(<span class="params">msg</span>) &#123;</span><br><span class="line">  <span class="keyword">var</span> reportUrl = <span class="string">&quot;http://xxxx/report&quot;</span>;</span><br><span class="line">  <span class="keyword">new</span> <span class="title class_">Image</span>().<span class="property">src</span> = reportUrl + <span class="built_in">encodeURIComponent</span>(<span class="title class_">JSON</span>.<span class="title function_">stringify</span>(msg));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-        
-            <div id="toc-article">
-                
+ 
+      <div id="toc-article">
   <div class="widget-wrap" id="toc-wrap">
     <h3 class="widget-title"><i class="fa fa-toc"></i> 文章目录</h3>
     <div class="widget">
@@ -179,31 +175,29 @@
     </div>
   </div>
 
-
-            </div>
-        
-        
-          <blockquote id="copyright">
-              <p>原文链接: <a href="https://jesse121.github.io/articles/2020/01/11.html">https://jesse121.github.io/articles/2020/01/11.html</a></p>
-              <p>版权声明: 转载请注明出处.</p>
-          </blockquote>
-        
-      
+</div>
+       
+      <blockquote id="copyright">
+        <p>
+          原文链接:
+          <a href="https://jesse121.github.io/blog/articles/2020/01/11.html"
+            >https://jesse121.github.io/blog/articles/2020/01/11.html</a
+          >
+        </p>
+        <p>版权声明: 转载请注明出处.</p>
+      </blockquote>
+       
     </div>
     <footer class="article-footer">
       
-        <div class="article-tag-wrap">
-          
-
-          
+      <div class="article-tag-wrap">
+        
+ 
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/monitor/" rel="tag">monitor</a></li></ul>
+ 
 
-          
 
-
-        </div>
-      
-      
+      </div>
         
 <nav id="article-nav">
   
@@ -227,10 +221,7 @@
     </a>
   
 </nav>
-
-      
-      
-        
+   
   <div id="comments"></div>
 
 
@@ -240,8 +231,7 @@
 
 
 
-
-      
+ 
     </footer>
   </div>
 </article>

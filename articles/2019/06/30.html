@@ -88,12 +88,17 @@
 </header>
 
       <div class="outer">
-        <section id="main"><article id="post-web/base64编码原理及应用" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+        <section id="main"><article
+  id="post-web/base64编码原理及应用"
+  class="h-entry article article-type-post"
+  itemprop="blogPost"
+  itemscope
+  itemtype="https://schema.org/BlogPosting"
+>
   <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
+     
+    <header class="article-header">
+      
   
     <h1 class="p-name article-title" itemprop="headline name">
       Base64编码原理及应用
@@ -101,30 +106,24 @@
   
 
 
-      </header>
+    </header>
     
     <div class="article-meta">
-      
-      <span class="article-date">
+       <span class="article-date">
   <i class="fa fa-date"></i>
   <time class="dt-published" datetime="2019-06-29T16:00:00.000Z" itemprop="datePublished">2019年06月30日</time>
-</span>
-      
+</span> 
   <div class="article-category">
     <i class="fa fa-classify"></i>
     <a class="article-category-link" href="/blog/categories/web/">WEB</a>
   </div>
-
-      
-        <span class="article-views">
+  <span class="article-views">
   <i class="fa fa-views"></i>
   <i id="busuanzi_container_page_pv">
       <i id="busuanzi_value_page_pv"></i>
   </i>
 </span>
-
-      
-      
+  
 <a href="/blog/articles/2019/06/30.html#comments" class="article-comment-link">
   
     
@@ -140,8 +139,7 @@
 
     </div>
     <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>最近在做一个H5上传图片并压缩的项目，其过程主要是先将图片上传通过readAsDataURL获取上传图片base64编码，然后根据高宽比将图片画到canvas上实现压缩，在通过toDataURL获取压缩后的图片。<a href="/blog/demo/h5compress.html">点击可查看demo</a>在该过程中用到base64编码，于是就想弄清楚base64编码原理，才有了这篇博客。</p>
+       <p>最近在做一个H5上传图片并压缩的项目，其过程主要是先将图片上传通过readAsDataURL获取上传图片base64编码，然后根据高宽比将图片画到canvas上实现压缩，在通过toDataURL获取压缩后的图片。<a href="/blog/demo/h5compress.html">点击可查看demo</a>在该过程中用到base64编码，于是就想弄清楚base64编码原理，才有了这篇博客。</p>
 <span id="more"></span>
 
 <h3 id="Base64编码的来历"><a href="#Base64编码的来历" class="headerlink" title="Base64编码的来历"></a>Base64编码的来历</h3><p>为什么会有Base64编码呢？因为有些网络传送渠道并不支持所有的字节，例如传统的邮件只支持可见字符的传送，像ASCII码的控制字符就不能通过邮件传送。这样用途就受到了很大的限制，比如图片二进制流的每个字节不可能全部是可见字符，所以就传送不了。最好的方法就是在不改变传统协议的情况下，做一种扩展方案来支持二进制文件的传送。把不可打印的字符也能用可打印字符来表示，问题就解决了。Base64编码应运而生，Base64编码就是一种基于64个可打印字符来表示二进制数据的表示方法。</p>
@@ -361,10 +359,8 @@
 <li><a target="_blank" rel="noopener" href="http://www.ruanyifeng.com/blog/2008/06/base64.html">Base64笔记</a></li>
 <li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/hongru/archive/2012/01/14/2321397.html">关于base64编码的原理及实现</a></li>
 </ol>
-
-        
-            <div id="toc-article">
-                
+ 
+      <div id="toc-article">
   <div class="widget-wrap" id="toc-wrap">
     <h3 class="widget-title"><i class="fa fa-toc"></i> 文章目录</h3>
     <div class="widget">
@@ -372,31 +368,29 @@
     </div>
   </div>
 
-
-            </div>
-        
-        
-          <blockquote id="copyright">
-              <p>原文链接: <a href="https://jesse121.github.io/articles/2019/06/30.html">https://jesse121.github.io/articles/2019/06/30.html</a></p>
-              <p>版权声明: 转载请注明出处.</p>
-          </blockquote>
-        
-      
+</div>
+       
+      <blockquote id="copyright">
+        <p>
+          原文链接:
+          <a href="https://jesse121.github.io/blog/articles/2019/06/30.html"
+            >https://jesse121.github.io/blog/articles/2019/06/30.html</a
+          >
+        </p>
+        <p>版权声明: 转载请注明出处.</p>
+      </blockquote>
+       
     </div>
     <footer class="article-footer">
       
-        <div class="article-tag-wrap">
-          
-
-          
+      <div class="article-tag-wrap">
+        
+ 
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/web/" rel="tag">WEB</a></li></ul>
+ 
 
-          
 
-
-        </div>
-      
-      
+      </div>
         
 <nav id="article-nav">
   
@@ -420,10 +414,7 @@
     </a>
   
 </nav>
-
-      
-      
-        
+   
   <div id="comments"></div>
 
 
@@ -433,8 +424,7 @@
 
 
 
-
-      
+ 
     </footer>
   </div>
 </article>

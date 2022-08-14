@@ -88,12 +88,17 @@
 </header>
 
       <div class="outer">
-        <section id="main"><article id="post-tool/利用webpack搭建的前端工程化环境" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+        <section id="main"><article
+  id="post-tool/利用webpack搭建的前端工程化环境"
+  class="h-entry article article-type-post"
+  itemprop="blogPost"
+  itemscope
+  itemtype="https://schema.org/BlogPosting"
+>
   <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
+     
+    <header class="article-header">
+      
   
     <h1 class="p-name article-title" itemprop="headline name">
       利用Webpack搭建的前端工程化环境
@@ -101,30 +106,24 @@
   
 
 
-      </header>
+    </header>
     
     <div class="article-meta">
-      
-      <span class="article-date">
+       <span class="article-date">
   <i class="fa fa-date"></i>
   <time class="dt-published" datetime="2018-01-17T00:06:27.000Z" itemprop="datePublished">2018年01月17日</time>
-</span>
-      
+</span> 
   <div class="article-category">
     <i class="fa fa-classify"></i>
     <a class="article-category-link" href="/blog/categories/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/">开发工具</a>
   </div>
-
-      
-        <span class="article-views">
+  <span class="article-views">
   <i class="fa fa-views"></i>
   <i id="busuanzi_container_page_pv">
       <i id="busuanzi_value_page_pv"></i>
   </i>
 </span>
-
-      
-      
+  
 <a href="/blog/articles/2018/01/17.html#comments" class="article-comment-link">
   
     
@@ -140,8 +139,7 @@
 
     </div>
     <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>随着webpack3.x的发布，其功能也越来越强大，很多的项目的编译打包工具也由gulp逐渐转移到webpack。最近因为项目重构考虑使用使用vue，同时想从原来的gulp切换到webpack，所以搭建了webpack-vue的前端脚手架工具，这里记录下搭建的过程中的要点。<a target="_blank" rel="noopener" href="https://github.com/Jesse121/Webpack-Vue">项目源码</a></p>
+       <p>随着webpack3.x的发布，其功能也越来越强大，很多的项目的编译打包工具也由gulp逐渐转移到webpack。最近因为项目重构考虑使用使用vue，同时想从原来的gulp切换到webpack，所以搭建了webpack-vue的前端脚手架工具，这里记录下搭建的过程中的要点。<a target="_blank" rel="noopener" href="https://github.com/Jesse121/Webpack-Vue">项目源码</a></p>
 <span id="more"></span>
 <h3 id="1-用yarn代替npm"><a href="#1-用yarn代替npm" class="headerlink" title="1. 用yarn代替npm"></a>1. 用yarn代替npm</h3><p>npm是一款非常好的包管理工具，之前在用npm安装项目依赖的时候总会因为某些依赖包推出了新版本从而导致编译结果不一样的问题，这是因为在安装依赖的时候npm并没有锁定依赖包的版本号(npm5好像已经解决了这个问题)，每次安装的时候总是获取最新的依赖包，导致编译结果不一样。用yarn安装依赖包可以完美的解决这个问题。<br>去<a target="_blank" rel="noopener" href="https://yarnpkg.com/zh-Hans/">官网</a>下载并安装yarn<br>在命令行中执行yarn -versions,若能输出版本号表示安装成功    </p>
 <h3 id="2-初始化生成package-json文件"><a href="#2-初始化生成package-json文件" class="headerlink" title="2. 初始化生成package.json文件"></a>2. 初始化生成package.json文件</h3><p>执行yarn init,填写项目相关信息</p>
@@ -175,10 +173,8 @@
 <li><a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000005969643">Webpack的dll功能</a>,</li>
 <li><a target="_blank" rel="noopener" href="http://www.jb51.net/article/132275.htm">详解webpack中的hash、chunkhash、contenthash区别</a></li>
 </ol>
-
-        
-            <div id="toc-article">
-                
+ 
+      <div id="toc-article">
   <div class="widget-wrap" id="toc-wrap">
     <h3 class="widget-title"><i class="fa fa-toc"></i> 文章目录</h3>
     <div class="widget">
@@ -186,31 +182,29 @@
     </div>
   </div>
 
-
-            </div>
-        
-        
-          <blockquote id="copyright">
-              <p>原文链接: <a href="https://jesse121.github.io/articles/2018/01/17.html">https://jesse121.github.io/articles/2018/01/17.html</a></p>
-              <p>版权声明: 转载请注明出处.</p>
-          </blockquote>
-        
-      
+</div>
+       
+      <blockquote id="copyright">
+        <p>
+          原文链接:
+          <a href="https://jesse121.github.io/blog/articles/2018/01/17.html"
+            >https://jesse121.github.io/blog/articles/2018/01/17.html</a
+          >
+        </p>
+        <p>版权声明: 转载请注明出处.</p>
+      </blockquote>
+       
     </div>
     <footer class="article-footer">
       
-        <div class="article-tag-wrap">
-          
-
-          
+      <div class="article-tag-wrap">
+        
+ 
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/vue/" rel="tag">Vue</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/webpack/" rel="tag">Webpack</a></li></ul>
+ 
 
-          
 
-
-        </div>
-      
-      
+      </div>
         
 <nav id="article-nav">
   
@@ -234,10 +228,7 @@
     </a>
   
 </nav>
-
-      
-      
-        
+   
   <div id="comments"></div>
 
 
@@ -247,8 +238,7 @@
 
 
 
-
-      
+ 
     </footer>
   </div>
 </article>

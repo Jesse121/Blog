@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>从源码分析为什么Electron+vue项目中router不能用history模式 | 前端之路</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  
+    <meta name="description" content="专注前端开发，前端开发技术博客">
+  
+  
+    <meta name="keywords" content="Web前端开发，Javascript，前端开发博客">
+  
+  
+    <link rel="alternate" href="/blog/atom.xml" title="前端之路" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/blog/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/blog/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/blog/fancybox/jquery.fancybox.min.css">
+
+  
+  
+  
+    
+<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+
+  
+  
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/blog/" id="logo">前端之路</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/blog/" id="subtitle">路漫漫其修远兮，吾将上下而求索</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        
+          <a class="main-nav-link" href="/blog/."><i class="fa fa-home"></i> 首页</a>
+        
+          <a class="main-nav-link" href="/blog/archives/"><i class="fa fa-archive"></i> 归档</a>
+        
+          <a class="main-nav-link" href="/blog/about/"><i class="fa fa-user"></i> 关于</a>
+        
+      </nav>
+    </div>
+    <div id="search-form">
+      <div id="result-mask" class="hide"></div>
+      <label><input id="search-key" type="text" autocomplete="off" placeholder="搜索"></label>
+      <div id="result-wrap" class="hide">
+        <div id="search-result"></div>
+      </div>
+      <div class="hide">
+        <template id="search-tpl">
+          <div class="item">
+            <a href="/{path}" title="{title}">
+              <div class="title">{title}</div>
+              <div class="time">{date}</div>
+              <div class="tags">{tags}</div>
+            </a>
+          </div>
+        </template>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article
+  id="post-electron/从源码分析为什么electron+vue项目中router不能用history模式"
+  class="h-entry article article-type-post"
+  itemprop="blogPost"
+  itemscope
+  itemtype="https://schema.org/BlogPosting"
+>
+  <div class="article-inner">
+     
+    <header class="article-header">
+      
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      从源码分析为什么Electron+vue项目中router不能用history模式
+    </h1>
+  
+
+
+    </header>
+    
+    <div class="article-meta">
+       <span class="article-date">
+  <i class="fa fa-date"></i>
+  <time class="dt-published" datetime="2022-07-22T12:02:30.000Z" itemprop="datePublished">2022年07月22日</time>
+</span> 
+  <div class="article-category">
+    <i class="fa fa-classify"></i>
+    <a class="article-category-link" href="/blog/categories/electron/">Electron</a>
+  </div>
+  <span class="article-views">
+  <i class="fa fa-views"></i>
+  <i id="busuanzi_container_page_pv">
+      <i id="busuanzi_value_page_pv"></i>
+  </i>
+</span>
+  
+<a href="/blog/articles/2022/07/22.html#comments" class="article-comment-link">
+  
+    
+    
+    
+    
+    
+  
+  <i class="fa fa-commt"></i>
+  留言
+</a>
+
+
+    </div>
+    <div class="e-content article-entry" itemprop="articleBody">
+       <p>在 electron+vue 项目中，vue-router 采用 history 模式在开发环境下能够正常显示页面，但是打包后发现页面 app 节点中的内容为空，页面空白</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;app&quot;</span> <span class="attr">data-v-app</span>=<span class="string">&quot;&quot;</span>&gt;</span><span class="comment">&lt;!----&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<span id="more"></span>
+
+<p>查资料后得知，electron+vue 应用在生产环境下 vue-router 不支持 history 模式，换成 hash 模式后才解决问题，这篇文章主要分析记录下为什么 electron+vue 项目中 router 不能用 history 模式？</p>
+<p>该文章中所使用的的 vue-router 版本是 4.1.2</p>
+<h3 id="调试-vue-router-源码"><a href="#调试-vue-router-源码" class="headerlink" title="调试 vue-router 源码"></a>调试 vue-router 源码</h3><p>这里我们先修改下 vite.config.ts</p>
+<figure class="highlight ts"><table><tr><td class="code"><pre><span class="line"><span class="attr">build</span>: &#123;</span><br><span class="line">  <span class="attr">minify</span>: <span class="literal">false</span>; <span class="comment">// 设置为 false 可以禁用最小化混淆 方便在生产环境直接调试</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>从项目中的 vue-router 入口开始分析</p>
+<ol>
+<li>createWebHistory()</li>
+</ol>
+<p><img src="https://raw.githubusercontent.com/Jesse121/publicPic/master/blog/pictures/20220721204828.png" alt="20220721204828"><br>该方法用于创建 HTML5 历史记录。单页应用程序最常见的历史记录,返回一个 routerHistory 对象</p>
+<ol start="2">
+<li>createRouter()</li>
+</ol>
+<p><img src="https://raw.githubusercontent.com/Jesse121/publicPic/master/blog/pictures/20220722091953.png" alt="20220722091953"><br>该方法创建一个可以被 vue-app 使用的路由实例，返回一个 router 对象。</p>
+<ol start="3">
+<li>app.use(router)</li>
+</ol>
+<p><img src="https://raw.githubusercontent.com/Jesse121/publicPic/master/blog/pictures/20220722103338.png" alt="20220722103338"><br>在该方法中参数 plugin 就是第二步中返回的 router 对象，该对象中有 install 方法，直接执行 plugin.install(app2,…options)</p>
+<p><img src="https://raw.githubusercontent.com/Jesse121/publicPic/master/blog/pictures/20220722092507.png" alt="20220722092507"><br>可以看到 install 方法做了一下事情：</p>
+<ul>
+<li>全局注册 RouterLink 和 RouterView 组件</li>
+<li>添加全局属性$router(Router实例对象本身),$route(当前 location 对应的路由对象)</li>
+<li>首次执行 install，则通过 push 方法跳转到 url 对应的路由</li>
+<li>注入三个 provider</li>
+<li>拦截 vue 实例的 unmount 方法，在 unmount 方法调用之前，先执行 Router 相关事件的移除和状态恢复工作</li>
+</ul>
+<p>这里重点分析 push 方法跳转路由,按下 F11 进入 push 方法<br><img src="https://raw.githubusercontent.com/Jesse121/publicPic/master/blog/pictures/20220722094219.png" alt="20220722094219"><br>继续进入 pushWithRedirect(to)方法<br><img src="https://raw.githubusercontent.com/Jesse121/publicPic/master/blog/pictures/20220722094744.png" alt="20220722094744"><br>这里 failure 是 undefined,执行的是 navigate(toLocation,from),该方法也异步的，返回一个 Promise。根据浏览器事件循环机制(event-loop),javascript 遇到异步函数先将异步函数加入异步任务队列，再继续执行接下来的同步任务。所以这里又回到 install 方法继续往下执行，install 方法执行完后开始执行 app.mount(‘#app’)</p>
+<ol start="4">
+<li>app.mount(‘#app’)</li>
+</ol>
+<p>这里开始执行挂载操作</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> proxy = <span class="title function_">mount</span>(container, <span class="literal">false</span>, container <span class="keyword">instanceof</span> <span class="title class_">SVGElement</span>);</span><br></pre></td></tr></table></figure>
+
+<p>从根组件开始创建 vnode</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> vnode = <span class="title function_">createVNode</span>(rootComponent, rootProps);</span><br></pre></td></tr></table></figure>
+
+<p>这里 rootComponent 是 app.vue 的编译结果</p>
+<p>渲染 vnode</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="title function_">render2</span>(vnode, rootContainer, isSVG);</span><br></pre></td></tr></table></figure>
+
+<p>新旧节点对比</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="title function_">patch</span>(container.<span class="property">_vnode</span> || <span class="literal">null</span>, vnode, container, <span class="literal">null</span>, <span class="literal">null</span>, <span class="literal">null</span>, isSVG);</span><br></pre></td></tr></table></figure>
+
+<p>处理组件</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="title function_">processComponent</span>(</span><br><span class="line">  n1,</span><br><span class="line">  n2,</span><br><span class="line">  container,</span><br><span class="line">  anchor,</span><br><span class="line">  parentComponent,</span><br><span class="line">  parentSuspense,</span><br><span class="line">  isSVG,</span><br><span class="line">  slotScopeIds,</span><br><span class="line">  optimized</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+
+<p>挂载组件</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="title function_">mountComponent</span>(</span><br><span class="line">  n2,</span><br><span class="line">  container,</span><br><span class="line">  anchor,</span><br><span class="line">  parentComponent,</span><br><span class="line">  parentSuspense,</span><br><span class="line">  isSVG,</span><br><span class="line">  optimized</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+
+<p>创建组件实例</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> instance = (initialVNode.<span class="property">component</span> = <span class="title function_">createComponentInstance</span>(</span><br><span class="line">  initialVNode,</span><br><span class="line">  parentComponent,</span><br><span class="line">  parentSuspense</span><br><span class="line">));</span><br></pre></td></tr></table></figure>
+
+<p>做组件实例对象的初始化工作</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="title function_">setupComponent</span>(instance);</span><br><span class="line"><span class="comment">// ...</span></span><br><span class="line"><span class="title function_">setupRenderEffect</span>(</span><br><span class="line">  instance,</span><br><span class="line">  initialVNode,</span><br><span class="line">  container,</span><br><span class="line">  anchor,</span><br><span class="line">  parentSuspense,</span><br><span class="line">  isSVG,</span><br><span class="line">  optimized</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+
+<p>调用 renderComponentRoot 生成子节点 vnode</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> subTree = (instance.<span class="property">subTree</span> = <span class="title function_">renderComponentRoot</span>(instance));</span><br><span class="line"><span class="comment">// ...</span></span><br><span class="line"><span class="title function_">patch</span>(<span class="literal">null</span>, subTree, container, anchor, instance, parentSuspense, isSVG);</span><br><span class="line"><span class="comment">// ...</span></span><br><span class="line"><span class="title function_">processComponent</span>(</span><br><span class="line">  n1,</span><br><span class="line">  n2,</span><br><span class="line">  container,</span><br><span class="line">  anchor,</span><br><span class="line">  parentComponent,</span><br><span class="line">  parentSuspense,</span><br><span class="line">  isSVG,</span><br><span class="line">  slotScopeIds,</span><br><span class="line">  optimized</span><br><span class="line">);</span><br><span class="line"><span class="comment">// ...</span></span><br><span class="line"><span class="title function_">mountComponent</span>(</span><br><span class="line">  n2,</span><br><span class="line">  container,</span><br><span class="line">  anchor,</span><br><span class="line">  parentComponent,</span><br><span class="line">  parentSuspense,</span><br><span class="line">  isSVG,</span><br><span class="line">  optimized</span><br><span class="line">);</span><br><span class="line"><span class="comment">// ...</span></span><br><span class="line"><span class="title function_">setupComponent</span>(instance);</span><br></pre></td></tr></table></figure>
+
+<p>执行子节点的 setup 方法，setupResult 就是 RouterView 组件的 setup 方法的返回值</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> setupResult = <span class="title function_">callWithErrorHandling</span>(setup, instance, <span class="number">0</span>, [</span><br><span class="line">  instance.<span class="property">props</span>,</span><br><span class="line">  setupContext,</span><br><span class="line">]);</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/Jesse121/publicPic/master/blog/pictures/20220722151315.png" alt="20220722151315"></p>
+<p>将 setupResult 赋值给子节点组件实例的 render 属性<br><img src="https://raw.githubusercontent.com/Jesse121/publicPic/master/blog/pictures/20220722151742.png" alt="20220722151742"></p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="title function_">setupRenderEffect</span>(</span><br><span class="line">  instance,</span><br><span class="line">  initialVNode,</span><br><span class="line">  container,</span><br><span class="line">  anchor,</span><br><span class="line">  parentSuspense,</span><br><span class="line">  isSVG,</span><br><span class="line">  optimized</span><br><span class="line">);</span><br><span class="line"><span class="comment">//...</span></span><br><span class="line"><span class="keyword">const</span> subTree = (instance.<span class="property">subTree</span> = <span class="title function_">renderComponentRoot</span>(instance));</span><br></pre></td></tr></table></figure>
+
+<p>又调用 renderComponentRoot 生成子节点<br><img src="https://raw.githubusercontent.com/Jesse121/publicPic/master/blog/pictures/20220722152243.png" alt="20220722152243"><br>此时 render2 是 RouterView 组件的 setup 的返回值<br>返回值 result 是空节点类型的 vnode，因为 router-view 组件中没有子节点<br><img src="https://raw.githubusercontent.com/Jesse121/publicPic/master/blog/pictures/20220722154230.png" alt="20220722154230"></p>
+<p>同步函数执行完后开始执行异步队列中的函数<br><img src="https://raw.githubusercontent.com/Jesse121/publicPic/master/blog/pictures/20220722155003.png" alt="20220722155003"></p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">failure2 = <span class="title function_">finalizeNavigation</span>(toLocation, <span class="keyword">from</span>, <span class="literal">true</span>, replace2, data);</span><br></pre></td></tr></table></figure>
+
+<p>注意该函数中的 toLocation<br><img src="https://raw.githubusercontent.com/Jesse121/publicPic/master/blog/pictures/20220722155422.png" alt="20220722155422"><br>这里将传入的 toLocation 赋值给 currentRoute.value</p>
+<p>组件挂载完后又执行<code>const nextTree = renderComponentRoot(instance);</code><br><img src="https://raw.githubusercontent.com/Jesse121/publicPic/master/blog/pictures/20220722155728.png" alt="20220722155728"><br>此时 render2 是 RouterView 组件的 setup 的返回值<br><img src="https://raw.githubusercontent.com/Jesse121/publicPic/master/blog/pictures/20220722160008.png" alt="20220722160008"><br>结果发现 matchedRoute 为 undefined，导致 ViewComponent 也为 undefined,匹配到的路由组件为 undefined,在接下来的 patch 函数中将注释节点插入<code>&lt;div id=&quot;#app&quot;&gt;&lt;/div&gt;</code>中，最终导致页面空白。</p>
+<h3 id="为何-matchRoute-为-undefined"><a href="#为何-matchRoute-为-undefined" class="headerlink" title="为何 matchRoute 为 undefined"></a>为何 matchRoute 为 undefined</h3><figure class="highlight js"><table><tr><td class="code"><pre><span class="line">app2.<span class="title function_">provide</span>(routerViewLocationKey, currentRoute);</span><br><span class="line"><span class="keyword">const</span> injectedRoute = <span class="title function_">inject</span>(routerViewLocationKey);</span><br><span class="line"><span class="keyword">const</span> routeToDisplay = <span class="title function_">computed</span>(<span class="function">() =&gt;</span> props.<span class="property">route</span> || injectedRoute.<span class="property">value</span>);</span><br><span class="line"><span class="keyword">const</span> matchedRouteRef = <span class="title function_">computed</span>(</span><br><span class="line">  <span class="function">() =&gt;</span> routeToDisplay.<span class="property">value</span>.<span class="property">matched</span>[depth.<span class="property">value</span>]</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+
+<p>由于 currentRoute 的值由初始值<br><img src="https://raw.githubusercontent.com/Jesse121/publicPic/master/blog/pictures/20220722162956.png" alt="20220722162956"><br>改为<br><img src="https://raw.githubusercontent.com/Jesse121/publicPic/master/blog/pictures/20220722163038.png" alt="20220722163038"><br>由上述计算属性计算结果得知 matchedRoute 为 undefined</p>
+<h3 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h3><p>打包后的 electron 包用的是本地文件通过 file 协议访问，在 vue-router 用 history 模式下 location.pathname 并不是常规的 history 路由而是包含文件绝对路径<br><img src="https://raw.githubusercontent.com/Jesse121/publicPic/master/blog/pictures/20220722164615.png" alt="20220722164615"><br>源码中 matchers 为当前定义的所有路由的路径解析器<br><img src="https://raw.githubusercontent.com/Jesse121/publicPic/master/blog/pictures/20220722165241.png" alt="20220722165241"><br>而 path 却包含文件绝对路径导致无法匹配路由，最终导致无路由组件可渲染，页面空白。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 获取当前路径匹配的路由</span></span><br><span class="line">matcher = matchers.<span class="title function_">find</span>(<span class="function">(<span class="params">m</span>) =&gt;</span> m.<span class="property">re</span>.<span class="title function_">test</span>(path));</span><br></pre></td></tr></table></figure>
+
+<p>啊，终于分析完了:)</p>
+ 
+      <div id="toc-article">
+  <div class="widget-wrap" id="toc-wrap">
+    <h3 class="widget-title"><i class="fa fa-toc"></i> 文章目录</h3>
+    <div class="widget">
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B0%83%E8%AF%95-vue-router-%E6%BA%90%E7%A0%81"><span class="toc-text">调试 vue-router 源码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%BA%E4%BD%95-matchRoute-%E4%B8%BA-undefined"><span class="toc-text">为何 matchRoute 为 undefined</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%93%E8%AE%BA"><span class="toc-text">结论</span></a></li></ol>
+    </div>
+  </div>
+
+</div>
+       
+      <blockquote id="copyright">
+        <p>
+          原文链接:
+          <a href="https://jesse121.github.io/blog/articles/2022/07/22.html"
+            >https://jesse121.github.io/blog/articles/2022/07/22.html</a
+          >
+        </p>
+        <p>版权声明: 转载请注明出处.</p>
+      </blockquote>
+       
+    </div>
+    <footer class="article-footer">
+      
+      <div class="article-tag-wrap">
+        
+ 
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/electron/" rel="tag">electron</a></li></ul>
+ 
+
+
+      </div>
+        
+<nav id="article-nav">
+  
+    <a href="/blog/articles/2022/07/20.html" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">older</strong>
+      <div class="article-nav-title">
+        
+          如何用Electron+vue+vite构建桌面端应用(一)
+        
+      </div>
+    </a>
+  
+  
+    <a href="/blog/articles/2022/08/04.html" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">newer</strong>
+      <div class="article-nav-title">
+        
+          如何用Electron+vue+vite构建桌面端应用(二)
+        
+      </div>
+    </a>
+  
+</nav>
+   
+  <div id="comments"></div>
+
+
+
+
+
+
+
+
+ 
+    </footer>
+  </div>
+</article>
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-posts"></i> 最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/blog/articles/2022/08/08.html">如何解决Electron应用安装在C盘没有权限更新的问题</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2022/08/04.html">如何用Electron+vue+vite构建桌面端应用(三)</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2022/08/04.html">如何用Electron+vue+vite构建桌面端应用(二)</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2022/07/22.html">从源码分析为什么Electron+vue项目中router不能用history模式</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2022/07/20.html">如何用Electron+vue+vite构建桌面端应用(一)</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2022/06/15.html">如何在国产银河麒麟系统Mips架构上离线安装electron</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2021/06/11.html">如何用Vite快速搭建一个vue3项目</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2020/12/15.html">如何快速生成tsconfig.json文件</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2020/08/22.html">用Ssh连接docker容器</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2020/07/04.html">如何在Vscode上直接运行typescript?</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-tag"></i> 标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/blog/tags/angularjs/" style="font-size: 10px;">AngularJs</a> <a href="/blog/tags/apache/" style="font-size: 12.86px;">Apache</a> <a href="/blog/tags/bootstrap/" style="font-size: 12.86px;">Bootstrap</a> <a href="/blog/tags/css/" style="font-size: 18.57px;">CSS</a> <a href="/blog/tags/centos/" style="font-size: 10px;">CentOS</a> <a href="/blog/tags/docker/" style="font-size: 12.86px;">Docker</a> <a href="/blog/tags/git/" style="font-size: 11.43px;">Git</a> <a href="/blog/tags/gitlab/" style="font-size: 10px;">Gitlab</a> <a href="/blog/tags/gulp/" style="font-size: 10px;">Gulp</a> <a href="/blog/tags/html/" style="font-size: 12.86px;">HTML</a> <a href="/blog/tags/html5/" style="font-size: 10px;">HTML5</a> <a href="/blog/tags/http/" style="font-size: 12.86px;">HTTP</a> <a href="/blog/tags/https/" style="font-size: 10px;">HTTPS</a> <a href="/blog/tags/javascript/" style="font-size: 20px;">JavaScript</a> <a href="/blog/tags/jenkins/" style="font-size: 10px;">Jenkins</a> <a href="/blog/tags/linux/" style="font-size: 11.43px;">Linux</a> <a href="/blog/tags/mac/" style="font-size: 10px;">Mac</a> <a href="/blog/tags/mysql/" style="font-size: 12.86px;">MySQL</a> <a href="/blog/tags/nginx/" style="font-size: 11.43px;">Nginx</a> <a href="/blog/tags/node-js/" style="font-size: 11.43px;">Node.js</a> <a href="/blog/tags/php/" style="font-size: 15.71px;">PHP</a> <a href="/blog/tags/photoshop/" style="font-size: 10px;">Photoshop</a> <a href="/blog/tags/react/" style="font-size: 10px;">React</a> <a href="/blog/tags/redux/" style="font-size: 10px;">Redux</a> <a href="/blog/tags/sublimetext3/" style="font-size: 10px;">SublimeText3</a> <a href="/blog/tags/typescript/" style="font-size: 11.43px;">Typescript</a> <a href="/blog/tags/vagrant/" style="font-size: 10px;">Vagrant</a> <a href="/blog/tags/vim/" style="font-size: 10px;">Vim</a> <a href="/blog/tags/vue/" style="font-size: 10px;">Vue</a> <a href="/blog/tags/web/" style="font-size: 15.71px;">WEB</a> <a href="/blog/tags/webpack/" style="font-size: 12.86px;">Webpack</a> <a href="/blog/tags/wireshark/" style="font-size: 11.43px;">Wireshark</a> <a href="/blog/tags/yii/" style="font-size: 10px;">Yii</a> <a href="/blog/tags/electron/" style="font-size: 17.14px;">electron</a> <a href="/blog/tags/jquery/" style="font-size: 12.86px;">jQuery</a> <a href="/blog/tags/kylin/" style="font-size: 10px;">kylin</a> <a href="/blog/tags/ssh/" style="font-size: 10px;">ssh</a> <a href="/blog/tags/vite/" style="font-size: 14.29px;">vite</a> <a href="/blog/tags/vscode/" style="font-size: 10px;">vscode</a> <a href="/blog/tags/vue/" style="font-size: 10px;">vue</a> <a href="/blog/tags/vue3/" style="font-size: 12.86px;">vue3</a> <a href="/blog/tags/%E5%89%8D%E7%AB%AF%E7%9B%91%E6%8E%A7/" style="font-size: 10px;">前端监控</a> <a href="/blog/tags/%E5%BC%80%E5%8F%91%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/" style="font-size: 10px;">开发问题记录</a> <a href="/blog/tags/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F/" style="font-size: 10px;">微信小程序</a> <a href="/blog/tags/%E7%AE%97%E6%B3%95/" style="font-size: 12.86px;">算法</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-classify"></i> 分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/blog/categories/bootstrap/">Bootstrap</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/electron/">Electron</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/html-css/">HTML-CSS</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/html5/">HTML5</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/javascript/">JavaScript</a><span class="category-list-count">11</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/linux/">Linux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/mysql/">MySQL</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/node-js/">Node.js</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/php/">PHP</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/photoshop/">Photoshop</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/typescript/">Typescript</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/vue/">Vue</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/web/">WEB</a><span class="category-list-count">8</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/jquery/">jQuery</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/translation/">前端翻译</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/">开发工具</a><span class="category-list-count">15</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/%E5%BC%80%E5%8F%91%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/">开发问题记录</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/%E7%AE%97%E6%B3%95/">算法</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/notes/">读书笔记</a><span class="category-list-count">16</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-archive"></i> 归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2022/">2022年</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2021/">2021年</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2020/">2020年</a><span class="archive-list-count">12</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2019/">2019年</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/">2018年</a><span class="archive-list-count">12</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2017/">2017年</a><span class="archive-list-count">26</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/">2016年</a><span class="archive-list-count">27</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-link"></i> 友情链接</h3>
+    <div class="widget">
+      <ul>
+      
+        <li>
+          <a target="_blank" rel="noopener" href="http://www.mahaixiang.cn/internet/300.html">深入理解互联网协议的原理</a>
+        </li>
+      
+        <li>
+          <a target="_blank" rel="noopener" href="http://javascript.ruanyifeng.com/">JavaScript 标准参考教程</a>
+        </li>
+      
+        <li>
+          <a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript">Mozilla Developer Network</a>
+        </li>
+      
+      </ul>
+    </div>
+  </div>
+
+
+  
+</aside>
+        
+      </div>
+      <a id="totop" href="#top"></a>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      <p>
+        <a href="/blog/sitemap.xml">网站地图</a>
+        <span> | </span><a href="/blog/atom.xml">订阅本站</a>
+        <span> | </span><a href="/blog/about/">联系博主</a>
+      </p>
+      
+        <p>
+          <i class="fa fa-visitors"></i>
+          <i id="busuanzi_container_site_uv"><i id="busuanzi_value_site_uv"></i></i>
+          ，
+          <i class="fa fa-views"></i>
+          <i id="busuanzi_container_site_pv"><i id="busuanzi_value_site_pv"></i></i>
+        </p>
+      
+      <p>
+        <span>Copyright &copy; 2022 Jesse.</span>
+        <span>Theme by <a href="https://github.com/chaooo/hexo-theme-BlueLake/" target="_blank">BlueLake.</a></span>
+        <span>Powered by <a href="https://hexo.io/" target="_blank">Hexo.</a></span>
+      </p>
+    </div>
+  </div>
+</footer>
+
+    </div>
+  </div>
+  
+<script src="/blog/js/jquery-3.4.1.min.js"></script>
+
+
+<script src="/blog/js/search.json.js"></script>
+
+
+  
+<script src="/blog/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/blog/js/script.js"></script>
+
+
+
+
+
+
+  
+<script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+  
+  
+
+
+  
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+ 
+<script src="//cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.js"></script>
+
+<script>
+  var gitalk = new Gitalk({
+    clientID: "1d84813ae13cd94072f0",
+    clientSecret: "4a4dd2af0c622e983dd90f5daf15c3ebd86b8ae9",
+    repo: "blog",
+    owner: "jesse121",
+    admin: ["jesse121"],
+    id: md5(window.location.pathname),
+    proxy: "https://gitalk-worker.jesse121.workers.dev/https://github.com/login/oauth/access_token",
+    distractionFreeMode: false,
+    language: "zh-CN",
+    pagerDirection: "last",
+  });
+  gitalk.render("comments");
+</script>
+         
+
+
+
+</body>
+</html>

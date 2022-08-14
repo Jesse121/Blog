@@ -61,7 +61,7 @@
         .map(function (post) {
           return tpl(searchTpl, {
             title: post.title,
-            path: post.path,
+            path: "blog/" + post.path,
             date: new Date(post.date).toLocaleDateString(),
             tags: post.tags
               .map(function (tag) {

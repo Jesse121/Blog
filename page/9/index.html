@@ -1,42 +1,28 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8">
-  
-  
+  <meta charset="utf-8" />
+   
   <title>前端之路</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, shrink-to-fit=no"
+  />
   
-    <meta name="description" content="专注前端开发，前端开发技术博客">
-  
-  
-    <meta name="keywords" content="Web前端开发，Javascript，前端开发博客">
-  
-  
-    <link rel="alternate" href="/blog/atom.xml" title="前端之路" type="application/atom+xml">
-  
-  
-    <link rel="shortcut icon" href="/blog/favicon.ico">
-  
-  
-    
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
-
-  
-  
+  <meta name="description" content="专注前端开发，前端开发技术博客" />
+   
+  <meta name="keywords" content="Web前端开发，Javascript，前端开发博客" />
+    <link rel="alternate" href="/blog/atom.xml" title="前端之路" type="application/atom+xml">   <link rel="shortcut icon" href="/blog/favicon.ico"> 
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/@highlightjs/cdn-assets@11.6.0/styles/xt256.min.css"
+  />
+   
 <link rel="stylesheet" href="/blog/css/style.css">
-
   
+<link rel="stylesheet" href="https://unpkg.com/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
     
-<link rel="stylesheet" href="/blog/fancybox/jquery.fancybox.min.css">
-
-  
-  
-  
-    
-<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
-
-  
+<link rel="stylesheet" href="https://unpkg.com/gitalk@1.7.2/dist/gitalk.css">
   
 <meta name="generator" content="Hexo 6.2.0"></head>
 
@@ -182,7 +168,19 @@
 
     </div>
     <div class="e-content article-entry" itemprop="articleBody">
-       <h4 id="冒泡排序法"><a href="#冒泡排序法" class="headerlink" title="冒泡排序法"></a>冒泡排序法</h4><figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">bubbleSort</span>(<span class="params"><span class="variable">$array</span></span>)</span>&#123;</span><br><span class="line">    <span class="variable">$temp</span> = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="variable">$i</span> = <span class="number">0</span>;<span class="variable">$i</span> &lt; <span class="title function_ invoke__">count</span>(<span class="variable">$array</span>) -<span class="number">1</span>;<span class="variable">$i</span>++)&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="variable">$j</span> = <span class="number">0</span>;<span class="variable">$j</span> &lt; <span class="title function_ invoke__">count</span>(<span class="variable">$array</span>) - <span class="number">1</span> -<span class="variable">$i</span>;<span class="variable">$j</span>++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(<span class="variable">$array</span>[<span class="variable">$j</span>] &gt; <span class="variable">$array</span>[<span class="variable">$j</span>+<span class="number">1</span>])&#123;  <span class="comment">//从小到大排列</span></span><br><span class="line">                <span class="variable">$temp</span> = <span class="variable">$array</span>[<span class="variable">$j</span>];</span><br><span class="line">                <span class="variable">$array</span>[<span class="variable">$j</span>] = <span class="variable">$array</span>[<span class="variable">$j</span>+<span class="number">1</span>];</span><br><span class="line">                <span class="variable">$array</span>[<span class="variable">$j</span>+<span class="number">1</span>] = <span class="variable">$temp</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure> 
+       <h4 id="冒泡排序法"><a href="#冒泡排序法" class="headerlink" title="冒泡排序法"></a>冒泡排序法</h4><pre><code class="php">function bubbleSort($array)&#123;
+    $temp = 0;
+    for($i = 0;$i &lt; count($array) -1;$i++)&#123;
+        for($j = 0;$j &lt; count($array) - 1 -$i;$j++)&#123;
+            if($array[$j] &gt; $array[$j+1])&#123;  //从小到大排列
+                $temp = $array[$j];
+                $array[$j] = $array[$j+1];
+                $array[$j+1] = $temp;
+            &#125;
+        &#125;
+    &#125;
+&#125;
+</code></pre> 
     </div>
     <footer class="article-footer">
        
@@ -292,7 +290,16 @@
     </div>
     <div class="e-content article-entry" itemprop="articleBody">
        <h3 id="第一章-加载和运行"><a href="#第一章-加载和运行" class="headerlink" title="第一章 加载和运行"></a>第一章 加载和运行</h3><h4 id="延迟脚本-defer"><a href="#延迟脚本-defer" class="headerlink" title="延迟脚本 defer"></a>延迟脚本 defer</h4><p>该属性表明脚本在执行期间不会影响到页面的构造，脚本会先下载但被延迟到整个页面都解析完毕后再运行.只适用于外部脚本</p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;js/test.js&quot;</span> <span class="attr">defer</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span>123<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">    <span class="title function_">alert</span>(<span class="string">&#x27;script&#x27;</span>);</span></span><br><span class="line"><span class="language-javascript">    <span class="variable language_">window</span>.<span class="property">onload</span> = <span class="keyword">function</span>(<span class="params"></span>)&#123;</span></span><br><span class="line"><span class="language-javascript">        <span class="title function_">alert</span>(<span class="string">&#x27;loaded&#x27;</span>);</span></span><br><span class="line"><span class="language-javascript">    &#125;</span></span><br><span class="line"><span class="language-javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 输出顺序 123 script defer loaded   --&gt;</span></span><br></pre></td></tr></table></figure> 
+<pre><code class="html">&lt;script src=&quot;js/test.js&quot; defer&gt;&lt;/script&gt;
+&lt;div&gt;123&lt;/div&gt;
+&lt;script&gt;
+    alert(&#39;script&#39;);
+    window.onload = function()&#123;
+        alert(&#39;loaded&#39;);
+    &#125;
+&lt;/script&gt;
+&lt;!-- 输出顺序 123 script defer loaded   --&gt;
+</code></pre> 
     </div>
     <footer class="article-footer">
        
@@ -346,7 +353,11 @@
 
     </div>
     <div class="e-content article-entry" itemprop="articleBody">
-       <h3 id="screen-对象"><a href="#screen-对象" class="headerlink" title="screen 对象"></a>screen 对象</h3><h4 id="获取屏幕的高宽（分辨率）"><a href="#获取屏幕的高宽（分辨率）" class="headerlink" title="获取屏幕的高宽（分辨率）"></a>获取屏幕的高宽（分辨率）</h4><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">screen.<span class="property">width</span>; <span class="comment">//屏幕的宽</span></span><br><span class="line">screen.<span class="property">height</span>; <span class="comment">//屏幕的高</span></span><br><span class="line">screen.<span class="property">availWidth</span>; <span class="comment">//屏幕可用宽度   屏幕的像素高度减去系统部件高度之后的值</span></span><br><span class="line">screen.<span class="property">availHeight</span>; <span class="comment">//屏幕可用高度   屏幕的像素宽度减去系统部件宽度之后的值</span></span><br></pre></td></tr></table></figure> 
+       <h3 id="screen-对象"><a href="#screen-对象" class="headerlink" title="screen 对象"></a>screen 对象</h3><h4 id="获取屏幕的高宽（分辨率）"><a href="#获取屏幕的高宽（分辨率）" class="headerlink" title="获取屏幕的高宽（分辨率）"></a>获取屏幕的高宽（分辨率）</h4><pre><code class="javascript">screen.width; //屏幕的宽
+screen.height; //屏幕的高
+screen.availWidth; //屏幕可用宽度   屏幕的像素高度减去系统部件高度之后的值
+screen.availHeight; //屏幕可用高度   屏幕的像素宽度减去系统部件宽度之后的值
+</code></pre> 
     </div>
     <footer class="article-footer">
        
@@ -455,8 +466,18 @@
 
     </div>
     <div class="e-content article-entry" itemprop="articleBody">
-       <h3 id="第二章、数据绑定"><a href="#第二章、数据绑定" class="headerlink" title="第二章、数据绑定"></a>第二章、数据绑定</h3><h4 id="2-2-简单的数据绑定"><a href="#2-2-简单的数据绑定" class="headerlink" title="2.2 简单的数据绑定"></a>2.2 简单的数据绑定</h4><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">ng-app</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Simple app<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;https://ajax.googleapis.com/ajax/libs/angularjs/1.2.13/angular.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">ng-model</span>=<span class="string">&quot;name&quot;</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">placeholder</span>=<span class="string">&quot;Your name&quot;</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">h1</span>&gt;</span>Hello &#123;&#123; name &#125;&#125;<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
+       <h3 id="第二章、数据绑定"><a href="#第二章、数据绑定" class="headerlink" title="第二章、数据绑定"></a>第二章、数据绑定</h3><h4 id="2-2-简单的数据绑定"><a href="#2-2-简单的数据绑定" class="headerlink" title="2.2 简单的数据绑定"></a>2.2 简单的数据绑定</h4><pre><code class="html">&lt;!DOCTYPE html&gt;
+&lt;html ng-app&gt;
+  &lt;head&gt;
+    &lt;title&gt;Simple app&lt;/title&gt;
+    &lt;script src=&quot;https://ajax.googleapis.com/ajax/libs/angularjs/1.2.13/angular.js&quot;&gt;&lt;/script&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;input ng-model=&quot;name&quot; type=&quot;text&quot; placeholder=&quot;Your name&quot; /&gt;
+    &lt;h1&gt;Hello &#123;&#123; name &#125;&#125;&lt;/h1&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
 <p>ng-app 指令定义一个 AngularJS 应用程序。ng-app 声明所有被它包含的元素都属于 AngularJS 应用<br>ng-model 指令把元素值（比如输入域的值）绑定到应用程序。<br>ng-controller 指令定义了应用程序控制器。DOM 元素上的 ng-controller 声明所有被它包含的元素都属于某个控制器。<br>AngularJS 表达式写在双大括号内：。</p> 
     </div>
     <footer class="article-footer">
@@ -791,35 +812,26 @@
     </div>
   </div>
   
-<script src="/blog/js/jquery-3.4.1.min.js"></script>
+<script src="https://unpkg.com/@highlightjs/cdn-assets@11.6.0/highlight.min.js"></script>
 
+<script>
+  hljs.highlightAll();
+</script>
 
+<script src="https://unpkg.com/jquery@3.4.1/dist/jquery.min.js"></script>
+ 
 <script src="/blog/js/search.json.js"></script>
-
-
   
-<script src="/blog/fancybox/jquery.fancybox.min.js"></script>
+<script src="https://unpkg.com/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
 
-
-
-
+ 
 <script src="/blog/js/script.js"></script>
-
-
-
-
-
-
-  
-<script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-
-
-
-
-
+ 
    
-
-
+<script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+ 
+    
+ 
 
 </body>
 </html>

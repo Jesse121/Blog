@@ -1,42 +1,28 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8">
-  
-  
+  <meta charset="utf-8" />
+   
   <title>如何做好前端页面异常监控？ | 前端之路</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, shrink-to-fit=no"
+  />
   
-    <meta name="description" content="专注前端开发，前端开发技术博客">
-  
-  
-    <meta name="keywords" content="Web前端开发，Javascript，前端开发博客">
-  
-  
-    <link rel="alternate" href="/blog/atom.xml" title="前端之路" type="application/atom+xml">
-  
-  
-    <link rel="shortcut icon" href="/blog/favicon.ico">
-  
-  
-    
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
-
-  
-  
+  <meta name="description" content="专注前端开发，前端开发技术博客" />
+   
+  <meta name="keywords" content="Web前端开发，Javascript，前端开发博客" />
+    <link rel="alternate" href="/blog/atom.xml" title="前端之路" type="application/atom+xml">   <link rel="shortcut icon" href="/blog/favicon.ico"> 
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/@highlightjs/cdn-assets@11.6.0/styles/xt256.min.css"
+  />
+   
 <link rel="stylesheet" href="/blog/css/style.css">
-
   
+<link rel="stylesheet" href="https://unpkg.com/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
     
-<link rel="stylesheet" href="/blog/fancybox/jquery.fancybox.min.css">
-
-  
-  
-  
-    
-<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
-
-  
+<link rel="stylesheet" href="https://unpkg.com/gitalk@1.7.2/dist/gitalk.css">
   
 <meta name="generator" content="Hexo 6.2.0"></head>
 
@@ -89,7 +75,7 @@
 
       <div class="outer">
         <section id="main"><article
-  id="post-tool/如何做好前端页面异常监控?"
+  id="post-tool/如何做好前端页面异常监控？"
   class="h-entry article article-type-post"
   itemprop="blogPost"
   itemscope
@@ -151,21 +137,118 @@
 <li>vue 项目中全局异常捕获</li>
 </ol>
 <p>接下来介绍如何捕获这些异常</p>
-<h3 id="前端页面异常捕获方式"><a href="#前端页面异常捕获方式" class="headerlink" title="前端页面异常捕获方式"></a>前端页面异常捕获方式</h3><h4 id="window-onerror-捕获-javascript-异常"><a href="#window-onerror-捕获-javascript-异常" class="headerlink" title="window.onerror 捕获 javascript 异常"></a>window.onerror 捕获 javascript 异常</h4><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 捕获javascript异常</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> &#123;<span class="type">String</span>&#125;  message    错误信息</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> &#123;<span class="type">String</span>&#125;  source     出错文件</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> &#123;<span class="type">Number</span>&#125;  lineno     行号</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> &#123;<span class="type">Number</span>&#125;  colno      列号</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> &#123;<span class="type">Object</span>&#125;  error      Error对象（对象）</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="variable language_">window</span>.<span class="property">onerror</span> = <span class="keyword">function</span> (<span class="params">message, source, lineno, colno, error</span>) &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;捕获到异常：&quot;</span>, &#123; message, source, lineno, colno, error &#125;);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
+<h3 id="前端页面异常捕获方式"><a href="#前端页面异常捕获方式" class="headerlink" title="前端页面异常捕获方式"></a>前端页面异常捕获方式</h3><h4 id="window-onerror-捕获-javascript-异常"><a href="#window-onerror-捕获-javascript-异常" class="headerlink" title="window.onerror 捕获 javascript 异常"></a>window.onerror 捕获 javascript 异常</h4><pre><code class="js">/**
+ * 捕获javascript异常
+ * @param &#123;String&#125;  message    错误信息
+ * @param &#123;String&#125;  source     出错文件
+ * @param &#123;Number&#125;  lineno     行号
+ * @param &#123;Number&#125;  colno      列号
+ * @param &#123;Object&#125;  error      Error对象（对象）
+ */
+window.onerror = function (message, source, lineno, colno, error) &#123;
+  console.log(&quot;捕获到异常：&quot;, &#123; message, source, lineno, colno, error &#125;);
+&#125;;
+</code></pre>
 <h4 id="跨域脚本异常捕获"><a href="#跨域脚本异常捕获" class="headerlink" title="跨域脚本异常捕获"></a>跨域脚本异常捕获</h4><p>一般涉及跨域的 js 运行错误时会抛出错误提示 script error.，但没有具体信息（如出错文件，行列号提示等）, 可利用资源共享策略来捕获跨域 js 错误<br>客户端：在 script 标签增加 crossorigin&#x3D;”anonymous”属性<br>服务端：静态资源响应头 Access-Control-Allow-Origin: *</p>
 <h4 id="window-addEventListener-‘error’-cb-true-捕获资源加载异常"><a href="#window-addEventListener-‘error’-cb-true-捕获资源加载异常" class="headerlink" title="window.addEventListener(‘error’,cb,true)捕获资源加载异常"></a>window.addEventListener(‘error’,cb,true)捕获资源加载异常</h4><p>img 加载异常时会触发 img.onerror 函数</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 捕获资源加载异常</span></span><br><span class="line"><span class="variable language_">window</span>.<span class="title function_">addEventListener</span>(</span><br><span class="line">  <span class="string">&quot;error&quot;</span>,</span><br><span class="line">  <span class="keyword">function</span> (<span class="params">e</span>) &#123;</span><br><span class="line">    <span class="keyword">const</span> err = e.<span class="property">target</span>.<span class="property">src</span> || e.<span class="property">target</span>.<span class="property">href</span>;</span><br><span class="line">    <span class="keyword">if</span> (err) &#123;</span><br><span class="line">      <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;捕获到资源加载异常&quot;</span>, err);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="literal">true</span></span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<pre><code class="js">// 捕获资源加载异常
+window.addEventListener(
+  &quot;error&quot;,
+  function (e) &#123;
+    const err = e.target.src || e.target.href;
+    if (err) &#123;
+      console.log(&quot;捕获到资源加载异常&quot;, err);
+    &#125;
+  &#125;,
+  true
+);
+</code></pre>
+<h4 id="ajax-接口请求异常捕获"><a href="#ajax-接口请求异常捕获" class="headerlink" title="ajax 接口请求异常捕获"></a>ajax 接口请求异常捕获</h4><pre><code class="js">// 统一拦截ajax请求
+function ajaxEventTrigger(event) &#123;
+  var ajaxEvent = new CustomEvent(event, &#123; detail: this &#125;);
+  window.dispatchEvent(ajaxEvent);
+&#125;
 
-<h4 id="ajax-接口请求异常捕获"><a href="#ajax-接口请求异常捕获" class="headerlink" title="ajax 接口请求异常捕获"></a>ajax 接口请求异常捕获</h4><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 统一拦截ajax请求</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">ajaxEventTrigger</span>(<span class="params">event</span>) &#123;</span><br><span class="line">  <span class="keyword">var</span> ajaxEvent = <span class="keyword">new</span> <span class="title class_">CustomEvent</span>(event, &#123; <span class="attr">detail</span>: <span class="variable language_">this</span> &#125;);</span><br><span class="line">  <span class="variable language_">window</span>.<span class="title function_">dispatchEvent</span>(ajaxEvent);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> oldXHR = <span class="variable language_">window</span>.<span class="property">XMLHttpRequest</span>;</span><br><span class="line"><span class="keyword">function</span> <span class="title function_">newXHR</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">var</span> realXHR = <span class="keyword">new</span> <span class="title function_">oldXHR</span>();</span><br><span class="line">  realXHR.<span class="title function_">addEventListener</span>(</span><br><span class="line">    <span class="string">&quot;readystatechange&quot;</span>,</span><br><span class="line">    <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">      ajaxEventTrigger.<span class="title function_">call</span>(<span class="variable language_">this</span>, <span class="string">&quot;ajaxReadyStateChange&quot;</span>);</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="literal">false</span></span><br><span class="line">  );</span><br><span class="line">  <span class="keyword">return</span> realXHR;</span><br><span class="line">&#125;</span><br><span class="line"><span class="variable language_">window</span>.<span class="property">XMLHttpRequest</span> = newXHR;</span><br><span class="line"><span class="keyword">var</span> startTime = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">var</span> gapTime = <span class="number">0</span>; <span class="comment">// 计算请求延时</span></span><br><span class="line"><span class="variable language_">window</span>.<span class="title function_">addEventListener</span>(<span class="string">&quot;ajaxReadyStateChange&quot;</span>, <span class="keyword">function</span> (<span class="params">e</span>) &#123;</span><br><span class="line">  <span class="keyword">var</span> xhr = e.<span class="property">detail</span>;</span><br><span class="line">  <span class="keyword">var</span> status = xhr.<span class="property">status</span>;</span><br><span class="line">  <span class="keyword">var</span> readyState = xhr.<span class="property">readyState</span>;</span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">   * 计算请求延时</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  <span class="keyword">if</span> (readyState === <span class="number">1</span>) &#123;</span><br><span class="line">    startTime = <span class="keyword">new</span> <span class="title class_">Date</span>().<span class="title function_">getTime</span>();</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">if</span> (readyState === <span class="number">4</span>) &#123;</span><br><span class="line">    gapTime = <span class="keyword">new</span> <span class="title class_">Date</span>().<span class="title function_">getTime</span>() - startTime;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">   * 上报请求信息</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  <span class="keyword">if</span> (readyState === <span class="number">4</span>) &#123;</span><br><span class="line">    <span class="keyword">if</span> (status === <span class="number">200</span>) &#123;</span><br><span class="line">      <span class="comment">// 接口正常响应时捕获接口响应耗时</span></span><br><span class="line">      <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;接口&quot;</span>, xhr.<span class="property">responseURL</span>, <span class="string">&quot;耗时&quot;</span>, gapTime);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="comment">// 接口异常时捕获异常接口及状态码</span></span><br><span class="line">      <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;异常接口&quot;</span>, xhr.<span class="property">responseURL</span>, <span class="string">&quot;状态码&quot;</span>, status);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-
+var oldXHR = window.XMLHttpRequest;
+function newXHR() &#123;
+  var realXHR = new oldXHR();
+  realXHR.addEventListener(
+    &quot;readystatechange&quot;,
+    function () &#123;
+      ajaxEventTrigger.call(this, &quot;ajaxReadyStateChange&quot;);
+    &#125;,
+    false
+  );
+  return realXHR;
+&#125;
+window.XMLHttpRequest = newXHR;
+var startTime = 0;
+var gapTime = 0; // 计算请求延时
+window.addEventListener(&quot;ajaxReadyStateChange&quot;, function (e) &#123;
+  var xhr = e.detail;
+  var status = xhr.status;
+  var readyState = xhr.readyState;
+  /**
+   * 计算请求延时
+   */
+  if (readyState === 1) &#123;
+    startTime = new Date().getTime();
+  &#125;
+  if (readyState === 4) &#123;
+    gapTime = new Date().getTime() - startTime;
+  &#125;
+  /**
+   * 上报请求信息
+   */
+  if (readyState === 4) &#123;
+    if (status === 200) &#123;
+      // 接口正常响应时捕获接口响应耗时
+      console.log(&quot;接口&quot;, xhr.responseURL, &quot;耗时&quot;, gapTime);
+    &#125; else &#123;
+      // 接口异常时捕获异常接口及状态码
+      console.log(&quot;异常接口&quot;, xhr.responseURL, &quot;状态码&quot;, status);
+    &#125;
+  &#125;
+&#125;);
+</code></pre>
 <h4 id="promise-异常捕获"><a href="#promise-异常捕获" class="headerlink" title="promise 异常捕获"></a>promise 异常捕获</h4><p>promise 中的报错顺序是：<br>如果有 catch 等捕获函数，则走 catch 捕获函数。catch 捕获函数如果没有抛出新的异常，则下一个 then 将会认为没有什么报错，会继续执行。<br>如果没有 catch 等捕获函数，我们需要注册 window.addEventListener(‘unhandledrejection’) 来处理</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Promise catch错误上报，需要在使用promise的地方显示调用.catch()，否则不会捕获错误</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">if</span> (<span class="keyword">typeof</span> <span class="title class_">Promise</span> !== <span class="string">&quot;undefined&quot;</span>) &#123;</span><br><span class="line">  <span class="keyword">var</span> _promiseCatch = <span class="title class_">Promise</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">catch</span>;</span><br><span class="line">  <span class="title class_">Promise</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">catch</span> = <span class="keyword">function</span> (<span class="params">foo</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> _promiseCatch.<span class="title function_">call</span>(<span class="variable language_">this</span>, <span class="title function_">catCatch</span>(foo));</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">function</span> <span class="title function_">catCatch</span>(<span class="params">foo</span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">function</span> (<span class="params">args</span>) &#123;</span><br><span class="line">    <span class="keyword">let</span> msg = args.<span class="property">stack</span> ? args.<span class="property">stack</span> : args;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;捕获到catch中的异常&quot;</span>, msg);</span><br><span class="line">    foo &amp;&amp; foo.<span class="title function_">call</span>(<span class="variable language_">this</span>, args);</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 监听promise未处理的reject错误, 跨域情况下监控不到</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="variable language_">window</span>.<span class="title function_">addEventListener</span>(<span class="string">&quot;unhandledrejection&quot;</span>, <span class="function">(<span class="params">event</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;捕获到未处理的promise异常&quot;</span>, event.<span class="property">reson</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<pre><code class="js">/**
+ * Promise catch错误上报，需要在使用promise的地方显示调用.catch()，否则不会捕获错误
+ */
+if (typeof Promise !== &quot;undefined&quot;) &#123;
+  var _promiseCatch = Promise.prototype.catch;
+  Promise.prototype.catch = function (foo) &#123;
+    return _promiseCatch.call(this, catCatch(foo));
+  &#125;;
+&#125;
+function catCatch(foo) &#123;
+  return function (args) &#123;
+    let msg = args.stack ? args.stack : args;
+    console.log(&quot;捕获到catch中的异常&quot;, msg);
+    foo &amp;&amp; foo.call(this, args);
+  &#125;;
+&#125;
 
-<h4 id="vue-项目全局异常捕获"><a href="#vue-项目全局异常捕获" class="headerlink" title="vue 项目全局异常捕获"></a>vue 项目全局异常捕获</h4><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="title class_">Vue</span>.<span class="property">config</span>.<span class="property">errorHandler</span> = <span class="keyword">function</span> (<span class="params">err, vm, info</span>) &#123;</span><br><span class="line">  <span class="comment">// `info` 是 Vue 特定的错误信息，比如错误所在的生命周期钩子</span></span><br><span class="line">  <span class="comment">// 只在 2.2.0+ 可用</span></span><br><span class="line">  <span class="keyword">let</span> msg = <span class="string">`错误发生在：<span class="subst">$&#123;info&#125;</span>中，具体信息：<span class="subst">$&#123;err.stack&#125;</span>`</span>;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(msg);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
+/**
+ * 监听promise未处理的reject错误, 跨域情况下监控不到
+ */
+window.addEventListener(&quot;unhandledrejection&quot;, (event) =&gt; &#123;
+  console.log(&quot;捕获到未处理的promise异常&quot;, event.reson);
+&#125;);
+</code></pre>
+<h4 id="vue-项目全局异常捕获"><a href="#vue-项目全局异常捕获" class="headerlink" title="vue 项目全局异常捕获"></a>vue 项目全局异常捕获</h4><pre><code class="js">Vue.config.errorHandler = function (err, vm, info) &#123;
+  // `info` 是 Vue 特定的错误信息，比如错误所在的生命周期钩子
+  // 只在 2.2.0+ 可用
+  let msg = `错误发生在：$&#123;info&#125;中，具体信息：$&#123;err.stack&#125;`;
+  console.log(msg);
+&#125;;
+</code></pre>
 <p>捕获到这些异常后我们需要将这些异常上报给服务器，我们直接以请求图片的形式发送上报内容</p>
-<h3 id="异常上报"><a href="#异常上报" class="headerlink" title="异常上报"></a>异常上报</h3><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">report</span>(<span class="params">msg</span>) &#123;</span><br><span class="line">  <span class="keyword">var</span> reportUrl = <span class="string">&quot;http://xxxx/report&quot;</span>;</span><br><span class="line">  <span class="keyword">new</span> <span class="title class_">Image</span>().<span class="property">src</span> = reportUrl + <span class="built_in">encodeURIComponent</span>(<span class="title class_">JSON</span>.<span class="title function_">stringify</span>(msg));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="异常上报"><a href="#异常上报" class="headerlink" title="异常上报"></a>异常上报</h3><pre><code class="js">function report(msg) &#123;
+  var reportUrl = &quot;http://xxxx/report&quot;;
+  new Image().src = reportUrl + encodeURIComponent(JSON.stringify(msg));
+&#125;
+</code></pre>
  
       <div id="toc-article">
   <div class="widget-wrap" id="toc-wrap">
@@ -180,8 +263,8 @@
       <blockquote id="copyright">
         <p>
           原文链接:
-          <a href="https://jesse121.github.io/blog/blog/articles/2020/01/11.html"
-            >https://jesse121.github.io/blog/blog/articles/2020/01/11.html</a
+          <a href="https://jesse121.github.io/blog/articles/2020/01/11.html"
+            >https://jesse121.github.io/blog/articles/2020/01/11.html</a
           >
         </p>
         <p>版权声明: 转载请注明出处.</p>
@@ -202,7 +285,7 @@
 <nav id="article-nav">
   
     <a href="/blog/articles/2019/10/20.html" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">older</strong>
+      <strong class="article-nav-caption">下一篇</strong>
       <div class="article-nav-title">
         
           解读setTimeout, promise.then, process.nextTick, setImmediate的执行顺序
@@ -212,7 +295,7 @@
   
   
     <a href="/blog/articles/2020/02/18.html" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">newer</strong>
+      <strong class="article-nav-caption">上一篇</strong>
       <div class="article-nav-title">
         
           Mac OS下如何把软件卸载干净？
@@ -378,37 +461,26 @@
     </div>
   </div>
   
-<script src="/blog/js/jquery-3.4.1.min.js"></script>
+<script src="https://unpkg.com/@highlightjs/cdn-assets@11.6.0/highlight.min.js"></script>
 
+<script>
+  hljs.highlightAll();
+</script>
 
+<script src="https://unpkg.com/jquery@3.4.1/dist/jquery.min.js"></script>
+ 
 <script src="/blog/js/search.json.js"></script>
-
-
   
-<script src="/blog/fancybox/jquery.fancybox.min.js"></script>
+<script src="https://unpkg.com/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
 
-
-
-
+ 
 <script src="/blog/js/script.js"></script>
-
-
-
-
-
-
-  
+ 
+   
 <script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-
-
-
-
-  
-  
-
-
-  
-<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+ 
+      
+<script src="https://unpkg.com/gitalk@1.7.2/dist/gitalk.min.js"></script>
  
 <script src="//cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.js"></script>
 
@@ -420,7 +492,7 @@
     owner: "jesse121",
     admin: ["jesse121"],
     id: md5(window.location.pathname),
-    proxy: "https://gitalk.jesse121.workers.dev/?https://github.com/login/oauth/access_token",
+    proxy: "https://stormy-gorge-51623.herokuapp.com/https://github.com/login/oauth/access_token",
     distractionFreeMode: false,
     language: "zh-CN",
     pagerDirection: "last",
@@ -428,8 +500,7 @@
   gitalk.render("comments");
 </script>
          
-
-
+ 
 
 </body>
 </html>

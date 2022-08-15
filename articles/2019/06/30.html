@@ -1,42 +1,28 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8">
-  
-  
+  <meta charset="utf-8" />
+   
   <title>Base64编码原理及应用 | 前端之路</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, shrink-to-fit=no"
+  />
   
-    <meta name="description" content="专注前端开发，前端开发技术博客">
-  
-  
-    <meta name="keywords" content="Web前端开发，Javascript，前端开发博客">
-  
-  
-    <link rel="alternate" href="/blog/atom.xml" title="前端之路" type="application/atom+xml">
-  
-  
-    <link rel="shortcut icon" href="/blog/favicon.ico">
-  
-  
-    
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
-
-  
-  
+  <meta name="description" content="专注前端开发，前端开发技术博客" />
+   
+  <meta name="keywords" content="Web前端开发，Javascript，前端开发博客" />
+    <link rel="alternate" href="/blog/atom.xml" title="前端之路" type="application/atom+xml">   <link rel="shortcut icon" href="/blog/favicon.ico"> 
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/@highlightjs/cdn-assets@11.6.0/styles/xt256.min.css"
+  />
+   
 <link rel="stylesheet" href="/blog/css/style.css">
-
   
+<link rel="stylesheet" href="https://unpkg.com/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
     
-<link rel="stylesheet" href="/blog/fancybox/jquery.fancybox.min.css">
-
-  
-  
-  
-    
-<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
-
-  
+<link rel="stylesheet" href="https://unpkg.com/gitalk@1.7.2/dist/gitalk.css">
   
 <meta name="generator" content="Hexo 6.2.0"></head>
 
@@ -335,8 +321,13 @@
 </tr>
 </tbody></table>
 <p>字符长度为能被3整除时，比如Man</p>
-<figure class="highlight tap"><table><tr><td class="code"><pre><span class="line">            M           a           n</span><br><span class="line">ASCII:     <span class="number"> 77 </span>        <span class="number"> 97 </span>         110</span><br><span class="line">8bit字节:   <span class="number"> 01001101 </span>  <span class="number"> 01100001 </span>   01101110</span><br><span class="line">6bit字节:     <span class="number"> 010011 </span>    <span class="number"> 010110 </span>    <span class="number"> 000101 </span>     101110</span><br><span class="line">十进制:     <span class="number"> 19 </span>        <span class="number"> 22 </span>        <span class="number"> 5 </span>           46</span><br><span class="line">对应编码:     T           W           F            u</span><br></pre></td></tr></table></figure>
-
+<pre><code>            M           a           n
+ASCII:      77          97          110
+8bit字节:    01001101    01100001    01101110
+6bit字节:      010011      010110      000101      101110
+十进制:      19          22          5            46
+对应编码:     T           W           F            u
+</code></pre>
 <ol>
 <li>“M”、”a”、”n”的ASCII值分别是77、97、110，对应的二进制值是01001101、01100001、01101110，将它们连成一个24位的二进制字符串010011010110000101101110。</li>
 <li>将这个24位的二进制字符串分成4组，每组6个二进制位：010011、010110、000101、101110。</li>
@@ -344,12 +335,126 @@
 <li>根据上表，得到每个值对应Base64编码，即T、W、F、u。</li>
 </ol>
 <p>字符串长度不能被3整除时，比如Lucy：</p>
-<figure class="highlight tap"><table><tr><td class="code"><pre><span class="line">            L           u           c           y</span><br><span class="line">ASCII:     <span class="number"> 76 </span>        <span class="number"> 117 </span>       <span class="number"> 99 </span>         121</span><br><span class="line">8bit字节:   <span class="number"> 01001100 </span>  <span class="number"> 01110101 </span>  <span class="number"> 01100011 </span>  <span class="number"> 01111001 </span>    <span class="number"> 00000000 </span>   00000000</span><br><span class="line">6bit字节:     <span class="number"> 010011 </span>    <span class="number"> 000111 </span>    <span class="number"> 010101 </span>    <span class="number"> 100011 </span>      <span class="number"> 011110 </span>    <span class="number"> 010000 </span>    <span class="number"> 000000 </span> 000000</span><br><span class="line">十进制:     <span class="number"> 19 </span>        <span class="number"> 7 </span>         <span class="number"> 21 </span>        <span class="number"> 35 </span>          <span class="number"> 30 </span>        <span class="number"> 16 </span>            (补0) (补0)      </span><br><span class="line">对应编码:     T           H           V           j             e           Q            =       =</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<pre><code>            L           u           c           y
+ASCII:      76          117         99          121
+8bit字节:    01001100    01110101    01100011    01111001      00000000    00000000
+6bit字节:      010011      000111      010101      100011        011110      010000      000000  000000
+十进制:      19          7           21          35            30          16             (补0) (补0)      
+对应编码:     T           H           V           j             e           Q            =       =
+</code></pre>
 <p>如果要编码的字节数不能被3整除，最后会多出1个或2个字节，那么可以使用下面的方法进行处理：<br>先使用0字节值在末尾补足，使其能够被3整除，然后再进行Base64的编码。在编码后的Base64文本后加上一个或两个&#x3D;号，代表补足的字节数。也就是说，当最后剩余一个八位字节（1个byte）时，最后一个6位的Base64字节块有四位是0值，最后附加上两个等号；如果最后剩余两个八位字节（2个byte）时，最后一个6位的base字节块有两位是0值，最后附加一个等号。</p>
 <p>因为，Base64将三个字节转化成四个字节，因此Base64编码后的文本，会比原文本大出三分之一左右。</p>
 <p><strong>注意</strong><br>Base64编码主要用在传输、存储、表示二进制领域，不能算得上加密，只是无法直接看到明文，不建议用base64编码用于加密。<br>中文有多种编码（比如：utf-8、gb2312、gbk等），不同编码对应Base64编码结果都不一样。</p>
 <h3 id="base64实现"><a href="#base64实现" class="headerlink" title="base64实现"></a>base64实现</h3><p>在PHP中，有一对专门的函数用于Base64转换：base64_encode()用于编码、base64_decode()用于解码。<br>在Javascript中可使用window.btoa()用于编码，window.atob()用于解码。  <a target="_blank" rel="noopener" href="https://caniuse.com/#search=btoa">兼容性可点击查看</a>IE10及以上全部兼容<br>对于IE10以下可采用以下兼容方法</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * base64 encoding &amp; decoding</span></span><br><span class="line"><span class="comment"> * for fixing browsers which don&#x27;t support Base64 | btoa |atob</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line">(<span class="keyword">function</span> (<span class="params">win, <span class="literal">undefined</span></span>) &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> <span class="title class_">Base64</span> = <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">        <span class="keyword">var</span> base64hash = <span class="string">&#x27;ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/&#x27;</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// btoa method</span></span><br><span class="line">        <span class="keyword">function</span> <span class="title function_">_btoa</span>(<span class="params">s</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span> (<span class="regexp">/([^\u0000-\u00ff])/</span>.<span class="title function_">test</span>(s)) &#123;  <span class="comment">// 排除中文</span></span><br><span class="line">                <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">Error</span>(<span class="string">&#x27;INVALID_CHARACTER_ERR&#x27;</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">var</span> i = <span class="number">0</span>,</span><br><span class="line">                prev,</span><br><span class="line">                ascii,</span><br><span class="line">                mod,</span><br><span class="line">                result = [];</span><br><span class="line"></span><br><span class="line">            <span class="keyword">while</span> (i &lt; s.<span class="property">length</span>) &#123;</span><br><span class="line">                ascii = s.<span class="title function_">charCodeAt</span>(i);</span><br><span class="line">                mod = i % <span class="number">3</span>;</span><br><span class="line"></span><br><span class="line">                <span class="keyword">switch</span> (mod) &#123;</span><br><span class="line">                    <span class="comment">// 第一个6位只需要让8位二进制右移两位</span></span><br><span class="line">                    <span class="keyword">case</span> <span class="number">0</span>:</span><br><span class="line">                        result.<span class="title function_">push</span>(base64hash.<span class="title function_">charAt</span>(ascii &gt;&gt; <span class="number">2</span>));</span><br><span class="line">                        <span class="keyword">break</span>;</span><br><span class="line">                    <span class="comment">//第二个6位 = 第一个8位的后两位 + 第二个8位的前4位</span></span><br><span class="line">                    <span class="keyword">case</span> <span class="number">1</span>:</span><br><span class="line">                        result.<span class="title function_">push</span>(base64hash.<span class="title function_">charAt</span>((prev &amp; <span class="number">3</span>) &lt;&lt; <span class="number">4</span> | (ascii &gt;&gt; <span class="number">4</span>)));</span><br><span class="line">                        <span class="keyword">break</span>;</span><br><span class="line">                    <span class="comment">//第三个6位 = 第二个8位的后4位 + 第三个8位的前2位</span></span><br><span class="line">                    <span class="comment">//第4个6位 = 第三个8位的后6位</span></span><br><span class="line">                    <span class="keyword">case</span> <span class="number">2</span>:</span><br><span class="line">                        result.<span class="title function_">push</span>(base64hash.<span class="title function_">charAt</span>((prev &amp; <span class="number">0x0f</span>) &lt;&lt; <span class="number">2</span> | (ascii &gt;&gt; <span class="number">6</span>)));</span><br><span class="line">                        result.<span class="title function_">push</span>(base64hash.<span class="title function_">charAt</span>(ascii &amp; <span class="number">0x3f</span>));</span><br><span class="line">                        <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                prev = ascii;</span><br><span class="line">                i++;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 循环结束后看mod, 为0 证明需补3个6位，第一个为最后一个8位的最后两位后面补4个0。另外两个6位对应的是异常的“=”；</span></span><br><span class="line">            <span class="comment">// mod为1，证明还需补两个6位，一个是最后一个8位的后4位补两个0，另一个对应异常的“=”</span></span><br><span class="line">            <span class="keyword">if</span> (mod == <span class="number">0</span>) &#123;</span><br><span class="line">                result.<span class="title function_">push</span>(base64hash.<span class="title function_">charAt</span>((prev &amp; <span class="number">3</span>) &lt;&lt; <span class="number">4</span>));</span><br><span class="line">                result.<span class="title function_">push</span>(<span class="string">&#x27;==&#x27;</span>);</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (mod == <span class="number">1</span>) &#123;</span><br><span class="line">                result.<span class="title function_">push</span>(base64hash.<span class="title function_">charAt</span>((prev &amp; <span class="number">0x0f</span>) &lt;&lt; <span class="number">2</span>));</span><br><span class="line">                result.<span class="title function_">push</span>(<span class="string">&#x27;=&#x27;</span>);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">return</span> result.<span class="title function_">join</span>(<span class="string">&#x27;&#x27;</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// atob method</span></span><br><span class="line">        <span class="comment">// 逆转encode的思路即可</span></span><br><span class="line">        <span class="keyword">function</span> <span class="title function_">_atob</span>(<span class="params">s</span>) &#123;</span><br><span class="line">            s = s.<span class="title function_">replace</span>(<span class="regexp">/\s|=/g</span>, <span class="string">&#x27;&#x27;</span>);</span><br><span class="line">            <span class="keyword">var</span> cur,</span><br><span class="line">                prev,</span><br><span class="line">                mod,</span><br><span class="line">                i = <span class="number">0</span>,</span><br><span class="line">                result = [];</span><br><span class="line"></span><br><span class="line">            <span class="keyword">while</span> (i &lt; s.<span class="property">length</span>) &#123;</span><br><span class="line">                cur = base64hash.<span class="title function_">indexOf</span>(s.<span class="title function_">charAt</span>(i));</span><br><span class="line">                mod = i % <span class="number">4</span>;</span><br><span class="line"></span><br><span class="line">                <span class="keyword">switch</span> (mod) &#123;</span><br><span class="line">                    <span class="keyword">case</span> <span class="number">0</span>:</span><br><span class="line">                        <span class="comment">//TODO</span></span><br><span class="line">                        <span class="keyword">break</span>;</span><br><span class="line">                    <span class="keyword">case</span> <span class="number">1</span>:</span><br><span class="line">                        result.<span class="title function_">push</span>(<span class="title class_">String</span>.<span class="title function_">fromCharCode</span>(prev &lt;&lt; <span class="number">2</span> | cur &gt;&gt; <span class="number">4</span>));</span><br><span class="line">                        <span class="keyword">break</span>;</span><br><span class="line">                    <span class="keyword">case</span> <span class="number">2</span>:</span><br><span class="line">                        result.<span class="title function_">push</span>(<span class="title class_">String</span>.<span class="title function_">fromCharCode</span>((prev &amp; <span class="number">0x0f</span>) &lt;&lt; <span class="number">4</span> | cur &gt;&gt; <span class="number">2</span>));</span><br><span class="line">                        <span class="keyword">break</span>;</span><br><span class="line">                    <span class="keyword">case</span> <span class="number">3</span>:</span><br><span class="line">                        result.<span class="title function_">push</span>(<span class="title class_">String</span>.<span class="title function_">fromCharCode</span>((prev &amp; <span class="number">3</span>) &lt;&lt; <span class="number">6</span> | cur));</span><br><span class="line">                        <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                prev = cur;</span><br><span class="line">                i++;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">return</span> result.<span class="title function_">join</span>(<span class="string">&#x27;&#x27;</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> &#123;</span><br><span class="line">            <span class="attr">btoa</span>: _btoa,</span><br><span class="line">            <span class="attr">atob</span>: _atob,</span><br><span class="line">            <span class="attr">encode</span>: _btoa,</span><br><span class="line">            <span class="attr">decode</span>: _atob</span><br><span class="line">        &#125;;</span><br><span class="line">    &#125;();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (!win.<span class="property">Base64</span>) &#123; win.<span class="property">Base64</span> = <span class="title class_">Base64</span> &#125;</span><br><span class="line">    <span class="keyword">if</span> (!win.<span class="property">btoa</span>) &#123; win.<span class="property">btoa</span> = <span class="title class_">Base64</span>.<span class="property">btoa</span> &#125;</span><br><span class="line">    <span class="keyword">if</span> (!win.<span class="property">atob</span>) &#123; win.<span class="property">atob</span> = <span class="title class_">Base64</span>.<span class="property">atob</span> &#125;</span><br><span class="line"></span><br><span class="line">&#125;)(<span class="variable language_">window</span>)</span><br></pre></td></tr></table></figure>
+<pre><code class="js">/**
+ * base64 encoding &amp; decoding
+ * for fixing browsers which don&#39;t support Base64 | btoa |atob
+ */
+
+(function (win, undefined) &#123;
+
+    var Base64 = function () &#123;
+        var base64hash = &#39;ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/&#39;;
+
+        // btoa method
+        function _btoa(s) &#123;
+            if (/([^\u0000-\u00ff])/.test(s)) &#123;  // 排除中文
+                throw new Error(&#39;INVALID_CHARACTER_ERR&#39;);
+            &#125;
+            var i = 0,
+                prev,
+                ascii,
+                mod,
+                result = [];
+
+            while (i &lt; s.length) &#123;
+                ascii = s.charCodeAt(i);
+                mod = i % 3;
+
+                switch (mod) &#123;
+                    // 第一个6位只需要让8位二进制右移两位
+                    case 0:
+                        result.push(base64hash.charAt(ascii &gt;&gt; 2));
+                        break;
+                    //第二个6位 = 第一个8位的后两位 + 第二个8位的前4位
+                    case 1:
+                        result.push(base64hash.charAt((prev &amp; 3) &lt;&lt; 4 | (ascii &gt;&gt; 4)));
+                        break;
+                    //第三个6位 = 第二个8位的后4位 + 第三个8位的前2位
+                    //第4个6位 = 第三个8位的后6位
+                    case 2:
+                        result.push(base64hash.charAt((prev &amp; 0x0f) &lt;&lt; 2 | (ascii &gt;&gt; 6)));
+                        result.push(base64hash.charAt(ascii &amp; 0x3f));
+                        break;
+                &#125;
+
+                prev = ascii;
+                i++;
+            &#125;
+
+            // 循环结束后看mod, 为0 证明需补3个6位，第一个为最后一个8位的最后两位后面补4个0。另外两个6位对应的是异常的“=”；
+            // mod为1，证明还需补两个6位，一个是最后一个8位的后4位补两个0，另一个对应异常的“=”
+            if (mod == 0) &#123;
+                result.push(base64hash.charAt((prev &amp; 3) &lt;&lt; 4));
+                result.push(&#39;==&#39;);
+            &#125; else if (mod == 1) &#123;
+                result.push(base64hash.charAt((prev &amp; 0x0f) &lt;&lt; 2));
+                result.push(&#39;=&#39;);
+            &#125;
+
+            return result.join(&#39;&#39;);
+        &#125;
+
+        // atob method
+        // 逆转encode的思路即可
+        function _atob(s) &#123;
+            s = s.replace(/\s|=/g, &#39;&#39;);
+            var cur,
+                prev,
+                mod,
+                i = 0,
+                result = [];
+
+            while (i &lt; s.length) &#123;
+                cur = base64hash.indexOf(s.charAt(i));
+                mod = i % 4;
+
+                switch (mod) &#123;
+                    case 0:
+                        //TODO
+                        break;
+                    case 1:
+                        result.push(String.fromCharCode(prev &lt;&lt; 2 | cur &gt;&gt; 4));
+                        break;
+                    case 2:
+                        result.push(String.fromCharCode((prev &amp; 0x0f) &lt;&lt; 4 | cur &gt;&gt; 2));
+                        break;
+                    case 3:
+                        result.push(String.fromCharCode((prev &amp; 3) &lt;&lt; 6 | cur));
+                        break;
+                &#125;
+
+                prev = cur;
+                i++;
+            &#125;
+
+            return result.join(&#39;&#39;);
+        &#125;
+
+        return &#123;
+            btoa: _btoa,
+            atob: _atob,
+            encode: _btoa,
+            decode: _atob
+        &#125;;
+    &#125;();
+
+    if (!win.Base64) &#123; win.Base64 = Base64 &#125;
+    if (!win.btoa) &#123; win.btoa = Base64.btoa &#125;
+    if (!win.atob) &#123; win.atob = Base64.atob &#125;
+
+&#125;)(window)
+</code></pre>
 <h3 id="Base64实际运用"><a href="#Base64实际运用" class="headerlink" title="Base64实际运用"></a>Base64实际运用</h3><ol>
 <li>用base64引入图片，当图片大小较小时可直接将其用base64编码，这样可以减少请求，目前webpack中可使用url-loader处理图片</li>
 <li>在邮件中使用base64编码</li>
@@ -373,8 +478,8 @@
       <blockquote id="copyright">
         <p>
           原文链接:
-          <a href="https://jesse121.github.io/blog/blog/articles/2019/06/30.html"
-            >https://jesse121.github.io/blog/blog/articles/2019/06/30.html</a
+          <a href="https://jesse121.github.io/blog/articles/2019/06/30.html"
+            >https://jesse121.github.io/blog/articles/2019/06/30.html</a
           >
         </p>
         <p>版权声明: 转载请注明出处.</p>
@@ -395,7 +500,7 @@
 <nav id="article-nav">
   
     <a href="/blog/articles/2019/06/15.html" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">older</strong>
+      <strong class="article-nav-caption">下一篇</strong>
       <div class="article-nav-title">
         
           CSS 计数器详解
@@ -405,7 +510,7 @@
   
   
     <a href="/blog/articles/2019/07/23.html" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">newer</strong>
+      <strong class="article-nav-caption">上一篇</strong>
       <div class="article-nav-title">
         
           《Javascript设计模式与开发实践》--读书笔记
@@ -571,37 +676,26 @@
     </div>
   </div>
   
-<script src="/blog/js/jquery-3.4.1.min.js"></script>
+<script src="https://unpkg.com/@highlightjs/cdn-assets@11.6.0/highlight.min.js"></script>
 
+<script>
+  hljs.highlightAll();
+</script>
 
+<script src="https://unpkg.com/jquery@3.4.1/dist/jquery.min.js"></script>
+ 
 <script src="/blog/js/search.json.js"></script>
-
-
   
-<script src="/blog/fancybox/jquery.fancybox.min.js"></script>
+<script src="https://unpkg.com/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
 
-
-
-
+ 
 <script src="/blog/js/script.js"></script>
-
-
-
-
-
-
-  
+ 
+   
 <script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-
-
-
-
-  
-  
-
-
-  
-<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+ 
+      
+<script src="https://unpkg.com/gitalk@1.7.2/dist/gitalk.min.js"></script>
  
 <script src="//cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.js"></script>
 
@@ -613,7 +707,7 @@
     owner: "jesse121",
     admin: ["jesse121"],
     id: md5(window.location.pathname),
-    proxy: "https://gitalk.jesse121.workers.dev/?https://github.com/login/oauth/access_token",
+    proxy: "https://stormy-gorge-51623.herokuapp.com/https://github.com/login/oauth/access_token",
     distractionFreeMode: false,
     language: "zh-CN",
     pagerDirection: "last",
@@ -621,8 +715,7 @@
   gitalk.render("comments");
 </script>
          
-
-
+ 
 
 </body>
 </html>

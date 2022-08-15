@@ -1,42 +1,28 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8">
-  
-  
+  <meta charset="utf-8" />
+   
   <title>对JavaScript中闭包的理解 | 前端之路</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, shrink-to-fit=no"
+  />
   
-    <meta name="description" content="专注前端开发，前端开发技术博客">
-  
-  
-    <meta name="keywords" content="Web前端开发，Javascript，前端开发博客">
-  
-  
-    <link rel="alternate" href="/blog/atom.xml" title="前端之路" type="application/atom+xml">
-  
-  
-    <link rel="shortcut icon" href="/blog/favicon.ico">
-  
-  
-    
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
-
-  
-  
+  <meta name="description" content="专注前端开发，前端开发技术博客" />
+   
+  <meta name="keywords" content="Web前端开发，Javascript，前端开发博客" />
+    <link rel="alternate" href="/blog/atom.xml" title="前端之路" type="application/atom+xml">   <link rel="shortcut icon" href="/blog/favicon.ico"> 
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/@highlightjs/cdn-assets@11.6.0/styles/xt256.min.css"
+  />
+   
 <link rel="stylesheet" href="/blog/css/style.css">
-
   
+<link rel="stylesheet" href="https://unpkg.com/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
     
-<link rel="stylesheet" href="/blog/fancybox/jquery.fancybox.min.css">
-
-  
-  
-  
-    
-<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
-
-  
+<link rel="stylesheet" href="https://unpkg.com/gitalk@1.7.2/dist/gitalk.css">
   
 <meta name="generator" content="Hexo 6.2.0"></head>
 
@@ -159,52 +145,204 @@
 <li>Eval的代码 – 在Eval函数内运行的代码。</li>
 </ul>
 <p>一个执行的上下文可以抽象的理解为一个对象。每一个执行的上下文都有一系列的属性(变量对象(variable object)，this指针(this value)，作用域链(scope chain) )</p>
-<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line">Execution Contexts = &#123;</span><br><span class="line">    variable <span class="keyword">object</span>：变量对象;</span><br><span class="line">    <span class="keyword">this</span> value: <span class="keyword">this</span>指针;</span><br><span class="line">    scope chain：作用域链;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code>Execution Contexts = &#123;
+    variable object：变量对象;
+    this value: this指针;
+    scope chain：作用域链;
+&#125;
+</code></pre>
 <h4 id="执行上下文堆栈-Execution-Contexts-Stack"><a href="#执行上下文堆栈-Execution-Contexts-Stack" class="headerlink" title="执行上下文堆栈 Execution Contexts Stack"></a>执行上下文堆栈 Execution Contexts Stack</h4><p>活动的执行上下文组在逻辑上组成一个堆栈。堆栈底部永远都是全局上下文(globalContext)，而顶部就是当前(活动的)执行上下文。  </p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript"><span class="keyword">function</span> <span class="title function_">add</span>(<span class="params">num</span>)&#123;</span></span><br><span class="line"><span class="language-javascript">    <span class="keyword">var</span> sum = <span class="number">5</span>;</span></span><br><span class="line"><span class="language-javascript">    <span class="keyword">return</span> sum + num;</span></span><br><span class="line"><span class="language-javascript">&#125;</span></span><br><span class="line"><span class="language-javascript"><span class="keyword">var</span> sum = <span class="title function_">add</span>(<span class="number">4</span>);</span></span><br><span class="line"><span class="language-javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<pre><code class="html">&lt;script&gt;
+function add(num)&#123;
+    var sum = 5;
+    return sum + num;
+&#125;
+var sum = add(4);
+&lt;/script&gt;
+</code></pre>
 <p>当add函数被调用时，add函数执行上下文被压入执行上下文堆栈的顶端，此时执行上下文堆栈可表示为：</p>
-<figure class="highlight abnf"><table><tr><td class="code"><pre><span class="line">EC Stack <span class="operator">=</span> [</span><br><span class="line">  &lt;add&gt; functionContext</span><br><span class="line">  globalContext</span><br><span class="line">]<span class="comment">;</span></span><br></pre></td></tr></table></figure>
+<pre><code>EC Stack = [
+  &lt;add&gt; functionContext
+  globalContext
+];
+</code></pre>
 <p>add函数执行完毕后，其执行上下文将会从执行上下文堆栈顶端弹出并被销毁。全局执行上下文只有在浏览器关闭时才会从执行上下文堆栈中销毁  </p>
 <h4 id="变量对象-Variable-Object"><a href="#变量对象-Variable-Object" class="headerlink" title="变量对象 Variable Object"></a>变量对象 Variable Object</h4><p>如果变量与执行上下文相关，那变量自己应该知道它的数据存储在哪里，并且知道如何访问。这种机制称为变量对象(variable object)。<br>可以说变量对象是与执行上下文相关的数据作用域(scope of data) 。它是与执行上下文关联的特殊对象，用于存储被定义在执行上下文中的变量(variables)、函数声明(function declarations) 。<br>当进入全局上下文时，全局上下文的变量对象可表示为：</p>
-<figure class="highlight lasso"><table><tr><td class="code"><pre><span class="line">VO = &#123;</span><br><span class="line">    add: &lt;reference <span class="keyword">to</span> function&gt;,</span><br><span class="line">    <span class="keyword">sum</span>: undefined,</span><br><span class="line">    Math: &lt;<span class="params">...</span>&gt;,</span><br><span class="line">    <span class="built_in">String</span>: &lt;<span class="params">...</span>&gt;</span><br><span class="line">    <span class="params">...</span></span><br><span class="line">    window: <span class="built_in">global</span> <span class="comment">//引用自身</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code>VO = &#123;
+    add: &lt;reference to function&gt;,
+    sum: undefined,
+    Math: &lt;...&gt;,
+    String: &lt;...&gt;
+    ...
+    window: global //引用自身
+&#125;
+</code></pre>
 <h4 id="活动对象-Activation-Object"><a href="#活动对象-Activation-Object" class="headerlink" title="活动对象 Activation Object"></a>活动对象 Activation Object</h4><p>当函数被调用者激活时，这个特殊的活动对象(activation object) 就被创建了。它包含普通参数(formal parameters) 与特殊参数(arguments)对象(具有索引属性的参数映射表)。活动对象在函数上下文中作为变量对象使用。<br>当add函数被调用时，add函数执行上下文被压入执行上下文堆栈的顶端，add函数执行上下文中活动对象可表示为</p>
-<figure class="highlight dts"><table><tr><td class="code"><pre><span class="line">AO = <span class="punctuation">&#123;</span></span><br><span class="line"><span class="symbol">    num:</span> <span class="number">4</span>,</span><br><span class="line">    sum :<span class="number">5</span>,</span><br><span class="line"><span class="symbol">    arguments:</span><span class="punctuation">&#123;</span><span class="number">0</span>:<span class="number">4</span><span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+<pre><code>AO = &#123;
+    num: 4,
+    sum :5,
+    arguments:&#123;0:4&#125;
+&#125;
+</code></pre>
 <h4 id="作用域链-Scope-Chain"><a href="#作用域链-Scope-Chain" class="headerlink" title="作用域链 Scope Chain"></a>作用域链 Scope Chain</h4><p>函数上下文的作用域链在函数调用时创建的，包含活动对象AO和这个函数内部的[[scope]]属性。</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> x = <span class="number">10</span>;</span><br><span class="line"><span class="keyword">function</span> <span class="title function_">foo</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">var</span> y = <span class="number">20</span>;</span><br><span class="line">  <span class="keyword">function</span> <span class="title function_">bar</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">var</span> z = <span class="number">30</span>;</span><br><span class="line">    <span class="title function_">alert</span>(x +  y + z);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="title function_">bar</span>();</span><br><span class="line">&#125;</span><br><span class="line"><span class="title function_">foo</span>(); </span><br></pre></td></tr></table></figure>
+<pre><code class="js">var x = 10;
+function foo() &#123;
+  var y = 20;
+  function bar() &#123;
+    var z = 30;
+    alert(x +  y + z);
+  &#125;
+  bar();
+&#125;
+foo(); 
+</code></pre>
 <p>在这段代码中我们看到变量”y”在函数”foo”中定义（意味着它在foo上下文的AO中）”z”在函数”bar”中定义，但是变量”x”并未在”bar”上下文中定义，相应地，它也不会添加到”bar”的AO中。乍一看，变量”x”相对于函数”bar”根本就不存在；<br>函数”bar”如何访问到变量”x”？理论上函数应该能访问一个更高一层上下文的变量对象。实际上它正是这样，这种机制是通过函数内部的[[scope]]属性来实现的。<br>[[scope]]是所有父级变量对象的层级链，处于当前函数上下文之上，在函数创建时存于其中。</p>
 <p>**注意: **[[scope]]在函数创建时被存储是静态的（不变的），直至函数销毁。即：函数可以永不调用，但[[scope]]属性已经写入，并存储在函数对象中。<br>在这里我们逐步分析下<br>全局上下文的变量对象是：</p>
-<figure class="highlight pgsql"><table><tr><td class="code"><pre><span class="line">globalContext.VO === <span class="keyword">Global</span> = &#123;</span><br><span class="line">  x: <span class="number">10</span></span><br><span class="line">  foo: &lt;reference <span class="keyword">to</span> <span class="keyword">function</span>&gt;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<pre><code>globalContext.VO === Global = &#123;
+  x: 10
+  foo: &lt;reference to function&gt;
+&#125;;
+</code></pre>
 <p>在”foo”创建时，”foo”的[[scope]]属性是：</p>
-<figure class="highlight lua"><table><tr><td class="code"><pre><span class="line">foo.<span class="string">[[Scope]]</span> = [</span><br><span class="line">  globalContext.VO</span><br><span class="line">];</span><br></pre></td></tr></table></figure>
+<pre><code>foo.[[Scope]] = [
+  globalContext.VO
+];
+</code></pre>
 <p>在”foo”激活时（进入上下文），”foo”上下文的活动对象是：</p>
-<figure class="highlight applescript"><table><tr><td class="code"><pre><span class="line">fooContext.AO = &#123;</span><br><span class="line">  y: <span class="number">20</span>,</span><br><span class="line">  bar: &lt;<span class="keyword">reference</span> <span class="keyword">to</span> function&gt;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<pre><code>fooContext.AO = &#123;
+  y: 20,
+  bar: &lt;reference to function&gt;
+&#125;;
+</code></pre>
 <p>“foo”上下文的作用域链为：</p>
-<figure class="highlight ini"><table><tr><td class="code"><pre><span class="line"><span class="attr">fooContext.Scope</span> = [</span><br><span class="line">  fooContext.AO,</span><br><span class="line">  globalContext.VO</span><br><span class="line">]<span class="comment">;</span></span><br></pre></td></tr></table></figure>
+<pre><code>fooContext.Scope = [
+  fooContext.AO,
+  globalContext.VO
+];
+</code></pre>
 <p>内部函数”bar”创建时，其[[scope]]为：</p>
-<figure class="highlight lua"><table><tr><td class="code"><pre><span class="line">bar.<span class="string">[[Scope]]</span> = [</span><br><span class="line">  fooContext.AO,</span><br><span class="line">  globalContext.VO</span><br><span class="line">];</span><br></pre></td></tr></table></figure>
+<pre><code>bar.[[Scope]] = [
+  fooContext.AO,
+  globalContext.VO
+];
+</code></pre>
 <p>在”bar”激活时，”bar”上下文的活动对象为：</p>
-<figure class="highlight dts"><table><tr><td class="code"><pre><span class="line">barContext.AO = <span class="punctuation">&#123;</span></span><br><span class="line"><span class="symbol">  z:</span> <span class="number">30</span></span><br><span class="line"><span class="punctuation">&#125;;</span></span><br></pre></td></tr></table></figure>
+<pre><code>barContext.AO = &#123;
+  z: 30
+&#125;;
+</code></pre>
 <p>“bar”上下文的作用域链为：</p>
-<figure class="highlight ini"><table><tr><td class="code"><pre><span class="line"><span class="attr">bar.Scope</span>= [</span><br><span class="line">  barContext.AO,</span><br><span class="line">  fooContext.AO,</span><br><span class="line">  globalContext.VO</span><br><span class="line">]<span class="comment">;</span></span><br></pre></td></tr></table></figure>
+<pre><code>bar.Scope= [
+  barContext.AO,
+  fooContext.AO,
+  globalContext.VO
+];
+</code></pre>
 <p>介绍了一大堆内容，是不是有点晕忽忽的？坚持一下，下面是重点</p>
 <h3 id="闭包的原理"><a href="#闭包的原理" class="headerlink" title="闭包的原理"></a>闭包的原理</h3><p>我们通过一个闭包的例子来分析一下闭包的形成原理</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">add</span>(<span class="params"></span>)&#123;</span><br><span class="line">    <span class="keyword">var</span> sum =<span class="number">5</span>;</span><br><span class="line">    <span class="keyword">var</span> func = <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(sum);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> func;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> addFunc = <span class="title function_">add</span>();</span><br><span class="line"><span class="title function_">addFunc</span>(); <span class="comment">//5</span></span><br></pre></td></tr></table></figure>
+<pre><code class="js">function add()&#123;
+    var sum =5;
+    var func = function () &#123;
+        console.log(sum);
+    &#125;
+    return func;
+&#125;
+var addFunc = add();
+addFunc(); //5
+</code></pre>
 <p>js执行流进入全局执行上下文环境时,全局执行上下文可表示为：</p>
-<figure class="highlight nestedtext"><table><tr><td class="code"><pre><span class="line"><span class="attribute">globalContext = &#123;</span></span><br><span class="line"><span class="attribute">    VO</span><span class="punctuation">:</span> <span class="string">&#123;</span></span><br><span class="line">        <span class="attribute">add</span><span class="punctuation">:</span> <span class="string">&lt;reference to function&gt;,</span></span><br><span class="line">        <span class="attribute">addFunc</span><span class="punctuation">:</span> <span class="string">undefined</span></span><br><span class="line">    <span class="attribute">&#125;,</span></span><br><span class="line"><span class="attribute">    this</span><span class="punctuation">:</span> <span class="string">window,</span></span><br><span class="line">    <span class="attribute">scope chain</span><span class="punctuation">:</span> <span class="string">window </span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code>globalContext = &#123;
+    VO: &#123;
+        add: &lt;reference to function&gt;,
+        addFunc: undefined
+    &#125;,
+    this: window,
+    scope chain: window 
+&#125;
+</code></pre>
 <p>当add函数被调用时，add函数执行上下文可表示为：</p>
-<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">addContext = &#123;</span><br><span class="line">    AO: &#123;</span><br><span class="line">        sum: undefined <span class="regexp">//</span>代码进入执行阶段时此处被赋值为<span class="number">5</span></span><br><span class="line">        <span class="keyword">func</span>: undefined <span class="regexp">//</span>代码进入执行阶段时此处被赋值为<span class="keyword">function</span> ()&#123;console.log(sum);&#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    this: window,</span><br><span class="line">    scope chain: addContext.AO + globalContext.VO </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code>addContext = &#123;
+    AO: &#123;
+        sum: undefined //代码进入执行阶段时此处被赋值为5
+        func: undefined //代码进入执行阶段时此处被赋值为function ()&#123;console.log(sum);&#125;
+    &#125;,
+    this: window,
+    scope chain: addContext.AO + globalContext.VO 
+&#125;
+</code></pre>
 <p>add函数执行完毕后，js执行流回到全局上下文环境中，将add函数的返回值赋值给addFunc。</p>
 <p><strong>由于addFunc仍保存着func函数的引用，所以add函数执行上下文从执行上下文堆栈顶端弹出后并未被销毁而是保存在内存中。</strong></p>
 <p>当addFunc()执行时，func函数被调用，此时func函数执行上下文可表示为:</p>
-<figure class="highlight roboconf"><table><tr><td class="code"><pre><span class="line">funcContext = &#123;</span><br><span class="line">    <span class="attribute">this</span>: window,</span><br><span class="line">    scope chain: addContext<span class="variable">.AO</span> + globalContext<span class="variable">.VO</span> </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code>funcContext = &#123;
+    this: window,
+    scope chain: addContext.AO + globalContext.VO 
+&#125;
+</code></pre>
 <p>当要访问变量sum时，func的活动对象中未能找到，则会沿着作用域链查找，由于js遵循词法作用域，作用域在函数创建阶段就被确定，在add函数的活动对象中找到sum &#x3D; 5;  </p>
 <p>介绍到这里你明白形成闭包的原因了吗？<br><strong>Javascript允许使用内部函数—即函数定义和函数表达式位于另一个函数的函数体内。而且，这些内部函数可以访问它们所在的外部函数中声明的所有局部变量、参数和声明的其他内部函数。当其中一个这样的内部函数在包含它们的外部函数之外被调用时，就会形成闭包。</strong></p>
 <h3 id="闭包的用途"><a href="#闭包的用途" class="headerlink" title="闭包的用途"></a>闭包的用途</h3><p>闭包可以用在许多地方。它的最大用处有两个，一个是前面提到的可以读取函数内部的变量，另一个就是让这些变量的值始终保持在内存中。</p>
 <h4 id="1-保护变量的安全实现JS私有属性和私有方法"><a href="#1-保护变量的安全实现JS私有属性和私有方法" class="headerlink" title="1. 保护变量的安全实现JS私有属性和私有方法"></a>1. 保护变量的安全实现JS私有属性和私有方法</h4><p>利用闭包可以读取函数内部的变量，变量在函数外部不能直接读取到，从而达到保护变量安全的作用。因为私有方法在函数内部都能被访问到，从而实现了私有属性和方法的共享。<br>常见的模块模式就是利用闭包的这种特性建立的  </p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> <span class="title class_">Counter</span> = (<span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="comment">//私有属性</span></span><br><span class="line">  <span class="keyword">var</span> privateCounter = <span class="number">0</span>; </span><br><span class="line">  <span class="comment">//私有方法</span></span><br><span class="line">  <span class="keyword">function</span> <span class="title function_">changeBy</span>(<span class="params">val</span>) &#123; </span><br><span class="line">    privateCounter += val;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    <span class="attr">increment</span>: <span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">      <span class="title function_">changeBy</span>(<span class="number">1</span>);</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">decrement</span>: <span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">      <span class="title function_">changeBy</span>(-<span class="number">1</span>);</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">value</span>: <span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">      <span class="keyword">return</span> privateCounter;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;   </span><br><span class="line">&#125;)();</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(privateCounter); <span class="comment">//privateCounter is not defined </span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title class_">Counter</span>.<span class="title function_">value</span>()); <span class="comment">// 0</span></span><br><span class="line"><span class="title class_">Counter</span>.<span class="title function_">increment</span>();</span><br><span class="line"><span class="title class_">Counter</span>.<span class="title function_">increment</span>();</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title class_">Counter</span>.<span class="title function_">value</span>()); <span class="comment">// 2</span></span><br><span class="line"><span class="title class_">Counter</span>.<span class="title function_">decrement</span>();</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title class_">Counter</span>.<span class="title function_">value</span>()); <span class="comment">// 1</span></span><br></pre></td></tr></table></figure>
+<pre><code class="js">var Counter = (function() &#123;
+  //私有属性
+  var privateCounter = 0; 
+  //私有方法
+  function changeBy(val) &#123; 
+    privateCounter += val;
+  &#125;
+  return &#123;
+    increment: function() &#123;
+      changeBy(1);
+    &#125;,
+    decrement: function() &#123;
+      changeBy(-1);
+    &#125;,
+    value: function() &#123;
+      return privateCounter;
+    &#125;
+  &#125;   
+&#125;)();
+console.log(privateCounter); //privateCounter is not defined 
+console.log(Counter.value()); // 0
+Counter.increment();
+Counter.increment();
+console.log(Counter.value()); // 2
+Counter.decrement();
+console.log(Counter.value()); // 1
+</code></pre>
 <p>在jQuery框架的私有方法和变量也是这么设计的</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> $ = jQuery = <span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">    <span class="keyword">return</span> jQuery.<span class="property">fn</span>.<span class="title function_">init</span>();</span><br><span class="line">&#125;</span><br><span class="line">jQuery.<span class="property">fn</span> = jQuery.<span class="property"><span class="keyword">prototype</span></span> = &#123;</span><br><span class="line">    <span class="attr">init</span>:<span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="variable language_">this</span>;  <span class="comment">//this指向jQuery.prototype</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">length</span>: <span class="number">1</span>,</span><br><span class="line">    <span class="attr">size</span>: <span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="property">length</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>($().<span class="title function_">size</span>()); <span class="comment">// 1</span></span><br></pre></td></tr></table></figure>
-<h4 id="2-将处理结果缓存"><a href="#2-将处理结果缓存" class="headerlink" title="2. 将处理结果缓存"></a>2. 将处理结果缓存</h4><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> <span class="title class_">CachedSearchBox</span> = (<span class="keyword">function</span>(<span class="params"></span>)&#123;    </span><br><span class="line">    <span class="keyword">var</span> cache = &#123;&#125;,count = [];    </span><br><span class="line">    <span class="keyword">return</span> &#123;    </span><br><span class="line">       attachSearchBox : <span class="keyword">function</span>(<span class="params">dsid</span>)&#123;    </span><br><span class="line">           <span class="keyword">if</span>(dsid <span class="keyword">in</span> cache)&#123;<span class="comment">//如果结果在缓存中    </span></span><br><span class="line">              <span class="keyword">return</span> cache[dsid];<span class="comment">//直接返回缓存中的对象    </span></span><br><span class="line">           &#125;    </span><br><span class="line">           <span class="keyword">var</span> fsb = <span class="keyword">new</span> uikit.<span class="property">webctrl</span>.<span class="title class_">SearchBox</span>(dsid);<span class="comment">//新建    </span></span><br><span class="line">           cache[dsid] = fsb;<span class="comment">//更新缓存    </span></span><br><span class="line">           <span class="keyword">if</span>(count.<span class="property">length</span> &gt; <span class="number">100</span>)&#123;<span class="comment">//保正缓存的大小&lt;=100    </span></span><br><span class="line">              <span class="keyword">delete</span> cache[count.<span class="title function_">shift</span>()];    </span><br><span class="line">           &#125;    </span><br><span class="line">           <span class="keyword">return</span> fsb;          </span><br><span class="line">       &#125;</span><br><span class="line">    &#125;;    </span><br><span class="line">&#125;)();    </span><br><span class="line">     </span><br><span class="line"><span class="title class_">CachedSearchBox</span>.<span class="title function_">attachSearchBox</span>(<span class="string">&quot;input&quot;</span>);  </span><br></pre></td></tr></table></figure>
+<pre><code class="js">var $ = jQuery = function()&#123;
+    return jQuery.fn.init();
+&#125;
+jQuery.fn = jQuery.prototype = &#123;
+    init:function()&#123;
+        return this;  //this指向jQuery.prototype
+    &#125;,
+    length: 1,
+    size: function()&#123;
+        return this.length;
+    &#125;
+&#125;
+console.log($().size()); // 1
+</code></pre>
+<h4 id="2-将处理结果缓存"><a href="#2-将处理结果缓存" class="headerlink" title="2. 将处理结果缓存"></a>2. 将处理结果缓存</h4><pre><code class="js">var CachedSearchBox = (function()&#123;    
+    var cache = &#123;&#125;,count = [];    
+    return &#123;    
+       attachSearchBox : function(dsid)&#123;    
+           if(dsid in cache)&#123;//如果结果在缓存中    
+              return cache[dsid];//直接返回缓存中的对象    
+           &#125;    
+           var fsb = new uikit.webctrl.SearchBox(dsid);//新建    
+           cache[dsid] = fsb;//更新缓存    
+           if(count.length &gt; 100)&#123;//保正缓存的大小&lt;=100    
+              delete cache[count.shift()];    
+           &#125;    
+           return fsb;          
+       &#125;
+    &#125;;    
+&#125;)();    
+     
+CachedSearchBox.attachSearchBox(&quot;input&quot;);  
+</code></pre>
 <p>这样我们在第二次调用的时候，就会从缓存中读取到该对象。  </p>
 <p>理解了闭包的原理我们发现闭包的这些用途都是利用了闭包保存了当前函数的活动对象的特点，这样闭包函数在作用域之外被调用时依然能够访问其创建时的作用域  </p>
 <h3 id="闭包的缺点"><a href="#闭包的缺点" class="headerlink" title="闭包的缺点"></a>闭包的缺点</h3><ul>
@@ -231,8 +369,8 @@
       <blockquote id="copyright">
         <p>
           原文链接:
-          <a href="https://jesse121.github.io/blog/blog/articles/2017/03/08.html"
-            >https://jesse121.github.io/blog/blog/articles/2017/03/08.html</a
+          <a href="https://jesse121.github.io/blog/articles/2017/03/08.html"
+            >https://jesse121.github.io/blog/articles/2017/03/08.html</a
           >
         </p>
         <p>版权声明: 转载请注明出处.</p>
@@ -253,7 +391,7 @@
 <nav id="article-nav">
   
     <a href="/blog/articles/2017/03/04.html" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">older</strong>
+      <strong class="article-nav-caption">下一篇</strong>
       <div class="article-nav-title">
         
           ECMAScript5新特性总结
@@ -263,7 +401,7 @@
   
   
     <a href="/blog/articles/2017/04/15.html" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">newer</strong>
+      <strong class="article-nav-caption">上一篇</strong>
       <div class="article-nav-title">
         
           Apache2.4.23 + PHP5.6.30 + MySQL5.7.18安装教程
@@ -429,37 +567,26 @@
     </div>
   </div>
   
-<script src="/blog/js/jquery-3.4.1.min.js"></script>
+<script src="https://unpkg.com/@highlightjs/cdn-assets@11.6.0/highlight.min.js"></script>
 
+<script>
+  hljs.highlightAll();
+</script>
 
+<script src="https://unpkg.com/jquery@3.4.1/dist/jquery.min.js"></script>
+ 
 <script src="/blog/js/search.json.js"></script>
-
-
   
-<script src="/blog/fancybox/jquery.fancybox.min.js"></script>
+<script src="https://unpkg.com/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
 
-
-
-
+ 
 <script src="/blog/js/script.js"></script>
-
-
-
-
-
-
-  
+ 
+   
 <script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-
-
-
-
-  
-  
-
-
-  
-<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+ 
+      
+<script src="https://unpkg.com/gitalk@1.7.2/dist/gitalk.min.js"></script>
  
 <script src="//cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.js"></script>
 
@@ -471,7 +598,7 @@
     owner: "jesse121",
     admin: ["jesse121"],
     id: md5(window.location.pathname),
-    proxy: "https://gitalk.jesse121.workers.dev/?https://github.com/login/oauth/access_token",
+    proxy: "https://stormy-gorge-51623.herokuapp.com/https://github.com/login/oauth/access_token",
     distractionFreeMode: false,
     language: "zh-CN",
     pagerDirection: "last",
@@ -479,8 +606,7 @@
   gitalk.render("comments");
 </script>
          
-
-
+ 
 
 </body>
 </html>

@@ -1,42 +1,28 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8">
-  
-  
+  <meta charset="utf-8" />
+   
   <title>从输入网址到页面呈现这个过程中都发生了什么？ | 前端之路</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, shrink-to-fit=no"
+  />
   
-    <meta name="description" content="专注前端开发，前端开发技术博客">
-  
-  
-    <meta name="keywords" content="Web前端开发，Javascript，前端开发博客">
-  
-  
-    <link rel="alternate" href="/blog/atom.xml" title="前端之路" type="application/atom+xml">
-  
-  
-    <link rel="shortcut icon" href="/blog/favicon.ico">
-  
-  
-    
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
-
-  
-  
+  <meta name="description" content="专注前端开发，前端开发技术博客" />
+   
+  <meta name="keywords" content="Web前端开发，Javascript，前端开发博客" />
+    <link rel="alternate" href="/blog/atom.xml" title="前端之路" type="application/atom+xml">   <link rel="shortcut icon" href="/blog/favicon.ico"> 
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/@highlightjs/cdn-assets@11.6.0/styles/xt256.min.css"
+  />
+   
 <link rel="stylesheet" href="/blog/css/style.css">
-
   
+<link rel="stylesheet" href="https://unpkg.com/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
     
-<link rel="stylesheet" href="/blog/fancybox/jquery.fancybox.min.css">
-
-  
-  
-  
-    
-<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
-
-  
+<link rel="stylesheet" href="https://unpkg.com/gitalk@1.7.2/dist/gitalk.css">
   
 <meta name="generator" content="Hexo 6.2.0"></head>
 
@@ -164,18 +150,65 @@
 <li>报文主体 （应被发送的数据）通常并不一定要有报文主体</li>
 </ul>
 <p>下面对百度首页请求报文首部进行分析：<br><strong>请求行</strong></p>
-<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">请求方法<span class="built_in">GET</span> 请求URI /   HTTP协议版本 1.1</span><br><span class="line"><span class="built_in">GET</span> / HTTP/1.1                                  </span><br></pre></td></tr></table></figure>
+<pre><code>请求方法GET 请求URI /   HTTP协议版本 1.1
+GET / HTTP/1.1                                  
+</code></pre>
 <p><strong>首部字段</strong></p>
-<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="string">请求资源所在服务器</span></span><br><span class="line"><span class="attr">Host:</span> <span class="string">www.baidu.com</span></span><br><span class="line"><span class="string">连接方式：持久连接</span>     <span class="string">HTTP/1.1之前版本默认非持久连接</span></span><br><span class="line"><span class="attr">Connection:</span> <span class="string">keep-alive</span></span><br><span class="line"><span class="string">报文指令：要求所有中间服务器不返回缓存资源</span></span><br><span class="line"><span class="attr">Pragma:</span> <span class="literal">no</span><span class="string">-cache</span></span><br><span class="line"><span class="string">控制缓存的行为：缓存前必须先确认其有效性，防止从缓存中返回过期的资源</span></span><br><span class="line"><span class="attr">Cache-Control:</span> <span class="literal">no</span><span class="string">-cache</span></span><br><span class="line"><span class="string">用户代理可处理的媒体类型</span></span><br><span class="line"><span class="attr">Accept:</span> <span class="string">text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8</span>   <span class="string">q表示权重从而区分优先级</span></span><br><span class="line"><span class="string">http客户端浏览器信息</span></span><br><span class="line"><span class="attr">User-Agent:</span> <span class="string">Mozilla/5.0</span> <span class="string">(Windows</span> <span class="string">NT</span> <span class="number">6.1</span><span class="string">)</span> <span class="string">AppleWebKit/537.36</span> <span class="string">(KHTML,</span> <span class="string">like</span> <span class="string">Gecko)</span> <span class="string">Chrome/49.0.2623.87</span> <span class="string">Safari/537.36</span></span><br><span class="line"><span class="string">可接受的内容编码类型</span></span><br><span class="line"><span class="attr">Accept-Encoding:</span> <span class="string">gzip,</span> <span class="string">deflate,</span> <span class="string">sdch</span></span><br><span class="line"><span class="string">可接受的语言</span></span><br><span class="line"><span class="attr">Accept-Language:</span> <span class="string">zh-CN,zh;q=0.8</span></span><br><span class="line"><span class="string">相关信息或标记</span></span><br><span class="line"><span class="attr">Cookie:</span> <span class="string">BAIDUID=3C67AA3EF6B3347D3AA986CE489268C4:FG=1;</span> <span class="string">BIDUPSID=3C67AA3EF6B3347D3AA986CE489268C4;</span></span><br></pre></td></tr></table></figure>
-
+<pre><code>请求资源所在服务器
+Host: www.baidu.com
+连接方式：持久连接     HTTP/1.1之前版本默认非持久连接
+Connection: keep-alive
+报文指令：要求所有中间服务器不返回缓存资源
+Pragma: no-cache
+控制缓存的行为：缓存前必须先确认其有效性，防止从缓存中返回过期的资源
+Cache-Control: no-cache
+用户代理可处理的媒体类型
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8   q表示权重从而区分优先级
+http客户端浏览器信息
+User-Agent: Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.87 Safari/537.36
+可接受的内容编码类型
+Accept-Encoding: gzip, deflate, sdch
+可接受的语言
+Accept-Language: zh-CN,zh;q=0.8
+相关信息或标记
+Cookie: BAIDUID=3C67AA3EF6B3347D3AA986CE489268C4:FG=1; BIDUPSID=3C67AA3EF6B3347D3AA986CE489268C4;
+</code></pre>
 <h3 id="传输层-确保传输报文可靠性的TCP协议"><a href="#传输层-确保传输报文可靠性的TCP协议" class="headerlink" title="传输层 确保传输报文可靠性的TCP协议"></a>传输层 确保传输报文可靠性的TCP协议</h3><p>位于传输层的TCP协议为传输报文提供可靠的字节流服务。为了方便传输，将大块的数据分割成以报文段为单位的数据包进行管理，并为它们编号，方便服务器接收时能准确地还原报文信息。TCP协议通过“三次握手”等方法保证传输的安全可靠。<br>“三次握手”的过程是，发送端先发送一个带有SYN（synchronize）标志的数据包给接收端，在一定的延迟时间内等待接收的回复。接收端收到数据包后，传回一个带有SYN&#x2F;ACK标志的数据包以示传达确认信息。接收方收到后再发送一个带有ACK标志的数据包给接收端以示握手成功。在这个过程中，如果发送端在规定延迟时间内没有收到回复则默认接收方没有收到请求，而再次发送，直到收到回复为止。<br>详细过程如下图<br><img src="http://o8l2fza1x.bkt.clouddn.com/%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B.png" alt="三次握手"></p>
 <h3 id="网络层-负责传输的IP协议"><a href="#网络层-负责传输的IP协议" class="headerlink" title="网络层 负责传输的IP协议"></a>网络层 负责传输的IP协议</h3><p>IP协议的作用是把TCP分割好的各种数据包传送给接收方。而要保证确实能传到接收方还需要接收方的MAC地址，也就是物理地址。IP地址和MAC地址是一一对应的关系，一个网络设备的IP地址可以更换，但是MAC地址一般是固定不变的。ARP协议可以将IP地址解析成对应的MAC地址。当通信的双方不在同一个局域网时，需要多次中转才能到达最终的目标，在中转的过程中需要通过下一个中转站的MAC地址来搜索下一个中转目标。具体过程如下图：<br><img src="http://o8l2fza1x.bkt.clouddn.com/IP%E5%8D%8F%E8%AE%AE.png" alt="IP协议"></p>
 <h3 id="链路层-传输数据的硬件部分"><a href="#链路层-传输数据的硬件部分" class="headerlink" title="链路层 传输数据的硬件部分"></a>链路层 传输数据的硬件部分</h3><p>在网络层找到对方的MAC地址后，就将数据发送到数据链路层传输。至此请求报文已发出，客户端发送请求的阶段结束</p>
 <h3 id="服务器接收报文"><a href="#服务器接收报文" class="headerlink" title="服务器接收报文"></a>服务器接收报文</h3><p>接收端服务器在链路层接收到数据后，删除该层的首部信息并向网络层传递，网络层将接收的数据向传输层传递，在传输层会将传输的数据按序号从组请求报文并传送给应用层。当数据传输到应用层才能算真正接收到由客户端发送过来的HTTP请求</p>
 <h3 id="应用层-服务器发送HTTP响应报文"><a href="#应用层-服务器发送HTTP响应报文" class="headerlink" title="应用层 服务器发送HTTP响应报文"></a>应用层 服务器发送HTTP响应报文</h3><p>下面对百度首页响应报文首部进行分析：<br><strong>状态行</strong></p>
-<figure class="highlight dns"><table><tr><td class="code"><pre><span class="line">协议版本 状态码 状态码原因短语</span><br><span class="line">HTTP/<span class="number">1.1 200</span> OK</span><br></pre></td></tr></table></figure>
+<pre><code>协议版本 状态码 状态码原因短语
+HTTP/1.1 200 OK
+</code></pre>
 <p><strong>首部字段</strong></p>
-<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="string">当前服务器上安装的HTTP服务器程序信息</span></span><br><span class="line"><span class="string">bfe:Baidu</span> <span class="string">Front</span> <span class="string">End。百度人自己写的反向代理及防攻击接入层</span></span><br><span class="line"><span class="attr">Server:</span> <span class="string">bfe/1.0.8.18</span></span><br><span class="line"><span class="string">响应日期时间</span></span><br><span class="line"><span class="attr">Date:</span> <span class="string">Thu,</span> <span class="number">08</span> <span class="string">Dec</span> <span class="number">2016 14:48:19 </span><span class="string">GMT</span></span><br><span class="line"><span class="string">说明报文实体的媒体类型</span></span><br><span class="line"><span class="attr">Content-Type:</span> <span class="string">text/html;</span> <span class="string">charset=utf-8</span></span><br><span class="line"><span class="string">传输编码方式：分块编码</span></span><br><span class="line"><span class="attr">Transfer-Encoding:</span> <span class="string">chunked</span></span><br><span class="line"><span class="string">链接方式：持久链接</span>  <span class="string">http/1.1之后这个已经没必要了</span></span><br><span class="line"><span class="attr">Connection:</span> <span class="string">keep-alive</span></span><br><span class="line"><span class="string">只接受对持相同自然语言的请求返回缓存</span></span><br><span class="line"><span class="attr">Vary:</span> <span class="string">Accept-Encoding</span></span><br><span class="line"><span class="string">缓存控制：仅向特定用户返回响应</span></span><br><span class="line"><span class="attr">Cache-Control:</span> <span class="string">private</span></span><br><span class="line"><span class="attr">Cxy_all:</span> <span class="string">baidu+43a6e396a3ed26dc7d1de13c6af79e49</span></span><br><span class="line"><span class="string">缓存过期时间</span></span><br><span class="line"><span class="attr">Expires:</span> <span class="string">Thu,</span> <span class="number">08</span> <span class="string">Dec</span> <span class="number">2016 14:47:38 </span><span class="string">GMT</span></span><br><span class="line"><span class="attr">X-Powered-By:</span> <span class="string">HPHP</span></span><br><span class="line"><span class="attr">X-UA-Compatible:</span> <span class="string">IE=Edge,chrome=1</span></span><br><span class="line"><span class="attr">Strict-Transport-Security:</span> <span class="string">max-age=172800</span></span><br><span class="line"><span class="attr">BDPAGETYPE:</span> <span class="number">1</span></span><br><span class="line"><span class="attr">BDQID:</span> <span class="number">0xc9d964a600018bb8</span></span><br><span class="line"><span class="attr">BDUSERID:</span> <span class="number">0</span></span><br><span class="line"><span class="string">设置cookie</span></span><br><span class="line"><span class="attr">Set-Cookie:</span> <span class="string">H_PS_PSSID=1451_21116_17001_21408_21417_21554_20929;</span> <span class="string">path=/;</span></span><br></pre></td></tr></table></figure>
+<pre><code>当前服务器上安装的HTTP服务器程序信息
+bfe:Baidu Front End。百度人自己写的反向代理及防攻击接入层
+Server: bfe/1.0.8.18
+响应日期时间
+Date: Thu, 08 Dec 2016 14:48:19 GMT
+说明报文实体的媒体类型
+Content-Type: text/html; charset=utf-8
+传输编码方式：分块编码
+Transfer-Encoding: chunked
+链接方式：持久链接  http/1.1之后这个已经没必要了
+Connection: keep-alive
+只接受对持相同自然语言的请求返回缓存
+Vary: Accept-Encoding
+缓存控制：仅向特定用户返回响应
+Cache-Control: private
+Cxy_all: baidu+43a6e396a3ed26dc7d1de13c6af79e49
+缓存过期时间
+Expires: Thu, 08 Dec 2016 14:47:38 GMT
+X-Powered-By: HPHP
+X-UA-Compatible: IE=Edge,chrome=1
+Strict-Transport-Security: max-age=172800
+BDPAGETYPE: 1
+BDQID: 0xc9d964a600018bb8
+BDUSERID: 0
+设置cookie
+Set-Cookie: H_PS_PSSID=1451_21116_17001_21408_21417_21554_20929; path=/;
+</code></pre>
 <p>响应报文的传输方式与请求报文相同，简单点说就是原路返回<br>在响应报文中我们通过Chrome DevTool的Network面板可以看到输入的<a target="_blank" rel="noopener" href="http://www.baidu.com会被重定向到https//www.baidu.com/,%E7%82%B9%E5%87%BB%E9%87%8D%E5%AE%9A%E5%90%91%E5%90%8E%E7%9A%84www.baidu.com,%E5%9C%A8%E5%8F%B3%E8%BE%B9%E7%9A%84Response%E9%9D%A2%E6%9D%BF%E4%B8%AD%E5%8F%AF%E4%BB%A5%E7%9C%8B%E5%88%B0%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%8E%A5%E6%94%B6%E5%88%B0%E7%9A%84%E6%8A%A5%E6%96%87%E5%AE%9E%E4%BD%93%E5%8D%B3%E8%BF%94%E5%9B%9E%E7%9A%84HTML%E9%A1%B5%E9%9D%A2%E4%BB%A3%E7%A0%81">www.baidu.com会被重定向到https://www.baidu.com/,点击重定向后的www.baidu.com,在右边的Response面板中可以看到客户端接收到的报文实体即返回的HTML页面代码</a></p>
 <p><strong>网络通信流程图</strong><br><img src="http://o8l2fza1x.bkt.clouddn.com/360%E5%8F%8D%E9%A6%88%E6%84%8F%E8%A7%81%E6%88%AA%E5%9B%BE16380515263720.png" alt="网络通信流程图"></p>
 <h3 id="在网络通信阶段对前端优化建议："><a href="#在网络通信阶段对前端优化建议：" class="headerlink" title="在网络通信阶段对前端优化建议："></a>在网络通信阶段对前端优化建议：</h3><ol>
@@ -253,8 +286,8 @@
       <blockquote id="copyright">
         <p>
           原文链接:
-          <a href="https://jesse121.github.io/blog/blog/articles/2016/12/23.html"
-            >https://jesse121.github.io/blog/blog/articles/2016/12/23.html</a
+          <a href="https://jesse121.github.io/blog/articles/2016/12/23.html"
+            >https://jesse121.github.io/blog/articles/2016/12/23.html</a
           >
         </p>
         <p>版权声明: 转载请注明出处.</p>
@@ -275,7 +308,7 @@
 <nav id="article-nav">
   
     <a href="/blog/articles/2016/12/05.html" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">older</strong>
+      <strong class="article-nav-caption">下一篇</strong>
       <div class="article-nav-title">
         
           Javascript执行流总结
@@ -285,7 +318,7 @@
   
   
     <a href="/blog/articles/2017/02/26.html" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">newer</strong>
+      <strong class="article-nav-caption">上一篇</strong>
       <div class="article-nav-title">
         
           Javascript几种跨域方式总结
@@ -451,37 +484,26 @@
     </div>
   </div>
   
-<script src="/blog/js/jquery-3.4.1.min.js"></script>
+<script src="https://unpkg.com/@highlightjs/cdn-assets@11.6.0/highlight.min.js"></script>
 
+<script>
+  hljs.highlightAll();
+</script>
 
+<script src="https://unpkg.com/jquery@3.4.1/dist/jquery.min.js"></script>
+ 
 <script src="/blog/js/search.json.js"></script>
-
-
   
-<script src="/blog/fancybox/jquery.fancybox.min.js"></script>
+<script src="https://unpkg.com/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
 
-
-
-
+ 
 <script src="/blog/js/script.js"></script>
-
-
-
-
-
-
-  
+ 
+   
 <script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-
-
-
-
-  
-  
-
-
-  
-<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+ 
+      
+<script src="https://unpkg.com/gitalk@1.7.2/dist/gitalk.min.js"></script>
  
 <script src="//cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.js"></script>
 
@@ -493,7 +515,7 @@
     owner: "jesse121",
     admin: ["jesse121"],
     id: md5(window.location.pathname),
-    proxy: "https://gitalk.jesse121.workers.dev/?https://github.com/login/oauth/access_token",
+    proxy: "https://stormy-gorge-51623.herokuapp.com/https://github.com/login/oauth/access_token",
     distractionFreeMode: false,
     language: "zh-CN",
     pagerDirection: "last",
@@ -501,8 +523,7 @@
   gitalk.render("comments");
 </script>
          
-
-
+ 
 
 </body>
 </html>

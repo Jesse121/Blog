@@ -1,42 +1,28 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8">
-  
-  
+  <meta charset="utf-8" />
+   
   <title>【译】编写整洁 CSS 代码的黄金法则 | 前端之路</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, shrink-to-fit=no"
+  />
   
-    <meta name="description" content="专注前端开发，前端开发技术博客">
-  
-  
-    <meta name="keywords" content="Web前端开发，Javascript，前端开发博客">
-  
-  
-    <link rel="alternate" href="/blog/atom.xml" title="前端之路" type="application/atom+xml">
-  
-  
-    <link rel="shortcut icon" href="/blog/favicon.ico">
-  
-  
-    
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
-
-  
-  
+  <meta name="description" content="专注前端开发，前端开发技术博客" />
+   
+  <meta name="keywords" content="Web前端开发，Javascript，前端开发博客" />
+    <link rel="alternate" href="/blog/atom.xml" title="前端之路" type="application/atom+xml">   <link rel="shortcut icon" href="/blog/favicon.ico"> 
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/@highlightjs/cdn-assets@11.6.0/styles/xt256.min.css"
+  />
+   
 <link rel="stylesheet" href="/blog/css/style.css">
-
   
+<link rel="stylesheet" href="https://unpkg.com/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
     
-<link rel="stylesheet" href="/blog/fancybox/jquery.fancybox.min.css">
-
-  
-  
-  
-    
-<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
-
-  
+<link rel="stylesheet" href="https://unpkg.com/gitalk@1.7.2/dist/gitalk.css">
   
 <meta name="generator" content="Hexo 6.2.0"></head>
 
@@ -150,28 +136,88 @@
 <span id="more"></span>
 
 <h3 id="避免使用全局选择器"><a href="#避免使用全局选择器" class="headerlink" title="避免使用全局选择器"></a>避免使用全局选择器</h3><p>全局选择器包括通配选择器（*）、元素选择器（例如 p、button、h1 等）和属性选择器（例如[type&#x3D;checkbox]），这些选择器的样式声明会被应用到全站所有符合要求的元素上，例如：</p>
-<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">button</span> &#123;</span><br><span class="line">  <span class="attribute">background</span>: <span class="number">#ffc107</span>;</span><br><span class="line">  <span class="attribute">border</span>: <span class="number">1px</span> outset <span class="number">#ff9800</span>;</span><br><span class="line">  <span class="attribute">display</span>: block;</span><br><span class="line">  <span class="attribute">font</span>: bold <span class="number">16px</span> / <span class="number">1.5</span> sans-serif;</span><br><span class="line">  <span class="attribute">margin</span>: <span class="number">1rem</span> auto;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">50%</span>;</span><br><span class="line">  <span class="attribute">padding</span>: <span class="number">0.5rem</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+<pre><code class="css">button &#123;
+  background: #ffc107;
+  border: 1px outset #ff9800;
+  display: block;
+  font: bold 16px / 1.5 sans-serif;
+  margin: 1rem auto;
+  width: 50%;
+  padding: 0.5rem;
+&#125;
+</code></pre>
 <p>这段代码看起来没什么问题，但是倘若我们需要新建一个样式不同的 button 元素选择器呢？我们需要定义一个类名为 close 的 button 元素用于关闭对话框组件：</p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">section</span> <span class="attr">class</span>=<span class="string">&quot;dialog&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">&quot;button&quot;</span> <span class="attr">class</span>=<span class="string">&quot;close&quot;</span>&gt;</span>Close<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">section</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
+<pre><code class="html">&lt;section class=&quot;dialog&quot;&gt;
+  &lt;button type=&quot;button&quot; class=&quot;close&quot;&gt;Close&lt;/button&gt;
+&lt;/section&gt;
+</code></pre>
 <p><strong>PS:</strong> 为什么不使用 dialog 元素？<br>我们这里使用 section 元素而不使用 dialog 元素是因为只有基于 Blink 内核的浏览器才支持 dialog 元素， 例如 Chrome&#x2F;Chromium、Opera、和 Yandex 等。</p>
 <p>现在，需要编写 CSS 代码来覆盖那些不需要继承于 button 元素选择器的属性：</p>
-<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.close</span> &#123;</span><br><span class="line">  <span class="attribute">background</span>: <span class="number">#e00</span>;</span><br><span class="line">  <span class="attribute">border</span>: <span class="number">2px</span> solid <span class="number">#fff</span>;</span><br><span class="line">  <span class="attribute">color</span>: <span class="number">#fff</span>;</span><br><span class="line">  <span class="attribute">display</span>: inline-block;</span><br><span class="line">  <span class="attribute">margin</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">font-size</span>: <span class="number">12px</span>;</span><br><span class="line">  <span class="attribute">font-weight</span>: normal;</span><br><span class="line">  <span class="attribute">line-height</span>: <span class="number">1</span>;</span><br><span class="line">  <span class="attribute">padding</span>: <span class="number">5px</span>;</span><br><span class="line">  <span class="attribute">border-radius</span>: <span class="number">100px</span>;</span><br><span class="line">  <span class="attribute">width</span>: auto;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+<pre><code class="css">.close &#123;
+  background: #e00;
+  border: 2px solid #fff;
+  color: #fff;
+  display: inline-block;
+  margin: 0;
+  font-size: 12px;
+  font-weight: normal;
+  line-height: 1;
+  padding: 5px;
+  border-radius: 100px;
+  width: auto;
+&#125;
+</code></pre>
 <p>我们仍然需要许多类似的样式来覆盖浏览器的默认样式。但如果我们将 button 元素选择器的样式用一个 default 类选择器来替换会如何呢？结果发现 close 类中不需要指定 display、font-weight、 line-height、margin、 padding 和 width 等属性，这便减少了 23% 的代码量：</p>
-<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.default</span> &#123;</span><br><span class="line">  <span class="attribute">background</span>: <span class="number">#ffc107</span>;</span><br><span class="line">  <span class="attribute">border</span>: <span class="number">1px</span> outset <span class="number">#ff9800</span>;</span><br><span class="line">  <span class="attribute">display</span>: block;</span><br><span class="line">  <span class="attribute">font</span>: bold <span class="number">16px</span> / <span class="number">1.5</span> sans-serif;</span><br><span class="line">  <span class="attribute">margin</span>: <span class="number">1rem</span> auto;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">50%</span>;</span><br><span class="line">  <span class="attribute">padding</span>: <span class="number">0.5rem</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.close</span> &#123;</span><br><span class="line">  <span class="attribute">background</span>: <span class="number">#e00</span>;</span><br><span class="line">  <span class="attribute">border</span>: <span class="number">2px</span> solid <span class="number">#fff</span>;</span><br><span class="line">  <span class="attribute">color</span>: <span class="number">#fff</span>;</span><br><span class="line">  <span class="attribute">font-size</span>: <span class="number">12px</span>;</span><br><span class="line">  <span class="attribute">padding</span>: <span class="number">5px</span>;</span><br><span class="line">  <span class="attribute">border-radius</span>: <span class="number">100px</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="css">.default &#123;
+  background: #ffc107;
+  border: 1px outset #ff9800;
+  display: block;
+  font: bold 16px / 1.5 sans-serif;
+  margin: 1rem auto;
+  width: 50%;
+  padding: 0.5rem;
+&#125;
 
+.close &#123;
+  background: #e00;
+  border: 2px solid #fff;
+  color: #fff;
+  font-size: 12px;
+  padding: 5px;
+  border-radius: 100px;
+&#125;
+</code></pre>
 <p>还有一点非常重要：避免使用全局选择器将有助于减少样式冲突，即在某个模块或页面的开发中添加样式不会对其他模块或页面造成影响</p>
 <p>全局样式和选择器非常适合用于重置和统一浏览器默认样式，在其他情况下，它们只会造成代码臃肿。</p>
 <h3 id="避免使用权重过高的选择器"><a href="#避免使用权重过高的选择器" class="headerlink" title="避免使用权重过高的选择器"></a>避免使用权重过高的选择器</h3><p>保持选择器的低权重是编写轻量级、可复用和可维护的 CSS 代码的又一关键所在。正如你所回忆起的权重，一个元素选择器的权重是 0,0,1，而类选择器的权重则是 0,1,0：</p>
-<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="comment">/* Specificity of 0,0,1 */</span></span><br><span class="line"><span class="selector-tag">p</span> &#123;</span><br><span class="line">  <span class="attribute">color</span>: <span class="number">#222</span>;</span><br><span class="line">  <span class="attribute">font-size</span>: <span class="number">12px</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/* Specificity of 0,1,0 */</span></span><br><span class="line"><span class="selector-class">.error</span> &#123;</span><br><span class="line">  <span class="attribute">color</span>: <span class="number">#a00</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+<pre><code class="css">/* Specificity of 0,0,1 */
+p &#123;
+  color: #222;
+  font-size: 12px;
+&#125;
+/* Specificity of 0,1,0 */
+.error &#123;
+  color: #a00;
+&#125;
+</code></pre>
 <p>当你为一个元素添加类名后，这个元素选择器的的优先级将高于一般元素选择器。这里没有必要将类选择器和属性选择器组合在一起来提升优先级，这样做只会增加选择器的权重和文件的大小。</p>
 <p>换句话说，没有必要使用 p.error 这样的选择器，因为仅仅一个 .error 就能达到同样的效果，此外还有一个好处是 .error 还可以被其他元素所复用，而 p.error 选择器则会将 .error 这个类限制于 p 元素上。</p>
 <h3 id="避免链式类选择器"><a href="#避免链式类选择器" class="headerlink" title="避免链式类选择器"></a>避免链式类选择器</h3><p>同时还需要避免链式类选择器。比如：.message.warning 这样的选择器的权重为 0,2,0。权重越高意味着越难进行样式覆盖，增长连接都会导致这种副作用，举例如下：</p>
-<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.message</span> &#123;</span><br><span class="line">  <span class="attribute">background</span>: <span class="number">#eee</span>;</span><br><span class="line">  <span class="attribute">border</span>: <span class="number">2px</span> solid <span class="number">#333</span>;</span><br><span class="line">  <span class="attribute">border-radius</span>: <span class="number">1em</span>;</span><br><span class="line">  <span class="attribute">padding</span>: <span class="number">1em</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.message</span><span class="selector-class">.error</span> &#123;</span><br><span class="line">  <span class="attribute">background</span>: <span class="number">#f30</span>;</span><br><span class="line">  <span class="attribute">color</span>: <span class="number">#fff</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.error</span> &#123;</span><br><span class="line">  <span class="attribute">background</span>: <span class="number">#ff0</span>;</span><br><span class="line">  <span class="attribute">border-color</span>: <span class="number">#fc0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+<pre><code class="css">.message &#123;
+  background: #eee;
+  border: 2px solid #333;
+  border-radius: 1em;
+  padding: 1em;
+&#125;
+.message.error &#123;
+  background: #f30;
+  color: #fff;
+&#125;
+.error &#123;
+  background: #ff0;
+  border-color: #fc0;
+&#125;
+</code></pre>
 <p>如图所示，在上述 CSS 作用下<code>&lt;p class=&quot;message&quot;&gt;</code>会呈现一个带有深灰色边框和灰色背景的盒子。</p>
 <p style="background: #eee;border: 2px solid #333;border-radius: 1em;padding: 1em;">A message</p>
 而`<p class="message error">`会呈现 .message.error 类的背景和 .error 类的边框：
@@ -180,11 +226,35 @@
 
 <h3 id="避免使用-id-选择器"><a href="#避免使用-id-选择器" class="headerlink" title="避免使用 id 选择器"></a>避免使用 id 选择器</h3><p>因为在一篇文档中每个 id 只能对应一个元素，所以 id 选择器的 CSS 规则是很难复用的。这样做一般都会涉及到一系列的 id 选择器，例如<code>#sidebar-features</code>和<code>#sidebar-sports</code>。</p>
 <p>id 标识符是具有很高的权重的，要想覆盖它就必须使用更“长”的选择器。例如下面这段 CSS 代码，为了覆盖 <code>#sidebar</code> 的背景颜色属性，必须使用 <code>#sidebar.sports</code> 和 <code>#sidebar.local</code>：</p>
-<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-id">#sidebar</span> &#123;</span><br><span class="line">  <span class="attribute">float</span>: right;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">25%</span>;</span><br><span class="line">  <span class="attribute">background</span>: <span class="number">#eee</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-id">#sidebar</span><span class="selector-class">.sports</span> &#123;</span><br><span class="line">  <span class="attribute">background</span>: <span class="number">#d5e3ff</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-id">#sidebar</span><span class="selector-class">.local</span> &#123;</span><br><span class="line">  <span class="attribute">background</span>: <span class="number">#ffcccc</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="css">#sidebar &#123;
+  float: right;
+  width: 25%;
+  background: #eee;
+&#125;
 
+#sidebar.sports &#123;
+  background: #d5e3ff;
+&#125;
+
+#sidebar.local &#123;
+  background: #ffcccc;
+&#125;
+</code></pre>
 <p>改用类选择器，例如 <code>.sidebar</code>，就可以简化我们的 CSS 选择器：</p>
-<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.sidebar</span> &#123;</span><br><span class="line">  <span class="attribute">float</span>: right;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">25%</span>;</span><br><span class="line">  <span class="attribute">background</span>: <span class="number">#eee</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.sports</span> &#123;</span><br><span class="line">  <span class="attribute">background</span>: <span class="number">#d5e3ff</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.local</span> &#123;</span><br><span class="line">  <span class="attribute">background</span>: <span class="number">#ffcccc</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="css">.sidebar &#123;
+  float: right;
+  width: 25%;
+  background: #eee;
+&#125;
 
+.sports &#123;
+  background: #d5e3ff;
+&#125;
+
+.local &#123;
+  background: #ffcccc;
+&#125;
+</code></pre>
 <p>这不仅能减少字节，而且<code>.sport</code>和<code>.local</code>类还能添加到其他元素上。</p>
 <p>使用属性选择器例如<code>[id=sidebar]</code>可以解决 id 选择器高权重的问题，尽管其复用性不如类选择器，但其低权重可以让我们避免使用链式类选择器。</p>
 <p><strong>PS</strong> id 选择器的高权重也确有用武之地<br>在某些情况下，你可能确实需要 id 选择器的高权重性。例如，一些网络上的媒体站点可能需要其所有子站都使用同样的导航条组件，该组件必须在所有站点都表现一致并且其样式是难以被覆盖的。此时，使用 id 选择器就可以减少导航条样式被意外覆盖的情况。</p>
@@ -218,8 +288,8 @@
       <blockquote id="copyright">
         <p>
           原文链接:
-          <a href="https://jesse121.github.io/blog/blog/articles/2017/05/04.html"
-            >https://jesse121.github.io/blog/blog/articles/2017/05/04.html</a
+          <a href="https://jesse121.github.io/blog/articles/2017/05/04.html"
+            >https://jesse121.github.io/blog/articles/2017/05/04.html</a
           >
         </p>
         <p>版权声明: 转载请注明出处.</p>
@@ -240,7 +310,7 @@
 <nav id="article-nav">
   
     <a href="/blog/articles/2017/05/03.html" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">older</strong>
+      <strong class="article-nav-caption">下一篇</strong>
       <div class="article-nav-title">
         
           前端开发工作中常用的JavaScript片段
@@ -250,7 +320,7 @@
   
   
     <a href="/blog/articles/2017/05/20.html" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">newer</strong>
+      <strong class="article-nav-caption">上一篇</strong>
       <div class="article-nav-title">
         
           CSS页面布局常见问题总结
@@ -416,37 +486,26 @@
     </div>
   </div>
   
-<script src="/blog/js/jquery-3.4.1.min.js"></script>
+<script src="https://unpkg.com/@highlightjs/cdn-assets@11.6.0/highlight.min.js"></script>
 
+<script>
+  hljs.highlightAll();
+</script>
 
+<script src="https://unpkg.com/jquery@3.4.1/dist/jquery.min.js"></script>
+ 
 <script src="/blog/js/search.json.js"></script>
-
-
   
-<script src="/blog/fancybox/jquery.fancybox.min.js"></script>
+<script src="https://unpkg.com/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
 
-
-
-
+ 
 <script src="/blog/js/script.js"></script>
-
-
-
-
-
-
-  
+ 
+   
 <script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-
-
-
-
-  
-  
-
-
-  
-<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+ 
+      
+<script src="https://unpkg.com/gitalk@1.7.2/dist/gitalk.min.js"></script>
  
 <script src="//cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.js"></script>
 
@@ -458,7 +517,7 @@
     owner: "jesse121",
     admin: ["jesse121"],
     id: md5(window.location.pathname),
-    proxy: "https://gitalk.jesse121.workers.dev/?https://github.com/login/oauth/access_token",
+    proxy: "https://stormy-gorge-51623.herokuapp.com/https://github.com/login/oauth/access_token",
     distractionFreeMode: false,
     language: "zh-CN",
     pagerDirection: "last",
@@ -466,8 +525,7 @@
   gitalk.render("comments");
 </script>
          
-
-
+ 
 
 </body>
 </html>

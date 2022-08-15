@@ -1,42 +1,28 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8">
-  
-  
+  <meta charset="utf-8" />
+   
   <title>对JavaScript中this的理解 | 前端之路</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, shrink-to-fit=no"
+  />
   
-    <meta name="description" content="专注前端开发，前端开发技术博客">
-  
-  
-    <meta name="keywords" content="Web前端开发，Javascript，前端开发博客">
-  
-  
-    <link rel="alternate" href="/blog/atom.xml" title="前端之路" type="application/atom+xml">
-  
-  
-    <link rel="shortcut icon" href="/blog/favicon.ico">
-  
-  
-    
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
-
-  
-  
+  <meta name="description" content="专注前端开发，前端开发技术博客" />
+   
+  <meta name="keywords" content="Web前端开发，Javascript，前端开发博客" />
+    <link rel="alternate" href="/blog/atom.xml" title="前端之路" type="application/atom+xml">   <link rel="shortcut icon" href="/blog/favicon.ico"> 
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/@highlightjs/cdn-assets@11.6.0/styles/xt256.min.css"
+  />
+   
 <link rel="stylesheet" href="/blog/css/style.css">
-
   
+<link rel="stylesheet" href="https://unpkg.com/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
     
-<link rel="stylesheet" href="/blog/fancybox/jquery.fancybox.min.css">
-
-  
-  
-  
-    
-<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
-
-  
+<link rel="stylesheet" href="https://unpkg.com/gitalk@1.7.2/dist/gitalk.css">
   
 <meta name="generator" content="Hexo 6.2.0"></head>
 
@@ -155,17 +141,69 @@
 </ul>
 <p>下面我们将按照调用方式的不同，分别讨论 this 的含义。</p>
 <h3 id="作为对象方法调用"><a href="#作为对象方法调用" class="headerlink" title="作为对象方法调用"></a>作为对象方法调用</h3><p>当一个函数被保存为对象的一个属性时，我们称它为一个方法。方法被调用时,this被绑定到该对象。通过this可取得所属对象的公有方法</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> myObject = &#123;</span><br><span class="line">    <span class="attr">value</span>:<span class="number">0</span>,</span><br><span class="line">    <span class="attr">increment</span>:<span class="keyword">function</span>(<span class="params">inc</span>)&#123;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">value</span> += <span class="keyword">typeof</span> inc === <span class="string">&#x27;number&#x27;</span> ? inc : <span class="number">1</span>;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">this</span>);  <span class="comment">//&#123;value:1,increment:function()&#123;&#125;&#125;</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">myObject.<span class="title function_">increment</span>();  <span class="comment">//作为对象方法调用</span></span><br></pre></td></tr></table></figure>
+<pre><code class="js">var myObject = &#123;
+    value:0,
+    increment:function(inc)&#123;
+        this.value += typeof inc === &#39;number&#39; ? inc : 1;
+        console.log(this);  //&#123;value:1,increment:function()&#123;&#125;&#125;
+    &#125;
+&#125;
+myObject.increment();  //作为对象方法调用
+</code></pre>
 <h3 id="作为函数调用"><a href="#作为函数调用" class="headerlink" title="作为函数调用"></a>作为函数调用</h3><p>当一个函数并非一个对象的属性时，那么它就是被当做一个函数来调用的，以此模式调用函数时，this被绑定到全局对象。</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> myObject = &#123;</span><br><span class="line">    value : <span class="number">0</span>,</span><br><span class="line">    double : <span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">        <span class="keyword">var</span> helper = <span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">            <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">this</span>); <span class="comment">//window</span></span><br><span class="line">        &#125;;</span><br><span class="line">        <span class="title function_">helper</span>();  <span class="comment">//作为函数调用</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="js">var myObject = &#123;
+    value : 0,
+    double : function()&#123;
+        var helper = function()&#123;
+            console.log(this); //window
+        &#125;;
+        helper();  //作为函数调用
+    &#125;
+&#125;
+</code></pre>
 <h3 id="作为构造函数调用"><a href="#作为构造函数调用" class="headerlink" title="作为构造函数调用"></a>作为构造函数调用</h3><p>如果一个函数前面带上new来调用，那么背地里将会创建一个连接到该函数的prototype成员的新对象，同时this会被绑定到那个新对象上。</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">Quo</span>(<span class="params">string</span>)&#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">status</span> = string;</span><br><span class="line">&#125;</span><br><span class="line"><span class="title class_">Quo</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">getStatus</span> = <span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="variable language_">this</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> myQuo = <span class="keyword">new</span> <span class="title class_">Quo</span>(<span class="string">&quot;confused&quot;</span>);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(myQuo.<span class="title function_">getStatus</span>()); <span class="comment">//作为构造函数调用 this指向这个新对象Quo &#123;status: &quot;confused&quot;&#125;</span></span><br></pre></td></tr></table></figure>
+<pre><code class="js">function Quo(string)&#123;
+    this.status = string;
+&#125;
+Quo.prototype.getStatus = function()&#123;
+    return this;
+&#125;
+var myQuo = new Quo(&quot;confused&quot;);
+console.log(myQuo.getStatus()); //作为构造函数调用 this指向这个新对象Quo &#123;status: &quot;confused&quot;&#125;
+</code></pre>
 <h3 id="apply或call-调用"><a href="#apply或call-调用" class="headerlink" title="apply或call 调用"></a>apply或call 调用</h3><p>apply方法允许我们构建一个函数数组传递给调用函数，也允许选择this的值</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> statusObject = &#123;</span><br><span class="line">    <span class="attr">status</span>: <span class="string">&quot;ok&quot;</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">function</span> <span class="title function_">Quo</span>(<span class="params">string</span>)&#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">status</span> = string;</span><br><span class="line">&#125;</span><br><span class="line"><span class="title class_">Quo</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">getStatus</span> = <span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">this</span>); <span class="comment">//&#123;status: &quot;ok&quot;&#125;</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="title class_">Quo</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">getStatus</span>.<span class="title function_">apply</span>(statusObject); <span class="comment">//将方法中的this指向传入的对象</span></span><br><span class="line"><span class="title class_">Quo</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">getStatus</span>.<span class="title function_">call</span>(statusObject); <span class="comment">//将方法中的this指向传入的对象</span></span><br></pre></td></tr></table></figure>
+<pre><code class="js">var statusObject = &#123;
+    status: &quot;ok&quot;
+&#125;;
+function Quo(string)&#123;
+    this.status = string;
+&#125;
+Quo.prototype.getStatus = function()&#123;
+    return console.log(this); //&#123;status: &quot;ok&quot;&#125;
+&#125;
+Quo.prototype.getStatus.apply(statusObject); //将方法中的this指向传入的对象
+Quo.prototype.getStatus.call(statusObject); //将方法中的this指向传入的对象
+</code></pre>
 <h3 id="通过bind调用"><a href="#通过bind调用" class="headerlink" title="通过bind调用"></a>通过bind调用</h3><p>bind()方法创建一个新的函数, 当被调用时，将其this关键字设置为提供的值，在调用新函数时，在任何提供之前提供一个给定的参数序列。<br><code>fun.bind(thisArg[, arg1[, arg2[, ...]]])</code><br>** 返回由指定的this值和初始化参数改造的原函数拷贝**</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="variable language_">window</span>.<span class="property">color</span> = <span class="string">&quot;red&quot;</span>;</span><br><span class="line"><span class="keyword">var</span> o = &#123;<span class="attr">color</span>:<span class="string">&quot;blue&quot;</span>&#125;;</span><br><span class="line"><span class="keyword">function</span> <span class="title function_">sayColor</span>(<span class="params"></span>)&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="property">color</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> objectSayColor = sayColor.<span class="title function_">bind</span>(o); <span class="comment">//此处将方法中的this指向了o对象</span></span><br><span class="line"><span class="title function_">objectSayColor</span>();<span class="comment">//由于bind返回的是改造后的原函数的拷贝，并没有执行</span></span><br></pre></td></tr></table></figure>
+<pre><code class="js">window.color = &quot;red&quot;;
+var o = &#123;color:&quot;blue&quot;&#125;;
+function sayColor()&#123;
+  return this.color;
+&#125;
+var objectSayColor = sayColor.bind(o); //此处将方法中的this指向了o对象
+objectSayColor();//由于bind返回的是改造后的原函数的拷贝，并没有执行
+</code></pre>
 <h3 id="箭头函数里的this"><a href="#箭头函数里的this" class="headerlink" title="箭头函数里的this"></a>箭头函数里的this</h3><p>函数体内的 this 对象，是定义时所在的对象，而不是使用时所在的对象。</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> handler = &#123;</span><br><span class="line">  <span class="attr">id</span>: <span class="string">&#x27;123456&#x27;</span>,</span><br><span class="line">  <span class="attr">init</span>: <span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">document</span>.<span class="title function_">addEventListener</span>(<span class="string">&#x27;click&#x27;</span>,<span class="function"><span class="params">event</span> =&gt;</span> <span class="variable language_">this</span>.<span class="title function_">doSomething</span>(event.<span class="property">type</span>), <span class="literal">false</span>);</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">doSomething</span>: <span class="keyword">function</span>(<span class="params">type</span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;Handling &#x27;</span> + type + <span class="string">&#x27; for &#x27;</span> + <span class="variable language_">this</span>.<span class="property">id</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<pre><code class="js">var handler = &#123;
+  id: &#39;123456&#39;,
+  init: function() &#123;
+    document.addEventListener(&#39;click&#39;,event =&gt; this.doSomething(event.type), false);
+  &#125;,
+  doSomething: function(type) &#123;
+    console.log(&#39;Handling &#39; + type + &#39; for &#39; + this.id);
+  &#125;
+&#125;;
+</code></pre>
 <p>上面代码的 init 方法中，使用了箭头函数，这导致这个箭头函数里面的 this ，总是指向 handler 对象。否则，回调函数运行时， this.doSomething 这一行会报错，因为此时 this 指向 document 对象。<br>this 指向的固定化，并不是因为箭头函数内部有绑定 this 的机制，实际原因是箭头函数根本没有自己的 this ，导致内部的 this 就是外层代码块<br>的 this 。正是因为它没有 this ，所以也就不能用作构造函数。</p>
  
       <div id="toc-article">
@@ -181,8 +219,8 @@
       <blockquote id="copyright">
         <p>
           原文链接:
-          <a href="https://jesse121.github.io/blog/blog/articles/2017/07/08.html"
-            >https://jesse121.github.io/blog/blog/articles/2017/07/08.html</a
+          <a href="https://jesse121.github.io/blog/articles/2017/07/08.html"
+            >https://jesse121.github.io/blog/articles/2017/07/08.html</a
           >
         </p>
         <p>版权声明: 转载请注明出处.</p>
@@ -203,7 +241,7 @@
 <nav id="article-nav">
   
     <a href="/blog/articles/2017/06/20.html" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">older</strong>
+      <strong class="article-nav-caption">下一篇</strong>
       <div class="article-nav-title">
         
           搭建自己的Webpack前端构建工具
@@ -213,7 +251,7 @@
   
   
     <a href="/blog/articles/2017/07/18.html" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">newer</strong>
+      <strong class="article-nav-caption">上一篇</strong>
       <div class="article-nav-title">
         
           innerHTML,innerText,textContent的区别详解
@@ -379,37 +417,26 @@
     </div>
   </div>
   
-<script src="/blog/js/jquery-3.4.1.min.js"></script>
+<script src="https://unpkg.com/@highlightjs/cdn-assets@11.6.0/highlight.min.js"></script>
 
+<script>
+  hljs.highlightAll();
+</script>
 
+<script src="https://unpkg.com/jquery@3.4.1/dist/jquery.min.js"></script>
+ 
 <script src="/blog/js/search.json.js"></script>
-
-
   
-<script src="/blog/fancybox/jquery.fancybox.min.js"></script>
+<script src="https://unpkg.com/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
 
-
-
-
+ 
 <script src="/blog/js/script.js"></script>
-
-
-
-
-
-
-  
+ 
+   
 <script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-
-
-
-
-  
-  
-
-
-  
-<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+ 
+      
+<script src="https://unpkg.com/gitalk@1.7.2/dist/gitalk.min.js"></script>
  
 <script src="//cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.js"></script>
 
@@ -421,7 +448,7 @@
     owner: "jesse121",
     admin: ["jesse121"],
     id: md5(window.location.pathname),
-    proxy: "https://gitalk.jesse121.workers.dev/?https://github.com/login/oauth/access_token",
+    proxy: "https://stormy-gorge-51623.herokuapp.com/https://github.com/login/oauth/access_token",
     distractionFreeMode: false,
     language: "zh-CN",
     pagerDirection: "last",
@@ -429,8 +456,7 @@
   gitalk.render("comments");
 </script>
          
-
-
+ 
 
 </body>
 </html>

@@ -1,42 +1,28 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8">
-  
-  
+  <meta charset="utf-8" />
+   
   <title>如何用Vite快速搭建一个vue3项目 | 前端之路</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, shrink-to-fit=no"
+  />
   
-    <meta name="description" content="专注前端开发，前端开发技术博客">
-  
-  
-    <meta name="keywords" content="Web前端开发，Javascript，前端开发博客">
-  
-  
-    <link rel="alternate" href="/blog/atom.xml" title="前端之路" type="application/atom+xml">
-  
-  
-    <link rel="shortcut icon" href="/blog/favicon.ico">
-  
-  
-    
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
-
-  
-  
+  <meta name="description" content="专注前端开发，前端开发技术博客" />
+   
+  <meta name="keywords" content="Web前端开发，Javascript，前端开发博客" />
+    <link rel="alternate" href="/blog/atom.xml" title="前端之路" type="application/atom+xml">   <link rel="shortcut icon" href="/blog/favicon.ico"> 
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/@highlightjs/cdn-assets@11.6.0/styles/xt256.min.css"
+  />
+   
 <link rel="stylesheet" href="/blog/css/style.css">
-
   
+<link rel="stylesheet" href="https://unpkg.com/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
     
-<link rel="stylesheet" href="/blog/fancybox/jquery.fancybox.min.css">
-
-  
-  
-  
-    
-<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
-
-  
+<link rel="stylesheet" href="https://unpkg.com/gitalk@1.7.2/dist/gitalk.css">
   
 <meta name="generator" content="Hexo 6.2.0"></head>
 
@@ -150,45 +136,193 @@
 
 <h3 id="初始化项目"><a href="#初始化项目" class="headerlink" title="初始化项目"></a>初始化项目</h3><p>查看<a target="_blank" rel="noopener" href="https://cn.vitejs.dev/guide/#scaffolding-your-first-vite-project">vite 官网</a>可知<br><code>yarn create @vitejs/app </code><br>这里选择 vue 框架，再选择 vue-ts 模板，然后根据提示操作即可</p>
 <p>初始化项目也可以采用快捷方式，在命令中写好项目名称和模板<br><code>yarn create @vitejs/app project-name --template vue-ts</code></p>
-<h3 id="安装-eslint-及相关-plugin"><a href="#安装-eslint-及相关-plugin" class="headerlink" title="安装 eslint 及相关 plugin"></a>安装 eslint 及相关 plugin</h3><figure class="highlight gradle"><table><tr><td class="code"><pre><span class="line">yarn add eslint eslint-plugin-vue @typescript-eslint<span class="regexp">/parser @typescript-eslint/</span>eslint-plugin eslint-plugin-simple-<span class="keyword">import</span>-<span class="keyword">sort</span> -D</span><br></pre></td></tr></table></figure>
-
+<h3 id="安装-eslint-及相关-plugin"><a href="#安装-eslint-及相关-plugin" class="headerlink" title="安装 eslint 及相关 plugin"></a>安装 eslint 及相关 plugin</h3><pre><code>yarn add eslint eslint-plugin-vue @typescript-eslint/parser @typescript-eslint/eslint-plugin eslint-plugin-simple-import-sort -D
+</code></pre>
 <p>解释说明下相关 plugin:</p>
 <h4 id="eslint-plugin-vue"><a href="#eslint-plugin-vue" class="headerlink" title="eslint-plugin-vue"></a>eslint-plugin-vue</h4><p>Vue.js 的官方 ESLint 插件</p>
 <h4 id="typescript-eslint-x2F-parser"><a href="#typescript-eslint-x2F-parser" class="headerlink" title="@typescript-eslint&#x2F;parser"></a>@typescript-eslint&#x2F;parser</h4><p>ESLint 的解析器，用于解析 typescript，从而检查和规范 Typescript 代码</p>
 <h4 id="typescript-eslint-x2F-eslint-plugin"><a href="#typescript-eslint-x2F-eslint-plugin" class="headerlink" title="@typescript-eslint&#x2F;eslint-plugin"></a>@typescript-eslint&#x2F;eslint-plugin</h4><p>ESLint 插件，包含了各类定义好的检测 Typescript 代码的规范</p>
 <h4 id="eslint-plugin-simple-import-sort"><a href="#eslint-plugin-simple-import-sort" class="headerlink" title="eslint-plugin-simple-import-sort"></a>eslint-plugin-simple-import-sort</h4><p>自动排序 import 的插件</p>
 <p>新建.eslintrc.js 文件</p>
-<figure class="highlight json"><table><tr><td class="code"><pre><span class="line">module.exports = <span class="punctuation">&#123;</span></span><br><span class="line">  root<span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span></span><br><span class="line">  env<span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    browser<span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span></span><br><span class="line">    node<span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span></span><br><span class="line">  <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="comment">//定义eslint依赖的插件</span></span><br><span class="line">  plugins<span class="punctuation">:</span> <span class="punctuation">[</span><span class="string">&quot;@typescript-eslint&quot;</span><span class="punctuation">,</span> <span class="string">&quot;prettier&quot;</span><span class="punctuation">,</span> <span class="string">&quot;simple-import-sort&quot;</span><span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">  <span class="comment">//定义文件继承的代码规范</span></span><br><span class="line">  extends<span class="punctuation">:</span> <span class="punctuation">[</span><span class="string">&quot;plugin:vue/vue3-recommended&quot;</span><span class="punctuation">,</span> <span class="string">&quot;plugin:prettier/recommended&quot;</span><span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">  parserOptions<span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="comment">//解析ts文件</span></span><br><span class="line">    parser<span class="punctuation">:</span> <span class="string">&quot;@typescript-eslint/parser&quot;</span><span class="punctuation">,</span></span><br><span class="line">    sourceType<span class="punctuation">:</span> <span class="string">&quot;module&quot;</span><span class="punctuation">,</span></span><br><span class="line">    ecmaVersion<span class="punctuation">:</span> <span class="number">2020</span><span class="punctuation">,</span></span><br><span class="line">    ecmaFeatures<span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">      tsx<span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span> <span class="comment">// 允许解析TSX</span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line">  <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">  rules<span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;prettier/prettier&quot;</span><span class="punctuation">:</span> <span class="string">&quot;error&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;@typescript-eslint/explicit-module-boundary-types&quot;</span><span class="punctuation">:</span> <span class="string">&quot;off&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;@typescript-eslint/interface-name-prefix&quot;</span><span class="punctuation">:</span> <span class="string">&quot;off&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;@typescript-eslint/no-empty-function&quot;</span><span class="punctuation">:</span> <span class="string">&quot;off&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;@typescript-eslint/no-explicit-any&quot;</span><span class="punctuation">:</span> <span class="string">&quot;off&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;@typescript-eslint/no-var-requires&quot;</span><span class="punctuation">:</span> <span class="string">&quot;off&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;@typescript-eslint/camelcase&quot;</span><span class="punctuation">:</span> <span class="string">&quot;off&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;no-console&quot;</span><span class="punctuation">:</span> process.env.NODE_ENV === <span class="string">&quot;production&quot;</span> ? <span class="attr">&quot;warn&quot;</span> <span class="punctuation">:</span> <span class="string">&quot;off&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;no-debugger&quot;</span><span class="punctuation">:</span> process.env.NODE_ENV === <span class="string">&quot;production&quot;</span> ? <span class="attr">&quot;warn&quot;</span> <span class="punctuation">:</span> <span class="string">&quot;off&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;vue/html-self-closing&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">      <span class="string">&quot;error&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="punctuation">&#123;</span></span><br><span class="line">        html<span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">          component<span class="punctuation">:</span> <span class="string">&quot;always&quot;</span><span class="punctuation">,</span></span><br><span class="line">          normal<span class="punctuation">:</span> <span class="string">&quot;always&quot;</span><span class="punctuation">,</span></span><br><span class="line">          void<span class="punctuation">:</span> <span class="string">&quot;any&quot;</span></span><br><span class="line">        <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">        math<span class="punctuation">:</span> <span class="string">&quot;always&quot;</span><span class="punctuation">,</span></span><br><span class="line">        svg<span class="punctuation">:</span> <span class="string">&quot;always&quot;</span></span><br><span class="line">      <span class="punctuation">&#125;</span></span><br><span class="line">    <span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;vue/require-default-prop&quot;</span><span class="punctuation">:</span> <span class="string">&quot;off&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;vue/no-v-html&quot;</span><span class="punctuation">:</span> <span class="string">&quot;off&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;sort-imports&quot;</span><span class="punctuation">:</span> <span class="string">&quot;off&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;import/order&quot;</span><span class="punctuation">:</span> <span class="string">&quot;off&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;simple-import-sort/imports&quot;</span><span class="punctuation">:</span> <span class="string">&quot;error&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;simple-import-sort/exports&quot;</span><span class="punctuation">:</span> <span class="string">&quot;error&quot;</span></span><br><span class="line">  <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">  overrides<span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">    <span class="punctuation">&#123;</span></span><br><span class="line">      files<span class="punctuation">:</span> <span class="punctuation">[</span><span class="string">&quot;**/__tests__/*.&#123;j,t&#125;s?(x)&quot;</span><span class="punctuation">,</span> <span class="string">&quot;**/tests/unit/**/*.spec.&#123;j,t&#125;s?(x)&quot;</span><span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">      env<span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">        jest<span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span></span><br><span class="line">      <span class="punctuation">&#125;</span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line">  <span class="punctuation">]</span></span><br><span class="line"><span class="punctuation">&#125;</span>;</span><br></pre></td></tr></table></figure>
-
-<h3 id="安装-prettier-用于代码格式化"><a href="#安装-prettier-用于代码格式化" class="headerlink" title="安装 prettier 用于代码格式化"></a>安装 prettier 用于代码格式化</h3><figure class="highlight mipsasm"><table><tr><td class="code"><pre><span class="line">yarn <span class="keyword">add </span>prettier eslint-<span class="built_in">config</span>-prettier eslint-plugin-prettier -D</span><br></pre></td></tr></table></figure>
-
+<pre><code class="json">module.exports = &#123;
+  root: true,
+  env: &#123;
+    browser: true,
+    node: true
+  &#125;,
+  //定义eslint依赖的插件
+  plugins: [&quot;@typescript-eslint&quot;, &quot;prettier&quot;, &quot;simple-import-sort&quot;],
+  //定义文件继承的代码规范
+  extends: [&quot;plugin:vue/vue3-recommended&quot;, &quot;plugin:prettier/recommended&quot;],
+  parserOptions: &#123;
+    //解析ts文件
+    parser: &quot;@typescript-eslint/parser&quot;,
+    sourceType: &quot;module&quot;,
+    ecmaVersion: 2020,
+    ecmaFeatures: &#123;
+      tsx: true // 允许解析TSX
+    &#125;
+  &#125;,
+  rules: &#123;
+    &quot;prettier/prettier&quot;: &quot;error&quot;,
+    &quot;@typescript-eslint/explicit-module-boundary-types&quot;: &quot;off&quot;,
+    &quot;@typescript-eslint/interface-name-prefix&quot;: &quot;off&quot;,
+    &quot;@typescript-eslint/no-empty-function&quot;: &quot;off&quot;,
+    &quot;@typescript-eslint/no-explicit-any&quot;: &quot;off&quot;,
+    &quot;@typescript-eslint/no-var-requires&quot;: &quot;off&quot;,
+    &quot;@typescript-eslint/camelcase&quot;: &quot;off&quot;,
+    &quot;no-console&quot;: process.env.NODE_ENV === &quot;production&quot; ? &quot;warn&quot; : &quot;off&quot;,
+    &quot;no-debugger&quot;: process.env.NODE_ENV === &quot;production&quot; ? &quot;warn&quot; : &quot;off&quot;,
+    &quot;vue/html-self-closing&quot;: [
+      &quot;error&quot;,
+      &#123;
+        html: &#123;
+          component: &quot;always&quot;,
+          normal: &quot;always&quot;,
+          void: &quot;any&quot;
+        &#125;,
+        math: &quot;always&quot;,
+        svg: &quot;always&quot;
+      &#125;
+    ],
+    &quot;vue/require-default-prop&quot;: &quot;off&quot;,
+    &quot;vue/no-v-html&quot;: &quot;off&quot;,
+    &quot;sort-imports&quot;: &quot;off&quot;,
+    &quot;import/order&quot;: &quot;off&quot;,
+    &quot;simple-import-sort/imports&quot;: &quot;error&quot;,
+    &quot;simple-import-sort/exports&quot;: &quot;error&quot;
+  &#125;,
+  overrides: [
+    &#123;
+      files: [&quot;**/__tests__/*.&#123;j,t&#125;s?(x)&quot;, &quot;**/tests/unit/**/*.spec.&#123;j,t&#125;s?(x)&quot;],
+      env: &#123;
+        jest: true
+      &#125;
+    &#125;
+  ]
+&#125;;
+</code></pre>
+<h3 id="安装-prettier-用于代码格式化"><a href="#安装-prettier-用于代码格式化" class="headerlink" title="安装 prettier 用于代码格式化"></a>安装 prettier 用于代码格式化</h3><pre><code>yarn add prettier eslint-config-prettier eslint-plugin-prettier -D
+</code></pre>
 <h4 id="eslint-config-prettier"><a href="#eslint-config-prettier" class="headerlink" title="eslint-config-prettier"></a>eslint-config-prettier</h4><p>解决 ESLint 中的样式规范和 prettier 中样式规范的冲突，以 prettier 的样式规范为准，使 ESLint 中的样式规范自动失效</p>
 <h4 id="eslint-plugin-prettier"><a href="#eslint-plugin-prettier" class="headerlink" title="eslint-plugin-prettier"></a>eslint-plugin-prettier</h4><p>将 prettier 作为 ESLint 规范来使用</p>
 <p>新建.prettierrc 文件</p>
-<figure class="highlight json"><table><tr><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;printWidth&quot;</span><span class="punctuation">:</span> <span class="number">120</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;proseWrap&quot;</span><span class="punctuation">:</span> <span class="string">&quot;preserve&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;tabWidth&quot;</span><span class="punctuation">:</span> <span class="number">2</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;semi&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;singleQuote&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">false</span></span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;trailingComma&quot;</span><span class="punctuation">:</span> <span class="string">&quot;none&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;bracketSpacing&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;jsxBracketSameLine&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">false</span></span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;arrowParens&quot;</span><span class="punctuation">:</span> <span class="string">&quot;avoid&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;rangeStart&quot;</span><span class="punctuation">:</span> <span class="number">0</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;endOfLine&quot;</span><span class="punctuation">:</span> <span class="string">&quot;lf&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;insertPragma&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">false</span></span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;requirePragma&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">false</span></span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;useTabs&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
-
+<pre><code class="json">&#123;
+  &quot;printWidth&quot;: 120,
+  &quot;proseWrap&quot;: &quot;preserve&quot;,
+  &quot;tabWidth&quot;: 2,
+  &quot;semi&quot;: true,
+  &quot;singleQuote&quot;: false,
+  &quot;trailingComma&quot;: &quot;none&quot;,
+  &quot;bracketSpacing&quot;: true,
+  &quot;jsxBracketSameLine&quot;: false,
+  &quot;arrowParens&quot;: &quot;avoid&quot;,
+  &quot;rangeStart&quot;: 0,
+  &quot;endOfLine&quot;: &quot;lf&quot;,
+  &quot;insertPragma&quot;: false,
+  &quot;requirePragma&quot;: false,
+  &quot;useTabs&quot;: true
+&#125;
+</code></pre>
 <p>如果想在保存时编辑器自动规范代码还需要在 vscode 的配置文件中添加<br><code>&quot;editor.formatOnSave&quot;: true</code></p>
-<h3 id="安装-stylelint-规范-style"><a href="#安装-stylelint-规范-style" class="headerlink" title="安装 stylelint 规范 style"></a>安装 stylelint 规范 style</h3><figure class="highlight mipsasm"><table><tr><td class="code"><pre><span class="line">yarn <span class="keyword">add </span>stylelint stylelint-prettier stylelint-<span class="built_in">config</span>-prettier stylelint-<span class="built_in">config</span>-recess-<span class="keyword">order </span>-D</span><br></pre></td></tr></table></figure>
-
+<h3 id="安装-stylelint-规范-style"><a href="#安装-stylelint-规范-style" class="headerlink" title="安装 stylelint 规范 style"></a>安装 stylelint 规范 style</h3><pre><code>yarn add stylelint stylelint-prettier stylelint-config-prettier stylelint-config-recess-order -D
+</code></pre>
 <p>新建.stylelintrc.js</p>
-<figure class="highlight json"><table><tr><td class="code"><pre><span class="line">module.exports = <span class="punctuation">&#123;</span></span><br><span class="line">  defaultSeverity<span class="punctuation">:</span> <span class="string">&quot;error&quot;</span><span class="punctuation">,</span></span><br><span class="line">  plugins<span class="punctuation">:</span> <span class="punctuation">[</span><span class="string">&quot;stylelint-prettier&quot;</span><span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">  extends<span class="punctuation">:</span> <span class="punctuation">[</span><span class="string">&quot;stylelint-prettier/recommended&quot;</span><span class="punctuation">,</span> <span class="string">&quot;stylelint-config-recess-order&quot;</span><span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">  rules<span class="punctuation">:</span> <span class="punctuation">&#123;</span><span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span>;</span><br></pre></td></tr></table></figure>
-
+<pre><code class="json">module.exports = &#123;
+  defaultSeverity: &quot;error&quot;,
+  plugins: [&quot;stylelint-prettier&quot;],
+  extends: [&quot;stylelint-prettier/recommended&quot;, &quot;stylelint-config-recess-order&quot;],
+  rules: &#123;&#125;
+&#125;;
+</code></pre>
 <h3 id="安装-commit-message-用于规范-git-message"><a href="#安装-commit-message-用于规范-git-message" class="headerlink" title="安装 commit-message 用于规范 git message"></a>安装 commit-message 用于规范 git message</h3><p><code>yarn add @commitlint/cli @commitlint/config-conventional -D</code><br>新建.commitlintrc.js 文件</p>
-<figure class="highlight json"><table><tr><td class="code"><pre><span class="line">module.exports = <span class="punctuation">&#123;</span></span><br><span class="line">  extends<span class="punctuation">:</span> <span class="punctuation">[</span><span class="string">&quot;@commitlint/config-conventional&quot;</span><span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">  rules<span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;type-enum&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">      <span class="number">2</span><span class="punctuation">,</span></span><br><span class="line">      <span class="string">&quot;always&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="punctuation">[</span></span><br><span class="line">        <span class="string">&quot;release&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="string">&quot;wip&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="string">&quot;build&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="string">&quot;chore&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="string">&quot;ci&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="string">&quot;docs&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="string">&quot;feat&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="string">&quot;fix&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="string">&quot;perf&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="string">&quot;refactor&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="string">&quot;revert&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="string">&quot;style&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="string">&quot;test&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="string">&quot;merge&quot;</span><span class="punctuation">]</span></span><br><span class="line">    <span class="punctuation">]</span></span><br><span class="line">  <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span>;</span><br></pre></td></tr></table></figure>
-
+<pre><code class="json">module.exports = &#123;
+  extends: [&quot;@commitlint/config-conventional&quot;],
+  rules: &#123;
+    &quot;type-enum&quot;: [
+      2,
+      &quot;always&quot;,
+      [
+        &quot;release&quot;,
+        &quot;wip&quot;,
+        &quot;build&quot;,
+        &quot;chore&quot;,
+        &quot;ci&quot;,
+        &quot;docs&quot;,
+        &quot;feat&quot;,
+        &quot;fix&quot;,
+        &quot;perf&quot;,
+        &quot;refactor&quot;,
+        &quot;revert&quot;,
+        &quot;style&quot;,
+        &quot;test&quot;,
+        &quot;merge&quot;]
+    ]
+  &#125;
+&#125;;
+</code></pre>
 <h3 id="安装-ls-lint-用于规范文件夹命名"><a href="#安装-ls-lint-用于规范文件夹命名" class="headerlink" title="安装 ls-lint 用于规范文件夹命名"></a>安装 ls-lint 用于规范文件夹命名</h3><p><code>yarn add @ls-lint/ls-lint -D</code><br>新建.ls-lint.yml 文件</p>
-<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 文件名及文件夹名命名规则</span></span><br><span class="line"><span class="attr">ls:</span></span><br><span class="line">  <span class="string">src/components/*:</span></span><br><span class="line">    <span class="string">.dir:</span> <span class="string">PascalCase</span> <span class="comment"># 组件文件夹名命名模式</span></span><br><span class="line">  <span class="attr">src/views:</span></span><br><span class="line">    <span class="string">.dir:</span> <span class="string">camelCase</span> <span class="string">|</span> <span class="string">snake_case</span></span><br><span class="line">  <span class="attr">src/store:</span></span><br><span class="line">    <span class="string">.dir:</span> <span class="string">camelCase</span> <span class="string">|</span> <span class="string">kebab-case</span></span><br><span class="line">  <span class="attr">src/router:</span></span><br><span class="line">    <span class="string">.dir:</span> <span class="string">camelCase</span> <span class="string">|</span> <span class="string">kebab-case</span> <span class="string">|</span> <span class="string">regex:^__.+$</span></span><br><span class="line">  <span class="attr">src:</span></span><br><span class="line">    <span class="string">.ts:</span> <span class="string">camelCase</span></span><br><span class="line">    <span class="string">.d.ts:</span> <span class="string">camelCase</span> <span class="string">|</span> <span class="string">kebab-case</span></span><br><span class="line"><span class="attr">ignore:</span></span><br><span class="line">  <span class="string">-</span> <span class="string">.git</span></span><br><span class="line">  <span class="string">-</span> <span class="string">node_modules</span></span><br></pre></td></tr></table></figure>
-
+<pre><code class="yml"># 文件名及文件夹名命名规则
+ls:
+  src/components/*:
+    .dir: PascalCase # 组件文件夹名命名模式
+  src/views:
+    .dir: camelCase | snake_case
+  src/store:
+    .dir: camelCase | kebab-case
+  src/router:
+    .dir: camelCase | kebab-case | regex:^__.+$
+  src:
+    .ts: camelCase
+    .d.ts: camelCase | kebab-case
+ignore:
+  - .git
+  - node_modules
+</code></pre>
 <h3 id="安装-husky-和-lint-staged"><a href="#安装-husky-和-lint-staged" class="headerlink" title="安装 husky 和 lint-staged"></a>安装 husky 和 lint-staged</h3><p>用于对要提交的文件代码检查及格式化<br><code>yarn add husky lint-staged -D</code><br>修改 package.json</p>
-<figure class="highlight json"><table><tr><td class="code"><pre><span class="line">  <span class="attr">&quot;husky&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;hooks&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;pre-commit&quot;</span><span class="punctuation">:</span> <span class="string">&quot;lint-staged&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;commit-msg&quot;</span><span class="punctuation">:</span> <span class="string">&quot;commitlint -e $HUSKY_GIT_PARAMS&quot;</span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line">  <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;lint-staged&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;*.&#123;vue,ts,js,scss&#125;&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">      <span class="string">&quot;prettier --write&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="string">&quot;git add&quot;</span></span><br><span class="line">    <span class="punctuation">]</span></span><br><span class="line">  <span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
-
+<pre><code class="json">  &quot;husky&quot;: &#123;
+    &quot;hooks&quot;: &#123;
+      &quot;pre-commit&quot;: &quot;lint-staged&quot;,
+      &quot;commit-msg&quot;: &quot;commitlint -e $HUSKY_GIT_PARAMS&quot;
+    &#125;
+  &#125;,
+  &quot;lint-staged&quot;: &#123;
+    &quot;*.&#123;vue,ts,js,scss&#125;&quot;: [
+      &quot;prettier --write&quot;,
+      &quot;git add&quot;
+    ]
+  &#125;
+</code></pre>
 <h3 id="配置项目运行任务"><a href="#配置项目运行任务" class="headerlink" title="配置项目运行任务"></a>配置项目运行任务</h3><p>在 vscode 中选择终端-&gt;配置默认生成任务即可在.vscode 文件夹下生成 tasks.json 文件，内容如下：</p>
-<figure class="highlight json"><table><tr><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;version&quot;</span><span class="punctuation">:</span> <span class="string">&quot;2.0.0&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;tasks&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">    <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;type&quot;</span><span class="punctuation">:</span> <span class="string">&quot;npm&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;script&quot;</span><span class="punctuation">:</span> <span class="string">&quot;dev&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;problemMatcher&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;label&quot;</span><span class="punctuation">:</span> <span class="string">&quot;npm: dev&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;detail&quot;</span><span class="punctuation">:</span> <span class="string">&quot;vite&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;group&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;kind&quot;</span><span class="punctuation">:</span> <span class="string">&quot;build&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;isDefault&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span> <span class="comment">// 设置成默认任务</span></span><br><span class="line">      <span class="punctuation">&#125;</span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line">  <span class="punctuation">]</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
-
+<pre><code class="json">&#123;
+  &quot;version&quot;: &quot;2.0.0&quot;,
+  &quot;tasks&quot;: [
+    &#123;
+      &quot;type&quot;: &quot;npm&quot;,
+      &quot;script&quot;: &quot;dev&quot;,
+      &quot;problemMatcher&quot;: [],
+      &quot;label&quot;: &quot;npm: dev&quot;,
+      &quot;detail&quot;: &quot;vite&quot;,
+      &quot;group&quot;: &#123;
+        &quot;kind&quot;: &quot;build&quot;,
+        &quot;isDefault&quot;: true // 设置成默认任务
+      &#125;
+    &#125;
+  ]
+&#125;
+</code></pre>
 <p>运行默认任务的快捷键是 ctrl+shift+b，这样每次开发时不用在命令行输入命令 yarn dev，直接按快捷键就行</p>
 <h3 id="配置项目中需要的-vscode-扩展"><a href="#配置项目中需要的-vscode-扩展" class="headerlink" title="配置项目中需要的 vscode 扩展"></a>配置项目中需要的 vscode 扩展</h3><p>在项目根目录中的.vscode 文件夹下新建 extensions.json 文件<br>将下面内容填写到 extensions.json 文件中</p>
-<figure class="highlight json"><table><tr><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;recommendations&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">    <span class="string">&quot;shenjiaolong.vue-helper&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="string">&quot;octref.vetur&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="string">&quot;esbenp.prettier-vscode&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="string">&quot;dbaeumer.vscode-eslint&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="string">&quot;stylelint.vscode-stylelint&quot;</span></span><br><span class="line">  <span class="punctuation">]</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
-
+<pre><code class="json">&#123;
+  &quot;recommendations&quot;: [
+    &quot;shenjiaolong.vue-helper&quot;,
+    &quot;octref.vetur&quot;,
+    &quot;esbenp.prettier-vscode&quot;,
+    &quot;dbaeumer.vscode-eslint&quot;,
+    &quot;stylelint.vscode-stylelint&quot;
+  ]
+&#125;
+</code></pre>
 <p>如果参与该项目的开发者 vscode 中没有安装所列插件，则会在右下角提示是否安装</p>
  
       <div id="toc-article">
@@ -204,8 +338,8 @@
       <blockquote id="copyright">
         <p>
           原文链接:
-          <a href="https://jesse121.github.io/blog/blog/articles/2021/06/11.html"
-            >https://jesse121.github.io/blog/blog/articles/2021/06/11.html</a
+          <a href="https://jesse121.github.io/blog/articles/2021/06/11.html"
+            >https://jesse121.github.io/blog/articles/2021/06/11.html</a
           >
         </p>
         <p>版权声明: 转载请注明出处.</p>
@@ -226,7 +360,7 @@
 <nav id="article-nav">
   
     <a href="/blog/articles/2021/05/24.html" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">older</strong>
+      <strong class="article-nav-caption">下一篇</strong>
       <div class="article-nav-title">
         
           Husky配置文件没有执行权限
@@ -236,7 +370,7 @@
   
   
     <a href="/blog/articles/2021/07/12.html" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">newer</strong>
+      <strong class="article-nav-caption">上一篇</strong>
       <div class="article-nav-title">
         
           什么是SSE(Server-Sent Event)
@@ -402,37 +536,26 @@
     </div>
   </div>
   
-<script src="/blog/js/jquery-3.4.1.min.js"></script>
+<script src="https://unpkg.com/@highlightjs/cdn-assets@11.6.0/highlight.min.js"></script>
 
+<script>
+  hljs.highlightAll();
+</script>
 
+<script src="https://unpkg.com/jquery@3.4.1/dist/jquery.min.js"></script>
+ 
 <script src="/blog/js/search.json.js"></script>
-
-
   
-<script src="/blog/fancybox/jquery.fancybox.min.js"></script>
+<script src="https://unpkg.com/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
 
-
-
-
+ 
 <script src="/blog/js/script.js"></script>
-
-
-
-
-
-
-  
+ 
+   
 <script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-
-
-
-
-  
-  
-
-
-  
-<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+ 
+      
+<script src="https://unpkg.com/gitalk@1.7.2/dist/gitalk.min.js"></script>
  
 <script src="//cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.js"></script>
 
@@ -444,7 +567,7 @@
     owner: "jesse121",
     admin: ["jesse121"],
     id: md5(window.location.pathname),
-    proxy: "https://gitalk.jesse121.workers.dev/?https://github.com/login/oauth/access_token",
+    proxy: "https://stormy-gorge-51623.herokuapp.com/https://github.com/login/oauth/access_token",
     distractionFreeMode: false,
     language: "zh-CN",
     pagerDirection: "last",
@@ -452,8 +575,7 @@
   gitalk.render("comments");
 </script>
          
-
-
+ 
 
 </body>
 </html>

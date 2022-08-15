@@ -1,42 +1,28 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8">
-  
-  
+  <meta charset="utf-8" />
+   
   <title>《Javascript高级程序设计》第三版--读书笔记 | 前端之路</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, shrink-to-fit=no"
+  />
   
-    <meta name="description" content="专注前端开发，前端开发技术博客">
-  
-  
-    <meta name="keywords" content="Web前端开发，Javascript，前端开发博客">
-  
-  
-    <link rel="alternate" href="/blog/atom.xml" title="前端之路" type="application/atom+xml">
-  
-  
-    <link rel="shortcut icon" href="/blog/favicon.ico">
-  
-  
-    
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
-
-  
-  
+  <meta name="description" content="专注前端开发，前端开发技术博客" />
+   
+  <meta name="keywords" content="Web前端开发，Javascript，前端开发博客" />
+    <link rel="alternate" href="/blog/atom.xml" title="前端之路" type="application/atom+xml">   <link rel="shortcut icon" href="/blog/favicon.ico"> 
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/@highlightjs/cdn-assets@11.6.0/styles/xt256.min.css"
+  />
+   
 <link rel="stylesheet" href="/blog/css/style.css">
-
   
+<link rel="stylesheet" href="https://unpkg.com/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
     
-<link rel="stylesheet" href="/blog/fancybox/jquery.fancybox.min.css">
-
-  
-  
-  
-    
-<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
-
-  
+<link rel="stylesheet" href="https://unpkg.com/gitalk@1.7.2/dist/gitalk.css">
   
 <meta name="generator" content="Hexo 6.2.0"></head>
 
@@ -156,7 +142,9 @@
 <li>parseInt()函数会忽略字符串前的空格，如果第一个字符不是数字或负号会返NaN，若是数字继续解析第二个，直到解析完所有后续字符或者遇到了一个非数字字符为止。<br>parseInt(“oxAF”,16)指定基数16作为第二个参数，返回的是十进制的数  </li>
 <li>parseFloat()从第一个字符解析直到遇见一个无效的浮点数字字符为止，(第二个小数点无效)，只解析十进制值，其他进制值返回0</li>
 </ul>
-<h5 id="3-4-6-string类型"><a href="#3-4-6-string类型" class="headerlink" title="3.4.6 string类型"></a>3.4.6 string类型</h5><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> text=<span class="string">&quot;this is the letter sigma:\u03a3.&quot;</span>;</span><br><span class="line"><span class="title function_">alert</span>(text.<span class="property">length</span>);     <span class="comment">//28    6个字符长的转义序列表示1个字符</span></span><br></pre></td></tr></table></figure>
+<h5 id="3-4-6-string类型"><a href="#3-4-6-string类型" class="headerlink" title="3.4.6 string类型"></a>3.4.6 string类型</h5><pre><code class="javascript">var text=&quot;this is the letter sigma:\u03a3.&quot;;
+alert(text.length);     //28    6个字符长的转义序列表示1个字符
+</code></pre>
 <p>数值、布尔值、对象、字符串值都有tostring()方法，null undefined没有该方法<br>默认情况下tostring()方法以十进制格式返回数值的字符串表示，通过传递基数可以输出其他进制格式<br>在不知道要转化的值是不是null undefined的情况下，可以使用string()函数<code>string(null);   //&quot;null&quot;</code>  </p>
 <h5 id="3-4-7-object类型"><a href="#3-4-7-object类型" class="headerlink" title="3.4.7 object类型"></a>3.4.7 object类型</h5><p>object的每个实例都具有下列属性:</p>
 <ul>
@@ -175,21 +163,42 @@
 <li>逻辑或操作符 ||<br>逻辑或操作可以应用于任何类型的操作数，而不仅仅是布尔值。在有一个操作数不是布尔值的情况下，逻辑与操作不一定返回布尔值<br>如果第一个操作数的布尔值为true，则不解析第二个操作数直接返回第一个操作数，如果第一个的布尔值为false第二个操作数的布尔值为true，则返回第二个操作数<br>如果有一个操作数为null或NaN或undefined则返回null NaN undefined</li>
 </ol>
 <h5 id="3-5-4-乘性操作符"><a href="#3-5-4-乘性操作符" class="headerlink" title="3.5.4 乘性操作符"></a>3.5.4 乘性操作符</h5><p>在操作数为非数值的情况下会自动执行隐式类型转换<br><strong>求模</strong></p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> result = <span class="number">26</span> % <span class="number">5</span>;  <span class="comment">//1</span></span><br><span class="line"><span class="keyword">var</span> re = <span class="number">5</span> % <span class="number">26</span>;  <span class="comment">//5 当被除数小于除数时结果直接返回被除数</span></span><br></pre></td></tr></table></figure>
+<pre><code class="javascript">var result = 26 % 5;  //1
+var re = 5 % 26;  //5 当被除数小于除数时结果直接返回被除数
+</code></pre>
 <p>如果操作数都是数值。执行常见的除法计算，返回出的的余数</p>
 <h5 id="3-5-5-加性操作符"><a href="#3-5-5-加性操作符" class="headerlink" title="3.5.5 加性操作符"></a>3.5.5 加性操作符</h5><p><strong>加法</strong><br>如果有一个操作数是字符串，则将另一个操作数转化为字符串，再拼接起来<br>如果有一个操作数是对象、布尔值，则调用他们的toString()方法取得相应的字符串</p>
 <h5 id="3-5-6-关系操作符"><a href="#3-5-6-关系操作符" class="headerlink" title="3.5.6 关系操作符"></a>3.5.6 关系操作符</h5><h5 id="3-5-7-相等操作符"><a href="#3-5-7-相等操作符" class="headerlink" title="3.5.7 相等操作符"></a>3.5.7 相等操作符</h5><p>相等&#x3D;&#x3D;和不相等!&#x3D;——先转换为数值在比较<br>全等&#x3D;&#x3D;&#x3D;和不全等!&#x3D;&#x3D;——仅比较不转换<br>null和undefined是相等的<br>null和undefined不全等 数据类型不同  </p>
 <h5 id="3-5-8-条件操作符"><a href="#3-5-8-条件操作符" class="headerlink" title="3.5.8 条件操作符"></a>3.5.8 条件操作符</h5><p><code>var boolean_expression ? true_value : flase_value</code></p>
 <h5 id="3-5-10-逗号操作符"><a href="#3-5-10-逗号操作符" class="headerlink" title="3.5.10 逗号操作符"></a>3.5.10 逗号操作符</h5><p>使用逗号操作符可以再一条语句中执行多个操作，多用于声明多个变量</p>
 <h4 id="3-6-语句"><a href="#3-6-语句" class="headerlink" title="3.6 语句"></a>3.6 语句</h4><p>通过for-in 语句循环输出的属性名的顺序是不可预测的<br>label语句 可以再代码中添加标签，以便将来使用，</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> num = <span class="number">0</span>;</span><br><span class="line"><span class="attr">outermost</span>:</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>;i &lt; <span class="number">10</span>; i++)&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> j = <span class="number">0</span>;j &lt;<span class="number">10</span>;j++)&#123;</span><br><span class="line">        <span class="keyword">if</span>(i == <span class="number">5</span> &amp;&amp; j == <span class="number">5</span>)&#123;</span><br><span class="line">            <span class="keyword">break</span> outermost; </span><br><span class="line">        &#125;</span><br><span class="line">        num ++</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="title function_">alert</span>(num);</span><br></pre></td></tr></table></figure>
+<pre><code class="javascript">var num = 0;
+outermost:
+for(var i = 0;i &lt; 10; i++)&#123;
+    for(var j = 0;j &lt;10;j++)&#123;
+        if(i == 5 &amp;&amp; j == 5)&#123;
+            break outermost; 
+        &#125;
+        num ++
+    &#125;
+&#125;
+alert(num);
+</code></pre>
 <p>with语句的作用是将代码的作用域设置到一个特定的对象中<br>switch语句中可以使用任何数据类型</p>
 <h4 id="3-7-函数"><a href="#3-7-函数" class="headerlink" title="3.7 函数"></a>3.7 函数</h4><p>argument.length用来确定传递进来多少个参数，arguments[0]表示第一个参数 与数组类似</p>
 <h3 id="第四章、变量-作用域和内存问题"><a href="#第四章、变量-作用域和内存问题" class="headerlink" title="第四章、变量 作用域和内存问题"></a>第四章、变量 作用域和内存问题</h3><h4 id="4-1-基本类型的值和引用类型的值"><a href="#4-1-基本类型的值和引用类型的值" class="headerlink" title="4.1 基本类型的值和引用类型的值"></a>4.1 基本类型的值和引用类型的值</h4><p>在给变量赋值时，解析器必须确定这个值是基本类型还是引用类型<br>基本类型是按值访问的<br>引用类型是按引用访问的，其值保存在内存中，在操作对象时是操作对象的引用</p>
 <h5 id="4-1-1-动态的属性"><a href="#4-1-1-动态的属性" class="headerlink" title="4.1.1 动态的属性"></a>4.1.1 动态的属性</h5><p>对于引用类型，我们可以为其添加属性和方法，也可以改变和删除其属性和方法，但是我们不能给基本类型的值添加属性，尽管不出错</p>
 <h5 id="4-1-2-复制变量值"><a href="#4-1-2-复制变量值" class="headerlink" title="4.1.2 复制变量值"></a>4.1.2 复制变量值</h5><p>如果从一个变量向另一个变量复制基本类型的值时，会在变量对象上创建一个新值，然后把该值复制到为新变量分配的位置上，这两个值是独立的不会互相影响。<br>如果一个变量向另一个变量复制引用类型的值时，同样也会将存储在变量对象中的值复制一份到为新变量分配的空间中，不同的是这个副本其实是一个指针。复制操作结束后，两个变量实际上将引用同一个对象，因此改变其中一个变量就会影响另一个变量。</p>
 <h5 id="4-1-3-传递参数"><a href="#4-1-3-传递参数" class="headerlink" title="4.1.3 传递参数"></a>4.1.3 传递参数</h5><p>ECMAscript中所有函数的参数都是按值传递的，基本类型值和引用类型值的传递就如同其变量的复制一样<br>为了证明对象是按值传递的，有下面的例子：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">setName</span>(<span class="params">obj</span>)&#123;</span><br><span class="line">    obj.<span class="property">name</span> = <span class="string">&#x27;jesse&#x27;</span>;</span><br><span class="line">    obj = <span class="keyword">new</span> <span class="title class_">Objext</span>();</span><br><span class="line">    obj.<span class="property">name</span> = <span class="string">&#x27;grey&#x27;</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> person = <span class="keyword">new</span> <span class="title class_">Object</span>();</span><br><span class="line"><span class="title function_">setName</span>(person);</span><br><span class="line"><span class="title function_">alert</span>(person.<span class="property">name</span>);  <span class="comment">//jesse</span></span><br></pre></td></tr></table></figure>
+<pre><code class="javascript">function setName(obj)&#123;
+    obj.name = &#39;jesse&#39;;
+    obj = new Objext();
+    obj.name = &#39;grey&#39;;
+&#125;
+var person = new Object();
+setName(person);
+alert(person.name);  //jesse
+</code></pre>
 <p>当函数内部重写Obj时，这个变量引用的就是一个局部对象，这个局部对象会在函数执行完毕后立即被销毁。</p>
 <h5 id="4-1-4-检测类型"><a href="#4-1-4-检测类型" class="headerlink" title="4.1.4 检测类型"></a>4.1.4 检测类型</h5><p>typeof常用于检测基本数据类型（null除外)<code>typeof null;  //object</code>   typeof不能识别具体的对象类型（function除外）<br>如果变量是给定引用类型的实例，那么instanceof操作符就会返回true<code>person instanceof Object;   //true</code></p>
 <h5 id="4-2-执行环境"><a href="#4-2-执行环境" class="headerlink" title="4.2 执行环境"></a>4.2 执行环境</h5><p>全局执行环境被认为是window对象，所有全局变量和函数都作为window对象的属性和方法创建的<br>内部环境可以通过作用域链访问所有的外部环境，但外部环境不能访问内部环境中的任何变量和函数  </p>
@@ -200,7 +209,13 @@
 <li>查询标识符<br>沿着作用域链向上逐级查找，找到后即搜索停止</li>
 </ol>
 <h5 id="4-4-小结"><a href="#4-4-小结" class="headerlink" title="4.4 小结"></a>4.4 小结</h5><p>基本类型值在内存中占据固定大小的空间，因此被保存在栈内存中<br>从一个变量向另一个变量复制基本类型的值，会创建这个值的一个副本<br>引用类型的值是对象，保存在堆内存中<br>从一个变量向另一个变量复制引用类型的值，复制的其实是指针，因此两个变量最终都指向同一个对象<br>确定一个值是哪种基本类型可以使用typeof操作符，而确定一个值是哪种引用类型可以使用instanceof<br>所有变量（基本类型和引用类型）都存在于一个执行环境中，这个执行环境决定了变量的生命周期<br>函数的局部环境不仅能访问函数作用域中的变量，而且能访问其父环境乃至全局环境中的变量  </p>
-<h3 id="第五章、引用类型"><a href="#第五章、引用类型" class="headerlink" title="第五章、引用类型"></a>第五章、引用类型</h3><h4 id="5-2-1-检测数组"><a href="#5-2-1-检测数组" class="headerlink" title="5.2.1 检测数组"></a>5.2.1 检测数组</h4><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span>(value <span class="keyword">instanceof</span> <span class="title class_">Array</span>)&#123;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">if</span>(<span class="title class_">Array</span>.<span class="title function_">isArray</span>(value))&#123;</span><br><span class="line">    <span class="comment">//对数组的操作</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="第五章、引用类型"><a href="#第五章、引用类型" class="headerlink" title="第五章、引用类型"></a>第五章、引用类型</h3><h4 id="5-2-1-检测数组"><a href="#5-2-1-检测数组" class="headerlink" title="5.2.1 检测数组"></a>5.2.1 检测数组</h4><pre><code class="javascript">if(value instanceof Array)&#123;
+    
+&#125;
+if(Array.isArray(value))&#123;
+    //对数组的操作
+&#125;
+</code></pre>
 <h5 id="5-2-2-转换方法"><a href="#5-2-2-转换方法" class="headerlink" title="5.2.2 转换方法"></a>5.2.2 转换方法</h5><p>所有对象都有<code>toLocalString()</code> <code>toString()</code> <code>valueOf()</code>方法<br><code>var colors = [&quot;red&quot;,&quot;blue&quot;,&quot;green&quot;]; color;   //red,blue,green</code><br>由于alert()要接受字符串参数，所以它会在后台调用toString()方法<br><code>join()</code>将数组转为字符串<br>只接受一个参数，即用作分隔符的字符串，然后返回所有数组项的字符串</p>
 <h5 id="5-2-5-重排序方法"><a href="#5-2-5-重排序方法" class="headerlink" title="5.2.5 重排序方法"></a>5.2.5 重排序方法</h5><p>sort()方法会调用每个数组项的toString()转型方法，然后比较得到的字符串</p>
 <h5 id="5-2-6-数组的操作方法"><a href="#5-2-6-数组的操作方法" class="headerlink" title="5.2.6 数组的操作方法"></a>5.2.6 数组的操作方法</h5><p>contact()合并数组并返回新数组<br>slice()截取数组中项并返回新数组<br>splice()数组中项的插入删除替换，参数分别为起始位置、要删除的项数、要插入的项数。返回一个新数组，该数组中包含原数组中的删除项</p>
@@ -235,8 +250,16 @@
 <p> 要修改属性默认的特性，必须使用Object.defineProperty()方法，该方法接收三个参数：属性所在的对象，属性的名字，描述符对象。描述符对象的属性必须是：configurable,enumerable,writable,value</p>
 </li>
 </ol>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> person = &#123;&#125;;</span><br><span class="line"><span class="title class_">Object</span>.<span class="title function_">defineProperty</span>(person,<span class="string">&#x27;name&#x27;</span>,&#123;</span><br><span class="line">    <span class="attr">configurable</span>:<span class="literal">false</span>,  <span class="comment">//设置为不可配置,就不能再变回可配置</span></span><br><span class="line">    <span class="attr">writable</span>:<span class="literal">false</span>, <span class="comment">//设置为不能修改</span></span><br><span class="line">    <span class="attr">value</span>:<span class="string">&quot;Jack&quot;</span></span><br><span class="line">&#125;);</span><br><span class="line"><span class="title function_">alert</span>(person.<span class="property">name</span>);  <span class="comment">//&quot;Jack&quot;</span></span><br><span class="line">person.<span class="property">name</span> = <span class="string">&#x27;Greg&#x27;</span>;</span><br><span class="line"><span class="title function_">alert</span>(person.<span class="property">name</span>);  <span class="comment">//&quot;Jack&quot;</span></span><br></pre></td></tr></table></figure>
-
+<pre><code class="javascript">var person = &#123;&#125;;
+Object.defineProperty(person,&#39;name&#39;,&#123;
+    configurable:false,  //设置为不可配置,就不能再变回可配置
+    writable:false, //设置为不能修改
+    value:&quot;Jack&quot;
+&#125;);
+alert(person.name);  //&quot;Jack&quot;
+person.name = &#39;Greg&#39;;
+alert(person.name);  //&quot;Jack&quot;
+</code></pre>
 <ol start="2">
 <li>访问器属性</li>
 </ol>
@@ -248,12 +271,36 @@
 <h4 id="7-1-递归"><a href="#7-1-递归" class="headerlink" title="7.1 递归"></a>7.1 递归</h4><p>递归函数是在一个函数通过名字调用自身的情况下构成的<br>arguments.callee是一个指向正在执行的函数的指针，因此可以用来实现对函数的递归调用，比使用函数名更保险 在严格模式下不能通过脚本访问callee,可以使用命名函数表达式来实现相同的效果</p>
 <h4 id="7-2-闭包"><a href="#7-2-闭包" class="headerlink" title="7.2 闭包"></a>7.2 闭包</h4><p>闭包是指有权访问另一个函数作用域中的变量的函数，创建闭包的常见方式，就是在一个函数内部创建另一个函数。</p>
 <h4 id="7-3-模仿块级作用域"><a href="#7-3-模仿块级作用域" class="headerlink" title="7.3 模仿块级作用域"></a>7.3 模仿块级作用域</h4><p>块级作用域的匿名函数的语法如下所示：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">(<span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">    <span class="comment">//块级作用域</span></span><br><span class="line">&#125;)()</span><br></pre></td></tr></table></figure>
+<pre><code class="javascript">(function()&#123;
+    //块级作用域
+&#125;)()
+</code></pre>
 <p>创建并立即调用一个匿名函数</p>
 <h3 id="第八章、BOM"><a href="#第八章、BOM" class="headerlink" title="第八章、BOM"></a>第八章、BOM</h3><h4 id="8-1-window对象"><a href="#8-1-window对象" class="headerlink" title="8.1 window对象"></a>8.1 window对象</h4><p>全局变量不能通过delete操作符删除，而直接在window对象上的定义的属性可以。<br><strong>跨浏览器取得窗口左边和上边的位置</strong><br>screenTop,screenLeft表示的是从屏幕左边和上边到由window对象表示的页面可见区域的距离</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> leftPos = (<span class="keyword">typeof</span> <span class="variable language_">window</span>.<span class="property">screenLeft</span> == <span class="string">&quot;number&quot;</span>) ? <span class="variable language_">window</span>.<span class="property">screenLeft</span> : <span class="variable language_">window</span>.<span class="property">screenX</span>;</span><br><span class="line"><span class="keyword">var</span> topPos = (<span class="keyword">typeof</span> <span class="variable language_">window</span>.<span class="property">screenTop</span> == <span class="string">&quot;number&quot;</span>) ? <span class="variable language_">window</span>.<span class="property">screenTop</span> : <span class="variable language_">window</span>.<span class="property">screenY</span>;</span><br></pre></td></tr></table></figure>
+<pre><code class="javascript">var leftPos = (typeof window.screenLeft == &quot;number&quot;) ? window.screenLeft : window.screenX;
+var topPos = (typeof window.screenTop == &quot;number&quot;) ? window.screenTop : window.screenY;
+</code></pre>
 <h4 id="8-2-location对象"><a href="#8-2-location对象" class="headerlink" title="8.2 location对象"></a>8.2 location对象</h4><p>window.location和document.location引用的是同一个对象<br>获取查询字符串方法    &#x2F;&#x2F;用以解析查询字符串，返回包含所有参数的一个对象</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">getQueryStringArgs</span>(<span class="params"></span>)&#123;</span><br><span class="line">    <span class="keyword">var</span> qs = (location.<span class="property">search</span>.<span class="property">length</span> &gt; <span class="number">0</span> ? location.<span class="property">search</span>.<span class="title function_">substring</span>(<span class="number">1</span>) : <span class="string">&quot;&quot;</span>),</span><br><span class="line">      args = &#123;&#125;,</span><br><span class="line">     items = qs.<span class="property">length</span> ? qs.<span class="title function_">split</span>(<span class="string">&quot;&amp;&quot;</span>) : [],</span><br><span class="line">      item = <span class="literal">null</span>,</span><br><span class="line">      name = <span class="literal">null</span>,</span><br><span class="line">     value = <span class="literal">null</span>,</span><br><span class="line">         i = <span class="number">0</span>,</span><br><span class="line">       len = items.<span class="property">length</span>;</span><br><span class="line">    <span class="keyword">for</span>(i = <span class="number">0</span>; i &lt; len; i++)&#123;</span><br><span class="line">        item = items[i].<span class="title function_">split</span>(<span class="string">&quot;=&quot;</span>);</span><br><span class="line">        name = <span class="built_in">decodeURIComponent</span>(item[<span class="number">0</span>]);</span><br><span class="line">        value = <span class="built_in">decodeURIComponent</span>(item[<span class="number">1</span>]);</span><br><span class="line">        <span class="keyword">if</span>(name.<span class="property">length</span>)&#123;</span><br><span class="line">            args[name] = value;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">return</span> args;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="javascript">function getQueryStringArgs()&#123;
+    var qs = (location.search.length &gt; 0 ? location.search.substring(1) : &quot;&quot;),
+      args = &#123;&#125;,
+     items = qs.length ? qs.split(&quot;&amp;&quot;) : [],
+      item = null,
+      name = null,
+     value = null,
+         i = 0,
+       len = items.length;
+    for(i = 0; i &lt; len; i++)&#123;
+        item = items[i].split(&quot;=&quot;);
+        name = decodeURIComponent(item[0]);
+        value = decodeURIComponent(item[1]);
+        if(name.length)&#123;
+            args[name] = value;
+        &#125;
+      &#125;
+      return args;
+&#125;
+</code></pre>
 <p><strong>location.href</strong><br><code>location.reload()</code>重新加载当前显示页（可能从缓存中加载）<br><code>location.reload(true)</code>重新加载当前显示页（从服务器中加载）<br>####8.5history对象<br>history.go(-1);&#x2F;&#x2F;后退一页<br>history.go(1);&#x2F;&#x2F;前进一页</p>
 <h3 id="第九章、客户端检测"><a href="#第九章、客户端检测" class="headerlink" title="第九章、客户端检测"></a>第九章、客户端检测</h3><h4 id="9-1-能力检测"><a href="#9-1-能力检测" class="headerlink" title="9.1 能力检测"></a>9.1 能力检测</h4><p>只需要检测浏览器知否支持特定的能力</p>
 <h4 id="9-3-用户代理检测"><a href="#9-3-用户代理检测" class="headerlink" title="9.3 用户代理检测"></a>9.3 用户代理检测</h4><p>检测用户使用的是PC端还是mobile端？</p>
@@ -269,23 +316,47 @@
 </ul>
 <p>支持的浏览器有IE9+ firefox3.5+ safari4+ chrome opera10+</p>
 <h4 id="11-3-HTML5"><a href="#11-3-HTML5" class="headerlink" title="11.3 HTML5"></a>11.3 HTML5</h4><h5 id="11-3-1-与类相关的扩充"><a href="#11-3-1-与类相关的扩充" class="headerlink" title="11.3.1 与类相关的扩充"></a>11.3.1 与类相关的扩充</h5><p>getElementsByClassName()<br>支持的浏览器有IE9+ Firefox3+ Safari3.1+ Chrome Opera9.5+<br>classList属性，用于添加删除替换类名,支持的浏览器有Firefox3.6+ Chrome</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">div.<span class="property">classList</span>.<span class="title function_">remove</span>(<span class="string">&quot;disabled&quot;</span>); <span class="comment">//删除类名</span></span><br><span class="line">div.<span class="property">classList</span>.<span class="title function_">add</span>(<span class="string">&quot;current&quot;</span>); <span class="comment">//添加类名</span></span><br><span class="line">div.<span class="property">classList</span>.<span class="title function_">troggle</span>(<span class="string">&quot;user&quot;</span>); <span class="comment">//切换类名</span></span><br></pre></td></tr></table></figure>
-
+<pre><code class="javascript">div.classList.remove(&quot;disabled&quot;); //删除类名
+div.classList.add(&quot;current&quot;); //添加类名
+div.classList.troggle(&quot;user&quot;); //切换类名
+</code></pre>
 <h5 id="11-3-2-焦点管理"><a href="#11-3-2-焦点管理" class="headerlink" title="11.3.2 焦点管理"></a>11.3.2 焦点管理</h5><ol>
 <li>document.activeElement属性，始终会引用DOM中当前获得了焦点的元素</li>
 <li>document.hasFocus()用于确定文档是否获得了焦点</li>
 </ol>
 <h5 id="11-3-3-HTMLDocument"><a href="#11-3-3-HTMLDocument" class="headerlink" title="11.3.3 HTMLDocument"></a>11.3.3 HTMLDocument</h5><ul>
-<li>readyState属性，通过它来实现一个文档是否已加载完成<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span>(<span class="variable language_">document</span>.<span class="property">readyState</span> == <span class="string">&quot;complete&quot;</span>)&#123;</span><br><span class="line">    <span class="comment">//执行操作</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-<li>标准模式与混杂模式<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span>(<span class="variable language_">document</span>.<span class="property">compatMode</span> == <span class="string">&quot;CSS1Compat&quot;</span>)&#123;</span><br><span class="line">    <span class="comment">//标准模式</span></span><br><span class="line">&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">    <span class="comment">//混杂模式</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-<li>insertAdjacentHTML(插入位置，要插入的HTML文本)<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">element.<span class="title function_">insertAdjacentHTML</span>(<span class="string">&quot;beforebegin&quot;</span>,<span class="string">&quot;&lt;p&gt;Hello world!&lt;/p&gt;&quot;</span>); <span class="comment">//在当前元素之前插入一个紧邻的同辈元素</span></span><br><span class="line">element.<span class="title function_">insertAdjacentHTML</span>(<span class="string">&quot;afterend&quot;</span>,<span class="string">&quot;&lt;p&gt;Hello world!&lt;/p&gt;&quot;</span>);    <span class="comment">//在当前元素之后插入一个紧邻的同辈元素</span></span><br><span class="line">element.<span class="title function_">insertAdjacentHTML</span>(<span class="string">&quot;afterbegin&quot;</span>,<span class="string">&quot;&lt;p&gt;Hello world!&lt;/p&gt;&quot;</span>); <span class="comment">//在当前元素之下插入一个新的子元素</span></span><br><span class="line">element.<span class="title function_">insertAdjacentHTML</span>(<span class="string">&quot;beforeend&quot;</span>,<span class="string">&quot;&lt;p&gt;Hello world!&lt;/p&gt;&quot;</span>);  <span class="comment">//在当前元素之下插入一个新的子元素</span></span><br></pre></td></tr></table></figure></li>
+<li>readyState属性，通过它来实现一个文档是否已加载完成</li>
 </ul>
+<pre><code class="javascript">if(document.readyState == &quot;complete&quot;)&#123;
+    //执行操作
+&#125;
+</code></pre>
+<ul>
+<li>标准模式与混杂模式</li>
+</ul>
+<pre><code class="javascript">if(document.compatMode == &quot;CSS1Compat&quot;)&#123;
+    //标准模式
+&#125;else&#123;
+    //混杂模式
+&#125;
+</code></pre>
+<ul>
+<li>insertAdjacentHTML(插入位置，要插入的HTML文本)</li>
+</ul>
+<pre><code class="javascript">element.insertAdjacentHTML(&quot;beforebegin&quot;,&quot;&lt;p&gt;Hello world!&lt;/p&gt;&quot;); //在当前元素之前插入一个紧邻的同辈元素
+element.insertAdjacentHTML(&quot;afterend&quot;,&quot;&lt;p&gt;Hello world!&lt;/p&gt;&quot;);    //在当前元素之后插入一个紧邻的同辈元素
+element.insertAdjacentHTML(&quot;afterbegin&quot;,&quot;&lt;p&gt;Hello world!&lt;/p&gt;&quot;); //在当前元素之下插入一个新的子元素
+element.insertAdjacentHTML(&quot;beforeend&quot;,&quot;&lt;p&gt;Hello world!&lt;/p&gt;&quot;);  //在当前元素之下插入一个新的子元素
+</code></pre>
 <h4 id="11-3-7-scrollIntoView"><a href="#11-3-7-scrollIntoView" class="headerlink" title="11.3.7 scrollIntoView()"></a>11.3.7 scrollIntoView()</h4><p>可以在所有html元素上调用，通过滚动浏览器窗口或某个容器元素，调用元素就可以出现在视口中</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="variable language_">document</span>.<span class="property">forms</span>[<span class="number">0</span>].<span class="title function_">scrollIntoView</span>(<span class="literal">true</span>);<span class="comment">//调用元素与视口顶部尽可能齐平</span></span><br><span class="line"><span class="variable language_">document</span>.<span class="property">forms</span>[<span class="number">0</span>].<span class="title function_">scrollIntoView</span>(<span class="literal">false</span>);<span class="comment">//调用元素与视口底部尽可能齐平</span></span><br></pre></td></tr></table></figure>
-
+<pre><code class="javascript">document.forms[0].scrollIntoView(true);//调用元素与视口顶部尽可能齐平
+document.forms[0].scrollIntoView(false);//调用元素与视口底部尽可能齐平
+</code></pre>
 <h3 id="第十二章、DOM2和DOM3"><a href="#第十二章、DOM2和DOM3" class="headerlink" title="第十二章、DOM2和DOM3"></a>第十二章、DOM2和DOM3</h3><h4 id="12-2-样式"><a href="#12-2-样式" class="headerlink" title="12.2 样式"></a>12.2 样式</h4><p>任何支持style特性的html元素在javascript中都有一个对应的style属性，使用短划线的css属性必须转为驼峰大小写形式</p>
 <p>特例 float  </p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">cssFloat <span class="comment">//非IE</span></span><br><span class="line">styleFloat <span class="comment">//IE</span></span><br></pre></td></tr></table></figure>
+<pre><code class="javascript">cssFloat //非IE
+styleFloat //IE
+</code></pre>
 <h5 id="12-2-1-DOM样式属性和方法"><a href="#12-2-1-DOM样式属性和方法" class="headerlink" title="12.2.1 DOM样式属性和方法"></a>12.2.1 DOM样式属性和方法</h5><ul>
 <li>cssText:能够访问并重写style特性中的css代码</li>
 <li>length:给定元素的css属性数量</li>
@@ -298,7 +369,18 @@
 <li>setProperty(propertyName,value,priority):将给定的属性设置为相应的值，并加上优先权标志</li>
 </ul>
 <h5 id="12-2-3-元素大小"><a href="#12-2-3-元素大小" class="headerlink" title="12.2.3 元素大小"></a>12.2.3 元素大小</h5><p>获得元素的左偏移量</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">getElementLeft</span>(<span class="params">element</span>)&#123;</span><br><span class="line">    <span class="keyword">var</span> actualLeft = element.<span class="title function_">offsetLeft</span>();</span><br><span class="line">    <span class="keyword">var</span> current = element.<span class="property">offsetParent</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> (current !== <span class="literal">null</span>)&#123;</span><br><span class="line">        actualLeft += current.<span class="property">offsetLeft</span>;</span><br><span class="line">        current = current.<span class="property">offsetParent</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> actualLeft;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="javascript">function getElementLeft(element)&#123;
+    var actualLeft = element.offsetLeft();
+    var current = element.offsetParent;
+
+    while (current !== null)&#123;
+        actualLeft += current.offsetLeft;
+        current = current.offsetParent;
+    &#125;
+
+    return actualLeft;
+&#125;
+</code></pre>
 <ol>
 <li>偏移量<ul>
 <li>offsetHeight():height+borderWidth+scrollbarHeight</li>
@@ -334,14 +416,131 @@
 <li>这种扩展事件处理程序的作用域链在不同浏览器中会导致不同结果</li>
 <li>HTML代码与javascript代码紧密耦合，不利于后期修改维护</li>
 </ol>
-<h5 id="13-2-2-DOM0级事件处理程序"><a href="#13-2-2-DOM0级事件处理程序" class="headerlink" title="13.2.2 DOM0级事件处理程序"></a>13.2.2 DOM0级事件处理程序</h5><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> btn = <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&#x27;mybtn&#x27;</span>);</span><br><span class="line">btn.<span class="property">onclick</span> = <span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">    <span class="title function_">alert</span>(<span class="string">&quot;clicked&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="13-2-2-DOM0级事件处理程序"><a href="#13-2-2-DOM0级事件处理程序" class="headerlink" title="13.2.2 DOM0级事件处理程序"></a>13.2.2 DOM0级事件处理程序</h5><pre><code class="javascript">var btn = document.getElementById(&#39;mybtn&#39;);
+btn.onclick = function()&#123;
+    alert(&quot;clicked&quot;);
+&#125;
+</code></pre>
 <h5 id="13-2-3-DOM2级事件处理程序"><a href="#13-2-3-DOM2级事件处理程序" class="headerlink" title="13.2.3 DOM2级事件处理程序"></a>13.2.3 DOM2级事件处理程序</h5><p>处理指定事件程序addEventListener(事件名，事件处理程序函数，布尔值)</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> btn = <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&#x27;mybtn&#x27;</span>);</span><br><span class="line"><span class="keyword">var</span> hander = <span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">    <span class="title function_">alert</span>(<span class="string">&quot;clicked&quot;</span>);</span><br><span class="line">&#125;;</span><br><span class="line">btn.<span class="title function_">addEventListener</span>(<span class="string">&quot;click&quot;</span>,hander,<span class="literal">false</span>);</span><br><span class="line"><span class="comment">//其他代码</span></span><br><span class="line">btn.<span class="title function_">removeEventListener</span>(<span class="string">&quot;click&quot;</span>,hander,<span class="literal">false</span>);</span><br></pre></td></tr></table></figure>
+<pre><code class="javascript">var btn = document.getElementById(&#39;mybtn&#39;);
+var hander = function()&#123;
+    alert(&quot;clicked&quot;);
+&#125;;
+btn.addEventListener(&quot;click&quot;,hander,false);
+//其他代码
+btn.removeEventListener(&quot;click&quot;,hander,false);
+</code></pre>
 <p>布尔值为true表示在捕获阶段调用事件处理程序，布尔值为false表示在冒泡阶段调用事件处理程序，不建议在事件捕获阶段注册事件处理程序</p>
 <p>删除事件处理程序removeEventListener(事件名，事件处理程序函数，布尔值)</p>
 <p>addEventListener()添加的事件处理程序只能使用removeEventListener()来移除</p>
 <h4 id="13-3-事件对象"><a href="#13-3-事件对象" class="headerlink" title="13.3 事件对象"></a>13.3 事件对象</h4><p>要阻止特定事件的默认行为，可以使用preventDefault()<br>要阻止事件捕获或冒泡，可以使用stopPropagation()</p>
-<h5 id="13-3-3-跨浏览器的事件对象"><a href="#13-3-3-跨浏览器的事件对象" class="headerlink" title="13.3.3 跨浏览器的事件对象"></a>13.3.3 跨浏览器的事件对象</h5><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> <span class="title class_">EventUtil</span> = &#123;</span><br><span class="line"></span><br><span class="line">    <span class="attr">addHandler</span>: <span class="keyword">function</span>(<span class="params">element, type, handler</span>)&#123;</span><br><span class="line">        <span class="keyword">if</span> (element.<span class="property">addEventListener</span>)&#123;</span><br><span class="line">            element.<span class="title function_">addEventListener</span>(type, handler, <span class="literal">false</span>);</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (element.<span class="property">attachEvent</span>)&#123;</span><br><span class="line">            element.<span class="title function_">attachEvent</span>(<span class="string">&quot;on&quot;</span> + type, handler);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            element[<span class="string">&quot;on&quot;</span> + type] = handler;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    </span><br><span class="line">    <span class="attr">removeHandler</span>: <span class="keyword">function</span>(<span class="params">element, type, handler</span>)&#123;</span><br><span class="line">        <span class="keyword">if</span> (element.<span class="property">removeEventListener</span>)&#123;</span><br><span class="line">            element.<span class="title function_">removeEventListener</span>(type, handler, <span class="literal">false</span>);</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (element.<span class="property">detachEvent</span>)&#123;</span><br><span class="line">            element.<span class="title function_">detachEvent</span>(<span class="string">&quot;on&quot;</span> + type, handler);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            element[<span class="string">&quot;on&quot;</span> + type] = <span class="literal">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    <span class="attr">preventDefault</span>: <span class="keyword">function</span>(<span class="params">event</span>)&#123;</span><br><span class="line">        <span class="keyword">if</span> (event.<span class="property">preventDefault</span>)&#123;</span><br><span class="line">            event.<span class="title function_">preventDefault</span>();</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            event.<span class="property">returnValue</span> = <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    </span><br><span class="line">    <span class="attr">stopPropagation</span>: <span class="keyword">function</span>(<span class="params">event</span>)&#123;</span><br><span class="line">        <span class="keyword">if</span> (event.<span class="property">stopPropagation</span>)&#123;</span><br><span class="line">            event.<span class="title function_">stopPropagation</span>();</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            event.<span class="property">cancelBubble</span> = <span class="literal">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    <span class="attr">getEvent</span>: <span class="keyword">function</span>(<span class="params">event</span>)&#123;  <span class="comment">//返回对event对象的引用，IE中event未定义，返回window.event</span></span><br><span class="line">        <span class="keyword">return</span> event ? event : <span class="variable language_">window</span>.<span class="property">event</span>;</span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    <span class="attr">getTarget</span>: <span class="keyword">function</span>(<span class="params">event</span>)&#123; <span class="comment">//返回事件的目标</span></span><br><span class="line">        <span class="keyword">return</span> event.<span class="property">target</span> || event.<span class="property">srcElement</span>;</span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    <span class="attr">getButton</span>: <span class="keyword">function</span>(<span class="params">event</span>)&#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="variable language_">document</span>.<span class="property">implementation</span>.<span class="title function_">hasFeature</span>(<span class="string">&quot;MouseEvents&quot;</span>, <span class="string">&quot;2.0&quot;</span>))&#123;</span><br><span class="line">            <span class="keyword">return</span> event.<span class="property">button</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">switch</span>(event.<span class="property">button</span>)&#123;</span><br><span class="line">                <span class="keyword">case</span> <span class="number">0</span>:</span><br><span class="line">                <span class="keyword">case</span> <span class="number">1</span>:</span><br><span class="line">                <span class="keyword">case</span> <span class="number">3</span>:</span><br><span class="line">                <span class="keyword">case</span> <span class="number">5</span>:</span><br><span class="line">                <span class="keyword">case</span> <span class="number">7</span>:</span><br><span class="line">                    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">                <span class="keyword">case</span> <span class="number">2</span>:</span><br><span class="line">                <span class="keyword">case</span> <span class="number">6</span>:</span><br><span class="line">                    <span class="keyword">return</span> <span class="number">2</span>;</span><br><span class="line">                <span class="keyword">case</span> <span class="number">4</span>: <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    </span><br><span class="line">    <span class="attr">getCharCode</span>: <span class="keyword">function</span>(<span class="params">event</span>)&#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">typeof</span> event.<span class="property">charCode</span> == <span class="string">&quot;number&quot;</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> event.<span class="property">charCode</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> event.<span class="property">keyCode</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    </span><br><span class="line">    <span class="attr">getClipboardText</span>: <span class="keyword">function</span>(<span class="params">event</span>)&#123;</span><br><span class="line">        <span class="keyword">var</span> clipboardData =  (event.<span class="property">clipboardData</span> || <span class="variable language_">window</span>.<span class="property">clipboardData</span>);</span><br><span class="line">        <span class="keyword">return</span> clipboardData.<span class="title function_">getData</span>(<span class="string">&quot;text&quot;</span>);</span><br><span class="line">    &#125;,</span><br><span class="line">    </span><br><span class="line">    <span class="attr">getRelatedTarget</span>: <span class="keyword">function</span>(<span class="params">event</span>)&#123;</span><br><span class="line">        <span class="keyword">if</span> (event.<span class="property">relatedTarget</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> event.<span class="property">relatedTarget</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (event.<span class="property">toElement</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> event.<span class="property">toElement</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (event.<span class="property">fromElement</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> event.<span class="property">fromElement</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    </span><br><span class="line">    <span class="attr">getWheelDelta</span>: <span class="keyword">function</span>(<span class="params">event</span>)&#123;</span><br><span class="line">        <span class="keyword">if</span> (event.<span class="property">wheelDelta</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> (client.<span class="property">engine</span>.<span class="property">opera</span> &amp;&amp; client.<span class="property">engine</span>.<span class="property">opera</span> &lt; <span class="number">9.5</span> ? -event.<span class="property">wheelDelta</span> : event.<span class="property">wheelDelta</span>);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> -event.<span class="property">detail</span> * <span class="number">40</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    </span><br><span class="line">    <span class="attr">setClipboardText</span>: <span class="keyword">function</span>(<span class="params">event, value</span>)&#123;</span><br><span class="line">        <span class="keyword">if</span> (event.<span class="property">clipboardData</span>)&#123;</span><br><span class="line">            event.<span class="property">clipboardData</span>.<span class="title function_">setData</span>(<span class="string">&quot;text/plain&quot;</span>, value);</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="variable language_">window</span>.<span class="property">clipboardData</span>)&#123;</span><br><span class="line">            <span class="variable language_">window</span>.<span class="property">clipboardData</span>.<span class="title function_">setData</span>(<span class="string">&quot;text&quot;</span>, value);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h5 id="13-3-3-跨浏览器的事件对象"><a href="#13-3-3-跨浏览器的事件对象" class="headerlink" title="13.3.3 跨浏览器的事件对象"></a>13.3.3 跨浏览器的事件对象</h5><pre><code class="javascript">var EventUtil = &#123;
+
+    addHandler: function(element, type, handler)&#123;
+        if (element.addEventListener)&#123;
+            element.addEventListener(type, handler, false);
+        &#125; else if (element.attachEvent)&#123;
+            element.attachEvent(&quot;on&quot; + type, handler);
+        &#125; else &#123;
+            element[&quot;on&quot; + type] = handler;
+        &#125;
+    &#125;,
+    
+    removeHandler: function(element, type, handler)&#123;
+        if (element.removeEventListener)&#123;
+            element.removeEventListener(type, handler, false);
+        &#125; else if (element.detachEvent)&#123;
+            element.detachEvent(&quot;on&quot; + type, handler);
+        &#125; else &#123;
+            element[&quot;on&quot; + type] = null;
+        &#125;
+    &#125;,
+
+    preventDefault: function(event)&#123;
+        if (event.preventDefault)&#123;
+            event.preventDefault();
+        &#125; else &#123;
+            event.returnValue = false;
+        &#125;
+    &#125;,
+    
+    stopPropagation: function(event)&#123;
+        if (event.stopPropagation)&#123;
+            event.stopPropagation();
+        &#125; else &#123;
+            event.cancelBubble = true;
+        &#125;
+    &#125;,
+
+    getEvent: function(event)&#123;  //返回对event对象的引用，IE中event未定义，返回window.event
+        return event ? event : window.event;
+    &#125;,
+
+    getTarget: function(event)&#123; //返回事件的目标
+        return event.target || event.srcElement;
+    &#125;,
+
+    getButton: function(event)&#123;
+        if (document.implementation.hasFeature(&quot;MouseEvents&quot;, &quot;2.0&quot;))&#123;
+            return event.button;
+        &#125; else &#123;
+            switch(event.button)&#123;
+                case 0:
+                case 1:
+                case 3:
+                case 5:
+                case 7:
+                    return 0;
+                case 2:
+                case 6:
+                    return 2;
+                case 4: return 1;
+            &#125;
+        &#125;
+    &#125;,
+    
+    getCharCode: function(event)&#123;
+        if (typeof event.charCode == &quot;number&quot;)&#123;
+            return event.charCode;
+        &#125; else &#123;
+            return event.keyCode;
+        &#125;
+    &#125;,
+    
+    getClipboardText: function(event)&#123;
+        var clipboardData =  (event.clipboardData || window.clipboardData);
+        return clipboardData.getData(&quot;text&quot;);
+    &#125;,
+    
+    getRelatedTarget: function(event)&#123;
+        if (event.relatedTarget)&#123;
+            return event.relatedTarget;
+        &#125; else if (event.toElement)&#123;
+            return event.toElement;
+        &#125; else if (event.fromElement)&#123;
+            return event.fromElement;
+        &#125; else &#123;
+            return null;
+        &#125;
+    &#125;,
+    
+    getWheelDelta: function(event)&#123;
+        if (event.wheelDelta)&#123;
+            return (client.engine.opera &amp;&amp; client.engine.opera &lt; 9.5 ? -event.wheelDelta : event.wheelDelta);
+        &#125; else &#123;
+            return -event.detail * 40;
+        &#125;
+    &#125;,
+    
+    setClipboardText: function(event, value)&#123;
+        if (event.clipboardData)&#123;
+            event.clipboardData.setData(&quot;text/plain&quot;, value);
+        &#125; else if (window.clipboardData)&#123;
+            window.clipboardData.setData(&quot;text&quot;, value);
+        &#125;
+    &#125;
+&#125;;
+</code></pre>
 <h4 id="13-4-事件类型"><a href="#13-4-事件类型" class="headerlink" title="13.4 事件类型"></a>13.4 事件类型</h4><h5 id="13-4-1-UI事件"><a href="#13-4-1-UI事件" class="headerlink" title="13.4.1 UI事件"></a>13.4.1 UI事件</h5><ul>
 <li>load</li>
 <li>upload 当页面完全卸载后在window上触发</li>
@@ -384,7 +583,27 @@
 <li>scale 两个手指间距离的变化情况</li>
 </ul>
 <h5 id="13-5-内存和性能"><a href="#13-5-内存和性能" class="headerlink" title="13.5 内存和性能"></a>13.5 内存和性能</h5><p>事件委托，利用了事件冒泡，只指定一个事件处理程序，就可以管理一类型所有事件</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> list = <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&quot;myLinks&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="title class_">EventUtil</span>.<span class="title function_">addHandler</span>(list, <span class="string">&quot;click&quot;</span>, <span class="keyword">function</span>(<span class="params">event</span>)&#123;</span><br><span class="line">    event = <span class="title class_">EventUtil</span>.<span class="title function_">getEvent</span>(event);</span><br><span class="line">    <span class="keyword">var</span> target = <span class="title class_">EventUtil</span>.<span class="title function_">getTarget</span>(event);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">switch</span>(target.<span class="property">id</span>)&#123;</span><br><span class="line">        <span class="keyword">case</span> <span class="string">&quot;doSomething&quot;</span>:</span><br><span class="line">            <span class="variable language_">document</span>.<span class="property">title</span> = <span class="string">&quot;I changed the document&#x27;s title&quot;</span>;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">case</span> <span class="string">&quot;goSomewhere&quot;</span>:</span><br><span class="line">            location.<span class="property">href</span> = <span class="string">&quot;http://www.wrox.com&quot;</span>;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">case</span> <span class="string">&quot;sayHi&quot;</span>:</span><br><span class="line">            <span class="title function_">alert</span>(<span class="string">&quot;hi&quot;</span>);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<pre><code class="javascript">var list = document.getElementById(&quot;myLinks&quot;);
+
+EventUtil.addHandler(list, &quot;click&quot;, function(event)&#123;
+    event = EventUtil.getEvent(event);
+    var target = EventUtil.getTarget(event);
+
+    switch(target.id)&#123;
+        case &quot;doSomething&quot;:
+            document.title = &quot;I changed the document&#39;s title&quot;;
+            break;
+
+        case &quot;goSomewhere&quot;:
+            location.href = &quot;http://www.wrox.com&quot;;
+            break;
+
+        case &quot;sayHi&quot;:
+            alert(&quot;hi&quot;);
+            break;
+    &#125;
+&#125;);
+</code></pre>
 <p>优点：</p>
 <ol>
 <li>document很快就可以访问，在页面生命周期任何时间点上添加事件处理程序</li>
@@ -394,9 +613,20 @@
 <p>最适合采用事件委托技术的事件包括click mousedown mouseuo keydown keyup keypress</p>
 <h5 id="13-5-2-移除事件处理程序"><a href="#13-5-2-移除事件处理程序" class="headerlink" title="13.5.2 移除事件处理程序"></a>13.5.2 移除事件处理程序</h5><p>在页面卸载之前，先通过onunload事件处理程序移除所有事件</p>
 <h3 id="第十四章、表单脚本"><a href="#第十四章、表单脚本" class="headerlink" title="第十四章、表单脚本"></a>第十四章、表单脚本</h3><h4 id="14-1-表单基础知识"><a href="#14-1-表单基础知识" class="headerlink" title="14.1 表单基础知识"></a>14.1 表单基础知识</h4><p>常用的表单提交按钮</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&lt;input type=<span class="string">&quot;submit&quot;</span> value=<span class="string">&quot;Submit from&quot;</span>&gt;  <span class="comment">//通用提交按钮</span></span><br><span class="line">&lt;button type=&quot;submit&quot;&gt;submit from&lt;\/button&gt; //自定义提交按钮</span><br><span class="line">&lt;input type=&quot;image&quot; src=&quot;graphic.gif&quot;&gt;  //图像按钮</span><br></pre></td></tr></table></figure>
+<pre><code class="javascript">&lt;input type=&quot;submit&quot; value=&quot;Submit from&quot;&gt;  //通用提交按钮
+&lt;button type=&quot;submit&quot;&gt;submit from&lt;\/button&gt; //自定义提交按钮
+&lt;input type=&quot;image&quot; src=&quot;graphic.gif&quot;&gt;  //图像按钮
+</code></pre>
 <h5 id="14-1-3-表单字段"><a href="#14-1-3-表单字段" class="headerlink" title="14.1.3 表单字段"></a>14.1.3 表单字段</h5><p>每个表单都有elements属性，该属性时表单中所有表单元素的集合，可以按照位置和name属性来访问</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> filed = form.<span class="property">elements</span>[<span class="string">&#x27;textbox1&#x27;</span>];</span><br><span class="line"><span class="comment">//避免多次提交表单</span></span><br><span class="line"><span class="title class_">EventUtil</span>.<span class="title function_">addHandler</span>(form,<span class="string">&quot;submit&quot;</span>,<span class="keyword">function</span>(<span class="params">event</span>)&#123;</span><br><span class="line">    event = <span class="title class_">EventUtil</span>.<span class="title function_">getEvent</span>(event);</span><br><span class="line">    <span class="keyword">var</span> target = <span class="title class_">EventUtil</span>.<span class="title function_">getTarget</span>(event);</span><br><span class="line">    <span class="keyword">var</span> btn = target.<span class="property">elements</span>[<span class="string">&quot;submit-btn&quot;</span>];</span><br><span class="line">    btn.<span class="property">dsiabled</span> = <span class="literal">true</span>;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<pre><code class="javascript">var filed = form.elements[&#39;textbox1&#39;];
+//避免多次提交表单
+EventUtil.addHandler(form,&quot;submit&quot;,function(event)&#123;
+    event = EventUtil.getEvent(event);
+    var target = EventUtil.getTarget(event);
+    var btn = target.elements[&quot;submit-btn&quot;];
+    btn.dsiabled = true;
+&#125;)
+</code></pre>
 <h4 id="14-2-文本框脚本"><a href="#14-2-文本框脚本" class="headerlink" title="14.2 文本框脚本"></a>14.2 文本框脚本</h4><ul>
 <li>size指定文本框中能够显示的字符，</li>
 <li>maxlength指定文本框可以接受的最大字符数</li>
@@ -404,23 +634,83 @@
 <li>select事件，只有用户选择了文本，才会触发select事件</li>
 </ul>
 <h5 id="14-2-1-选择文本"><a href="#14-2-1-选择文本" class="headerlink" title="14.2.1 选择文本"></a>14.2.1 选择文本</h5><ol start="2">
-<li>取得选择的文本<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">getSelectedText</span>(<span class="params">textbox</span>)&#123;</span><br><span class="line">    <span class="keyword">if</span>(<span class="keyword">typeof</span> textbox.<span class="property">selectionStart</span> == <span class="string">&quot;number&quot;</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> textbox.<span class="property">value</span>.<span class="title function_">substring</span>(textbox.<span class="property">selectionStart</span>,textbox.<span class="property">selectionEnd</span>);</span><br><span class="line">    &#125;<span class="keyword">else</span> <span class="keyword">if</span>(<span class="variable language_">document</span>.<span class="property">selection</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="variable language_">document</span>.<span class="property">selection</span>.<span class="title function_">createRange</span>().<span class="property">text</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-<li>选择部分文本<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">selectText</span>(<span class="params">textbox, startIndex, stopIndex</span>)&#123;</span><br><span class="line">    <span class="keyword">if</span> (textbox.<span class="property">setSelectionRange</span>)&#123;</span><br><span class="line">        textbox.<span class="title function_">setSelectionRange</span>(startIndex, stopIndex);</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (textbox.<span class="property">createTextRange</span>)&#123;</span><br><span class="line">        <span class="keyword">var</span> range = textbox.<span class="title function_">createTextRange</span>();</span><br><span class="line">        range.<span class="title function_">collapse</span>(<span class="literal">true</span>);</span><br><span class="line">        range.<span class="title function_">moveStart</span>(<span class="string">&quot;character&quot;</span>, startIndex);</span><br><span class="line">        range.<span class="title function_">moveEnd</span>(<span class="string">&quot;character&quot;</span>, stopIndex - startIndex);</span><br><span class="line">        range.<span class="title function_">select</span>();                    </span><br><span class="line">    &#125;</span><br><span class="line">    textbox.<span class="title function_">focus</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-操作剪贴板</li>
+<li>取得选择的文本</li>
 </ol>
+<pre><code class="javascript">function getSelectedText(textbox)&#123;
+    if(typeof textbox.selectionStart == &quot;number&quot;)&#123;
+        return textbox.value.substring(textbox.selectionStart,textbox.selectionEnd);
+    &#125;else if(document.selection)&#123;
+        return document.selection.createRange().text;
+    &#125;
+&#125;
+</code></pre>
+<ol start="3">
+<li>选择部分文本</li>
+</ol>
+<pre><code class="javascript">function selectText(textbox, startIndex, stopIndex)&#123;
+    if (textbox.setSelectionRange)&#123;
+        textbox.setSelectionRange(startIndex, stopIndex);
+    &#125; else if (textbox.createTextRange)&#123;
+        var range = textbox.createTextRange();
+        range.collapse(true);
+        range.moveStart(&quot;character&quot;, startIndex);
+        range.moveEnd(&quot;character&quot;, stopIndex - startIndex);
+        range.select();                    
+    &#125;
+    textbox.focus();
+&#125;
+</code></pre>
+<p>操作剪贴板</p>
 <h4 id="14-2-3-自动切换焦点"><a href="#14-2-3-自动切换焦点" class="headerlink" title="14.2.3 自动切换焦点"></a>14.2.3 自动切换焦点</h4><p>在自动切换焦点之前必须知道用户已经输入了既定长度的数据maxlength</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&lt;input type=<span class="string">&quot;text&quot;</span> name=<span class="string">&quot;tel1&quot;</span> id=<span class="string">&quot;txtTel1&quot;</span> size=<span class="string">&quot;3&quot;</span> maxlength=<span class="string">&quot;3&quot;</span> &gt;</span><br><span class="line">&lt;input type=&quot;text&quot; name=&quot;tel2&quot; id=&quot;txtTel2&quot; size=&quot;3&quot; maxlength=&quot;3&quot; &gt;</span><br><span class="line">&lt;input type=&quot;text&quot; name=&quot;tel3&quot; id=&quot;txtTel3&quot; size=&quot;4&quot; maxlength=&quot;4&quot; &gt;</span><br><span class="line">(function()&#123;</span><br><span class="line"></span><br><span class="line">    function tabForward(event)&#123;            </span><br><span class="line">        event = EventUtil.getEvent(event);</span><br><span class="line">        var target = EventUtil.getTarget(event);</span><br><span class="line">        </span><br><span class="line">        if (target.value.length == target.maxLength)&#123;</span><br><span class="line">            var form = target.form;</span><br><span class="line">            </span><br><span class="line">            for (var i=0, len=form.elements.length; i &lt; len; i++) &#123;</span><br><span class="line">                if (form.elements[i] == target) &#123;</span><br><span class="line">                    if (form.elements[i+1])&#123;</span><br><span class="line">                        form.elements[i+1].focus();</span><br><span class="line">                    &#125;</span><br><span class="line">                    return;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">                </span><br><span class="line">    var textbox1 = document.getElementById(&quot;txtTel1&quot;),</span><br><span class="line">        textbox2 = document.getElementById(&quot;txtTel2&quot;),</span><br><span class="line">        textbox3 = document.getElementById(&quot;txtTel3&quot;);</span><br><span class="line">    </span><br><span class="line">    EventUtil.addHandler(textbox1, &quot;keyup&quot;, tabForward);        </span><br><span class="line">    EventUtil.addHandler(textbox2, &quot;keyup&quot;, tabForward);        </span><br><span class="line">    EventUtil.addHandler(textbox3, &quot;keyup&quot;, tabForward);        </span><br><span class="line">        </span><br><span class="line">&#125;)();</span><br></pre></td></tr></table></figure>
+<pre><code class="javascript">&lt;input type=&quot;text&quot; name=&quot;tel1&quot; id=&quot;txtTel1&quot; size=&quot;3&quot; maxlength=&quot;3&quot; &gt;
+&lt;input type=&quot;text&quot; name=&quot;tel2&quot; id=&quot;txtTel2&quot; size=&quot;3&quot; maxlength=&quot;3&quot; &gt;
+&lt;input type=&quot;text&quot; name=&quot;tel3&quot; id=&quot;txtTel3&quot; size=&quot;4&quot; maxlength=&quot;4&quot; &gt;
+(function()&#123;
 
+    function tabForward(event)&#123;            
+        event = EventUtil.getEvent(event);
+        var target = EventUtil.getTarget(event);
+        
+        if (target.value.length == target.maxLength)&#123;
+            var form = target.form;
+            
+            for (var i=0, len=form.elements.length; i &lt; len; i++) &#123;
+                if (form.elements[i] == target) &#123;
+                    if (form.elements[i+1])&#123;
+                        form.elements[i+1].focus();
+                    &#125;
+                    return;
+                &#125;
+            &#125;
+        &#125;
+    &#125;
+                
+    var textbox1 = document.getElementById(&quot;txtTel1&quot;),
+        textbox2 = document.getElementById(&quot;txtTel2&quot;),
+        textbox3 = document.getElementById(&quot;txtTel3&quot;);
+    
+    EventUtil.addHandler(textbox1, &quot;keyup&quot;, tabForward);        
+    EventUtil.addHandler(textbox2, &quot;keyup&quot;, tabForward);        
+    EventUtil.addHandler(textbox3, &quot;keyup&quot;, tabForward);        
+        
+&#125;)();
+</code></pre>
 <h4 id="14-2-4-HTML5-约束验证API"><a href="#14-2-4-HTML5-约束验证API" class="headerlink" title="14.2.4 HTML5 约束验证API"></a>14.2.4 HTML5 约束验证API</h4><ol>
 <li>必填字段 required属性</li>
 <li>input新类型email url </li>
 <li>pattern属性<code>&lt;input type=&quot;text&quot; pattern=&quot;\d+&quot; name=&quot;count&quot;&gt;</code></li>
 </ol>
 <h3 id="第十五章、使用Canvas绘图"><a href="#第十五章、使用Canvas绘图" class="headerlink" title="第十五章、使用Canvas绘图"></a>第十五章、使用Canvas绘图</h3><h4 id="15-1-基本用法"><a href="#15-1-基本用法" class="headerlink" title="15.1 基本用法"></a>15.1 基本用法</h4><p>IE9+,firefox1.5+,safari2+,chrome支持<code>&lt;canvas&gt;</code><br>要使用<code>&lt;canvas&gt;</code>元素，必须先设置其width和height属性，指定可以绘图的区域的大小<br>在使用<code>&lt;canvas&gt;</code>元素之前，首先要检测getContext()方法是否存在</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span>(drawing.<span class="property">getContext</span>)&#123;</span><br><span class="line">    <span class="keyword">var</span> context = drawing.<span class="title function_">getContext</span>(<span class="string">&#x27;2d&#x27;</span>);</span><br><span class="line">    <span class="comment">//more code</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="javascript">if(drawing.getContext)&#123;
+    var context = drawing.getContext(&#39;2d&#39;);
+    //more code
+&#125;
+</code></pre>
 <p>使用toDataURL()方法可以导出在canvas元素上绘制的图像</p>
 <h4 id="15-2-2D上下文"><a href="#15-2-2D上下文" class="headerlink" title="15.2 2D上下文"></a>15.2 2D上下文</h4><h5 id="15-2-2-绘制矩形"><a href="#15-2-2-绘制矩形" class="headerlink" title="15.2.2 绘制矩形"></a>15.2.2 绘制矩形</h5><p>fillRect(x,y,width,height)方法在画布上绘制的矩形会填充指定的颜色  </p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">context.<span class="property">fillStyle</span> = <span class="string">&quot;rgba(0,255,0,0.5)&quot;</span>;</span><br><span class="line">context.<span class="title function_">fillRect</span>(<span class="number">10</span>,<span class="number">10</span>,<span class="number">50</span>,<span class="number">50</span>);</span><br></pre></td></tr></table></figure>
+<pre><code class="javascript">context.fillStyle = &quot;rgba(0,255,0,0.5)&quot;;
+context.fillRect(10,10,50,50);
+</code></pre>
 <p><canvas id="drawing" height="100px" width="100px"></canvas></p>
 <script type="text/javascript">
     var drawing = document.getElementById('drawing');
@@ -431,7 +721,9 @@
     }
 </script>
 <p>strokeRect()方法在画布上绘制的矩形会使用指定的颜色描边  </p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">context.<span class="property">strokeStyle</span> = <span class="string">&quot;red&quot;</span>;</span><br><span class="line">context.<span class="title function_">strokeRect</span>(<span class="number">10</span>,<span class="number">10</span>,<span class="number">50</span>,<span class="number">50</span>);</span><br></pre></td></tr></table></figure>
+<pre><code class="javascript">context.strokeStyle = &quot;red&quot;;
+context.strokeRect(10,10,50,50);
+</code></pre>
 <p><canvas id="drawing1" height="100px" width="100px"></canvas></p>
 <script type="text/javascript">
     var drawing = document.getElementById('drawing1');
@@ -442,7 +734,8 @@
     }
 </script>
 <p>clearRect()方法用于清除画布上的矩形区域，本质上可以把绘制上下文中的某一矩形区域变透明  </p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">context.<span class="title function_">clearRect</span>(<span class="number">40</span>,<span class="number">40</span>,<span class="number">10</span>,<span class="number">10</span>);</span><br></pre></td></tr></table></figure>
+<pre><code class="javascript">context.clearRect(40,40,10,10);
+</code></pre>
 <p><canvas id="drawing2" height="100px" width="100px"></canvas></p>
 <script type="text/javascript">
     var drawing = document.getElementById('drawing2');
@@ -509,8 +802,8 @@
       <blockquote id="copyright">
         <p>
           原文链接:
-          <a href="https://jesse121.github.io/blog/blog/articles/2016/03/05.html"
-            >https://jesse121.github.io/blog/blog/articles/2016/03/05.html</a
+          <a href="https://jesse121.github.io/blog/articles/2016/03/05.html"
+            >https://jesse121.github.io/blog/articles/2016/03/05.html</a
           >
         </p>
         <p>版权声明: 转载请注明出处.</p>
@@ -532,7 +825,7 @@
   
   
     <a href="/blog/articles/2016/03/13.html" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">newer</strong>
+      <strong class="article-nav-caption">上一篇</strong>
       <div class="article-nav-title">
         
           《HTML5程序设计第二版》--读书笔记
@@ -698,37 +991,26 @@
     </div>
   </div>
   
-<script src="/blog/js/jquery-3.4.1.min.js"></script>
+<script src="https://unpkg.com/@highlightjs/cdn-assets@11.6.0/highlight.min.js"></script>
 
+<script>
+  hljs.highlightAll();
+</script>
 
+<script src="https://unpkg.com/jquery@3.4.1/dist/jquery.min.js"></script>
+ 
 <script src="/blog/js/search.json.js"></script>
-
-
   
-<script src="/blog/fancybox/jquery.fancybox.min.js"></script>
+<script src="https://unpkg.com/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
 
-
-
-
+ 
 <script src="/blog/js/script.js"></script>
-
-
-
-
-
-
-  
+ 
+   
 <script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-
-
-
-
-  
-  
-
-
-  
-<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+ 
+      
+<script src="https://unpkg.com/gitalk@1.7.2/dist/gitalk.min.js"></script>
  
 <script src="//cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.js"></script>
 
@@ -740,7 +1022,7 @@
     owner: "jesse121",
     admin: ["jesse121"],
     id: md5(window.location.pathname),
-    proxy: "https://gitalk.jesse121.workers.dev/?https://github.com/login/oauth/access_token",
+    proxy: "https://stormy-gorge-51623.herokuapp.com/https://github.com/login/oauth/access_token",
     distractionFreeMode: false,
     language: "zh-CN",
     pagerDirection: "last",
@@ -748,8 +1030,7 @@
   gitalk.render("comments");
 </script>
          
-
-
+ 
 
 </body>
 </html>

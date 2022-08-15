@@ -1,42 +1,28 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8">
-  
-  
+  <meta charset="utf-8" />
+   
   <title>解读setTimeout, promise.then, process.nextTick, setImmediate的执行顺序 | 前端之路</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, shrink-to-fit=no"
+  />
   
-    <meta name="description" content="专注前端开发，前端开发技术博客">
-  
-  
-    <meta name="keywords" content="Web前端开发，Javascript，前端开发博客">
-  
-  
-    <link rel="alternate" href="/blog/atom.xml" title="前端之路" type="application/atom+xml">
-  
-  
-    <link rel="shortcut icon" href="/blog/favicon.ico">
-  
-  
-    
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
-
-  
-  
+  <meta name="description" content="专注前端开发，前端开发技术博客" />
+   
+  <meta name="keywords" content="Web前端开发，Javascript，前端开发博客" />
+    <link rel="alternate" href="/blog/atom.xml" title="前端之路" type="application/atom+xml">   <link rel="shortcut icon" href="/blog/favicon.ico"> 
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/@highlightjs/cdn-assets@11.6.0/styles/xt256.min.css"
+  />
+   
 <link rel="stylesheet" href="/blog/css/style.css">
-
   
+<link rel="stylesheet" href="https://unpkg.com/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
     
-<link rel="stylesheet" href="/blog/fancybox/jquery.fancybox.min.css">
-
-  
-  
-  
-    
-<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
-
-  
+<link rel="stylesheet" href="https://unpkg.com/gitalk@1.7.2/dist/gitalk.css">
   
 <meta name="generator" content="Hexo 6.2.0"></head>
 
@@ -143,8 +129,43 @@
 <span id="more"></span>
 
 <p>题目如下：</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 题目一：</span></span><br><span class="line"><span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;setTimeout&quot;</span>);</span><br><span class="line">&#125;, <span class="number">0</span>);</span><br><span class="line"><span class="title function_">setImmediate</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;setImmediate&quot;</span>);</span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment">// 题目二：</span></span><br><span class="line"><span class="keyword">const</span> promise = <span class="title class_">Promise</span>.<span class="title function_">resolve</span>();</span><br><span class="line">promise.<span class="title function_">then</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;promise&quot;</span>);</span><br><span class="line">&#125;);</span><br><span class="line">process.<span class="title function_">nextTick</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;nextTick&quot;</span>);</span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment">// 题目三：</span></span><br><span class="line"><span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="number">1</span>);</span><br><span class="line">&#125;, <span class="number">0</span>);</span><br><span class="line"><span class="keyword">new</span> <span class="title class_">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="number">2</span>);</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; <span class="number">10000</span>; i++) &#123;</span><br><span class="line">    i === <span class="number">9999</span> &amp;&amp; <span class="title function_">resolve</span>();</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="number">3</span>);</span><br><span class="line">&#125;).<span class="title function_">then</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="number">4</span>);</span><br><span class="line">&#125;);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="number">5</span>);</span><br><span class="line"><span class="comment">// 题目四</span></span><br><span class="line"><span class="built_in">setInterval</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;setInterval&quot;</span>);</span><br><span class="line">&#125;, <span class="number">100</span>);</span><br><span class="line">process.<span class="title function_">nextTick</span>(<span class="keyword">function</span> <span class="title function_">tick</span>(<span class="params"></span>) &#123;</span><br><span class="line">  process.<span class="title function_">nextTick</span>(tick);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-
+<pre><code class="js">// 题目一：
+setTimeout(() =&gt; &#123;
+  console.log(&quot;setTimeout&quot;);
+&#125;, 0);
+setImmediate(() =&gt; &#123;
+  console.log(&quot;setImmediate&quot;);
+&#125;);
+// 题目二：
+const promise = Promise.resolve();
+promise.then(() =&gt; &#123;
+  console.log(&quot;promise&quot;);
+&#125;);
+process.nextTick(() =&gt; &#123;
+  console.log(&quot;nextTick&quot;);
+&#125;);
+// 题目三：
+setTimeout(() =&gt; &#123;
+  console.log(1);
+&#125;, 0);
+new Promise((resolve, reject) =&gt; &#123;
+  console.log(2);
+  for (let i = 0; i &lt; 10000; i++) &#123;
+    i === 9999 &amp;&amp; resolve();
+  &#125;
+  console.log(3);
+&#125;).then(() =&gt; &#123;
+  console.log(4);
+&#125;);
+console.log(5);
+// 题目四
+setInterval(() =&gt; &#123;
+  console.log(&quot;setInterval&quot;);
+&#125;, 100);
+process.nextTick(function tick() &#123;
+  process.nextTick(tick);
+&#125;);
+</code></pre>
 <p>在分析这几道题之前先有必要了解下 node.js 的事件循环</p>
 <h3 id="事件循环-Event-Loop"><a href="#事件循环-Event-Loop" class="headerlink" title="事件循环 Event Loop"></a>事件循环 Event Loop</h3><p>我们可以简单理解 Event Loop 如下：</p>
 <ol>
@@ -260,19 +281,28 @@
 <p>宏任务与微任务执行顺序图<br><img src="https://raw.githubusercontent.com/Jesse121/publicPic/master/blog/pictures/801336-20191020172507873-569608539.png" alt="801336-20191020172507873-569608539"></p>
 <p>图中绿色小块表示 Event Loop 的各个阶段，执行的是宏任务，粉色箭头表示执行的是微任务</p>
 <p>了解到这里我们再来分析上面的几道题<br>题目一的执行结果是：</p>
-<figure class="highlight jboss-cli"><table><tr><td class="code"><pre><span class="line"><span class="keyword">set</span>Timeout</span><br><span class="line"><span class="keyword">set</span>Immediate</span><br><span class="line"><span class="string">//</span>或者</span><br><span class="line"><span class="keyword">set</span>Immediate</span><br><span class="line"><span class="keyword">set</span>Timeout</span><br></pre></td></tr></table></figure>
-
+<pre><code>setTimeout
+setImmediate
+//或者
+setImmediate
+setTimeout
+</code></pre>
 <p>为什么结果不确定呢？我们知道 setTimeout 的回调函数在 timer 阶段执行，setImmediate 的回调函数在 check 阶段执行。但是从事件循环开始到 timer 阶段会消耗一定的时间，所以会出现两种情况：</p>
 <ol>
 <li>若 timer 前的准备时间超过 1ms，则执行 timer 阶段（setTimeout）的回调函数</li>
 <li>若 timer 前的准备时间少于 1ms，则执行 check 阶段（setImmediate）的回调函数，下次 event loop 循环在执行 timer 阶段的函数</li>
 </ol>
 <p>题目二的执行结果是</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">nextTick</span><br><span class="line">promise</span><br></pre></td></tr></table></figure>
-
+<pre><code>nextTick
+promise
+</code></pre>
 <p>这里虽然和 process.nextTick 一样，promise.then 也将回调函数注册到 microtask,<strong>但 process.nextTick 的 microtask queue 总是优先于 promise 的 microtask queue 执行的</strong><br>题目三的执行结果是</p>
-<figure class="highlight"><table><tr><td class="code"><pre><span class="line">2</span><br><span class="line">3</span><br><span class="line">5</span><br><span class="line">4</span><br><span class="line">1</span><br></pre></td></tr></table></figure>
-
+<pre><code>2
+3
+5
+4
+1
+</code></pre>
 <p>Promise 构造函数是同步执行的，所以先打印 2，3，在打印 5，接下来事件循环执行微任务执行 promise.then 的回调，打印 4，然后进入下一个事件循环执行 timer 阶段的回调打印 1</p>
 <p>题目四的执行结果是<br>永远不会打印 setInterval</p>
 <p>process.nextTick 会无限循环，将 event loop 阻塞在 microtask 阶段，导致 event loop 上其他 macrotask 阶段的回调函数没有机会执行<br>解决方法通常是用 setImmediate 代替 process.nextTick.<br>在 setImmediate 内执行 setImmedaite 时会将 immediate 注册到下一次 event loop 的 check 阶段，这样其他 macrotask 就有机会执行</p>
@@ -291,8 +321,8 @@
       <blockquote id="copyright">
         <p>
           原文链接:
-          <a href="https://jesse121.github.io/blog/blog/articles/2019/10/20.html"
-            >https://jesse121.github.io/blog/blog/articles/2019/10/20.html</a
+          <a href="https://jesse121.github.io/blog/articles/2019/10/20.html"
+            >https://jesse121.github.io/blog/articles/2019/10/20.html</a
           >
         </p>
         <p>版权声明: 转载请注明出处.</p>
@@ -313,7 +343,7 @@
 <nav id="article-nav">
   
     <a href="/blog/articles/2019/08/12.html" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">older</strong>
+      <strong class="article-nav-caption">下一篇</strong>
       <div class="article-nav-title">
         
           规范Git Commit提交记录和版本发布记录
@@ -323,7 +353,7 @@
   
   
     <a href="/blog/articles/2020/01/11.html" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">newer</strong>
+      <strong class="article-nav-caption">上一篇</strong>
       <div class="article-nav-title">
         
           如何做好前端页面异常监控？
@@ -489,37 +519,26 @@
     </div>
   </div>
   
-<script src="/blog/js/jquery-3.4.1.min.js"></script>
+<script src="https://unpkg.com/@highlightjs/cdn-assets@11.6.0/highlight.min.js"></script>
 
+<script>
+  hljs.highlightAll();
+</script>
 
+<script src="https://unpkg.com/jquery@3.4.1/dist/jquery.min.js"></script>
+ 
 <script src="/blog/js/search.json.js"></script>
-
-
   
-<script src="/blog/fancybox/jquery.fancybox.min.js"></script>
+<script src="https://unpkg.com/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
 
-
-
-
+ 
 <script src="/blog/js/script.js"></script>
-
-
-
-
-
-
-  
+ 
+   
 <script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-
-
-
-
-  
-  
-
-
-  
-<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+ 
+      
+<script src="https://unpkg.com/gitalk@1.7.2/dist/gitalk.min.js"></script>
  
 <script src="//cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.js"></script>
 
@@ -531,7 +550,7 @@
     owner: "jesse121",
     admin: ["jesse121"],
     id: md5(window.location.pathname),
-    proxy: "https://gitalk.jesse121.workers.dev/?https://github.com/login/oauth/access_token",
+    proxy: "https://stormy-gorge-51623.herokuapp.com/https://github.com/login/oauth/access_token",
     distractionFreeMode: false,
     language: "zh-CN",
     pagerDirection: "last",
@@ -539,8 +558,7 @@
   gitalk.render("comments");
 </script>
          
-
-
+ 
 
 </body>
 </html>

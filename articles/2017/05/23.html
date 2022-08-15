@@ -1,42 +1,28 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8">
-  
-  
+  <meta charset="utf-8" />
+   
   <title>常见的前端漏洞及防御措施 | 前端之路</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, shrink-to-fit=no"
+  />
   
-    <meta name="description" content="专注前端开发，前端开发技术博客">
-  
-  
-    <meta name="keywords" content="Web前端开发，Javascript，前端开发博客">
-  
-  
-    <link rel="alternate" href="/blog/atom.xml" title="前端之路" type="application/atom+xml">
-  
-  
-    <link rel="shortcut icon" href="/blog/favicon.ico">
-  
-  
-    
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
-
-  
-  
+  <meta name="description" content="专注前端开发，前端开发技术博客" />
+   
+  <meta name="keywords" content="Web前端开发，Javascript，前端开发博客" />
+    <link rel="alternate" href="/blog/atom.xml" title="前端之路" type="application/atom+xml">   <link rel="shortcut icon" href="/blog/favicon.ico"> 
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/@highlightjs/cdn-assets@11.6.0/styles/xt256.min.css"
+  />
+   
 <link rel="stylesheet" href="/blog/css/style.css">
-
   
+<link rel="stylesheet" href="https://unpkg.com/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
     
-<link rel="stylesheet" href="/blog/fancybox/jquery.fancybox.min.css">
-
-  
-  
-  
-    
-<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
-
-  
+<link rel="stylesheet" href="https://unpkg.com/gitalk@1.7.2/dist/gitalk.css">
   
 <meta name="generator" content="Hexo 6.2.0"></head>
 
@@ -143,9 +129,31 @@
 <span id="more"></span>
 <h3 id="a链接target-x3D-”-blank”属性可造成钓鱼攻击"><a href="#a链接target-x3D-”-blank”属性可造成钓鱼攻击" class="headerlink" title="a链接target&#x3D;”_blank”属性可造成钓鱼攻击"></a>a链接target&#x3D;”_blank”属性可造成钓鱼攻击</h3><h4 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h4><p>如果你在页面上的超链接a标记上添加了<code>target=&#39;_blank&#39;</code>属性，当用户点击了该超链接后，浏览器会单独新建一个标签页来显示该链接所指向的内容。但是在这一瞬间，浏览器会允许新建的标签页通过一个名为”window.opener”的浏览器API来与之前的网页进行短暂通信。此时，攻击者就可以将恶意代码嵌入在新打开的网站中，然后检测用户是从哪一个网站跳转过来的，最后再利用window.opener接口来迫使原始网页打开一个新的URL地址。</p>
 <h4 id="攻击实例"><a href="#攻击实例" class="headerlink" title="攻击实例"></a>攻击实例</h4><p>你的正常登陆的网页 </p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!-- test1.html --&gt;</span></span><br><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;./test2.html&quot;</span> <span class="attr">target</span>=<span class="string">&quot;_blank&quot;</span>&gt;</span>你想去的地方<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<pre><code class="html">&lt;!-- test1.html --&gt;
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+    &lt;head&gt;
+        &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;a href=&quot;./test2.html&quot; target=&quot;_blank&quot;&gt;你想去的地方&lt;/a&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
 <p>点击超链接，打开test2.html</p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!-- test2.html --&gt;</span></span><br><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">            <span class="variable language_">window</span>.<span class="property">opener</span>.<span class="property">location</span> = <span class="string">&quot;http://www.baidu.com/&quot;</span>;</span></span><br><span class="line"><span class="language-javascript">        </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<pre><code class="html">&lt;!-- test2.html --&gt;
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+    &lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;script&gt;
+            window.opener.location = &quot;http://www.baidu.com/&quot;;
+        &lt;/script&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
 <p>test2页面打开后通过js修改window.opener.location使得之前的test1页面的地址被更改，例子中改的是百度页面，在现实中攻击者可将其改为模拟的该网站的登录界面，用户在未发现网页已被篡改的情况下将登录信息填写提交给了攻击者</p>
 <h4 id="防御措施"><a href="#防御措施" class="headerlink" title="防御措施"></a>防御措施</h4><p>a链接中使用target&#x3D;”_blank”属性时需添加上 <code>rel=&quot;noopener noreferrer&quot;</code>，noreferrer是由于Firefox不支持noopener而添加的</p>
 <h3 id="XSS攻击"><a href="#XSS攻击" class="headerlink" title="XSS攻击"></a>XSS攻击</h3><h4 id="简介-1"><a href="#简介-1" class="headerlink" title="简介"></a>简介</h4><p>跨站脚本攻击，英文全称是Cross Site Script，在安全领域叫做“XSS”。XSS攻击通常指黑客通过“HTML注入”篡改了网页，插入了恶意脚本，从而在用户浏览网页时，控制用户浏览器的一种攻击。<br>XSS根据效果的不同可以分为如下几类：</p>
@@ -155,12 +163,24 @@
 <li>DOM Based XSS<br>通过修改页面的DOM节点形成的XSS</li>
 </ul>
 <h4 id="反射性-XSS"><a href="#反射性-XSS" class="headerlink" title="反射性 XSS"></a>反射性 XSS</h4><p>有一个xss.php页面用于接收并显示传递过来的参数  </p>
-<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="variable">$input</span> = <span class="variable">$_GET</span>[<span class="string">&quot;test&quot;</span>];</span><br><span class="line"><span class="keyword">echo</span> <span class="string">&quot;&lt;div&gt;&quot;</span>.<span class="variable">$input</span>.<span class="string">&quot;&lt;/div&gt;&quot;</span>;</span><br></pre></td></tr></table></figure>
+<pre><code class="php">$input = $_GET[&quot;test&quot;];
+echo &quot;&lt;div&gt;&quot;.$input.&quot;&lt;/div&gt;&quot;;
+</code></pre>
 <p>在其他网页上有如下一个链接  </p>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;xss.php?test=&lt;script&gt;alert(&#x27;XSS&#x27;)&lt;/script&gt;&quot;</span>&gt;</span>诱你点击<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<pre><code>&lt;a href=&quot;xss.php?test=&lt;script&gt;alert(&#39;XSS&#39;)&lt;/script&gt;&quot;&gt;诱你点击&lt;/a&gt;
+</code></pre>
 <p>测试得知：<br>IE8和firfox都弹窗显示XSS，攻击成功。chrome则被浏览器的xss保护策略阻止</p>
 <h4 id="存储型XSS"><a href="#存储型XSS" class="headerlink" title="存储型XSS"></a>存储型XSS</h4><p>发表的文章中含有恶意脚本例如：<code>你可以试试看&lt;script&gt;alert(&#39;xss&#39;)&lt;/script&gt;</code>，后端没有对文章进行过滤就将内容存到数据库，当其他用户再次看这篇文章时，包含的恶意脚本被执行</p>
-<h4 id="DOM-Based-XSS"><a href="#DOM-Based-XSS" class="headerlink" title="DOM Based XSS"></a>DOM Based XSS</h4><figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">&quot;text/javascript&quot;</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">    <span class="keyword">function</span> <span class="title function_">test</span>(<span class="params"></span>) &#123;</span></span><br><span class="line"><span class="language-javascript">        <span class="keyword">var</span> str = <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&quot;test&quot;</span>).<span class="property">value</span>;</span></span><br><span class="line"><span class="language-javascript">        <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&quot;t&quot;</span>).<span class="property">innerHTML</span> = <span class="string">&quot;&lt;a href=&#x27;&quot;</span> + str + <span class="string">&quot;&#x27;&gt;test&lt;/a&gt;&quot;</span>;</span></span><br><span class="line"><span class="language-javascript">    &#125;</span></span><br><span class="line"><span class="language-javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;t&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">id</span>=<span class="string">&quot;test&quot;</span> <span class="attr">value</span>=<span class="string">&quot;&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;submit&quot;</span> <span class="attr">value</span>=<span class="string">&quot;submit&quot;</span> <span class="attr">onclick</span>=<span class="string">&quot;test()&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h4 id="DOM-Based-XSS"><a href="#DOM-Based-XSS" class="headerlink" title="DOM Based XSS"></a>DOM Based XSS</h4><pre><code>&lt;script type=&quot;text/javascript&quot;&gt;
+    function test() &#123;
+        var str = document.getElementById(&quot;test&quot;).value;
+        document.getElementById(&quot;t&quot;).innerHTML = &quot;&lt;a href=&#39;&quot; + str + &quot;&#39;&gt;test&lt;/a&gt;&quot;;
+    &#125;
+&lt;/script&gt;
+&lt;div id=&quot;t&quot;&gt;&lt;/div&gt;
+&lt;input type=&quot;text&quot; id=&quot;test&quot; value=&quot;&quot;&gt;
+&lt;input type=&quot;submit&quot; value=&quot;submit&quot; onclick=&quot;test()&quot;&gt;
+</code></pre>
 <p>如果在输入框中填写<code>&#39;&gt;&lt;img src=# onerror=alert(&#39;xss&#39;) /&gt;&lt;&#39;</code>，点击按钮提交后浏览器会产生XSS弹窗，攻击成功。</p>
 <h4 id="防御措施-1"><a href="#防御措施-1" class="headerlink" title="防御措施"></a>防御措施</h4><ol>
 <li>后端在接收请求数据时，需要做输入检查，过滤特殊符号和标签</li>
@@ -169,9 +189,24 @@
 <li>设置HttpOnlly防止cookie劫持</li>
 </ol>
 <h3 id="CSRF攻击"><a href="#CSRF攻击" class="headerlink" title="CSRF攻击"></a>CSRF攻击</h3><h4 id="简介-2"><a href="#简介-2" class="headerlink" title="简介"></a>简介</h4><p>CSRF（Cross Site Request Forgery），中文是跨站点请求伪造。CSRF攻击者在用户已经登录目标网站之后，诱使用户访问一个攻击页面，利用目标网站对用户的信任，以用户身份在攻击页面对目标网站发起伪造用户操作的请求，达到攻击目的。</p>
-<h4 id="攻击实例-1"><a href="#攻击实例-1" class="headerlink" title="攻击实例"></a>攻击实例</h4><figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="comment">// submit.php 通过get请求获取数据</span></span><br><span class="line"><span class="variable">$username</span> = <span class="variable">$_COOKIE</span>[<span class="string">&#x27;username&#x27;</span>];</span><br><span class="line"><span class="variable">$productId</span> = <span class="variable">$_GET</span>[<span class="string">&#x27;pid&#x27;</span>];</span><br><span class="line"><span class="comment">// 这里进行购买操作</span></span><br><span class="line"><span class="title function_ invoke__">store_into_database</span>(<span class="variable">$username</span>, <span class="variable">$productId</span>);</span><br><span class="line"><span class="keyword">echo</span> <span class="variable">$username</span> . <span class="string">&#x27;买入商品：&#x27;</span> . <span class="variable">$productId</span>;</span><br></pre></td></tr></table></figure>
+<h4 id="攻击实例-1"><a href="#攻击实例-1" class="headerlink" title="攻击实例"></a>攻击实例</h4><pre><code class="php">// submit.php 通过get请求获取数据
+$username = $_COOKIE[&#39;username&#39;];
+$productId = $_GET[&#39;pid&#39;];
+// 这里进行购买操作
+store_into_database($username, $productId);
+echo $username . &#39;买入商品：&#39; . $productId;
+</code></pre>
 <p>黑客攻击页面</p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCYTPE <span class="keyword">HTML</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;utf-8&quot;</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;http://localhost:8080/csrf/submit.php?pid=1&quot;</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<pre><code class="html">&lt;!DOCYTPE HTML&gt;
+&lt;html&gt;
+    &lt;head&gt;
+        &lt;meta charset=&quot;utf-8&quot; /&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;img src=&quot;http://localhost:8080/csrf/submit.php?pid=1&quot; /&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
 <p>当你正常浏览网页的时候会生成认证信息，此时黑客诱使你点击攻击页面，该页面会利用你当前的认证信息，从而对数据进行操作</p>
 <h4 id="防御措施-2"><a href="#防御措施-2" class="headerlink" title="防御措施"></a>防御措施</h4><h5 id="1-合理使用POST和GET"><a href="#1-合理使用POST和GET" class="headerlink" title="1.合理使用POST和GET"></a>1.合理使用POST和GET</h5><p>GET方法提交数据很容易被拿来做CSRF攻击，使用POST只能降低攻击风险，并不能杜绝，攻击者在第三方页面构造一个form就可以用POST提交数据构成CSRF攻击。</p>
 <h5 id="2-使用验证码"><a href="#2-使用验证码" class="headerlink" title="2.使用验证码"></a>2.使用验证码</h5><p>在通常情况下，验证码能很好遏制CSRF攻击。但是出于用户体验考虑，网站不能给所有的操作都加上验证码。因此验证码只能作为一种辅助手段，不能作为主要解决方案。</p>
@@ -192,8 +227,8 @@
       <blockquote id="copyright">
         <p>
           原文链接:
-          <a href="https://jesse121.github.io/blog/blog/articles/2017/05/23.html"
-            >https://jesse121.github.io/blog/blog/articles/2017/05/23.html</a
+          <a href="https://jesse121.github.io/blog/articles/2017/05/23.html"
+            >https://jesse121.github.io/blog/articles/2017/05/23.html</a
           >
         </p>
         <p>版权声明: 转载请注明出处.</p>
@@ -214,7 +249,7 @@
 <nav id="article-nav">
   
     <a href="/blog/articles/2017/05/20.html" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">older</strong>
+      <strong class="article-nav-caption">下一篇</strong>
       <div class="article-nav-title">
         
           CSS页面布局常见问题总结
@@ -224,7 +259,7 @@
   
   
     <a href="/blog/articles/2017/05/28.html" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">newer</strong>
+      <strong class="article-nav-caption">上一篇</strong>
       <div class="article-nav-title">
         
           《高性能网站建设指南》--读书笔记
@@ -390,37 +425,26 @@
     </div>
   </div>
   
-<script src="/blog/js/jquery-3.4.1.min.js"></script>
+<script src="https://unpkg.com/@highlightjs/cdn-assets@11.6.0/highlight.min.js"></script>
 
+<script>
+  hljs.highlightAll();
+</script>
 
+<script src="https://unpkg.com/jquery@3.4.1/dist/jquery.min.js"></script>
+ 
 <script src="/blog/js/search.json.js"></script>
-
-
   
-<script src="/blog/fancybox/jquery.fancybox.min.js"></script>
+<script src="https://unpkg.com/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
 
-
-
-
+ 
 <script src="/blog/js/script.js"></script>
-
-
-
-
-
-
-  
+ 
+   
 <script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-
-
-
-
-  
-  
-
-
-  
-<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+ 
+      
+<script src="https://unpkg.com/gitalk@1.7.2/dist/gitalk.min.js"></script>
  
 <script src="//cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.js"></script>
 
@@ -432,7 +456,7 @@
     owner: "jesse121",
     admin: ["jesse121"],
     id: md5(window.location.pathname),
-    proxy: "https://gitalk.jesse121.workers.dev/?https://github.com/login/oauth/access_token",
+    proxy: "https://stormy-gorge-51623.herokuapp.com/https://github.com/login/oauth/access_token",
     distractionFreeMode: false,
     language: "zh-CN",
     pagerDirection: "last",
@@ -440,8 +464,7 @@
   gitalk.render("comments");
 </script>
          
-
-
+ 
 
 </body>
 </html>

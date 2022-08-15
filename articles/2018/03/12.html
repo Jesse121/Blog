@@ -1,42 +1,28 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8">
-  
-  
+  <meta charset="utf-8" />
+   
   <title>CSS3创建圆圈进度条 | 前端之路</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, shrink-to-fit=no"
+  />
   
-    <meta name="description" content="专注前端开发，前端开发技术博客">
-  
-  
-    <meta name="keywords" content="Web前端开发，Javascript，前端开发博客">
-  
-  
-    <link rel="alternate" href="/blog/atom.xml" title="前端之路" type="application/atom+xml">
-  
-  
-    <link rel="shortcut icon" href="/blog/favicon.ico">
-  
-  
-    
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
-
-  
-  
+  <meta name="description" content="专注前端开发，前端开发技术博客" />
+   
+  <meta name="keywords" content="Web前端开发，Javascript，前端开发博客" />
+    <link rel="alternate" href="/blog/atom.xml" title="前端之路" type="application/atom+xml">   <link rel="shortcut icon" href="/blog/favicon.ico"> 
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/@highlightjs/cdn-assets@11.6.0/styles/xt256.min.css"
+  />
+   
 <link rel="stylesheet" href="/blog/css/style.css">
-
   
+<link rel="stylesheet" href="https://unpkg.com/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
     
-<link rel="stylesheet" href="/blog/fancybox/jquery.fancybox.min.css">
-
-  
-  
-  
-    
-<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
-
-  
+<link rel="stylesheet" href="https://unpkg.com/gitalk@1.7.2/dist/gitalk.css">
   
 <meta name="generator" content="Hexo 6.2.0"></head>
 
@@ -197,9 +183,77 @@
 </style>
 
 <p>此时当我们再旋转的时候发现，圆环可以实现一点一点的消失了，但是当转过一个180度的时候这个半圆右出现了，此时我们可以用到前面的overflow:hidden;<br>CSS代码如下  </p>
-<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.circleProgress_wrapper</span>&#123;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">160px</span>;</span><br><span class="line">    <span class="attribute">height</span>: <span class="number">160px</span>;</span><br><span class="line">    <span class="attribute">margin</span>: <span class="number">10px</span> auto;</span><br><span class="line">    <span class="attribute">position</span>: relative;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.wrapper</span>&#123;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">80px</span>;</span><br><span class="line">    <span class="attribute">height</span>: <span class="number">160px</span>;</span><br><span class="line">    <span class="attribute">position</span>: absolute;</span><br><span class="line">    <span class="attribute">top</span>:<span class="number">0</span>;</span><br><span class="line">    <span class="attribute">overflow</span>: hidden;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.right</span>&#123;</span><br><span class="line">    <span class="attribute">right</span>:<span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.left</span>&#123;</span><br><span class="line">    <span class="attribute">left</span>:<span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.circleProgress</span>&#123;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">160px</span>;</span><br><span class="line">    <span class="attribute">height</span>: <span class="number">160px</span>;</span><br><span class="line">    <span class="attribute">border</span>:<span class="number">20px</span> solid transparent;</span><br><span class="line">    <span class="attribute">border-radius</span>: <span class="number">50%</span>;</span><br><span class="line">    <span class="attribute">position</span>: absolute;</span><br><span class="line">    <span class="attribute">top</span>:<span class="number">0</span>;</span><br><span class="line">    <span class="comment">/*transform: rotate(45deg);*/</span></span><br><span class="line">&#125;</span><br><span class="line"> <span class="selector-class">.rightcircle</span>&#123;</span><br><span class="line">    <span class="attribute">border-top</span>:<span class="number">20px</span> solid red;</span><br><span class="line">    <span class="attribute">border-right</span>:<span class="number">20px</span> solid red;</span><br><span class="line">    <span class="attribute">right</span>:<span class="number">0</span>;</span><br><span class="line">    <span class="attribute">animation</span>: circleProgressLoad_right <span class="number">6s</span> linear infinite;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.leftcircle</span>&#123;</span><br><span class="line">    <span class="attribute">border-bottom</span>:<span class="number">20px</span> solid red;</span><br><span class="line">    <span class="attribute">border-left</span>:<span class="number">20px</span> solid red;</span><br><span class="line">    <span class="attribute">left</span>:<span class="number">0</span>;</span><br><span class="line">    <span class="attribute">animation</span>: circleProgressLoad_left <span class="number">6s</span> linear infinite;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="css">.circleProgress_wrapper&#123;
+    width: 160px;
+    height: 160px;
+    margin: 10px auto;
+    position: relative;
+&#125;
+.wrapper&#123;
+    width: 80px;
+    height: 160px;
+    position: absolute;
+    top:0;
+    overflow: hidden;
+&#125;
+.right&#123;
+    right:0;
+&#125;
+.left&#123;
+    left:0;
+&#125;
+.circleProgress&#123;
+    width: 160px;
+    height: 160px;
+    border:20px solid transparent;
+    border-radius: 50%;
+    position: absolute;
+    top:0;
+    /*transform: rotate(45deg);*/
+&#125;
+ .rightcircle&#123;
+    border-top:20px solid red;
+    border-right:20px solid red;
+    right:0;
+    animation: circleProgressLoad_right 6s linear infinite;
+&#125;
+.leftcircle&#123;
+    border-bottom:20px solid red;
+    border-left:20px solid red;
+    left:0;
+    animation: circleProgressLoad_left 6s linear infinite;
+&#125;
+</code></pre>
 <p>接下来用css3写个旋转动画即可</p>
-<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"> <span class="selector-class">.rightcircle</span>&#123;</span><br><span class="line">    <span class="attribute">border-top</span>:<span class="number">20px</span> solid red;</span><br><span class="line">    <span class="attribute">border-right</span>:<span class="number">20px</span> solid red;</span><br><span class="line">    <span class="attribute">right</span>:<span class="number">0</span>;</span><br><span class="line">    <span class="attribute">animation</span>: circleProgressLoad_right <span class="number">6s</span> linear infinite;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.leftcircle</span>&#123;</span><br><span class="line">    <span class="attribute">border-bottom</span>:<span class="number">20px</span> solid red;</span><br><span class="line">    <span class="attribute">border-left</span>:<span class="number">20px</span> solid red;</span><br><span class="line">    <span class="attribute">left</span>:<span class="number">0</span>;</span><br><span class="line">    <span class="attribute">animation</span>: circleProgressLoad_left <span class="number">6s</span> linear infinite;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">@keyframes</span> circleProgressLoad_right&#123;</span><br><span class="line">    <span class="number">0%</span>&#123;</span><br><span class="line">        <span class="attribute">transform</span>: <span class="built_in">rotate</span>(<span class="number">45deg</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="number">50%</span>,<span class="number">100%</span>&#123;</span><br><span class="line">        <span class="attribute">transform</span>: <span class="built_in">rotate</span>(<span class="number">225deg</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">@keyframes</span> circleProgressLoad_left&#123;</span><br><span class="line">    <span class="number">0%</span>,<span class="number">50%</span>&#123;</span><br><span class="line">        <span class="attribute">transform</span>: <span class="built_in">rotate</span>(<span class="number">45deg</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="number">100%</span>&#123;</span><br><span class="line">        <span class="attribute">transform</span>: <span class="built_in">rotate</span>(<span class="number">225deg</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="css"> .rightcircle&#123;
+    border-top:20px solid red;
+    border-right:20px solid red;
+    right:0;
+    animation: circleProgressLoad_right 6s linear infinite;
+&#125;
+.leftcircle&#123;
+    border-bottom:20px solid red;
+    border-left:20px solid red;
+    left:0;
+    animation: circleProgressLoad_left 6s linear infinite;
+&#125;
+@keyframes circleProgressLoad_right&#123;
+    0%&#123;
+        transform: rotate(45deg);
+    &#125;
+    50%,100%&#123;
+        transform: rotate(225deg);
+    &#125;
+&#125;
+@keyframes circleProgressLoad_left&#123;
+    0%,50%&#123;
+        transform: rotate(45deg);
+    &#125;
+    100%&#123;
+        transform: rotate(225deg);
+    &#125;
+&#125;
+</code></pre>
 <p><a href="../../../demo/css3-circle-progress.html">点击查看完整的demo</a><br>目前这里的倒计时动画是动画时间是6s，这里可以根据需要自行修改，这里的运行时间我在项目中是用js控制的，这样可以根据后台下发的时间值来倒计时，非常方便。</p>
  
       <div id="toc-article">
@@ -215,8 +269,8 @@
       <blockquote id="copyright">
         <p>
           原文链接:
-          <a href="https://jesse121.github.io/blog/blog/articles/2018/03/12.html"
-            >https://jesse121.github.io/blog/blog/articles/2018/03/12.html</a
+          <a href="https://jesse121.github.io/blog/articles/2018/03/12.html"
+            >https://jesse121.github.io/blog/articles/2018/03/12.html</a
           >
         </p>
         <p>版权声明: 转载请注明出处.</p>
@@ -237,7 +291,7 @@
 <nav id="article-nav">
   
     <a href="/blog/articles/2018/03/10.html" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">older</strong>
+      <strong class="article-nav-caption">下一篇</strong>
       <div class="article-nav-title">
         
           《ECMAScript6标准入门》第三版--读书笔记
@@ -247,7 +301,7 @@
   
   
     <a href="/blog/articles/2018/04/11.html" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">newer</strong>
+      <strong class="article-nav-caption">上一篇</strong>
       <div class="article-nav-title">
         
           工作中遇到的细节问题总结(一)
@@ -413,37 +467,26 @@
     </div>
   </div>
   
-<script src="/blog/js/jquery-3.4.1.min.js"></script>
+<script src="https://unpkg.com/@highlightjs/cdn-assets@11.6.0/highlight.min.js"></script>
 
+<script>
+  hljs.highlightAll();
+</script>
 
+<script src="https://unpkg.com/jquery@3.4.1/dist/jquery.min.js"></script>
+ 
 <script src="/blog/js/search.json.js"></script>
-
-
   
-<script src="/blog/fancybox/jquery.fancybox.min.js"></script>
+<script src="https://unpkg.com/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
 
-
-
-
+ 
 <script src="/blog/js/script.js"></script>
-
-
-
-
-
-
-  
+ 
+   
 <script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-
-
-
-
-  
-  
-
-
-  
-<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+ 
+      
+<script src="https://unpkg.com/gitalk@1.7.2/dist/gitalk.min.js"></script>
  
 <script src="//cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.js"></script>
 
@@ -455,7 +498,7 @@
     owner: "jesse121",
     admin: ["jesse121"],
     id: md5(window.location.pathname),
-    proxy: "https://gitalk.jesse121.workers.dev/?https://github.com/login/oauth/access_token",
+    proxy: "https://stormy-gorge-51623.herokuapp.com/https://github.com/login/oauth/access_token",
     distractionFreeMode: false,
     language: "zh-CN",
     pagerDirection: "last",
@@ -463,8 +506,7 @@
   gitalk.render("comments");
 </script>
          
-
-
+ 
 
 </body>
 </html>

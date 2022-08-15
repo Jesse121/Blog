@@ -1,42 +1,28 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8">
-  
-  
+  <meta charset="utf-8" />
+   
   <title>搭建自己的Webpack前端构建工具 | 前端之路</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, shrink-to-fit=no"
+  />
   
-    <meta name="description" content="专注前端开发，前端开发技术博客">
-  
-  
-    <meta name="keywords" content="Web前端开发，Javascript，前端开发博客">
-  
-  
-    <link rel="alternate" href="/blog/atom.xml" title="前端之路" type="application/atom+xml">
-  
-  
-    <link rel="shortcut icon" href="/blog/favicon.ico">
-  
-  
-    
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
-
-  
-  
+  <meta name="description" content="专注前端开发，前端开发技术博客" />
+   
+  <meta name="keywords" content="Web前端开发，Javascript，前端开发博客" />
+    <link rel="alternate" href="/blog/atom.xml" title="前端之路" type="application/atom+xml">   <link rel="shortcut icon" href="/blog/favicon.ico"> 
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/@highlightjs/cdn-assets@11.6.0/styles/xt256.min.css"
+  />
+   
 <link rel="stylesheet" href="/blog/css/style.css">
-
   
+<link rel="stylesheet" href="https://unpkg.com/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
     
-<link rel="stylesheet" href="/blog/fancybox/jquery.fancybox.min.css">
-
-  
-  
-  
-    
-<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
-
-  
+<link rel="stylesheet" href="https://unpkg.com/gitalk@1.7.2/dist/gitalk.css">
   
 <meta name="generator" content="Hexo 6.2.0"></head>
 
@@ -150,21 +136,153 @@
 <li>开发过程中开启静态服务器并启动热更新，实时调试</li>
 </ol>
 <h3 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h3><h4 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h4><p>默认已安装node<br>新建项目文件夹及package.json文件</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">mkdir webpack</span><br><span class="line">cd webpack</span><br><span class="line">npm init</span><br></pre></td></tr></table></figure>
+<pre><code class="js">mkdir webpack
+cd webpack
+npm init
+</code></pre>
 <p>一路回车，按需填写即可。</p>
 <h4 id="全局安装"><a href="#全局安装" class="headerlink" title="全局安装"></a>全局安装</h4><p>这里为了构建多项目并行开发需要全局安装webpack和webpack-dev-server</p>
-<figure class="highlight apache"><table><tr><td class="code"><pre><span class="line"><span class="attribute">npm</span> i -g webpack@<span class="number">2</span>.<span class="number">2</span>.<span class="number">1</span> webpack-dev-server@<span class="number">2</span>.<span class="number">5</span>.<span class="number">0</span> </span><br></pre></td></tr></table></figure>
+<pre><code>npm i -g webpack@2.2.1 webpack-dev-server@2.5.0 
+</code></pre>
 <h4 id="安装依赖包"><a href="#安装依赖包" class="headerlink" title="安装依赖包"></a>安装依赖包</h4><p>这里都指定了安装版本，在配置的时候就不会因为依赖包的升级而导致不能用</p>
-<figure class="highlight apache"><table><tr><td class="code"><pre><span class="line"><span class="attribute">npm</span> i --save-dev </span><br><span class="line">    <span class="attribute">autoprefixer</span>@<span class="number">7</span>.<span class="number">1</span>.<span class="number">1</span></span><br><span class="line">    <span class="attribute">babel</span>-core@<span class="number">6</span>.<span class="number">25</span>.<span class="number">0</span></span><br><span class="line">    <span class="attribute">babel</span>-loader@<span class="number">7</span>.<span class="number">1</span>.<span class="number">0</span></span><br><span class="line">    <span class="attribute">babel</span>-preset-env@<span class="number">1</span>.<span class="number">5</span>.<span class="number">2</span></span><br><span class="line">    <span class="attribute">css</span>-loader@<span class="number">0</span>.<span class="number">28</span>.<span class="number">4</span></span><br><span class="line">    <span class="attribute">extract</span>-text-webpack-plugin@<span class="number">2</span>.<span class="number">1</span>.<span class="number">2</span></span><br><span class="line">    <span class="attribute">file</span>-loader@<span class="number">0</span>.<span class="number">11</span>.<span class="number">2</span></span><br><span class="line">    <span class="attribute">html</span>-webpack-plugin@<span class="number">2</span>.<span class="number">29</span>.<span class="number">0</span></span><br><span class="line">    <span class="attribute">node</span>-sass@<span class="number">4</span>.<span class="number">5</span>.<span class="number">3</span></span><br><span class="line">    <span class="attribute">postcss</span>-loader@<span class="number">2</span>.<span class="number">0</span>.<span class="number">6</span></span><br><span class="line">    <span class="attribute">style</span>-loader@<span class="number">0</span>.<span class="number">18</span>.<span class="number">2</span></span><br><span class="line">    <span class="attribute">webpack</span>@<span class="number">2</span>.<span class="number">2</span>.<span class="number">1</span></span><br><span class="line">    <span class="attribute">webpack</span>-dev-server@<span class="number">2</span>.<span class="number">5</span>.<span class="number">0</span></span><br></pre></td></tr></table></figure>
-
+<pre><code>npm i --save-dev 
+    autoprefixer@7.1.1
+    babel-core@6.25.0
+    babel-loader@7.1.0
+    babel-preset-env@1.5.2
+    css-loader@0.28.4
+    extract-text-webpack-plugin@2.1.2
+    file-loader@0.11.2
+    html-webpack-plugin@2.29.0
+    node-sass@4.5.3
+    postcss-loader@2.0.6
+    style-loader@0.18.2
+    webpack@2.2.1
+    webpack-dev-server@2.5.0
+</code></pre>
 <h4 id="新建配置文件"><a href="#新建配置文件" class="headerlink" title="新建配置文件"></a>新建配置文件</h4><p>新建项目文件夹及webpack.config.js文件</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">mkdir</span> Demo</span><br><span class="line"><span class="built_in">cd</span> Demo</span><br></pre></td></tr></table></figure>
+<pre><code>mkdir Demo
+cd Demo
+</code></pre>
+<h4 id="webpack-config-js"><a href="#webpack-config-js" class="headerlink" title="webpack.config.js"></a>webpack.config.js</h4><pre><code class="js">const path = require(&quot;path&quot;);
+const webpack = require(&#39;webpack&#39;);
+//html模板插件 详见https://www.npmjs.com/package/html-webpack-plugin
+const htmlWebpackPlugin = require(&#39;html-webpack-plugin&#39;);
+//代码分离插件 详见https://www.npmjs.com/package/extract-text-webpack-plugin
+const ExtractTextPlugin = require(&quot;extract-text-webpack-plugin&quot;);
 
-<h4 id="webpack-config-js"><a href="#webpack-config-js" class="headerlink" title="webpack.config.js"></a>webpack.config.js</h4><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">&quot;path&quot;</span>);</span><br><span class="line"><span class="keyword">const</span> webpack = <span class="built_in">require</span>(<span class="string">&#x27;webpack&#x27;</span>);</span><br><span class="line"><span class="comment">//html模板插件 详见https://www.npmjs.com/package/html-webpack-plugin</span></span><br><span class="line"><span class="keyword">const</span> htmlWebpackPlugin = <span class="built_in">require</span>(<span class="string">&#x27;html-webpack-plugin&#x27;</span>);</span><br><span class="line"><span class="comment">//代码分离插件 详见https://www.npmjs.com/package/extract-text-webpack-plugin</span></span><br><span class="line"><span class="keyword">const</span> <span class="title class_">ExtractTextPlugin</span> = <span class="built_in">require</span>(<span class="string">&quot;extract-text-webpack-plugin&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span> = &#123;</span><br><span class="line">  <span class="comment">//错误定位</span></span><br><span class="line">  <span class="attr">devtool</span>: <span class="string">&#x27;#cheap-eval-source-map&#x27;</span>,</span><br><span class="line">  <span class="comment">//程序入口文件  其他详细配置参见http://webpack.github.io/docs/configuration.html#entry</span></span><br><span class="line">  <span class="attr">entry</span>: __dirname + <span class="string">&#x27;/src/js/main.js&#x27;</span>,</span><br><span class="line">  <span class="comment">//程序出口文件  其他详细配置参见http://webpack.github.io/docs/configuration.html#output</span></span><br><span class="line">  <span class="attr">output</span>: &#123;</span><br><span class="line">    <span class="attr">path</span>: path.<span class="title function_">join</span>(__dirname, <span class="string">&quot;dist&quot;</span>),</span><br><span class="line">    <span class="attr">filename</span>: <span class="string">&#x27;js/bundle-[hash:5].js&#x27;</span>,</span><br><span class="line">    <span class="comment">// 用户添加CDN</span></span><br><span class="line">    <span class="comment">// publicPath:&#x27;http://cdn.com/&#x27;</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="comment">// webpack-dev-server配置 详见https://webpack.js.org/configuration/dev-server/</span></span><br><span class="line">  <span class="attr">devServer</span>: &#123;</span><br><span class="line">    <span class="comment">//设置服务器主文件夹，默认情况下，从项目的根目录提供文件</span></span><br><span class="line">    <span class="attr">contentBase</span>: path.<span class="title function_">join</span>(__dirname, <span class="string">&quot;dist&quot;</span>),</span><br><span class="line">    <span class="comment">//使用inlilne模式</span></span><br><span class="line">    <span class="attr">inline</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="comment">//当编译错误的时候，网页上显示错误信息</span></span><br><span class="line">    <span class="attr">overlay</span>: &#123;</span><br><span class="line">      <span class="attr">warnings</span>: <span class="literal">true</span>,</span><br><span class="line">      <span class="attr">errors</span>: <span class="literal">true</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="comment">//设置域名，默认是localhost</span></span><br><span class="line">    <span class="comment">// host: &quot;10.74.138.249&quot;,</span></span><br><span class="line">    <span class="comment">// port: 3000</span></span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  <span class="attr">module</span>: &#123;</span><br><span class="line">    <span class="attr">rules</span>: [&#123;</span><br><span class="line">      <span class="attr">test</span>: <span class="regexp">/\.(js|jsx)$/</span>,</span><br><span class="line">      <span class="attr">include</span>: [</span><br><span class="line">        path.<span class="title function_">join</span>(__dirname, <span class="string">&quot;src&quot;</span>)</span><br><span class="line">      ],</span><br><span class="line">      <span class="attr">loader</span>: <span class="string">&#x27;babel-loader&#x27;</span>,</span><br><span class="line">      <span class="attr">query</span>: &#123;</span><br><span class="line">        <span class="attr">presets</span>: [<span class="string">&#x27;env&#x27;</span>]</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;, &#123;</span><br><span class="line">      <span class="attr">test</span>: <span class="regexp">/\.css$/</span>,</span><br><span class="line">      <span class="attr">use</span>: <span class="title class_">ExtractTextPlugin</span>.<span class="title function_">extract</span>(&#123;</span><br><span class="line">        <span class="attr">fallback</span>: <span class="string">&#x27;style-loader&#x27;</span>,</span><br><span class="line">        <span class="attr">use</span>: [</span><br><span class="line">          &#123;</span><br><span class="line">            <span class="attr">loader</span>: <span class="string">&#x27;css-loader&#x27;</span>,</span><br><span class="line">            <span class="attr">options</span>: &#123;</span><br><span class="line">              <span class="attr">minimize</span>: <span class="literal">true</span> <span class="comment">//css压缩</span></span><br><span class="line">            &#125;</span><br><span class="line">          &#125;, &#123;</span><br><span class="line">            <span class="attr">loader</span>: <span class="string">&#x27;postcss-loader&#x27;</span>,</span><br><span class="line">            <span class="attr">options</span>: &#123;</span><br><span class="line">              <span class="attr">plugins</span>: <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">                <span class="keyword">return</span> [<span class="built_in">require</span>(<span class="string">&#x27;autoprefixer&#x27;</span>)]</span><br><span class="line">              &#125;</span><br><span class="line">            &#125;</span><br><span class="line">          &#125;</span><br><span class="line">        ]</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;, &#123;</span><br><span class="line">      <span class="attr">test</span>: <span class="regexp">/\.scss$/</span>,</span><br><span class="line">      <span class="attr">use</span>: [<span class="string">&#x27;style-loader&#x27;</span>, <span class="string">&#x27;css-loader&#x27;</span>, <span class="string">&#x27;sass-loader&#x27;</span>]</span><br><span class="line">    &#125;, &#123;</span><br><span class="line">      <span class="attr">test</span>: <span class="regexp">/\.(png|jpe?g|gif)$/i</span>,</span><br><span class="line">      <span class="attr">use</span>: [&#123;</span><br><span class="line">        <span class="attr">loader</span>: <span class="string">&#x27;file-loader&#x27;</span>,</span><br><span class="line">        <span class="attr">query</span>: &#123;</span><br><span class="line">          <span class="attr">limit</span>: <span class="number">10000</span>,</span><br><span class="line">          <span class="attr">name</span>: <span class="string">&#x27;./img/[name]-[hash:5].[ext]&#x27;</span></span><br><span class="line">        &#125;</span><br><span class="line">      &#125;]</span><br><span class="line">    &#125;]</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">plugins</span>: [</span><br><span class="line">    <span class="keyword">new</span> webpack.<span class="property">optimize</span>.<span class="title class_">UglifyJsPlugin</span>(&#123;</span><br><span class="line">      <span class="attr">compress</span>: &#123;</span><br><span class="line">        <span class="attr">warnings</span>: <span class="literal">false</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;),</span><br><span class="line">    <span class="comment">// webpack.optimize.CommonsChunkPlugin(),</span></span><br><span class="line">    <span class="keyword">new</span> <span class="title function_">htmlWebpackPlugin</span>(&#123;</span><br><span class="line">      <span class="attr">template</span>: <span class="string">&#x27;src/index.html&#x27;</span>,</span><br><span class="line">      <span class="attr">inject</span>: <span class="string">&#x27;body&#x27;</span>,</span><br><span class="line">      <span class="attr">minify</span>: &#123;</span><br><span class="line">        <span class="attr">removeComments</span>: <span class="literal">true</span>,</span><br><span class="line">        <span class="attr">collapseWhitespace</span>: <span class="literal">true</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;),</span><br><span class="line">    <span class="keyword">new</span> <span class="title class_">ExtractTextPlugin</span>(<span class="string">&#x27;css/common.css&#x27;</span>)</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="目录结构"><a href="#目录结构" class="headerlink" title="目录结构"></a>目录结构</h4><figure class="highlight gherkin"><table><tr><td class="code"><pre><span class="line">|<span class="string">--Demo</span></span><br><span class="line"><span class="string"></span>|<span class="string">  </span>|<span class="string">--dist/</span></span><br><span class="line"><span class="string"></span>|<span class="string">  </span>|<span class="string">--src</span></span><br><span class="line"><span class="string"></span>|<span class="string">     </span>|<span class="string">--css/</span></span><br><span class="line"><span class="string"></span>|<span class="string">     </span>|<span class="string">--js/</span></span><br><span class="line"><span class="string"></span>|<span class="string">     </span>|<span class="string">--index.html</span></span><br><span class="line"><span class="string"></span>|<span class="string">  </span>|<span class="string">--webpack.config.js</span></span><br><span class="line"><span class="string"></span>|<span class="string">--React-app/  //react项目暂不做介绍</span></span><br><span class="line"><span class="string"></span>|<span class="string">--package.json</span></span><br></pre></td></tr></table></figure>
+module.exports = &#123;
+  //错误定位
+  devtool: &#39;#cheap-eval-source-map&#39;,
+  //程序入口文件  其他详细配置参见http://webpack.github.io/docs/configuration.html#entry
+  entry: __dirname + &#39;/src/js/main.js&#39;,
+  //程序出口文件  其他详细配置参见http://webpack.github.io/docs/configuration.html#output
+  output: &#123;
+    path: path.join(__dirname, &quot;dist&quot;),
+    filename: &#39;js/bundle-[hash:5].js&#39;,
+    // 用户添加CDN
+    // publicPath:&#39;http://cdn.com/&#39;
+  &#125;,
+  // webpack-dev-server配置 详见https://webpack.js.org/configuration/dev-server/
+  devServer: &#123;
+    //设置服务器主文件夹，默认情况下，从项目的根目录提供文件
+    contentBase: path.join(__dirname, &quot;dist&quot;),
+    //使用inlilne模式
+    inline: true,
+    //当编译错误的时候，网页上显示错误信息
+    overlay: &#123;
+      warnings: true,
+      errors: true
+    &#125;,
+    //设置域名，默认是localhost
+    // host: &quot;10.74.138.249&quot;,
+    // port: 3000
+  &#125;,
+
+  module: &#123;
+    rules: [&#123;
+      test: /\.(js|jsx)$/,
+      include: [
+        path.join(__dirname, &quot;src&quot;)
+      ],
+      loader: &#39;babel-loader&#39;,
+      query: &#123;
+        presets: [&#39;env&#39;]
+      &#125;
+    &#125;, &#123;
+      test: /\.css$/,
+      use: ExtractTextPlugin.extract(&#123;
+        fallback: &#39;style-loader&#39;,
+        use: [
+          &#123;
+            loader: &#39;css-loader&#39;,
+            options: &#123;
+              minimize: true //css压缩
+            &#125;
+          &#125;, &#123;
+            loader: &#39;postcss-loader&#39;,
+            options: &#123;
+              plugins: function () &#123;
+                return [require(&#39;autoprefixer&#39;)]
+              &#125;
+            &#125;
+          &#125;
+        ]
+      &#125;)
+    &#125;, &#123;
+      test: /\.scss$/,
+      use: [&#39;style-loader&#39;, &#39;css-loader&#39;, &#39;sass-loader&#39;]
+    &#125;, &#123;
+      test: /\.(png|jpe?g|gif)$/i,
+      use: [&#123;
+        loader: &#39;file-loader&#39;,
+        query: &#123;
+          limit: 10000,
+          name: &#39;./img/[name]-[hash:5].[ext]&#39;
+        &#125;
+      &#125;]
+    &#125;]
+  &#125;,
+  plugins: [
+    new webpack.optimize.UglifyJsPlugin(&#123;
+      compress: &#123;
+        warnings: false
+      &#125;
+    &#125;),
+    // webpack.optimize.CommonsChunkPlugin(),
+    new htmlWebpackPlugin(&#123;
+      template: &#39;src/index.html&#39;,
+      inject: &#39;body&#39;,
+      minify: &#123;
+        removeComments: true,
+        collapseWhitespace: true
+      &#125;
+    &#125;),
+    new ExtractTextPlugin(&#39;css/common.css&#39;)
+  ]
+&#125;
+</code></pre>
+<h4 id="目录结构"><a href="#目录结构" class="headerlink" title="目录结构"></a>目录结构</h4><pre><code>|--Demo
+|  |--dist/
+|  |--src
+|     |--css/
+|     |--js/
+|     |--index.html
+|  |--webpack.config.js
+|--React-app/  //react项目暂不做介绍
+|--package.json
+</code></pre>
 <h3 id="如何使用"><a href="#如何使用" class="headerlink" title="如何使用"></a>如何使用</h3><p>以上这些内容只是对webpack脚手架工具的构建过程的基本介绍，当然如果你想使用的话也可以直接下载使用</p>
-<figure class="highlight stylus"><table><tr><td class="code"><pre><span class="line"><span class="comment">//下载webpack脚手架工具</span></span><br><span class="line">git clone git@github<span class="selector-class">.com</span>:Jess121/Webpack<span class="selector-class">.git</span></span><br><span class="line"><span class="comment">//安装依赖 在此之前需要全局安转webpack和webpack-dev-server</span></span><br><span class="line">npm <span class="selector-tag">i</span> -g webpack@<span class="number">2.2</span>.<span class="number">1</span> webpack-dev-server@<span class="number">2.5</span>.<span class="number">0</span> </span><br><span class="line">npm install</span><br><span class="line"><span class="comment">//启动项目，输入以下命令会自动打浏览器并访问localhost:8080(而配置中未修改host和port)</span></span><br><span class="line">webpack-dev-server <span class="attr">--open</span></span><br><span class="line"><span class="comment">//打包项目，并展示打包进度</span></span><br><span class="line">webpack <span class="attr">--progress</span></span><br></pre></td></tr></table></figure>
-
+<pre><code>//下载webpack脚手架工具
+git clone git@github.com:Jess121/Webpack.git
+//安装依赖 在此之前需要全局安转webpack和webpack-dev-server
+npm i -g webpack@2.2.1 webpack-dev-server@2.5.0 
+npm install
+//启动项目，输入以下命令会自动打浏览器并访问localhost:8080(而配置中未修改host和port)
+webpack-dev-server --open
+//打包项目，并展示打包进度
+webpack --progress
+</code></pre>
 <p><strong>PS:</strong> 以上展示的是脚手架工具的基本功能，其他功能结合项目需要后期在做补充</p>
  
       <div id="toc-article">
@@ -180,8 +298,8 @@
       <blockquote id="copyright">
         <p>
           原文链接:
-          <a href="https://jesse121.github.io/blog/blog/articles/2017/06/20.html"
-            >https://jesse121.github.io/blog/blog/articles/2017/06/20.html</a
+          <a href="https://jesse121.github.io/blog/articles/2017/06/20.html"
+            >https://jesse121.github.io/blog/articles/2017/06/20.html</a
           >
         </p>
         <p>版权声明: 转载请注明出处.</p>
@@ -202,7 +320,7 @@
 <nav id="article-nav">
   
     <a href="/blog/articles/2017/06/05.html" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">older</strong>
+      <strong class="article-nav-caption">下一篇</strong>
       <div class="article-nav-title">
         
           《高性能网站建设进阶指南》--读书笔记
@@ -212,7 +330,7 @@
   
   
     <a href="/blog/articles/2017/07/08.html" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">newer</strong>
+      <strong class="article-nav-caption">上一篇</strong>
       <div class="article-nav-title">
         
           对JavaScript中this的理解
@@ -378,37 +496,26 @@
     </div>
   </div>
   
-<script src="/blog/js/jquery-3.4.1.min.js"></script>
+<script src="https://unpkg.com/@highlightjs/cdn-assets@11.6.0/highlight.min.js"></script>
 
+<script>
+  hljs.highlightAll();
+</script>
 
+<script src="https://unpkg.com/jquery@3.4.1/dist/jquery.min.js"></script>
+ 
 <script src="/blog/js/search.json.js"></script>
-
-
   
-<script src="/blog/fancybox/jquery.fancybox.min.js"></script>
+<script src="https://unpkg.com/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
 
-
-
-
+ 
 <script src="/blog/js/script.js"></script>
-
-
-
-
-
-
-  
+ 
+   
 <script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-
-
-
-
-  
-  
-
-
-  
-<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+ 
+      
+<script src="https://unpkg.com/gitalk@1.7.2/dist/gitalk.min.js"></script>
  
 <script src="//cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.js"></script>
 
@@ -420,7 +527,7 @@
     owner: "jesse121",
     admin: ["jesse121"],
     id: md5(window.location.pathname),
-    proxy: "https://gitalk.jesse121.workers.dev/?https://github.com/login/oauth/access_token",
+    proxy: "https://stormy-gorge-51623.herokuapp.com/https://github.com/login/oauth/access_token",
     distractionFreeMode: false,
     language: "zh-CN",
     pagerDirection: "last",
@@ -428,8 +535,7 @@
   gitalk.render("comments");
 </script>
          
-
-
+ 
 
 </body>
 </html>

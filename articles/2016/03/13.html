@@ -1,42 +1,28 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8">
-  
-  
+  <meta charset="utf-8" />
+   
   <title>《HTML5程序设计第二版》--读书笔记 | 前端之路</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, shrink-to-fit=no"
+  />
   
-    <meta name="description" content="专注前端开发，前端开发技术博客">
-  
-  
-    <meta name="keywords" content="Web前端开发，Javascript，前端开发博客">
-  
-  
-    <link rel="alternate" href="/blog/atom.xml" title="前端之路" type="application/atom+xml">
-  
-  
-    <link rel="shortcut icon" href="/blog/favicon.ico">
-  
-  
-    
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
-
-  
-  
+  <meta name="description" content="专注前端开发，前端开发技术博客" />
+   
+  <meta name="keywords" content="Web前端开发，Javascript，前端开发博客" />
+    <link rel="alternate" href="/blog/atom.xml" title="前端之路" type="application/atom+xml">   <link rel="shortcut icon" href="/blog/favicon.ico"> 
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/@highlightjs/cdn-assets@11.6.0/styles/xt256.min.css"
+  />
+   
 <link rel="stylesheet" href="/blog/css/style.css">
-
   
+<link rel="stylesheet" href="https://unpkg.com/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
     
-<link rel="stylesheet" href="/blog/fancybox/jquery.fancybox.min.css">
-
-  
-  
-  
-    
-<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
-
-  
+<link rel="stylesheet" href="https://unpkg.com/gitalk@1.7.2/dist/gitalk.css">
   
 <meta name="generator" content="Hexo 6.2.0"></head>
 
@@ -139,7 +125,9 @@
 
     </div>
     <div class="e-content article-entry" itemprop="articleBody">
-       <h3 id="第一章、HTML5概述"><a href="#第一章、HTML5概述" class="headerlink" title="第一章、HTML5概述"></a>第一章、HTML5概述</h3><h4 id="1-6-HTML5的新功能"><a href="#1-6-HTML5的新功能" class="headerlink" title="1.6 HTML5的新功能"></a>1.6 HTML5的新功能</h4><h5 id="1-6-1-新的DOCTYPE和字符集"><a href="#1-6-1-新的DOCTYPE和字符集" class="headerlink" title="1.6.1 新的DOCTYPE和字符集"></a>1.6.1 新的DOCTYPE和字符集</h5><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;utf-8&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
+       <h3 id="第一章、HTML5概述"><a href="#第一章、HTML5概述" class="headerlink" title="第一章、HTML5概述"></a>第一章、HTML5概述</h3><h4 id="1-6-HTML5的新功能"><a href="#1-6-HTML5的新功能" class="headerlink" title="1.6 HTML5的新功能"></a>1.6 HTML5的新功能</h4><h5 id="1-6-1-新的DOCTYPE和字符集"><a href="#1-6-1-新的DOCTYPE和字符集" class="headerlink" title="1.6.1 新的DOCTYPE和字符集"></a>1.6.1 新的DOCTYPE和字符集</h5><pre><code class="html">&lt;!DOCTYPE html&gt;
+&lt;meta charset=&quot;utf-8&quot;&gt;
+</code></pre>
 <p>使用HTML5的DOCTYPE会触发浏览器以标准模式渲染显示页面<br>web页面有多种渲染模式，怪异模式(Quriks)、近标准模式(Almost Standards)以及标准模式(Standards)。浏览器会根据DOCTYPE识别该用哪种模式渲染页面。</p>
 <span id="more"></span>
 <h5 id="1-6-2-新元素和旧元素"><a href="#1-6-2-新元素和旧元素" class="headerlink" title="1.6.2 新元素和旧元素"></a>1.6.2 新元素和旧元素</h5><p><code>&lt;article&gt;</code>标签定义外部的内容。<br>比如来自一个外部的新闻提供者的一篇新的文章，或者来自 blog的文本，或者是来自论坛的文本。亦或是来自其他外部源内容,内容独立于文档的其余部分</p>
@@ -170,16 +158,70 @@
 <p><code>&lt;output&gt;</code> 标签定义不同类型的输出，比如脚本的输出。</p>
 <p><code>&lt;progress&gt;</code> 标签运行中的进程。<br>可以使用progress标签来显示 JavaScript 中耗费时间的函数的进程。</p>
 <p>HTML中所有自闭合的标签：</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&lt;br&gt; &lt;img&gt; &lt;input&gt; &lt;area&gt; &lt;base&gt; &lt;br&gt; &lt;col&gt; &lt;command&gt; &lt;embed&gt; &lt;hr&gt; &lt;keygen&gt; &lt;link&gt;</span><br><span class="line">&lt;meta&gt; &lt;param&gt; &lt;source&gt; &lt;track&gt; &lt;wbr&gt;</span><br></pre></td></tr></table></figure>
-
+<pre><code class="js">&lt;br&gt; &lt;img&gt; &lt;input&gt; &lt;area&gt; &lt;base&gt; &lt;br&gt; &lt;col&gt; &lt;command&gt; &lt;embed&gt; &lt;hr&gt; &lt;keygen&gt; &lt;link&gt;
+&lt;meta&gt; &lt;param&gt; &lt;source&gt; &lt;track&gt; &lt;wbr&gt;
+</code></pre>
 <p>被移除的旧元素<code>basefont</code>、<code>big</code>、<code>center</code>、<code>font</code>、<code>strike</code>、<code>tt</code>,推荐用css处理更好</p>
-<h5 id="1-6-4-使用Selectors-API简化选取操作"><a href="#1-6-4-使用Selectors-API简化选取操作" class="headerlink" title="1.6.4 使用Selectors API简化选取操作"></a>1.6.4 使用Selectors API简化选取操作</h5><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="variable language_">document</span>.<span class="title function_">querySelector</span>(<span class="string">&quot;.error&quot;</span>);   <span class="comment">//返回第一个.error</span></span><br><span class="line"><span class="variable language_">document</span>.<span class="title function_">querySelectorAll</span>(<span class="string">&quot;.error&quot;</span>) <span class="comment">//返回所有的.error</span></span><br></pre></td></tr></table></figure>
+<h5 id="1-6-4-使用Selectors-API简化选取操作"><a href="#1-6-4-使用Selectors-API简化选取操作" class="headerlink" title="1.6.4 使用Selectors API简化选取操作"></a>1.6.4 使用Selectors API简化选取操作</h5><pre><code class="js">document.querySelector(&quot;.error&quot;);   //返回第一个.error
+document.querySelectorAll(&quot;.error&quot;) //返回所有的.error
+</code></pre>
 <p>IE8及以上支持</p>
-<h3 id="第二章、Canvas-API"><a href="#第二章、Canvas-API" class="headerlink" title="第二章、Canvas API"></a>第二章、Canvas API</h3><h4 id="2-2-使用HTML5-Canvas-API"><a href="#2-2-使用HTML5-Canvas-API" class="headerlink" title="2.2 使用HTML5 Canvas API"></a>2.2 使用HTML5 Canvas API</h4><h5 id="2-2-1-检测浏览器支持情况"><a href="#2-2-1-检测浏览器支持情况" class="headerlink" title="2.2.1 检测浏览器支持情况"></a>2.2.1 检测浏览器支持情况</h5><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">canvas</span> <span class="attr">id</span>=<span class="string">&quot;drawing&quot;</span>&gt;</span>Update your browser to enjoy canvas!<span class="tag">&lt;/<span class="name">canvas</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">&quot;text/javascript&quot;</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">    <span class="keyword">var</span> drawing = <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&#x27;drawing&#x27;</span>);</span></span><br><span class="line"><span class="language-javascript">    <span class="comment">//确定浏览器支持canvas</span></span></span><br><span class="line"><span class="language-javascript">    <span class="keyword">if</span>(drawing.<span class="property">context</span>)&#123;</span></span><br><span class="line"><span class="language-javascript">        <span class="comment">//code</span></span></span><br><span class="line"><span class="language-javascript">    &#125;</span></span><br><span class="line"><span class="language-javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<h5 id="2-2-2-在页面中加入canvas"><a href="#2-2-2-在页面中加入canvas" class="headerlink" title="2.2.2 在页面中加入canvas"></a>2.2.2 在页面中加入canvas</h5><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">canvas</span> <span class="attr">id</span>=<span class="string">&quot;diagonal&quot;</span> <span class="attr">style</span>=<span class="string">&quot;border: 1px solid;&quot;</span> <span class="attr">width</span>=<span class="string">&quot;200&quot;</span> <span class="attr">height</span>=<span class="string">&quot;200&quot;</span>&gt;</span> <span class="tag">&lt;/<span class="name">canvas</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">    <span class="keyword">function</span> <span class="title function_">drawDiagonal</span>(<span class="params"></span>) &#123;</span></span><br><span class="line"><span class="language-javascript">        <span class="comment">// Get the canvas element and its drawing context</span></span></span><br><span class="line"><span class="language-javascript">        <span class="keyword">var</span> canvas = <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&#x27;diagonal&#x27;</span>);</span></span><br><span class="line"><span class="language-javascript">        <span class="comment">//canvas中所有操作数通过上下文对象来完成的</span></span></span><br><span class="line"><span class="language-javascript">        <span class="keyword">var</span> context = canvas.<span class="title function_">getContext</span>(<span class="string">&#x27;2d&#x27;</span>);</span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">        <span class="comment">// Create a path in absolute coordinates</span></span></span><br><span class="line"><span class="language-javascript">        context.<span class="title function_">beginPath</span>();</span></span><br><span class="line"><span class="language-javascript">        context.<span class="title function_">moveTo</span>(<span class="number">70</span>, <span class="number">140</span>);</span></span><br><span class="line"><span class="language-javascript">        context.<span class="title function_">lineTo</span>(<span class="number">140</span>, <span class="number">70</span>);</span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">        <span class="comment">// Stroke the line onto the canvas</span></span></span><br><span class="line"><span class="language-javascript">        context.<span class="title function_">stroke</span>();</span></span><br><span class="line"><span class="language-javascript">    &#125;</span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">    <span class="variable language_">window</span>.<span class="title function_">addEventListener</span>(<span class="string">&quot;load&quot;</span>, drawDiagonal, <span class="literal">true</span>);</span></span><br><span class="line"><span class="language-javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="第二章、Canvas-API"><a href="#第二章、Canvas-API" class="headerlink" title="第二章、Canvas API"></a>第二章、Canvas API</h3><h4 id="2-2-使用HTML5-Canvas-API"><a href="#2-2-使用HTML5-Canvas-API" class="headerlink" title="2.2 使用HTML5 Canvas API"></a>2.2 使用HTML5 Canvas API</h4><h5 id="2-2-1-检测浏览器支持情况"><a href="#2-2-1-检测浏览器支持情况" class="headerlink" title="2.2.1 检测浏览器支持情况"></a>2.2.1 检测浏览器支持情况</h5><pre><code class="html">&lt;canvas id=&quot;drawing&quot;&gt;Update your browser to enjoy canvas!&lt;/canvas&gt;
+
+&lt;script type=&quot;text/javascript&quot;&gt;
+    var drawing = document.getElementById(&#39;drawing&#39;);
+    //确定浏览器支持canvas
+    if(drawing.context)&#123;
+        //code
+    &#125;
+&lt;/script&gt;
+</code></pre>
+<h5 id="2-2-2-在页面中加入canvas"><a href="#2-2-2-在页面中加入canvas" class="headerlink" title="2.2.2 在页面中加入canvas"></a>2.2.2 在页面中加入canvas</h5><pre><code class="html">&lt;canvas id=&quot;diagonal&quot; style=&quot;border: 1px solid;&quot; width=&quot;200&quot; height=&quot;200&quot;&gt; &lt;/canvas&gt;
+&lt;script&gt;
+    function drawDiagonal() &#123;
+        // Get the canvas element and its drawing context
+        var canvas = document.getElementById(&#39;diagonal&#39;);
+        //canvas中所有操作数通过上下文对象来完成的
+        var context = canvas.getContext(&#39;2d&#39;);
+
+        // Create a path in absolute coordinates
+        context.beginPath();
+        context.moveTo(70, 140);
+        context.lineTo(140, 70);
+
+        // Stroke the line onto the canvas
+        context.stroke();
+    &#125;
+
+    window.addEventListener(&quot;load&quot;, drawDiagonal, true);
+&lt;/script&gt;
+</code></pre>
 <p><strong>注意：</strong>使用canvas元素，必须先设置其width、height属性，其效果与在style中设置并不相同<br>Canvas 是一个画板和一张画纸，画板相当于一个容器，画图是在画纸上进行的，画板和画纸的默认宽高是<code>300*150px</code>，当画纸与画板宽高相等时，图像不会被拉伸，当画纸与画板宽高不一样时，图像就会被拉伸（变形）。<br>style样式里设定的是仅<strong>画板</strong>的宽高，画纸的宽高还是为默认值<code>300*150px</code>， 画纸不会让画板就这么空出一片，于是画纸连同图像就要一起拉伸到跟画板大小一样。所以就得到了变形之后的图片。</p>
-<h5 id="2-2-3-偏移"><a href="#2-2-3-偏移" class="headerlink" title="2.2.3 偏移"></a>2.2.3 偏移</h5><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">drawDiagonal</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">var</span> canvas = <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&#x27;diagonal&#x27;</span>);</span><br><span class="line">    <span class="keyword">var</span> context = canvas.<span class="title function_">getContext</span>(<span class="string">&#x27;2d&#x27;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//在变换前保存context状态可方便以后恢复</span></span><br><span class="line">    context.<span class="title function_">save</span>();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Move the drawing context to the right, and down</span></span><br><span class="line">    context.<span class="title function_">translate</span>(<span class="number">70</span>, <span class="number">140</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Draw the same line as before, but using the origin as a start</span></span><br><span class="line">    context.<span class="title function_">beginPath</span>();</span><br><span class="line">    context.<span class="title function_">moveTo</span>(<span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line">    context.<span class="title function_">lineTo</span>(<span class="number">70</span>, -<span class="number">70</span>);</span><br><span class="line">    context.<span class="title function_">stroke</span>();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 恢复context至原始状态</span></span><br><span class="line">    context.<span class="title function_">restore</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h5 id="2-2-4-路径"><a href="#2-2-4-路径" class="headerlink" title="2.2.4 路径"></a>2.2.4 路径</h5><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="title function_">beginPath</span>() <span class="comment">//开始绘制</span></span><br><span class="line"><span class="title function_">moveTo</span>(x,y) <span class="comment">//将当前位置移动到新目标位置</span></span><br><span class="line"><span class="title function_">lineTo</span>(x,y) <span class="comment">//从上一位置划线到新位置</span></span><br><span class="line"><span class="title function_">closePath</span>() <span class="comment">//闭合路径</span></span><br></pre></td></tr></table></figure>
+<h5 id="2-2-3-偏移"><a href="#2-2-3-偏移" class="headerlink" title="2.2.3 偏移"></a>2.2.3 偏移</h5><pre><code class="js">function drawDiagonal() &#123;
+    var canvas = document.getElementById(&#39;diagonal&#39;);
+    var context = canvas.getContext(&#39;2d&#39;);
+
+    //在变换前保存context状态可方便以后恢复
+    context.save();
+
+    // Move the drawing context to the right, and down
+    context.translate(70, 140);
+
+    // Draw the same line as before, but using the origin as a start
+    context.beginPath();
+    context.moveTo(0, 0);
+    context.lineTo(70, -70);
+    context.stroke();
+
+    // 恢复context至原始状态
+    context.restore();
+&#125;
+</code></pre>
+<h5 id="2-2-4-路径"><a href="#2-2-4-路径" class="headerlink" title="2.2.4 路径"></a>2.2.4 路径</h5><pre><code class="js">beginPath() //开始绘制
+moveTo(x,y) //将当前位置移动到新目标位置
+lineTo(x,y) //从上一位置划线到新位置
+closePath() //闭合路径
+</code></pre>
 <h5 id="2-2-5-描边样式"><a href="#2-2-5-描边样式" class="headerlink" title="2.2.5 描边样式"></a>2.2.5 描边样式</h5><p>lineWidth &#x3D; value 设置线条宽度。<br>value<br>描述线段宽度的数字。 0、 负数、 Infinity 和 NaN 会被忽略。</p>
 <p>lineCap &#x3D; type 设置线条末端样式。<br>butt 线段末端以方形结束。<br>round 线段末端以圆形结束。<br>square 线段末端以方形结束，但是增加了一个宽度和线段相同，高度是线段厚度一半的矩形区域。  </p>
 <p>lineJoin &#x3D; type 设定线条与线条间接合处的样式。<br>round<br>通过填充一个额外的，圆心在相连部分末端的扇形，绘制拐角的形状。 圆角的半径是线段的宽度。<br>bevel<br>在相连部分的末端填充一个额外的以三角形为底的区域， 每个部分都有各自独立的矩形拐角。<br>miter<br>通过延伸相连部分的外边缘，使其相交于一点，形成一个额外的菱形区域。这个设置可以通过 miterLimit 属性看到效果。  </p>
@@ -188,36 +230,99 @@
 <p>setLineDash(segments) 设置当前虚线样式。  </p>
 <p>lineDashOffset &#x3D; value 设置虚线样式的起始偏移量。</p>
 <h5 id="2-2-6-填充样式"><a href="#2-2-6-填充样式" class="headerlink" title="2.2.6 填充样式"></a>2.2.6 填充样式</h5><p>fillStyle &#x3D; color 设置图形的填充颜色。<br>strokeStyle &#x3D; color 设置图形轮廓的颜色。</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">context.<span class="property">strokeStyle</span> = <span class="string">&#x27;#663300&#x27;</span>;</span><br><span class="line">context.<span class="title function_">stroke</span>(); <span class="comment">//填充路径</span></span><br><span class="line"></span><br><span class="line">context.<span class="property">fillStyle</span> = <span class="string">&#x27;#339900&#x27;</span>;</span><br><span class="line">context.<span class="title function_">fill</span>(); <span class="comment">//填充闭合路径内部像素点</span></span><br><span class="line"></span><br><span class="line">context.<span class="property">fillStyle</span> = <span class="string">&#x27;#663300&#x27;</span>;</span><br><span class="line">context.<span class="title function_">fillRect</span>(-<span class="number">5</span>, -<span class="number">50</span>, <span class="number">10</span>, <span class="number">50</span>); <span class="comment">//填充矩形区域</span></span><br></pre></td></tr></table></figure>
+<pre><code class="js">context.strokeStyle = &#39;#663300&#39;;
+context.stroke(); //填充路径
+
+context.fillStyle = &#39;#339900&#39;;
+context.fill(); //填充闭合路径内部像素点
+
+context.fillStyle = &#39;#663300&#39;;
+context.fillRect(-5, -50, 10, 50); //填充矩形区域
+</code></pre>
 <h5 id="2-2-7-绘制曲线"><a href="#2-2-7-绘制曲线" class="headerlink" title="2.2.7 绘制曲线"></a>2.2.7 绘制曲线</h5><p>arc(x, y, radius, startAngle, endAngle, anticlockwise)<br>画一个以（x,y）为圆心的以radius为半径的圆弧（圆），从startAngle开始到endAngle结束，按照anticlockwise给定的方向（默认为顺时针）来生成。</p>
 <p>arcTo(x1, y1, x2, y2, radius)<br>根据给定的控制点和半径画一段圆弧，再以直线连接两个控制点。</p>
 <p>quadraticCurveTo(cp1x, cp1y, x, y)<br>绘制二次贝塞尔曲线，cp1x,cp1y为一个控制点，x,y为结束点。</p>
 <p>bezierCurveTo(cp1x, cp1y, cp2x, cp2y, x, y)<br>绘制三次贝塞尔曲线，cp1x,cp1y为控制点一，cp2x,cp2y为控制点二，x,y为结束点。</p>
-<h5 id="2-2-9-在canvas中插入图片"><a href="#2-2-9-在canvas中插入图片" class="headerlink" title="2.2.9 在canvas中插入图片"></a>2.2.9 在canvas中插入图片</h5><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> bark = <span class="keyword">new</span> <span class="title class_">Image</span>();</span><br><span class="line">bark.<span class="property">src</span> = <span class="string">&quot;bark.jpg&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 必须等到图片完全加载后才能对其操作</span></span><br><span class="line">bark.<span class="property">onload</span> = <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">    ...</span><br><span class="line">    context.<span class="title function_">drawImage</span>(bark, -<span class="number">5</span>, -<span class="number">50</span>, <span class="number">10</span>, <span class="number">50</span>);</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="2-2-9-在canvas中插入图片"><a href="#2-2-9-在canvas中插入图片" class="headerlink" title="2.2.9 在canvas中插入图片"></a>2.2.9 在canvas中插入图片</h5><pre><code class="js">var bark = new Image();
+bark.src = &quot;bark.jpg&quot;;
+
+// 必须等到图片完全加载后才能对其操作
+bark.onload = function () &#123;
+    ...
+    context.drawImage(bark, -5, -50, 10, 50);
+    ...
+&#125;
+</code></pre>
 <h5 id="2-2-10-渐变"><a href="#2-2-10-渐变" class="headerlink" title="2.2.10 渐变"></a>2.2.10 渐变</h5><p>createLinearGradient(x1, y1, x2, y2)<br>createLinearGradient 方法接受 4 个参数，表示渐变的起点 (x1,y1) 与终点 (x2,y2)。</p>
 <p>createRadialGradient(x1, y1, r1, x2, y2, r2)<br>createRadialGradient 方法接受 6 个参数，前三个定义一个以 (x1,y1) 为原点，半径为 r1 的圆，后三个参数则定义另一个以 (x2,y2) 为原点，半径为 r2 的圆。  </p>
 <p>gradient.addColorStop(position, color)<br>addColorStop 方法接受 2 个参数，position 参数必须是一个 0.0 与 1.0 之间的数值，表示渐变中颜色所在的相对位置。例如，0.5 表示颜色会出现在正中间。color 参数必须是一个有效的 CSS 颜色值（如 #FFF， rgba(0,0,0,1)，等等）。</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// Create a 3 stop gradient horizontally across the trunk</span></span><br><span class="line"><span class="keyword">var</span> trunkGradient = context.<span class="title function_">createLinearGradient</span>(-<span class="number">5</span>, -<span class="number">50</span>, <span class="number">5</span>, -<span class="number">50</span>);</span><br><span class="line"><span class="comment">// The beginning of the trunk is medium brown</span></span><br><span class="line">trunkGradient.<span class="title function_">addColorStop</span>(<span class="number">0</span>, <span class="string">&#x27;#663300&#x27;</span>);</span><br><span class="line"><span class="comment">// The middle-left of the trunnk is lighter in color</span></span><br><span class="line">trunkGradient.<span class="title function_">addColorStop</span>(<span class="number">0.4</span>, <span class="string">&#x27;#996600&#x27;</span>);</span><br><span class="line"><span class="comment">// The right edge of the trunk is darkest</span></span><br><span class="line">trunkGradient.<span class="title function_">addColorStop</span>(<span class="number">1</span>, <span class="string">&#x27;#552200&#x27;</span>);</span><br><span class="line"><span class="comment">// Apply the gradient as the fill style, and draw the trunk</span></span><br><span class="line">context.<span class="property">fillStyle</span> = trunkGradient;</span><br><span class="line">context.<span class="title function_">fillRect</span>(-<span class="number">5</span>, -<span class="number">50</span>, <span class="number">10</span>, <span class="number">50</span>);</span><br></pre></td></tr></table></figure>
+<pre><code class="js">// Create a 3 stop gradient horizontally across the trunk
+var trunkGradient = context.createLinearGradient(-5, -50, 5, -50);
+// The beginning of the trunk is medium brown
+trunkGradient.addColorStop(0, &#39;#663300&#39;);
+// The middle-left of the trunnk is lighter in color
+trunkGradient.addColorStop(0.4, &#39;#996600&#39;);
+// The right edge of the trunk is darkest
+trunkGradient.addColorStop(1, &#39;#552200&#39;);
+// Apply the gradient as the fill style, and draw the trunk
+context.fillStyle = trunkGradient;
+context.fillRect(-5, -50, 10, 50);
+</code></pre>
 <h5 id="2-2-11-使用图案样式"><a href="#2-2-11-使用图案样式" class="headerlink" title="2.2.11 使用图案样式"></a>2.2.11 使用图案样式</h5><p>createPattern(image, type)<br>该方法接受两个参数。Image 可以是一个 Image 对象的引用，或者另一个 canvas 对象。Type 必须是下面的字符串值之一：repeat，repeat-x，repeat-y 和 no-repeat。  </p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> gravel = <span class="keyword">new</span> <span class="title class_">Image</span>();</span><br><span class="line">gravel.<span class="property">src</span> = <span class="string">&quot;gravel.jpg&quot;</span>;</span><br><span class="line">gravel.<span class="property">onload</span> = <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">    ...</span><br><span class="line">    context.<span class="property">strokeStyle</span> = context.<span class="title function_">createPattern</span>(gravel, <span class="string">&#x27;repeat&#x27;</span>);</span><br><span class="line">    context.<span class="property">lineWidth</span> = <span class="number">20</span>;</span><br><span class="line">    context.<span class="title function_">stroke</span>();</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="js">var gravel = new Image();
+gravel.src = &quot;gravel.jpg&quot;;
+gravel.onload = function () &#123;
+    ...
+    context.strokeStyle = context.createPattern(gravel, &#39;repeat&#39;);
+    context.lineWidth = 20;
+    context.stroke();
+    ...
+&#125;
+</code></pre>
 <h5 id="2-2-12-缩放"><a href="#2-2-12-缩放" class="headerlink" title="2.2.12 缩放"></a>2.2.12 缩放</h5><p>scale(x, y)<br>scale 方法接受两个参数。x,y 分别是横轴和纵轴的缩放因子，它们都必须是正值。值比 1.0 小表示缩小，比 1.0 大则表示放大，值为 1.0 时什么效果都没有。  </p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">context.<span class="title function_">scale</span>(<span class="number">2</span>, <span class="number">2</span>);</span><br></pre></td></tr></table></figure>
+<pre><code class="js">context.scale(2, 2);
+</code></pre>
 <h5 id="2-2-13-旋转"><a href="#2-2-13-旋转" class="headerlink" title="2.2.13 旋转"></a>2.2.13 旋转</h5><p>rotate(angle)<br>这个方法只接受一个参数：旋转的角度(angle)，它是顺时针方向的，以弧度为单位的值。</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">context.<span class="title function_">rotate</span>(<span class="title class_">Math</span>*<span class="variable constant_">PI</span>/<span class="number">2</span>);</span><br></pre></td></tr></table></figure>
+<pre><code class="js">context.rotate(Math*PI/2);
+</code></pre>
 <h5 id="2-2-14-文本"><a href="#2-2-14-文本" class="headerlink" title="2.2.14 文本"></a>2.2.14 文本</h5><p>fillText(text, x, y [, maxWidth])<br>在指定的(x,y)位置填充指定的文本，绘制的最大宽度是可选的.  </p>
 <p>strokeText(text, x, y [, maxWidth])<br>在指定的(x,y)位置绘制文本边框，绘制的最大宽度是可选的.    </p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">context.<span class="property">textAlign</span> = <span class="string">&#x27;center&#x27;</span>;</span><br><span class="line">context.<span class="title function_">fillText</span>(<span class="string">&#x27;Happy Trails!&#x27;</span>, <span class="number">200</span>, <span class="number">60</span>, <span class="number">400</span>);</span><br></pre></td></tr></table></figure>
+<pre><code class="js">context.textAlign = &#39;center&#39;;
+context.fillText(&#39;Happy Trails!&#39;, 200, 60, 400);
+</code></pre>
 <h5 id="2-2-15-阴影"><a href="#2-2-15-阴影" class="headerlink" title="2.2.15 阴影"></a>2.2.15 阴影</h5><p>shadowOffsetX &#x3D; float<br>shadowOffsetX 和 shadowOffsetY 用来设定阴影在 X 和 Y 轴的延伸距离，它们是不受变换矩阵所影响的。负值表示阴影会往上或左延伸，正值则表示会往下或右延伸，它们默认都为 0。</p>
 <p>shadowOffsetY &#x3D; float<br>shadowOffsetX 和 shadowOffsetY 用来设定阴影在 X 和 Y 轴的延伸距离，它们是不受变换矩阵所影响的。负值表示阴影会往上或左延伸，正值则表示会往下或右延伸，它们默认都为 0。</p>
 <p>shadowBlur &#x3D; float<br>shadowBlur 用于设定阴影的模糊程度，其数值并不跟像素数量挂钩，也不受变换矩阵的影响，默认为 0。</p>
 <p>shadowColor &#x3D; color<br>shadowColor 是标准的 CSS 颜色值，用于设定阴影颜色效果，默认是全透明的黑色。</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">context.<span class="property">shadowOffsetX</span> = <span class="number">15</span>;</span><br><span class="line">context.<span class="property">shadowOffsetY</span> = -<span class="number">10</span>;</span><br><span class="line">context.<span class="property">shadowBlur</span> = <span class="number">2</span>;</span><br></pre></td></tr></table></figure>
-<h3 id="第三章、SVG"><a href="#第三章、SVG" class="headerlink" title="第三章、SVG"></a>第三章、SVG</h3><h4 id="3-1-5-在页面中添加SVG"><a href="#3-1-5-在页面中添加SVG" class="headerlink" title="3.1.5 在页面中添加SVG"></a>3.1.5 在页面中添加SVG</h4><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">svg</span> <span class="attr">width</span>=<span class="string">&quot;400&quot;</span> <span class="attr">height</span>=<span class="string">&quot;600&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">svg</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<pre><code class="js">context.shadowOffsetX = 15;
+context.shadowOffsetY = -10;
+context.shadowBlur = 2;
+</code></pre>
+<h3 id="第三章、SVG"><a href="#第三章、SVG" class="headerlink" title="第三章、SVG"></a>第三章、SVG</h3><h4 id="3-1-5-在页面中添加SVG"><a href="#3-1-5-在页面中添加SVG" class="headerlink" title="3.1.5 在页面中添加SVG"></a>3.1.5 在页面中添加SVG</h4><pre><code class="html">&lt;svg width=&quot;400&quot; height=&quot;600&quot;&gt;&lt;/svg&gt;
+</code></pre>
 <h4 id="3-1-7-变换SVG元素"><a href="#3-1-7-变换SVG元素" class="headerlink" title="3.1.7 变换SVG元素"></a>3.1.7 变换SVG元素</h4><p><code>&lt;g&gt;</code>元素代表“组”,可以用来结合多个相关元素 </p>
 <h4 id="3-1-8-复用内容"><a href="#3-1-8-复用内容" class="headerlink" title="3.1.8 复用内容"></a>3.1.8 复用内容</h4><p><code>&lt;defs&gt;</code>元素定义留待将来使用的内容<br><code>&lt;use&gt;</code>元素用于连接到<code>&lt;defs&gt;</code>定义的内容  </p>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">svg</span> <span class="attr">width</span>=<span class="string">&quot;200&quot;</span> <span class="attr">height</span>=<span class="string">&quot;200&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">defs</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">g</span> <span class="attr">id</span>=<span class="string">&quot;ShapeGroup&quot;</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">rect</span> <span class="attr">x</span>=<span class="string">&quot;10&quot;</span> <span class="attr">y</span>=<span class="string">&quot;20&quot;</span> <span class="attr">width</span>=<span class="string">&quot;100&quot;</span> <span class="attr">height</span>=<span class="string">&quot;80&quot;</span> <span class="attr">stroke</span>=<span class="string">&quot;red&quot;</span> <span class="attr">fill</span>=<span class="string">&quot;#ccc&quot;</span> /&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">g</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">defs</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">use</span> <span class="attr">xlink:href</span>=<span class="string">&quot;#ShapeGroup&quot;</span> <span class="attr">transform</span>=<span class="string">&quot;translate(60,0) scale(0.5)&quot;</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">use</span> <span class="attr">xlink:href</span>=<span class="string">&quot;#ShapeGroup&quot;</span> <span class="attr">transform</span>=<span class="string">&quot;translate(120,80) scale(0.4)&quot;</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">svg</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<h4 id="3-1-9-图案和渐变"><a href="#3-1-9-图案和渐变" class="headerlink" title="3.1.9 图案和渐变"></a>3.1.9 图案和渐变</h4><h4 id="3-1-10-SVG路径"><a href="#3-1-10-SVG路径" class="headerlink" title="3.1.10 SVG路径"></a>3.1.10 SVG路径</h4><h4 id="3-1-11-使用SVG文本"><a href="#3-1-11-使用SVG文本" class="headerlink" title="3.1.11 使用SVG文本"></a>3.1.11 使用SVG文本</h4><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">svg</span> <span class="attr">width</span>=<span class="string">&quot;200&quot;</span> <span class="attr">height</span>=<span class="string">&quot;200&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">text</span> <span class="attr">y</span>=<span class="string">&quot;60&quot;</span> <span class="attr">x</span>=<span class="string">&quot;200&quot;</span> <span class="attr">font-family</span>=<span class="string">&quot;impact&quot;</span> <span class="attr">font-size</span>=<span class="string">&quot;60px&quot;</span> <span class="attr">fill</span>=<span class="string">&quot;#996600&quot;</span> <span class="attr">text-anchor</span>=<span class="string">&quot;middle&quot;</span>&gt;</span></span><br><span class="line">    Happy Trails!</span><br><span class="line">  <span class="tag">&lt;/<span class="name">text</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">svg</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<h3 id="第四章、Audio-and-Video"><a href="#第四章、Audio-and-Video" class="headerlink" title="第四章、Audio and Video"></a>第四章、Audio and Video</h3><h4 id="4-2-1-浏览器支持性检测"><a href="#4-2-1-浏览器支持性检测" class="headerlink" title="4.2.1 浏览器支持性检测"></a>4.2.1 浏览器支持性检测</h4><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">video</span> <span class="attr">src</span>=<span class="string">&quot;vide.webm&quot;</span> <span class="attr">controls</span>&gt;</span></span><br><span class="line">  Your browser does not suport HTML5 video.</span><br><span class="line"><span class="tag">&lt;/<span class="name">video</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<pre><code>&lt;svg width=&quot;200&quot; height=&quot;200&quot;&gt;
+    &lt;defs&gt;
+      &lt;g id=&quot;ShapeGroup&quot;&gt;
+      &lt;rect x=&quot;10&quot; y=&quot;20&quot; width=&quot;100&quot; height=&quot;80&quot; stroke=&quot;red&quot; fill=&quot;#ccc&quot; /&gt;
+      &lt;/g&gt;
+    &lt;/defs&gt;
+
+    &lt;use xlink:href=&quot;#ShapeGroup&quot; transform=&quot;translate(60,0) scale(0.5)&quot; /&gt;
+    &lt;use xlink:href=&quot;#ShapeGroup&quot; transform=&quot;translate(120,80) scale(0.4)&quot; /&gt;
+&lt;/svg&gt;
+</code></pre>
+<h4 id="3-1-9-图案和渐变"><a href="#3-1-9-图案和渐变" class="headerlink" title="3.1.9 图案和渐变"></a>3.1.9 图案和渐变</h4><h4 id="3-1-10-SVG路径"><a href="#3-1-10-SVG路径" class="headerlink" title="3.1.10 SVG路径"></a>3.1.10 SVG路径</h4><h4 id="3-1-11-使用SVG文本"><a href="#3-1-11-使用SVG文本" class="headerlink" title="3.1.11 使用SVG文本"></a>3.1.11 使用SVG文本</h4><pre><code class="html">&lt;svg width=&quot;200&quot; height=&quot;200&quot;&gt;
+    &lt;text y=&quot;60&quot; x=&quot;200&quot; font-family=&quot;impact&quot; font-size=&quot;60px&quot; fill=&quot;#996600&quot; text-anchor=&quot;middle&quot;&gt;
+    Happy Trails!
+  &lt;/text&gt;
+&lt;/svg&gt;
+</code></pre>
+<h3 id="第四章、Audio-and-Video"><a href="#第四章、Audio-and-Video" class="headerlink" title="第四章、Audio and Video"></a>第四章、Audio and Video</h3><h4 id="4-2-1-浏览器支持性检测"><a href="#4-2-1-浏览器支持性检测" class="headerlink" title="4.2.1 浏览器支持性检测"></a>4.2.1 浏览器支持性检测</h4><pre><code class="html">&lt;video src=&quot;vide.webm&quot; controls&gt;
+  Your browser does not suport HTML5 video.
+&lt;/video&gt;
+</code></pre>
 <h4 id="4-2-3-理解媒体元素"><a href="#4-2-3-理解媒体元素" class="headerlink" title="4.2.3 理解媒体元素"></a>4.2.3 理解媒体元素</h4><h5 id="4-2-3-3-媒体的控制"><a href="#4-2-3-3-媒体的控制" class="headerlink" title="4.2.3.3 媒体的控制"></a>4.2.3.3 媒体的控制</h5><p>如果内置的空间不适用用户界面的布局，那么可以借助javascript函数和特性</p>
 <table>
 <thead>
@@ -249,9 +354,55 @@
 <h5 id="5-1-5-WI-FI地理定位数据"><a href="#5-1-5-WI-FI地理定位数据" class="headerlink" title="5.1.5 WI-FI地理定位数据"></a>5.1.5 WI-FI地理定位数据</h5><p>基于WI-FI的地理定位信息是通过三角距离计算得出的，这个三角距离指的是用户当前位置到已知的多个wi-fi接入点的距离</p>
 <h5 id="5-1-6-手机地理定位数据"><a href="#5-1-6-手机地理定位数据" class="headerlink" title="5.1.6 手机地理定位数据"></a>5.1.6 手机地理定位数据</h5><p>通过用户嗲一些基站的三角距离确定的，可提供相当准确的位置信息</p>
 <h5 id="5-1-7-用户自定义的地理定位数据"><a href="#5-1-7-用户自定义的地理定位数据" class="headerlink" title="5.1.7 用户自定义的地理定位数据"></a>5.1.7 用户自定义的地理定位数据</h5><h4 id="5-4-使用HTML5-Geolocation-API"><a href="#5-4-使用HTML5-Geolocation-API" class="headerlink" title="5.4 使用HTML5 Geolocation API"></a>5.4 使用HTML5 Geolocation API</h4><p>执行HTML5 Geolocation的方式有很多，例如调用navigator.geolocation.getCurrentPosition()</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">loadDemo</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">if</span>(navigator.<span class="property">geolocation</span>) &#123;</span><br><span class="line">      <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&quot;status&quot;</span>).<span class="property">innerHTML</span> = <span class="string">&quot;HTML5 Geolocation is supported in your browser.&quot;</span>;</span><br><span class="line">      navigator.<span class="property">geolocation</span>.<span class="title function_">getCurrentPosition</span>(updateLocation, handleLocationError,&#123;<span class="attr">timeout</span>:<span class="number">10000</span>&#125;);<span class="comment">//调用位置信息</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">updateLocation</span>(<span class="params">position</span>) &#123;</span><br><span class="line">  <span class="keyword">var</span> latitude = position.<span class="property">coords</span>.<span class="property">latitude</span>;  <span class="comment">//纬度</span></span><br><span class="line">  <span class="keyword">var</span> longitude = position.<span class="property">coords</span>.<span class="property">longitude</span>; <span class="comment">//经度</span></span><br><span class="line">  <span class="keyword">var</span> accuracy = position.<span class="property">coords</span>.<span class="property">accuracy</span>; <span class="comment">//准确度</span></span><br><span class="line">  <span class="keyword">var</span> timestamp = position.<span class="property">timestamp</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (!latitude || !longitude) &#123;</span><br><span class="line">        <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&quot;status&quot;</span>).<span class="property">innerHTML</span> = </span><br><span class="line">    <span class="string">&quot;HTML5 Geolocation is supported in your browser, but your location is currently not available.&quot;</span>;</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&quot;latitude&quot;</span>).<span class="property">innerHTML</span> = <span class="string">&quot;Latitude: &quot;</span> + latitude;</span><br><span class="line">  <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&quot;longitude&quot;</span>).<span class="property">innerHTML</span> = <span class="string">&quot;Longitude: &quot;</span> +  longitude;</span><br><span class="line">  <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&quot;accuracy&quot;</span>).<span class="property">innerHTML</span> = <span class="string">&quot;Accuracy: &quot;</span> + accuracy + <span class="string">&quot; meters&quot;</span>;</span><br><span class="line">  <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&quot;timestamp&quot;</span>).<span class="property">innerHTML</span> = <span class="string">&quot;Timestamp: &quot;</span> + timestamp;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">handleLocationError</span>(<span class="params">error</span>) &#123;</span><br><span class="line">  <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&quot;status&quot;</span>).<span class="property">style</span>.<span class="property">background</span> = <span class="string">&quot;papayaWhip&quot;</span>;</span><br><span class="line">  <span class="keyword">switch</span>(error.<span class="property">code</span>)&#123;</span><br><span class="line">  <span class="keyword">case</span> <span class="number">0</span>:</span><br><span class="line">    <span class="title function_">updateStatus</span>(<span class="string">&quot;There was an error while retrieving your location. Additional details: &quot;</span> + error.<span class="property">message</span>);</span><br><span class="line">    <span class="keyword">break</span>;</span><br><span class="line">  <span class="keyword">case</span> <span class="number">1</span>:</span><br><span class="line">    <span class="title function_">updateStatus</span>(<span class="string">&quot;The user opted not to share his or her location.&quot;</span>);</span><br><span class="line">    <span class="keyword">break</span>;</span><br><span class="line">  <span class="keyword">case</span> <span class="number">2</span>:</span><br><span class="line">    <span class="title function_">updateStatus</span>(<span class="string">&quot;The browser was unable to determine your location. Additional details: &quot;</span> + error.<span class="property">message</span>);</span><br><span class="line">    <span class="keyword">break</span>;</span><br><span class="line">  <span class="keyword">case</span> <span class="number">3</span>:</span><br><span class="line">    <span class="title function_">updateStatus</span>(<span class="string">&quot;The browser timed out before retrieving the location.&quot;</span>);</span><br><span class="line">    <span class="keyword">break</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">updateStatus</span>(<span class="params">message</span>) &#123;</span><br><span class="line">  <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&quot;status&quot;</span>).<span class="property">innerHTML</span> = <span class="string">&quot;&lt;strong&gt;Error&lt;/strong&gt;: &quot;</span> + message;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="js">function loadDemo() &#123;
+  if(navigator.geolocation) &#123;
+      document.getElementById(&quot;status&quot;).innerHTML = &quot;HTML5 Geolocation is supported in your browser.&quot;;
+      navigator.geolocation.getCurrentPosition(updateLocation, handleLocationError,&#123;timeout:10000&#125;);//调用位置信息
+    &#125;
+&#125;
+
+function updateLocation(position) &#123;
+  var latitude = position.coords.latitude;  //纬度
+  var longitude = position.coords.longitude; //经度
+  var accuracy = position.coords.accuracy; //准确度
+  var timestamp = position.timestamp;
+
+  if (!latitude || !longitude) &#123;
+        document.getElementById(&quot;status&quot;).innerHTML = 
+    &quot;HTML5 Geolocation is supported in your browser, but your location is currently not available.&quot;;
+    return;
+  &#125;
+  document.getElementById(&quot;latitude&quot;).innerHTML = &quot;Latitude: &quot; + latitude;
+  document.getElementById(&quot;longitude&quot;).innerHTML = &quot;Longitude: &quot; +  longitude;
+  document.getElementById(&quot;accuracy&quot;).innerHTML = &quot;Accuracy: &quot; + accuracy + &quot; meters&quot;;
+  document.getElementById(&quot;timestamp&quot;).innerHTML = &quot;Timestamp: &quot; + timestamp;
+&#125;
+
+function handleLocationError(error) &#123;
+  document.getElementById(&quot;status&quot;).style.background = &quot;papayaWhip&quot;;
+  switch(error.code)&#123;
+  case 0:
+    updateStatus(&quot;There was an error while retrieving your location. Additional details: &quot; + error.message);
+    break;
+  case 1:
+    updateStatus(&quot;The user opted not to share his or her location.&quot;);
+    break;
+  case 2:
+    updateStatus(&quot;The browser was unable to determine your location. Additional details: &quot; + error.message);
+    break;
+  case 3:
+    updateStatus(&quot;The browser timed out before retrieving the location.&quot;);
+    break;
+  &#125;
+&#125;
+
+function updateStatus(message) &#123;
+  document.getElementById(&quot;status&quot;).innerHTML = &quot;&lt;strong&gt;Error&lt;/strong&gt;: &quot; + message;
+&#125;
+</code></pre>
 <h3 id="第六章、Communication-API"><a href="#第六章、Communication-API" class="headerlink" title="第六章、Communication API"></a>第六章、Communication API</h3><h4 id="6-1-跨文档消息通信"><a href="#6-1-跨文档消息通信" class="headerlink" title="6.1 跨文档消息通信"></a>6.1 跨文档消息通信</h4><p>跨文档消息通信可以确保iframe、标签页、窗口间安全的进行跨源通信  </p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">chatFrame.<span class="property">contentWindow</span>.<span class="title function_">postMessage</span>(<span class="string">&quot;hello world&quot;</span>,<span class="string">&quot;http://www.example.com/&quot;</span>);</span><br></pre></td></tr></table></figure>
+<pre><code class="js">chatFrame.contentWindow.postMessage(&quot;hello world&quot;,&quot;http://www.example.com/&quot;);
+</code></pre>
 <h5 id="6-1-3-使用postMessage-API"><a href="#6-1-3-使用postMessage-API" class="headerlink" title="6.1.3 使用postMessage API"></a>6.1.3 使用postMessage API</h5><ol>
 <li>浏览器支持情况检测<pre>
 if(typeof window.postMessage === "undefined"){
@@ -269,7 +420,32 @@ window.onmessage = function(e){
 }
 </pre></li>
 </ol>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!-- http:localhost/test/index.html --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">iframe</span> <span class="attr">id</span>=<span class="string">&quot;iframe&quot;</span> <span class="attr">src</span>=<span class="string">&quot;http://127.0.0.1/test/a.html&quot;</span> <span class="attr">style</span>=<span class="string">&quot;display:none;&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">iframe</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">&quot;text/javascript&quot;</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">  <span class="variable language_">window</span>.<span class="property">onload</span> = <span class="keyword">function</span>(<span class="params"></span>) &#123;</span></span><br><span class="line"><span class="language-javascript">    <span class="keyword">var</span> iframe = <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&quot;iframe&quot;</span>);</span></span><br><span class="line"><span class="language-javascript">    iframe.<span class="property">contentWindow</span>.<span class="title function_">postMessage</span>(<span class="string">&quot;null&quot;</span>, <span class="string">&quot;http://127.0.0.1/test/a.html&quot;</span>);</span></span><br><span class="line"><span class="language-javascript">  &#125;</span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">  <span class="variable language_">window</span>.<span class="property">onmessage</span> = <span class="keyword">function</span>(<span class="params">e</span>) &#123;</span></span><br><span class="line"><span class="language-javascript">    <span class="keyword">if</span>(e.<span class="property">origin</span> === <span class="string">&quot;http://127.0.0.1/a.html&quot;</span>)&#123;</span></span><br><span class="line"><span class="language-javascript">      <span class="variable language_">document</span>.<span class="title function_">write</span>(e.<span class="property">data</span>);  <span class="comment">//123 这里获取到了a页面的dom内容</span></span></span><br><span class="line"><span class="language-javascript">    &#125;</span></span><br><span class="line"><span class="language-javascript">  &#125;</span></span><br><span class="line"><span class="language-javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- http://127.0.0.1/test/a.html --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;test&quot;</span>&gt;</span>123<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">&quot;text/javascript&quot;</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">  <span class="variable language_">window</span>.<span class="property">onmessage</span> = <span class="keyword">function</span>(<span class="params">e</span>) &#123;</span></span><br><span class="line"><span class="language-javascript">    <span class="keyword">if</span>(e.<span class="property">origin</span> === <span class="string">&quot;http:localhost/test/index.html&quot;</span>)&#123;</span></span><br><span class="line"><span class="language-javascript">        <span class="keyword">var</span> text = <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&#x27;test&#x27;</span>).<span class="property">innerHTML</span>;</span></span><br><span class="line"><span class="language-javascript">        <span class="comment">//window.parent.postMessage()返回想要的数据</span></span></span><br><span class="line"><span class="language-javascript">        <span class="variable language_">window</span>.<span class="property">parent</span>.<span class="title function_">postMessage</span>(text, <span class="string">&quot;http://localhost/test/index.html&quot;</span>);</span></span><br><span class="line"><span class="language-javascript">    &#125;</span></span><br><span class="line"><span class="language-javascript">  &#125;</span></span><br><span class="line"><span class="language-javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<pre><code class="html">&lt;!-- http:localhost/test/index.html --&gt;
+&lt;iframe id=&quot;iframe&quot; src=&quot;http://127.0.0.1/test/a.html&quot; style=&quot;display:none;&quot;&gt;&lt;/iframe&gt;
+&lt;script type=&quot;text/javascript&quot;&gt;
+  window.onload = function() &#123;
+    var iframe = document.getElementById(&quot;iframe&quot;);
+    iframe.contentWindow.postMessage(&quot;null&quot;, &quot;http://127.0.0.1/test/a.html&quot;);
+  &#125;
+
+  window.onmessage = function(e) &#123;
+    if(e.origin === &quot;http://127.0.0.1/a.html&quot;)&#123;
+      document.write(e.data);  //123 这里获取到了a页面的dom内容
+    &#125;
+  &#125;
+&lt;/script&gt;
+&lt;!-- http://127.0.0.1/test/a.html --&gt;
+&lt;div id=&quot;test&quot;&gt;123&lt;/div&gt;
+&lt;script type=&quot;text/javascript&quot;&gt;
+  window.onmessage = function(e) &#123;
+    if(e.origin === &quot;http:localhost/test/index.html&quot;)&#123;
+        var text = document.getElementById(&#39;test&#39;).innerHTML;
+        //window.parent.postMessage()返回想要的数据
+        window.parent.postMessage(text, &quot;http://localhost/test/index.html&quot;);
+    &#125;
+  &#125;
+&lt;/script&gt;
+</code></pre>
 <h4 id="6-2-XMLHttpRequsest-Level-2"><a href="#6-2-XMLHttpRequsest-Level-2" class="headerlink" title="6.2 XMLHttpRequsest Level 2"></a>6.2 XMLHttpRequsest Level 2</h4><p>XMLHttpRequsest Level 2的功能改进主要体现在：</p>
 <ul>
 <li>跨源XMLHttpRequest;</li>
@@ -277,7 +453,12 @@ window.onmessage = function(e){
 </ul>
 <h5 id="6-2-1-跨源XMLHttpRequest"><a href="#6-2-1-跨源XMLHttpRequest" class="headerlink" title="6.2.1 跨源XMLHttpRequest"></a>6.2.1 跨源XMLHttpRequest</h5><p>XMLHttpRequsest Level 2通过CORS实现了跨源XMLHttpRequest<br>跨源XMLHttpRequest请求包括一个origin头部<br>服务器端需要为请求的内容添加”Access-Control-Allow-Origin:”头部</p>
 <h5 id="6-2-2-进度事件"><a href="#6-2-2-进度事件" class="headerlink" title="6.2.2 进度事件"></a>6.2.2 进度事件</h5><p>利用进度事件实现文件上传率</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">xhr.<span class="property">onprogress</span> = <span class="keyword">function</span>(<span class="params">e</span>)&#123;</span><br><span class="line">    <span class="keyword">var</span> total = e.<span class="property">total</span>;</span><br><span class="line">    <span class="keyword">var</span> loaded = e.<span class="property">loaded</span>;</span><br><span class="line">    <span class="title function_">setProgress</span>(radio + <span class="string">&quot;% uploaded&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="js">xhr.onprogress = function(e)&#123;
+    var total = e.total;
+    var loaded = e.loaded;
+    setProgress(radio + &quot;% uploaded&quot;);
+&#125;
+</code></pre>
 <h3 id="第七章、WebSockets-API"><a href="#第七章、WebSockets-API" class="headerlink" title="第七章、WebSockets API"></a>第七章、WebSockets API</h3><p>WebSockets定义了双全工通信，大幅度减少了网络流量，并降低网络延迟 IE10+支持</p>
 <h4 id="7-3-使用-Web-Sockets-API"><a href="#7-3-使用-Web-Sockets-API" class="headerlink" title="7.3 使用 Web Sockets API"></a>7.3 使用 Web Sockets API</h4><h5 id="7-3-2-基本用法"><a href="#7-3-2-基本用法" class="headerlink" title="7.3.2 基本用法"></a>7.3.2 基本用法</h5><p>为接受ws:&#x2F;&#x2F;loclahost:8080&#x2F;echo上的链接，需要启动Python WebSocket服务器。<br>打开命令行窗口执行以下命令：<code>python websocket.py</code></p>
 <ol>
@@ -312,37 +493,50 @@ document.getElementById("sendButton").onclick = function() {
 <li>新的函数和特性</li>
 </ul>
 <h5 id="8-1-4-输入型控件"><a href="#8-1-4-输入型控件" class="headerlink" title="8.1.4 输入型控件"></a>8.1.4 输入型控件</h5><p><strong>email</strong>  </p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&lt;input type=<span class="string">&quot;email&quot;</span> name=<span class="string">&quot;email&quot;</span>&gt;</span><br></pre></td></tr></table></figure>
+<pre><code class="js">&lt;input type=&quot;email&quot; name=&quot;email&quot;&gt;
+</code></pre>
 <p>type&#x3D;”email”的input输入类型用于表示语义上的e-mail地址输入域，在提交表单时，会自动验证 email 域的值。<br>[注意] IE9-浏览器及safari浏览器不支持</p>
 <p><strong>tel</strong>  </p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&lt;input type=<span class="string">&quot;tel&quot;</span> placeholder=<span class="string">&quot;请输入11位手机号码&quot;</span> pattern=<span class="string">&quot;\d&#123;11&#125;&quot;</span>&gt;</span><br></pre></td></tr></table></figure>
+<pre><code class="js">&lt;input type=&quot;tel&quot; placeholder=&quot;请输入11位手机号码&quot; pattern=&quot;\d&#123;11&#125;&quot;&gt;
+</code></pre>
 <p>type&#x3D;”tel”的input输入类型用于表示语义上的电话输入域</p>
 <p><strong>search</strong> </p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&lt;input type=<span class="string">&quot;search&quot;</span>&gt;</span><br></pre></td></tr></table></figure>
-
+<pre><code class="js">&lt;input type=&quot;search&quot;&gt;
+</code></pre>
 <p><strong>url</strong>  </p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&lt;input type=<span class="string">&quot;url&quot;</span> /&gt;</span><br></pre></td></tr></table></figure>
+<pre><code class="js">&lt;input type=&quot;url&quot; /&gt;
+</code></pre>
 <p>type&#x3D;”url”的input输入类型用于表示语义上的url地址的输入域,在提交表单时，会自动验证 url 域的值。<br>[注意]IE9-浏览器及safari浏览器不支持</p>
 <p><strong>number</strong>  </p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;number&quot;</span> <span class="attr">min</span>=<span class="string">&quot;0&quot;</span> <span class="attr">max</span>=<span class="string">&quot;10&quot;</span> <span class="attr">step</span>=<span class="string">&quot;0.5&quot;</span> <span class="attr">value</span>=<span class="string">&quot;6&quot;</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+<pre><code class="html">&lt;input type=&quot;number&quot; min=&quot;0&quot; max=&quot;10&quot; step=&quot;0.5&quot; value=&quot;6&quot;/&gt;
+</code></pre>
 <p>type&#x3D;”number”的input输入类型用于处理数字输入,step 规定合法的数字间隔<br>[注意]IE不支持该类型</p>
 <p><strong>range</strong>  </p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&lt;input type=<span class="string">&quot;range&quot;</span> min=<span class="string">&quot;0&quot;</span> max=<span class="string">&quot;10&quot;</span> step=<span class="string">&quot;0.5&quot;</span> value=<span class="string">&quot;6&quot;</span>/&gt;</span><br></pre></td></tr></table></figure>
+<pre><code class="js">&lt;input type=&quot;range&quot; min=&quot;0&quot; max=&quot;10&quot; step=&quot;0.5&quot; value=&quot;6&quot;/&gt;
+</code></pre>
 <input type="range" min="0" max="10" step="0.5" value="6"/>  
 type="range"的input输入类型用于处理包含在一定范围内的数字输入  
 [注意]IE9-不支持该类型
 
 <p><strong>color</strong> </p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&lt;input type=<span class="string">&quot;color&quot;</span>&gt;</span><br></pre></td></tr></table></figure>
+<pre><code class="js">&lt;input type=&quot;color&quot;&gt;
+</code></pre>
 <p>type&#x3D;”color”的input输入类型会创建一个调色板用来选择颜色，颜色值以URL编码后的十六进制数值提交。<br>如黑色会以%23000000发送，其中%23是#的URL编码<br>[注意]safari和IE不支持该类型</p>
 <p><strong>Date pickers</strong>  </p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;time&quot;</span> <span class="attr">value</span>=<span class="string">&quot;hh:mm:ss&quot;</span>&gt;</span><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;month&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<pre><code class="html">&lt;input type=&quot;time&quot; value=&quot;hh:mm:ss&quot;&gt;&lt;input type=&quot;month&quot;&gt;
+</code></pre>
 <p><input type="time" value="hh:mm:ss.s"><input type="month"><br>[注意]IE和firefox这种日期类型都不支持，chrome不支持datetime类型</p>
 <h5 id="8-2-1-新的表单特性和函数"><a href="#8-2-1-新的表单特性和函数" class="headerlink" title="8.2.1 新的表单特性和函数"></a>8.2.1 新的表单特性和函数</h5><p><strong>placeholder</strong></p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;tel&quot;</span> <span class="attr">placeholder</span>=<span class="string">&quot;请输入11位手机号码&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<pre><code class="html">&lt;input type=&quot;tel&quot; placeholder=&quot;请输入11位手机号码&quot;&gt;
+</code></pre>
 <p>placeholder 属性提供可描述输入字段预期值的提示信息（hint）。该提示会在输入字段为空时显示，并会在字段获得焦点时消失。<br>[注意]placeholder 属性适用于以下的 <code>&lt;input&gt; </code>类型：text, search, url, tel, email 以及 password。</p>
 <p><strong>autocomplete</strong></p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">action</span>=<span class="string">&quot;demo_form.asp&quot;</span> <span class="attr">method</span>=<span class="string">&quot;get&quot;</span> <span class="attr">autocomplete</span>=<span class="string">&quot;on&quot;</span>&gt;</span></span><br><span class="line">    Name:<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">name</span>=<span class="string">&quot;fname&quot;</span> /&gt;</span><span class="tag">&lt;<span class="name">br</span> /&gt;</span></span><br><span class="line">    E-mail: <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;email&quot;</span> <span class="attr">name</span>=<span class="string">&quot;email&quot;</span> <span class="attr">autocomplete</span>=<span class="string">&quot;off&quot;</span> /&gt;</span><span class="tag">&lt;<span class="name">br</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;submit&quot;</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<pre><code class="html">&lt;form action=&quot;demo_form.asp&quot; method=&quot;get&quot; autocomplete=&quot;on&quot;&gt;
+    Name:&lt;input type=&quot;text&quot; name=&quot;fname&quot; /&gt;&lt;br /&gt;
+    E-mail: &lt;input type=&quot;email&quot; name=&quot;email&quot; autocomplete=&quot;off&quot; /&gt;&lt;br /&gt;
+    &lt;input type=&quot;submit&quot; /&gt;
+&lt;/form&gt;
+</code></pre>
 <form action="demo_form.asp" method="get" autocomplete="on">
     Name:<input type="text" name="fname" /><br />
     E-mail: <input type="email" name="email" autocomplete="off" /><br />
@@ -354,10 +548,20 @@ autocomplete 属性规定表单是否应该启用自动完成功能。
 text, search, url, tel, email, password, datepickers, range 以及 color。
 
 <p><strong>autofocus</strong></p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">name</span>=<span class="string">&quot;usr_name&quot;</span> <span class="attr">autofocus</span>=<span class="string">&quot;autofocus&quot;</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+<pre><code class="html">&lt;input type=&quot;text&quot; name=&quot;usr_name&quot; autofocus=&quot;autofocus&quot; /&gt;
+</code></pre>
 <p>每个页面上只允许出现一个autofocus特性<br>非type&#x3D;”hidden”的input、select、textarea、button可使用autofocus元素来制定自动获得焦点的元素</p>
 <p><strong>list、datalist</strong></p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">action</span>=<span class="string">&quot;demo_form.asp&quot;</span>&gt;</span></span><br><span class="line">    Webpage: <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;url&quot;</span> <span class="attr">list</span>=<span class="string">&quot;url_list&quot;</span> <span class="attr">name</span>=<span class="string">&quot;link&quot;</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">datalist</span> <span class="attr">id</span>=<span class="string">&quot;url_list&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">option</span> <span class="attr">label</span>=<span class="string">&quot;w3schools&quot;</span> <span class="attr">value</span>=<span class="string">&quot;http://www.w3schools.com&quot;</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">option</span> <span class="attr">label</span>=<span class="string">&quot;Google&quot;</span> <span class="attr">value</span>=<span class="string">&quot;http://www.google.com&quot;</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">option</span> <span class="attr">label</span>=<span class="string">&quot;Microsoft&quot;</span> <span class="attr">value</span>=<span class="string">&quot;http://www.microsoft.com&quot;</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">datalist</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;submit&quot;</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<pre><code class="html">&lt;form action=&quot;demo_form.asp&quot;&gt;
+    Webpage: &lt;input type=&quot;url&quot; list=&quot;url_list&quot; name=&quot;link&quot; /&gt;
+    &lt;datalist id=&quot;url_list&quot;&gt;
+        &lt;option label=&quot;w3schools&quot; value=&quot;http://www.w3schools.com&quot; /&gt;
+        &lt;option label=&quot;Google&quot; value=&quot;http://www.google.com&quot; /&gt;
+        &lt;option label=&quot;Microsoft&quot; value=&quot;http://www.microsoft.com&quot; /&gt;
+    &lt;/datalist&gt;
+    &lt;input type=&quot;submit&quot;/&gt;
+&lt;/form&gt;
+</code></pre>
 <form action="demo_form.asp">
     Webpage: <input type="url" list="url_list" name="link" />
     <datalist id="url_list">
@@ -370,22 +574,31 @@ text, search, url, tel, email, password, datepickers, range 以及 color。
 list 属性引用数据列表，其中包含输入字段的预定义选项。
 
 <p><strong>min、max</strong></p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;number&quot;</span> <span class="attr">name</span>=<span class="string">&quot;points&quot;</span> <span class="attr">min</span>=<span class="string">&quot;0&quot;</span> <span class="attr">max</span>=<span class="string">&quot;10&quot;</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+<pre><code class="html">&lt;input type=&quot;number&quot; name=&quot;points&quot; min=&quot;0&quot; max=&quot;10&quot; /&gt;
+</code></pre>
 <p>max 属性规定输入字段所允许的最大值 max 属性与 min 属性配合使用，可创建合法值范围<br>[注意]max 和 min 属性适用于以下 <code>&lt;input&gt; </code>类型：number, range, date, datetime, datetime-local, month, time 以及 week。</p>
 <p><strong>required</strong></p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">name</span>=<span class="string">&quot;usr_name&quot;</span> <span class="attr">required</span>=<span class="string">&quot;required&quot;</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+<pre><code class="html">&lt;input type=&quot;text&quot; name=&quot;usr_name&quot; required=&quot;required&quot; /&gt;
+</code></pre>
 <p>required 属性规定必需在提交之前填写输入字段。如果使用该属性，则字段是必填（或必选）的。<br>[注意]required 属性适用于以下 <code>&lt;input&gt; </code>类型：<br>text, search, url, tel, email, password, datepickers, number, checkbox, radio 以及 file。</p>
 <p><strong>step</strong></p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;number&quot;</span> <span class="attr">name</span>=<span class="string">&quot;points&quot;</span> <span class="attr">step</span>=<span class="string">&quot;3&quot;</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+<pre><code class="html">&lt;input type=&quot;number&quot; name=&quot;points&quot; step=&quot;3&quot; /&gt;
+</code></pre>
 <p>step 属性规定输入字段的合法数字间隔（假如 step&#x3D;”3”，则合法数字应该是 -3、0、3、6，以此类推）。<br>[注意]step、max 以及 min 属性适用于以下 <code>&lt;input&gt;</code> 类型：number, range, date, datetime, datetime-local, month, time 以及 week。</p>
 <p><strong>multiple</strong></p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line">Select images: <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;file&quot;</span> <span class="attr">name</span>=<span class="string">&quot;img&quot;</span> <span class="attr">multiple</span>=<span class="string">&quot;multiple&quot;</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+<pre><code class="html">Select images: &lt;input type=&quot;file&quot; name=&quot;img&quot; multiple=&quot;multiple&quot; /&gt;
+</code></pre>
 <p>multiple 属性规定输入域中可选择多个值。<br>multiple 属性适用于以下类型的 <code>input</code> 标签：email 和 file。</p>
 <p><strong>pattern</strong></p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">name</span>=<span class="string">&quot;country_code&quot;</span> <span class="attr">pattern</span>=<span class="string">&quot;[a-z]&#123;3&#125;&quot;</span> <span class="attr">title</span>=<span class="string">&quot;Three letter country code&quot;</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+<pre><code class="html">&lt;input type=&quot;text&quot; name=&quot;country_code&quot; pattern=&quot;[a-z]&#123;3&#125;&quot; title=&quot;Three letter country code&quot; /&gt;
+</code></pre>
 <p>pattern 属性规定用于验证输入字段的正则表达式模式。<br>[注意]pattern 属性适用于以下 <code>&lt;input&gt; </code>类型：text, search, url, tel, email 以及 password 。</p>
 <p><strong>novalidate</strong></p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">action</span>=<span class="string">&quot;demo_form.asp&quot;</span> <span class="attr">novalidate</span>=<span class="string">&quot;novalidate&quot;</span>&gt;</span></span><br><span class="line">    E-mail: <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;email&quot;</span> <span class="attr">name</span>=<span class="string">&quot;user_email&quot;</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;submit&quot;</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<pre><code class="html">&lt;form action=&quot;demo_form.asp&quot; novalidate=&quot;novalidate&quot;&gt;
+    E-mail: &lt;input type=&quot;email&quot; name=&quot;user_email&quot; /&gt;
+    &lt;input type=&quot;submit&quot; /&gt;
+&lt;/form&gt;
+</code></pre>
 <form action="demo_form.asp" novalidate="novalidate">
     E-mail: <input type="email" name="user_email" />
     <input type="submit" />
@@ -405,14 +618,44 @@ text, search, url, tel, email, password, datepickers, range 以及 color。
 </ul>
 <h5 id="9-2-3-设置元素可拖动"><a href="#9-2-3-设置元素可拖动" class="headerlink" title="9.2.3 设置元素可拖动"></a>9.2.3 设置元素可拖动</h5><p>为了标记特定元素为可拖动，要为其添加一个属性draggable</p>
 <h3 id="第十章、Web-Workers-API"><a href="#第十章、Web-Workers-API" class="headerlink" title="第十章、Web Workers API"></a>第十章、Web Workers API</h3><p>web worker可以让web应用程序具备后台处理能力，可以充分利用多核cpu带来的优势。将耗时长的任务分配给web worker 可以避免弹出脚本运行缓慢的警告<br>web worker执行的脚本不能访问该页面的window对象</p>
-<h5 id="10-2-2-创建web-worker"><a href="#10-2-2-创建web-worker" class="headerlink" title="10.2.2 创建web worker"></a>10.2.2 创建web worker</h5><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">/* index.js */</span></span><br><span class="line"><span class="keyword">var</span> worker = <span class="keyword">new</span> <span class="title class_">Worker</span>(<span class="string">&quot;worker.js&quot;</span>);</span><br><span class="line">worker.<span class="title function_">postMessage</span>(<span class="string">&quot;hello world!&quot;</span>);</span><br><span class="line"></span><br><span class="line">worker.<span class="property">onmessage</span> = <span class="keyword">function</span>(<span class="params">e</span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(e.<span class="property">data</span>);</span><br><span class="line">    <span class="comment">//终止worker</span></span><br><span class="line">    worker.<span class="title function_">terminate</span>();</span><br><span class="line">&#125;;</span><br><span class="line">worker.<span class="property">onerror</span> = <span class="keyword">function</span>(<span class="params">e</span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;Error:&#x27;</span> + e);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* worker.js */</span></span><br><span class="line">self.<span class="property">onmessage</span> = <span class="keyword">function</span> (<span class="params">e</span>) &#123;</span><br><span class="line">    self.<span class="title function_">postMessage</span>(<span class="string">&#x27;You said: &#x27;</span> + e.<span class="property">data</span>);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h5 id="10-2-2-创建web-worker"><a href="#10-2-2-创建web-worker" class="headerlink" title="10.2.2 创建web worker"></a>10.2.2 创建web worker</h5><pre><code class="js">/* index.js */
+var worker = new Worker(&quot;worker.js&quot;);
+worker.postMessage(&quot;hello world!&quot;);
+
+worker.onmessage = function(e) &#123;
+    console.log(e.data);
+    //终止worker
+    worker.terminate();
+&#125;;
+worker.onerror = function(e) &#123;
+    console.log(&#39;Error:&#39; + e);
+&#125;;
+
+/* worker.js */
+self.onmessage = function (e) &#123;
+    self.postMessage(&#39;You said: &#39; + e.data);
+&#125;;
+</code></pre>
 <h3 id="第十一章、Web-Storage-API"><a href="#第十一章、Web-Storage-API" class="headerlink" title="第十一章、Web Storage API"></a>第十一章、Web Storage API</h3><p>cookie的缺点：</p>
 <ul>
 <li>cookie大小受限</li>
 <li>在网络上来回传送不安全，消耗带宽</li>
 </ul>
 <p>web storage适用于存储超出cookie大小限制的文档和文件数据</p>
-<h5 id="11-3-2-设置和获取数据"><a href="#11-3-2-设置和获取数据" class="headerlink" title="11.3.2 设置和获取数据"></a>11.3.2 设置和获取数据</h5><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">//设置数据</span></span><br><span class="line">sesstionStorage.<span class="title function_">setItem</span>(<span class="string">&quot;firstKey&quot;</span>,<span class="string">&quot;firstValue&quot;</span>);</span><br><span class="line">sesstionStorage.<span class="property">firstKey</span> = <span class="string">&quot;firstValue&quot;</span>;</span><br><span class="line"><span class="comment">//保存对象</span></span><br><span class="line"><span class="keyword">var</span> data = &#123;<span class="attr">name</span>:<span class="string">&quot;jesse&quot;</span>&#125;;</span><br><span class="line"><span class="variable language_">localStorage</span>.<span class="title function_">setItem</span>(<span class="string">&quot;info&quot;</span>,<span class="title class_">JSON</span>.<span class="title function_">stringify</span>(data));</span><br><span class="line"><span class="comment">//获取数据</span></span><br><span class="line">sesstionStorage.<span class="title function_">getItem</span>(<span class="string">&quot;firstKey&quot;</span>);</span><br><span class="line">sesstionStorage.<span class="property">firstKey</span>;</span><br><span class="line"><span class="comment">//删除数据某项数据</span></span><br><span class="line"><span class="title function_">removeItem</span>(key)</span><br><span class="line"><span class="comment">//清除所有数据</span></span><br><span class="line"><span class="title function_">clear</span>()</span><br></pre></td></tr></table></figure>
+<h5 id="11-3-2-设置和获取数据"><a href="#11-3-2-设置和获取数据" class="headerlink" title="11.3.2 设置和获取数据"></a>11.3.2 设置和获取数据</h5><pre><code class="js">//设置数据
+sesstionStorage.setItem(&quot;firstKey&quot;,&quot;firstValue&quot;);
+sesstionStorage.firstKey = &quot;firstValue&quot;;
+//保存对象
+var data = &#123;name:&quot;jesse&quot;&#125;;
+localStorage.setItem(&quot;info&quot;,JSON.stringify(data));
+//获取数据
+sesstionStorage.getItem(&quot;firstKey&quot;);
+sesstionStorage.firstKey;
+//删除数据某项数据
+removeItem(key)
+//清除所有数据
+clear()
+</code></pre>
 <h5 id="11-3-4-sessionStorage和localStorage"><a href="#11-3-4-sessionStorage和localStorage" class="headerlink" title="11.3.4 sessionStorage和localStorage"></a>11.3.4 sessionStorage和localStorage</h5><table>
 <thead>
 <tr>
@@ -431,14 +674,41 @@ text, search, url, tel, email, password, datepickers, range 以及 color。
 </tbody></table>
 <h3 id="第十二章、构建离线web应用"><a href="#第十二章、构建离线web应用" class="headerlink" title="第十二章、构建离线web应用"></a>第十二章、构建离线web应用</h3><p>缓存清单文件中表示的资源构成了应用缓存(application cache),他是浏览器持久性存储资源的地方，通常在硬盘上  </p>
 <h5 id="12-2-2-搭建简单的离线应用程序"><a href="#12-2-2-搭建简单的离线应用程序" class="headerlink" title="12.2.2 搭建简单的离线应用程序"></a>12.2.2 搭建简单的离线应用程序</h5><p>在html元素中加入manifest特性</p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">manifest</span>=<span class="string">&quot;application.appcache&quot;</span>&gt;</span></span><br><span class="line">    //……</span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<pre><code class="html">&lt;html manifest=&quot;application.appcache&quot;&gt;
+    //……
+&lt;/html&gt;
+</code></pre>
 <h5 id="12-2-3-支持离线行为"><a href="#12-2-3-支持离线行为" class="headerlink" title="12.2.3 支持离线行为"></a>12.2.3 支持离线行为</h5><p>navigator.onLine标明浏览器是否处于在线状态</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span>(navigator.<span class="property">onLine</span>)&#123;</span><br><span class="line">    <span class="title function_">log</span>(<span class="string">&quot;online&quot;</span>)</span><br><span class="line">&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">    <span class="title function_">log</span>(offline)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="js">if(navigator.onLine)&#123;
+    log(&quot;online&quot;)
+&#125;else&#123;
+    log(offline)
+&#125;
+</code></pre>
 <h5 id="12-2-4-manifest文件"><a href="#12-2-4-manifest文件" class="headerlink" title="12.2.4 manifest文件"></a>12.2.4 manifest文件</h5><p>离线应用程序包含一个manifest文件，此文件列出了浏览器为离线应用缓存的所有资源。manifest文件的MIME类型是text&#x2F;cache-manifest<br>要配置Apache Http服务器，开发人员需要将下面一行代码添加到conf文件夹中的mime.types文件中</p>
-<figure class="highlight pgsql"><table><tr><td class="code"><pre><span class="line"><span class="type">text</span>/<span class="keyword">cache</span>-manifest appcache</span><br></pre></td></tr></table></figure>
+<pre><code>text/cache-manifest appcache
+</code></pre>
 <p>manifest文件示例</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">CACHE MANIFEST</span><br><span class="line"><span class="comment">#要缓存的文件，无论程序是否在线都会从缓存中获取</span></span><br><span class="line"><span class="comment"># JavaScript</span></span><br><span class="line">./offline.js</span><br><span class="line">./log.js</span><br><span class="line"></span><br><span class="line"><span class="comment"># stylesheets</span></span><br><span class="line">./html5.css</span><br><span class="line"></span><br><span class="line"><span class="comment"># images</span></span><br><span class="line">lake-tahoe.gif</span><br><span class="line"></span><br><span class="line">NETWORK</span><br><span class="line"><span class="comment"># 不缓存的</span></span><br><span class="line">signup.html</span><br><span class="line"></span><br><span class="line">FALLBACK</span><br><span class="line"><span class="comment"># 获取不到缓存资源时的备选资源路径</span></span><br><span class="line">signup.html  offline.html</span><br></pre></td></tr></table></figure>
+<pre><code>CACHE MANIFEST
+#要缓存的文件，无论程序是否在线都会从缓存中获取
+# JavaScript
+./offline.js
+./log.js
 
+# stylesheets
+./html5.css
+
+# images
+lake-tahoe.gif
+
+NETWORK
+# 不缓存的
+signup.html
+
+FALLBACK
+# 获取不到缓存资源时的备选资源路径
+signup.html  offline.html
+</code></pre>
 <h5 id="12-2-6-运行中的应用缓存"><a href="#12-2-6-运行中的应用缓存" class="headerlink" title="12.2.6 运行中的应用缓存"></a>12.2.6 运行中的应用缓存</h5><p>浏览器在应用缓存中成功的缓存了应用资源后，他总会优先从缓存汇总获取资源，之后在检查服务器上的manifest文件后被修改过</p>
  
       <div id="toc-article">
@@ -454,8 +724,8 @@ text, search, url, tel, email, password, datepickers, range 以及 color。
       <blockquote id="copyright">
         <p>
           原文链接:
-          <a href="https://jesse121.github.io/blog/blog/articles/2016/03/13.html"
-            >https://jesse121.github.io/blog/blog/articles/2016/03/13.html</a
+          <a href="https://jesse121.github.io/blog/articles/2016/03/13.html"
+            >https://jesse121.github.io/blog/articles/2016/03/13.html</a
           >
         </p>
         <p>版权声明: 转载请注明出处.</p>
@@ -476,7 +746,7 @@ text, search, url, tel, email, password, datepickers, range 以及 color。
 <nav id="article-nav">
   
     <a href="/blog/articles/2016/03/05.html" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">older</strong>
+      <strong class="article-nav-caption">下一篇</strong>
       <div class="article-nav-title">
         
           《Javascript高级程序设计》第三版--读书笔记
@@ -486,7 +756,7 @@ text, search, url, tel, email, password, datepickers, range 以及 color。
   
   
     <a href="/blog/articles/2016/04/02.html" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">newer</strong>
+      <strong class="article-nav-caption">上一篇</strong>
       <div class="article-nav-title">
         
           《图解HTTP》--读书笔记
@@ -652,37 +922,26 @@ text, search, url, tel, email, password, datepickers, range 以及 color。
     </div>
   </div>
   
-<script src="/blog/js/jquery-3.4.1.min.js"></script>
+<script src="https://unpkg.com/@highlightjs/cdn-assets@11.6.0/highlight.min.js"></script>
 
+<script>
+  hljs.highlightAll();
+</script>
 
+<script src="https://unpkg.com/jquery@3.4.1/dist/jquery.min.js"></script>
+ 
 <script src="/blog/js/search.json.js"></script>
-
-
   
-<script src="/blog/fancybox/jquery.fancybox.min.js"></script>
+<script src="https://unpkg.com/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
 
-
-
-
+ 
 <script src="/blog/js/script.js"></script>
-
-
-
-
-
-
-  
+ 
+   
 <script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-
-
-
-
-  
-  
-
-
-  
-<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+ 
+      
+<script src="https://unpkg.com/gitalk@1.7.2/dist/gitalk.min.js"></script>
  
 <script src="//cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.js"></script>
 
@@ -694,7 +953,7 @@ text, search, url, tel, email, password, datepickers, range 以及 color。
     owner: "jesse121",
     admin: ["jesse121"],
     id: md5(window.location.pathname),
-    proxy: "https://gitalk.jesse121.workers.dev/?https://github.com/login/oauth/access_token",
+    proxy: "https://stormy-gorge-51623.herokuapp.com/https://github.com/login/oauth/access_token",
     distractionFreeMode: false,
     language: "zh-CN",
     pagerDirection: "last",
@@ -702,8 +961,7 @@ text, search, url, tel, email, password, datepickers, range 以及 color。
   gitalk.render("comments");
 </script>
          
-
-
+ 
 
 </body>
 </html>

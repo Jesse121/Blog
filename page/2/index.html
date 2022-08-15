@@ -1,42 +1,28 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8">
-  
-  
+  <meta charset="utf-8" />
+   
   <title>前端之路</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, shrink-to-fit=no"
+  />
   
-    <meta name="description" content="专注前端开发，前端开发技术博客">
-  
-  
-    <meta name="keywords" content="Web前端开发，Javascript，前端开发博客">
-  
-  
-    <link rel="alternate" href="/blog/atom.xml" title="前端之路" type="application/atom+xml">
-  
-  
-    <link rel="shortcut icon" href="/blog/favicon.ico">
-  
-  
-    
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
-
-  
-  
+  <meta name="description" content="专注前端开发，前端开发技术博客" />
+   
+  <meta name="keywords" content="Web前端开发，Javascript，前端开发博客" />
+    <link rel="alternate" href="/blog/atom.xml" title="前端之路" type="application/atom+xml">   <link rel="shortcut icon" href="/blog/favicon.ico"> 
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/@highlightjs/cdn-assets@11.6.0/styles/xt256.min.css"
+  />
+   
 <link rel="stylesheet" href="/blog/css/style.css">
-
   
+<link rel="stylesheet" href="https://unpkg.com/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
     
-<link rel="stylesheet" href="/blog/fancybox/jquery.fancybox.min.css">
-
-  
-  
-  
-    
-<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
-
-  
+<link rel="stylesheet" href="https://unpkg.com/gitalk@1.7.2/dist/gitalk.css">
   
 <meta name="generator" content="Hexo 6.2.0"></head>
 
@@ -131,12 +117,14 @@
        <h3 id="用-docker-commit-的方式创建-ssh-直连-docker-容器镜像"><a href="#用-docker-commit-的方式创建-ssh-直连-docker-容器镜像" class="headerlink" title="用 docker commit 的方式创建 ssh 直连 docker 容器镜像"></a>用 docker commit 的方式创建 ssh 直连 docker 容器镜像</h3><ol>
 <li>拉取镜像，这里采用 centos:7 作为基础镜像</li>
 </ol>
-<figure class="highlight apache"><table><tr><td class="code"><pre><span class="line"><span class="attribute">docker</span> pull centos:<span class="number">7</span></span><br></pre></td></tr></table></figure>
-
+<pre><code>docker pull centos:7
+</code></pre>
 <ol start="2">
 <li>运行镜像，生成容器</li>
 </ol>
-<figure class="highlight dockerfile"><table><tr><td class="code"><pre><span class="line">docker <span class="keyword">run</span><span class="language-bash"> -d --name ssh_box --privileged=<span class="literal">true</span> centos:7 /usr/sbin/init</span></span><br><span class="line"><span class="number">07228</span>ec257564c4874ca24216d651bda65573d49e4149064a079cacca27de4e1 <span class="comment"># 生成的容器ID</span></span><br></pre></td></tr></table></figure> 
+<pre><code>docker run -d --name ssh_box --privileged=true centos:7 /usr/sbin/init
+07228ec257564c4874ca24216d651bda65573d49e4149064a079cacca27de4e1 # 生成的容器ID
+</code></pre> 
     </div>
     <footer class="article-footer">
        
@@ -152,7 +140,7 @@
 
 
   <article
-  id="post-typescript/如何在vscode上直接运行typescript?"
+  id="post-typescript/如何在vscode上直接运行typescript？"
   class="h-entry article article-type-post"
   itemprop="blogPost"
   itemscope
@@ -460,8 +448,8 @@
 
     </div>
     <div class="e-content article-entry" itemprop="articleBody">
-       <figure class="highlight reasonml"><table><tr><td class="code"><pre><span class="line"><span class="constructor">T(<span class="params">n</span>)</span> = <span class="constructor">O(<span class="params">fn</span>)</span></span><br></pre></td></tr></table></figure>
-
+       <pre><code>T(n) = O(fn)
+</code></pre>
 <p>所有代码的执行时间 T(n)与每行代码的执行次数 n 成正比<br>大 O 时间复杂度实际上并不具体表示代码真正的执行时间，而是表示代码执行时间随数据规模增长的变化趋势，所以，也叫作渐进时间复杂度（asymptotic time complexity），简称时间复杂度。</p> 
     </div>
     <footer class="article-footer">
@@ -790,35 +778,26 @@
     </div>
   </div>
   
-<script src="/blog/js/jquery-3.4.1.min.js"></script>
+<script src="https://unpkg.com/@highlightjs/cdn-assets@11.6.0/highlight.min.js"></script>
 
+<script>
+  hljs.highlightAll();
+</script>
 
+<script src="https://unpkg.com/jquery@3.4.1/dist/jquery.min.js"></script>
+ 
 <script src="/blog/js/search.json.js"></script>
-
-
   
-<script src="/blog/fancybox/jquery.fancybox.min.js"></script>
+<script src="https://unpkg.com/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
 
-
-
-
+ 
 <script src="/blog/js/script.js"></script>
-
-
-
-
-
-
-  
-<script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-
-
-
-
-
+ 
    
-
-
+<script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+ 
+    
+ 
 
 </body>
 </html>

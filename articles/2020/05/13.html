@@ -1,42 +1,28 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8">
-  
-  
+  <meta charset="utf-8" />
+   
   <title>Webpack编译后的html中图片路径变为[object Module]的原因及解决办法 | 前端之路</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, shrink-to-fit=no"
+  />
   
-    <meta name="description" content="专注前端开发，前端开发技术博客">
-  
-  
-    <meta name="keywords" content="Web前端开发，Javascript，前端开发博客">
-  
-  
-    <link rel="alternate" href="/blog/atom.xml" title="前端之路" type="application/atom+xml">
-  
-  
-    <link rel="shortcut icon" href="/blog/favicon.ico">
-  
-  
-    
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
-
-  
-  
+  <meta name="description" content="专注前端开发，前端开发技术博客" />
+   
+  <meta name="keywords" content="Web前端开发，Javascript，前端开发博客" />
+    <link rel="alternate" href="/blog/atom.xml" title="前端之路" type="application/atom+xml">   <link rel="shortcut icon" href="/blog/favicon.ico"> 
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/@highlightjs/cdn-assets@11.6.0/styles/xt256.min.css"
+  />
+   
 <link rel="stylesheet" href="/blog/css/style.css">
-
   
+<link rel="stylesheet" href="https://unpkg.com/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
     
-<link rel="stylesheet" href="/blog/fancybox/jquery.fancybox.min.css">
-
-  
-  
-  
-    
-<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
-
-  
+<link rel="stylesheet" href="https://unpkg.com/gitalk@1.7.2/dist/gitalk.css">
   
 <meta name="generator" content="Hexo 6.2.0"></head>
 
@@ -144,22 +130,50 @@
 
 <h3 id="提出问题"><a href="#提出问题" class="headerlink" title="提出问题"></a>提出问题</h3><p>html 中如何正确的引入图片供 webpack 编译？</p>
 <h3 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h3><p>方法一：<br>采用以下方式引入图片</p>
-<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">&lt;img <span class="attribute">src</span>=<span class="string">&quot;<span class="variable">$&#123;require(&#x27;../../../../../../static_audio/src/mobile/v2/img/notice/fishingTips/waiting.png&#x27;)&#125;</span>&quot;</span> <span class="attribute">alt</span>=<span class="string">&quot;&quot;</span>&gt;</span><br></pre></td></tr></table></figure>
-
+<pre><code>&lt;img src=&quot;$&#123;require(&#39;../../../../../../static_audio/src/mobile/v2/img/notice/fishingTips/waiting.png&#39;)&#125;&quot; alt=&quot;&quot;&gt;
+</code></pre>
 <p>这样引入的图片可经过 file-loader 处理<br>方法二：<br>采用以下方式引入图片</p>
-<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">&lt;img <span class="attribute">src</span>=<span class="string">&quot;../../../../../../static_audio/src/mobile/v2/img/notice/fishingTips/waiting.png&quot;</span> <span class="attribute">alt</span>=<span class="string">&quot;&quot;</span>&gt;</span><br></pre></td></tr></table></figure>
-
+<pre><code>&lt;img src=&quot;../../../../../../static_audio/src/mobile/v2/img/notice/fishingTips/waiting.png&quot; alt=&quot;&quot;&gt;
+</code></pre>
 <p>使用 html-loader 和 file-loader 处理</p>
-<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">rules: [&#123;</span><br><span class="line">        test: <span class="regexp">/\.(html)$/</span>,</span><br><span class="line">        use: &#123;</span><br><span class="line">            loader: <span class="string">&#x27;html-loader&#x27;</span>,</span><br><span class="line">            options: &#123;</span><br><span class="line">                attrs: [<span class="string">&#x27;img:src&#x27;</span>],</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">        test: <span class="regexp">/\.(png|svg|jpg|gif)$/</span>,</span><br><span class="line">        use: [&#123;</span><br><span class="line">            loader: <span class="string">&#x27;file-loader&#x27;</span>,</span><br><span class="line">            options: &#123;</span><br><span class="line">                name: <span class="string">&#x27;[name].[ext]&#x27;</span>,</span><br><span class="line">                outputPath: <span class="string">&quot;assets/&quot;</span>,   <span class="regexp">//</span>输出图片放置的位置</span><br><span class="line">                publicPath: <span class="string">&#x27;./asserts&#x27;</span>, <span class="regexp">//</span>html的img标签src所指向图片的位置，与outputPath一致</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;]</span><br><span class="line">    &#125;</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
-
+<pre><code>rules: [&#123;
+        test: /\.(html)$/,
+        use: &#123;
+            loader: &#39;html-loader&#39;,
+            options: &#123;
+                attrs: [&#39;img:src&#39;],
+            &#125;
+        &#125;
+    &#125;,
+    &#123;
+        test: /\.(png|svg|jpg|gif)$/,
+        use: [&#123;
+            loader: &#39;file-loader&#39;,
+            options: &#123;
+                name: &#39;[name].[ext]&#39;,
+                outputPath: &quot;assets/&quot;,   //输出图片放置的位置
+                publicPath: &#39;./asserts&#39;, //html的img标签src所指向图片的位置，与outputPath一致
+            &#125;
+        &#125;]
+    &#125;
+]
+</code></pre>
 <p>这里由于我们在项目中用的是 ejs 模板，我们采取第一种方法</p>
 <h3 id="发现问题"><a href="#发现问题" class="headerlink" title="发现问题"></a>发现问题</h3><p>按照上面的写法引入图片之后发现图片变成了<code>&lt;img src=&quot;[object Module]&quot; alt=&quot;&quot;&gt;</code>,在 stackoverflow 中查找资料发现原来是 file-loader 版本过高导致的，esModule 选项已在 4.3.0 版本的文件加载器中引入，而在 5.0.0 版本中，默认情况下已将其设置为 true。问题地址<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/59114479/when-i-using-file-loader-and-html-loader-in-webpack-the-src-attr-of-image-gonna/59115624#59115624">When i using file-loader and html-loader in webpack. The src attr of image gonna be like ‘[object Module]’</a></p>
 <h3 id="解决方法一"><a href="#解决方法一" class="headerlink" title="解决方法一"></a>解决方法一</h3><p>安装 4.3.0 以下版本的 file-loader,这里我安装的是 4.2.0</p>
-<figure class="highlight apache"><table><tr><td class="code"><pre><span class="line"><span class="attribute">yarn</span> add file-loader@<span class="number">4</span>.<span class="number">2</span>.<span class="number">0</span> --dev</span><br></pre></td></tr></table></figure>
-
+<pre><code>yarn add file-loader@4.2.0 --dev
+</code></pre>
 <h3 id="解决方法二"><a href="#解决方法二" class="headerlink" title="解决方法二"></a>解决方法二</h3><p>使用 4.3.0 以上版本的 file-loader,需设置 esModule: false</p>
-<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">test:</span> <span class="string">/\.(jpeg|jpg|png)$/</span>,</span><br><span class="line">    <span class="attr">use:</span> [</span><br><span class="line">      <span class="attr">loader:</span> <span class="string">&#x27;file-loader&#x27;</span>,</span><br><span class="line">      <span class="attr">options:</span> &#123;</span><br><span class="line">        <span class="attr">esModule:</span> <span class="literal">false</span></span><br><span class="line">      &#125;</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+<pre><code>&#123;
+    test: /\.(jpeg|jpg|png)$/,
+    use: [
+      loader: &#39;file-loader&#39;,
+      options: &#123;
+        esModule: false
+      &#125;
+    ]
+&#125;
+</code></pre>
 <p><strong>参考资料</strong><br><a target="_blank" rel="noopener" href="https://juejin.im/post/5de1dd566fb9a07164727a75">webpack 踩坑记录</a><br><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/59114479/when-i-using-file-loader-and-html-loader-in-webpack-the-src-attr-of-image-gonna/59115624#59115624">When i using file-loader and html-loader in webpack. The src attr of image gonna be like ‘[object Module]’</a></p>
  
       <div id="toc-article">
@@ -175,8 +189,8 @@
       <blockquote id="copyright">
         <p>
           原文链接:
-          <a href="https://jesse121.github.io/blog/blog/articles/2020/05/13.html"
-            >https://jesse121.github.io/blog/blog/articles/2020/05/13.html</a
+          <a href="https://jesse121.github.io/blog/articles/2020/05/13.html"
+            >https://jesse121.github.io/blog/articles/2020/05/13.html</a
           >
         </p>
         <p>版权声明: 转载请注明出处.</p>
@@ -197,7 +211,7 @@
 <nav id="article-nav">
   
     <a href="/blog/articles/2020/05/02.html" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">older</strong>
+      <strong class="article-nav-caption">下一篇</strong>
       <div class="article-nav-title">
         
           栈与队列
@@ -207,7 +221,7 @@
   
   
     <a href="/blog/articles/2020/06/13.html" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">newer</strong>
+      <strong class="article-nav-caption">上一篇</strong>
       <div class="article-nav-title">
         
           Wireshark过滤器使用介绍
@@ -373,37 +387,26 @@
     </div>
   </div>
   
-<script src="/blog/js/jquery-3.4.1.min.js"></script>
+<script src="https://unpkg.com/@highlightjs/cdn-assets@11.6.0/highlight.min.js"></script>
 
+<script>
+  hljs.highlightAll();
+</script>
 
+<script src="https://unpkg.com/jquery@3.4.1/dist/jquery.min.js"></script>
+ 
 <script src="/blog/js/search.json.js"></script>
-
-
   
-<script src="/blog/fancybox/jquery.fancybox.min.js"></script>
+<script src="https://unpkg.com/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
 
-
-
-
+ 
 <script src="/blog/js/script.js"></script>
-
-
-
-
-
-
-  
+ 
+   
 <script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-
-
-
-
-  
-  
-
-
-  
-<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+ 
+      
+<script src="https://unpkg.com/gitalk@1.7.2/dist/gitalk.min.js"></script>
  
 <script src="//cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.js"></script>
 
@@ -415,7 +418,7 @@
     owner: "jesse121",
     admin: ["jesse121"],
     id: md5(window.location.pathname),
-    proxy: "https://gitalk.jesse121.workers.dev/?https://github.com/login/oauth/access_token",
+    proxy: "https://stormy-gorge-51623.herokuapp.com/https://github.com/login/oauth/access_token",
     distractionFreeMode: false,
     language: "zh-CN",
     pagerDirection: "last",
@@ -423,8 +426,7 @@
   gitalk.render("comments");
 </script>
          
-
-
+ 
 
 </body>
 </html>

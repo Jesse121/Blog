@@ -1,42 +1,28 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8">
-  
-  
+  <meta charset="utf-8" />
+   
   <title>《Node.js权威指南》--读书笔记 | 前端之路</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, shrink-to-fit=no"
+  />
   
-    <meta name="description" content="专注前端开发，前端开发技术博客">
-  
-  
-    <meta name="keywords" content="Web前端开发，Javascript，前端开发博客">
-  
-  
-    <link rel="alternate" href="/blog/atom.xml" title="前端之路" type="application/atom+xml">
-  
-  
-    <link rel="shortcut icon" href="/blog/favicon.ico">
-  
-  
-    
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
-
-  
-  
+  <meta name="description" content="专注前端开发，前端开发技术博客" />
+   
+  <meta name="keywords" content="Web前端开发，Javascript，前端开发博客" />
+    <link rel="alternate" href="/blog/atom.xml" title="前端之路" type="application/atom+xml">   <link rel="shortcut icon" href="/blog/favicon.ico"> 
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/@highlightjs/cdn-assets@11.6.0/styles/xt256.min.css"
+  />
+   
 <link rel="stylesheet" href="/blog/css/style.css">
-
   
+<link rel="stylesheet" href="https://unpkg.com/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
     
-<link rel="stylesheet" href="/blog/fancybox/jquery.fancybox.min.css">
-
-  
-  
-  
-    
-<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
-
-  
+<link rel="stylesheet" href="https://unpkg.com/gitalk@1.7.2/dist/gitalk.css">
   
 <meta name="generator" content="Hexo 6.2.0"></head>
 
@@ -143,111 +129,297 @@
 <span id="more"></span>
 
 <h3 id="第三章-node-js-中的全局作用域及全局函数"><a href="#第三章-node-js-中的全局作用域及全局函数" class="headerlink" title="第三章 node.js 中的全局作用域及全局函数"></a>第三章 node.js 中的全局作用域及全局函数</h3><p>timer.unref()用于取消 setTimeout 或 setInterval 函数中指定的回调函数的调用<br>timer.ref()恢复 unref 方法取消的回调函数</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> testFunction = <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;aaa&quot;</span>);</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">var</span> timer = <span class="built_in">setInterval</span>(testFunction, <span class="number">3000</span>);</span><br><span class="line"><span class="comment">//取消定时器对象的回调函数调用</span></span><br><span class="line">timer.<span class="title function_">unref</span>(); <span class="comment">//没有输出</span></span><br><span class="line"><span class="comment">//恢复定时器对象的回调函数调用</span></span><br><span class="line"><span class="comment">// timer.ref()//有输出</span></span><br></pre></td></tr></table></figure>
-
+<pre><code class="js">var testFunction = function () &#123;
+  console.log(&quot;aaa&quot;);
+&#125;;
+var timer = setInterval(testFunction, 3000);
+//取消定时器对象的回调函数调用
+timer.unref(); //没有输出
+//恢复定时器对象的回调函数调用
+// timer.ref()//有输出
+</code></pre>
 <p>在任何模块文件内部，可以使用<code>__filename</code>变量获取当前模块文件名<br>在任何模块文件内部，可以使用<code>__dirname</code>变量获取当前模块文件所在目录的完成绝对路径</p>
-<h4 id="EventEmitter-类"><a href="#EventEmitter-类" class="headerlink" title="EventEmitter 类"></a>EventEmitter 类</h4><p><img src="/blog/blog/static/images/nodejs/1.png"></p>
+<h4 id="EventEmitter-类"><a href="#EventEmitter-类" class="headerlink" title="EventEmitter 类"></a>EventEmitter 类</h4><p><img src="/blog/static/images/nodejs/1.png"></p>
 <p>emitter.setMaxListeners(n)<br>默认情况下，如果为特定事件添加了超过 10 个监听器，则 EventEmitter 会打印一个警告<br>emitter.setMaxListeners() 方法可以为指定的 EventEmitter 实例修改限制。 值设为 Infinity（或 0）表示不限制监听器的数量。</p>
 <p>当需要手工触发某个对象的一个事件时，使用 EventEmitter 类的 emit 方法<br>emitter.emit(event,[arg1],…)</p>
 <h3 id="第六章-在-Node-js-中操作文件系统"><a href="#第六章-在-Node-js-中操作文件系统" class="headerlink" title="第六章 在 Node.js 中操作文件系统"></a>第六章 在 Node.js 中操作文件系统</h3><p>在 node.js 中使用 fs 模块来实现所有有关文件及目录的创建写入及删除操作，所有的操作都有同步(有 Sync 后缀)和异步的方法</p>
-<h4 id="文件的完整读写"><a href="#文件的完整读写" class="headerlink" title="文件的完整读写"></a>文件的完整读写</h4><p>fs.readFile(path,[options],callback)<br>options 参数为一个对象，在该参数值对象中可以使用 flag 属性指定对该文件采取什么操作，默认是‘r’<br>可指定值如下所示<br><img src="/blog/blog/static/images/nodejs/2.png"><br>在 options 参数值中可使用 encoding 属性指定使用何种编码格式来读取该文件，可指定‘utf8’,’ascii’,’base64’</p>
-<figure class="highlight reasonml"><table><tr><td class="code"><pre><span class="line">var fs = require(&#x27;fs&#x27;)</span><br><span class="line">fs.read<span class="constructor">File(&#x27;.<span class="operator">/</span><span class="params">test</span>.<span class="params">txt</span>&#x27;,<span class="params">utf8</span>&#x27;,<span class="params">function</span>(<span class="params">err</span>,<span class="params">data</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(err)&#123;</span><br><span class="line">        console.log(&#x27;read error&#x27;)</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        coonsole.log(data.<span class="keyword">to</span><span class="constructor">String()</span>)    <span class="comment">//将buffer对象转换为字符串</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-
+<h4 id="文件的完整读写"><a href="#文件的完整读写" class="headerlink" title="文件的完整读写"></a>文件的完整读写</h4><p>fs.readFile(path,[options],callback)<br>options 参数为一个对象，在该参数值对象中可以使用 flag 属性指定对该文件采取什么操作，默认是‘r’<br>可指定值如下所示<br><img src="/blog/static/images/nodejs/2.png"><br>在 options 参数值中可使用 encoding 属性指定使用何种编码格式来读取该文件，可指定‘utf8’,’ascii’,’base64’</p>
+<pre><code>var fs = require(&#39;fs&#39;)
+fs.readFile(&#39;./test.txt&#39;,utf8&#39;,function(err,data)&#123;
+    if(err)&#123;
+        console.log(&#39;read error&#39;)
+    &#125;else&#123;
+        coonsole.log(data.toString())    //将buffer对象转换为字符串
+    &#125;
+&#125;)
+</code></pre>
 <p>fs.writeFile(path,data,[options],callback)<br>data 参数用于指定需要写入的内容，可以是一个字符串或一个 buffer 对象<br>options 参数值为一个对象</p>
-<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">var options= &#123;</span><br><span class="line">    flag:<span class="string">&#x27;w&#x27;</span> <span class="regexp">//</span>用于指定对该文件采取何种操作，默认<span class="string">&#x27;w&#x27;</span></span><br><span class="line">    mode:<span class="number">0666</span> <span class="regexp">//</span>用于指定当文件被打开时对该文件的读写权限，默认<span class="number">0666</span>（可读写）</span><br><span class="line">    encoding:<span class="string">&#x27;utf8&#x27;</span><span class="regexp">//</span>用于指定使用何种编码格式来写入该文件</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight arcade"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> fs = require(<span class="string">&#x27;fs&#x27;</span>)</span><br><span class="line">fs.writeFile(<span class="string">&#x27;./message.txt&#x27;</span>,<span class="string">&#x27;这是第一行\r\n这是第二行&#x27;</span>,<span class="keyword">function</span>(<span class="params">err</span>)&#123;</span><br><span class="line">    <span class="keyword">if</span>(err)&#123;</span><br><span class="line">        <span class="built_in">console</span>.<span class="built_in">log</span>(<span class="string">&#x27;err:&#x27;</span>,err)</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.<span class="built_in">log</span>(<span class="string">&#x27;success&#x27;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-
+<pre><code>var options= &#123;
+    flag:&#39;w&#39; //用于指定对该文件采取何种操作，默认&#39;w&#39;
+    mode:0666 //用于指定当文件被打开时对该文件的读写权限，默认0666（可读写）
+    encoding:&#39;utf8&#39;//用于指定使用何种编码格式来写入该文件
+&#125;
+</code></pre>
+<pre><code>var fs = require(&#39;fs&#39;)
+fs.writeFile(&#39;./message.txt&#39;,&#39;这是第一行\r\n这是第二行&#39;,function(err)&#123;
+    if(err)&#123;
+        console.log(&#39;err:&#39;,err)
+    &#125;else&#123;
+        console.log(&#39;success&#39;)
+    &#125;
+&#125;)
+</code></pre>
 <p>将一个字符串或一个缓冲区的数据追加到一个文件底部时，可以使用 fs.appendFile()或者 fs.appendFileSync()</p>
-<figure class="highlight arcade"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> fs = require(<span class="string">&#x27;fs&#x27;</span>)</span><br><span class="line">fs.appendFile(<span class="string">&#x27;./message.txt&#x27;</span>,<span class="string">&#x27;\r\n这是追加的数据&#x27;</span>,<span class="keyword">function</span>(<span class="params">err</span>)&#123;</span><br><span class="line">    <span class="keyword">if</span>(err)&#123;</span><br><span class="line">        <span class="built_in">console</span>.<span class="built_in">log</span>(<span class="string">&#x27;err:&#x27;</span>,err)</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.<span class="built_in">log</span>(<span class="string">&#x27;success&#x27;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-
+<pre><code>var fs = require(&#39;fs&#39;)
+fs.appendFile(&#39;./message.txt&#39;,&#39;\r\n这是追加的数据&#39;,function(err)&#123;
+    if(err)&#123;
+        console.log(&#39;err:&#39;,err)
+    &#125;else&#123;
+        console.log(&#39;success&#39;)
+    &#125;
+&#125;)
+</code></pre>
 <h4 id="从指定位置处开始读写文件"><a href="#从指定位置处开始读写文件" class="headerlink" title="从指定位置处开始读写文件"></a>从指定位置处开始读写文件</h4><p>首先需要使用 fs 模块中的 open 方法或者 openSync 方法打开文件<br>fs.open(path,flags,[model],callback)</p>
-<figure class="highlight arcade"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> fs = require(<span class="string">&#x27;fs&#x27;</span>)</span><br><span class="line"></span><br><span class="line">fs.open(<span class="string">&#x27;./message.txt&#x27;</span>,<span class="string">&#x27;r&#x27;</span>,<span class="keyword">function</span>(<span class="params">err,fd</span>)&#123;</span><br><span class="line">    <span class="keyword">if</span>(err)&#123;</span><br><span class="line">        <span class="built_in">console</span>.<span class="built_in">log</span>(<span class="string">&#x27;err:&#x27;</span>,err)</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.<span class="built_in">log</span>(fd)<span class="comment">//文件描述符</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<pre><code>var fs = require(&#39;fs&#39;)
 
+fs.open(&#39;./message.txt&#39;,&#39;r&#39;,function(err,fd)&#123;
+    if(err)&#123;
+        console.log(&#39;err:&#39;,err)
+    &#125;else&#123;
+        console.log(fd)//文件描述符
+    &#125;
+&#125;)
+</code></pre>
 <p>打开文件后可以在回调函数中使用 fs.read()从文件指定位置处读取文件，也可以使用 fs.write()方法从文件的指定处开始写入数据<br>read()从文件的指定位置出读取文件，一直读取到文件底部然后将读取到的内容输出到一个缓冲区</p>
-<figure class="highlight applescript"><table><tr><td class="code"><pre><span class="line">fs.<span class="built_in">read</span>(fd,buffer,<span class="built_in">offset</span>,<span class="built_in">length</span>,position,callback)</span><br></pre></td></tr></table></figure>
-
+<pre><code>fs.read(fd,buffer,offset,length,position,callback)
+</code></pre>
 <p>fd 参数值必须为 open 方法所使用的回调函数中返回的文件描述符<br>offset 参数用于指定向缓存区中写入数据的开始写入位置（以字节为单位）<br>length 参数用于指定从文件中读取的字节数<br>position 参数用于指定读取文件时的开始位置</p>
-<figure class="highlight arcade"><table><tr><td class="code"><pre><span class="line">fs.open(<span class="string">&#x27;./message.txt&#x27;</span>,<span class="string">&#x27;r&#x27;</span>,<span class="keyword">function</span> (<span class="params">err,fd</span>) &#123;</span><br><span class="line">    <span class="keyword">var</span> buf = <span class="keyword">new</span> <span class="built_in">Buffer</span>(<span class="number">255</span>)</span><br><span class="line">    fs.read(fd,buf,<span class="number">0</span>,<span class="number">9</span>,<span class="number">3</span>,<span class="keyword">function</span> (<span class="params">err,bytesRead,buffer</span>) &#123;</span><br><span class="line">        <span class="built_in">console</span>.<span class="built_in">log</span>(<span class="built_in">buffer</span>.<span class="built_in">slice</span>(<span class="number">0</span>,bytesRead).toString())</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-
+<pre><code>fs.open(&#39;./message.txt&#39;,&#39;r&#39;,function (err,fd) &#123;
+    var buf = new Buffer(255)
+    fs.read(fd,buf,0,9,3,function (err,bytesRead,buffer) &#123;
+        console.log(buffer.slice(0,bytesRead).toString())
+    &#125;)
+&#125;)
+</code></pre>
 <p>再打开文件之后，可以使用 fs.write()或者 writeSync()方法从一个缓存区中读取数据并且从文件的指定出开始写入数据<br>fs.write(fd,buffer,offset,length,position,callback)<br>参数与 open 方法参数类似</p>
-<figure class="highlight arcade"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> buf = <span class="keyword">new</span> <span class="built_in">Buffer</span>(<span class="string">&#x27;我喜爱编程&#x27;</span>)</span><br><span class="line">fs.open(<span class="string">&#x27;./message.txt&#x27;</span>,<span class="string">&#x27;w&#x27;</span>,<span class="keyword">function</span> (<span class="params">err,fd</span>) &#123;</span><br><span class="line">    fs.write(fd,buf,<span class="number">3</span>,<span class="number">9</span>,<span class="number">0</span>,<span class="keyword">function</span> (<span class="params">err,written,buffer</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span>(err)&#123;</span><br><span class="line">            <span class="built_in">console</span>.<span class="built_in">log</span>(err)</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">console</span>.<span class="built_in">log</span>(<span class="string">&#x27;success&#x27;</span>)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-
+<pre><code>var buf = new Buffer(&#39;我喜爱编程&#39;)
+fs.open(&#39;./message.txt&#39;,&#39;w&#39;,function (err,fd) &#123;
+    fs.write(fd,buf,3,9,0,function (err,written,buffer) &#123;
+        if(err)&#123;
+            console.log(err)
+        &#125;
+        console.log(&#39;success&#39;)
+    &#125;)
+&#125;)
+</code></pre>
 <p>在 fs 模块中提供 close()与 closeSync()关闭文件<br>fs.close(fd,[callback])<br>在使用 write()方法在文件中写入数据时，操作系统先将该部分数据读取到内存中，在把数据写入到文件中，当数据读完并不代表数据已经写入，此时调用 close()方法会将部分数据丢失。<br>我们需要调用 fs.fsync 方法对文件进行同步操作</p>
-<figure class="highlight arcade"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> buf = <span class="keyword">new</span> <span class="built_in">Buffer</span>(<span class="string">&#x27;我喜爱编程&#x27;</span>)</span><br><span class="line">fs.open(<span class="string">&#x27;./message.txt&#x27;</span>,<span class="string">&#x27;a&#x27;</span>,<span class="keyword">function</span> (<span class="params">err,fd</span>) &#123;</span><br><span class="line">    fs.write(fd,buf,<span class="number">12</span>,<span class="number">3</span>,<span class="literal">null</span>,<span class="keyword">function</span> (<span class="params">err,written,buffer</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span>(err)&#123;</span><br><span class="line">            <span class="built_in">console</span>.<span class="built_in">log</span>(err)</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">console</span>.<span class="built_in">log</span>(<span class="string">&#x27;success&#x27;</span>)</span><br><span class="line">        fs.fsync(fd)</span><br><span class="line">        fs.close(fd)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-
+<pre><code>var buf = new Buffer(&#39;我喜爱编程&#39;)
+fs.open(&#39;./message.txt&#39;,&#39;a&#39;,function (err,fd) &#123;
+    fs.write(fd,buf,12,3,null,function (err,written,buffer) &#123;
+        if(err)&#123;
+            console.log(err)
+        &#125;
+        console.log(&#39;success&#39;)
+        fs.fsync(fd)
+        fs.close(fd)
+    &#125;)
+&#125;)
+</code></pre>
 <h4 id="创建与读取目录"><a href="#创建与读取目录" class="headerlink" title="创建与读取目录"></a>创建与读取目录</h4><p>fs.mkdir(path,[mode],callback)创建目录<br>mode 参数值用于指定该目录的权限，默认值 0777</p>
-<figure class="highlight arcade"><table><tr><td class="code"><pre><span class="line">fs.mkdir(<span class="string">&#x27;./test&#x27;</span>,<span class="keyword">function</span> (<span class="params">err</span>) &#123;</span><br><span class="line">    <span class="keyword">if</span>(err)&#123;</span><br><span class="line">        <span class="built_in">console</span>.<span class="built_in">log</span>(err)</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.<span class="built_in">log</span>(<span class="string">&#x27;success&#x27;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-
+<pre><code>fs.mkdir(&#39;./test&#39;,function (err) &#123;
+    if(err)&#123;
+        console.log(err)
+    &#125;else&#123;
+        console.log(&#39;success&#39;)
+    &#125;
+&#125;)
+</code></pre>
 <p>fs.readdir(path,callback) 读取目录</p>
-<figure class="highlight arcade"><table><tr><td class="code"><pre><span class="line">fs.readdir(<span class="string">&#x27;./&#x27;</span>,<span class="keyword">function</span> (<span class="params">err,files</span>) &#123;</span><br><span class="line">    <span class="keyword">if</span>(err)&#123;</span><br><span class="line">        <span class="built_in">console</span>.<span class="built_in">log</span>(err)</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.<span class="built_in">log</span>(files)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-
+<pre><code>fs.readdir(&#39;./&#39;,function (err,files) &#123;
+    if(err)&#123;
+        console.log(err)
+    &#125;else&#123;
+        console.log(files)
+    &#125;
+&#125;)
+</code></pre>
 <h4 id="查看与修改文件或目录的信息"><a href="#查看与修改文件或目录的信息" class="headerlink" title="查看与修改文件或目录的信息"></a>查看与修改文件或目录的信息</h4><p>在 fs 模块中，可以使用 stat 方法或 lstat 方法查看一个文件或目录的信息，区别是当查看符号链接文件时必须使用 lstat()<br>fs.stat(path,callback)</p>
-<figure class="highlight arcade"><table><tr><td class="code"><pre><span class="line">fs.stat(<span class="string">&#x27;./message.txt&#x27;</span>,<span class="keyword">function</span> (<span class="params">err,stats</span>) &#123;</span><br><span class="line">    <span class="built_in">console</span>.<span class="built_in">log</span>(stats)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-
-<p>stats 对象拥有以下属性和方法<br><img src="/blog/blog/static/images/nodejs/3.png"><br><img src="/blog/blog/static/images/nodejs/4.png"><br><img src="/blog/blog/static/images/nodejs/5.png"><br>在使用 open 方法打开文件并返回文件描述符后可以使用 fs.fstat()查看文件信息<br>fs.fstat(fd,callback)</p>
+<pre><code>fs.stat(&#39;./message.txt&#39;,function (err,stats) &#123;
+    console.log(stats)
+&#125;)
+</code></pre>
+<p>stats 对象拥有以下属性和方法<br><img src="/blog/static/images/nodejs/3.png"><br><img src="/blog/static/images/nodejs/4.png"><br><img src="/blog/static/images/nodejs/5.png"><br>在使用 open 方法打开文件并返回文件描述符后可以使用 fs.fstat()查看文件信息<br>fs.fstat(fd,callback)</p>
 <h4 id="检查文件是否存在"><a href="#检查文件是否存在" class="headerlink" title="检查文件是否存在"></a>检查文件是否存在</h4><p>fs.access(path[, mode], callback)<br>mode 默认为 fs.constants.F_OK。</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">fs.<span class="title function_">access</span>(file, <span class="function">(<span class="params">err</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`<span class="subst">$&#123;file&#125;</span> <span class="subst">$&#123;err ? <span class="string">&#x27;不存在&#x27;</span> : <span class="string">&#x27;存在&#x27;</span>&#125;</span>`</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-
+<pre><code>fs.access(file, (err) =&gt; &#123;
+  console.log(`$&#123;file&#125; $&#123;err ? &#39;不存在&#39; : &#39;存在&#39;&#125;`);
+&#125;);
+</code></pre>
 <h4 id="获取文件或目录的绝对路径"><a href="#获取文件或目录的绝对路径" class="headerlink" title="获取文件或目录的绝对路径"></a>获取文件或目录的绝对路径</h4><p>fs.realpath(path[, options], callback)</p>
-<figure class="highlight arcade"><table><tr><td class="code"><pre><span class="line">fs.realpath(<span class="string">&#x27;./message.txt&#x27;</span>,<span class="keyword">function</span> (<span class="params">err,resolvedPath</span>) &#123;</span><br><span class="line">    <span class="keyword">if</span>(err)throw err</span><br><span class="line">    <span class="built_in">console</span>.<span class="built_in">log</span>(resolvedPath)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-
+<pre><code>fs.realpath(&#39;./message.txt&#39;,function (err,resolvedPath) &#123;
+    if(err)throw err
+    console.log(resolvedPath)
+&#125;)
+</code></pre>
 <h4 id="修改文件访问时间及修改时间"><a href="#修改文件访问时间及修改时间" class="headerlink" title="修改文件访问时间及修改时间"></a>修改文件访问时间及修改时间</h4><p>fs.utimes(path, atime, mtime, callback)<br>atime 参数用于指定修改后的访问时间<br>mtime 参数用于指定修改后的修改时间</p>
-<figure class="highlight arcade"><table><tr><td class="code"><pre><span class="line">let file = <span class="string">&#x27;./message.txt&#x27;</span>;</span><br><span class="line">fs.utimes(file,<span class="keyword">new</span> <span class="built_in">Date</span>(),<span class="keyword">new</span> <span class="built_in">Date</span>(),<span class="keyword">function</span> (<span class="params">err</span>) &#123;</span><br><span class="line">    <span class="keyword">if</span>(err)<span class="built_in">console</span>.<span class="built_in">log</span>(err)</span><br><span class="line">    <span class="built_in">console</span>.<span class="built_in">log</span>(<span class="string">&#x27;success&#x27;</span>)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-
+<pre><code>let file = &#39;./message.txt&#39;;
+fs.utimes(file,new Date(),new Date(),function (err) &#123;
+    if(err)console.log(err)
+    console.log(&#39;success&#39;)
+&#125;)
+</code></pre>
 <p>在 open 方法打开的文件并返回文件描述符后可以使用 fs.futimes()修改文件的修改时间或访问时间<br>fs.futimes(fd,atime,mtime,callback)</p>
 <h4 id="修改文件或目录的读写权限"><a href="#修改文件或目录的读写权限" class="headerlink" title="修改文件或目录的读写权限"></a>修改文件或目录的读写权限</h4><p>fs.chmod(path, mode, callback)</p>
-<figure class="highlight arcade"><table><tr><td class="code"><pre><span class="line">let file = <span class="string">&#x27;./message.txt&#x27;</span>;</span><br><span class="line">fs.chmod(file,<span class="number">0755</span>,<span class="keyword">function</span> (<span class="params">err</span>) &#123;</span><br><span class="line">    <span class="keyword">if</span>(err)<span class="built_in">console</span>.<span class="built_in">log</span>(err)</span><br><span class="line">    <span class="keyword">else</span> <span class="built_in">console</span>.<span class="built_in">log</span>(<span class="string">&#x27;success&#x27;</span>)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-
+<pre><code>let file = &#39;./message.txt&#39;;
+fs.chmod(file,0755,function (err) &#123;
+    if(err)console.log(err)
+    else console.log(&#39;success&#39;)
+&#125;)
+</code></pre>
 <h4 id="移动文件或目录"><a href="#移动文件或目录" class="headerlink" title="移动文件或目录"></a>移动文件或目录</h4><p>fs.rename(oldPath, newPath, callback)</p>
-<figure class="highlight coffeescript"><table><tr><td class="code"><pre><span class="line">fs.rename(<span class="string">&#x27;旧文件.txt&#x27;</span>, <span class="string">&#x27;新文件.txt&#x27;</span>, <span class="function"><span class="params">(err)</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">if</span> (err) <span class="keyword">throw</span> err;</span><br><span class="line">  console.log(<span class="string">&#x27;已完成重命名&#x27;</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-
+<pre><code>fs.rename(&#39;旧文件.txt&#39;, &#39;新文件.txt&#39;, (err) =&gt; &#123;
+  if (err) throw err;
+  console.log(&#39;已完成重命名&#39;);
+&#125;);
+</code></pre>
 <h4 id="创建与删除文件的硬链接"><a href="#创建与删除文件的硬链接" class="headerlink" title="创建与删除文件的硬链接"></a>创建与删除文件的硬链接</h4><p>可以使用 link 方法创建文件的硬链接(表面上是两份文件，其实是一份文件，修改一个会影响其他)<br>fs.link(srcpath,dstpath,callback)<br>srcpath 用于指定需要被创建硬链接的文件的完整路径及文件名<br>dstpath 用于指定被创建的硬链接的完整路径及文件名</p>
-<figure class="highlight stata"><table><tr><td class="code"><pre><span class="line">let <span class="keyword">file</span> = <span class="string">&quot;./message.txt&quot;</span>;</span><br><span class="line">fs.link(<span class="keyword">file</span>, <span class="string">&quot;./test/test.txt&quot;</span>, function(<span class="keyword">err</span>) &#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">err</span>) console.<span class="built_in">log</span>(<span class="keyword">err</span>);</span><br><span class="line">    <span class="keyword">else</span> console.<span class="built_in">log</span>(<span class="string">&quot;success&quot;</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-
+<pre><code>let file = &quot;./message.txt&quot;;
+fs.link(file, &quot;./test/test.txt&quot;, function(err) &#123;
+    if (err) console.log(err);
+    else console.log(&quot;success&quot;);
+&#125;);
+</code></pre>
 <p>删除硬链接<br>fs.ulink(path,callback)</p>
 <h4 id="创建与查看符号链接"><a href="#创建与查看符号链接" class="headerlink" title="创建与查看符号链接"></a>创建与查看符号链接</h4><p>可以使用 fs.symlink 方法来创建文件或目录的符号链接<br>fs.symlink(srcpath, dstpath,[type], callback)<br>srcpath 用于指定需要被创建符号链接的文件的完整路径及文件名<br>dstpath 用于指定被创建的符号链接的完整路径及文件名<br>type 参数用于指定为文件创建符号链接还是目录链接，默认 file<br>file:文件创建符号链接，<br>dir 目录创建符号链接（junction:windows 系统中的目录创建符号链接）</p>
-<figure class="highlight arcade"><table><tr><td class="code"><pre><span class="line">fs.symlink(<span class="string">&#x27;./a&#x27;</span>,<span class="string">&#x27;./b&#x27;</span>,<span class="string">&#x27;dir&#x27;</span>,<span class="keyword">function</span>(<span class="params">err</span>)&#123;</span><br><span class="line">    <span class="keyword">if</span>(err)&#123;</span><br><span class="line">        <span class="built_in">console</span>.<span class="built_in">log</span>(err)</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        fs.symlink(__dirname+<span class="string">&#x27;/a/test.txt&#x27;</span>,__dirname+<span class="string">&#x27;/b/anotherMessage.txt&#x27;</span>,<span class="string">&#x27;file&#x27;</span>,<span class="keyword">function</span> (<span class="params">err</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span>(err)<span class="built_in">console</span>.<span class="built_in">log</span>(err)</span><br><span class="line">            <span class="keyword">else</span> <span class="built_in">console</span>.<span class="built_in">log</span>(<span class="string">&#x27;success&#x27;</span>)</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-
+<pre><code>fs.symlink(&#39;./a&#39;,&#39;./b&#39;,&#39;dir&#39;,function(err)&#123;
+    if(err)&#123;
+        console.log(err)
+    &#125;else&#123;
+        fs.symlink(__dirname+&#39;/a/test.txt&#39;,__dirname+&#39;/b/anotherMessage.txt&#39;,&#39;file&#39;,function (err) &#123;
+            if(err)console.log(err)
+            else console.log(&#39;success&#39;)
+        &#125;)
+    &#125;
+&#125;)
+</code></pre>
 <p>readlink 方法用于读取符号链接中所包含的另一个文件或目录的路径及文件名操作<br>fs.readlink(path,callback)</p>
 <h4 id="截断文件"><a href="#截断文件" class="headerlink" title="截断文件"></a>截断文件</h4><p>fs.trunkcate(filename,len,callback)<br>len 参数值为一个整数，用于指定需要被截断后的文件尺寸</p>
-<figure class="highlight fortran"><table><tr><td class="code"><pre><span class="line">let <span class="keyword">file</span> = <span class="string">&#x27;./message.txt&#x27;</span>;</span><br><span class="line">fs.truncate(<span class="keyword">file</span>,<span class="number">9</span>,<span class="function"><span class="keyword">function</span><span class="params">(err)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(err)&#123;</span><br><span class="line">        console.<span class="built_in">log</span>(err)</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        fs.stat(<span class="keyword">file</span>,<span class="function"><span class="keyword">function</span><span class="params">(err,stats)</span></span>&#123;</span><br><span class="line">            console.<span class="built_in">log</span>(stats.<span class="built_in">size</span>)</span><br><span class="line">        &#125;)</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<pre><code>let file = &#39;./message.txt&#39;;
+fs.truncate(file,9,function(err)&#123;
+    if(err)&#123;
+        console.log(err)
+    &#125;else&#123;
+        fs.stat(file,function(err,stats)&#123;
+            console.log(stats.size)
+        &#125;)
 
+    &#125;
+&#125;)
+</code></pre>
 <h4 id="删除空目录"><a href="#删除空目录" class="headerlink" title="删除空目录"></a>删除空目录</h4><p>fs.rmdir(path,callback)</p>
 <h4 id="监视文件或目录"><a href="#监视文件或目录" class="headerlink" title="监视文件或目录"></a>监视文件或目录</h4><p>fs.watchFile(filename[, options], listener)<br>监视 filename 的变化。 每当文件被访问时会调用 listener。<br>options 对象可以有一个布尔值的 persistent 属性，表明当文件正在被监视时，进程是否继续运行。<br>options 对象可以指定一个 interval 属性，指定目标每隔多少毫秒被轮询。 默认值为 { persistent: true, interval: 5007 }。<br>listener 有两个参数，当前的状态对象 curr 和以前的状态对象 prev：</p>
-<figure class="highlight arcade"><table><tr><td class="code"><pre><span class="line">let file = <span class="string">&#x27;./message.txt&#x27;</span>;</span><br><span class="line">fs.watchFile(file,<span class="keyword">function</span>(<span class="params">curr,prev</span>)&#123;</span><br><span class="line">    <span class="keyword">if</span>(<span class="built_in">Date</span>.parse(prev.ctime)==<span class="number">0</span>)&#123;</span><br><span class="line">        <span class="built_in">console</span>.<span class="built_in">log</span>(<span class="string">&#x27;文件被创建&#x27;</span>)</span><br><span class="line">    &#125;<span class="keyword">else</span> <span class="keyword">if</span>(<span class="built_in">Date</span>.parse(curr.ctime)==<span class="number">0</span>)&#123;</span><br><span class="line">        <span class="built_in">console</span>.<span class="built_in">log</span>(<span class="string">&#x27;文件被删除&#x27;</span>)</span><br><span class="line">    &#125;<span class="keyword">else</span> <span class="keyword">if</span>(<span class="built_in">Date</span>.parse(prev.mtime)!==<span class="built_in">Date</span>.parse(curr.mtime))&#123;</span><br><span class="line">        <span class="built_in">console</span>.<span class="built_in">log</span>(<span class="string">&#x27;文件被修改&#x27;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-
+<pre><code>let file = &#39;./message.txt&#39;;
+fs.watchFile(file,function(curr,prev)&#123;
+    if(Date.parse(prev.ctime)==0)&#123;
+        console.log(&#39;文件被创建&#39;)
+    &#125;else if(Date.parse(curr.ctime)==0)&#123;
+        console.log(&#39;文件被删除&#39;)
+    &#125;else if(Date.parse(prev.mtime)!==Date.parse(curr.mtime))&#123;
+        console.log(&#39;文件被修改&#39;)
+    &#125;
+&#125;)
+</code></pre>
 <p>可以用 unwatchFile()取消当前文件发生变化时所要执行的处理<br>fs.unwatchFile(filename,[listener])<br>可以使用 watch()方法对文件或目录进行监视变化并执行某些处理<br>var watcher &#x3D; fs.watch(filename,[options],[listener])<br>listener 有两个参数 (eventType, filename)。 eventType 可能是 ‘rename’ 或 ‘change’，filename 是触发事件的文件名。</p>
-<figure class="highlight arcade"><table><tr><td class="code"><pre><span class="line">let file = <span class="string">&#x27;./message.txt&#x27;</span>;</span><br><span class="line"><span class="keyword">var</span> watcher= fs.watch(file,<span class="keyword">function</span>(<span class="params">event,filename</span>)&#123;</span><br><span class="line">    <span class="built_in">console</span>.<span class="built_in">log</span>(event)</span><br><span class="line">    <span class="built_in">console</span>.<span class="built_in">log</span>(filename)</span><br><span class="line">    watcher.close()<span class="comment">//停止监控</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-
-<h4 id="使用-ReadStream-对象读取文件"><a href="#使用-ReadStream-对象读取文件" class="headerlink" title="使用 ReadStream 对象读取文件"></a>使用 ReadStream 对象读取文件</h4><p>fs.createReadStream(path,[options])<br>options 参数为一个对象可使用的属性如下<br><img src="/blog/blog/static/images/nodejs/6.png"></p>
-<figure class="highlight arcade"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> file = fs.createReadStream(<span class="string">&#x27;./message.txt&#x27;</span>,&#123;<span class="attr">start</span>:<span class="number">3</span>,<span class="attr">end</span>:<span class="number">12</span>&#125;)</span><br><span class="line">file.on(<span class="string">&#x27;open&#x27;</span>,<span class="keyword">function</span>(<span class="params">fd</span>)&#123;<span class="comment">//开始读取数据</span></span><br><span class="line">    <span class="built_in">console</span>.<span class="built_in">log</span>(<span class="string">&#x27;start&#x27;</span>)</span><br><span class="line">&#125;)</span><br><span class="line">file.on(<span class="string">&#x27;data&#x27;</span>,<span class="keyword">function</span>(<span class="params">data</span>)&#123;<span class="comment">//读取到数据</span></span><br><span class="line">    <span class="built_in">console</span>.<span class="built_in">log</span>(<span class="string">&#x27;read&#x27;</span>,data.toString())</span><br><span class="line">&#125;)</span><br><span class="line">file.on(<span class="string">&#x27;end&#x27;</span>,<span class="keyword">function</span>(<span class="params"></span>)&#123;<span class="comment">//读取完毕</span></span><br><span class="line">    <span class="built_in">console</span>.<span class="built_in">log</span>(<span class="string">&#x27;end&#x27;</span>)</span><br><span class="line">&#125;)</span><br><span class="line">file.on(<span class="string">&quot;close&quot;</span>, <span class="keyword">function</span>(<span class="params"></span>) &#123;<span class="comment">//文件关闭</span></span><br><span class="line">    <span class="built_in">console</span>.<span class="built_in">log</span>(<span class="string">&quot;close&quot;</span>);</span><br><span class="line">&#125;);</span><br><span class="line">file.on(<span class="string">&quot;error&quot;</span>, <span class="keyword">function</span>(<span class="params"></span>) &#123;<span class="comment">//读取失败</span></span><br><span class="line">    <span class="built_in">console</span>.<span class="built_in">log</span>(<span class="string">&quot;error&quot;</span>);</span><br><span class="line">&#125;);</span><br><span class="line">file.pause()<span class="comment">//暂停读取</span></span><br><span class="line">file.sume()<span class="comment">//恢复读取</span></span><br></pre></td></tr></table></figure>
-
+<pre><code>let file = &#39;./message.txt&#39;;
+var watcher= fs.watch(file,function(event,filename)&#123;
+    console.log(event)
+    console.log(filename)
+    watcher.close()//停止监控
+&#125;)
+</code></pre>
+<h4 id="使用-ReadStream-对象读取文件"><a href="#使用-ReadStream-对象读取文件" class="headerlink" title="使用 ReadStream 对象读取文件"></a>使用 ReadStream 对象读取文件</h4><p>fs.createReadStream(path,[options])<br>options 参数为一个对象可使用的属性如下<br><img src="/blog/static/images/nodejs/6.png"></p>
+<pre><code>var file = fs.createReadStream(&#39;./message.txt&#39;,&#123;start:3,end:12&#125;)
+file.on(&#39;open&#39;,function(fd)&#123;//开始读取数据
+    console.log(&#39;start&#39;)
+&#125;)
+file.on(&#39;data&#39;,function(data)&#123;//读取到数据
+    console.log(&#39;read&#39;,data.toString())
+&#125;)
+file.on(&#39;end&#39;,function()&#123;//读取完毕
+    console.log(&#39;end&#39;)
+&#125;)
+file.on(&quot;close&quot;, function() &#123;//文件关闭
+    console.log(&quot;close&quot;);
+&#125;);
+file.on(&quot;error&quot;, function() &#123;//读取失败
+    console.log(&quot;error&quot;);
+&#125;);
+file.pause()//暂停读取
+file.sume()//恢复读取
+</code></pre>
 <h4 id="使用-writeStream-对象写入文件"><a href="#使用-writeStream-对象写入文件" class="headerlink" title="使用 writeStream 对象写入文件"></a>使用 writeStream 对象写入文件</h4><p>fs.createWriteStream(path,[options])<br>options 对象属性<br>flags <string> 详见支持的 flag。默认为 ‘w’。<br>encoding <string> 默认为 ‘utf8’。<br>fd <integer> 默认为 null。文件描述符。<br>mode <integer> 默认为 0o666。<br>autoClose <boolean> 默认为 true。<br>start <integer>开始写入位置</p>
-<h4 id="对路径进行操作"><a href="#对路径进行操作" class="headerlink" title="对路径进行操作"></a>对路径进行操作</h4><p>path.normalize(path)<br><img src="/blog/blog/static/images/nodejs/7.png"></p>
-<figure class="highlight abnf"><table><tr><td class="code"><pre><span class="line">var fs <span class="operator">=</span> require(<span class="string">&quot;fs&quot;</span>)<span class="comment">;</span></span><br><span class="line">var path <span class="operator">=</span> require(<span class="string">&quot;path&quot;</span>)<span class="comment">;</span></span><br><span class="line">var myPath <span class="operator">=</span> path.normalize(<span class="string">&quot;.//a//b//c/e&quot;</span>)<span class="comment">;</span></span><br><span class="line">console.log(myPath)<span class="comment">;// a/b/c/e</span></span><br></pre></td></tr></table></figure>
-
+<h4 id="对路径进行操作"><a href="#对路径进行操作" class="headerlink" title="对路径进行操作"></a>对路径进行操作</h4><p>path.normalize(path)<br><img src="/blog/static/images/nodejs/7.png"></p>
+<pre><code>var fs = require(&quot;fs&quot;);
+var path = require(&quot;path&quot;);
+var myPath = path.normalize(&quot;.//a//b//c/e&quot;);
+console.log(myPath);// a/b/c/e
+</code></pre>
 <p>path.join([…paths])<br>使用平台特定的分隔符把所有 path 片段连接到一起，并规范化生成的路径</p>
-<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">path.join(<span class="string">&#x27;/foo&#x27;</span>, <span class="string">&#x27;bar&#x27;</span>, <span class="string">&#x27;baz/asdf&#x27;</span>, <span class="string">&#x27;quux&#x27;</span>, <span class="string">&#x27;..&#x27;</span>); <span class="regexp">//</span> <span class="string">&#x27;/foo/bar/baz/asdf&#x27;</span></span><br></pre></td></tr></table></figure>
-
+<pre><code>path.join(&#39;/foo&#39;, &#39;bar&#39;, &#39;baz/asdf&#39;, &#39;quux&#39;, &#39;..&#39;); // &#39;/foo/bar/baz/asdf&#39;
+</code></pre>
 <p>path.resolve([…paths])<br>将路径或路径片段处理成绝对路径。</p>
-<figure class="highlight stylus"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">var</span> path = <span class="built_in">require</span>(<span class="string">&#x27;path&#x27;</span>)</span><br><span class="line"><span class="selector-tag">var</span> myPath = path<span class="selector-class">.resolve</span>(<span class="string">&#x27;a&#x27;</span>,<span class="string">&#x27;b&#x27;</span>,<span class="string">&#x27;c&#x27;</span>)</span><br></pre></td></tr></table></figure>
-
+<pre><code>var path = require(&#39;path&#39;)
+var myPath = path.resolve(&#39;a&#39;,&#39;b&#39;,&#39;c&#39;)
+</code></pre>
 <p>path.dirname(p)<br>获取路径中的目录名<br>当参数为目录路径时，该方法返回该目录的上层目录<br>当参数为文件路径时，该方法返回该文件所在目录<br>path.basename(p,[ext])<br>用于获取一个路径中的文件名</p>
-<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">path.basename(<span class="string">&#x27;./foo/bar/baz/index.html&#x27;</span>,<span class="string">&#x27;.html&#x27;</span>)<span class="regexp">//</span> index</span><br></pre></td></tr></table></figure>
-
+<pre><code>path.basename(&#39;./foo/bar/baz/index.html&#39;,&#39;.html&#39;)// index
+</code></pre>
 <p>extname()获取一个路径中的扩展名<br>path.extname(p)<br>path.sep 属性为操作系统的文件分隔符<br>path.delimiter 属性为操作系统指定的路径分隔符</p>
 <h3 id="第-10-章-Node-js-中的错误处理与断言处理"><a href="#第-10-章-Node-js-中的错误处理与断言处理" class="headerlink" title="第 10 章 Node.js 中的错误处理与断言处理"></a>第 10 章 Node.js 中的错误处理与断言处理</h3><p>在 js 中虽然可以使用 try…catch 机制来捕捉同步方法中抛出的错误，但是不能使用 try…catch 机制来捕捉异步方法中抛出的错误</p>
-<h4 id="创建并使用-domain-对象"><a href="#创建并使用-domain-对象" class="headerlink" title="创建并使用 domain 对象"></a>创建并使用 domain 对象</h4><figure class="highlight arcade"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> <span class="built_in">domain</span> = <span class="built_in">domain</span>.create()</span><br></pre></td></tr></table></figure>
-
+<h4 id="创建并使用-domain-对象"><a href="#创建并使用-domain-对象" class="headerlink" title="创建并使用 domain 对象"></a>创建并使用 domain 对象</h4><pre><code>var domain = domain.create()
+</code></pre>
 <p>当该对象捕捉到任何错误时，触发该对象的 error 事件，</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> domain=<span class="built_in">require</span>(<span class="string">&#x27;domain&#x27;</span>);</span><br><span class="line"><span class="keyword">var</span> fs=<span class="built_in">require</span>(<span class="string">&#x27;fs&#x27;</span>);</span><br><span class="line"><span class="keyword">var</span> d = domain.<span class="title function_">create</span>();</span><br><span class="line">d.<span class="property">name</span>=<span class="string">&#x27;d1&#x27;</span>;</span><br><span class="line">d.<span class="title function_">on</span>(<span class="string">&#x27;error&#x27;</span>, <span class="keyword">function</span>(<span class="params">err</span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">error</span>(<span class="string">&#x27;%s捕获到错误!&#x27;</span>,d.<span class="property">name</span>,err);</span><br><span class="line">&#125;);</span><br><span class="line">d.<span class="title function_">run</span>(<span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">    process.<span class="title function_">nextTick</span>(<span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="built_in">setTimeout</span>(<span class="keyword">function</span>(<span class="params"></span>) &#123; <span class="comment">//模拟一个回调函数</span></span><br><span class="line">            fs.<span class="title function_">open</span>(<span class="string">&#x27;non-existent file&#x27;</span>, <span class="string">&#x27;r&#x27;</span>, <span class="keyword">function</span>(<span class="params">err, fd</span>) &#123;</span><br><span class="line">                <span class="keyword">if</span> (err) <span class="keyword">throw</span> err;</span><br><span class="line">            &#125;);</span><br><span class="line">        &#125;, <span class="number">1000</span>);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-
+<pre><code>var domain=require(&#39;domain&#39;);
+var fs=require(&#39;fs&#39;);
+var d = domain.create();
+d.name=&#39;d1&#39;;
+d.on(&#39;error&#39;, function(err) &#123;
+    console.error(&#39;%s捕获到错误!&#39;,d.name,err);
+&#125;);
+d.run(function() &#123;
+    process.nextTick(function() &#123;
+        setTimeout(function() &#123; //模拟一个回调函数
+            fs.open(&#39;non-existent file&#39;, &#39;r&#39;, function(err, fd) &#123;
+                if (err) throw err;
+            &#125;);
+        &#125;, 1000);
+    &#125;);
+&#125;);
+</code></pre>
 <h4 id="绑定回调函数与拦截回调函数"><a href="#绑定回调函数与拦截回调函数" class="headerlink" title="绑定回调函数与拦截回调函数"></a>绑定回调函数与拦截回调函数</h4><p>domain.bind(),将回调函数与 domain 对象进行绑定，从而捕捉回调函数的错误</p>
-<figure class="highlight arcade"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> fs=require(<span class="string">&#x27;fs&#x27;</span>);</span><br><span class="line"><span class="keyword">var</span> <span class="built_in">domain</span> = require(<span class="string">&#x27;domain&#x27;</span>);</span><br><span class="line"><span class="keyword">var</span> d = <span class="built_in">domain</span>.create();</span><br><span class="line">fs.readFile(<span class="string">&#x27;./test.txt&#x27;</span>,d.bind(<span class="keyword">function</span>(<span class="params">err, data</span>) &#123;</span><br><span class="line">    <span class="keyword">if</span>(err) throw err;</span><br><span class="line">    <span class="keyword">else</span> <span class="built_in">console</span>.<span class="built_in">log</span>(data);</span><br><span class="line">&#125;));</span><br><span class="line">d.on(<span class="string">&#x27;error&#x27;</span>, <span class="keyword">function</span>(<span class="params">err</span>) &#123;</span><br><span class="line">    <span class="built_in">console</span>.<span class="built_in">log</span>(<span class="string">&#x27;读取文件时发生以下错误：&#x27;</span>);</span><br><span class="line">    <span class="built_in">console</span>.<span class="built_in">log</span>(err);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-
+<pre><code>var fs=require(&#39;fs&#39;);
+var domain = require(&#39;domain&#39;);
+var d = domain.create();
+fs.readFile(&#39;./test.txt&#39;,d.bind(function(err, data) &#123;
+    if(err) throw err;
+    else console.log(data);
+&#125;));
+d.on(&#39;error&#39;, function(err) &#123;
+    console.log(&#39;读取文件时发生以下错误：&#39;);
+    console.log(err);
+&#125;);
+</code></pre>
 <p>domain,intercept()方法拦截一个回调函数中的错误，该方法与 bind 的区别在于回调函数中必须使用 throw 关键字抛出错误</p>
-<figure class="highlight arcade"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> fs=require(<span class="string">&#x27;fs&#x27;</span>);</span><br><span class="line"><span class="keyword">var</span> <span class="built_in">domain</span> = require(<span class="string">&#x27;domain&#x27;</span>);</span><br><span class="line"><span class="keyword">var</span> d = <span class="built_in">domain</span>.create();</span><br><span class="line">fs.readFile(<span class="string">&#x27;./test.txt&#x27;</span>,d.intercept(<span class="keyword">function</span>(<span class="params">err, data</span>) &#123;</span><br><span class="line">    <span class="built_in">console</span>.<span class="built_in">log</span>(data);</span><br><span class="line">&#125;));</span><br><span class="line">d.on(<span class="string">&#x27;error&#x27;</span>, <span class="keyword">function</span>(<span class="params">err</span>) &#123;</span><br><span class="line">    <span class="built_in">console</span>.<span class="built_in">log</span>(<span class="string">&#x27;读取文件时发生以下错误：&#x27;</span>);</span><br><span class="line">    <span class="built_in">console</span>.<span class="built_in">log</span>(err);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<pre><code>var fs=require(&#39;fs&#39;);
+var domain = require(&#39;domain&#39;);
+var d = domain.create();
+fs.readFile(&#39;./test.txt&#39;,d.intercept(function(err, data) &#123;
+    console.log(data);
+&#125;));
+d.on(&#39;error&#39;, function(err) &#123;
+    console.log(&#39;读取文件时发生以下错误：&#39;);
+    console.log(err);
+&#125;);
+</code></pre>
  
       <div id="toc-article">
   <div class="widget-wrap" id="toc-wrap">
@@ -262,8 +434,8 @@
       <blockquote id="copyright">
         <p>
           原文链接:
-          <a href="https://jesse121.github.io/blog/blog/articles/2019/01/15.html"
-            >https://jesse121.github.io/blog/blog/articles/2019/01/15.html</a
+          <a href="https://jesse121.github.io/blog/articles/2019/01/15.html"
+            >https://jesse121.github.io/blog/articles/2019/01/15.html</a
           >
         </p>
         <p>版权声明: 转载请注明出处.</p>
@@ -284,7 +456,7 @@
 <nav id="article-nav">
   
     <a href="/blog/articles/2018/12/23.html" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">older</strong>
+      <strong class="article-nav-caption">下一篇</strong>
       <div class="article-nav-title">
         
           exports与module.exports的区别,export与export.defult区别
@@ -294,7 +466,7 @@
   
   
     <a href="/blog/articles/2019/01/21.html" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">newer</strong>
+      <strong class="article-nav-caption">上一篇</strong>
       <div class="article-nav-title">
         
           Docker的安装与使用介绍
@@ -460,37 +632,26 @@
     </div>
   </div>
   
-<script src="/blog/js/jquery-3.4.1.min.js"></script>
+<script src="https://unpkg.com/@highlightjs/cdn-assets@11.6.0/highlight.min.js"></script>
 
+<script>
+  hljs.highlightAll();
+</script>
 
+<script src="https://unpkg.com/jquery@3.4.1/dist/jquery.min.js"></script>
+ 
 <script src="/blog/js/search.json.js"></script>
-
-
   
-<script src="/blog/fancybox/jquery.fancybox.min.js"></script>
+<script src="https://unpkg.com/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
 
-
-
-
+ 
 <script src="/blog/js/script.js"></script>
-
-
-
-
-
-
-  
+ 
+   
 <script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-
-
-
-
-  
-  
-
-
-  
-<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+ 
+      
+<script src="https://unpkg.com/gitalk@1.7.2/dist/gitalk.min.js"></script>
  
 <script src="//cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.js"></script>
 
@@ -502,7 +663,7 @@
     owner: "jesse121",
     admin: ["jesse121"],
     id: md5(window.location.pathname),
-    proxy: "https://gitalk.jesse121.workers.dev/?https://github.com/login/oauth/access_token",
+    proxy: "https://stormy-gorge-51623.herokuapp.com/https://github.com/login/oauth/access_token",
     distractionFreeMode: false,
     language: "zh-CN",
     pagerDirection: "last",
@@ -510,8 +671,7 @@
   gitalk.render("comments");
 </script>
          
-
-
+ 
 
 </body>
 </html>

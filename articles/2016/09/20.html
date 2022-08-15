@@ -1,42 +1,28 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8">
-  
-  
+  <meta charset="utf-8" />
+   
   <title>《Javascript语言精粹》修订版--读书笔记 | 前端之路</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, shrink-to-fit=no"
+  />
   
-    <meta name="description" content="专注前端开发，前端开发技术博客">
-  
-  
-    <meta name="keywords" content="Web前端开发，Javascript，前端开发博客">
-  
-  
-    <link rel="alternate" href="/blog/atom.xml" title="前端之路" type="application/atom+xml">
-  
-  
-    <link rel="shortcut icon" href="/blog/favicon.ico">
-  
-  
-    
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
-
-  
-  
+  <meta name="description" content="专注前端开发，前端开发技术博客" />
+   
+  <meta name="keywords" content="Web前端开发，Javascript，前端开发博客" />
+    <link rel="alternate" href="/blog/atom.xml" title="前端之路" type="application/atom+xml">   <link rel="shortcut icon" href="/blog/favicon.ico"> 
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/@highlightjs/cdn-assets@11.6.0/styles/xt256.min.css"
+  />
+   
 <link rel="stylesheet" href="/blog/css/style.css">
-
   
+<link rel="stylesheet" href="https://unpkg.com/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
     
-<link rel="stylesheet" href="/blog/fancybox/jquery.fancybox.min.css">
-
-  
-  
-  
-    
-<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
-
-  
+<link rel="stylesheet" href="https://unpkg.com/gitalk@1.7.2/dist/gitalk.css">
   
 <meta name="generator" content="Hexo 6.2.0"></head>
 
@@ -194,13 +180,51 @@
 </tr>
 </tbody></table>
 <h3 id="第四章、函数"><a href="#第四章、函数" class="headerlink" title="第四章、函数"></a>第四章、函数</h3><h4 id="调用"><a href="#调用" class="headerlink" title="调用"></a>调用</h4><p>参数this的值取决于调用模式：<br><strong>方法调用模式</strong><br>当一个函数被保存为对象的一个属性时，我们称它为一个方法。方法被调用时,this被绑定到该对象。通过this可取得所属对象的公有方法  </p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> myObject = &#123;</span><br><span class="line">    <span class="attr">value</span>:<span class="number">0</span>,</span><br><span class="line">    <span class="attr">increment</span>:<span class="keyword">function</span>(<span class="params">inc</span>)&#123;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">value</span> += <span class="keyword">typeof</span> inc === <span class="string">&#x27;number&#x27;</span> ? inc : <span class="number">1</span>;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">this</span>);  <span class="comment">//&#123;value:1,increment:function()&#123;&#125;&#125;</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="js">var myObject = &#123;
+    value:0,
+    increment:function(inc)&#123;
+        this.value += typeof inc === &#39;number&#39; ? inc : 1;
+        console.log(this);  //&#123;value:1,increment:function()&#123;&#125;&#125;
+    &#125;
+&#125;
+</code></pre>
 <p><strong>函数调用模式</strong><br>当一个函数并非一个对象的属性时，那么它就是被当做一个函数来调用的，以此模式调用函数时，this被绑定到全局对象。  </p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> myObject = &#123;</span><br><span class="line">    value : <span class="number">0</span>,</span><br><span class="line">    increment : <span class="keyword">function</span>(<span class="params">inc</span>)&#123;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">value</span> += <span class="keyword">typeof</span> inc === <span class="string">&#x27;number&#x27;</span> ? inc : <span class="number">1</span>;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">this</span>);  <span class="comment">//&#123;value:1,increment:function()&#123;&#125;&#125;</span></span><br><span class="line">    &#125;,</span><br><span class="line">    double : <span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">        <span class="keyword">var</span> helper = <span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">            <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">this</span>); <span class="comment">//window</span></span><br><span class="line">        &#125;;</span><br><span class="line">        <span class="title function_">helper</span>();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="js">var myObject = &#123;
+    value : 0,
+    increment : function(inc)&#123;
+        this.value += typeof inc === &#39;number&#39; ? inc : 1;
+        console.log(this);  //&#123;value:1,increment:function()&#123;&#125;&#125;
+    &#125;,
+    double : function()&#123;
+        var helper = function()&#123;
+            console.log(this); //window
+        &#125;;
+        helper();
+    &#125;
+&#125;
+</code></pre>
 <p><strong>构造器调用模式</strong><br>如果一个函数前面带上new来调用，那么背地里将会创建一个连接到该函数的prototype成员的新对象，同时this会被绑定到那个新对象上。</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">Quo</span>(<span class="params">string</span>)&#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">status</span> = string;</span><br><span class="line">&#125;</span><br><span class="line"><span class="title class_">Quo</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">getStatus</span> = <span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="variable language_">this</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> myQuo = <span class="keyword">new</span> <span class="title class_">Quo</span>(<span class="string">&quot;confused&quot;</span>);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(myQuo.<span class="title function_">getStatus</span>()); <span class="comment">//Quo &#123;status: &quot;confused&quot;&#125;</span></span><br></pre></td></tr></table></figure>
+<pre><code class="js">function Quo(string)&#123;
+    this.status = string;
+&#125;
+Quo.prototype.getStatus = function()&#123;
+    return this;
+&#125;
+var myQuo = new Quo(&quot;confused&quot;);
+console.log(myQuo.getStatus()); //Quo &#123;status: &quot;confused&quot;&#125;
+</code></pre>
 <p><strong>Apply调用模式</strong><br>apply方法允许我们构建一个函数数组传递给调用函数，也允许选择this的值  </p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> statusObject = &#123;</span><br><span class="line">    <span class="attr">status</span>: <span class="string">&quot;ok&quot;</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">function</span> <span class="title function_">Quo</span>(<span class="params">string</span>)&#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">status</span> = string;</span><br><span class="line">&#125;</span><br><span class="line"><span class="title class_">Quo</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">getStatus</span> = <span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">this</span>); <span class="comment">//&#123;status: &quot;ok&quot;&#125;</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="title class_">Quo</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">getStatus</span>.<span class="title function_">apply</span>(statusObject);</span><br></pre></td></tr></table></figure>
+<pre><code class="js">var statusObject = &#123;
+    status: &quot;ok&quot;
+&#125;;
+function Quo(string)&#123;
+    this.status = string;
+&#125;
+Quo.prototype.getStatus = function()&#123;
+    return console.log(this); //&#123;status: &quot;ok&quot;&#125;
+&#125;
+Quo.prototype.getStatus.apply(statusObject);
+</code></pre>
 <h3 id="第七章-正则表达式"><a href="#第七章-正则表达式" class="headerlink" title="第七章 正则表达式"></a>第七章 正则表达式</h3><p>\ &#x2F; [ ] ( ) { } ? + * | . ^ $ 这些特殊字符都需要\来进行转义</p>
 <h3 id="第八章-方法"><a href="#第八章-方法" class="headerlink" title="第八章 方法"></a>第八章 方法</h3><h4 id="Array"><a href="#Array" class="headerlink" title="Array"></a>Array</h4><p>array.sort()<br>如果这两个参数相等则返回0，如果第1个参数应该排在前面，则返回一个负数，如果第2个参数应该排在前面，则返回一个正数。</p>
  
@@ -217,8 +241,8 @@
       <blockquote id="copyright">
         <p>
           原文链接:
-          <a href="https://jesse121.github.io/blog/blog/articles/2016/09/20.html"
-            >https://jesse121.github.io/blog/blog/articles/2016/09/20.html</a
+          <a href="https://jesse121.github.io/blog/articles/2016/09/20.html"
+            >https://jesse121.github.io/blog/articles/2016/09/20.html</a
           >
         </p>
         <p>版权声明: 转载请注明出处.</p>
@@ -239,7 +263,7 @@
 <nav id="article-nav">
   
     <a href="/blog/articles/2016/09/07.html" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">older</strong>
+      <strong class="article-nav-caption">下一篇</strong>
       <div class="article-nav-title">
         
           韩顺平PHP从入门到精通视频教程笔记
@@ -249,7 +273,7 @@
   
   
     <a href="/blog/articles/2016/09/26.html" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">newer</strong>
+      <strong class="article-nav-caption">上一篇</strong>
       <div class="article-nav-title">
         
           CSS模糊效果及其兼容方法
@@ -415,37 +439,26 @@
     </div>
   </div>
   
-<script src="/blog/js/jquery-3.4.1.min.js"></script>
+<script src="https://unpkg.com/@highlightjs/cdn-assets@11.6.0/highlight.min.js"></script>
 
+<script>
+  hljs.highlightAll();
+</script>
 
+<script src="https://unpkg.com/jquery@3.4.1/dist/jquery.min.js"></script>
+ 
 <script src="/blog/js/search.json.js"></script>
-
-
   
-<script src="/blog/fancybox/jquery.fancybox.min.js"></script>
+<script src="https://unpkg.com/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
 
-
-
-
+ 
 <script src="/blog/js/script.js"></script>
-
-
-
-
-
-
-  
+ 
+   
 <script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-
-
-
-
-  
-  
-
-
-  
-<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+ 
+      
+<script src="https://unpkg.com/gitalk@1.7.2/dist/gitalk.min.js"></script>
  
 <script src="//cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.js"></script>
 
@@ -457,7 +470,7 @@
     owner: "jesse121",
     admin: ["jesse121"],
     id: md5(window.location.pathname),
-    proxy: "https://gitalk.jesse121.workers.dev/?https://github.com/login/oauth/access_token",
+    proxy: "https://stormy-gorge-51623.herokuapp.com/https://github.com/login/oauth/access_token",
     distractionFreeMode: false,
     language: "zh-CN",
     pagerDirection: "last",
@@ -465,8 +478,7 @@
   gitalk.render("comments");
 </script>
          
-
-
+ 
 
 </body>
 </html>

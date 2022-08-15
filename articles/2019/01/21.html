@@ -1,42 +1,28 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8">
-  
-  
+  <meta charset="utf-8" />
+   
   <title>Docker的安装与使用介绍 | 前端之路</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, shrink-to-fit=no"
+  />
   
-    <meta name="description" content="专注前端开发，前端开发技术博客">
-  
-  
-    <meta name="keywords" content="Web前端开发，Javascript，前端开发博客">
-  
-  
-    <link rel="alternate" href="/blog/atom.xml" title="前端之路" type="application/atom+xml">
-  
-  
-    <link rel="shortcut icon" href="/blog/favicon.ico">
-  
-  
-    
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
-
-  
-  
+  <meta name="description" content="专注前端开发，前端开发技术博客" />
+   
+  <meta name="keywords" content="Web前端开发，Javascript，前端开发博客" />
+    <link rel="alternate" href="/blog/atom.xml" title="前端之路" type="application/atom+xml">   <link rel="shortcut icon" href="/blog/favicon.ico"> 
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/@highlightjs/cdn-assets@11.6.0/styles/xt256.min.css"
+  />
+   
 <link rel="stylesheet" href="/blog/css/style.css">
-
   
+<link rel="stylesheet" href="https://unpkg.com/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
     
-<link rel="stylesheet" href="/blog/fancybox/jquery.fancybox.min.css">
-
-  
-  
-  
-    
-<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
-
-  
+<link rel="stylesheet" href="https://unpkg.com/gitalk@1.7.2/dist/gitalk.css">
   
 <meta name="generator" content="Hexo 6.2.0"></head>
 
@@ -147,8 +133,8 @@
 <blockquote>
 <p>Requires Microsoft Windows 10 Professional or Enterprise 64-bit. For previous versions get Docker Toolbox.</p>
 </blockquote>
-<p>so,根据官网的介绍我们可以在这里<a target="_blank" rel="noopener" href="https://docs.docker.com/toolbox/overview/">https://docs.docker.com/toolbox/overview/</a>直接点击 Get Docker Toolbox for Windows<br>按钮直接下载，如果下载慢的话可以在<a target="_blank" rel="noopener" href="https://get.daocloud.io/toolbox/">https://get.daocloud.io/toolbox/</a>下载，我选择 DockerToolbox-18.09.1.exe 这个版本。下载完后可直接双击安装<br>安装的过程中需要选择安装哪些组件，这里由于我本机已经安装了 git 和 virtual box,所以就不选了，没安装的建议全选<br><img src="/blog/blog/static/images/docker/1.png"><br>安装完后桌面上多出 docker 和 kitematic 两个快捷方式</p>
-<p>双击 Docker Quickstart Terminal，由于我们没有一起安装 git，因此弹出需要我们指定用哪个 bash.exe，这里我们选择本机安装的 Git&#x2F;bin&#x2F;bash.exe 文件，等一段时间后安装完成，出现如下界面<br><img src="/blog/blog/static/images/docker/2.png"><br>执行 docker-machine ssh default 即可登录上镜像<br>这里 docker 启用默认的镜像，ip 为 192.168.99.100，我们可以通过 xshell 登陆上此服务器<br>default 镜像默认的用户名是 docker 密码是 tcuser<br>至此 docker 在 win7 上安装完成，</p>
+<p>so,根据官网的介绍我们可以在这里<a target="_blank" rel="noopener" href="https://docs.docker.com/toolbox/overview/">https://docs.docker.com/toolbox/overview/</a>直接点击 Get Docker Toolbox for Windows<br>按钮直接下载，如果下载慢的话可以在<a target="_blank" rel="noopener" href="https://get.daocloud.io/toolbox/">https://get.daocloud.io/toolbox/</a>下载，我选择 DockerToolbox-18.09.1.exe 这个版本。下载完后可直接双击安装<br>安装的过程中需要选择安装哪些组件，这里由于我本机已经安装了 git 和 virtual box,所以就不选了，没安装的建议全选<br><img src="/blog/static/images/docker/1.png"><br>安装完后桌面上多出 docker 和 kitematic 两个快捷方式</p>
+<p>双击 Docker Quickstart Terminal，由于我们没有一起安装 git，因此弹出需要我们指定用哪个 bash.exe，这里我们选择本机安装的 Git&#x2F;bin&#x2F;bash.exe 文件，等一段时间后安装完成，出现如下界面<br><img src="/blog/static/images/docker/2.png"><br>执行 docker-machine ssh default 即可登录上镜像<br>这里 docker 启用默认的镜像，ip 为 192.168.99.100，我们可以通过 xshell 登陆上此服务器<br>default 镜像默认的用户名是 docker 密码是 tcuser<br>至此 docker 在 win7 上安装完成，</p>
 <h4 id="docker-在-win7-上的优化"><a href="#docker-在-win7-上的优化" class="headerlink" title="docker 在 win7 上的优化"></a>docker 在 win7 上的优化</h4><p>虚拟机的默认存储位置是 C:\Users\Administrator.docker\machine\machines ，后期 docke 镜像文件会不断增加，为了给系统盘减负，最好将磁盘移动到其他位置。</p>
 <ol>
 <li>在终端中执行 docker-machine stop default 命令停止 default 虚拟机</li>
@@ -156,13 +142,70 @@
 </ol>
 <h4 id="更改镜像仓库地址"><a href="#更改镜像仓库地址" class="headerlink" title="更改镜像仓库地址"></a>更改镜像仓库地址</h4><p>docker 默认的镜像仓库地址是<a target="_blank" rel="noopener" href="https://hub.docker.com/">https://hub.docker.com/</a>，但国内的下载速度太过缓慢，最好使用国内镜像，<br>参考<a target="_blank" rel="noopener" href="http://guide.daocloud.io/dcs/daocloud-9153151.html#docker-toolbox">http://guide.daocloud.io/dcs/daocloud-9153151.html#docker-toolbox</a>设置镜像加速</p>
 <h3 id="docker-在-mac-上的安装"><a href="#docker-在-mac-上的安装" class="headerlink" title="docker 在 mac 上的安装"></a>docker 在 mac 上的安装</h3><p>在 docker 官网上我们可以直接下载 Docker Desktop (Mac) 可直接在<a target="_blank" rel="noopener" href="https://hub.docker.com/editions/community/docker-ce-desktop-mac">https://hub.docker.com/editions/community/docker-ce-desktop-mac</a>下载(需要登录),下载后双击执行 docker.dmg 正常安装即可<br>启动 docker 后在系统菜单栏我们可以看到 docker 标志,说明 docker 安装成功</p>
-<h4 id="docker-镜像加速"><a href="#docker-镜像加速" class="headerlink" title="docker 镜像加速"></a>docker 镜像加速</h4><p>参考<a target="_blank" rel="noopener" href="http://guide.daocloud.io/dcs/daocloud-9153151.html#docker-toolbox">http://guide.daocloud.io/dcs/daocloud-9153151.html#docker-toolbox</a>设置镜像加速<br><img src="/blog/blog/static/images/docker/3.png"></p>
-<h3 id="docker-基本命令"><a href="#docker-基本命令" class="headerlink" title="docker 基本命令"></a>docker 基本命令</h3><figure class="highlight awk"><table><tr><td class="code"><pre><span class="line"><span class="regexp">//</span> 列出本地已有镜像</span><br><span class="line">docker images</span><br><span class="line"><span class="regexp">//</span> 从远端下载镜像</span><br><span class="line">docker pull &lt;image name&gt;</span><br><span class="line"><span class="regexp">//</span> 使用镜像创建并启动一个容器（若本地没有该镜像，则会先从远端下载，每次run都会生成一个容器，嗯，轻量~）</span><br><span class="line">docker run hub.c.<span class="number">163</span>.com<span class="regexp">/library/</span>hello-world:latest</span><br><span class="line"><span class="regexp">//</span>列出正在运行的容器</span><br><span class="line">docker ps</span><br><span class="line"><span class="regexp">//</span> 列出所有容器（包括Exited）</span><br><span class="line">docker ps -a</span><br><span class="line"><span class="regexp">//</span> 启动指定的容器</span><br><span class="line">docker start &lt;container id&gt;</span><br><span class="line"><span class="regexp">//</span> 停止指定的容器</span><br><span class="line">docker stop &lt;container id&gt;</span><br><span class="line"><span class="regexp">//</span> 停止所有运行中的容器</span><br><span class="line">docker stop $(docker ps -q)</span><br><span class="line"><span class="regexp">//</span> 删除指定容器</span><br><span class="line">docker rm &lt;container id&gt;</span><br><span class="line"><span class="regexp">//</span>删除所有容器</span><br><span class="line">docker rm $(docker ps -aq)</span><br><span class="line"><span class="regexp">//</span>停止并删除容器</span><br><span class="line">docker stop $(docker ps -q) &amp; docker rm $(docker ps -aq)</span><br><span class="line"><span class="regexp">//</span> 删除指定镜像（删除镜像前须先停止并删除容器）</span><br><span class="line">docker rmi &lt;image id&gt;</span><br><span class="line"><span class="regexp">//</span> 重启容器</span><br><span class="line">docker restart &lt;container id&gt;</span><br><span class="line"><span class="regexp">//</span> 创建一个新的容器并运行一个命令</span><br><span class="line">docker run [OPTIONS] IMAGE [COMMAND] [ARG...]</span><br><span class="line">-a stdin: 指定标准输入输出内容类型，可选 STDIN<span class="regexp">/STDOUT/</span>STDERR 三项；</span><br><span class="line">-d: 后台运行容器，并返回容器ID；</span><br><span class="line">-i: 以交互模式运行容器，通常与 -t 同时使用；</span><br><span class="line">-p: 端口映射，格式为：主机(宿主)端口:容器端口</span><br><span class="line">-t: 为容器重新分配一个伪输入终端，通常与 -i 同时使用；</span><br><span class="line">--name=<span class="string">&quot;nginx-lb&quot;</span>: 为容器指定一个名称；</span><br><span class="line">--dns <span class="number">8.8</span>.<span class="number">8.8</span>: 指定容器使用的DNS服务器，默认和宿主一致；</span><br><span class="line">--dns-search example.com: 指定容器DNS搜索域名，默认和宿主一致；</span><br><span class="line">-h <span class="string">&quot;mars&quot;</span>: 指定容器的hostname；</span><br><span class="line">-e username=<span class="string">&quot;ritchie&quot;</span>: 设置环境变量；</span><br><span class="line">--env-file=[]: 从指定文件读入环境变量；</span><br><span class="line">--cpuset=<span class="string">&quot;0-2&quot;</span> or --cpuset=<span class="string">&quot;0,1,2&quot;</span>: 绑定容器到指定CPU运行；</span><br><span class="line">-m :设置容器使用内存最大值；</span><br><span class="line">--net=<span class="string">&quot;bridge&quot;</span>: 指定容器的网络连接类型，支持 bridge<span class="regexp">/host/</span>none/container: 四种类型；</span><br><span class="line">--link=[]: 添加链接到另一个容器；</span><br><span class="line">--expose=[]: 开放一个端口或一组端口；</span><br><span class="line"></span><br><span class="line"><span class="regexp">//</span> 交互运行</span><br><span class="line">docker run -it centos <span class="regexp">/bin/</span>bash</span><br><span class="line"><span class="regexp">/bin/</span>bash 是进入到linux中命令行</span><br><span class="line"><span class="regexp">//</span> 进入容器</span><br><span class="line">docker exec -it &lt;container id&gt; <span class="regexp">/bin/</span>bash</span><br><span class="line"><span class="regexp">//</span> 运行nginx镜像并将容器<span class="number">80</span>端口映射到本机<span class="number">8080</span>端口</span><br><span class="line">docker run -p <span class="number">8080</span>:<span class="number">80</span> -d nginx</span><br><span class="line"><span class="regexp">//</span> 容器拷贝到主机</span><br><span class="line">docker cp &lt;container id&gt;:文件路径 主机目标路径</span><br><span class="line"><span class="regexp">//</span> 主机拷贝到容器</span><br><span class="line">docker cp 主机文件路径 &lt;container id&gt;:文件路径</span><br></pre></td></tr></table></figure>
+<h4 id="docker-镜像加速"><a href="#docker-镜像加速" class="headerlink" title="docker 镜像加速"></a>docker 镜像加速</h4><p>参考<a target="_blank" rel="noopener" href="http://guide.daocloud.io/dcs/daocloud-9153151.html#docker-toolbox">http://guide.daocloud.io/dcs/daocloud-9153151.html#docker-toolbox</a>设置镜像加速<br><img src="/blog/static/images/docker/3.png"></p>
+<h3 id="docker-基本命令"><a href="#docker-基本命令" class="headerlink" title="docker 基本命令"></a>docker 基本命令</h3><pre><code>// 列出本地已有镜像
+docker images
+// 从远端下载镜像
+docker pull &lt;image name&gt;
+// 使用镜像创建并启动一个容器（若本地没有该镜像，则会先从远端下载，每次run都会生成一个容器，嗯，轻量~）
+docker run hub.c.163.com/library/hello-world:latest
+//列出正在运行的容器
+docker ps
+// 列出所有容器（包括Exited）
+docker ps -a
+// 启动指定的容器
+docker start &lt;container id&gt;
+// 停止指定的容器
+docker stop &lt;container id&gt;
+// 停止所有运行中的容器
+docker stop $(docker ps -q)
+// 删除指定容器
+docker rm &lt;container id&gt;
+//删除所有容器
+docker rm $(docker ps -aq)
+//停止并删除容器
+docker stop $(docker ps -q) &amp; docker rm $(docker ps -aq)
+// 删除指定镜像（删除镜像前须先停止并删除容器）
+docker rmi &lt;image id&gt;
+// 重启容器
+docker restart &lt;container id&gt;
+// 创建一个新的容器并运行一个命令
+docker run [OPTIONS] IMAGE [COMMAND] [ARG...]
+-a stdin: 指定标准输入输出内容类型，可选 STDIN/STDOUT/STDERR 三项；
+-d: 后台运行容器，并返回容器ID；
+-i: 以交互模式运行容器，通常与 -t 同时使用；
+-p: 端口映射，格式为：主机(宿主)端口:容器端口
+-t: 为容器重新分配一个伪输入终端，通常与 -i 同时使用；
+--name=&quot;nginx-lb&quot;: 为容器指定一个名称；
+--dns 8.8.8.8: 指定容器使用的DNS服务器，默认和宿主一致；
+--dns-search example.com: 指定容器DNS搜索域名，默认和宿主一致；
+-h &quot;mars&quot;: 指定容器的hostname；
+-e username=&quot;ritchie&quot;: 设置环境变量；
+--env-file=[]: 从指定文件读入环境变量；
+--cpuset=&quot;0-2&quot; or --cpuset=&quot;0,1,2&quot;: 绑定容器到指定CPU运行；
+-m :设置容器使用内存最大值；
+--net=&quot;bridge&quot;: 指定容器的网络连接类型，支持 bridge/host/none/container: 四种类型；
+--link=[]: 添加链接到另一个容器；
+--expose=[]: 开放一个端口或一组端口；
 
+// 交互运行
+docker run -it centos /bin/bash
+/bin/bash 是进入到linux中命令行
+// 进入容器
+docker exec -it &lt;container id&gt; /bin/bash
+// 运行nginx镜像并将容器80端口映射到本机8080端口
+docker run -p 8080:80 -d nginx
+// 容器拷贝到主机
+docker cp &lt;container id&gt;:文件路径 主机目标路径
+// 主机拷贝到容器
+docker cp 主机文件路径 &lt;container id&gt;:文件路径
+</code></pre>
 <h3 id="win7-上文件以数据卷的形式挂载到-docker-容器中"><a href="#win7-上文件以数据卷的形式挂载到-docker-容器中" class="headerlink" title="win7 上文件以数据卷的形式挂载到 docker 容器中"></a>win7 上文件以数据卷的形式挂载到 docker 容器中</h3><p>1.先设置 win7 到 VirtualBox 中 docker 用的那个虚拟机的共享文件夹<br>　填写好共享文件夹路径和名称。如：共享文件夹路径：E:\ 共享文件夹名称: e<br>　然后勾选自动挂载和固定分配 2.重启 docker 3. docker run -it -v &#x2F;test:&#x2F;var&#x2F;www myimage &#x2F;bin&#x2F;bash</p>
 <h3 id="制作镜像"><a href="#制作镜像" class="headerlink" title="制作镜像"></a>制作镜像</h3><p>在上面的镜像容器中我们可以搭建自己所需要的各种环境，搭建好后可将这个更改后的容器打包成一个镜像，并上传到镜像仓库供大家使用<br>在搭建好环境的容器中退出时我们应当使用 ctrl+p+q 快捷键，而不是 exit 退出，因为这样直接退出会关闭当前容器<br>docker commit :从容器创建一个新的镜像。<br><code>docker commit -a &quot;username&quot; -m &quot;this is profile&quot; &lt;container id&gt; imageName</code><br>这里以阿里云为例，将镜像推送到 Registry</p>
-<figure class="highlight stylus"><table><tr><td class="code"><pre><span class="line">$ sudo docker login <span class="attr">--username</span>=jesse131 registry<span class="selector-class">.cn-shenzhen</span><span class="selector-class">.aliyuncs</span><span class="selector-class">.com</span></span><br><span class="line">$ sudo docker tag <span class="selector-attr">[ImageId]</span> registry<span class="selector-class">.cn-shenzhen</span><span class="selector-class">.aliyuncs</span>.com/mirror-study/study:<span class="selector-attr">[镜像版本号]</span></span><br><span class="line">$ sudo docker push registry<span class="selector-class">.cn-shenzhen</span><span class="selector-class">.aliyuncs</span>.com/mirror-study/study:<span class="selector-attr">[镜像版本号]</span></span><br></pre></td></tr></table></figure>
-
+<pre><code>$ sudo docker login --username=jesse131 registry.cn-shenzhen.aliyuncs.com
+$ sudo docker tag [ImageId] registry.cn-shenzhen.aliyuncs.com/mirror-study/study:[镜像版本号]
+$ sudo docker push registry.cn-shenzhen.aliyuncs.com/mirror-study/study:[镜像版本号]
+</code></pre>
 <p>如果不想通过网络拉去镜像也可以通过 U 盘拷贝镜像</p>
 <h4 id="导出镜像到本地"><a href="#导出镜像到本地" class="headerlink" title="导出镜像到本地"></a>导出镜像到本地</h4><p><code>docker save &lt;container id&gt; -o d:/www/centos.tar</code></p>
 <h4 id="加载本地镜像"><a href="#加载本地镜像" class="headerlink" title="加载本地镜像"></a>加载本地镜像</h4><p><code>docker load -i d:/www/centos.tar</code></p>
@@ -181,8 +224,8 @@
       <blockquote id="copyright">
         <p>
           原文链接:
-          <a href="https://jesse121.github.io/blog/blog/articles/2019/01/21.html"
-            >https://jesse121.github.io/blog/blog/articles/2019/01/21.html</a
+          <a href="https://jesse121.github.io/blog/articles/2019/01/21.html"
+            >https://jesse121.github.io/blog/articles/2019/01/21.html</a
           >
         </p>
         <p>版权声明: 转载请注明出处.</p>
@@ -203,7 +246,7 @@
 <nav id="article-nav">
   
     <a href="/blog/articles/2019/01/15.html" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">older</strong>
+      <strong class="article-nav-caption">下一篇</strong>
       <div class="article-nav-title">
         
           《Node.js权威指南》--读书笔记
@@ -213,7 +256,7 @@
   
   
     <a href="/blog/articles/2019/04/21.html" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">newer</strong>
+      <strong class="article-nav-caption">上一篇</strong>
       <div class="article-nav-title">
         
           Docker中Nginx服务器相关配置
@@ -379,37 +422,26 @@
     </div>
   </div>
   
-<script src="/blog/js/jquery-3.4.1.min.js"></script>
+<script src="https://unpkg.com/@highlightjs/cdn-assets@11.6.0/highlight.min.js"></script>
 
+<script>
+  hljs.highlightAll();
+</script>
 
+<script src="https://unpkg.com/jquery@3.4.1/dist/jquery.min.js"></script>
+ 
 <script src="/blog/js/search.json.js"></script>
-
-
   
-<script src="/blog/fancybox/jquery.fancybox.min.js"></script>
+<script src="https://unpkg.com/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
 
-
-
-
+ 
 <script src="/blog/js/script.js"></script>
-
-
-
-
-
-
-  
+ 
+   
 <script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-
-
-
-
-  
-  
-
-
-  
-<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+ 
+      
+<script src="https://unpkg.com/gitalk@1.7.2/dist/gitalk.min.js"></script>
  
 <script src="//cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.js"></script>
 
@@ -421,7 +453,7 @@
     owner: "jesse121",
     admin: ["jesse121"],
     id: md5(window.location.pathname),
-    proxy: "https://gitalk.jesse121.workers.dev/?https://github.com/login/oauth/access_token",
+    proxy: "https://stormy-gorge-51623.herokuapp.com/https://github.com/login/oauth/access_token",
     distractionFreeMode: false,
     language: "zh-CN",
     pagerDirection: "last",
@@ -429,8 +461,7 @@
   gitalk.render("comments");
 </script>
          
-
-
+ 
 
 </body>
 </html>

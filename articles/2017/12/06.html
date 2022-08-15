@@ -1,42 +1,28 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8">
-  
-  
+  <meta charset="utf-8" />
+   
   <title>如何编写高性能的Javascript | 前端之路</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, shrink-to-fit=no"
+  />
   
-    <meta name="description" content="专注前端开发，前端开发技术博客">
-  
-  
-    <meta name="keywords" content="Web前端开发，Javascript，前端开发博客">
-  
-  
-    <link rel="alternate" href="/blog/atom.xml" title="前端之路" type="application/atom+xml">
-  
-  
-    <link rel="shortcut icon" href="/blog/favicon.ico">
-  
-  
-    
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
-
-  
-  
+  <meta name="description" content="专注前端开发，前端开发技术博客" />
+   
+  <meta name="keywords" content="Web前端开发，Javascript，前端开发博客" />
+    <link rel="alternate" href="/blog/atom.xml" title="前端之路" type="application/atom+xml">   <link rel="shortcut icon" href="/blog/favicon.ico"> 
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/@highlightjs/cdn-assets@11.6.0/styles/xt256.min.css"
+  />
+   
 <link rel="stylesheet" href="/blog/css/style.css">
-
   
+<link rel="stylesheet" href="https://unpkg.com/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
     
-<link rel="stylesheet" href="/blog/fancybox/jquery.fancybox.min.css">
-
-  
-  
-  
-    
-<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
-
-  
+<link rel="stylesheet" href="https://unpkg.com/gitalk@1.7.2/dist/gitalk.css">
   
 <meta name="generator" content="Hexo 6.2.0"></head>
 
@@ -144,20 +130,62 @@
 
 <h4 id="1-减少全局变量的使用，避免冲突"><a href="#1-减少全局变量的使用，避免冲突" class="headerlink" title="1.减少全局变量的使用，避免冲突"></a>1.减少全局变量的使用，避免冲突</h4><p>全局变量的问题在于,你的JavaScript应用程序和web页面上的所有代码都共享了这些全局变量,他们住在同一个全局命名空间,所以当程序的两个不同部分定义同名但不同作用的全局变量的时候,命名冲突在所难免。并且全局变量在js运行完后并不会被垃圾回收机制回收，因此这块内存一直被占用着  </p>
 <ul>
-<li>使用匿名函数<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">//合理的利用命名空间达到匿名函数之间的通信</span></span><br><span class="line"><span class="keyword">var</span> <span class="variable constant_">GLOBAL</span> = &#123;&#125;;</span><br><span class="line">(<span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">    <span class="keyword">var</span> test = <span class="string">&quot;123&quot;</span>;</span><br><span class="line">    <span class="variable constant_">GLOBAL</span>.<span class="property">a</span> = test;</span><br><span class="line">    <span class="comment">//A code  </span></span><br><span class="line">&#125;())</span><br><span class="line"></span><br><span class="line">(<span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">    <span class="comment">//B code  </span></span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable constant_">GLOBAL</span>.<span class="property">a</span>)</span><br><span class="line">&#125;())</span><br></pre></td></tr></table></figure></li>
-<li>注意隐式全局变量<br>以下是反例，请勿模仿<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">foo</span>(<span class="params"></span>) &#123; </span><br><span class="line">    <span class="keyword">var</span> a = b = <span class="number">0</span>;<span class="comment">//b是全局变量</span></span><br><span class="line">    <span class="comment">// ... </span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>使用匿名函数</li>
 </ul>
+<pre><code class="js">//合理的利用命名空间达到匿名函数之间的通信
+var GLOBAL = &#123;&#125;;
+(function()&#123;
+    var test = &quot;123&quot;;
+    GLOBAL.a = test;
+    //A code  
+&#125;())
+
+(function()&#123;
+    //B code  
+    console.log(GLOBAL.a)
+&#125;())
+</code></pre>
+<ul>
+<li>注意隐式全局变量<br>以下是反例，请勿模仿</li>
+</ul>
+<pre><code class="js">function foo() &#123; 
+    var a = b = 0;//b是全局变量
+    // ... 
+&#125;
+</code></pre>
 <h4 id="2-使用高性能的变量或属性值读取方式"><a href="#2-使用高性能的变量或属性值读取方式" class="headerlink" title="2.使用高性能的变量或属性值读取方式"></a>2.使用高性能的变量或属性值读取方式</h4><p>若函数在运行过程中遇到一个变量，就会判定从哪里取的数据值，在这个过程中会顺着作用域链查找此名称的标识符，该搜索会从最近的作用域开始，如果找到了就使用这个变量值，如果没找到就会进入外层作用域中，直至最外层的全局作用域。一个变量在作用域链上查找的层级越多则读取速度就越慢，因此函数中局部变量访问速度最快，全部变量访问速度最慢。  </p>
 <p>最好的做法是将变量定义为本作用域的局部变量，如果需要频繁的访问一个外部作用域的变量，最好是用一个局部变量保存外部变量。<br>例1：jQuery插件开发中传入的window和document就是将全局变量保存为本作用域中的局部变量</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">;(<span class="keyword">function</span>(<span class="params">$, <span class="variable language_">window</span>, <span class="variable language_">document</span>, <span class="literal">undefined</span></span>)&#123;</span><br><span class="line">    $.fn.<span class="title function_">extend</span>(&#123;</span><br><span class="line">        pluginName : <span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="title function_">each</span>(<span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">                <span class="comment">// plugin implementation code here</span></span><br><span class="line">            &#125;);</span><br><span class="line">        &#125;;</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;)(jQuery, <span class="variable language_">window</span>, <span class="variable language_">document</span>);</span><br></pre></td></tr></table></figure>
+<pre><code class="js">;(function($, window, document, undefined)&#123;
+    $.fn.extend(&#123;
+        pluginName : function()&#123;
+            return this.each(function()&#123;
+                // plugin implementation code here
+            &#125;);
+        &#125;;
+    &#125;)
+&#125;)(jQuery, window, document);
+</code></pre>
 <p>例2：将for循环长度缓存</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>,len = arr.<span class="property">length</span>; i &lt; len; i++)&#123;</span><br><span class="line">    arr[i] *= <span class="number">2</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="js">for(var i = 0,len = arr.length; i &lt; len; i++)&#123;
+    arr[i] *= 2;
+&#125;
+</code></pre>
 <p>意义：在js代码中需要访问到变量时，需要注意到是否存在这种问题，特别是需要频繁访问的变量，尽量将外部作用域中的变量或对象上的属性值缓存在局部变量中，以提高读取性能。</p>
 <h4 id="3-避免使用with-eval"><a href="#3-避免使用with-eval" class="headerlink" title="3.避免使用with(),eval()"></a>3.避免使用with(),eval()</h4><p>当代码流执行到一个with()表达式时，运行期上下文的作用域链被临时改变了。一个新的可变对象将被创建，它包含指定对象的所有属性。此对象被插入到作用域链的前端，意味着现在函数的所有局部变量都被推入第二个作用域链对象中，所以访问代价更高了。<br>eval()接受任意的字符串，并当作JavaScript代码来处理<br>当你在 JavaScript 代码中执行(另一段)JavaScript 代码时,你付出二次评估的代价。此代码首先被评估 为正常代码,然后在执行过程中,运行字符串中的代码时发生另一次评估。二次评估是一项昂贵的操作,<br>与直接包含相应代码相比将占用更长时间。</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> num1 = <span class="number">5</span>,num2 = <span class="number">6</span>;</span><br><span class="line">result = <span class="built_in">eval</span>(<span class="string">&quot;num1 + num2&quot;</span>)<span class="comment">//字符串内的代码会进行第二次评估</span></span><br></pre></td></tr></table></figure>
+<pre><code class="js">var num1 = 5,num2 = 6;
+result = eval(&quot;num1 + num2&quot;)//字符串内的代码会进行第二次评估
+</code></pre>
 <p>同样重要的是要记住，给setInterval(), setTimeout()和Function()构造函数传递字符串，大部分情况下，与使用eval()是类似的，因此要避免。</p>
 <h4 id="4-高效的DOM操作"><a href="#4-高效的DOM操作" class="headerlink" title="4.高效的DOM操作"></a>4.高效的DOM操作</h4><ul>
-<li>合并多次DOM操作为单次操作<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">//优化方案1</span></span><br><span class="line">element.<span class="property">style</span>.<span class="property">cssText</span> += <span class="string">&quot;border: 1px solid #ccc;&quot;</span></span><br><span class="line"><span class="comment">//优化方案2</span></span><br><span class="line">element.<span class="property">className</span> += <span class="string">&#x27;empty&#x27;</span>;</span><br><span class="line">element.<span class="property">classList</span>.<span class="title function_">add</span>(<span class="string">&#x27;empty&#x27;</span>);<span class="comment">//IE兼容性不太好</span></span><br></pre></td></tr></table></figure></li>
+<li>合并多次DOM操作为单次操作</li>
+</ul>
+<pre><code class="js">//优化方案1
+element.style.cssText += &quot;border: 1px solid #ccc;&quot;
+//优化方案2
+element.className += &#39;empty&#39;;
+element.classList.add(&#39;empty&#39;);//IE兼容性不太好
+</code></pre>
+<ul>
 <li>把DOM元素离线或隐藏后修改<ul>
 <li>使用文档片段</li>
 <li>设置display:none;来隐藏元素</li>
@@ -181,12 +209,19 @@
 <p>优化if-else<br>优化if-else的目标总是最小化找到正确分支之前所判断条件体的数量。最简单的优化方法是将最常见的条件体放在首位</p>
 <h4 id="6-释放内存"><a href="#6-释放内存" class="headerlink" title="6.释放内存"></a>6.释放内存</h4><p>尽量减少使用全局变量，全局变量在整个页面生命周期中不会被回收<br>确保解除不需要的事件监听<br>不要再闭包中返回外界不需要的对象，会造成内存泄漏，无法回收</p>
 <h4 id="7-函数有递归时使用尾递归优化"><a href="#7-函数有递归时使用尾递归优化" class="headerlink" title="7.函数有递归时使用尾递归优化"></a>7.函数有递归时使用尾递归优化</h4><p>递归非常耗费内存，因为需要同时保存成千上百个调用帧，很容易发生“栈溢出”错误（stack overflow）。但对于尾递归来说，由于只存在一个调用帧，所以永远不会发生“栈溢出”错误。</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">factorial</span>(<span class="params">n</span>) &#123;</span><br><span class="line">  <span class="keyword">if</span> (n === <span class="number">1</span>) <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">  <span class="keyword">return</span> n * <span class="title function_">factorial</span>(n - <span class="number">1</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="title function_">factorial</span>(<span class="number">5</span>) <span class="comment">// 120</span></span><br></pre></td></tr></table></figure>
+<pre><code class="js">function factorial(n) &#123;
+  if (n === 1) return 1;
+  return n * factorial(n - 1);
+&#125;
+factorial(5) // 120
+</code></pre>
 <p>上面代码是一个阶乘函数，计算n的阶乘，最多需要保存n个调用记录，复杂度 O(n) 。<br>如果改写成尾递归，只保留一个调用记录，复杂度 O(1) 。</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">factorial</span>(<span class="params">n, total</span>) &#123;</span><br><span class="line">  <span class="keyword">if</span> (n === <span class="number">1</span>) <span class="keyword">return</span> total;</span><br><span class="line">  <span class="keyword">return</span> <span class="title function_">factorial</span>(n - <span class="number">1</span>, n * total);</span><br><span class="line">&#125;</span><br><span class="line"><span class="title function_">factorial</span>(<span class="number">5</span>, <span class="number">1</span>) <span class="comment">// 120</span></span><br></pre></td></tr></table></figure>
-
-
-
+<pre><code class="js">function factorial(n, total) &#123;
+  if (n === 1) return total;
+  return factorial(n - 1, n * total);
+&#125;
+factorial(5, 1) // 120
+</code></pre>
 <p>参考文献：</p>
 <ol>
 <li>高性能的javascript</li>
@@ -206,8 +241,8 @@
       <blockquote id="copyright">
         <p>
           原文链接:
-          <a href="https://jesse121.github.io/blog/blog/articles/2017/12/06.html"
-            >https://jesse121.github.io/blog/blog/articles/2017/12/06.html</a
+          <a href="https://jesse121.github.io/blog/articles/2017/12/06.html"
+            >https://jesse121.github.io/blog/articles/2017/12/06.html</a
           >
         </p>
         <p>版权声明: 转载请注明出处.</p>
@@ -228,7 +263,7 @@
 <nav id="article-nav">
   
     <a href="/blog/articles/2017/11/24.html" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">older</strong>
+      <strong class="article-nav-caption">下一篇</strong>
       <div class="article-nav-title">
         
           MySQL基础
@@ -238,7 +273,7 @@
   
   
     <a href="/blog/articles/2017/12/23.html" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">newer</strong>
+      <strong class="article-nav-caption">上一篇</strong>
       <div class="article-nav-title">
         
           针对模拟滚动条插件(jQuery.slimscroll.js)的修改
@@ -404,37 +439,26 @@
     </div>
   </div>
   
-<script src="/blog/js/jquery-3.4.1.min.js"></script>
+<script src="https://unpkg.com/@highlightjs/cdn-assets@11.6.0/highlight.min.js"></script>
 
+<script>
+  hljs.highlightAll();
+</script>
 
+<script src="https://unpkg.com/jquery@3.4.1/dist/jquery.min.js"></script>
+ 
 <script src="/blog/js/search.json.js"></script>
-
-
   
-<script src="/blog/fancybox/jquery.fancybox.min.js"></script>
+<script src="https://unpkg.com/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
 
-
-
-
+ 
 <script src="/blog/js/script.js"></script>
-
-
-
-
-
-
-  
+ 
+   
 <script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-
-
-
-
-  
-  
-
-
-  
-<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+ 
+      
+<script src="https://unpkg.com/gitalk@1.7.2/dist/gitalk.min.js"></script>
  
 <script src="//cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.js"></script>
 
@@ -446,7 +470,7 @@
     owner: "jesse121",
     admin: ["jesse121"],
     id: md5(window.location.pathname),
-    proxy: "https://gitalk.jesse121.workers.dev/?https://github.com/login/oauth/access_token",
+    proxy: "https://stormy-gorge-51623.herokuapp.com/https://github.com/login/oauth/access_token",
     distractionFreeMode: false,
     language: "zh-CN",
     pagerDirection: "last",
@@ -454,8 +478,7 @@
   gitalk.render("comments");
 </script>
          
-
-
+ 
 
 </body>
 </html>

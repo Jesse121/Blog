@@ -1,42 +1,28 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8">
-  
-  
+  <meta charset="utf-8" />
+   
   <title>栈与队列 | 前端之路</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, shrink-to-fit=no"
+  />
   
-    <meta name="description" content="专注前端开发，前端开发技术博客">
-  
-  
-    <meta name="keywords" content="Web前端开发，Javascript，前端开发博客">
-  
-  
-    <link rel="alternate" href="/blog/atom.xml" title="前端之路" type="application/atom+xml">
-  
-  
-    <link rel="shortcut icon" href="/blog/favicon.ico">
-  
-  
-    
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
-
-  
-  
+  <meta name="description" content="专注前端开发，前端开发技术博客" />
+   
+  <meta name="keywords" content="Web前端开发，Javascript，前端开发博客" />
+    <link rel="alternate" href="/blog/atom.xml" title="前端之路" type="application/atom+xml">   <link rel="shortcut icon" href="/blog/favicon.ico"> 
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/@highlightjs/cdn-assets@11.6.0/styles/xt256.min.css"
+  />
+   
 <link rel="stylesheet" href="/blog/css/style.css">
-
   
+<link rel="stylesheet" href="https://unpkg.com/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
     
-<link rel="stylesheet" href="/blog/fancybox/jquery.fancybox.min.css">
-
-  
-  
-  
-    
-<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
-
-  
+<link rel="stylesheet" href="https://unpkg.com/gitalk@1.7.2/dist/gitalk.css">
   
 <meta name="generator" content="Hexo 6.2.0"></head>
 
@@ -142,11 +128,63 @@
        <h3 id="栈"><a href="#栈" class="headerlink" title="栈"></a>栈</h3><p>栈是一种“操作受限”的线性表，只允许在一端插入和删除数据。当某个数据集合只涉及在一端插入和删除数据，并且满足后进先出、先进后出的特性，我们就应该首选“栈”这种数据结构。<br>实际上，栈既可以用数组来实现，也可以用链表来实现。用数组实现的栈，我们叫作顺序栈，用链表实现的栈，我们叫作链式栈。</p>
 <span id="more"></span>
 
-<h4 id="用数组实现的栈"><a href="#用数组实现的栈" class="headerlink" title="用数组实现的栈"></a>用数组实现的栈</h4><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Stack</span> &#123;</span><br><span class="line">  <span class="title function_">constructor</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">items</span> = [];</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">count</span> = <span class="number">0</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="title function_">push</span>(<span class="params">value</span>) &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">items</span>.<span class="title function_">push</span>(value);</span><br><span class="line">    ++<span class="variable language_">this</span>.<span class="property">count</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="property">items</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="title function_">pop</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="variable language_">this</span>.<span class="property">count</span> === <span class="number">0</span>) <span class="keyword">return</span> [];</span><br><span class="line">    <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="property">items</span>.<span class="title function_">pop</span>();</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="title function_">print</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">this</span>.<span class="property">items</span>.<span class="title function_">toString</span>());</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> stack = <span class="keyword">new</span> <span class="title class_">Stack</span>();</span><br><span class="line">stack.<span class="title function_">push</span>(<span class="string">&quot;Jack&quot;</span>);</span><br><span class="line">stack.<span class="title function_">push</span>(<span class="string">&quot;Mike&quot;</span>);</span><br><span class="line">stack.<span class="title function_">push</span>(<span class="string">&quot;Candy&quot;</span>);</span><br><span class="line">stack.<span class="title function_">print</span>(); <span class="comment">// Jack,Mike,Candy</span></span><br><span class="line">stack.<span class="title function_">pop</span>();</span><br><span class="line">stack.<span class="title function_">print</span>(); <span class="comment">// Jack,Mike</span></span><br></pre></td></tr></table></figure>
+<h4 id="用数组实现的栈"><a href="#用数组实现的栈" class="headerlink" title="用数组实现的栈"></a>用数组实现的栈</h4><pre><code class="js">class Stack &#123;
+  constructor() &#123;
+    this.items = [];
+    this.count = 0;
+  &#125;
 
+  push(value) &#123;
+    this.items.push(value);
+    ++this.count;
+    return this.items;
+  &#125;
+
+  pop() &#123;
+    if (this.count === 0) return [];
+    return this.items.pop();
+  &#125;
+
+  print() &#123;
+    console.log(this.items.toString());
+  &#125;
+&#125;
+var stack = new Stack();
+stack.push(&quot;Jack&quot;);
+stack.push(&quot;Mike&quot;);
+stack.push(&quot;Candy&quot;);
+stack.print(); // Jack,Mike,Candy
+stack.pop();
+stack.print(); // Jack,Mike
+</code></pre>
 <p>不管基于数组还是链表，入栈、出栈的时间复杂度都为 O(1)</p>
 <h3 id="队列"><a href="#队列" class="headerlink" title="队列"></a>队列</h3><p>队列最大的特点就是先进先出，主要的两个操作是入队和出队。跟栈一样，它既可以用数组来实现，也可以用链表来实现。用数组实现的叫顺序队列，用链表实现的叫链式队列。特别是长得像一个环的循环队列。在数组实现队列的时候，会有数据搬移操作，要想解决数据搬移的问题，我们就需要像环一样的循环队列。<br><img src="https://raw.githubusercontent.com/Jesse121/publicPic/master/blog/pictures/801336-20200502092159003-1561337601.jpg" alt="801336-20200502092159003-1561337601"></p>
-<h4 id="用数组实现队列"><a href="#用数组实现队列" class="headerlink" title="用数组实现队列"></a>用数组实现队列</h4><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Queue</span> &#123;</span><br><span class="line">  <span class="title function_">constructor</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">items</span> = [];</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="title function_">enqueue</span>(<span class="params">value</span>) &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">items</span>.<span class="title function_">push</span>(value);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="title function_">dequeue</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="property">items</span>.<span class="title function_">shift</span>();</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="title function_">print</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">this</span>.<span class="property">items</span>.<span class="title function_">toString</span>());</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> queue = <span class="keyword">new</span> <span class="title class_">Queue</span>();</span><br><span class="line">queue.<span class="title function_">enqueue</span>(<span class="string">&quot;Jack&quot;</span>);</span><br><span class="line">queue.<span class="title function_">enqueue</span>(<span class="string">&quot;Mike&quot;</span>);</span><br><span class="line">queue.<span class="title function_">enqueue</span>(<span class="string">&quot;Candy&quot;</span>);</span><br><span class="line">queue.<span class="title function_">print</span>(); <span class="comment">// Jack,Mike,Candy</span></span><br><span class="line">queue.<span class="title function_">dequeue</span>();</span><br><span class="line">queue.<span class="title function_">print</span>(); <span class="comment">// Mike,Candy</span></span><br></pre></td></tr></table></figure>
+<h4 id="用数组实现队列"><a href="#用数组实现队列" class="headerlink" title="用数组实现队列"></a>用数组实现队列</h4><pre><code class="js">class Queue &#123;
+  constructor() &#123;
+    this.items = [];
+  &#125;
+
+  enqueue(value) &#123;
+    this.items.push(value);
+  &#125;
+
+  dequeue() &#123;
+    return this.items.shift();
+  &#125;
+
+  print() &#123;
+    console.log(this.items.toString());
+  &#125;
+&#125;
+
+var queue = new Queue();
+queue.enqueue(&quot;Jack&quot;);
+queue.enqueue(&quot;Mike&quot;);
+queue.enqueue(&quot;Candy&quot;);
+queue.print(); // Jack,Mike,Candy
+queue.dequeue();
+queue.print(); // Mike,Candy
+</code></pre>
  
       <div id="toc-article">
   <div class="widget-wrap" id="toc-wrap">
@@ -161,8 +199,8 @@
       <blockquote id="copyright">
         <p>
           原文链接:
-          <a href="https://jesse121.github.io/blog/blog/articles/2020/05/02.html"
-            >https://jesse121.github.io/blog/blog/articles/2020/05/02.html</a
+          <a href="https://jesse121.github.io/blog/articles/2020/05/02.html"
+            >https://jesse121.github.io/blog/articles/2020/05/02.html</a
           >
         </p>
         <p>版权声明: 转载请注明出处.</p>
@@ -183,7 +221,7 @@
 <nav id="article-nav">
   
     <a href="/blog/articles/2020/04/19.html" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">older</strong>
+      <strong class="article-nav-caption">下一篇</strong>
       <div class="article-nav-title">
         
           链表
@@ -193,7 +231,7 @@
   
   
     <a href="/blog/articles/2020/05/13.html" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">newer</strong>
+      <strong class="article-nav-caption">上一篇</strong>
       <div class="article-nav-title">
         
           Webpack编译后的html中图片路径变为[object Module]的原因及解决办法
@@ -359,37 +397,26 @@
     </div>
   </div>
   
-<script src="/blog/js/jquery-3.4.1.min.js"></script>
+<script src="https://unpkg.com/@highlightjs/cdn-assets@11.6.0/highlight.min.js"></script>
 
+<script>
+  hljs.highlightAll();
+</script>
 
+<script src="https://unpkg.com/jquery@3.4.1/dist/jquery.min.js"></script>
+ 
 <script src="/blog/js/search.json.js"></script>
-
-
   
-<script src="/blog/fancybox/jquery.fancybox.min.js"></script>
+<script src="https://unpkg.com/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
 
-
-
-
+ 
 <script src="/blog/js/script.js"></script>
-
-
-
-
-
-
-  
+ 
+   
 <script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-
-
-
-
-  
-  
-
-
-  
-<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+ 
+      
+<script src="https://unpkg.com/gitalk@1.7.2/dist/gitalk.min.js"></script>
  
 <script src="//cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.js"></script>
 
@@ -401,7 +428,7 @@
     owner: "jesse121",
     admin: ["jesse121"],
     id: md5(window.location.pathname),
-    proxy: "https://gitalk.jesse121.workers.dev/?https://github.com/login/oauth/access_token",
+    proxy: "https://stormy-gorge-51623.herokuapp.com/https://github.com/login/oauth/access_token",
     distractionFreeMode: false,
     language: "zh-CN",
     pagerDirection: "last",
@@ -409,8 +436,7 @@
   gitalk.render("comments");
 </script>
          
-
-
+ 
 
 </body>
 </html>

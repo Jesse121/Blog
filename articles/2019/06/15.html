@@ -1,42 +1,28 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8">
-  
-  
+  <meta charset="utf-8" />
+   
   <title>CSS 计数器详解 | 前端之路</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, shrink-to-fit=no"
+  />
   
-    <meta name="description" content="专注前端开发，前端开发技术博客">
-  
-  
-    <meta name="keywords" content="Web前端开发，Javascript，前端开发博客">
-  
-  
-    <link rel="alternate" href="/blog/atom.xml" title="前端之路" type="application/atom+xml">
-  
-  
-    <link rel="shortcut icon" href="/blog/favicon.ico">
-  
-  
-    
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
-
-  
-  
+  <meta name="description" content="专注前端开发，前端开发技术博客" />
+   
+  <meta name="keywords" content="Web前端开发，Javascript，前端开发博客" />
+    <link rel="alternate" href="/blog/atom.xml" title="前端之路" type="application/atom+xml">   <link rel="shortcut icon" href="/blog/favicon.ico"> 
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/@highlightjs/cdn-assets@11.6.0/styles/xt256.min.css"
+  />
+   
 <link rel="stylesheet" href="/blog/css/style.css">
-
   
+<link rel="stylesheet" href="https://unpkg.com/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
     
-<link rel="stylesheet" href="/blog/fancybox/jquery.fancybox.min.css">
-
-  
-  
-  
-    
-<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
-
-  
+<link rel="stylesheet" href="https://unpkg.com/gitalk@1.7.2/dist/gitalk.css">
   
 <meta name="generator" content="Hexo 6.2.0"></head>
 
@@ -143,23 +129,51 @@
 <span id="more"></span>
 <h3 id="计数器属性介绍"><a href="#计数器属性介绍" class="headerlink" title="计数器属性介绍"></a>计数器属性介绍</h3><p>计数器的值通过使用counter-reset 和 counter-increment 操作，在 content 上应用 counter() 或 counters()函数来显示在页面上。</p>
 <h4 id="counter-reset"><a href="#counter-reset" class="headerlink" title="counter-reset"></a>counter-reset</h4><p>设置计数器的名称和起始值</p>
-<figure class="highlight livecodeserver"><table><tr><td class="code"><pre><span class="line">Name:counter-reset</span><br><span class="line">Value:  [ &lt;custom-ident&gt; &lt;<span class="keyword">integer</span>&gt;? ]+ | <span class="literal">none</span></span><br><span class="line">Initial:  <span class="literal">none</span></span><br><span class="line">Applies <span class="built_in">to</span>:  all elements</span><br><span class="line">Inherited:  no</span><br><span class="line">Percentages:  n/<span class="keyword">a</span></span><br><span class="line">Computed <span class="built_in">value</span>:  <span class="keyword">the</span> keyword <span class="literal">none</span> <span class="keyword">or</span> <span class="keyword">a</span> list, <span class="keyword">each</span> <span class="keyword">item</span> <span class="keyword">an</span> identifier paired <span class="keyword">with</span> <span class="keyword">an</span> <span class="keyword">integer</span></span><br><span class="line">Canonical order:  per grammar</span><br><span class="line">Animation type:  <span class="keyword">by</span> computed <span class="built_in">value</span> type</span><br></pre></td></tr></table></figure>
+<pre><code>Name:counter-reset
+Value:	[ &lt;custom-ident&gt; &lt;integer&gt;? ]+ | none
+Initial:	none
+Applies to:	all elements
+Inherited:	no
+Percentages:	n/a
+Computed value:	the keyword none or a list, each item an identifier paired with an integer
+Canonical order:	per grammar
+Animation type:	by computed value type
+</code></pre>
 <p>custom-indent 计数器名字   可以同时命名多个计数器<br>integer 初始值 默认是0 也可以是负数</p>
-<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.counter</span>&#123;</span><br><span class="line">    <span class="attribute">counter-reset</span>:sequence; <span class="comment">/* 计数器名称是sequence */</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.counter</span>&#123;</span><br><span class="line">    <span class="attribute">counter-reset</span>:sequence <span class="number">2</span>; <span class="comment">/* 计数器名称是sequence 且起始值是2*/</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="css">.counter&#123;
+    counter-reset:sequence; /* 计数器名称是sequence */
+&#125;
+.counter&#123;
+    counter-reset:sequence 2; /* 计数器名称是sequence 且起始值是2*/
+&#125;
+</code></pre>
 <h4 id="counter-increment"><a href="#counter-increment" class="headerlink" title="counter-increment"></a>counter-increment</h4><p>设置某个计数器每次计数的变化值。如果缺省，则使用默认变化值1</p>
-<figure class="highlight livecodeserver"><table><tr><td class="code"><pre><span class="line">Name:  counter-increment</span><br><span class="line">Value:  [ &lt;custom-ident&gt; &lt;<span class="keyword">integer</span>&gt;? ]+ | <span class="literal">none</span></span><br><span class="line">Initial:  <span class="literal">none</span></span><br><span class="line">Applies <span class="built_in">to</span>:  all elements</span><br><span class="line">Inherited:  no</span><br><span class="line">Percentages:  n/<span class="keyword">a</span></span><br><span class="line">Computed <span class="built_in">value</span>:  <span class="keyword">the</span> keyword <span class="literal">none</span> <span class="keyword">or</span> <span class="keyword">a</span> list, <span class="keyword">each</span> <span class="keyword">item</span> <span class="keyword">an</span> identifier paired <span class="keyword">with</span> <span class="keyword">an</span> <span class="keyword">integer</span></span><br><span class="line">Canonical order:  per grammar</span><br><span class="line">Animation type:  <span class="keyword">by</span> computed <span class="built_in">value</span> type</span><br></pre></td></tr></table></figure>
+<pre><code>Name:	counter-increment
+Value:	[ &lt;custom-ident&gt; &lt;integer&gt;? ]+ | none
+Initial:	none
+Applies to:	all elements
+Inherited:	no
+Percentages:	n/a
+Computed value:	the keyword none or a list, each item an identifier paired with an integer
+Canonical order:	per grammar
+Animation type:	by computed value type
+</code></pre>
 <p>custom-indent 计数器名字   可以同时命名多个计数器<br>integer 初始值 默认是1</p>
 <h4 id="counter"><a href="#counter" class="headerlink" title="counter()"></a>counter()</h4><p>这是个方法，不是属性，作用是用字符串或图片将计数器显示出来。这两个计算方法要和伪元素的 content 属性搭配使用。<br>用法一</p>
-<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="attribute">content</span>: <span class="built_in">counter</span>(name)</span><br></pre></td></tr></table></figure>
+<pre><code>content: counter(name)
+</code></pre>
 <p>counter 计算符前后可以随意加字符串来对最后的效果做拼接。<a href="../../../demo/css-counter.html">可点击查看demo</a><br>用法二</p>
-<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="attribute">content</span>: <span class="built_in">counter</span>(name,style)</span><br></pre></td></tr></table></figure>
+<pre><code>content: counter(name,style)
+</code></pre>
 <p>这里的style参数支持的关键字值就是list-style-type支持的那些值。作用是，我们递增递减可以不一定是数字，还可以是英文字母，或者罗马文等。</p>
 <blockquote>
 <p>list-style-type：disc | circle | square | decimal | lower-roman | upper-roman | lower-alpha | upper-alpha | none | armenian | cjk-ideographic | georgian | lower-greek | hebrew | hiragana | hiragana-iroha | katakana | katakana-iroha | lower-latin | upper-latin</p>
 </blockquote>
 <p><a href="../../../demo/css-counter.1.html">可点击查看demo</a><br><a href="../../../demo/css-counter.2.html">counter()实现多层嵌套demo</a></p>
 <h4 id="counters"><a href="#counters" class="headerlink" title="counters()"></a>counters()</h4><p>作用和counter()一样，差别是counters只用于多层嵌套</p>
-<figure class="highlight stylus"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="title">counters</span><span class="params">(name,string)</span></span>        </span><br><span class="line"><span class="function"><span class="title">counters</span><span class="params">(name,string,style)</span></span>  <span class="comment">/*style参数与counter相同*/</span></span><br></pre></td></tr></table></figure>
+<pre><code>counters(name,string)        
+counters(name,string,style)  /*style参数与counter相同*/
+</code></pre>
 <p>其中，string参数为字符串（需要引号包围的）（必须参数），表示子序号的连接字符串。例如1.1的string就是’.’, 1-1就是’-‘.<br><a href="../../../demo/css-counter.3.html">counters()实现多层嵌套demo</a></p>
 <p>对比counter()和counters()实现的多层嵌套<br>counter()实现多层嵌套时，他的层级序号是手动拼起来的<br>counters()的多层嵌套则是嵌套层会自动带上其父层的嵌套序号</p>
 <p><strong>注意点</strong><br>一个元素，如果设置了counter-increment, 但是其display的属性值是none或者含有hidden属性（针对支持浏览器），则此计数值是不会增加的。而visibility:hidden以及其他声明不会有此现象。</p>
@@ -179,8 +193,8 @@
       <blockquote id="copyright">
         <p>
           原文链接:
-          <a href="https://jesse121.github.io/blog/blog/articles/2019/06/15.html"
-            >https://jesse121.github.io/blog/blog/articles/2019/06/15.html</a
+          <a href="https://jesse121.github.io/blog/articles/2019/06/15.html"
+            >https://jesse121.github.io/blog/articles/2019/06/15.html</a
           >
         </p>
         <p>版权声明: 转载请注明出处.</p>
@@ -201,7 +215,7 @@
 <nav id="article-nav">
   
     <a href="/blog/articles/2019/05/04.html" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">older</strong>
+      <strong class="article-nav-caption">下一篇</strong>
       <div class="article-nav-title">
         
           为什么使用HTTP2？
@@ -211,7 +225,7 @@
   
   
     <a href="/blog/articles/2019/06/30.html" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">newer</strong>
+      <strong class="article-nav-caption">上一篇</strong>
       <div class="article-nav-title">
         
           Base64编码原理及应用
@@ -377,37 +391,26 @@
     </div>
   </div>
   
-<script src="/blog/js/jquery-3.4.1.min.js"></script>
+<script src="https://unpkg.com/@highlightjs/cdn-assets@11.6.0/highlight.min.js"></script>
 
+<script>
+  hljs.highlightAll();
+</script>
 
+<script src="https://unpkg.com/jquery@3.4.1/dist/jquery.min.js"></script>
+ 
 <script src="/blog/js/search.json.js"></script>
-
-
   
-<script src="/blog/fancybox/jquery.fancybox.min.js"></script>
+<script src="https://unpkg.com/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
 
-
-
-
+ 
 <script src="/blog/js/script.js"></script>
-
-
-
-
-
-
-  
+ 
+   
 <script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-
-
-
-
-  
-  
-
-
-  
-<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+ 
+      
+<script src="https://unpkg.com/gitalk@1.7.2/dist/gitalk.min.js"></script>
  
 <script src="//cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.js"></script>
 
@@ -419,7 +422,7 @@
     owner: "jesse121",
     admin: ["jesse121"],
     id: md5(window.location.pathname),
-    proxy: "https://gitalk.jesse121.workers.dev/?https://github.com/login/oauth/access_token",
+    proxy: "https://stormy-gorge-51623.herokuapp.com/https://github.com/login/oauth/access_token",
     distractionFreeMode: false,
     language: "zh-CN",
     pagerDirection: "last",
@@ -427,8 +430,7 @@
   gitalk.render("comments");
 </script>
          
-
-
+ 
 
 </body>
 </html>

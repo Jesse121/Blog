@@ -1,42 +1,28 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8">
-  
-  
+  <meta charset="utf-8" />
+   
   <title>LNMP + Apache 架构配置 | 前端之路</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, shrink-to-fit=no"
+  />
   
-    <meta name="description" content="专注前端开发，前端开发技术博客">
-  
-  
-    <meta name="keywords" content="Web前端开发，Javascript，前端开发博客">
-  
-  
-    <link rel="alternate" href="/blog/atom.xml" title="前端之路" type="application/atom+xml">
-  
-  
-    <link rel="shortcut icon" href="/blog/favicon.ico">
-  
-  
-    
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
-
-  
-  
+  <meta name="description" content="专注前端开发，前端开发技术博客" />
+   
+  <meta name="keywords" content="Web前端开发，Javascript，前端开发博客" />
+    <link rel="alternate" href="/blog/atom.xml" title="前端之路" type="application/atom+xml">   <link rel="shortcut icon" href="/blog/favicon.ico"> 
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/@highlightjs/cdn-assets@11.6.0/styles/xt256.min.css"
+  />
+   
 <link rel="stylesheet" href="/blog/css/style.css">
-
   
+<link rel="stylesheet" href="https://unpkg.com/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
     
-<link rel="stylesheet" href="/blog/fancybox/jquery.fancybox.min.css">
-
-  
-  
-  
-    
-<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
-
-  
+<link rel="stylesheet" href="https://unpkg.com/gitalk@1.7.2/dist/gitalk.css">
   
 <meta name="generator" content="Hexo 6.2.0"></head>
 
@@ -157,81 +143,153 @@
 <li>安装过程中设置root密码及创建用户,安装完成后点击重启</li>
 </ol>
 <h3 id="设置固定ip方便xshell远程登录"><a href="#设置固定ip方便xshell远程登录" class="headerlink" title="设置固定ip方便xshell远程登录"></a>设置固定ip方便xshell远程登录</h3><h4 id="网卡设置"><a href="#网卡设置" class="headerlink" title="网卡设置"></a>网卡设置</h4><p>网卡设置前先查询主机的网络ip<br>cmd ipconfig &#x2F;all<br>分别记下本地连接的ipv4地址、子网掩码、网关<br>登录centos虚拟主机后  </p>
-<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">cd <span class="regexp">/etc/</span>sysconfig<span class="regexp">/network-scripts/</span></span><br><span class="line">ls</span><br></pre></td></tr></table></figure>
+<pre><code>cd /etc/sysconfig/network-scripts/
+ls
+</code></pre>
 <p>一般第一个就是自己的网卡，我这里是ifcfg-enp0s3</p>
-<figure class="highlight gcode"><table><tr><td class="code"><pre><span class="line">vi ifcfg-e<span class="symbol">np0</span>s<span class="number">3</span></span><br></pre></td></tr></table></figure>
+<pre><code>vi ifcfg-enp0s3
+</code></pre>
 <p>添加以下内容</p>
-<figure class="highlight abnf"><table><tr><td class="code"><pre><span class="line"><span class="attribute">BOOTPROTO</span><span class="operator">=</span><span class="string">&quot;dhcp&quot;</span>//改为<span class="string">&quot;static&quot;</span></span><br><span class="line"><span class="attribute">IPADDR</span><span class="operator">=</span><span class="string">&quot;10.0.5.100&quot;</span>//设置为与ipv4地址在同一网段</span><br><span class="line"><span class="attribute">NETMASK</span><span class="operator">=</span><span class="string">&quot;255.255.0.0&quot;</span>//设置子网掩码</span><br><span class="line"><span class="attribute">GATEWAY</span><span class="operator">=</span><span class="string">&quot;10.0.0.1&quot;</span>//设置网关</span><br></pre></td></tr></table></figure>
+<pre><code>BOOTPROTO=&quot;dhcp&quot;//改为&quot;static&quot;
+IPADDR=&quot;10.0.5.100&quot;//设置为与ipv4地址在同一网段
+NETMASK=&quot;255.255.0.0&quot;//设置子网掩码
+GATEWAY=&quot;10.0.0.1&quot;//设置网关
+</code></pre>
 <p>执行</p>
-<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">systemctl restart network.service <span class="regexp">//</span>重启网络  </span><br></pre></td></tr></table></figure>
+<pre><code>systemctl restart network.service //重启网络  
+</code></pre>
 <p>此时测试主机和虚拟机是否可互相ping通</p>
-<h4 id="开启22端口"><a href="#开启22端口" class="headerlink" title="开启22端口"></a>开启22端口</h4><figure class="highlight stylus"><table><tr><td class="code"><pre><span class="line">firewall-cmd <span class="attr">--zone</span>=public <span class="attr">--add-port</span>=<span class="number">22</span>/tcp <span class="attr">--permanent</span> <span class="comment">//开启22端口</span></span><br><span class="line">systemctl restart firewalld<span class="selector-class">.service</span> <span class="comment">//重启防火墙</span></span><br></pre></td></tr></table></figure>
+<h4 id="开启22端口"><a href="#开启22端口" class="headerlink" title="开启22端口"></a>开启22端口</h4><pre><code>firewall-cmd --zone=public --add-port=22/tcp --permanent //开启22端口
+systemctl restart firewalld.service //重启防火墙
+</code></pre>
 <p>设置防火墙允许http服务</p>
-<figure class="highlight brainfuck"><table><tr><td class="code"><pre><span class="line"><span class="comment">firewall</span><span class="literal">-</span><span class="comment">cmd</span> <span class="literal">--</span><span class="comment">add</span><span class="literal">-</span><span class="comment">service=http</span> <span class="literal">--</span><span class="comment">permanent</span></span><br><span class="line"><span class="comment">firewall</span><span class="literal">-</span><span class="comment">cmd</span> <span class="literal">--</span><span class="comment">reload</span></span><br></pre></td></tr></table></figure>
+<pre><code>firewall-cmd --add-service=http --permanent
+firewall-cmd --reload
+</code></pre>
 <p>此时可在xshell上远程登录虚拟主机了</p>
-<figure class="highlight nginx"><table><tr><td class="code"><pre><span class="line"><span class="attribute">ssh</span> username@<span class="number">10.0.5.100</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="LAMP环境搭建"><a href="#LAMP环境搭建" class="headerlink" title="LAMP环境搭建"></a>LAMP环境搭建</h3><h4 id="安装Apache"><a href="#安装Apache" class="headerlink" title="安装Apache"></a>安装Apache</h4><figure class="highlight cmake"><table><tr><td class="code"><pre><span class="line">sudo yum -y <span class="keyword">install</span> httpd</span><br></pre></td></tr></table></figure>
+<pre><code>ssh username@10.0.5.100
+</code></pre>
+<h3 id="LAMP环境搭建"><a href="#LAMP环境搭建" class="headerlink" title="LAMP环境搭建"></a>LAMP环境搭建</h3><h4 id="安装Apache"><a href="#安装Apache" class="headerlink" title="安装Apache"></a>安装Apache</h4><pre><code>sudo yum -y install httpd
+</code></pre>
 <p>安装完成后，修改配置文件，</p>
-<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">vi <span class="regexp">/etc/</span>httpd<span class="regexp">/conf/</span>httpd.conf</span><br></pre></td></tr></table></figure>
+<pre><code>vi /etc/httpd/conf/httpd.conf
+</code></pre>
 <p>把 ServerName 前的 # 去掉，并修改为：ServerName 127.0.0.1 并保存<br>重启apache</p>
-<figure class="highlight ebnf"><table><tr><td class="code"><pre><span class="line"><span class="attribute">sudo apachectl restart</span></span><br></pre></td></tr></table></figure>
+<pre><code>sudo apachectl restart
+</code></pre>
 <p>在主机浏览器中输入10.0.5.100即可看到apache测试页面(需要开启80端口)</p>
-<h4 id="安装MySQL"><a href="#安装MySQL" class="headerlink" title="安装MySQL"></a>安装MySQL</h4><figure class="highlight axapta"><table><tr><td class="code"><pre><span class="line">sudo yum -y install mysql mariadb-<span class="keyword">server</span></span><br></pre></td></tr></table></figure>
+<h4 id="安装MySQL"><a href="#安装MySQL" class="headerlink" title="安装MySQL"></a>安装MySQL</h4><pre><code>sudo yum -y install mysql mariadb-server
+</code></pre>
 <p>安装完成后，启动 MySQL：</p>
-<figure class="highlight crmsh"><table><tr><td class="code"><pre><span class="line">sudo systemctl <span class="literal">start</span> mariadb.service</span><br></pre></td></tr></table></figure>
+<pre><code>sudo systemctl start mariadb.service
+</code></pre>
 <p>接下来开始初始化 MySQL，并按照提示设置 MySQL中的 root 用户的密码及其他配置：</p>
-<figure class="highlight ebnf"><table><tr><td class="code"><pre><span class="line"><span class="attribute">sudo mysql_secure_installation</span></span><br></pre></td></tr></table></figure>
+<pre><code>sudo mysql_secure_installation
+</code></pre>
 <p>配置如下</p>
-<figure class="highlight pgsql"><table><tr><td class="code"><pre><span class="line">Enter <span class="keyword">current</span> <span class="keyword">password</span> <span class="keyword">for</span> root (enter <span class="keyword">for</span> <span class="keyword">none</span>) （按回车）</span><br><span class="line"><span class="keyword">Set</span> root <span class="keyword">password</span>? [Y/n]   （输入 Y：回车）</span><br><span class="line"><span class="built_in">New</span> <span class="keyword">password</span>:              （输入新密码，回车）</span><br><span class="line">Re-enter <span class="built_in">new</span> <span class="keyword">password</span>:     （再次输入新密码，回车）</span><br><span class="line"></span><br><span class="line">Remove anonymous users? [Y/n]                （输入 Y：回车）</span><br><span class="line">Disallow root <span class="keyword">login</span> remotely? [Y/n]          （输入 Y：回车）</span><br><span class="line">Remove test <span class="keyword">database</span> <span class="keyword">and</span> <span class="keyword">access</span> <span class="keyword">to</span> it? [Y/n] （输入 Y：回车）</span><br><span class="line">Reload privilege <span class="keyword">tables</span> now? [Y/n]           （输入 Y：回车）</span><br></pre></td></tr></table></figure>
+<pre><code>Enter current password for root (enter for none) （按回车）
+Set root password? [Y/n]   （输入 Y：回车）
+New password:              （输入新密码，回车）
+Re-enter new password:     （再次输入新密码，回车）
+
+Remove anonymous users? [Y/n]                （输入 Y：回车）
+Disallow root login remotely? [Y/n]          （输入 Y：回车）
+Remove test database and access to it? [Y/n] （输入 Y：回车）
+Reload privilege tables now? [Y/n]           （输入 Y：回车）
+</code></pre>
 <p>登录mysql</p>
-<figure class="highlight css"><table><tr><td class="code"><pre><span class="line">mysql -u root -<span class="selector-tag">p</span></span><br></pre></td></tr></table></figure>
-
+<pre><code>mysql -u root -p
+</code></pre>
 <h4 id="安装-PHP7"><a href="#安装-PHP7" class="headerlink" title="安装 PHP7"></a>安装 PHP7</h4><p>安装epel</p>
-<figure class="highlight arduino"><table><tr><td class="code"><pre><span class="line">sudo yum -y install epel-release</span><br></pre></td></tr></table></figure>
+<pre><code>sudo yum -y install epel-release
+</code></pre>
 <p>更换rpm源</p>
-<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">sudo rpm -Uvh https:<span class="regexp">//mi</span>rror.webtatic.com<span class="regexp">/yum/</span>el7/webtatic-release.rpm</span><br></pre></td></tr></table></figure>
+<pre><code>sudo rpm -Uvh https://mirror.webtatic.com/yum/el7/webtatic-release.rpm
+</code></pre>
 <p>安装php7.0</p>
-<figure class="highlight cmake"><table><tr><td class="code"><pre><span class="line">sudo yum -y <span class="keyword">install</span> php70w</span><br></pre></td></tr></table></figure>
+<pre><code>sudo yum -y install php70w
+</code></pre>
 <p>安装结束后，重启 Apache</p>
-<figure class="highlight ebnf"><table><tr><td class="code"><pre><span class="line"><span class="attribute">sudo apachectl restart</span> </span><br></pre></td></tr></table></figure>
+<pre><code>sudo apachectl restart 
+</code></pre>
 <p>在 Apache 的默认网站目录添加 phpinfo.php 文件，</p>
-<figure class="highlight php"><table><tr><td class="code"><pre><span class="line">vi /<span class="keyword">var</span>/www/html/phpinfo.php </span><br><span class="line"><span class="comment">//添加以下内容</span></span><br><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="title function_ invoke__">phpinfo</span>();</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h4 id="设置开机启动项"><a href="#设置开机启动项" class="headerlink" title="设置开机启动项"></a>设置开机启动项</h4><figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">systemctl <span class="built_in">enable</span> httpd.service</span><br><span class="line">systemctl <span class="built_in">enable</span> mariadb.service </span><br></pre></td></tr></table></figure>
+<pre><code>vi /var/www/html/phpinfo.php 
+//添加以下内容
+&lt;?php
+phpinfo();
+?&gt;
+</code></pre>
+<h4 id="设置开机启动项"><a href="#设置开机启动项" class="headerlink" title="设置开机启动项"></a>设置开机启动项</h4><pre><code>systemctl enable httpd.service
+systemctl enable mariadb.service 
+</code></pre>
 <p>至此，LAMP 环境搭建完成！</p>
 <h3 id="LNMP环境搭建"><a href="#LNMP环境搭建" class="headerlink" title="LNMP环境搭建"></a>LNMP环境搭建</h3><h4 id="安装-Nginx"><a href="#安装-Nginx" class="headerlink" title="安装 Nginx"></a>安装 Nginx</h4><p>此步骤接上，为了避免冲突，先关闭 Apache： sudo systemctl stop httpd.service<br>CentOS 官方 rpm 源是没有 nginx 安装包的，需要手动添加，</p>
-<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">cd <span class="regexp">/etc/yum</span>.repos.d/</span><br><span class="line">vi nginx.repo</span><br></pre></td></tr></table></figure>
+<pre><code>cd /etc/yum.repos.d/
+vi nginx.repo
+</code></pre>
 <p>往 nginx.repo 文件里添加如下代码：</p>
-<figure class="highlight ini"><table><tr><td class="code"><pre><span class="line"><span class="section">[nginx]</span></span><br><span class="line"><span class="attr">name</span>=nginx repo</span><br><span class="line"><span class="attr">baseurl</span>=http://nginx.org/packages/centos/<span class="variable">$releasever</span>/<span class="variable">$basearch</span></span><br><span class="line"><span class="attr">gpgcheck</span>=<span class="number">0</span></span><br><span class="line"><span class="attr">enabled</span>=<span class="number">1</span></span><br></pre></td></tr></table></figure>
+<pre><code>[nginx]
+name=nginx repo
+baseurl=http://nginx.org/packages/centos/$releasever/$basearch
+gpgcheck=0
+enabled=1
+</code></pre>
 <p>保存后，即可开始安装 Nginx，</p>
-<figure class="highlight cmake"><table><tr><td class="code"><pre><span class="line">sudo yum -y <span class="keyword">install</span> nginx</span><br></pre></td></tr></table></figure>
+<pre><code>sudo yum -y install nginx
+</code></pre>
 <p>安装结束后，启动 Nginx,记得先关闭 Apache</p>
-<figure class="highlight crmsh"><table><tr><td class="code"><pre><span class="line">sudo systemctl <span class="literal">start</span> nginx.service</span><br></pre></td></tr></table></figure>
+<pre><code>sudo systemctl start nginx.service
+</code></pre>
 <p>此时用浏览器访问10.0.5.100即可看到Welcome to nginx!</p>
-<h4 id="安装PHP-FPM-FastCGI"><a href="#安装PHP-FPM-FastCGI" class="headerlink" title="安装PHP-FPM(FastCGI)"></a>安装PHP-FPM(FastCGI)</h4><figure class="highlight cmake"><table><tr><td class="code"><pre><span class="line">sudo yum -y <span class="keyword">install</span> php-fpm</span><br></pre></td></tr></table></figure>
+<h4 id="安装PHP-FPM-FastCGI"><a href="#安装PHP-FPM-FastCGI" class="headerlink" title="安装PHP-FPM(FastCGI)"></a>安装PHP-FPM(FastCGI)</h4><pre><code>sudo yum -y install php-fpm
+</code></pre>
 <p>开启php-fpm</p>
-<figure class="highlight crmsh"><table><tr><td class="code"><pre><span class="line">sudo systemctl <span class="literal">start</span> php-fpm.service</span><br></pre></td></tr></table></figure>
+<pre><code>sudo systemctl start php-fpm.service
+</code></pre>
 <p>编辑 Nginx 的默认配置文件 default.conf</p>
-<figure class="highlight gradle"><table><tr><td class="code"><pre><span class="line">sudo vim <span class="regexp">/etc/</span>nginx<span class="regexp">/conf.d/</span><span class="keyword">default</span>.conf</span><br></pre></td></tr></table></figure>
+<pre><code>sudo vim /etc/nginx/conf.d/default.conf
+</code></pre>
 <p>把 default.conf 文件中 # pass the PHP scripts to FastCGI server listening on 127.0.0.1:9000 这一行下面的 # 注释去掉，并修改 root 后面的目录为：&#x2F;usr&#x2F;share&#x2F;nginx&#x2F;html;（此目录为 Nginx 的默认网站目录），修改 SCRIPT_FILENAME 后的参数为：$document_root$fastcgi_script_name;<br>重启 Nginx, systemctl restart nginx.service<br>同样，在 Nginx 的默认网站目录下添加 phpinfo.php 文件,在浏览器中可浏览php相关信息</p>
-<h4 id="设置开机启动项-1"><a href="#设置开机启动项-1" class="headerlink" title="设置开机启动项"></a>设置开机启动项</h4><figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">systemctl <span class="built_in">enable</span> httpd.service</span><br><span class="line">systemctl <span class="built_in">enable</span> mariadb.service </span><br></pre></td></tr></table></figure>
+<h4 id="设置开机启动项-1"><a href="#设置开机启动项-1" class="headerlink" title="设置开机启动项"></a>设置开机启动项</h4><pre><code>systemctl enable httpd.service
+systemctl enable mariadb.service 
+</code></pre>
 <p>至此，LNMP 环境搭建完成！</p>
 <h3 id="LNMP-Apache-架构配置：Nginx-做前端代理-Apache-做后端服务"><a href="#LNMP-Apache-架构配置：Nginx-做前端代理-Apache-做后端服务" class="headerlink" title="LNMP + Apache 架构配置：Nginx 做前端代理 + Apache 做后端服务"></a>LNMP + Apache 架构配置：Nginx 做前端代理 + Apache 做后端服务</h3><h4 id="Apache优势与劣势"><a href="#Apache优势与劣势" class="headerlink" title="Apache优势与劣势"></a>Apache优势与劣势</h4><p>Apache用户基数大，稳定，兼容性高，在处理动态 php 页面时，mod_php 模块也比 php-cgi 模块更稳定更高效。<br>Apache过于臃肿以及对静态文件响应过于缓慢让很多使用者感到头疼</p>
 <h4 id="Nginx优势与劣势"><a href="#Nginx优势与劣势" class="headerlink" title="Nginx优势与劣势"></a>Nginx优势与劣势</h4><p>Nginx 对于高并发性能出众，Proxy 功能强效率高，占用系统资源少<br>Nginx在处理 php 脚本时需要通过 php-fpm(FastCGI) 解析，而 php-fpm 不够稳定，经常出现 502 错误，生成相对复杂的页面没有优势，反而会使 php-cgi 进程变为僵尸进程。</p>
 <p>很多大型的网站都是采用 Nginx 前端 + Apache 后端的服务器架构，这样可以很好地结合了 Nginx 高并发和静态页面高效率以及 Apache 稳定的动态页面处理特点，再也不用担心 Nginx 以 FastCGI 模式运行 PHP 时的502问题和 Apache 处理静态页面过慢、负载过高的问题。</p>
 <h4 id="配置-LNMP-Apache-架构"><a href="#配置-LNMP-Apache-架构" class="headerlink" title="配置 LNMP + Apache 架构"></a>配置 LNMP + Apache 架构</h4><p>编辑 Nginx 的默认配置文件</p>
-<figure class="highlight gradle"><table><tr><td class="code"><pre><span class="line">sudo vim <span class="regexp">/etc/</span>nginx<span class="regexp">/conf.d/</span><span class="keyword">default</span>.conf</span><br></pre></td></tr></table></figure>
+<pre><code>sudo vim /etc/nginx/conf.d/default.conf
+</code></pre>
 <p>注释掉之前 FastCGI 监听的配置，并添加Apache对php脚本的监听</p>
-<figure class="highlight crmsh"><table><tr><td class="code"><pre><span class="line"><span class="comment"># proxy the PHP scripts to Apache listening on 127.0.0.1:80</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="keyword">location</span> <span class="title">~ \.php</span>$ &#123;</span><br><span class="line">    proxy_pass   http://<span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">8080</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># pass the PHP scripts to FastCGI server listening on 127.0.0.1:9000</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment">#location ~ \.php$ &#123;</span></span><br><span class="line"><span class="comment">#    root           /usr/share/nginx/html;</span></span><br><span class="line"><span class="comment">#    fastcgi_pass   127.0.0.1:9000;</span></span><br><span class="line"><span class="comment">#    fastcgi_index  index.php;</span></span><br><span class="line"><span class="comment">#    fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name;</span></span><br><span class="line"><span class="comment">#    include        fastcgi_params;</span></span><br><span class="line"><span class="comment">#&#125;</span></span><br></pre></td></tr></table></figure>
+<pre><code># proxy the PHP scripts to Apache listening on 127.0.0.1:80
+#
+location ~ \.php$ &#123;
+    proxy_pass   http://127.0.0.1:8080;
+&#125;
+
+# pass the PHP scripts to FastCGI server listening on 127.0.0.1:9000
+#
+#location ~ \.php$ &#123;
+#    root           /usr/share/nginx/html;
+#    fastcgi_pass   127.0.0.1:9000;
+#    fastcgi_index  index.php;
+#    fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name;
+#    include        fastcgi_params;
+#&#125;
+</code></pre>
 <p>编辑 Apache 的配置文件</p>
-<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">sudo vim <span class="regexp">/etc/</span>httpd<span class="regexp">/conf/</span>httpd.conf</span><br></pre></td></tr></table></figure>
+<pre><code>sudo vim /etc/httpd/conf/httpd.conf
+</code></pre>
 <p>找到 Listen 字段，并改为：Listen 127.0.0.1:8080，让 Apache 来监听这个端口，修改 Apache 的网站根目录为：&#x2F;usr&#x2F;share&#x2F;nginx&#x2F;html，与上述 Nginx 对应的网站目录保持一致</p>
 <p>重启 Nginx ,Apache 服务,并确保这两个服务开机自启：</p>
-<figure class="highlight nsis"><table><tr><td class="code"><pre><span class="line">sudo <span class="params">system</span>ctl restart httpd.service</span><br><span class="line">sudo <span class="params">system</span>ctl restart nginx.service</span><br><span class="line"><span class="params">system</span>ctl enable httpd.service</span><br><span class="line"><span class="params">system</span>ctl enable nginx.service</span><br></pre></td></tr></table></figure>
-
+<pre><code>sudo systemctl restart httpd.service
+sudo systemctl restart nginx.service
+systemctl enable httpd.service
+systemctl enable nginx.service
+</code></pre>
 <p>发现出现 502 Bad Gateway<br>经查阅相关资料发现是由于开启了 selinux 服务导致的，关闭 selinux 即可。</p>
-<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">sudo vim <span class="regexp">/etc/</span>selinux/config</span><br></pre></td></tr></table></figure>
+<pre><code>sudo vim /etc/selinux/config
+</code></pre>
 <p>SELINUX&#x3D;disabled</p>
 <p>修改保存后，通过 reboot 命令重启 CentOS 服务器</p>
 <p>至此，LNMP + Apache 架构配置完成！可通过浏览器查看<a target="_blank" rel="noopener" href="http://10.0.5.100/phpinfo.php%E6%9D%A5%E7%A1%AE%E8%AE%A4">http://10.0.5.100/phpinfo.php来确认</a></p>
@@ -250,8 +308,8 @@
       <blockquote id="copyright">
         <p>
           原文链接:
-          <a href="https://jesse121.github.io/blog/blog/articles/2018/02/11.html"
-            >https://jesse121.github.io/blog/blog/articles/2018/02/11.html</a
+          <a href="https://jesse121.github.io/blog/articles/2018/02/11.html"
+            >https://jesse121.github.io/blog/articles/2018/02/11.html</a
           >
         </p>
         <p>版权声明: 转载请注明出处.</p>
@@ -272,7 +330,7 @@
 <nav id="article-nav">
   
     <a href="/blog/articles/2018/01/17.html" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">older</strong>
+      <strong class="article-nav-caption">下一篇</strong>
       <div class="article-nav-title">
         
           利用Webpack搭建的前端工程化环境
@@ -282,7 +340,7 @@
   
   
     <a href="/blog/articles/2018/03/10.html" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">newer</strong>
+      <strong class="article-nav-caption">上一篇</strong>
       <div class="article-nav-title">
         
           《ECMAScript6标准入门》第三版--读书笔记
@@ -448,37 +506,26 @@
     </div>
   </div>
   
-<script src="/blog/js/jquery-3.4.1.min.js"></script>
+<script src="https://unpkg.com/@highlightjs/cdn-assets@11.6.0/highlight.min.js"></script>
 
+<script>
+  hljs.highlightAll();
+</script>
 
+<script src="https://unpkg.com/jquery@3.4.1/dist/jquery.min.js"></script>
+ 
 <script src="/blog/js/search.json.js"></script>
-
-
   
-<script src="/blog/fancybox/jquery.fancybox.min.js"></script>
+<script src="https://unpkg.com/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
 
-
-
-
+ 
 <script src="/blog/js/script.js"></script>
-
-
-
-
-
-
-  
+ 
+   
 <script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-
-
-
-
-  
-  
-
-
-  
-<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+ 
+      
+<script src="https://unpkg.com/gitalk@1.7.2/dist/gitalk.min.js"></script>
  
 <script src="//cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.js"></script>
 
@@ -490,7 +537,7 @@
     owner: "jesse121",
     admin: ["jesse121"],
     id: md5(window.location.pathname),
-    proxy: "https://gitalk.jesse121.workers.dev/?https://github.com/login/oauth/access_token",
+    proxy: "https://stormy-gorge-51623.herokuapp.com/https://github.com/login/oauth/access_token",
     distractionFreeMode: false,
     language: "zh-CN",
     pagerDirection: "last",
@@ -498,8 +545,7 @@
   gitalk.render("comments");
 </script>
          
-
-
+ 
 
 </body>
 </html>

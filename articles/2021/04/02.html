@@ -1,0 +1,1027 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+   
+  <title>Javascript 数据结构与算法 | 前端之路</title>
+  <link rel="manifest" href="/blog/manifest.json" />
+  <meta name="theme-color" content="#bccddd" />
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, shrink-to-fit=no"
+  />
+
+  
+  <meta name="description" content="专注前端开发，前端开发技术博客" />
+   
+  <meta name="keywords" content="Web前端开发，Javascript，前端开发博客" />
+  
+  <link rel="dns-prefetch" href="https://unpkg.com" />
+  <link rel="dns-prefetch" href="https://busuanzi.ibruce.info" />
+   <link rel="alternate" href="/blog/atom.xml" title="前端之路" type="application/atom+xml">   <link rel="shortcut icon" href="/blog/favicon.ico"> 
+  <link rel="bookmark" href="/blog/favicon.ico" />
+  <link rel="apple-touch-icon" href="/blog/apple-touch-icon.png" />
+  <link rel="apple-touch-icon-precomposed" href="/blog/apple-touch-icon.png" />
+   
+<link rel="stylesheet" href="https://unpkg.com/@highlightjs/cdn-assets@11.6.0/styles/xt256.min.css">
+  
+<link rel="stylesheet" href="/blog/css/style.css">
+  
+<link rel="stylesheet" href="https://unpkg.com/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
+    
+<link rel="stylesheet" href="https://unpkg.com/gitalk@1.7.2/dist/gitalk.css">
+  
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/blog/" id="logo">前端之路</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/blog/" id="subtitle">路漫漫其修远兮，吾将上下而求索</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        
+          <a class="main-nav-link" href="/blog/."><i class="fa fa-home"></i> 首页</a>
+        
+          <a class="main-nav-link" href="/blog/archives/"><i class="fa fa-archive"></i> 归档</a>
+        
+          <a class="main-nav-link" href="/blog/about/"><i class="fa fa-user"></i> 关于</a>
+        
+      </nav>
+    </div>
+    <div id="search-form">
+      <div id="result-mask" class="hide"></div>
+      <label><input id="search-key" type="text" autocomplete="off" placeholder="搜索"></label>
+      <div id="result-wrap" class="hide">
+        <div id="search-result"></div>
+      </div>
+      <div class="hide">
+        <template id="search-tpl">
+          <div class="item">
+            <a href="/{path}" title="{title}">
+              <div class="title">{title}</div>
+              <div class="time">{date}</div>
+              <div class="tags">{tags}</div>
+            </a>
+          </div>
+        </template>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><style>
+  code {
+    padding: 1px 5px;
+    font-family: Inconsolata, Monaco, Consolas, "Courier New", Courier,
+      monospace;
+    /* font-size: 0.91rem; */
+    color: #e96900;
+    background-color: #f8f8f8;
+    border-radius: 2px;
+  }
+
+  pre code {
+    padding: 0;
+    color: #e8eaf6;
+    background-color: #272822;
+  }
+
+  pre[class*="language-"] {
+    padding: 1.2em;
+    margin: 0.5em 0;
+  }
+
+  code[class*="language-"],
+  pre[class*="language-"] {
+    color: #e8eaf6;
+    white-space: pre-wrap !important;
+  }
+  */ .line-numbers-rows {
+    border-right-width: 0px !important;
+  }
+
+  .line-numbers {
+    padding: 1.5rem 1.5rem 1.5rem 3.2rem !important;
+    margin: 1rem 0 !important;
+    background: #272822;
+    overflow: auto;
+    border-radius: 0.35rem;
+    tab-size: 4;
+  }
+
+  pre {
+    padding: 1.5rem !important;
+    margin: 1rem 0 !important;
+    background: #272822;
+    overflow: auto;
+    border-radius: 0.35rem;
+    tab-size: 4;
+  }
+
+  pre::before {
+    content: "";
+    height: 16px;
+    margin-bottom: 0;
+    display: block;
+  }
+
+  pre::after {
+    content: " ";
+    position: absolute;
+    border-radius: 50%;
+    background: #ff5f56;
+    width: 12px;
+    height: 12px;
+    top: 0;
+    left: 12px;
+    margin-top: 12px;
+    -webkit-box-shadow: 20px 0 #ffbd2e, 40px 0 #27c93f;
+    box-shadow: 20px 0 #ffbd2e, 40px 0 #27c93f;
+  }
+
+  code {
+    padding: 1px 5px;
+    font-family: Inconsolata, Monaco, Consolas, "Courier New", Courier,
+      monospace;
+    font-size: 0.91rem;
+    color: #e96900;
+    background-color: #f8f8f8;
+    border-radius: 2px;
+  }
+
+  .code_copy {
+    position: absolute;
+    top: 0.7rem;
+    right: 35px;
+    z-index: 1;
+    filter: invert(50%);
+    cursor: pointer;
+  }
+
+  .code_lang {
+    position: absolute;
+    top: 1.2rem;
+    right: 60px;
+    line-height: 0;
+    font-weight: bold;
+    font-family: normal;
+    z-index: 1;
+    filter: invert(50%);
+    cursor: pointer;
+  }
+
+  .code-expand {
+    position: absolute;
+    top: 4px;
+    right: 0px;
+    filter: invert(50%);
+    padding: 7px 10px;
+    z-index: 1;
+    cursor: pointer;
+    transition: all 0.3s;
+    transform: rotate(0deg);
+  }
+
+  .code-closed .code-expand {
+    transform: rotate(-180deg) !important;
+    transition: all 0.3s;
+  }
+
+  .code-closed pre::before {
+    height: 0px;
+  }
+
+  pre code {
+    padding: 0;
+    color: #e8eaf6;
+    background-color: #272822 !important;
+  }
+
+  pre[class*="language-"] {
+    padding: 1.2em;
+    margin: 0.5em 0;
+  }
+
+  code[class*="language-"],
+  pre[class*="language-"] {
+    color: #e8eaf6;
+    white-space: pre-wrap !important;
+  }
+</style>
+<article
+  id="post-algorithm/javascript 数据结构与算法"
+  class="h-entry article article-type-post"
+  itemprop="blogPost"
+  itemscope
+  itemtype="https://schema.org/BlogPosting"
+>
+  <div class="article-inner">
+     
+    <header class="article-header">
+      
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      Javascript 数据结构与算法
+    </h1>
+  
+
+
+    </header>
+    
+    <div class="article-meta">
+       <span class="article-date">
+  <i class="fa fa-date"></i>
+  <time class="dt-published" datetime="2021-04-02T00:47:10.000Z" itemprop="datePublished">2021年04月02日</time>
+</span> 
+  <div class="article-category">
+    <i class="fa fa-classify"></i>
+    <a class="article-category-link" href="/blog/categories/%E7%AE%97%E6%B3%95/">算法</a>
+  </div>
+  <span class="article-views">
+  <i class="fa fa-views"></i>
+  <i id="busuanzi_container_page_pv">
+      <i id="busuanzi_value_page_pv"></i>
+  </i>
+</span>
+  
+<a href="/blog/articles/2021/04/02.html#comments" class="article-comment-link">
+  
+    
+    
+    
+    
+    
+  
+  <i class="fa fa-commt"></i>
+  留言
+</a>
+
+
+    </div>
+    <div class="e-content article-entry" itemprop="articleBody">
+       <p><img src="https://raw.githubusercontent.com/Jesse121/publicPic/master/blog/pictures/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95.jpg"></p>
+<h3 id="栈"><a href="#栈" class="headerlink" title="栈"></a>栈</h3><p>一个后进先出的数据结构<br>javascript 中没有栈 可以用 Array 实践栈的所有功能</p>
+<pre><code class="hljs js"><span class="hljs-keyword">const</span> stack = [];
+stack.<span class="hljs-title function_">push</span>(<span class="hljs-number">1</span>);
+stack.<span class="hljs-title function_">push</span>(<span class="hljs-number">2</span>);
+<span class="hljs-keyword">const</span> item1 = stack.<span class="hljs-title function_">pop</span>();
+<span class="hljs-keyword">const</span> item2 = stack.<span class="hljs-title function_">pop</span>();</code></pre>
+
+<p>使用场景： 所有后进先出的场景 函数调用堆栈<br>leetcode 练习题：20</p>
+<h3 id="队列"><a href="#队列" class="headerlink" title="队列"></a>队列</h3><p>一个先进先出的数据结构<br>javascript 中没有队列 可以用 Array 实践队列的所有功能</p>
+<pre><code class="hljs js"><span class="hljs-keyword">const</span> queue = [];
+queue.<span class="hljs-title function_">push</span>(<span class="hljs-number">1</span>);
+queue.<span class="hljs-title function_">push</span>(<span class="hljs-number">2</span>);
+<span class="hljs-keyword">const</span> item1 = queue.<span class="hljs-title function_">shift</span>();
+<span class="hljs-keyword">const</span> item2 = queue.<span class="hljs-title function_">shift</span>();</code></pre>
+
+<p>使用场景：需要先进先出的场景 js 中异步任务队列<br>leetcode 练习题：933</p>
+<h3 id="链表"><a href="#链表" class="headerlink" title="链表"></a>链表</h3><p>对个元素组成的列表<br>元素存储不连续 用 next 指针连在一起</p>
+<p>数组：增删非首尾元素时需要移动元素<br>链表：增删非首尾元素 不需要移动元素 只需要改 next 指向即可</p>
+<p>链表常用操作：修改 next 遍历链表</p>
+<p>js 中无链表结构 可用 Object 模拟链表</p>
+<pre><code class="hljs js"><span class="hljs-keyword">const</span> a = &#123; <span class="hljs-attr">val</span>: <span class="hljs-string">&quot;a&quot;</span> &#125;;
+<span class="hljs-keyword">const</span> b = &#123; <span class="hljs-attr">val</span>: <span class="hljs-string">&quot;b&quot;</span> &#125;;
+<span class="hljs-keyword">const</span> c = &#123; <span class="hljs-attr">val</span>: <span class="hljs-string">&quot;c&quot;</span> &#125;;
+<span class="hljs-keyword">const</span> d = &#123; <span class="hljs-attr">val</span>: <span class="hljs-string">&quot;d&quot;</span> &#125;;
+a.<span class="hljs-property">next</span> = b;
+b.<span class="hljs-property">next</span> = c;
+c.<span class="hljs-property">next</span> = d;
+<span class="hljs-comment">// 遍历链表</span>
+<span class="hljs-keyword">let</span> p = a;
+<span class="hljs-keyword">while</span> (p) &#123;
+  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(p.<span class="hljs-property">val</span>);
+  p = p.<span class="hljs-property">next</span>;
+&#125;
+<span class="hljs-comment">// 插入</span>
+<span class="hljs-keyword">const</span> e = &#123; <span class="hljs-attr">val</span>: <span class="hljs-string">&quot;e&quot;</span> &#125;;
+c.<span class="hljs-property">next</span> = e;
+e.<span class="hljs-property">next</span> = d;
+<span class="hljs-comment">// 删除</span>
+c.<span class="hljs-property">next</span> = d;</code></pre>
+
+<p>leetcode 练习题：237 206 2 83 141<br>141 环形链表的判断 用一快一慢两个指针遍历链表 如果指针能够相逢 那么链表就有圈</p>
+<h3 id="集合"><a href="#集合" class="headerlink" title="集合"></a>集合</h3><p>一种无序且唯一的数据结构<br>ES6 中有集合 Set<br>集合常用操作 去重 求交集 判断元素是否在集合中</p>
+<pre><code class="hljs js"><span class="hljs-comment">// 去重</span>
+<span class="hljs-keyword">const</span> arr = [<span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">2</span>];
+<span class="hljs-keyword">const</span> arr2 = [...<span class="hljs-keyword">new</span> <span class="hljs-title class_">Set</span>(arr)];
+<span class="hljs-comment">// 判断元素是否在集合中</span>
+<span class="hljs-keyword">const</span> set = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Set</span>(arr);
+<span class="hljs-keyword">const</span> has = set.<span class="hljs-title function_">has</span>(<span class="hljs-number">3</span>);
+<span class="hljs-comment">// 求交集</span>
+<span class="hljs-keyword">const</span> set2 = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Set</span>([<span class="hljs-number">2</span>, <span class="hljs-number">3</span>]);
+<span class="hljs-keyword">const</span> set3 = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Set</span>([...set].<span class="hljs-title function_">filter</span>(<span class="hljs-function">(<span class="hljs-params">item</span>) =&gt;</span> set2.<span class="hljs-title function_">has</span>(item)));
+<span class="hljs-comment">// 求差集</span>
+<span class="hljs-keyword">const</span> difference = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Set</span>([...set].<span class="hljs-title function_">filter</span>(<span class="hljs-function">(<span class="hljs-params">x</span>) =&gt;</span> !set2.<span class="hljs-title function_">has</span>(x)));</code></pre>
+
+<p>leetcode 练习题：349</p>
+<h3 id="字典"><a href="#字典" class="headerlink" title="字典"></a>字典</h3><p>一种存储唯一值的数据结构 但它是以键值对的形式来存储<br>ES6 中有字典 Map<br>常用操作 键值对的增删改查</p>
+<pre><code class="hljs js"><span class="hljs-keyword">const</span> m = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Map</span>();
+<span class="hljs-comment">// 增</span>
+m.<span class="hljs-title function_">set</span>(<span class="hljs-string">&quot;a&quot;</span>, <span class="hljs-string">&quot;aa&quot;</span>);
+m.<span class="hljs-title function_">set</span>(<span class="hljs-string">&quot;b&quot;</span>, <span class="hljs-string">&quot;bb&quot;</span>);
+<span class="hljs-comment">// 删</span>
+m.<span class="hljs-title function_">delete</span>(<span class="hljs-string">&quot;b&quot;</span>);
+<span class="hljs-comment">// m.clear();</span>
+<span class="hljs-comment">// 改</span>
+m.<span class="hljs-title function_">set</span>(<span class="hljs-string">&quot;a&quot;</span>, <span class="hljs-string">&quot;aaa&quot;</span>);</code></pre>
+
+<p>leetcode 练习题：349 20 1 3 76</p>
+<h3 id="树"><a href="#树" class="headerlink" title="树"></a>树</h3><p>一种分层数据的抽象模型<br>DOM 树 级联选择 树形控件<br>js 中没有树 但可以用 Object 和 Array 构建树</p>
+<p>树的常用操作： 深度&#x2F;广度优先遍历 先中后序遍历</p>
+<pre><code class="hljs js"><span class="hljs-keyword">const</span> tree = &#123;
+  <span class="hljs-attr">val</span>: <span class="hljs-string">&quot;a&quot;</span>,
+  <span class="hljs-attr">children</span>: [
+    &#123;
+      <span class="hljs-attr">val</span>: <span class="hljs-string">&quot;b&quot;</span>,
+      <span class="hljs-attr">children</span>: [
+        &#123;
+          <span class="hljs-attr">val</span>: <span class="hljs-string">&quot;d&quot;</span>,
+          <span class="hljs-attr">children</span>: [],
+        &#125;,
+        &#123;
+          <span class="hljs-attr">val</span>: <span class="hljs-string">&quot;e&quot;</span>,
+          <span class="hljs-attr">children</span>: [],
+        &#125;,
+      ],
+    &#125;,
+    &#123;
+      <span class="hljs-attr">val</span>: <span class="hljs-string">&quot;c&quot;</span>,
+      <span class="hljs-attr">children</span>: [
+        &#123;
+          <span class="hljs-attr">val</span>: <span class="hljs-string">&quot;f&quot;</span>,
+          <span class="hljs-attr">children</span>: [],
+        &#125;,
+        &#123;
+          <span class="hljs-attr">val</span>: <span class="hljs-string">&quot;g&quot;</span>,
+          <span class="hljs-attr">children</span>: [],
+        &#125;,
+      ],
+    &#125;,
+  ],
+&#125;;</code></pre>
+
+<h4 id="深度优先遍历"><a href="#深度优先遍历" class="headerlink" title="深度优先遍历"></a>深度优先遍历</h4><pre><code class="hljs js"><span class="hljs-keyword">const</span> <span class="hljs-title function_">dfs</span> = (<span class="hljs-params">root</span>) =&gt; &#123;
+  <span class="hljs-comment">// console.log(root.val); //root.children.forEach(dfs);</span>
+  <span class="hljs-comment">// if (root.left) dfs(root.left);</span>
+  <span class="hljs-comment">// if (root.right) dfs(root.right);</span>
+  <span class="hljs-keyword">const</span> q = [root];
+  <span class="hljs-keyword">while</span> (q.<span class="hljs-property">length</span> &gt; <span class="hljs-number">0</span>) &#123;
+    <span class="hljs-keyword">const</span> n = q.<span class="hljs-title function_">pop</span>();
+    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(n.<span class="hljs-property">val</span>);
+    n.<span class="hljs-property">children</span>.<span class="hljs-title function_">forEach</span>(<span class="hljs-function">(<span class="hljs-params">child</span>) =&gt;</span> &#123;
+      q.<span class="hljs-title function_">push</span>(child);
+    &#125;);
+  &#125;
+&#125;;
+<span class="hljs-title function_">dfs</span>(tree);</code></pre>
+
+<h4 id="广度优先遍历"><a href="#广度优先遍历" class="headerlink" title="广度优先遍历"></a>广度优先遍历</h4><pre><code class="hljs js"><span class="hljs-keyword">const</span> <span class="hljs-title function_">bfs</span> = (<span class="hljs-params">root</span>) =&gt; &#123;
+  <span class="hljs-keyword">const</span> q = [root];
+  <span class="hljs-keyword">while</span> (q.<span class="hljs-property">length</span> &gt; <span class="hljs-number">0</span>) &#123;
+    <span class="hljs-keyword">const</span> n = q.<span class="hljs-title function_">shift</span>();
+    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(n.<span class="hljs-property">val</span>);
+    n.<span class="hljs-property">children</span>.<span class="hljs-title function_">forEach</span>(<span class="hljs-function">(<span class="hljs-params">child</span>) =&gt;</span> &#123;
+      q.<span class="hljs-title function_">push</span>(child);
+    &#125;);
+  &#125;
+&#125;;
+<span class="hljs-title function_">bfs</span>(tree);</code></pre>
+
+<h4 id="二叉树"><a href="#二叉树" class="headerlink" title="二叉树"></a>二叉树</h4><p>树中每个节点最多只能有两个子节点<br>js 中通常用 object 模拟二叉树</p>
+<pre><code class="hljs js"><span class="hljs-keyword">const</span> binaryTree = &#123;
+  <span class="hljs-attr">val</span>: <span class="hljs-number">1</span>,
+  <span class="hljs-attr">left</span>: &#123;
+    <span class="hljs-attr">val</span>: <span class="hljs-number">2</span>,
+    <span class="hljs-attr">left</span>: &#123;
+      <span class="hljs-attr">val</span>: <span class="hljs-number">4</span>,
+      <span class="hljs-attr">left</span>: <span class="hljs-literal">null</span>,
+      <span class="hljs-attr">right</span>: <span class="hljs-literal">null</span>,
+    &#125;,
+    <span class="hljs-attr">right</span>: &#123;
+      <span class="hljs-attr">val</span>: <span class="hljs-number">5</span>,
+      <span class="hljs-attr">left</span>: <span class="hljs-literal">null</span>,
+      <span class="hljs-attr">right</span>: <span class="hljs-literal">null</span>,
+    &#125;,
+  &#125;,
+  <span class="hljs-attr">right</span>: &#123;
+    <span class="hljs-attr">val</span>: <span class="hljs-number">3</span>,
+    <span class="hljs-attr">left</span>: &#123;
+      <span class="hljs-attr">val</span>: <span class="hljs-number">6</span>,
+      <span class="hljs-attr">left</span>: <span class="hljs-literal">null</span>,
+      <span class="hljs-attr">right</span>: <span class="hljs-literal">null</span>,
+    &#125;,
+    <span class="hljs-attr">right</span>: &#123;
+      <span class="hljs-attr">val</span>: <span class="hljs-number">7</span>,
+      <span class="hljs-attr">left</span>: <span class="hljs-literal">null</span>,
+      <span class="hljs-attr">right</span>: <span class="hljs-literal">null</span>,
+    &#125;,
+  &#125;,
+&#125;;</code></pre>
+
+<h4 id="先序遍历"><a href="#先序遍历" class="headerlink" title="先序遍历"></a>先序遍历</h4><p>访问顺序：根左右</p>
+<pre><code class="hljs js"><span class="hljs-keyword">const</span> <span class="hljs-title function_">preorder</span> = (<span class="hljs-params">root</span>) =&gt; &#123;
+  <span class="hljs-keyword">if</span> (!root) &#123;
+    <span class="hljs-keyword">return</span>;
+  &#125;
+  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(root.<span class="hljs-property">val</span>);
+  <span class="hljs-title function_">preorder</span>(root.<span class="hljs-property">left</span>);
+  <span class="hljs-title function_">preorder</span>(root.<span class="hljs-property">right</span>);
+&#125;;
+<span class="hljs-comment">// 非递归写法</span>
+<span class="hljs-comment">// const preorder = (root) =&gt; &#123;</span>
+<span class="hljs-comment">//     if (!root) &#123; return; &#125;</span>
+<span class="hljs-comment">//     const stack = [root];</span>
+<span class="hljs-comment">//     while (stack.length) &#123;</span>
+<span class="hljs-comment">//         const n = stack.pop();</span>
+<span class="hljs-comment">//         console.log(n.val);</span>
+<span class="hljs-comment">//         if (n.right) stack.push(n.right);</span>
+<span class="hljs-comment">//         if (n.left) stack.push(n.left);</span>
+<span class="hljs-comment">//     &#125;</span>
+<span class="hljs-comment">// &#125;;</span>
+<span class="hljs-title function_">preorder</span>(bt);</code></pre>
+
+<h4 id="中序遍历"><a href="#中序遍历" class="headerlink" title="中序遍历"></a>中序遍历</h4><p>访问顺序：左根右</p>
+<pre><code class="hljs js"><span class="hljs-keyword">const</span> <span class="hljs-title function_">inorder</span> = (<span class="hljs-params">root</span>) =&gt; &#123;
+  <span class="hljs-keyword">if</span> (!root) &#123;
+    <span class="hljs-keyword">return</span>;
+  &#125;
+  <span class="hljs-title function_">inorder</span>(root.<span class="hljs-property">left</span>);
+  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(root.<span class="hljs-property">val</span>);
+  <span class="hljs-title function_">inorder</span>(root.<span class="hljs-property">right</span>);
+&#125;;
+<span class="hljs-comment">// 非递归写法</span>
+<span class="hljs-comment">// const inorder = (root) =&gt; &#123;</span>
+<span class="hljs-comment">//     if (!root) &#123; return; &#125;</span>
+<span class="hljs-comment">//     const stack = [];</span>
+<span class="hljs-comment">//     let p = root;</span>
+<span class="hljs-comment">//     while (stack.length || p) &#123;</span>
+<span class="hljs-comment">//         while (p) &#123;</span>
+<span class="hljs-comment">//             stack.push(p);</span>
+<span class="hljs-comment">//             p = p.left;</span>
+<span class="hljs-comment">//         &#125;</span>
+<span class="hljs-comment">//         const n = stack.pop();</span>
+<span class="hljs-comment">//         console.log(n.val);</span>
+<span class="hljs-comment">//         p = n.right;</span>
+<span class="hljs-comment">//     &#125;</span>
+<span class="hljs-comment">// &#125;;</span>
+<span class="hljs-title function_">inorder</span>(bt);</code></pre>
+
+<h4 id="后序遍历"><a href="#后序遍历" class="headerlink" title="后序遍历"></a>后序遍历</h4><p>访问顺序：左右根</p>
+<pre><code class="hljs js"><span class="hljs-keyword">const</span> <span class="hljs-title function_">postorder</span> = (<span class="hljs-params">root</span>) =&gt; &#123;
+  <span class="hljs-keyword">if</span> (!root) &#123;
+    <span class="hljs-keyword">return</span>;
+  &#125;
+  <span class="hljs-title function_">postorder</span>(root.<span class="hljs-property">left</span>);
+  <span class="hljs-title function_">postorder</span>(root.<span class="hljs-property">right</span>);
+  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(root.<span class="hljs-property">val</span>);
+&#125;;
+<span class="hljs-comment">// 非递归写法</span>
+<span class="hljs-comment">// const postorder = (root) =&gt; &#123;</span>
+<span class="hljs-comment">//     if (!root) &#123; return; &#125;</span>
+<span class="hljs-comment">//     const outputStack = [];</span>
+<span class="hljs-comment">//     const stack = [root];</span>
+<span class="hljs-comment">//     while (stack.length) &#123;</span>
+<span class="hljs-comment">//         const n = stack.pop();</span>
+<span class="hljs-comment">//         outputStack.push(n);</span>
+<span class="hljs-comment">//         if (n.left) stack.push(n.left);</span>
+<span class="hljs-comment">//         if (n.right) stack.push(n.right);</span>
+<span class="hljs-comment">//     &#125;</span>
+<span class="hljs-comment">//     while(outputStack.length)&#123;</span>
+<span class="hljs-comment">//         const n = outputStack.pop();</span>
+<span class="hljs-comment">//         console.log(n.val);</span>
+<span class="hljs-comment">//     &#125;</span>
+<span class="hljs-comment">// &#125;;</span>
+<span class="hljs-title function_">postorder</span>(bt);</code></pre>
+
+<p>leetcode 练习题：104 111 102 94 112</p>
+<h3 id="堆"><a href="#堆" class="headerlink" title="堆"></a>堆</h3><p>是一种特殊的完全二叉树<br>所有的节点都大于等于(最大堆)或小于等于(小于等于)它的子节点</p>
+<p>js 中通常用数组表示堆<br>左侧子节点的位置是<code>2* index+1</code><br>右侧子节点的位置是<code>2*index+2</code><br>父节点位置是<code>(index-1)/2</code></p>
+<p>堆能高效 快速的找出最大值最小值 时间复杂度 O(1)<br>找出第 K 个最大(小)元素</p>
+<pre><code class="hljs js"><span class="hljs-keyword">class</span> <span class="hljs-title class_">MinHeap</span> &#123;
+  <span class="hljs-title function_">constructor</span>(<span class="hljs-params"></span>) &#123;
+    <span class="hljs-variable language_">this</span>.<span class="hljs-property">heap</span> = [];
+  &#125;
+  <span class="hljs-title function_">getParentIndex</span>(<span class="hljs-params">i</span>) &#123;
+    <span class="hljs-comment">// return Math.floor((i-1)/2);</span>
+    <span class="hljs-keyword">return</span> (i - <span class="hljs-number">1</span>) &gt;&gt; <span class="hljs-number">1</span>; <span class="hljs-comment">// 右移一位 即除二取商操作</span>
+  &#125;
+  <span class="hljs-title function_">getLeftIndex</span>(<span class="hljs-params">i</span>) &#123;
+    <span class="hljs-keyword">return</span> i * <span class="hljs-number">2</span> + <span class="hljs-number">1</span>;
+  &#125;
+  <span class="hljs-title function_">getRightIndex</span>(<span class="hljs-params">i</span>) &#123;
+    <span class="hljs-keyword">return</span> i * <span class="hljs-number">2</span> + <span class="hljs-number">2</span>;
+  &#125;
+  <span class="hljs-title function_">swap</span>(<span class="hljs-params">i1, i2</span>) &#123;
+    <span class="hljs-keyword">const</span> temp = <span class="hljs-variable language_">this</span>.<span class="hljs-property">heap</span>[i1];
+    <span class="hljs-variable language_">this</span>.<span class="hljs-property">heap</span>[i1] = <span class="hljs-variable language_">this</span>.<span class="hljs-property">heap</span>[i2];
+    <span class="hljs-variable language_">this</span>.<span class="hljs-property">heap</span>[i2] = temp;
+  &#125;
+  <span class="hljs-title function_">shiftUp</span>(<span class="hljs-params">index</span>) &#123;
+    <span class="hljs-keyword">if</span> (index === <span class="hljs-number">0</span>) <span class="hljs-keyword">return</span>;
+    <span class="hljs-keyword">const</span> parentIndex = <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">getParentIndex</span>(index);
+    <span class="hljs-keyword">if</span> (<span class="hljs-variable language_">this</span>.<span class="hljs-property">heap</span>[parentIndex] &gt; <span class="hljs-variable language_">this</span>.<span class="hljs-property">heap</span>[index]) &#123;
+      <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">swap</span>(parentIndex, index);
+      <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">shiftUp</span>(parentIndex);
+    &#125;
+  &#125;
+  <span class="hljs-title function_">shiftDown</span>(<span class="hljs-params">index</span>) &#123;
+    <span class="hljs-keyword">const</span> leftIndex = <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">getLeftIndex</span>(index);
+    <span class="hljs-keyword">const</span> rightIndex = <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">getRightIndex</span>(index);
+    <span class="hljs-keyword">if</span> (<span class="hljs-variable language_">this</span>.<span class="hljs-property">heap</span>[leftIndex] &lt; <span class="hljs-variable language_">this</span>.<span class="hljs-property">heap</span>[index]) &#123;
+      <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">swap</span>(leftIndex, index);
+      <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">shiftDown</span>(leftIndex);
+    &#125;
+    <span class="hljs-keyword">if</span> (<span class="hljs-variable language_">this</span>.<span class="hljs-property">heap</span>[rightIndex] &lt; <span class="hljs-variable language_">this</span>.<span class="hljs-property">heap</span>[index]) &#123;
+      <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">swap</span>(rightIndex, index);
+      <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">shiftDown</span>(rightIndex);
+    &#125;
+  &#125;
+  <span class="hljs-title function_">insert</span>(<span class="hljs-params">value</span>) &#123;
+    <span class="hljs-variable language_">this</span>.<span class="hljs-property">heap</span>.<span class="hljs-title function_">push</span>(value);
+    <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">shiftUp</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">heap</span>.<span class="hljs-property">length</span> - <span class="hljs-number">1</span>);
+  &#125;
+  <span class="hljs-title function_">pop</span>(<span class="hljs-params"></span>) &#123;
+    <span class="hljs-keyword">if</span> (<span class="hljs-variable language_">this</span>.<span class="hljs-title function_">size</span>() === <span class="hljs-number">1</span>) <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">heap</span>.<span class="hljs-title function_">shift</span>();
+    <span class="hljs-variable language_">this</span>.<span class="hljs-property">heap</span>[<span class="hljs-number">0</span>] = <span class="hljs-variable language_">this</span>.<span class="hljs-property">heap</span>.<span class="hljs-title function_">pop</span>();
+    <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">shiftDown</span>(<span class="hljs-number">0</span>);
+  &#125;
+  <span class="hljs-title function_">peek</span>(<span class="hljs-params"></span>) &#123;
+    <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">heap</span>[<span class="hljs-number">0</span>];
+  &#125;
+  <span class="hljs-title function_">size</span>(<span class="hljs-params"></span>) &#123;
+    <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">heap</span>.<span class="hljs-property">length</span>;
+  &#125;
+&#125;</code></pre>
+
+<p>leetcode 练习题：215 347 23</p>
+<h3 id="图"><a href="#图" class="headerlink" title="图"></a>图</h3><p>是网络结构的抽象模型 是一组由边连接的节点 可表示任何二元关系<br>js 中没有图 但可以用 object 和 array 构建图 邻接矩阵 领接表</p>
+<pre><code class="hljs js"><span class="hljs-keyword">const</span> graph = &#123;
+  <span class="hljs-number">0</span>: [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>],
+  <span class="hljs-number">1</span>: [<span class="hljs-number">2</span>],
+  <span class="hljs-number">2</span>: [<span class="hljs-number">0</span>, <span class="hljs-number">3</span>],
+  <span class="hljs-number">3</span>: [<span class="hljs-number">3</span>],
+&#125;;</code></pre>
+
+<p>常用操作 深度优先遍历 广度优先遍历</p>
+<h4 id="深度优先遍历-1"><a href="#深度优先遍历-1" class="headerlink" title="深度优先遍历"></a>深度优先遍历</h4><ol>
+<li>访问根节点</li>
+<li>对根节点的没有访问过的相邻节点挨个进行深度优先遍历</li>
+</ol>
+<pre><code class="hljs js"><span class="hljs-keyword">const</span> visited = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Set</span>();
+<span class="hljs-keyword">const</span> <span class="hljs-title function_">dfs</span> = (<span class="hljs-params">n</span>) =&gt; &#123;
+  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(n);
+  visited.<span class="hljs-title function_">add</span>(n);
+  graph[n].<span class="hljs-title function_">forEach</span>(<span class="hljs-function">(<span class="hljs-params">c</span>) =&gt;</span> &#123;
+    <span class="hljs-keyword">if</span> (!visited.<span class="hljs-title function_">has</span>(c)) &#123;
+      <span class="hljs-title function_">dfs</span>(c);
+    &#125;
+  &#125;);
+&#125;;
+<span class="hljs-title function_">dfs</span>(<span class="hljs-number">2</span>);</code></pre>
+
+<h4 id="广度优先遍历-1"><a href="#广度优先遍历-1" class="headerlink" title="广度优先遍历"></a>广度优先遍历</h4><ol>
+<li>新建一个队列 根节点入队</li>
+<li>对头出队并访问</li>
+<li>把队头的没有访问过的相邻节点入队</li>
+</ol>
+<pre><code class="hljs js"><span class="hljs-keyword">const</span> visited = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Set</span>();
+<span class="hljs-keyword">const</span> q = [<span class="hljs-number">2</span>];
+<span class="hljs-keyword">while</span> (q.<span class="hljs-property">length</span>) &#123;
+  <span class="hljs-keyword">const</span> n = q.<span class="hljs-title function_">shift</span>();
+  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(n);
+  visited.<span class="hljs-title function_">add</span>(n);
+  graph[n].<span class="hljs-title function_">forEach</span>(<span class="hljs-function">(<span class="hljs-params">c</span>) =&gt;</span> &#123;
+    <span class="hljs-keyword">if</span> (!visited.<span class="hljs-title function_">has</span>(c)) &#123;
+      q.<span class="hljs-title function_">push</span>(c);
+    &#125;
+  &#125;);
+&#125;</code></pre>
+
+<p>leetcode 练习题： 417 133</p>
+<h3 id="排序和搜索算法"><a href="#排序和搜索算法" class="headerlink" title="排序和搜索算法"></a>排序和搜索算法</h3><h4 id="冒泡排序"><a href="#冒泡排序" class="headerlink" title="冒泡排序"></a>冒泡排序</h4><p>比较所有相邻元素 如果第一个比第二个大 则交换位置 一轮下来可以保证最后一个数是最大的<br>时间复杂度 O(n^2)</p>
+<p><img src="https://raw.githubusercontent.com/Jesse121/publicPic/master/blog/pictures/849589-20171015223238449-2146169197.gif"></p>
+<pre><code class="hljs js"><span class="hljs-keyword">function</span> <span class="hljs-title function_">bubbleSort</span>(<span class="hljs-params">arr</span>) &#123;
+  <span class="hljs-keyword">const</span> len = arr.<span class="hljs-property">length</span>;
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &lt; len - <span class="hljs-number">1</span>; i++) &#123;
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> j = <span class="hljs-number">0</span>; j &lt; len - <span class="hljs-number">1</span> - i; j++) &#123;
+      <span class="hljs-keyword">if</span> (arr[j] &gt; arr[j + <span class="hljs-number">1</span>]) &#123;
+        <span class="hljs-comment">// 相邻元素两两对比</span>
+        <span class="hljs-keyword">const</span> temp = arr[j + <span class="hljs-number">1</span>]; <span class="hljs-comment">// 元素交换</span>
+        arr[j + <span class="hljs-number">1</span>] = arr[j];
+        arr[j] = temp;
+      &#125;
+    &#125;
+  &#125;
+  <span class="hljs-keyword">return</span> arr;
+&#125;</code></pre>
+
+<h4 id="选择排序"><a href="#选择排序" class="headerlink" title="选择排序"></a>选择排序</h4><p>首先在未排序序列中找到最小（大）元素，存放到排序序列的起始位置，然后，再从剩余未排序元素中继续寻找最小（大）元素，然后放到已排序序列的末尾。以此类推，直到所有元素均排序完毕。 <br>时间复杂度 O(n^2)</p>
+<p><img src="https://raw.githubusercontent.com/Jesse121/publicPic/master/blog/pictures/2.gif"></p>
+<pre><code class="hljs js"><span class="hljs-keyword">function</span> <span class="hljs-title function_">selectionSort</span>(<span class="hljs-params">arr</span>) &#123;
+  <span class="hljs-keyword">var</span> len = arr.<span class="hljs-property">length</span>;
+  <span class="hljs-keyword">var</span> minIndex, temp;
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; len - <span class="hljs-number">1</span>; i++) &#123;
+    minIndex = i;
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> j = i + <span class="hljs-number">1</span>; j &lt; len; j++) &#123;
+      <span class="hljs-keyword">if</span> (arr[j] &lt; arr[minIndex]) &#123;
+        <span class="hljs-comment">// 寻找最小的数</span>
+        minIndex = j; <span class="hljs-comment">// 将最小数的索引保存</span>
+      &#125;
+    &#125;
+    <span class="hljs-keyword">if</span> (minIndex !== i) &#123;
+      temp = arr[i];
+      arr[i] = arr[minIndex];
+      arr[minIndex] = temp;
+    &#125;
+  &#125;
+  <span class="hljs-keyword">return</span> arr;
+&#125;</code></pre>
+
+<h4 id="插入排序"><a href="#插入排序" class="headerlink" title="插入排序"></a>插入排序</h4><p>时间复杂度 O(n^2)<br>原理：</p>
+<ol>
+<li>从第一个元素开始，该元素可以认为已经被排序；</li>
+<li>取出下一个元素，在已经排序的元素序列中从后向前扫描；</li>
+<li>如果该元素（已排序）大于新元素，将该元素移到下一位置；</li>
+<li>重复步骤 3，直到找到已排序的元素小于或者等于新元素的位置；</li>
+<li>将新元素插入到该位置后；</li>
+<li>重复步骤 2~5。</li>
+</ol>
+<p><img src="https://raw.githubusercontent.com/Jesse121/publicPic/master/blog/pictures/3.gif"></p>
+<pre><code class="hljs js"><span class="hljs-keyword">function</span> <span class="hljs-title function_">insertionSort</span>(<span class="hljs-params">arr</span>) &#123;
+  <span class="hljs-keyword">var</span> len = arr.<span class="hljs-property">length</span>;
+  <span class="hljs-keyword">var</span> preIndex, current;
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">1</span>; i &lt; len; i++) &#123;
+    preIndex = i - <span class="hljs-number">1</span>;
+    current = arr[i];
+    <span class="hljs-keyword">while</span> (preIndex &gt;= <span class="hljs-number">0</span> &amp;&amp; arr[preIndex] &gt; current) &#123;
+      arr[preIndex + <span class="hljs-number">1</span>] = arr[preIndex];
+      preIndex--;
+    &#125;
+    arr[preIndex + <span class="hljs-number">1</span>] = current;
+  &#125;
+  <span class="hljs-keyword">return</span> arr;
+&#125;</code></pre>
+
+<h4 id="归并排序"><a href="#归并排序" class="headerlink" title="归并排序"></a>归并排序</h4><p>时间复杂度 O(nlogn)<br>算法描述：<br>把长度为 n 的输入序列分成两个长度为 n&#x2F;2 的子序列；<br>对这两个子序列分别采用归并排序；<br>将两个排序好的子序列合并成一个最终的排序序列。</p>
+<p><img src="https://raw.githubusercontent.com/Jesse121/publicPic/master/blog/pictures/4.gif"></p>
+<pre><code class="hljs js"><span class="hljs-keyword">function</span> <span class="hljs-title function_">mergeSort</span>(<span class="hljs-params">arr</span>) &#123;
+  <span class="hljs-keyword">if</span> (arr.<span class="hljs-property">length</span> === <span class="hljs-number">1</span>) <span class="hljs-keyword">return</span> arr;
+  <span class="hljs-keyword">const</span> mid = <span class="hljs-title class_">Math</span>.<span class="hljs-title function_">floor</span>(arr.<span class="hljs-property">length</span> / <span class="hljs-number">2</span>);
+  <span class="hljs-keyword">const</span> left = arr.<span class="hljs-title function_">slice</span>(<span class="hljs-number">0</span>, mid);
+  <span class="hljs-keyword">const</span> right = arr.<span class="hljs-title function_">slice</span>(mid, arr.<span class="hljs-property">length</span>);
+  <span class="hljs-keyword">const</span> orderLeft = <span class="hljs-title function_">mergeSort</span>(left);
+  <span class="hljs-keyword">const</span> orderRight = <span class="hljs-title function_">mergeSort</span>(right);
+  <span class="hljs-keyword">const</span> res = [];
+  <span class="hljs-keyword">while</span> (orderLeft.<span class="hljs-property">length</span> || orderRight.<span class="hljs-property">length</span>) &#123;
+    <span class="hljs-keyword">if</span> (orderLeft.<span class="hljs-property">length</span> &amp;&amp; orderRight.<span class="hljs-property">length</span>) &#123;
+      res.<span class="hljs-title function_">push</span>(
+        orderLeft[<span class="hljs-number">0</span>] &lt; orderRight[<span class="hljs-number">0</span>] ? orderLeft.<span class="hljs-title function_">shift</span>() : orderRight.<span class="hljs-title function_">shift</span>()
+      );
+    &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (orderLeft.<span class="hljs-property">length</span>) &#123;
+      res.<span class="hljs-title function_">push</span>(orderLeft.<span class="hljs-title function_">shift</span>());
+    &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (orderRight.<span class="hljs-property">length</span>) &#123;
+      res.<span class="hljs-title function_">push</span>(orderRight.<span class="hljs-title function_">shift</span>());
+    &#125;
+  &#125;
+  <span class="hljs-keyword">return</span> res;
+&#125;</code></pre>
+
+<h4 id="快速排序"><a href="#快速排序" class="headerlink" title="快速排序"></a>快速排序</h4><p>算法描述：<br>从数列中挑出一个元素，称为 “基准”（pivot）；<br>重新排序数列，所有元素比基准值小的摆放在基准前面，所有元素比基准值大的摆在基准的后面（相同的数可以到任一边）。在这个分区退出之后，该基准就处于数列的中间位置。这个称为分区（partition）操作；<br>递归地（recursive）把小于基准值元素的子数列和大于基准值元素的子数列排序。</p>
+<p><img src="https://raw.githubusercontent.com/Jesse121/publicPic/master/blog/pictures/5.gif"></p>
+<pre><code class="hljs js"><span class="hljs-keyword">function</span> <span class="hljs-title function_">quickSort</span>(<span class="hljs-params">arr</span>) &#123;
+  <span class="hljs-keyword">const</span> left = [];
+  <span class="hljs-keyword">const</span> right = [];
+  <span class="hljs-keyword">const</span> mid = arr[<span class="hljs-number">0</span>];
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">1</span>; i &lt; arr.<span class="hljs-property">length</span>; i++) &#123;
+    <span class="hljs-keyword">if</span> (arr[i] &lt; mid) &#123;
+      left.<span class="hljs-title function_">push</span>(arr[i]);
+    &#125; <span class="hljs-keyword">else</span> &#123;
+      right.<span class="hljs-title function_">push</span>(arr[i]);
+    &#125;
+  &#125;
+  <span class="hljs-keyword">if</span> (left.<span class="hljs-property">length</span> &gt; <span class="hljs-number">0</span> &amp;&amp; right.<span class="hljs-property">length</span> &gt; <span class="hljs-number">0</span>) &#123;
+    <span class="hljs-keyword">return</span> [...<span class="hljs-title function_">quickSort</span>(left), mid, ...<span class="hljs-title function_">quickSort</span>(right)];
+  &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (left.<span class="hljs-property">length</span> === <span class="hljs-number">0</span>) &#123;
+    <span class="hljs-keyword">return</span> [mid, ...<span class="hljs-title function_">quickSort</span>(right)];
+  &#125; <span class="hljs-keyword">else</span> &#123;
+    <span class="hljs-keyword">return</span> [...<span class="hljs-title function_">quickSort</span>(left), mid];
+  &#125;
+&#125;</code></pre>
+
+<h4 id="二分搜索"><a href="#二分搜索" class="headerlink" title="二分搜索"></a>二分搜索</h4><p>从数组中间元素开始 如果中间元素正好是目标值，则搜索结束<br>如果目标值大于或者小于中间元素，则在大于或小于中间元素的那一半数组中搜索</p>
+<p>时间复杂度 O(logN)</p>
+<pre><code class="hljs js"><span class="hljs-keyword">function</span> <span class="hljs-title function_">binarySearch</span>(<span class="hljs-params">arr, item</span>) &#123;
+  <span class="hljs-keyword">const</span> orderArr = arr.<span class="hljs-title function_">sort</span>();
+  <span class="hljs-keyword">let</span> low = <span class="hljs-number">0</span>;
+  <span class="hljs-keyword">let</span> high = arr.<span class="hljs-property">length</span> - <span class="hljs-number">1</span>;
+  <span class="hljs-keyword">while</span> (low &lt;= high) &#123;
+    <span class="hljs-keyword">const</span> mid = (low + high) &gt;&gt; <span class="hljs-number">1</span>;
+    <span class="hljs-keyword">const</span> element = arr[mid];
+    <span class="hljs-keyword">if</span> (element &lt; item) &#123;
+      low = mid + <span class="hljs-number">1</span>;
+    &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (element &gt; item) &#123;
+      high = mid - <span class="hljs-number">1</span>;
+    &#125; <span class="hljs-keyword">else</span> &#123;
+      <span class="hljs-keyword">return</span> mid;
+    &#125;
+  &#125;
+  <span class="hljs-keyword">return</span> -<span class="hljs-number">1</span>;
+&#125;</code></pre>
+
+<h3 id="分而治之"><a href="#分而治之" class="headerlink" title="分而治之"></a>分而治之</h3><p>是一种算法思想<br>将一个问题分成多个和原问题相似的小问题 递归解决小问题 再将结果合并以解决原来的问题</p>
+<p>归并排序 快速排序<br>leetcode 练习题：374 226 10 101</p>
+<h3 id="寻找最长递增序列"><a href="#寻找最长递增序列" class="headerlink" title="寻找最长递增序列"></a>寻找最长递增序列</h3><p>leetcode 练习题：300<br>给你一个整数数组 nums ，找到其中最长严格递增子序列的长度。</p>
+<p>子序列是由数组派生而来的序列，删除（或不删除）数组中的元素而不改变其余元素的顺序。例如，[3,6,2,7] 是数组 [0,3,1,6,2,2,7] 的子序列。</p>
+ 
+      <div id="toc-article">
+  <div class="widget-wrap" id="toc-wrap">
+    <h3 class="widget-title"><i class="fa fa-toc"></i> 文章目录</h3>
+    <div class="widget">
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%88"><span class="toc-text">栈</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%98%9F%E5%88%97"><span class="toc-text">队列</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%93%BE%E8%A1%A8"><span class="toc-text">链表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9B%86%E5%90%88"><span class="toc-text">集合</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AD%97%E5%85%B8"><span class="toc-text">字典</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%91"><span class="toc-text">树</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B7%B1%E5%BA%A6%E4%BC%98%E5%85%88%E9%81%8D%E5%8E%86"><span class="toc-text">深度优先遍历</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B9%BF%E5%BA%A6%E4%BC%98%E5%85%88%E9%81%8D%E5%8E%86"><span class="toc-text">广度优先遍历</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BA%8C%E5%8F%89%E6%A0%91"><span class="toc-text">二叉树</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%88%E5%BA%8F%E9%81%8D%E5%8E%86"><span class="toc-text">先序遍历</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%AD%E5%BA%8F%E9%81%8D%E5%8E%86"><span class="toc-text">中序遍历</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%90%8E%E5%BA%8F%E9%81%8D%E5%8E%86"><span class="toc-text">后序遍历</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A0%86"><span class="toc-text">堆</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9B%BE"><span class="toc-text">图</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B7%B1%E5%BA%A6%E4%BC%98%E5%85%88%E9%81%8D%E5%8E%86-1"><span class="toc-text">深度优先遍历</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B9%BF%E5%BA%A6%E4%BC%98%E5%85%88%E9%81%8D%E5%8E%86-1"><span class="toc-text">广度优先遍历</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8E%92%E5%BA%8F%E5%92%8C%E6%90%9C%E7%B4%A2%E7%AE%97%E6%B3%95"><span class="toc-text">排序和搜索算法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%86%92%E6%B3%A1%E6%8E%92%E5%BA%8F"><span class="toc-text">冒泡排序</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%80%89%E6%8B%A9%E6%8E%92%E5%BA%8F"><span class="toc-text">选择排序</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F"><span class="toc-text">插入排序</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F"><span class="toc-text">归并排序</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F"><span class="toc-text">快速排序</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BA%8C%E5%88%86%E6%90%9C%E7%B4%A2"><span class="toc-text">二分搜索</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%86%E8%80%8C%E6%B2%BB%E4%B9%8B"><span class="toc-text">分而治之</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AF%BB%E6%89%BE%E6%9C%80%E9%95%BF%E9%80%92%E5%A2%9E%E5%BA%8F%E5%88%97"><span class="toc-text">寻找最长递增序列</span></a></li></ol>
+    </div>
+  </div>
+
+</div>
+       
+      <blockquote id="copyright">
+        <p>
+           原文链接:
+          <a href="https://jesse121.github.io/blog/articles/2021/04/02.html"
+            >https://jesse121.github.io/blog/articles/2021/04/02.html</a
+          >
+        </p>
+        <p>版权声明: 转载请注明出处.</p>
+      </blockquote>
+       
+    </div>
+    <footer class="article-footer">
+      
+      <div class="article-tag-wrap">
+        
+ 
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/javascript/" rel="tag">javascript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a></li></ul>
+ 
+
+
+      </div>
+        
+<nav id="article-nav">
+  
+    <a href="/blog/articles/2020/12/15.html" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">下一篇</strong>
+      <div class="article-nav-title">
+        
+          如何快速生成tsconfig.json文件
+        
+      </div>
+    </a>
+  
+  
+    <a href="/blog/articles/2021/05/24.html" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">上一篇</strong>
+      <div class="article-nav-title">
+        
+          Husky配置文件没有执行权限
+        
+      </div>
+    </a>
+  
+</nav>
+   
+  <div id="comments"></div>
+
+
+
+
+
+
+
+
+ 
+    </footer>
+  </div>
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-posts"></i> 最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/blog/articles/2022/09/20.html">【转载】JavaScript代码优化之道</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2022/08/08.html">如何解决Electron应用安装在C盘没有权限更新的问题</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2022/08/05.html">如何用Electron+vue+vite构建桌面端应用(三)</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2022/08/04.html">如何用Electron+vue+vite构建桌面端应用(二)</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2022/07/22.html">从源码分析为什么Electron+vue项目中router不能用history模式</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2022/07/20.html">如何用Electron+vue+vite构建桌面端应用(一)</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2022/06/15.html">如何在国产银河麒麟系统Mips架构上离线安装electron</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2021/09/04.html">Typescript内置工具类型和操作符介绍</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2021/08/05.html">《深入理解Typescript》--读书笔记</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2021/07/12.html">什么是SSE(Server-Sent Event)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-tag"></i> 标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/blog/tags/angularjs/" style="font-size: 10px;">AngularJs</a> <a href="/blog/tags/apache/" style="font-size: 12.86px;">Apache</a> <a href="/blog/tags/bootstrap/" style="font-size: 12.86px;">Bootstrap</a> <a href="/blog/tags/css/" style="font-size: 18.57px;">CSS</a> <a href="/blog/tags/centos/" style="font-size: 10px;">CentOS</a> <a href="/blog/tags/docker/" style="font-size: 12.86px;">Docker</a> <a href="/blog/tags/git/" style="font-size: 11.43px;">Git</a> <a href="/blog/tags/gitlab/" style="font-size: 10px;">Gitlab</a> <a href="/blog/tags/gulp/" style="font-size: 10px;">Gulp</a> <a href="/blog/tags/html/" style="font-size: 12.86px;">HTML</a> <a href="/blog/tags/html5/" style="font-size: 10px;">HTML5</a> <a href="/blog/tags/http/" style="font-size: 12.86px;">HTTP</a> <a href="/blog/tags/https/" style="font-size: 10px;">HTTPS</a> <a href="/blog/tags/husky/" style="font-size: 10px;">Husky</a> <a href="/blog/tags/javascript/" style="font-size: 20px;">JavaScript</a> <a href="/blog/tags/jenkins/" style="font-size: 10px;">Jenkins</a> <a href="/blog/tags/linux/" style="font-size: 11.43px;">Linux</a> <a href="/blog/tags/mac/" style="font-size: 10px;">Mac</a> <a href="/blog/tags/mysql/" style="font-size: 12.86px;">MySQL</a> <a href="/blog/tags/nginx/" style="font-size: 11.43px;">Nginx</a> <a href="/blog/tags/node-js/" style="font-size: 11.43px;">Node.js</a> <a href="/blog/tags/php/" style="font-size: 15.71px;">PHP</a> <a href="/blog/tags/photoshop/" style="font-size: 10px;">Photoshop</a> <a href="/blog/tags/react/" style="font-size: 10px;">React</a> <a href="/blog/tags/redux/" style="font-size: 10px;">Redux</a> <a href="/blog/tags/sse/" style="font-size: 10px;">SSE</a> <a href="/blog/tags/sublimetext3/" style="font-size: 10px;">SublimeText3</a> <a href="/blog/tags/typescript/" style="font-size: 14.29px;">Typescript</a> <a href="/blog/tags/vagrant/" style="font-size: 10px;">Vagrant</a> <a href="/blog/tags/vim/" style="font-size: 10px;">Vim</a> <a href="/blog/tags/vue/" style="font-size: 10px;">Vue</a> <a href="/blog/tags/web/" style="font-size: 15.71px;">WEB</a> <a href="/blog/tags/webpack/" style="font-size: 12.86px;">Webpack</a> <a href="/blog/tags/wireshark/" style="font-size: 11.43px;">Wireshark</a> <a href="/blog/tags/yii/" style="font-size: 10px;">Yii</a> <a href="/blog/tags/electron/" style="font-size: 17.14px;">electron</a> <a href="/blog/tags/jquery/" style="font-size: 12.86px;">jQuery</a> <a href="/blog/tags/javascript/" style="font-size: 10px;">javascript</a> <a href="/blog/tags/kylin/" style="font-size: 10px;">kylin</a> <a href="/blog/tags/ssh/" style="font-size: 10px;">ssh</a> <a href="/blog/tags/vite/" style="font-size: 14.29px;">vite</a> <a href="/blog/tags/vscode/" style="font-size: 10px;">vscode</a> <a href="/blog/tags/vue/" style="font-size: 10px;">vue</a> <a href="/blog/tags/vue3/" style="font-size: 12.86px;">vue3</a> <a href="/blog/tags/%E5%89%8D%E7%AB%AF%E7%9B%91%E6%8E%A7/" style="font-size: 10px;">前端监控</a> <a href="/blog/tags/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F/" style="font-size: 10px;">微信小程序</a> <a href="/blog/tags/%E7%AE%97%E6%B3%95/" style="font-size: 14.29px;">算法</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-classify"></i> 分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/blog/categories/bootstrap/">Bootstrap</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/electron/">Electron</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/html-css/">HTML-CSS</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/html5/">HTML5</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/javascript/">JavaScript</a><span class="category-list-count">11</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/linux/">Linux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/mysql/">MySQL</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/node-js/">Node.js</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/php/">PHP</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/photoshop/">Photoshop</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/typescript/">Typescript</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/vue/">Vue</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/web/">WEB</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/jquery/">jQuery</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/translation/">前端翻译</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/">开发工具</a><span class="category-list-count">15</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/%E5%BC%80%E5%8F%91%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/">开发问题记录</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/%E7%AE%97%E6%B3%95/">算法</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/notes/">读书笔记</a><span class="category-list-count">17</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/%E8%BD%AC%E8%BD%BD/">转载</a><span class="category-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-archive"></i> 归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2022/">2022年</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2021/">2021年</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2020/">2020年</a><span class="archive-list-count">12</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2019/">2019年</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/">2018年</a><span class="archive-list-count">12</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2017/">2017年</a><span class="archive-list-count">26</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/">2016年</a><span class="archive-list-count">27</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-link"></i> 友情链接</h3>
+    <div class="widget">
+      <ul>
+      
+        <li>
+          <a target="_blank" rel="noopener" href="http://www.mahaixiang.cn/internet/300.html">深入理解互联网协议的原理</a>
+        </li>
+      
+        <li>
+          <a target="_blank" rel="noopener" href="http://javascript.ruanyifeng.com/">JavaScript 标准参考教程</a>
+        </li>
+      
+        <li>
+          <a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript">Mozilla Developer Network</a>
+        </li>
+      
+      </ul>
+    </div>
+  </div>
+
+
+  
+</aside>
+        
+      </div>
+      <a id="totop" href="#top"></a>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      <p>
+        <a href="/blog/sitemap.xml">网站地图</a>
+        <span> | </span><a href="/blog/atom.xml">订阅本站</a>
+        <span> | </span><a href="/blog/about/">联系博主</a>
+      </p>
+      
+        <p>
+          <i class="fa fa-visitors"></i>
+          <i id="busuanzi_container_site_uv"><i id="busuanzi_value_site_uv"></i></i>
+          ，
+          <i class="fa fa-views"></i>
+          <i id="busuanzi_container_site_pv"><i id="busuanzi_value_site_pv"></i></i>
+        </p>
+      
+      <p>
+        <span>Copyright &copy; 2022 Jesse.</span>
+        <span>Theme by <a href="https://github.com/chaooo/hexo-theme-BlueLake/" target="_blank">BlueLake.</a></span>
+        <span>Powered by <a href="https://hexo.io/" target="_blank">Hexo.</a></span>
+      </p>
+    </div>
+  </div>
+</footer>
+
+    </div>
+  </div>
+  
+<script src="https://unpkg.com/@highlightjs/cdn-assets@11.6.0/highlight.min.js"></script>
+
+<script>
+  hljs.highlightAll();
+</script>
+
+<script src="https://unpkg.com/jquery@3.4.1/dist/jquery.min.js"></script>
+ 
+<script src="/blog/js/search.json.js"></script>
+  
+<script src="https://unpkg.com/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+
+ 
+<script src="/blog/js/script.js"></script>
+ 
+   
+<script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+ 
+      
+<script src="https://unpkg.com/gitalk@1.7.2/dist/gitalk.min.js"></script>
+ 
+<script src="//cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.js"></script>
+
+<script>
+  var gitalk = new Gitalk({
+    clientID: "3c3e422527fd3f9fa17a",
+    clientSecret: "f28d1808ec9ab69fb24dc3e9fad81e1c3ab8dd83",
+    repo: "blog",
+    owner: "jesse121",
+    admin: ["jesse121"],
+    id: md5(window.location.pathname),
+    proxy: "https://stormy-gorge-51623.herokuapp.com/https://github.com/login/oauth/access_token",
+    distractionFreeMode: false,
+    language: "zh-CN",
+    body: "欢迎在下方提出问题，您的疑问促进我们共同进步！",
+    pagerDirection: "last",
+  });
+  gitalk.render("comments");
+</script>
+         
+ 
+<script>
+  if (navigator.serviceWorker) {
+    navigator.serviceWorker
+      .register("/blog/sw.js")
+      .then(function (registration) {
+        console.log("Registered events at scope: ", registration.scope);
+      })
+      .catch(function (err) {
+        console.log("ServiceWorker registration failed: ", err);
+      });
+  }
+</script>
+<script
+  type="text/javascript"
+  src="https://unpkg.com/clipboard@2.0.4/dist/clipboard.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="/blog/js/codeBlock/codeBlockFunction.js"
+></script>
+<script type="text/javascript" src="/blog/js/codeBlock/codeLang.js"></script>
+<script type="text/javascript" src="/blog/js/codeBlock/codeCopy.js"></script>
+<script type="text/javascript" src="/blog/js/codeBlock/codeShrink.js"></script>
+
+</body>
+</html>

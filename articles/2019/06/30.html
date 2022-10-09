@@ -467,13 +467,13 @@
 </tr>
 </tbody></table>
 <p>字符长度为能被3整除时，比如Man</p>
-<pre><code>            M           a           n
+<pre><code class="hljs plaintext">            M           a           n
 ASCII:      77          97          110
 8bit字节:    01001101    01100001    01101110
 6bit字节:      010011      010110      000101      101110
 十进制:      19          22          5            46
-对应编码:     T           W           F            u
-</code></pre>
+对应编码:     T           W           F            u</code></pre>
+
 <ol>
 <li>“M”、”a”、”n”的ASCII值分别是77、97、110，对应的二进制值是01001101、01100001、01101110，将它们连成一个24位的二进制字符串010011010110000101101110。</li>
 <li>将这个24位的二进制字符串分成4组，每组6个二进制位：010011、010110、000101、101110。</li>
@@ -481,7 +481,7 @@ ASCII:      77          97          110
 <li>根据上表，得到每个值对应Base64编码，即T、W、F、u。</li>
 </ol>
 <p>字符串长度不能被3整除时，比如Lucy：</p>
-<pre><code>            L           u           c           y
+<pre><code class="hljs plaintext">            L           u           c           y
 ASCII:      76          117         99          121
 8bit字节:    01001100    01110101    01100011    01111001      00000000    00000000
 6bit字节:      010011      000111      010101      100011        011110      010000      000000  000000
@@ -492,115 +492,114 @@ ASCII:      76          117         99          121
 <p>因为，Base64将三个字节转化成四个字节，因此Base64编码后的文本，会比原文本大出三分之一左右。</p>
 <p><strong>注意</strong><br>Base64编码主要用在传输、存储、表示二进制领域，不能算得上加密，只是无法直接看到明文，不建议用base64编码用于加密。<br>中文有多种编码（比如：utf-8、gb2312、gbk等），不同编码对应Base64编码结果都不一样。</p>
 <h3 id="base64实现"><a href="#base64实现" class="headerlink" title="base64实现"></a>base64实现</h3><p>在PHP中，有一对专门的函数用于Base64转换：base64_encode()用于编码、base64_decode()用于解码。<br>在Javascript中可使用window.btoa()用于编码，window.atob()用于解码。  <a target="_blank" rel="noopener" href="https://caniuse.com/#search=btoa">兼容性可点击查看</a>IE10及以上全部兼容<br>对于IE10以下可采用以下兼容方法</p>
-<pre><code class="js">/**
- * base64 encoding &amp; decoding
- * for fixing browsers which don&#39;t support Base64 | btoa |atob
- */
+<pre><code class="hljs js"><span class="hljs-comment">/**</span>
+<span class="hljs-comment"> * base64 encoding &amp; decoding</span>
+<span class="hljs-comment"> * for fixing browsers which don&#x27;t support Base64 | btoa |atob</span>
+<span class="hljs-comment"> */</span>
 
-(function (win, undefined) &#123;
+(<span class="hljs-keyword">function</span> (<span class="hljs-params">win, <span class="hljs-literal">undefined</span></span>) &#123;
 
-    var Base64 = function () &#123;
-        var base64hash = &#39;ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/&#39;;
+    <span class="hljs-keyword">var</span> <span class="hljs-title class_">Base64</span> = <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) &#123;
+        <span class="hljs-keyword">var</span> base64hash = <span class="hljs-string">&#x27;ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/&#x27;</span>;
 
-        // btoa method
-        function _btoa(s) &#123;
-            if (/([^\u0000-\u00ff])/.test(s)) &#123;  // 排除中文
-                throw new Error(&#39;INVALID_CHARACTER_ERR&#39;);
+        <span class="hljs-comment">// btoa method</span>
+        <span class="hljs-keyword">function</span> <span class="hljs-title function_">_btoa</span>(<span class="hljs-params">s</span>) &#123;
+            <span class="hljs-keyword">if</span> (<span class="hljs-regexp">/([^\u0000-\u00ff])/</span>.<span class="hljs-title function_">test</span>(s)) &#123;  <span class="hljs-comment">// 排除中文</span>
+                <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Error</span>(<span class="hljs-string">&#x27;INVALID_CHARACTER_ERR&#x27;</span>);
             &#125;
-            var i = 0,
+            <span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>,
                 prev,
                 ascii,
                 mod,
                 result = [];
 
-            while (i &lt; s.length) &#123;
-                ascii = s.charCodeAt(i);
-                mod = i % 3;
+            <span class="hljs-keyword">while</span> (i &lt; s.<span class="hljs-property">length</span>) &#123;
+                ascii = s.<span class="hljs-title function_">charCodeAt</span>(i);
+                mod = i % <span class="hljs-number">3</span>;
 
-                switch (mod) &#123;
-                    // 第一个6位只需要让8位二进制右移两位
-                    case 0:
-                        result.push(base64hash.charAt(ascii &gt;&gt; 2));
-                        break;
-                    //第二个6位 = 第一个8位的后两位 + 第二个8位的前4位
-                    case 1:
-                        result.push(base64hash.charAt((prev &amp; 3) &lt;&lt; 4 | (ascii &gt;&gt; 4)));
-                        break;
-                    //第三个6位 = 第二个8位的后4位 + 第三个8位的前2位
-                    //第4个6位 = 第三个8位的后6位
-                    case 2:
-                        result.push(base64hash.charAt((prev &amp; 0x0f) &lt;&lt; 2 | (ascii &gt;&gt; 6)));
-                        result.push(base64hash.charAt(ascii &amp; 0x3f));
-                        break;
+                <span class="hljs-keyword">switch</span> (mod) &#123;
+                    <span class="hljs-comment">// 第一个6位只需要让8位二进制右移两位</span>
+                    <span class="hljs-keyword">case</span> <span class="hljs-number">0</span>:
+                        result.<span class="hljs-title function_">push</span>(base64hash.<span class="hljs-title function_">charAt</span>(ascii &gt;&gt; <span class="hljs-number">2</span>));
+                        <span class="hljs-keyword">break</span>;
+                    <span class="hljs-comment">//第二个6位 = 第一个8位的后两位 + 第二个8位的前4位</span>
+                    <span class="hljs-keyword">case</span> <span class="hljs-number">1</span>:
+                        result.<span class="hljs-title function_">push</span>(base64hash.<span class="hljs-title function_">charAt</span>((prev &amp; <span class="hljs-number">3</span>) &lt;&lt; <span class="hljs-number">4</span> | (ascii &gt;&gt; <span class="hljs-number">4</span>)));
+                        <span class="hljs-keyword">break</span>;
+                    <span class="hljs-comment">//第三个6位 = 第二个8位的后4位 + 第三个8位的前2位</span>
+                    <span class="hljs-comment">//第4个6位 = 第三个8位的后6位</span>
+                    <span class="hljs-keyword">case</span> <span class="hljs-number">2</span>:
+                        result.<span class="hljs-title function_">push</span>(base64hash.<span class="hljs-title function_">charAt</span>((prev &amp; <span class="hljs-number">0x0f</span>) &lt;&lt; <span class="hljs-number">2</span> | (ascii &gt;&gt; <span class="hljs-number">6</span>)));
+                        result.<span class="hljs-title function_">push</span>(base64hash.<span class="hljs-title function_">charAt</span>(ascii &amp; <span class="hljs-number">0x3f</span>));
+                        <span class="hljs-keyword">break</span>;
                 &#125;
 
                 prev = ascii;
                 i++;
             &#125;
 
-            // 循环结束后看mod, 为0 证明需补3个6位，第一个为最后一个8位的最后两位后面补4个0。另外两个6位对应的是异常的“=”；
-            // mod为1，证明还需补两个6位，一个是最后一个8位的后4位补两个0，另一个对应异常的“=”
-            if (mod == 0) &#123;
-                result.push(base64hash.charAt((prev &amp; 3) &lt;&lt; 4));
-                result.push(&#39;==&#39;);
-            &#125; else if (mod == 1) &#123;
-                result.push(base64hash.charAt((prev &amp; 0x0f) &lt;&lt; 2));
-                result.push(&#39;=&#39;);
+            <span class="hljs-comment">// 循环结束后看mod, 为0 证明需补3个6位，第一个为最后一个8位的最后两位后面补4个0。另外两个6位对应的是异常的“=”；</span>
+            <span class="hljs-comment">// mod为1，证明还需补两个6位，一个是最后一个8位的后4位补两个0，另一个对应异常的“=”</span>
+            <span class="hljs-keyword">if</span> (mod == <span class="hljs-number">0</span>) &#123;
+                result.<span class="hljs-title function_">push</span>(base64hash.<span class="hljs-title function_">charAt</span>((prev &amp; <span class="hljs-number">3</span>) &lt;&lt; <span class="hljs-number">4</span>));
+                result.<span class="hljs-title function_">push</span>(<span class="hljs-string">&#x27;==&#x27;</span>);
+            &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (mod == <span class="hljs-number">1</span>) &#123;
+                result.<span class="hljs-title function_">push</span>(base64hash.<span class="hljs-title function_">charAt</span>((prev &amp; <span class="hljs-number">0x0f</span>) &lt;&lt; <span class="hljs-number">2</span>));
+                result.<span class="hljs-title function_">push</span>(<span class="hljs-string">&#x27;=&#x27;</span>);
             &#125;
 
-            return result.join(&#39;&#39;);
+            <span class="hljs-keyword">return</span> result.<span class="hljs-title function_">join</span>(<span class="hljs-string">&#x27;&#x27;</span>);
         &#125;
 
-        // atob method
-        // 逆转encode的思路即可
-        function _atob(s) &#123;
-            s = s.replace(/\s|=/g, &#39;&#39;);
-            var cur,
+        <span class="hljs-comment">// atob method</span>
+        <span class="hljs-comment">// 逆转encode的思路即可</span>
+        <span class="hljs-keyword">function</span> <span class="hljs-title function_">_atob</span>(<span class="hljs-params">s</span>) &#123;
+            s = s.<span class="hljs-title function_">replace</span>(<span class="hljs-regexp">/\s|=/g</span>, <span class="hljs-string">&#x27;&#x27;</span>);
+            <span class="hljs-keyword">var</span> cur,
                 prev,
                 mod,
-                i = 0,
+                i = <span class="hljs-number">0</span>,
                 result = [];
 
-            while (i &lt; s.length) &#123;
-                cur = base64hash.indexOf(s.charAt(i));
-                mod = i % 4;
+            <span class="hljs-keyword">while</span> (i &lt; s.<span class="hljs-property">length</span>) &#123;
+                cur = base64hash.<span class="hljs-title function_">indexOf</span>(s.<span class="hljs-title function_">charAt</span>(i));
+                mod = i % <span class="hljs-number">4</span>;
 
-                switch (mod) &#123;
-                    case 0:
-                        //TODO
-                        break;
-                    case 1:
-                        result.push(String.fromCharCode(prev &lt;&lt; 2 | cur &gt;&gt; 4));
-                        break;
-                    case 2:
-                        result.push(String.fromCharCode((prev &amp; 0x0f) &lt;&lt; 4 | cur &gt;&gt; 2));
-                        break;
-                    case 3:
-                        result.push(String.fromCharCode((prev &amp; 3) &lt;&lt; 6 | cur));
-                        break;
+                <span class="hljs-keyword">switch</span> (mod) &#123;
+                    <span class="hljs-keyword">case</span> <span class="hljs-number">0</span>:
+                        <span class="hljs-comment">//TODO</span>
+                        <span class="hljs-keyword">break</span>;
+                    <span class="hljs-keyword">case</span> <span class="hljs-number">1</span>:
+                        result.<span class="hljs-title function_">push</span>(<span class="hljs-title class_">String</span>.<span class="hljs-title function_">fromCharCode</span>(prev &lt;&lt; <span class="hljs-number">2</span> | cur &gt;&gt; <span class="hljs-number">4</span>));
+                        <span class="hljs-keyword">break</span>;
+                    <span class="hljs-keyword">case</span> <span class="hljs-number">2</span>:
+                        result.<span class="hljs-title function_">push</span>(<span class="hljs-title class_">String</span>.<span class="hljs-title function_">fromCharCode</span>((prev &amp; <span class="hljs-number">0x0f</span>) &lt;&lt; <span class="hljs-number">4</span> | cur &gt;&gt; <span class="hljs-number">2</span>));
+                        <span class="hljs-keyword">break</span>;
+                    <span class="hljs-keyword">case</span> <span class="hljs-number">3</span>:
+                        result.<span class="hljs-title function_">push</span>(<span class="hljs-title class_">String</span>.<span class="hljs-title function_">fromCharCode</span>((prev &amp; <span class="hljs-number">3</span>) &lt;&lt; <span class="hljs-number">6</span> | cur));
+                        <span class="hljs-keyword">break</span>;
                 &#125;
 
                 prev = cur;
                 i++;
             &#125;
 
-            return result.join(&#39;&#39;);
+            <span class="hljs-keyword">return</span> result.<span class="hljs-title function_">join</span>(<span class="hljs-string">&#x27;&#x27;</span>);
         &#125;
 
-        return &#123;
-            btoa: _btoa,
-            atob: _atob,
-            encode: _btoa,
-            decode: _atob
+        <span class="hljs-keyword">return</span> &#123;
+            <span class="hljs-attr">btoa</span>: _btoa,
+            <span class="hljs-attr">atob</span>: _atob,
+            <span class="hljs-attr">encode</span>: _btoa,
+            <span class="hljs-attr">decode</span>: _atob
         &#125;;
     &#125;();
 
-    if (!win.Base64) &#123; win.Base64 = Base64 &#125;
-    if (!win.btoa) &#123; win.btoa = Base64.btoa &#125;
-    if (!win.atob) &#123; win.atob = Base64.atob &#125;
+    <span class="hljs-keyword">if</span> (!win.<span class="hljs-property">Base64</span>) &#123; win.<span class="hljs-property">Base64</span> = <span class="hljs-title class_">Base64</span> &#125;
+    <span class="hljs-keyword">if</span> (!win.<span class="hljs-property">btoa</span>) &#123; win.<span class="hljs-property">btoa</span> = <span class="hljs-title class_">Base64</span>.<span class="hljs-property">btoa</span> &#125;
+    <span class="hljs-keyword">if</span> (!win.<span class="hljs-property">atob</span>) &#123; win.<span class="hljs-property">atob</span> = <span class="hljs-title class_">Base64</span>.<span class="hljs-property">atob</span> &#125;
 
-&#125;)(window)
-</code></pre>
+&#125;)(<span class="hljs-variable language_">window</span>)</code></pre>
 <h3 id="Base64实际运用"><a href="#Base64实际运用" class="headerlink" title="Base64实际运用"></a>Base64实际运用</h3><ol>
 <li>用base64引入图片，当图片大小较小时可直接将其用base64编码，这样可以减少请求，目前webpack中可使用url-loader处理图片</li>
 <li>在邮件中使用base64编码</li>

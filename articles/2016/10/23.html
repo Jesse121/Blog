@@ -272,18 +272,18 @@
     </div>
     <div class="e-content article-entry" itemprop="articleBody">
        <h3 id="第-3-章-类型、值和变量"><a href="#第-3-章-类型、值和变量" class="headerlink" title="第 3 章 类型、值和变量"></a>第 3 章 类型、值和变量</h3><h4 id="3-1-数字"><a href="#3-1-数字" class="headerlink" title="3.1 数字"></a>3.1 数字</h4><h5 id="3-1-3-javascript-中算术运算符"><a href="#3-1-3-javascript-中算术运算符" class="headerlink" title="3.1.3 javascript 中算术运算符"></a>3.1.3 javascript 中算术运算符</h5><p>isNaN()参数是 NaN 或一个非数字值返回 true<br>isFinite() 参数是 NaN,Infinity,-Infinity 的时候返回 false</p>
-<pre><code class="js">isNaN(NaN); //true
-isFinite(NaN); //false
-</code></pre>
+<pre><code class="hljs js"><span class="hljs-built_in">isNaN</span>(<span class="hljs-title class_">NaN</span>); <span class="hljs-comment">//true</span>
+<span class="hljs-built_in">isFinite</span>(<span class="hljs-title class_">NaN</span>); <span class="hljs-comment">//false</span></code></pre>
+
 <span id="more"></span>
 
 <h4 id="3-2-文本"><a href="#3-2-文本" class="headerlink" title="3.2 文本"></a>3.2 文本</h4><h5 id="3-2-1-字符串直接量"><a href="#3-2-1-字符串直接量" class="headerlink" title="3.2.1 字符串直接量"></a>3.2.1 字符串直接量</h5><p>在 ECMAScript5 中字符串可以拆分成数行，中间每行必须以反斜线结束</p>
-<pre><code class="js">var result =
-  &quot;one \
-two \
-three&quot;;
-console.log(result); //one two three
-</code></pre>
+<pre><code class="hljs js"><span class="hljs-keyword">var</span> result =
+  <span class="hljs-string">&quot;one \</span>
+<span class="hljs-string">two \</span>
+<span class="hljs-string">three&quot;</span>;
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(result); <span class="hljs-comment">//one two three</span></code></pre>
+
 <p>建议：在 javascript 中使用单引号表示字符串，在 HTML 中使用双引号表示字符串;</p>
 <h5 id="3-2-2-转义字符"><a href="#3-2-2-转义字符" class="headerlink" title="3.2.2 转义字符"></a>3.2.2 转义字符</h5><p>\n 换行符<br>\r 回车符</p>
 <h4 id="3-3-布尔值"><a href="#3-3-布尔值" class="headerlink" title="3.3 布尔值"></a>3.3 布尔值</h4><p>undefined、null、0、-0、NaN、false、”” 会转化为 false,其他值转化为 true</p>
@@ -314,68 +314,68 @@ console.log(result); //one two three
 <h3 id="第-6-章-对象"><a href="#第-6-章-对象" class="headerlink" title="第 6 章 对象"></a>第 6 章 对象</h3><h4 id="6-1-创建对象"><a href="#6-1-创建对象" class="headerlink" title="6.1 创建对象"></a>6.1 创建对象</h4><p>可通过对象直接量、关键字 New、Object.create()来创建对象</p>
 <h5 id="6-1-3-原型"><a href="#6-1-3-原型" class="headerlink" title="6.1.3 原型"></a>6.1.3 原型</h5><p>Object.prototype 没有原型对象，它不继承任何属性，所有内置构造函数都继承自它</p>
 <h5 id="6-1-4-Object-create"><a href="#6-1-4-Object-create" class="headerlink" title="6.1.4 Object.create()"></a>6.1.4 Object.create()</h5><p>使用 Object.create()创建一个新对象，其中第一个参数是这个对象的原型，第二个参数是可选的属性描述符<br>var o &#x3D; Object.create(null); &#x2F;&#x2F;o 是一个没有原型的对象<br>以下是 IE8 兼容方法</p>
-<pre><code class="js">if (typeof Object.create != &quot;function&quot;) &#123;
-  Object.create = (function () &#123;
-    function Temp() &#123;&#125;
-    var hasOwn = Object.prototype.hasOwnProperty;
-    return function (O) &#123;
-      if (typeof O != &quot;object&quot;) &#123;
-        throw TypeError(&quot;Object prototype may only be an Object or null&quot;);
+<pre><code class="hljs js"><span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> <span class="hljs-title class_">Object</span>.<span class="hljs-property">create</span> != <span class="hljs-string">&quot;function&quot;</span>) &#123;
+  <span class="hljs-title class_">Object</span>.<span class="hljs-property">create</span> = (<span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) &#123;
+    <span class="hljs-keyword">function</span> <span class="hljs-title function_">Temp</span>(<span class="hljs-params"></span>) &#123;&#125;
+    <span class="hljs-keyword">var</span> hasOwn = <span class="hljs-title class_">Object</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">hasOwnProperty</span>;
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">function</span> (<span class="hljs-params">O</span>) &#123;
+      <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> O != <span class="hljs-string">&quot;object&quot;</span>) &#123;
+        <span class="hljs-keyword">throw</span> <span class="hljs-title class_">TypeError</span>(<span class="hljs-string">&quot;Object prototype may only be an Object or null&quot;</span>);
       &#125;
-      Temp.prototype = O;
-      var obj = new Temp();
-      Temp.prototype = null;
+      <span class="hljs-title class_">Temp</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span> = O;
+      <span class="hljs-keyword">var</span> obj = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Temp</span>();
+      <span class="hljs-title class_">Temp</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span> = <span class="hljs-literal">null</span>;
 
-      if (arguments.length &gt; 1) &#123;
-        var Properties = Object(arguments[1]);
-        for (var prop in Properties) &#123;
-          if (hasOwn.call(Properties, prop)) &#123;
-            obj[prop] = Properties[prop];
+      <span class="hljs-keyword">if</span> (<span class="hljs-variable language_">arguments</span>.<span class="hljs-property">length</span> &gt; <span class="hljs-number">1</span>) &#123;
+        <span class="hljs-keyword">var</span> <span class="hljs-title class_">Properties</span> = <span class="hljs-title class_">Object</span>(<span class="hljs-variable language_">arguments</span>[<span class="hljs-number">1</span>]);
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> prop <span class="hljs-keyword">in</span> <span class="hljs-title class_">Properties</span>) &#123;
+          <span class="hljs-keyword">if</span> (hasOwn.<span class="hljs-title function_">call</span>(<span class="hljs-title class_">Properties</span>, prop)) &#123;
+            obj[prop] = <span class="hljs-title class_">Properties</span>[prop];
           &#125;
         &#125;
       &#125;
-      return obj;
+      <span class="hljs-keyword">return</span> obj;
     &#125;;
   &#125;)();
-&#125;
-</code></pre>
+&#125;</code></pre>
+
 <h4 id="6-2-属性的查询和设置"><a href="#6-2-属性的查询和设置" class="headerlink" title="6.2 属性的查询和设置"></a>6.2 属性的查询和设置</h4><p>当使用方括号([])运算符来获取属性的值时，方括号内的表达式必须返回字符串，或者是一个可以返回字符串的值</p>
 <h4 id="6-3-删除属性"><a href="#6-3-删除属性" class="headerlink" title="6.3 删除属性"></a>6.3 删除属性</h4><p>delete 只是断开属性和宿主对象的联系，而不去操作属性中的属性</p>
-<pre><code class="js">var a = &#123; p: &#123; x: 1 &#125; &#125;;
-var b = a.p;
-delete a.p;
-console.log(b.x);
-</code></pre>
+<pre><code class="hljs js"><span class="hljs-keyword">var</span> a = &#123; <span class="hljs-attr">p</span>: &#123; <span class="hljs-attr">x</span>: <span class="hljs-number">1</span> &#125; &#125;;
+<span class="hljs-keyword">var</span> b = a.<span class="hljs-property">p</span>;
+<span class="hljs-keyword">delete</span> a.<span class="hljs-property">p</span>;
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(b.<span class="hljs-property">x</span>);</code></pre>
+
 <p>delete 运算符只能删除自有属性，不能删除继承属性。<br>delete 表达式删除成功后，返回 true</p>
 <h4 id="6-4-检测属性"><a href="#6-4-检测属性" class="headerlink" title="6.4 检测属性"></a>6.4 检测属性</h4><p>判断某个属性是否存在于某个对象中，可以通过 in 运算符、 hasOwnProperty()、propertyIsEnumerable()方法来判断<br>propertyIsEnumerable()只有检测到是自有属性，且这个属性的可枚举性为 true 时才返回 true</p>
-<pre><code class="js">var o = Object.create(&#123; y: 2 &#125;);
-o.x = 1;
-o.propertyIsEnumerable(&quot;x&quot;); //true;
-o.propertyIsEnumerable(&quot;y&quot;); //false;
-</code></pre>
+<pre><code class="hljs js"><span class="hljs-keyword">var</span> o = <span class="hljs-title class_">Object</span>.<span class="hljs-title function_">create</span>(&#123; <span class="hljs-attr">y</span>: <span class="hljs-number">2</span> &#125;);
+o.<span class="hljs-property">x</span> = <span class="hljs-number">1</span>;
+o.<span class="hljs-title function_">propertyIsEnumerable</span>(<span class="hljs-string">&quot;x&quot;</span>); <span class="hljs-comment">//true;</span>
+o.<span class="hljs-title function_">propertyIsEnumerable</span>(<span class="hljs-string">&quot;y&quot;</span>); <span class="hljs-comment">//false;</span></code></pre>
+
 <h4 id="6-5-枚举属性"><a href="#6-5-枚举属性" class="headerlink" title="6.5 枚举属性"></a>6.5 枚举属性</h4><p>对象继承的内置方法不可枚举，但在代码中给对象添加的属性都是可枚举的（除非将他们转换为不可枚举的）<br>ECMAScript5 定义了两个用以枚举属性名称的函数：</p>
 <ul>
 <li>Object.keys(),返回一个由对象中可枚举的自有属性的名称组成的数组</li>
 <li>Object.getOwnPropertyNames(),只返回对象的所有自有属性的名称</li>
 </ul>
-<pre><code class="js">var arr = [&quot;a&quot;, &quot;b&quot;, &quot;c&quot;];
-Object.keys(arr); //[&quot;0&quot;, &quot;1&quot;, &quot;2&quot;]
-Object.getOwnPropertyNames(arr); // [&quot;0&quot;, &quot;1&quot;, &quot;2&quot;, &quot;length&quot;]
-</code></pre>
+<pre><code class="hljs js"><span class="hljs-keyword">var</span> arr = [<span class="hljs-string">&quot;a&quot;</span>, <span class="hljs-string">&quot;b&quot;</span>, <span class="hljs-string">&quot;c&quot;</span>];
+<span class="hljs-title class_">Object</span>.<span class="hljs-title function_">keys</span>(arr); <span class="hljs-comment">//[&quot;0&quot;, &quot;1&quot;, &quot;2&quot;]</span>
+<span class="hljs-title class_">Object</span>.<span class="hljs-title function_">getOwnPropertyNames</span>(arr); <span class="hljs-comment">// [&quot;0&quot;, &quot;1&quot;, &quot;2&quot;, &quot;length&quot;]</span></code></pre>
+
 <h4 id="6-8-对象的三个属性"><a href="#6-8-对象的三个属性" class="headerlink" title="6.8 对象的三个属性"></a>6.8 对象的三个属性</h4><h4 id="6-8-1-原型属性-proto"><a href="#6-8-1-原型属性-proto" class="headerlink" title="6.8.1 原型属性 proto"></a>6.8.1 原型属性 <strong>proto</strong></h4><p>通过对象直接量创建的对象使用 Object.prototype 作为他们的原型<br>通过 new 创建的对象使用构造函数的 prototype 属性作为他们的原型<br>通过 Object.create()创建的对象使用第一个参数作为他们的原型<br>将对象作为参数传入 Object.getPrototypeOf()可以查询它的原型</p>
-<pre><code class="js">var a = &#123; x: 1 &#125;;
-var b = Object.create(a);
-Object.getPrototypeOf(b) === a; //true
-</code></pre>
+<pre><code class="hljs js"><span class="hljs-keyword">var</span> a = &#123; <span class="hljs-attr">x</span>: <span class="hljs-number">1</span> &#125;;
+<span class="hljs-keyword">var</span> b = <span class="hljs-title class_">Object</span>.<span class="hljs-title function_">create</span>(a);
+<span class="hljs-title class_">Object</span>.<span class="hljs-title function_">getPrototypeOf</span>(b) === a; <span class="hljs-comment">//true</span></code></pre>
+
 <p>想要检测一个对象是否是另一个对象的原型可以使用 isPrototypeOf()方法</p>
-<pre><code class="js">var a = &#123; x: 1 &#125;;
-var b = Object.create(a);
-a.isPrototypeOf(b); //true
-</code></pre>
+<pre><code class="hljs js"><span class="hljs-keyword">var</span> a = &#123; <span class="hljs-attr">x</span>: <span class="hljs-number">1</span> &#125;;
+<span class="hljs-keyword">var</span> b = <span class="hljs-title class_">Object</span>.<span class="hljs-title function_">create</span>(a);
+a.<span class="hljs-title function_">isPrototypeOf</span>(b); <span class="hljs-comment">//true</span></code></pre>
+
 <h4 id="6-8-2-类属性-object-class"><a href="#6-8-2-类属性-object-class" class="headerlink" title="6.8.2 类属性 [object class]"></a>6.8.2 类属性 [object class]</h4><p>对象的类属性是一个字符串，用以表示对象的类型信息</p>
-<pre><code class="js">var a = &#123;&#125;;
-Object.prototype.toString.call(a).slice(8, -1); //Object
-</code></pre>
+<pre><code class="hljs js"><span class="hljs-keyword">var</span> a = &#123;&#125;;
+<span class="hljs-title class_">Object</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">toString</span>.<span class="hljs-title function_">call</span>(a).<span class="hljs-title function_">slice</span>(<span class="hljs-number">8</span>, -<span class="hljs-number">1</span>); <span class="hljs-comment">//Object</span></code></pre>
+
 <h4 id="6-8-3-可扩展性"><a href="#6-8-3-可扩展性" class="headerlink" title="6.8.3 可扩展性"></a>6.8.3 可扩展性</h4><p>Object.preventExtensions() 将对象转为不可扩展的<br>Object.seal() 将对象转为不可扩展的,且将对象的所有自有属性设置为不可配置<br>Object.freeze() 将对象转为不可扩展的,且将对象的所有自有属性设置为不可配置,将自有的所有数据属性设置为只读</p>
 <h3 id="第-7-章-数组"><a href="#第-7-章-数组" class="headerlink" title="第 7 章 数组"></a>第 7 章 数组</h3><h4 id="7-5-数组元素的添加和删除"><a href="#7-5-数组元素的添加和删除" class="headerlink" title="7.5 数组元素的添加和删除"></a>7.5 数组元素的添加和删除</h4><p>用 delete 删除数组元素与为其赋 undefined 值是类似的，注意：使用 delete 删除数组元素的时候不会修改数组的 length 属性，也不会将元素从高索引处移下来填充已删除属性留下来的空白</p>
 <h4 id="7-8-数组方法"><a href="#7-8-数组方法" class="headerlink" title="7.8 数组方法"></a>7.8 数组方法</h4><h5 id="7-8-3-sort"><a href="#7-8-3-sort" class="headerlink" title="7.8.3 sort()"></a>7.8.3 sort()</h5><p>为了按照其他方式而非字符顺序进行数组排序，必须给 sort()方法传递一个比较函数，该函数决定了它的两个参数在排好序的数组中的先后顺序。<br>假设第一个参数在前，比较函数应该返回一个小于 0 的数，第一个参数在后，比较函数返回一个大于 0 的数</p>
@@ -385,43 +385,43 @@ Object.prototype.toString.call(a).slice(8, -1); //Object
 <li>forEach()<br>该方法遍历数组，为每个元素调用指定的函数</li>
 <li>map()<br>该方法调用数组的每个元素传递给指定的函数，并返回一个数组。</li>
 </ol>
-<pre><code class="js">var a = [1, 2, 3];
-var b = a.map(function (x) &#123;
-  return x * x;
-&#125;); //b = [1,4,9]
-</code></pre>
+<pre><code class="hljs js"><span class="hljs-keyword">var</span> a = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>];
+<span class="hljs-keyword">var</span> b = a.<span class="hljs-title function_">map</span>(<span class="hljs-keyword">function</span> (<span class="hljs-params">x</span>) &#123;
+  <span class="hljs-keyword">return</span> x * x;
+&#125;); <span class="hljs-comment">//b = [1,4,9]</span></code></pre>
+
 <ol start="3">
 <li>filter()<br>该方法返回的数组元素是调用的数组的一个子集，传递的函数是用来逻辑判定的</li>
 </ol>
-<pre><code class="js">var a = [1, 2, 3, 4, 5];
-samllValue = a.filter(function (x) &#123;
-  return x &lt; 3;
-&#125;); //[1,2]
-</code></pre>
+<pre><code class="hljs js"><span class="hljs-keyword">var</span> a = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>];
+samllValue = a.<span class="hljs-title function_">filter</span>(<span class="hljs-keyword">function</span> (<span class="hljs-params">x</span>) &#123;
+  <span class="hljs-keyword">return</span> x &lt; <span class="hljs-number">3</span>;
+&#125;); <span class="hljs-comment">//[1,2]</span></code></pre>
+
 <ol start="4">
 <li>every()和 some()<br>every()当且仅当针对数组中所有元素调用判定函数都返回 true，它才返回 true。<br>some()当针对数组中所有元素调用判定函数都返回 false，它才返回 false</li>
 </ol>
-<pre><code class="js">var a = [1, 2, 3, 4, 5];
-a.every(function (x) &#123;
-  return x &lt; 0;
-&#125;); //true
-a.every(function (x) &#123;
-  return x % 2 === 0;
-&#125;); //false
-a.some(function (x) &#123;
-  return x % 2 === 0;
-&#125;); //true
-a.some(isNaN); //false
-</code></pre>
+<pre><code class="hljs js"><span class="hljs-keyword">var</span> a = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>];
+a.<span class="hljs-title function_">every</span>(<span class="hljs-keyword">function</span> (<span class="hljs-params">x</span>) &#123;
+  <span class="hljs-keyword">return</span> x &lt; <span class="hljs-number">0</span>;
+&#125;); <span class="hljs-comment">//true</span>
+a.<span class="hljs-title function_">every</span>(<span class="hljs-keyword">function</span> (<span class="hljs-params">x</span>) &#123;
+  <span class="hljs-keyword">return</span> x % <span class="hljs-number">2</span> === <span class="hljs-number">0</span>;
+&#125;); <span class="hljs-comment">//false</span>
+a.<span class="hljs-title function_">some</span>(<span class="hljs-keyword">function</span> (<span class="hljs-params">x</span>) &#123;
+  <span class="hljs-keyword">return</span> x % <span class="hljs-number">2</span> === <span class="hljs-number">0</span>;
+&#125;); <span class="hljs-comment">//true</span>
+a.<span class="hljs-title function_">some</span>(<span class="hljs-built_in">isNaN</span>); <span class="hljs-comment">//false</span></code></pre>
+
 <p>一旦 every()和 some()确认返回什么值他们就会停止遍历数组元素 5. reduce()和 reduceRight()<br>使用指定的函数将数组元素进行组合，生成单个值</p>
-<pre><code class="js">var a = [1, 2, 3, 4, 5];
-var sum = a.reduce(function (x, y) &#123;
-  return x + y;
-&#125;, 0); //15
-var max = a.reduce(function (x, y) &#123;
-  return x &gt; y ? x : y;
-&#125;); //5
-</code></pre>
+<pre><code class="hljs js"><span class="hljs-keyword">var</span> a = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>];
+<span class="hljs-keyword">var</span> sum = a.<span class="hljs-title function_">reduce</span>(<span class="hljs-keyword">function</span> (<span class="hljs-params">x, y</span>) &#123;
+  <span class="hljs-keyword">return</span> x + y;
+&#125;, <span class="hljs-number">0</span>); <span class="hljs-comment">//15</span>
+<span class="hljs-keyword">var</span> max = a.<span class="hljs-title function_">reduce</span>(<span class="hljs-keyword">function</span> (<span class="hljs-params">x, y</span>) &#123;
+  <span class="hljs-keyword">return</span> x &gt; y ? x : y;
+&#125;); <span class="hljs-comment">//5</span></code></pre>
+
 <p>reduce()第一个参数执行化简操作的函数，该函数的 x 参数是数组的元素，y 参数是上一次操作的结果值，第二个参数是一个传递给函数的初始值，当没有初始值时默认为数组第一个元素<br>reduceRight()按照数组的索引从高到低处理数组</p>
 <h4 id="7-11-类数组对象"><a href="#7-11-类数组对象" class="headerlink" title="7.11 类数组对象"></a>7.11 类数组对象</h4><p>javascript 数组的一些特性是其他对象所没有的：</p>
 <ul>
@@ -435,122 +435,122 @@ var max = a.reduce(function (x, y) &#123;
 <h5 id="8-2-3-构造函数调用"><a href="#8-2-3-构造函数调用" class="headerlink" title="8.2.3 构造函数调用"></a>8.2.3 构造函数调用</h5><p>构造函数调用会创建一个新的对象，这个对象继承自构造函数的 prototype 属性，构造函数试图初始化这个新创建的对象，并将这个对象用作其调用上下文，因此构造函数可以使用 this 来引用这个新创建的对象</p>
 <h5 id="8-2-4-间接调用"><a href="#8-2-4-间接调用" class="headerlink" title="8.2.4 间接调用"></a>8.2.4 间接调用</h5><p>call()和 apply()可以用来间接的调用函数，两个方法都允许显示指定调用所需的 this 的值，也就是说任何函数可以作为任何对象的方法来调用</p>
 <h4 id="8-3-函数的实参和形参"><a href="#8-3-函数的实参和形参" class="headerlink" title="8.3 函数的实参和形参"></a>8.3 函数的实参和形参</h4><h5 id="8-3-2-可变长的实参列表：实参对象"><a href="#8-3-2-可变长的实参列表：实参对象" class="headerlink" title="8.3.2 可变长的实参列表：实参对象"></a>8.3.2 可变长的实参列表：实参对象</h5><p>在函数体内，标识符 arguments 是指向实参对象的引用，实参对象是一个类数组对象</p>
-<pre><code class="js">function f(x) &#123;
-  console.log(x);
-  arguments[0] = null; //修改实参数组的元素同样会修改x的值
-  console.log(x); //null
-&#125;
-</code></pre>
+<pre><code class="hljs js"><span class="hljs-keyword">function</span> <span class="hljs-title function_">f</span>(<span class="hljs-params">x</span>) &#123;
+  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(x);
+  <span class="hljs-variable language_">arguments</span>[<span class="hljs-number">0</span>] = <span class="hljs-literal">null</span>; <span class="hljs-comment">//修改实参数组的元素同样会修改x的值</span>
+  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(x); <span class="hljs-comment">//null</span>
+&#125;</code></pre>
+
 <p>在 ECMAScript5 中移除了 arguments 属性</p>
 <h4 id="8-4-自定义函数属性"><a href="#8-4-自定义函数属性" class="headerlink" title="8.4 自定义函数属性"></a>8.4 自定义函数属性</h4><p>当函数需要一个静态变量在调用时保持某个值不变，最方便的就是给函数定义属性，而不是定义全局变量</p>
 <h4 id="8-6-闭包"><a href="#8-6-闭包" class="headerlink" title="8.6 闭包"></a>8.6 闭包</h4><p>JavaScript 采用词法作用域，这个作用域是在函数定义时决定的。</p>
-<pre><code class="js">var scope = &quot;globlescope&quot;;
-function checkscope() &#123;
-  var scope = &quot;localscope&quot;;
-  function f() &#123;
-    return scope;
+<pre><code class="hljs js"><span class="hljs-keyword">var</span> scope = <span class="hljs-string">&quot;globlescope&quot;</span>;
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">checkscope</span>(<span class="hljs-params"></span>) &#123;
+  <span class="hljs-keyword">var</span> scope = <span class="hljs-string">&quot;localscope&quot;</span>;
+  <span class="hljs-keyword">function</span> <span class="hljs-title function_">f</span>(<span class="hljs-params"></span>) &#123;
+    <span class="hljs-keyword">return</span> scope;
   &#125;
-  return f;
+  <span class="hljs-keyword">return</span> f;
 &#125;
-checkscope()(); //localscope
-</code></pre>
+<span class="hljs-title function_">checkscope</span>()(); <span class="hljs-comment">//localscope</span></code></pre>
+
 <h4 id="8-7-函数的属性方法和构造函数"><a href="#8-7-函数的属性方法和构造函数" class="headerlink" title="8.7 函数的属性方法和构造函数"></a>8.7 函数的属性方法和构造函数</h4><h5 id="8-7-3-call-和-apply"><a href="#8-7-3-call-和-apply" class="headerlink" title="8.7.3 call()和 apply()"></a>8.7.3 call()和 apply()</h5><p>要想以对象 o 的方法来调用 f 函数，可以这样使用：</p>
-<pre><code class="js">f.call(o);
-f.apply(o);
-</code></pre>
+<pre><code class="hljs js">f.<span class="hljs-title function_">call</span>(o);
+f.<span class="hljs-title function_">apply</span>(o);</code></pre>
+
 <p>call()和 apply()的第一个实参是要调用函数的母对象，它是调用上下文，在函数内通过 this 来获得它的引用<br>两者区别：<br>对 call()来说，第二个参数是要传入待调用函数的值，所传入参数一一列出<br>apply()第二个参数可以以参数数组(既可以是类数组也可以是真实数组)的形式传入</p>
 <h5 id="8-7-4-bind"><a href="#8-7-4-bind" class="headerlink" title="8.7.4 bind()"></a>8.7.4 bind()</h5><p>当在函数 f()上调用 bind()方法并传入一个对象 o 作为参数，这个方法将返回一个新函数。新函数将会把原始函数 f()当做 o 的方法来调用，传入新函数的任何实参都将传入原始函数</p>
-<pre><code class="javascript">function f(y) &#123;
-  return this.x + y;
+<pre><code class="hljs javascript"><span class="hljs-keyword">function</span> <span class="hljs-title function_">f</span>(<span class="hljs-params">y</span>) &#123;
+  <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">x</span> + y;
 &#125;
-var o = &#123; x: 1 &#125;;
-var g = f.bind(o);
-g(2); //3
-</code></pre>
+<span class="hljs-keyword">var</span> o = &#123; <span class="hljs-attr">x</span>: <span class="hljs-number">1</span> &#125;;
+<span class="hljs-keyword">var</span> g = f.<span class="hljs-title function_">bind</span>(o);
+<span class="hljs-title function_">g</span>(<span class="hljs-number">2</span>); <span class="hljs-comment">//3</span></code></pre>
+
 <p>ECMAScript5 中 bind()方法不仅仅是将函数绑定至一个对象，传入 bind()的实参也会绑定至 this。这种编程技术被称为“柯里化”</p>
-<pre><code class="js">var sum = function (x, y) &#123;
-  return x + y;
+<pre><code class="hljs js"><span class="hljs-keyword">var</span> sum = <span class="hljs-keyword">function</span> (<span class="hljs-params">x, y</span>) &#123;
+  <span class="hljs-keyword">return</span> x + y;
 &#125;;
-//创建一个类似sum的新函数，但this的值绑定到null
-//并且第一个参数绑定1，这个新函数期望只传入一个实参
-var succ = sum.bind(null, 1);
-succ(2); //3
-</code></pre>
+<span class="hljs-comment">//创建一个类似sum的新函数，但this的值绑定到null</span>
+<span class="hljs-comment">//并且第一个参数绑定1，这个新函数期望只传入一个实参</span>
+<span class="hljs-keyword">var</span> succ = sum.<span class="hljs-title function_">bind</span>(<span class="hljs-literal">null</span>, <span class="hljs-number">1</span>);
+<span class="hljs-title function_">succ</span>(<span class="hljs-number">2</span>); <span class="hljs-comment">//3</span></code></pre>
+
 <h5 id="8-7-6-Function-构造函数"><a href="#8-7-6-Function-构造函数" class="headerlink" title="8.7.6 Function()构造函数"></a>8.7.6 Function()构造函数</h5><p>Function()构造函数所创建的函数并不使用词法作用域，函数体代码的编译总会在顶层函数执行，相当于全函数中的 eval()</p>
-<pre><code class="js">var scope = &quot;global&quot;;
-function constructFunction() &#123;
-  var scope = &quot;local&quot;;
-  return new Function(&quot;return scope&quot;);
+<pre><code class="hljs js"><span class="hljs-keyword">var</span> scope = <span class="hljs-string">&quot;global&quot;</span>;
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">constructFunction</span>(<span class="hljs-params"></span>) &#123;
+  <span class="hljs-keyword">var</span> scope = <span class="hljs-string">&quot;local&quot;</span>;
+  <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Function</span>(<span class="hljs-string">&quot;return scope&quot;</span>);
 &#125;
-constructFunction()(); //global
-</code></pre>
+<span class="hljs-title function_">constructFunction</span>()(); <span class="hljs-comment">//global</span></code></pre>
+
 <h3 id="第-9-章-类和模块"><a href="#第-9-章-类和模块" class="headerlink" title="第 9 章 类和模块"></a>第 9 章 类和模块</h3><h4 id="9-2-类和构造函数"><a href="#9-2-类和构造函数" class="headerlink" title="9.2 类和构造函数"></a>9.2 类和构造函数</h4><h5 id="9-2-1-构造函数和类的标识符"><a href="#9-2-1-构造函数和类的标识符" class="headerlink" title="9.2.1 构造函数和类的标识符"></a>9.2.1 构造函数和类的标识符</h5><p>a instanceof b 本质是检测 a 对象是否继承自 b.prototype</p>
-<pre><code class="js">a.__proto__ === b.prototype; // true
-</code></pre>
+<pre><code class="hljs js">a.<span class="hljs-property">__proto__</span> === b.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>; <span class="hljs-comment">// true</span></code></pre>
+
 <h4 id="9-5-类和类型"><a href="#9-5-类和类型" class="headerlink" title="9.5 类和类型"></a>9.5 类和类型</h4><p>几种用以检测对象的类的技术：</p>
-<h5 id="9-5-1-instanceof-运算符"><a href="#9-5-1-instanceof-运算符" class="headerlink" title="9.5.1 instanceof 运算符"></a>9.5.1 instanceof 运算符</h5><pre><code class="js">function Range(from, to) &#123;
-  this.from = from;
-  this.to = to;
+<h5 id="9-5-1-instanceof-运算符"><a href="#9-5-1-instanceof-运算符" class="headerlink" title="9.5.1 instanceof 运算符"></a>9.5.1 instanceof 运算符</h5><pre><code class="hljs js"><span class="hljs-keyword">function</span> <span class="hljs-title function_">Range</span>(<span class="hljs-params"><span class="hljs-keyword">from</span>, to</span>) &#123;
+  <span class="hljs-variable language_">this</span>.<span class="hljs-property">from</span> = <span class="hljs-keyword">from</span>;
+  <span class="hljs-variable language_">this</span>.<span class="hljs-property">to</span> = to;
 &#125;
 
-Range.prototype = &#123;
-  constructor: Range,
-  includes: function (x) &#123;
-    return this.from &lt;= x &amp;&amp; x &lt;= this.to;
+<span class="hljs-title class_">Range</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span> = &#123;
+  <span class="hljs-attr">constructor</span>: <span class="hljs-title class_">Range</span>,
+  <span class="hljs-attr">includes</span>: <span class="hljs-keyword">function</span> (<span class="hljs-params">x</span>) &#123;
+    <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">from</span> &lt;= x &amp;&amp; x &lt;= <span class="hljs-variable language_">this</span>.<span class="hljs-property">to</span>;
   &#125;,
-  foreach: function (f) &#123;
-    for (var x = Math.ceil(this.from); x &lt;= this.to; x++) f(x);
+  <span class="hljs-attr">foreach</span>: <span class="hljs-keyword">function</span> (<span class="hljs-params">f</span>) &#123;
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> x = <span class="hljs-title class_">Math</span>.<span class="hljs-title function_">ceil</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">from</span>); x &lt;= <span class="hljs-variable language_">this</span>.<span class="hljs-property">to</span>; x++) <span class="hljs-title function_">f</span>(x);
   &#125;,
-  toString: function () &#123;
-    return &quot;(&quot; + this.from + &quot;...&quot; + this.to + &quot;)&quot;;
+  <span class="hljs-attr">toString</span>: <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) &#123;
+    <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;(&quot;</span> + <span class="hljs-variable language_">this</span>.<span class="hljs-property">from</span> + <span class="hljs-string">&quot;...&quot;</span> + <span class="hljs-variable language_">this</span>.<span class="hljs-property">to</span> + <span class="hljs-string">&quot;)&quot;</span>;
   &#125;,
 &#125;;
-var r = new Range(1, 3);
-r instanceof Range; //true
-Range.prototype.isPrototypeOf(r); //true
-</code></pre>
-<h5 id="9-5-2-constructor-属性"><a href="#9-5-2-constructor-属性" class="headerlink" title="9.5.2 constructor 属性"></a>9.5.2 constructor 属性</h5><pre><code class="js">r.constructor == Range;
-</code></pre>
-<h5 id="9-5-3-构造函数的名称"><a href="#9-5-3-构造函数的名称" class="headerlink" title="9.5.3 构造函数的名称"></a>9.5.3 构造函数的名称</h5><h5 id="9-5-4-鸭式辩型思想"><a href="#9-5-4-鸭式辩型思想" class="headerlink" title="9.5.4 鸭式辩型思想"></a>9.5.4 鸭式辩型思想</h5><pre><code class="js">function quacks(o /*, ... */) &#123;
-  for (var i = 1; i &lt; arguments.length; i++) &#123;
-    // for each argument after o
-    var arg = arguments[i];
-    switch (
-      typeof arg // If arg is a:
+<span class="hljs-keyword">var</span> r = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Range</span>(<span class="hljs-number">1</span>, <span class="hljs-number">3</span>);
+r <span class="hljs-keyword">instanceof</span> <span class="hljs-title class_">Range</span>; <span class="hljs-comment">//true</span>
+<span class="hljs-title class_">Range</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-title function_">isPrototypeOf</span>(r); <span class="hljs-comment">//true</span></code></pre>
+
+<h5 id="9-5-2-constructor-属性"><a href="#9-5-2-constructor-属性" class="headerlink" title="9.5.2 constructor 属性"></a>9.5.2 constructor 属性</h5><pre><code class="hljs js">r.<span class="hljs-property">constructor</span> == <span class="hljs-title class_">Range</span>;</code></pre>
+
+<h5 id="9-5-3-构造函数的名称"><a href="#9-5-3-构造函数的名称" class="headerlink" title="9.5.3 构造函数的名称"></a>9.5.3 构造函数的名称</h5><h5 id="9-5-4-鸭式辩型思想"><a href="#9-5-4-鸭式辩型思想" class="headerlink" title="9.5.4 鸭式辩型思想"></a>9.5.4 鸭式辩型思想</h5><pre><code class="hljs js"><span class="hljs-keyword">function</span> <span class="hljs-title function_">quacks</span>(<span class="hljs-params">o <span class="hljs-comment">/*, ... */</span></span>) &#123;
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">1</span>; i &lt; <span class="hljs-variable language_">arguments</span>.<span class="hljs-property">length</span>; i++) &#123;
+    <span class="hljs-comment">// for each argument after o</span>
+    <span class="hljs-keyword">var</span> arg = <span class="hljs-variable language_">arguments</span>[i];
+    <span class="hljs-keyword">switch</span> (
+      <span class="hljs-keyword">typeof</span> arg <span class="hljs-comment">// If arg is a:</span>
     ) &#123;
-      case &quot;string&quot;: // string: check for a method with that name
-        if (typeof o[arg] !== &quot;function&quot;) return false;
-        continue;
-      case &quot;function&quot;: // function: use the prototype object instead
-        // If the argument is a function, we use its prototype object
-        arg = arg.prototype;
-      // fall through to the next case
-      case &quot;object&quot;: // object: check for matching methods
-        for (var m in arg) &#123;
-          // For each property of the object
-          if (typeof arg[m] !== &quot;function&quot;) continue; // skip non-methods
-          if (typeof o[m] !== &quot;function&quot;) return false;
+      <span class="hljs-keyword">case</span> <span class="hljs-string">&quot;string&quot;</span>: <span class="hljs-comment">// string: check for a method with that name</span>
+        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> o[arg] !== <span class="hljs-string">&quot;function&quot;</span>) <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+        <span class="hljs-keyword">continue</span>;
+      <span class="hljs-keyword">case</span> <span class="hljs-string">&quot;function&quot;</span>: <span class="hljs-comment">// function: use the prototype object instead</span>
+        <span class="hljs-comment">// If the argument is a function, we use its prototype object</span>
+        arg = arg.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>;
+      <span class="hljs-comment">// fall through to the next case</span>
+      <span class="hljs-keyword">case</span> <span class="hljs-string">&quot;object&quot;</span>: <span class="hljs-comment">// object: check for matching methods</span>
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> m <span class="hljs-keyword">in</span> arg) &#123;
+          <span class="hljs-comment">// For each property of the object</span>
+          <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> arg[m] !== <span class="hljs-string">&quot;function&quot;</span>) <span class="hljs-keyword">continue</span>; <span class="hljs-comment">// skip non-methods</span>
+          <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> o[m] !== <span class="hljs-string">&quot;function&quot;</span>) <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
         &#125;
     &#125;
   &#125;
 
-  // If we&#39;re still here, then o implements everything
-  return true;
-&#125;
-</code></pre>
-<h4 id="9-8-ES5-中的类"><a href="#9-8-ES5-中的类" class="headerlink" title="9.8 ES5 中的类"></a>9.8 ES5 中的类</h4><h5 id="9-8-1-让属性不可枚举"><a href="#9-8-1-让属性不可枚举" class="headerlink" title="9.8.1 让属性不可枚举"></a>9.8.1 让属性不可枚举</h5><pre><code class="js">Object.definedProperty(Object.prototype, &quot;objectId&quot;, &#123;
-  get: idGetter,
-  enumerable: false,
-  configurable: false,
-&#125;);
-</code></pre>
+  <span class="hljs-comment">// If we&#x27;re still here, then o implements everything</span>
+  <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+&#125;</code></pre>
+
+<h4 id="9-8-ES5-中的类"><a href="#9-8-ES5-中的类" class="headerlink" title="9.8 ES5 中的类"></a>9.8 ES5 中的类</h4><h5 id="9-8-1-让属性不可枚举"><a href="#9-8-1-让属性不可枚举" class="headerlink" title="9.8.1 让属性不可枚举"></a>9.8.1 让属性不可枚举</h5><pre><code class="hljs js"><span class="hljs-title class_">Object</span>.<span class="hljs-title function_">definedProperty</span>(<span class="hljs-title class_">Object</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>, <span class="hljs-string">&quot;objectId&quot;</span>, &#123;
+  <span class="hljs-attr">get</span>: idGetter,
+  <span class="hljs-attr">enumerable</span>: <span class="hljs-literal">false</span>,
+  <span class="hljs-attr">configurable</span>: <span class="hljs-literal">false</span>,
+&#125;);</code></pre>
+
 <h5 id="9-8-4-防止类的扩展"><a href="#9-8-4-防止类的扩展" class="headerlink" title="9.8.4 防止类的扩展"></a>9.8.4 防止类的扩展</h5><p>Object.preventExtensions()将对象设置为不可扩展<br>Object.seal()阻止用户给对象添加新属性<br>Object.freeze()将所有属性设置为只读和不可配置</p>
 <h3 id="第-10-章-正则表达式的模式匹配"><a href="#第-10-章-正则表达式的模式匹配" class="headerlink" title="第 10 章 正则表达式的模式匹配"></a>第 10 章 正则表达式的模式匹配</h3><h4 id="10-1-正则表达式的定义"><a href="#10-1-正则表达式的定义" class="headerlink" title="10.1 正则表达式的定义"></a>10.1 正则表达式的定义</h4><p>ECMAScript5 规定一个正则表达式直接量会在执行到它时转化为一个正则对象，同一段代码每次运算都返回新对象</p>
-<h5 id="10-1-1-直接量字符"><a href="#10-1-1-直接量字符" class="headerlink" title="10.1.1 直接量字符"></a>10.1.1 直接量字符</h5><pre><code class="javascript">^ $ . * + ? = ! : | \ / () [] &#123;&#125;
-</code></pre>
+<h5 id="10-1-1-直接量字符"><a href="#10-1-1-直接量字符" class="headerlink" title="10.1.1 直接量字符"></a>10.1.1 直接量字符</h5><pre><code class="hljs javascript">^ $ . * + ? = ! : | \ / () [] &#123;&#125;</code></pre>
+
 <p>在正则表达式中使用这些字符的直接量进行匹配，则必须使用前缀\</p>
 <h5 id="10-1-2-字符类"><a href="#10-1-2-字符类" class="headerlink" title="10.1.2 字符类"></a>10.1.2 字符类</h5><p>将直接量字符单独放进方括号内就组成了字符类，一个字符类可以匹配它所包含的任意字符</p>
-<pre><code>/[abc]/        匹配a,b,c中任意一个
+<pre><code class="hljs plaintext">/[abc]/        匹配a,b,c中任意一个
 /[^abc]/       匹配abc之外的所有字符
 /[a-zA-Z0-9]/  匹配拉丁字母表中任何字母和数字
 /[...]/        匹配方括号内任意字符
@@ -561,70 +561,70 @@ Range.prototype.isPrototypeOf(r); //true
 /\d/           匹配任何ASCII数字   等价于/[0-9]/
 /\D/           匹配除ASCII数字之外的任何字符   等价于/[^0-9]/
 /\s/           匹配任何Unicode空白符
-/\S/           匹配任何非Unicode空白符
-</code></pre>
+/\S/           匹配任何非Unicode空白符</code></pre>
+
 <h5 id="10-3-重复"><a href="#10-3-重复" class="headerlink" title="10.3 重复"></a>10.3 重复</h5><p>正则表达式的重复字符语法</p>
-<pre><code>&#123;n,m&#125;          匹配前一项至少n次，但不能超过m次
+<pre><code class="hljs plaintext">&#123;n,m&#125;          匹配前一项至少n次，但不能超过m次
 &#123;n,&#125;           匹配前一项n次或者更多
 &#123;n&#125;            匹配前一项n次
 ?              匹配前一项0次或1次  等价于&#123;0,1&#125;
 +              匹配前一项1次或多次  等价于&#123;1,&#125;
-*              匹配前一项0次或多次  等价于&#123;0,&#125;
-</code></pre>
+*              匹配前一项0次或多次  等价于&#123;0,&#125;</code></pre>
+
 <p>使用<code>?</code>,<code>*</code>时要注意，由于这些字符串可能匹配 0 个字符，因此他们允许什么都不匹配<br><strong>非贪婪的重复</strong><br>非贪婪的重复即尽可能少的匹配，只须在待匹配的字符后跟随一个问号即可<code>/a+?/</code></p>
 <h5 id="10-1-4-选择分组和引用"><a href="#10-1-4-选择分组和引用" class="headerlink" title="10.1.4 选择分组和引用"></a>10.1.4 选择分组和引用</h5><p>字符”|”用于分隔供选择的字符<br><code>/\d&#123;3&#125;|[a-z]&#123;4&#125;/</code>匹配的是三位数字或者四个小写字母<br><strong>注意</strong>选择项的匹配次序是从左到右，直到发现匹配项，如果左边的选择项匹配，就忽略右边的匹配项<br>正则表达式圆括号的多种用途：</p>
 <ul>
 <li>把单独的项组成子表达式，以便通过”*+？|”进行修饰 &#x2F;java(script)?&#x2F;</li>
 <li>允许在同一正则表达式的后部引用前面的子表达式 \1 引用的是第一个带圆括号的子表达式</li>
 </ul>
-<pre><code>|       匹配的是该表达式左边或右边的子表达式
+<pre><code class="hljs plaintext">|       匹配的是该表达式左边或右边的子表达式
 (...)   将几个项组合为一个单元，这个单元可通过“*”，“+”，“？”和“|”等符号加以修饰，而且可以记住和这个组合相匹配的字符串以供此后的引用使用
 (?...)   只组合，把项组合带一个单元，但不记忆与该组相匹配的字符
-\n      和第n个分组第一次匹配的字符相匹配，组是圆括号中的子表达式
-</code></pre>
-<h5 id="10-1-5-指定匹配位置"><a href="#10-1-5-指定匹配位置" class="headerlink" title="10.1.5 指定匹配位置"></a>10.1.5 指定匹配位置</h5><pre><code>^       匹配字符串的开头，在多行检索中匹配一行的开头
+\n      和第n个分组第一次匹配的字符相匹配，组是圆括号中的子表达式</code></pre>
+
+<h5 id="10-1-5-指定匹配位置"><a href="#10-1-5-指定匹配位置" class="headerlink" title="10.1.5 指定匹配位置"></a>10.1.5 指定匹配位置</h5><pre><code class="hljs plaintext">^       匹配字符串的开头，在多行检索中匹配一行的开头
 $       匹配字符串的结尾，在多行检索中匹配一行的结尾
 \b      匹配一个单词的边界，简言之就是位于字符\w和\W之间的位置，或位于字符\W和字符串的开头或者结尾之间的位置
 \B      匹配非单词边界的位置
 (?=p)   零宽正向先行断言，要求接下来的字符都与p匹配，但不包括匹配p的那些字符
-(?=p)   零宽负向先行断言，要求接下来的字符都不与p匹配
-</code></pre>
+(?=p)   零宽负向先行断言，要求接下来的字符都不与p匹配</code></pre>
+
 <h5 id="10-1-6-修饰符"><a href="#10-1-6-修饰符" class="headerlink" title="10.1.6 修饰符"></a>10.1.6 修饰符</h5><ul>
 <li>i 执行不区分大小写的匹配</li>
 <li>g 执行一个全局匹配</li>
 <li>m 多行匹配模式</li>
 </ul>
 <h4 id="10-2-用于模式匹配的-String-方法"><a href="#10-2-用于模式匹配的-String-方法" class="headerlink" title="10.2 用于模式匹配的 String 方法"></a>10.2 用于模式匹配的 String 方法</h4><p>search() 返回第一个与之匹配的子串的起始位置，如果找不到匹配则返回-1。该方法不支持全局检索</p>
-<pre><code class="javascript">&quot;javascript&quot;.search(/script/i); //4
-</code></pre>
+<pre><code class="hljs javascript"><span class="hljs-string">&quot;javascript&quot;</span>.<span class="hljs-title function_">search</span>(<span class="hljs-regexp">/script/i</span>); <span class="hljs-comment">//4</span></code></pre>
+
 <p>replace() 用于检索与替换操作<br>第一个参数是一个正则表达式，第二个参数是要进行替换的字符串。如正则表达式不带修饰符 g，则只替换所匹配的第一个子串</p>
-<pre><code class="javascript">var text = &quot;javascript is a good language&quot;;
-text.replace(/javascript/gi, &quot;JavaScript&quot;); //&quot;JavaScript is a good language&quot;
-var quote = /&quot;([^&quot;]*)&quot;/g;
-text.replace(quote, &quot;“$1”&quot;);
-</code></pre>
+<pre><code class="hljs javascript"><span class="hljs-keyword">var</span> text = <span class="hljs-string">&quot;javascript is a good language&quot;</span>;
+text.<span class="hljs-title function_">replace</span>(<span class="hljs-regexp">/javascript/gi</span>, <span class="hljs-string">&quot;JavaScript&quot;</span>); <span class="hljs-comment">//&quot;JavaScript is a good language&quot;</span>
+<span class="hljs-keyword">var</span> quote = <span class="hljs-regexp">/&quot;([^&quot;]*)&quot;/g</span>;
+text.<span class="hljs-title function_">replace</span>(quote, <span class="hljs-string">&quot;“$1”&quot;</span>);</code></pre>
+
 <p>match(正则表达式) 返回的是一个由匹配结果组成的数组</p>
-<pre><code class="javascript">&quot;1 plus 2 euqals 3&quot;.match(/\d+/g); //[&quot;1&quot;, &quot;2&quot;, &quot;3&quot;]
-</code></pre>
+<pre><code class="hljs javascript"><span class="hljs-string">&quot;1 plus 2 euqals 3&quot;</span>.<span class="hljs-title function_">match</span>(<span class="hljs-regexp">/\d+/g</span>); <span class="hljs-comment">//[&quot;1&quot;, &quot;2&quot;, &quot;3&quot;]</span></code></pre>
+
 <p>split() 这个方法用以将调用它的字符串拆分为一个子串组成的数组</p>
-<pre><code class="javascript">&quot;1, 2, 3, 4&quot;.split(/\s*,\s*/); //[&quot;1&quot;,&quot;2&quot;,&quot;3&quot;,&quot;4&quot;]
-</code></pre>
+<pre><code class="hljs javascript"><span class="hljs-string">&quot;1, 2, 3, 4&quot;</span>.<span class="hljs-title function_">split</span>(<span class="hljs-regexp">/\s*,\s*/</span>); <span class="hljs-comment">//[&quot;1&quot;,&quot;2&quot;,&quot;3&quot;,&quot;4&quot;]</span></code></pre>
+
 <h4 id="10-3-RexExp-对象"><a href="#10-3-RexExp-对象" class="headerlink" title="10.3 RexExp 对象"></a>10.3 RexExp 对象</h4><h5 id="10-3-2-RexExp-的方法"><a href="#10-3-2-RexExp-的方法" class="headerlink" title="10.3.2 RexExp 的方法"></a>10.3.2 RexExp 的方法</h5><p>exec()方法对一个字符串执行检索匹配，没找到任何匹配返回 null，找到就返回一个数组</p>
-<pre><code class="js">var text = &quot;JavaScript is more fun than Java!&quot;;
-var pattern = ;
-/Java/g.exec(text); //[&quot;Java&quot;, index: 0, input: &quot;JavaScript is more fun than Java!&quot;]
-</code></pre>
+<pre><code class="hljs js"><span class="hljs-keyword">var</span> text = <span class="hljs-string">&quot;JavaScript is more fun than Java!&quot;</span>;
+<span class="hljs-keyword">var</span> pattern = ;
+<span class="hljs-regexp">/Java/g</span>.<span class="hljs-title function_">exec</span>(text); <span class="hljs-comment">//[&quot;Java&quot;, index: 0, input: &quot;JavaScript is more fun than Java!&quot;]</span></code></pre>
+
 <p>test()对某个字符串检测，如果包含正则表达的一个匹配结果，则返回 true</p>
-<pre><code class="js">/java/i.test(&quot;javascript&quot;); //true
-</code></pre>
+<pre><code class="hljs js">/java/i.<span class="hljs-title function_">test</span>(<span class="hljs-string">&quot;javascript&quot;</span>); <span class="hljs-comment">//true</span></code></pre>
+
 <h3 id="第-11-章-javascript-的子集和扩展"><a href="#第-11-章-javascript-的子集和扩展" class="headerlink" title="第 11 章 javascript 的子集和扩展"></a>第 11 章 javascript 的子集和扩展</h3><p>这部分扩展可参考《ECMAscript6 标准入门》第二版</p>
-<h3 id="第-12-章-服务器端-javascript"><a href="#第-12-章-服务器端-javascript" class="headerlink" title="第 12 章 服务器端 javascript"></a>第 12 章 服务器端 javascript</h3><pre><code class="js">process.version; //node版本计信系
-process.argv; //node命令行数组参数
-process.env; // 环境变量对象
-process.cwd(); //返回当前工作目录
-process.chdir(); //改变目录
-process.exitr(); //退出
-</code></pre>
+<h3 id="第-12-章-服务器端-javascript"><a href="#第-12-章-服务器端-javascript" class="headerlink" title="第 12 章 服务器端 javascript"></a>第 12 章 服务器端 javascript</h3><pre><code class="hljs js">process.<span class="hljs-property">version</span>; <span class="hljs-comment">//node版本计信系</span>
+process.<span class="hljs-property">argv</span>; <span class="hljs-comment">//node命令行数组参数</span>
+process.<span class="hljs-property">env</span>; <span class="hljs-comment">// 环境变量对象</span>
+process.<span class="hljs-title function_">cwd</span>(); <span class="hljs-comment">//返回当前工作目录</span>
+process.<span class="hljs-title function_">chdir</span>(); <span class="hljs-comment">//改变目录</span>
+process.<span class="hljs-title function_">exitr</span>(); <span class="hljs-comment">//退出</span></code></pre>
+
 <h3 id="第-13-章-web-浏览器中的-javascript"><a href="#第-13-章-web-浏览器中的-javascript" class="headerlink" title="第 13 章 web 浏览器中的 javascript"></a>第 13 章 web 浏览器中的 javascript</h3><h4 id="13-3-javascript-程序的执行"><a href="#13-3-javascript-程序的执行" class="headerlink" title="13.3 javascript 程序的执行"></a>13.3 javascript 程序的执行</h4><p>web 页面嵌入一个 iframe 窗体，文档中的 js 代码和被嵌入文档（iframe 窗体）中 js 代码会有不同的全局对象<br>javascript 程序的执行有两个阶段，第一阶段载入文档内容并执行 script 元素中的代码（包括内敛脚本和外部脚本）。所有脚本执行完后进入第二阶段，这个阶段是异步的，由时间驱动，web 浏览器调用时事件处理程序来响应异步发生的事件</p>
 <h5 id="客户端-javascript-时间线"><a href="#客户端-javascript-时间线" class="headerlink" title="客户端 javascript 时间线"></a>客户端 javascript 时间线</h5><ol>
 <li>web 浏览器创建 document 对象，并且开始解析 web 页面，在这个阶段 document.readystate 属性的值是 loading</li>
@@ -636,49 +636,49 @@ process.exitr(); //退出
 <h3 id="第-14-章-window-对象"><a href="#第-14-章-window-对象" class="headerlink" title="第 14 章 window 对象"></a>第 14 章 window 对象</h3><h4 id="14-8-多窗口和窗体"><a href="#14-8-多窗口和窗体" class="headerlink" title="14.8 多窗口和窗体"></a>14.8 多窗口和窗体</h4><h5 id="14-8-1-打开和关闭窗口"><a href="#14-8-1-打开和关闭窗口" class="headerlink" title="14.8.1 打开和关闭窗口"></a>14.8.1 打开和关闭窗口</h5><p>window.open()载入指定的 URL 到新的或已存在的窗口中，并返回代表那个窗口的 window 对象</p>
 <h5 id="14-8-2-窗体之间的关系"><a href="#14-8-2-窗体之间的关系" class="headerlink" title="14.8.2 窗体之间的关系"></a>14.8.2 窗体之间的关系</h5><p>窗体可以用 parent 属性引用包含它的窗口或窗体的 window 对象<br>top 属性是一个通用的快捷方式，无论一个窗体被嵌套了几层，它的 top 属性引用的都是指向包含它的顶级窗口<br>iframe 元素具有 contentWindow 属性，引用该窗体的 window 对象<br>每个 window 对象都有一个 frames 属性，他引用自身包含的窗口或窗体的子窗体，window.iframes[0]指向窗口的第一个子窗体<br>frames[]数组里的元素是 window 对象</p>
 <h5 id="14-8-3-交互窗口中的-javasctipt"><a href="#14-8-3-交互窗口中的-javasctipt" class="headerlink" title="14.8.3 交互窗口中的 javasctipt"></a>14.8.3 交互窗口中的 javasctipt</h5><p>iframe A 中有</p>
-<pre><code class="js">var i = 3；
-</code></pre>
+<pre><code class="hljs js"><span class="hljs-keyword">var</span> i = <span class="hljs-number">3</span>；</code></pre>
+
 <p>iframe B 可以读取 A 中 js</p>
-<pre><code class="js">console.log(parent.A.i); //3
-</code></pre>
+<pre><code class="hljs js"><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(parent.<span class="hljs-property">A</span>.<span class="hljs-property">i</span>); <span class="hljs-comment">//3</span></code></pre>
+
 <h3 id="第-15-章-脚本化文档"><a href="#第-15-章-脚本化文档" class="headerlink" title="第 15 章 脚本化文档"></a>第 15 章 脚本化文档</h3><h4 id="15-3-文档和结构的遍历"><a href="#15-3-文档和结构的遍历" class="headerlink" title="15.3 文档和结构的遍历"></a>15.3 文档和结构的遍历</h4><h5 id="15-3-1-作为节点树的文档"><a href="#15-3-1-作为节点树的文档" class="headerlink" title="15.3.1 作为节点树的文档"></a>15.3.1 作为节点树的文档</h5><p>parentNode childNodes firstChild lastChild nextSibling previoursSibling nodeType nodeValue nodeName</p>
 <h5 id="15-3-2-作为元素树的文档"><a href="#15-3-2-作为元素树的文档" class="headerlink" title="15.3.2 作为元素树的文档"></a>15.3.2 作为元素树的文档</h5><p>firstElementChild lastElementChild nextElementSibling previousElementSibling childElementCount</p>
 <h5 id="15-5-2-作为纯文本的元素内容"><a href="#15-5-2-作为纯文本的元素内容" class="headerlink" title="15.5.2 作为纯文本的元素内容"></a>15.5.2 作为纯文本的元素内容</h5><p>标准的方法是用 Node 的 textContent 属性来实现，在 IE 章可以用 innerText 属性来代替</p>
 <h5 id="15-8-2-查询元素的几何尺寸"><a href="#15-8-2-查询元素的几何尺寸" class="headerlink" title="15.8.2 查询元素的几何尺寸"></a>15.8.2 查询元素的几何尺寸</h5><p>断定一个元素的尺寸和位置的最简单的方法是调用它的 getBoundingClientRect()方法，返回一个 left,right，top,bottom 属性的对象，都是相对视口坐标的位置</p>
 <h5 id="15-8-4-滚动"><a href="#15-8-4-滚动" class="headerlink" title="15.8.4 滚动"></a>15.8.4 滚动</h5><p>window.scrollTo()接受一个点的 x，y 坐标（文档坐标）。滚动到某点<br>window.scrollBy()接受一个点的 x，y 坐标（文档坐标）。相对滚动多少</p>
 <h3 id="第-16-章-脚本化-CSS"><a href="#第-16-章-脚本化-CSS" class="headerlink" title="第 16 章 脚本化 CSS"></a>第 16 章 脚本化 CSS</h3><h4 id="16-4-查询计算出的样式"><a href="#16-4-查询计算出的样式" class="headerlink" title="16.4 查询计算出的样式"></a>16.4 查询计算出的样式</h4><p>getComputedStyle()方法来获得一个元素的计算样式，返回值是一个 cssStyleDeclaration 对象,代表了应用在指定元素上的所有样式</p>
-<pre><code class="js">var title = documnet.getElementById(&quot;sectiontitle&quot;);
-var titlestyles = window.getComputedStyle(element, null);
-</code></pre>
+<pre><code class="hljs js"><span class="hljs-keyword">var</span> title = documnet.<span class="hljs-title function_">getElementById</span>(<span class="hljs-string">&quot;sectiontitle&quot;</span>);
+<span class="hljs-keyword">var</span> titlestyles = <span class="hljs-variable language_">window</span>.<span class="hljs-title function_">getComputedStyle</span>(element, <span class="hljs-literal">null</span>);</code></pre>
+
 <p>在 IE8 中可以通过元素的 currentStyle 属性来兼容</p>
 <h5 id="16-6-2-查询、插入与删除样式表规则"><a href="#16-6-2-查询、插入与删除样式表规则" class="headerlink" title="16.6.2 查询、插入与删除样式表规则"></a>16.6.2 查询、插入与删除样式表规则</h5><p>document.styleSheets[]数组的元素是 cssStyleSheets 对象，cssStyleSheets 对象有一个 cssRules[]数组，它包含样式表的所有规则</p>
-<pre><code class="js">var firstRule = document.styleSheets[0].cssRules[0];
-</code></pre>
+<pre><code class="hljs js"><span class="hljs-keyword">var</span> firstRule = <span class="hljs-variable language_">document</span>.<span class="hljs-property">styleSheets</span>[<span class="hljs-number">0</span>].<span class="hljs-property">cssRules</span>[<span class="hljs-number">0</span>];</code></pre>
+
 <p>IE 使用不同的属性名 rules 代替 cssRules,rules 数组只包含样式表中实际存在的样式规则</p>
 <h3 id="第-17-章-事件处理"><a href="#第-17-章-事件处理" class="headerlink" title="第 17 章 事件处理"></a>第 17 章 事件处理</h3><h4 id="17-4-文档加载事件"><a href="#17-4-文档加载事件" class="headerlink" title="17.4 文档加载事件"></a>17.4 文档加载事件</h4><p>当文档加载解析完毕且所有延迟脚本(deferred)都执行完毕时会触发 DOMContentLoaded 事件，此时图片和异步脚本(async)可能依旧在加载</p>
 <h3 id="第-18-章-脚本化-HTTP"><a href="#第-18-章-脚本化-HTTP" class="headerlink" title="第 18 章 脚本化 HTTP"></a>第 18 章 脚本化 HTTP</h3><h4 id="18-1-3-编码请求主体"><a href="#18-1-3-编码请求主体" class="headerlink" title="18.1.3 编码请求主体"></a>18.1.3 编码请求主体</h4><p>在表单用 POST 方法提交请求时，必须设置 Content-Type</p>
-<pre><code class="js">xhr.setResquestHeader(&quot;Content-Type&quot;, &quot;application/x-www-form-urlencoded&quot;);
-</code></pre>
+<pre><code class="hljs js">xhr.<span class="hljs-title function_">setResquestHeader</span>(<span class="hljs-string">&quot;Content-Type&quot;</span>, <span class="hljs-string">&quot;application/x-www-form-urlencoded&quot;</span>);</code></pre>
+
 <h4 id="18-1-6-跨域-HTTP-请求"><a href="#18-1-6-跨域-HTTP-请求" class="headerlink" title="18.1.6 跨域 HTTP 请求"></a>18.1.6 跨域 HTTP 请求</h4><p>测试 withCredentials 的存在性是测试浏览器是否支持 CORS 的一种方法</p>
 <h3 id="第-19-章-jquery-类库"><a href="#第-19-章-jquery-类库" class="headerlink" title="第 19 章 jquery 类库"></a>第 19 章 jquery 类库</h3><h5 id="19-5-3-动画得到取消延迟和队列"><a href="#19-5-3-动画得到取消延迟和队列" class="headerlink" title="19.5.3 动画得到取消延迟和队列"></a>19.5.3 动画得到取消延迟和队列</h5><p>stop()方法第一个参数默认为 false，如果为 true 则会清楚该选中元素上的动画队列，还会取消任何等待执行的动画。第二个参数用来黄子行正在连续变化的 css 属性是否保留当前值，true 变化到最终值，false 保留当前值</p>
 <h3 id="第-20-章-客户端存储"><a href="#第-20-章-客户端存储" class="headerlink" title="第 20 章 客户端存储"></a>第 20 章 客户端存储</h3><h4 id="20-1-localStorage-和-sessionStorage"><a href="#20-1-localStorage-和-sessionStorage" class="headerlink" title="20.1 localStorage 和 sessionStorage"></a>20.1 localStorage 和 sessionStorage</h4><p>这俩者的主要区别在于存储的有效期和作用域的不同，数据可以存储多长时间以及谁拥有数据的访问权限</p>
 <h5 id="20-1-1-存储有效期和作用域"><a href="#20-1-1-存储有效期和作用域" class="headerlink" title="20.1.1 存储有效期和作用域"></a>20.1.1 存储有效期和作用域</h5><p>localStorage 存储的数据是永久的，除非 web 应用删除存储数据或者用户通过设置浏览器配置删除数据，否则数据将一直保存在用户的电脑中，永不过期<br>localStorage 的作用域是限制在文档源级别的，不同的协议，主机名，端口拥有不同的文档源，同源的文档间共享 localStorage。localStorage 的作用域也受浏览器供应商限制</p>
-<h3 id="第-21-章-多媒体和图形编程"><a href="#第-21-章-多媒体和图形编程" class="headerlink" title="第 21 章 多媒体和图形编程"></a>第 21 章 多媒体和图形编程</h3><h4 id="21-3-可伸缩的矢量图形"><a href="#21-3-可伸缩的矢量图形" class="headerlink" title="21.3 可伸缩的矢量图形"></a>21.3 可伸缩的矢量图形</h4><pre><code class="html">&lt;svg width=&quot;100&quot; height=&quot;100&quot;&gt;
-  &lt;rect x=&quot;0&quot; y=&quot;0&quot; width=&quot;100&quot; height=&quot;100&quot; fill=&quot;red&quot; /&gt;
-&lt;/svg&gt;
-</code></pre>
+<h3 id="第-21-章-多媒体和图形编程"><a href="#第-21-章-多媒体和图形编程" class="headerlink" title="第 21 章 多媒体和图形编程"></a>第 21 章 多媒体和图形编程</h3><h4 id="21-3-可伸缩的矢量图形"><a href="#21-3-可伸缩的矢量图形" class="headerlink" title="21.3 可伸缩的矢量图形"></a>21.3 可伸缩的矢量图形</h4><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">svg</span> <span class="hljs-attr">width</span>=<span class="hljs-string">&quot;100&quot;</span> <span class="hljs-attr">height</span>=<span class="hljs-string">&quot;100&quot;</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">rect</span> <span class="hljs-attr">x</span>=<span class="hljs-string">&quot;0&quot;</span> <span class="hljs-attr">y</span>=<span class="hljs-string">&quot;0&quot;</span> <span class="hljs-attr">width</span>=<span class="hljs-string">&quot;100&quot;</span> <span class="hljs-attr">height</span>=<span class="hljs-string">&quot;100&quot;</span> <span class="hljs-attr">fill</span>=<span class="hljs-string">&quot;red&quot;</span> /&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">svg</span>&gt;</span></code></pre>
+
 <p><svg width="100" height="100"><rect x="0" y="0" width="100" height="100" fill="red" /></svg></p>
 <p>SVG 适用场景<br>SVG 功能更完善，适合静态图片展示，高保真文档查看和打印的应用场景<br>兼容性 IE9+</p>
-<h4 id="21-4-canvas-中的图形"><a href="#21-4-canvas-中的图形" class="headerlink" title="21.4 canvas 中的图形"></a>21.4 canvas 中的图形</h4><pre><code class="html">&lt;canvas id=&quot;drawing&quot; width=&quot;100&quot; height=&quot;100&quot;&gt;a drawing of something.&lt;/canvas&gt;
-&lt;script type=&quot;text/javascript&quot;&gt;
-  var drawing = document.getElementById(&quot;drawing&quot;);
-  if (drawing.getContext) &#123;
-    var context = srawing.getContext(&quot;2d&quot;);
-    context.fillRect(10, 10, 50, 50);
-    context.fillStyle = &quot;#f00&quot;;
-  &#125;
-&lt;/script&gt;
-</code></pre>
+<h4 id="21-4-canvas-中的图形"><a href="#21-4-canvas-中的图形" class="headerlink" title="21.4 canvas 中的图形"></a>21.4 canvas 中的图形</h4><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">canvas</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;drawing&quot;</span> <span class="hljs-attr">width</span>=<span class="hljs-string">&quot;100&quot;</span> <span class="hljs-attr">height</span>=<span class="hljs-string">&quot;100&quot;</span>&gt;</span>a drawing of something.<span class="hljs-tag">&lt;/<span class="hljs-name">canvas</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;text/javascript&quot;</span>&gt;</span><span class="language-javascript"></span>
+<span class="language-javascript">  <span class="hljs-keyword">var</span> drawing = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(<span class="hljs-string">&quot;drawing&quot;</span>);</span>
+<span class="language-javascript">  <span class="hljs-keyword">if</span> (drawing.<span class="hljs-property">getContext</span>) &#123;</span>
+<span class="language-javascript">    <span class="hljs-keyword">var</span> context = srawing.<span class="hljs-title function_">getContext</span>(<span class="hljs-string">&quot;2d&quot;</span>);</span>
+<span class="language-javascript">    context.<span class="hljs-title function_">fillRect</span>(<span class="hljs-number">10</span>, <span class="hljs-number">10</span>, <span class="hljs-number">50</span>, <span class="hljs-number">50</span>);</span>
+<span class="language-javascript">    context.<span class="hljs-property">fillStyle</span> = <span class="hljs-string">&quot;#f00&quot;</span>;</span>
+<span class="language-javascript">  &#125;</span>
+<span class="language-javascript"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre>
+
 <p><canvas id="drawing" width="100" height="100">a drawing of something.</canvas></p>
 <script type="text/javascript">
   var drawing = document.getElementById('drawing');
@@ -691,33 +691,32 @@ var titlestyles = window.getComputedStyle(element, null);
 
 <p>Canvas 适用场景<br>Canvas 提供的功能更原始，适合像素处理，动态渲染和大数据量绘制<br>兼容性 IE9+</p>
 <h3 id="第-22-章-html5-API"><a href="#第-22-章-html5-API" class="headerlink" title="第 22 章 html5 API"></a>第 22 章 html5 API</h3><h4 id="22-3-跨域消息传递"><a href="#22-3-跨域消息传递" class="headerlink" title="22.3 跨域消息传递"></a>22.3 跨域消息传递</h4><p>postMessage()方法接收俩参数，第一个参数是要传递的消息，第二个参数是一个字符串，指定目标窗口的源</p>
-<pre><code class="html">&lt;!-- http://127.0.0.1/a.html --&gt;
-&lt;div id=&quot;test&quot;&gt;123&lt;/div&gt;
-&lt;script type=&quot;text/javascript&quot;&gt;
-  window.onmessage = function (e) &#123;
-    var text = document.getElementById(&quot;test&quot;).innerHTML;
-    //window.parent.postMessage()返回想要的数据
-    window.parent.postMessage(text, &quot;http://localhost/test/index.html&quot;);
-  &#125;;
-&lt;/script&gt;
+<pre><code class="hljs html"><span class="hljs-comment">&lt;!-- http://127.0.0.1/a.html --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;test&quot;</span>&gt;</span>123<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;text/javascript&quot;</span>&gt;</span><span class="language-javascript"></span>
+<span class="language-javascript">  <span class="hljs-variable language_">window</span>.<span class="hljs-property">onmessage</span> = <span class="hljs-keyword">function</span> (<span class="hljs-params">e</span>) &#123;</span>
+<span class="language-javascript">    <span class="hljs-keyword">var</span> text = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(<span class="hljs-string">&quot;test&quot;</span>).<span class="hljs-property">innerHTML</span>;</span>
+<span class="language-javascript">    <span class="hljs-comment">//window.parent.postMessage()返回想要的数据</span></span>
+<span class="language-javascript">    <span class="hljs-variable language_">window</span>.<span class="hljs-property">parent</span>.<span class="hljs-title function_">postMessage</span>(text, <span class="hljs-string">&quot;http://localhost/test/index.html&quot;</span>);</span>
+<span class="language-javascript">  &#125;;</span>
+<span class="language-javascript"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
 
-&lt;!-- http:localhost/test/index.html --&gt;
-&lt;iframe
-  id=&quot;iframe&quot;
-  src=&quot;http://127.0.0.1/test/a.html&quot;
-  style=&quot;display:none;&quot;
-&gt;&lt;/iframe&gt;
-&lt;script type=&quot;text/javascript&quot;&gt;
-  window.onload = function () &#123;
-    var iframe = document.getElementById(&quot;iframe&quot;);
-    iframe.contentWindow.postMessage(&quot;null&quot;, &quot;http://127.0.0.1/test/a.html&quot;);
-  &#125;;
-
-  window.onmessage = function (e) &#123;
-    document.write(e.data); //123 这里获取到了a页面的dom内容
-  &#125;;
-&lt;/script&gt;
-</code></pre>
+<span class="hljs-comment">&lt;!-- http:localhost/test/index.html --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">iframe</span></span>
+<span class="hljs-tag">  <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;iframe&quot;</span></span>
+<span class="hljs-tag">  <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;http://127.0.0.1/test/a.html&quot;</span></span>
+<span class="hljs-tag">  <span class="hljs-attr">style</span>=<span class="hljs-string">&quot;display:none;&quot;</span></span>
+<span class="hljs-tag">&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">iframe</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;text/javascript&quot;</span>&gt;</span><span class="language-javascript"></span>
+<span class="language-javascript">  <span class="hljs-variable language_">window</span>.<span class="hljs-property">onload</span> = <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) &#123;</span>
+<span class="language-javascript">    <span class="hljs-keyword">var</span> iframe = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(<span class="hljs-string">&quot;iframe&quot;</span>);</span>
+<span class="language-javascript">    iframe.<span class="hljs-property">contentWindow</span>.<span class="hljs-title function_">postMessage</span>(<span class="hljs-string">&quot;null&quot;</span>, <span class="hljs-string">&quot;http://127.0.0.1/test/a.html&quot;</span>);</span>
+<span class="language-javascript">  &#125;;</span>
+<span class="language-javascript"></span>
+<span class="language-javascript">  <span class="hljs-variable language_">window</span>.<span class="hljs-property">onmessage</span> = <span class="hljs-keyword">function</span> (<span class="hljs-params">e</span>) &#123;</span>
+<span class="language-javascript">    <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">write</span>(e.<span class="hljs-property">data</span>); <span class="hljs-comment">//123 这里获取到了a页面的dom内容</span></span>
+<span class="language-javascript">  &#125;;</span>
+<span class="language-javascript"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre>
  
       <div id="toc-article">
   <div class="widget-wrap" id="toc-wrap">

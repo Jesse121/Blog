@@ -298,15 +298,13 @@
 <li>HTTP&#x2F;2多个请求可同时在一个连接上并行执行。某个请求任务耗时严重，不会影响到其它连接的正常执行；</li>
 </ol>
 <h3 id="nginx上http2-0配置"><a href="#nginx上http2-0配置" class="headerlink" title="nginx上http2.0配置"></a>nginx上http2.0配置</h3><p>尽管HTTP2.0其实可以支持非HTTPS的，但是现在主流的浏览器像chrome，firefox表示还是只支持基于 TLS 部署的HTTP2.0协议，所以要想升级成HTTP2.0还是先升级HTTPS为好。<br>在https基础上配置成http2就非常简单了，<br>在 Nginx 上 开启 HTTP&#x2F;2 需要 Nginx 1.9.5 以上版本，并且需要 OpenSSL 版本在 1.0.2 以上。<br>查看openssl版本</p>
-<pre><code>openss version
-OpenSSL 1.0.2k-fips  26 Jan 2017
-</code></pre>
+<pre><code class="hljs plaintext">openss version
+OpenSSL 1.0.2k-fips  26 Jan 2017</code></pre>
 <p>修改Nginx配置<br>在 server 配置段中的 listen 后增加 http2 即可。</p>
-<pre><code>server&#123;
+<pre><code class="hljs plaintext">server&#123;
     listen  443 ssl http2;
     ···
-&#125;
-</code></pre>
+&#125;</code></pre>
 <p>重启nginx  nginx -s reload<br>至此可以在浏览器访问看看http2是否生效</p>
 <h4 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h4><ol>
 <li><a target="_blank" rel="noopener" href="https://juejin.im/entry/5981c5df518825359a2b9476">HTTP1.0、HTTP1.1 和 HTTP2.0 的区别</a></li>

@@ -277,8 +277,7 @@
 <h4 id="获取license"><a href="#获取license" class="headerlink" title="获取license"></a>获取license</h4><p>虽然没有许可证也可以使用，但软件开发及维护不易，建议有条件的同学还是购买license，获得永久使用权</p>
 <h4 id="插件安装"><a href="#插件安装" class="headerlink" title="插件安装"></a>插件安装</h4><p>这是今天的重点，在安装插件之前我们需要安装package control组件</p>
 <ol>
-<li>在线安装<br> 按<kbd>ctrl</kbd>+<kbd>`</kbd>调出console面板,粘贴以下代码（或者<a target="_blank" rel="noopener" href="https://packagecontrol.io/installation#st3">SUBLIME TEXT 3</a>面板中的代码）到命令行并回车  <pre><code>import urllib.request,os; pf = &#39;Package Control.sublime-package&#39;; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); open(os.path.join(ipp, pf), &#39;wb&#39;).write(urllib.request.urlopen( &#39;http://sublime.wbond.net/&#39; + pf.replace(&#39; &#39;,&#39;%20&#39;)).read())
-</code></pre>
+<li>在线安装<br> 按<kbd>ctrl</kbd>+<kbd>`</kbd>调出console面板,粘贴以下代码（或者<a target="_blank" rel="noopener" href="https://packagecontrol.io/installation#st3">SUBLIME TEXT 3</a>面板中的代码）到命令行并回车   <pre><code class="hljs plaintext">import urllib.request,os; pf = &#x27;Package Control.sublime-package&#x27;; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); open(os.path.join(ipp, pf), &#x27;wb&#x27;).write(urllib.request.urlopen( &#x27;http://sublime.wbond.net/&#x27; + pf.replace(&#x27; &#x27;,&#x27;%20&#x27;)).read())</code></pre>
  重启Sublime Text 3。如果在Perferences-&gt;package settings中看到package control这一项，则安装成功。 </li>
 <li>手动安装<br> 如果你的电脑没有外网权限(小编就是这样)，那只能手动安装了<br> 点击Preferences 选择Browse Packages… ，打开其上一级文件夹Data并进入Installed Packages文件夹<br> 将下载的[Package Control.sublime-package文件](<a target="_blank" rel="noopener" href="https://packagecontrol.io/Package">https://packagecontrol.io/Package</a> Control.sublime-package)复制进去，再重启Sublime Text</li>
 </ol>
@@ -305,7 +304,7 @@
 <h5 id="16-SublimeLinter-jshint"><a href="#16-SublimeLinter-jshint" class="headerlink" title="16. SublimeLinter-jshint"></a>16. SublimeLinter-jshint</h5><p>使用说明：对错误的javascript代码在状态栏进行提示，</p>
 <h5 id="17-Terminal"><a href="#17-Terminal" class="headerlink" title="17. Terminal"></a>17. Terminal</h5><p>使用说明：调出终端直接进入项目所在根目录，这个插件与gulp配合很好用<br>快捷键：<kbd>ctrl</kbd>+<kbd>shift</kbd>+<kbd>t</kbd></p>
 <h5 id="18-View-In-Browser"><a href="#18-View-In-Browser" class="headerlink" title="18. View In Browser"></a>18. View In Browser</h5><p>使用说明：sublime以本地服务器方式打开网页<br>为了使用插件，你需要建立一个sublime-project文件，点击Project-&gt;Edit Project<br>粘贴以下代码(这是我的相关配置),并保存到user目录下</p>
-<pre><code>&#123;
+<pre><code class="hljs plaintext">&#123;
     &quot;folders&quot;:
     [
         &#123;

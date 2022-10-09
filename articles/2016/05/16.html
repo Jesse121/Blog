@@ -282,152 +282,145 @@
 <li>objectN 包含额外的属性合并到第一个参数</li>
 </ul>
 <p>当我们提供两个或多个对象给<code>$.extend()</code>，对象的所有属性都添加到目标对象（target参数）<br>目标对象将被修改，并且将通过<code>$.extend()</code>返回。然而，如果我们想保留原对象，我们可以通过传递一个空对象作为目标对象：<br><code>var settings = $.extend(&#123;&#125;, defaults, options);</code>这样defaults对象就不会被更改<br>在默认情况下，通过$.extend()合并操作是不递归的，如果第一个对象的属性本身是一个对象或数组，那么它将完全用第二个对象相同的key重写这个属性。这些值不会被合并。;</p>
-<pre><code class="js">//注意浅拷贝和深拷贝的区别
-var object1 = &#123;apple: 0,banana: &#123;weight: 52, price: 100&#125;,cherry: 97&#125;;
-var object2 = &#123;banana: &#123;price: 200&#125;,durian: 100&#125;;
-$.extend(object1, object2);
-//&#123;apple: 0, banana: &#123;price:200&#125;, cherry: 97, durian: 100&#125;
-$.extend(true, object1, object2);
-//&#123;apple: 0, banana: &#123;weight: 52, price:200&#125;, cherry: 97, durian: 100&#125;
-</code></pre>
+<pre><code class="hljs js"><span class="hljs-comment">//注意浅拷贝和深拷贝的区别</span>
+<span class="hljs-keyword">var</span> object1 = &#123;<span class="hljs-attr">apple</span>: <span class="hljs-number">0</span>,<span class="hljs-attr">banana</span>: &#123;<span class="hljs-attr">weight</span>: <span class="hljs-number">52</span>, <span class="hljs-attr">price</span>: <span class="hljs-number">100</span>&#125;,<span class="hljs-attr">cherry</span>: <span class="hljs-number">97</span>&#125;;
+<span class="hljs-keyword">var</span> object2 = &#123;<span class="hljs-attr">banana</span>: &#123;<span class="hljs-attr">price</span>: <span class="hljs-number">200</span>&#125;,<span class="hljs-attr">durian</span>: <span class="hljs-number">100</span>&#125;;
+$.<span class="hljs-title function_">extend</span>(object1, object2);
+<span class="hljs-comment">//&#123;apple: 0, banana: &#123;price:200&#125;, cherry: 97, durian: 100&#125;</span>
+$.<span class="hljs-title function_">extend</span>(<span class="hljs-literal">true</span>, object1, object2);
+<span class="hljs-comment">//&#123;apple: 0, banana: &#123;weight: 52, price:200&#125;, cherry: 97, durian: 100&#125;</span></code></pre>
 <h4 id="jQuery-fn-extend"><a href="#jQuery-fn-extend" class="headerlink" title="jQuery.fn.extend()"></a>jQuery.fn.extend()</h4><p>在jQuery源码中有<code>jQuery.fn = jQuery.prototype = function()&#123;……&#125;</code>即指向jQuery对象的原型链，对其它进行的扩展，作用在jQuery对象上面；  </p>
 <p><strong>总结</strong></p>
 <ol>
 <li>jQuery.extend()能够创建全局函数或选择器，在实际开发中常使用jQuery.extend()方法作为插件方法传递系列选项结构的参数</li>
 <li>jQuery.fn.extend()能够创建jQuery对象方法，一般用此方法来扩展jQuery的对象插件</li>
 </ol>
-<h3 id="jQuery插件开发通用框架"><a href="#jQuery插件开发通用框架" class="headerlink" title="jQuery插件开发通用框架"></a>jQuery插件开发通用框架</h3><pre><code class="javascript">;(function($, window, document, undefined)&#123;
-    //Plugin code here
-&#125;)(jQuery, window, document);
-</code></pre>
+<h3 id="jQuery插件开发通用框架"><a href="#jQuery插件开发通用框架" class="headerlink" title="jQuery插件开发通用框架"></a>jQuery插件开发通用框架</h3><pre><code class="hljs javascript">;(<span class="hljs-keyword">function</span>(<span class="hljs-params">$, <span class="hljs-variable language_">window</span>, <span class="hljs-variable language_">document</span>, <span class="hljs-literal">undefined</span></span>)&#123;
+    <span class="hljs-comment">//Plugin code here</span>
+&#125;)(jQuery, <span class="hljs-variable language_">window</span>, <span class="hljs-variable language_">document</span>);</code></pre>
 <p>使用分号是为了防止因前面的代码没有使用分号而导致插件函数不能正确解析<br>传入jQuery是为了确保在匿名函数中正确的使用jQuery对象，防止多库共存时$冲突<br>传入window、document并非必须，只不过为了更快的访问window和document<br>传入undefined是为了防止undefined变量被更改，确保undefined的准确性  </p>
 <h3 id="jQuery插件开发的3种形式"><a href="#jQuery插件开发的3种形式" class="headerlink" title="jQuery插件开发的3种形式"></a>jQuery插件开发的3种形式</h3><h4 id="类级别开发-封装全局函数的插件"><a href="#类级别开发-封装全局函数的插件" class="headerlink" title="类级别开发(封装全局函数的插件)"></a>类级别开发(封装全局函数的插件)</h4><p><strong>方式1</strong> 常用</p>
-<pre><code class="javascript">;(function($, window, document, undefined)&#123;
-    $.pluginName = function()&#123; 
-        //Plugin implementation code here
+<pre><code class="hljs javascript">;(<span class="hljs-keyword">function</span>(<span class="hljs-params">$, <span class="hljs-variable language_">window</span>, <span class="hljs-variable language_">document</span>, <span class="hljs-literal">undefined</span></span>)&#123;
+    $.pluginName = <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)&#123; 
+        <span class="hljs-comment">//Plugin implementation code here</span>
     &#125;;  
-&#125;)(jQuery, window, document);
-</code></pre>
+&#125;)(jQuery, <span class="hljs-variable language_">window</span>, <span class="hljs-variable language_">document</span>);</code></pre>
 <p><strong>方式2</strong> 当全局函数较多时</p>
-<pre><code class="js">;(function($, window, document, undefined)&#123;
-    $.extend(&#123;
-        pluginName = function()&#123;
-            //Plugin implementation code here
+<pre><code class="hljs js">;(<span class="hljs-keyword">function</span>(<span class="hljs-params">$, <span class="hljs-variable language_">window</span>, <span class="hljs-variable language_">document</span>, <span class="hljs-literal">undefined</span></span>)&#123;
+    $.<span class="hljs-title function_">extend</span>(&#123;
+        pluginName = <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)&#123;
+            <span class="hljs-comment">//Plugin implementation code here</span>
         &#125;;  
     &#125;)
-&#125;)(jQuery, window, document);
-</code></pre>
+&#125;)(jQuery, <span class="hljs-variable language_">window</span>, <span class="hljs-variable language_">document</span>);</code></pre>
 <p><strong>调用方法：</strong>$.pluginName();  </p>
 <h4 id="对象级别的插件开发"><a href="#对象级别的插件开发" class="headerlink" title="对象级别的插件开发"></a>对象级别的插件开发</h4><p><strong>方式1</strong> 常用</p>
-<pre><code class="javascript">;(function($, window, document, undefined)&#123;
-    $.fn.pluginName = function(options) &#123;
-        return this.each(function() &#123;  
-        //this关键字代表了这个插件将要执行的jQuery对象
-        //return this.each()使得插件能够形成链式调用
-            var defaults = &#123;
-                //pro : value
+<pre><code class="hljs javascript">;(<span class="hljs-keyword">function</span>(<span class="hljs-params">$, <span class="hljs-variable language_">window</span>, <span class="hljs-variable language_">document</span>, <span class="hljs-literal">undefined</span></span>)&#123;
+    $.fn.<span class="hljs-property">pluginName</span> = <span class="hljs-keyword">function</span>(<span class="hljs-params">options</span>) &#123;
+        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">each</span>(<span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) &#123;  
+        <span class="hljs-comment">//this关键字代表了这个插件将要执行的jQuery对象</span>
+        <span class="hljs-comment">//return this.each()使得插件能够形成链式调用</span>
+            <span class="hljs-keyword">var</span> defaults = &#123;
+                <span class="hljs-comment">//pro : value</span>
             &#125;;
-            var settings = $.extend(&#123;&#125;, defaults, options);
-            // plugin implementationcode here
+            <span class="hljs-keyword">var</span> settings = $.<span class="hljs-title function_">extend</span>(&#123;&#125;, defaults, options);
+            <span class="hljs-comment">// plugin implementationcode here</span>
         &#125;);
     &#125;
-&#125;)(jQuery, window, document);
-</code></pre>
+&#125;)(jQuery, <span class="hljs-variable language_">window</span>, <span class="hljs-variable language_">document</span>);</code></pre>
 <p><strong>方式2</strong></p>
-<pre><code class="js">;(function($, window, document, undefined)&#123;
-    $.fn.extend(&#123;
-        pluginName : function()&#123;
-            return this.each(function()&#123;
-                // plugin implementationcode here
+<pre><code class="hljs js">;(<span class="hljs-keyword">function</span>(<span class="hljs-params">$, <span class="hljs-variable language_">window</span>, <span class="hljs-variable language_">document</span>, <span class="hljs-literal">undefined</span></span>)&#123;
+    $.fn.<span class="hljs-title function_">extend</span>(&#123;
+        pluginName : <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)&#123;
+            <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">each</span>(<span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)&#123;
+                <span class="hljs-comment">// plugin implementationcode here</span>
             &#125;);
         &#125;;
     &#125;)
-&#125;)(jQuery, window, document);
-</code></pre>
+&#125;)(jQuery, <span class="hljs-variable language_">window</span>, <span class="hljs-variable language_">document</span>);</code></pre>
 <p><strong>方式3</strong><br>将原型和构造函数组合使用，使得通过构造函数创建的每个实例既能实现对原型属性和方法的继承，从而实现函数复用，也能实现对实例属性的继承保证每个实例都有自己的属性。</p>
-<pre><code class="js">;(function($, window, document, undefined) &#123;
-    //定义构造函数
-    var pluginName = function(ele, opt) &#123;
-        this.element = ele;
-        this.defaults = &#123;
-            //设置默认参数
+<pre><code class="hljs js">;(<span class="hljs-keyword">function</span>(<span class="hljs-params">$, <span class="hljs-variable language_">window</span>, <span class="hljs-variable language_">document</span>, <span class="hljs-literal">undefined</span></span>) &#123;
+    <span class="hljs-comment">//定义构造函数</span>
+    <span class="hljs-keyword">var</span> pluginName = <span class="hljs-keyword">function</span>(<span class="hljs-params">ele, opt</span>) &#123;
+        <span class="hljs-variable language_">this</span>.<span class="hljs-property">element</span> = ele;
+        <span class="hljs-variable language_">this</span>.<span class="hljs-property">defaults</span> = &#123;
+            <span class="hljs-comment">//设置默认参数</span>
         &#125;;
-        this.options = $.extend(&#123;&#125;, this.defaults, opt);
+        <span class="hljs-variable language_">this</span>.<span class="hljs-property">options</span> = $.<span class="hljs-title function_">extend</span>(&#123;&#125;, <span class="hljs-variable language_">this</span>.<span class="hljs-property">defaults</span>, opt);
     &#125;
-    //定义pluginName的原型方法
-    pluginName.prototype = &#123;
-        init: function() &#123;
-            //this.element
-            // plugin implementationcode here
+    <span class="hljs-comment">//定义pluginName的原型方法</span>
+    pluginName.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span> = &#123;
+        <span class="hljs-attr">init</span>: <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) &#123;
+            <span class="hljs-comment">//this.element</span>
+            <span class="hljs-comment">// plugin implementationcode here</span>
         &#125;
-        // 补充其他相关的方法
+        <span class="hljs-comment">// 补充其他相关的方法</span>
     &#125;
 
-    $.fn.pluginName = function(options) &#123;
-        //创建pluginName的实体
-        var pluginObj = new pluginName(this, options);
-        //调用其方法
-        pluginObj.init();
-        //返回jQuery选择器的集合，以便链式调用
-        return this;
+    $.fn.<span class="hljs-property">pluginName</span> = <span class="hljs-keyword">function</span>(<span class="hljs-params">options</span>) &#123;
+        <span class="hljs-comment">//创建pluginName的实体</span>
+        <span class="hljs-keyword">var</span> pluginObj = <span class="hljs-keyword">new</span> <span class="hljs-title function_">pluginName</span>(<span class="hljs-variable language_">this</span>, options);
+        <span class="hljs-comment">//调用其方法</span>
+        pluginObj.<span class="hljs-title function_">init</span>();
+        <span class="hljs-comment">//返回jQuery选择器的集合，以便链式调用</span>
+        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>;
     &#125;
-&#125;)(jQuery, window, document);
-</code></pre>
+&#125;)(jQuery, <span class="hljs-variable language_">window</span>, <span class="hljs-variable language_">document</span>);</code></pre>
 <p><strong>方式4</strong> 不常用<br>这种类型的插件架构允许您封装所有的方法在父包中，通过传递该方法的字符串名称和额外的此方法需要的参数来调用它们。</p>
-<pre><code class="js">;(function($, window, document, undefined) &#123;
-    // 在我们插件容器内，创造一个公共变量来构建一个私有方法  
-    var privateFunction = function() &#123;
-            // code here  
+<pre><code class="hljs js">;(<span class="hljs-keyword">function</span>(<span class="hljs-params">$, <span class="hljs-variable language_">window</span>, <span class="hljs-variable language_">document</span>, <span class="hljs-literal">undefined</span></span>) &#123;
+    <span class="hljs-comment">// 在我们插件容器内，创造一个公共变量来构建一个私有方法  </span>
+    <span class="hljs-keyword">var</span> privateFunction = <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) &#123;
+            <span class="hljs-comment">// code here  </span>
         &#125;
-        // 通过字面量创造一个对象，存储我们需要的公有方法  
-    var methods = &#123;
-        // 在字面量对象中定义每个单独的方法  
-        init: function() &#123;
-            //为了更好的灵活性，对来自主函数并进入每个方法中的选择器其中的每个单独的元素都执行代码  
-            return this.each(function() &#123;
-                // 为每个独立的元素创建一个jQuery对象  
-                var $this = $(this);
-                // 创建一个默认设置对象  
-                var defaults = &#123;
-                    propertyName: &#39;value&#39;,
-                    onSomeEvent: function() &#123;&#125;
+        <span class="hljs-comment">// 通过字面量创造一个对象，存储我们需要的公有方法  </span>
+    <span class="hljs-keyword">var</span> methods = &#123;
+        <span class="hljs-comment">// 在字面量对象中定义每个单独的方法  </span>
+        <span class="hljs-attr">init</span>: <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) &#123;
+            <span class="hljs-comment">//为了更好的灵活性，对来自主函数并进入每个方法中的选择器其中的每个单独的元素都执行代码  </span>
+            <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">each</span>(<span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) &#123;
+                <span class="hljs-comment">// 为每个独立的元素创建一个jQuery对象  </span>
+                <span class="hljs-keyword">var</span> $this = $(<span class="hljs-variable language_">this</span>);
+                <span class="hljs-comment">// 创建一个默认设置对象  </span>
+                <span class="hljs-keyword">var</span> defaults = &#123;
+                    <span class="hljs-attr">propertyName</span>: <span class="hljs-string">&#x27;value&#x27;</span>,
+                    <span class="hljs-attr">onSomeEvent</span>: <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) &#123;&#125;
                 &#125;
-                // 使用extend方法从options和defaults对象中构造出一个settings对象  
-                var settings = $.extend(&#123;&#125;, defaults, options);
-                // 执行代码  
-                // 例如： privateFunction();  
+                <span class="hljs-comment">// 使用extend方法从options和defaults对象中构造出一个settings对象  </span>
+                <span class="hljs-keyword">var</span> settings = $.<span class="hljs-title function_">extend</span>(&#123;&#125;, defaults, options);
+                <span class="hljs-comment">// 执行代码  </span>
+                <span class="hljs-comment">// 例如： privateFunction();  </span>
             &#125;);
         &#125;,
-        destroy: function() &#123;
-            // 对选择器每个元素都执行方法  
-            return this.each(function() &#123;
-                // 执行代码  
+        <span class="hljs-attr">destroy</span>: <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) &#123;
+            <span class="hljs-comment">// 对选择器每个元素都执行方法  </span>
+            <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">each</span>(<span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) &#123;
+                <span class="hljs-comment">// 执行代码  </span>
             &#125;);
         &#125;
     &#125;;
-    $.fn.pluginName = function() &#123;
-        // 获取我们的方法，遗憾的是，如果我们用function(method)&#123;&#125;来实现，这样会毁掉一切的  
-        var method = arguments[0];
-        // 检验方法是否存在  
-        if (methods[method]) &#123;
-            // 如果方法存在，存储起来以便使用  
-            // 注意：我这样做是为了等下更方便地使用each（）  
+    $.fn.<span class="hljs-property">pluginName</span> = <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) &#123;
+        <span class="hljs-comment">// 获取我们的方法，遗憾的是，如果我们用function(method)&#123;&#125;来实现，这样会毁掉一切的  </span>
+        <span class="hljs-keyword">var</span> method = <span class="hljs-variable language_">arguments</span>[<span class="hljs-number">0</span>];
+        <span class="hljs-comment">// 检验方法是否存在  </span>
+        <span class="hljs-keyword">if</span> (methods[method]) &#123;
+            <span class="hljs-comment">// 如果方法存在，存储起来以便使用  </span>
+            <span class="hljs-comment">// 注意：我这样做是为了等下更方便地使用each（）  </span>
             method = methods[method];
-            // 如果方法不存在，检验对象是否为一个对象（JSON对象）或者method方法没有被传入  
-        &#125; else if (typeof(method) == &#39;object&#39; || !method) &#123;
-            // 如果我们传入的是一个对象参数，或者根本没有参数，init方法会被调用  
-            method = methods.init;
-        &#125; else &#123;
-            // 如果方法不存在或者参数没传入，则报出错误。需要调用的方法没有被正确调用  
-            $.error(&#39;Method &#39; + method + &#39; does not exist on jQuery.pluginName&#39;);
-            return this;
+            <span class="hljs-comment">// 如果方法不存在，检验对象是否为一个对象（JSON对象）或者method方法没有被传入  </span>
+        &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (<span class="hljs-title function_">typeof</span>(method) == <span class="hljs-string">&#x27;object&#x27;</span> || !method) &#123;
+            <span class="hljs-comment">// 如果我们传入的是一个对象参数，或者根本没有参数，init方法会被调用  </span>
+            method = methods.<span class="hljs-property">init</span>;
+        &#125; <span class="hljs-keyword">else</span> &#123;
+            <span class="hljs-comment">// 如果方法不存在或者参数没传入，则报出错误。需要调用的方法没有被正确调用  </span>
+            $.<span class="hljs-title function_">error</span>(<span class="hljs-string">&#x27;Method &#x27;</span> + method + <span class="hljs-string">&#x27; does not exist on jQuery.pluginName&#x27;</span>);
+            <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>;
         &#125;
-        // 调用我们选中的方法  
-        // 再一次注意我们是如何将each()从这里转移到每个单独的方法上的  
-        return method.call(this);
+        <span class="hljs-comment">// 调用我们选中的方法  </span>
+        <span class="hljs-comment">// 再一次注意我们是如何将each()从这里转移到每个单独的方法上的  </span>
+        <span class="hljs-keyword">return</span> method.<span class="hljs-title function_">call</span>(<span class="hljs-variable language_">this</span>);
     &#125;
-&#125;)(jQuery, window, document);
-</code></pre>
+&#125;)(jQuery, <span class="hljs-variable language_">window</span>, <span class="hljs-variable language_">document</span>);</code></pre>
+
 <p><strong>调用方法</strong>：$(‘selector’).pluginName();  </p>
 <h3 id="通过-widget-应用jQuery-UI的部件工厂方式创建"><a href="#通过-widget-应用jQuery-UI的部件工厂方式创建" class="headerlink" title="通过$.widget()应用jQuery UI的部件工厂方式创建"></a>通过$.widget()应用jQuery UI的部件工厂方式创建</h3><p>用来开发更高级jQuery部件的，该模式开发出来的部件带有很多jQuery内建的特性，比如插件的状态信息自动保存，各种关于插件的常用方法等</p>
 <h3 id="编写JQuery插件需要注意的地方："><a href="#编写JQuery插件需要注意的地方：" class="headerlink" title="编写JQuery插件需要注意的地方："></a>编写JQuery插件需要注意的地方：</h3><ol>

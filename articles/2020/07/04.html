@@ -274,24 +274,24 @@
        <p>在学习 typescript 的过程中发现在 vscode 上不能很好地的输出 typescript 的运行结果，需要先将 typescript 编译为 javascript，在通过 node 执行 js 文件得到结果，执行过程如下</p>
 <span id="more"></span>
 
-<pre><code class="ts">// greeter.ts
-function greeter(person) &#123;
-  return &quot;Hello, &quot; + person;
+<pre><code class="hljs ts"><span class="hljs-comment">// greeter.ts</span>
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">greeter</span>(<span class="hljs-params">person</span>) &#123;
+  <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;Hello, &quot;</span> + person;
 &#125;
 
-let user = &quot;Jane User&quot;;
+<span class="hljs-keyword">let</span> user = <span class="hljs-string">&quot;Jane User&quot;</span>;
 
-console.log(user);
-</code></pre>
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(user);</code></pre>
+
 <p>在命令行上执行</p>
-<pre><code class="sh">tsc greeter.ts
-</code></pre>
+<pre><code class="hljs sh">tsc greeter.ts</code></pre>
+
 <p>在当前文件夹下会输出 greeter.js 文件，然后通过 node greeter.js 执行这个文件，才能输出运行结果。这样操作觉得比较麻烦，查询后得知在 vscode 上还有更快捷的执行方式</p>
 <h3 id="执行准备操作"><a href="#执行准备操作" class="headerlink" title="执行准备操作"></a>执行准备操作</h3><ol>
 <li>在全局上安装 ts-node 包</li>
 </ol>
-<pre><code>npm install typescript ts-node @types/node@* -g
-</code></pre>
+<pre><code class="hljs plaintext">npm install typescript ts-node @types/node@* -g</code></pre>
+
 <ol start="2">
 <li>在 vscode 上安装 Code Runner 插件</li>
 </ol>

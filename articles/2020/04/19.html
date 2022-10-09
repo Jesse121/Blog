@@ -271,8 +271,8 @@
 
     </div>
     <div class="e-content article-entry" itemprop="articleBody">
-       <pre><code>T(n) = O(fn)
-</code></pre>
+       <pre><code class="hljs plaintext">T(n) = O(fn)</code></pre>
+
 <p>所有代码的执行时间 T(n)与每行代码的执行次数 n 成正比<br>大 O 时间复杂度实际上并不具体表示代码真正的执行时间，而是表示代码执行时间随数据规模增长的变化趋势，所以，也叫作渐进时间复杂度（asymptotic time complexity），简称时间复杂度。</p>
 <span id="more"></span>
 
@@ -283,31 +283,31 @@
 </ol>
 <p><img src="https://raw.githubusercontent.com/Jesse121/publicPic/master/blog/pictures/801336-20200419160129966-1927134673.jpg" alt="801336-20200419160129966-1927134673"></p>
 <p>常量阶 O(1)<br>一般情况下，只要算法中不存在循环语句、递归语句，即使有成千上万行的代码，其时间复杂度也是 Ο(1)。</p>
-<pre><code>int i = 8;
+<pre><code class="hljs plaintext">int i = 8;
 int j = 6;
-int sum = i + j;
-</code></pre>
+int sum = i + j;</code></pre>
+
 <p>对数阶 O(logn)</p>
-<pre><code>i=1;
+<pre><code class="hljs plaintext">i=1;
 while (i &lt;= n) &#123;
     i = i * 3;
-&#125;
-</code></pre>
+&#125;</code></pre>
+
 <p>x&#x3D;log3n，这段代码的时间复杂度就是 O(log3n)。 在采用大 O 标记复杂度的时候，可以忽略系数，即 O(Cf(n)) &#x3D; O(f(n))<br>所以，这段代码的时间复杂度就是 O(logn)</p>
 <p>线性阶 O(n)</p>
-<pre><code> int cal(int n) &#123;
-   int sum = 0;
-   int i = 1;
-   for (; i &lt;= n; ++i) &#123;
-     sum = sum + i;
-   &#125;
-   return sum;
- &#125;
-</code></pre>
+<pre><code class="hljs plaintext">int cal(int n) &#123;
+  int sum = 0;
+  int i = 1;
+  for (; i &lt;= n; ++i) &#123;
+    sum = sum + i;
+  &#125;
+  return sum;
+&#125;</code></pre>
+
 <p>4,5 行代码都执行了 n 次，所以总的时间复杂度就是 O(n)</p>
 <p>线性对数阶 O(nlogn)<br>线性阶循环中嵌套对数阶循环</p>
 <p>平方阶 O(n^2) 立方阶 O(n^3) K 次方阶 O(n^k)</p>
-<pre><code>int cal(int n) &#123;
+<pre><code class="hljs plaintext">int cal(int n) &#123;
    int ret = 0;
    int i = 1;
    for (; i &lt; n; ++i) &#123;
@@ -322,12 +322,12 @@ while (i &lt;= n) &#123;
     sum = sum + i;
   &#125;
   return sum;
- &#125;
-</code></pre>
+ &#125;</code></pre>
+
 <p>内层执行了 n 次，外层也执行了 n 次，利用乘法法则 这里的时间复杂度是<code>T(n) = T1(n) * T2(n) = O(n*n) = O(n2)</code></p>
 <p>指数阶 O(2^n),阶乘阶 O(n!)<br>这俩都是非多项式时间复杂度<br>当数据规模 n 越来越大时，非多项式量级算法的执行时间会急剧增加，求解问题的执行时间会无限增长。所以，非多项式时间复杂度的算法其实是非常低效的算法</p>
 <h3 id="空间复杂度分析"><a href="#空间复杂度分析" class="headerlink" title="空间复杂度分析"></a>空间复杂度分析</h3><p>空间复杂度全称就是渐进空间复杂度（asymptotic space complexity），表示算法的存储空间与数据规模之间的增长关系。</p>
-<pre><code>void print(int n) &#123;
+<pre><code class="hljs plaintext">void print(int n) &#123;
   int i = 0;
   int[] a = new int[n];
   for (i; i &lt;n; ++i) &#123;
@@ -337,8 +337,8 @@ while (i &lt;= n) &#123;
   for (i = n-1; i &gt;= 0; --i) &#123;
     print out a[i]
   &#125;
-&#125;
-</code></pre>
+&#125;</code></pre>
+
 <p>第 3 行申请了一个大小为 n 的 int 类型数组，除此之外，剩下的代码都没有占用更多的空间，所以整段代码的空间复杂度就是 O(n)。</p>
 <p>我们常见的空间复杂度就是 O(1)、O(n)、O(n2)，像 O(logn)、O(nlogn) 这样的对数阶复杂度平时都用不到。而且，空间复杂度分析比时间复杂度分析要简单很多。所以，对于空间复杂度，掌握刚我说的这些内容已经足够了。</p>
  

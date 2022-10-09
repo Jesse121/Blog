@@ -326,51 +326,47 @@
 </tr>
 </tbody></table>
 <h3 id="第四章、函数"><a href="#第四章、函数" class="headerlink" title="第四章、函数"></a>第四章、函数</h3><h4 id="调用"><a href="#调用" class="headerlink" title="调用"></a>调用</h4><p>参数this的值取决于调用模式：<br><strong>方法调用模式</strong><br>当一个函数被保存为对象的一个属性时，我们称它为一个方法。方法被调用时,this被绑定到该对象。通过this可取得所属对象的公有方法  </p>
-<pre><code class="js">var myObject = &#123;
-    value:0,
-    increment:function(inc)&#123;
-        this.value += typeof inc === &#39;number&#39; ? inc : 1;
-        console.log(this);  //&#123;value:1,increment:function()&#123;&#125;&#125;
+<pre><code class="hljs js"><span class="hljs-keyword">var</span> myObject = &#123;
+    <span class="hljs-attr">value</span>:<span class="hljs-number">0</span>,
+    <span class="hljs-attr">increment</span>:<span class="hljs-keyword">function</span>(<span class="hljs-params">inc</span>)&#123;
+        <span class="hljs-variable language_">this</span>.<span class="hljs-property">value</span> += <span class="hljs-keyword">typeof</span> inc === <span class="hljs-string">&#x27;number&#x27;</span> ? inc : <span class="hljs-number">1</span>;
+        <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-variable language_">this</span>);  <span class="hljs-comment">//&#123;value:1,increment:function()&#123;&#125;&#125;</span>
     &#125;
-&#125;
-</code></pre>
+&#125;</code></pre>
 <p><strong>函数调用模式</strong><br>当一个函数并非一个对象的属性时，那么它就是被当做一个函数来调用的，以此模式调用函数时，this被绑定到全局对象。  </p>
-<pre><code class="js">var myObject = &#123;
-    value : 0,
-    increment : function(inc)&#123;
-        this.value += typeof inc === &#39;number&#39; ? inc : 1;
-        console.log(this);  //&#123;value:1,increment:function()&#123;&#125;&#125;
+<pre><code class="hljs js"><span class="hljs-keyword">var</span> myObject = &#123;
+    value : <span class="hljs-number">0</span>,
+    increment : <span class="hljs-keyword">function</span>(<span class="hljs-params">inc</span>)&#123;
+        <span class="hljs-variable language_">this</span>.<span class="hljs-property">value</span> += <span class="hljs-keyword">typeof</span> inc === <span class="hljs-string">&#x27;number&#x27;</span> ? inc : <span class="hljs-number">1</span>;
+        <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-variable language_">this</span>);  <span class="hljs-comment">//&#123;value:1,increment:function()&#123;&#125;&#125;</span>
     &#125;,
-    double : function()&#123;
-        var helper = function()&#123;
-            console.log(this); //window
+    double : <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)&#123;
+        <span class="hljs-keyword">var</span> helper = <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)&#123;
+            <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-variable language_">this</span>); <span class="hljs-comment">//window</span>
         &#125;;
-        helper();
+        <span class="hljs-title function_">helper</span>();
     &#125;
-&#125;
-</code></pre>
+&#125;</code></pre>
 <p><strong>构造器调用模式</strong><br>如果一个函数前面带上new来调用，那么背地里将会创建一个连接到该函数的prototype成员的新对象，同时this会被绑定到那个新对象上。</p>
-<pre><code class="js">function Quo(string)&#123;
-    this.status = string;
+<pre><code class="hljs js"><span class="hljs-keyword">function</span> <span class="hljs-title function_">Quo</span>(<span class="hljs-params">string</span>)&#123;
+    <span class="hljs-variable language_">this</span>.<span class="hljs-property">status</span> = string;
 &#125;
-Quo.prototype.getStatus = function()&#123;
-    return this;
+<span class="hljs-title class_">Quo</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">getStatus</span> = <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)&#123;
+    <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>;
 &#125;
-var myQuo = new Quo(&quot;confused&quot;);
-console.log(myQuo.getStatus()); //Quo &#123;status: &quot;confused&quot;&#125;
-</code></pre>
+<span class="hljs-keyword">var</span> myQuo = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Quo</span>(<span class="hljs-string">&quot;confused&quot;</span>);
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(myQuo.<span class="hljs-title function_">getStatus</span>()); <span class="hljs-comment">//Quo &#123;status: &quot;confused&quot;&#125;</span></code></pre>
 <p><strong>Apply调用模式</strong><br>apply方法允许我们构建一个函数数组传递给调用函数，也允许选择this的值  </p>
-<pre><code class="js">var statusObject = &#123;
-    status: &quot;ok&quot;
+<pre><code class="hljs js"><span class="hljs-keyword">var</span> statusObject = &#123;
+    <span class="hljs-attr">status</span>: <span class="hljs-string">&quot;ok&quot;</span>
 &#125;;
-function Quo(string)&#123;
-    this.status = string;
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">Quo</span>(<span class="hljs-params">string</span>)&#123;
+    <span class="hljs-variable language_">this</span>.<span class="hljs-property">status</span> = string;
 &#125;
-Quo.prototype.getStatus = function()&#123;
-    return console.log(this); //&#123;status: &quot;ok&quot;&#125;
+<span class="hljs-title class_">Quo</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">getStatus</span> = <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)&#123;
+    <span class="hljs-keyword">return</span> <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-variable language_">this</span>); <span class="hljs-comment">//&#123;status: &quot;ok&quot;&#125;</span>
 &#125;
-Quo.prototype.getStatus.apply(statusObject);
-</code></pre>
+<span class="hljs-title class_">Quo</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">getStatus</span>.<span class="hljs-title function_">apply</span>(statusObject);</code></pre>
 <h3 id="第七章-正则表达式"><a href="#第七章-正则表达式" class="headerlink" title="第七章 正则表达式"></a>第七章 正则表达式</h3><p>\ &#x2F; [ ] ( ) { } ? + * | . ^ $ 这些特殊字符都需要\来进行转义</p>
 <h3 id="第八章-方法"><a href="#第八章-方法" class="headerlink" title="第八章 方法"></a>第八章 方法</h3><h4 id="Array"><a href="#Array" class="headerlink" title="Array"></a>Array</h4><p>array.sort()<br>如果这两个参数相等则返回0，如果第1个参数应该排在前面，则返回一个负数，如果第2个参数应该排在前面，则返回一个正数。</p>
  

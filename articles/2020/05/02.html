@@ -274,63 +274,62 @@
        <h3 id="栈"><a href="#栈" class="headerlink" title="栈"></a>栈</h3><p>栈是一种“操作受限”的线性表，只允许在一端插入和删除数据。当某个数据集合只涉及在一端插入和删除数据，并且满足后进先出、先进后出的特性，我们就应该首选“栈”这种数据结构。<br>实际上，栈既可以用数组来实现，也可以用链表来实现。用数组实现的栈，我们叫作顺序栈，用链表实现的栈，我们叫作链式栈。</p>
 <span id="more"></span>
 
-<h4 id="用数组实现的栈"><a href="#用数组实现的栈" class="headerlink" title="用数组实现的栈"></a>用数组实现的栈</h4><pre><code class="js">class Stack &#123;
-  constructor() &#123;
-    this.items = [];
-    this.count = 0;
+<h4 id="用数组实现的栈"><a href="#用数组实现的栈" class="headerlink" title="用数组实现的栈"></a>用数组实现的栈</h4><pre><code class="hljs js"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Stack</span> &#123;
+  <span class="hljs-title function_">constructor</span>(<span class="hljs-params"></span>) &#123;
+    <span class="hljs-variable language_">this</span>.<span class="hljs-property">items</span> = [];
+    <span class="hljs-variable language_">this</span>.<span class="hljs-property">count</span> = <span class="hljs-number">0</span>;
   &#125;
 
-  push(value) &#123;
-    this.items.push(value);
-    ++this.count;
-    return this.items;
+  <span class="hljs-title function_">push</span>(<span class="hljs-params">value</span>) &#123;
+    <span class="hljs-variable language_">this</span>.<span class="hljs-property">items</span>.<span class="hljs-title function_">push</span>(value);
+    ++<span class="hljs-variable language_">this</span>.<span class="hljs-property">count</span>;
+    <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">items</span>;
   &#125;
 
-  pop() &#123;
-    if (this.count === 0) return [];
-    return this.items.pop();
+  <span class="hljs-title function_">pop</span>(<span class="hljs-params"></span>) &#123;
+    <span class="hljs-keyword">if</span> (<span class="hljs-variable language_">this</span>.<span class="hljs-property">count</span> === <span class="hljs-number">0</span>) <span class="hljs-keyword">return</span> [];
+    <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">items</span>.<span class="hljs-title function_">pop</span>();
   &#125;
 
-  print() &#123;
-    console.log(this.items.toString());
+  <span class="hljs-title function_">print</span>(<span class="hljs-params"></span>) &#123;
+    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">items</span>.<span class="hljs-title function_">toString</span>());
   &#125;
 &#125;
-var stack = new Stack();
-stack.push(&quot;Jack&quot;);
-stack.push(&quot;Mike&quot;);
-stack.push(&quot;Candy&quot;);
-stack.print(); // Jack,Mike,Candy
-stack.pop();
-stack.print(); // Jack,Mike
-</code></pre>
+<span class="hljs-keyword">var</span> stack = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Stack</span>();
+stack.<span class="hljs-title function_">push</span>(<span class="hljs-string">&quot;Jack&quot;</span>);
+stack.<span class="hljs-title function_">push</span>(<span class="hljs-string">&quot;Mike&quot;</span>);
+stack.<span class="hljs-title function_">push</span>(<span class="hljs-string">&quot;Candy&quot;</span>);
+stack.<span class="hljs-title function_">print</span>(); <span class="hljs-comment">// Jack,Mike,Candy</span>
+stack.<span class="hljs-title function_">pop</span>();
+stack.<span class="hljs-title function_">print</span>(); <span class="hljs-comment">// Jack,Mike</span></code></pre>
+
 <p>不管基于数组还是链表，入栈、出栈的时间复杂度都为 O(1)</p>
 <h3 id="队列"><a href="#队列" class="headerlink" title="队列"></a>队列</h3><p>队列最大的特点就是先进先出，主要的两个操作是入队和出队。跟栈一样，它既可以用数组来实现，也可以用链表来实现。用数组实现的叫顺序队列，用链表实现的叫链式队列。特别是长得像一个环的循环队列。在数组实现队列的时候，会有数据搬移操作，要想解决数据搬移的问题，我们就需要像环一样的循环队列。<br><img src="https://raw.githubusercontent.com/Jesse121/publicPic/master/blog/pictures/801336-20200502092159003-1561337601.jpg" alt="801336-20200502092159003-1561337601"></p>
-<h4 id="用数组实现队列"><a href="#用数组实现队列" class="headerlink" title="用数组实现队列"></a>用数组实现队列</h4><pre><code class="js">class Queue &#123;
-  constructor() &#123;
-    this.items = [];
+<h4 id="用数组实现队列"><a href="#用数组实现队列" class="headerlink" title="用数组实现队列"></a>用数组实现队列</h4><pre><code class="hljs js"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Queue</span> &#123;
+  <span class="hljs-title function_">constructor</span>(<span class="hljs-params"></span>) &#123;
+    <span class="hljs-variable language_">this</span>.<span class="hljs-property">items</span> = [];
   &#125;
 
-  enqueue(value) &#123;
-    this.items.push(value);
+  <span class="hljs-title function_">enqueue</span>(<span class="hljs-params">value</span>) &#123;
+    <span class="hljs-variable language_">this</span>.<span class="hljs-property">items</span>.<span class="hljs-title function_">push</span>(value);
   &#125;
 
-  dequeue() &#123;
-    return this.items.shift();
+  <span class="hljs-title function_">dequeue</span>(<span class="hljs-params"></span>) &#123;
+    <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">items</span>.<span class="hljs-title function_">shift</span>();
   &#125;
 
-  print() &#123;
-    console.log(this.items.toString());
+  <span class="hljs-title function_">print</span>(<span class="hljs-params"></span>) &#123;
+    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">items</span>.<span class="hljs-title function_">toString</span>());
   &#125;
 &#125;
 
-var queue = new Queue();
-queue.enqueue(&quot;Jack&quot;);
-queue.enqueue(&quot;Mike&quot;);
-queue.enqueue(&quot;Candy&quot;);
-queue.print(); // Jack,Mike,Candy
-queue.dequeue();
-queue.print(); // Mike,Candy
-</code></pre>
+<span class="hljs-keyword">var</span> queue = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Queue</span>();
+queue.<span class="hljs-title function_">enqueue</span>(<span class="hljs-string">&quot;Jack&quot;</span>);
+queue.<span class="hljs-title function_">enqueue</span>(<span class="hljs-string">&quot;Mike&quot;</span>);
+queue.<span class="hljs-title function_">enqueue</span>(<span class="hljs-string">&quot;Candy&quot;</span>);
+queue.<span class="hljs-title function_">print</span>(); <span class="hljs-comment">// Jack,Mike,Candy</span>
+queue.<span class="hljs-title function_">dequeue</span>();
+queue.<span class="hljs-title function_">print</span>(); <span class="hljs-comment">// Mike,Candy</span></code></pre>
  
       <div id="toc-article">
   <div class="widget-wrap" id="toc-wrap">

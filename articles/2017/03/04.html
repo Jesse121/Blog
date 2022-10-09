@@ -291,77 +291,71 @@
 <h3 id="Object新增方法："><a href="#Object新增方法：" class="headerlink" title="Object新增方法："></a>Object新增方法：</h3><h4 id="Object-create"><a href="#Object-create" class="headerlink" title="Object.create()"></a>Object.create()</h4><p>创建一个具有指定原型且可选择性地包含指定属性的对象  </p>
 <p><code>Object.create(proto, [ propertiesObject ])</code></p>
 <p>proto:一个对象，作为新创建对象的原型。或者为 null。<br>propertiesObject:可选。该参数对象是一组属性与值，该对象的属性名称将是新创建的对象的属性名称，值是属性描述符。注意：该参数对象不能是 undefined，另外只有该对象中自身拥有的可枚举的属性才有效，也就是说该对象的原型链上属性是无效的。<br>示例：</p>
-<pre><code class="javascript">//Shape - superclass
-function Shape() &#123;
-  this.x = 0;
-  this.y = 0;
+<pre><code class="hljs javascript"><span class="hljs-comment">//Shape - superclass</span>
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">Shape</span>(<span class="hljs-params"></span>) &#123;
+  <span class="hljs-variable language_">this</span>.<span class="hljs-property">x</span> = <span class="hljs-number">0</span>;
+  <span class="hljs-variable language_">this</span>.<span class="hljs-property">y</span> = <span class="hljs-number">0</span>;
 &#125;
 
-Shape.prototype.move = function(x, y) &#123;
-    this.x += x;
-    this.y += y;
-    console.info(&quot;Shape moved.&quot;);
+<span class="hljs-title class_">Shape</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">move</span> = <span class="hljs-keyword">function</span>(<span class="hljs-params">x, y</span>) &#123;
+    <span class="hljs-variable language_">this</span>.<span class="hljs-property">x</span> += x;
+    <span class="hljs-variable language_">this</span>.<span class="hljs-property">y</span> += y;
+    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">info</span>(<span class="hljs-string">&quot;Shape moved.&quot;</span>);
 &#125;;
 
-// Rectangle - subclass
-function Rectangle() &#123;
-  Shape.call(this); //call super constructor.
+<span class="hljs-comment">// Rectangle - subclass</span>
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">Rectangle</span>(<span class="hljs-params"></span>) &#123;
+  <span class="hljs-title class_">Shape</span>.<span class="hljs-title function_">call</span>(<span class="hljs-variable language_">this</span>); <span class="hljs-comment">//call super constructor.</span>
 &#125;
 
-Rectangle.prototype = Object.create(Shape.prototype);
+<span class="hljs-title class_">Rectangle</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span> = <span class="hljs-title class_">Object</span>.<span class="hljs-title function_">create</span>(<span class="hljs-title class_">Shape</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>);
 
-var rect = new Rectangle();
-rect instanceof Rectangle //true.
-rect instanceof Shape //true.
-rect.move(1, 1); //Outputs, &quot;Shape moved.&quot;
-</code></pre>
+<span class="hljs-keyword">var</span> rect = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Rectangle</span>();
+rect <span class="hljs-keyword">instanceof</span> <span class="hljs-title class_">Rectangle</span> <span class="hljs-comment">//true.</span>
+rect <span class="hljs-keyword">instanceof</span> <span class="hljs-title class_">Shape</span> <span class="hljs-comment">//true.</span>
+rect.<span class="hljs-title function_">move</span>(<span class="hljs-number">1</span>, <span class="hljs-number">1</span>); <span class="hljs-comment">//Outputs, &quot;Shape moved.&quot;</span></code></pre>
 <h4 id="Object-getPrototypeOf"><a href="#Object-getPrototypeOf" class="headerlink" title="Object.getPrototypeOf()"></a>Object.getPrototypeOf()</h4><p>返回该对象的原型(也就是该对象内部属性[[prototype]]的值)</p>
 <p><code>Object.getPrototypeOf(object)</code></p>
 <p>在 ES5 中，如果参数不是一个对象类型，将抛出一个 TypeError 异常。在ES6中，参数被强制转换为Object。<br>示例：</p>
-<pre><code class="javascript">var proto = &#123;&#125;;
-var obj = Object.create(proto);
-Object.getPrototypeOf(obj) === proto; // true
-</code></pre>
+<pre><code class="hljs javascript"><span class="hljs-keyword">var</span> proto = &#123;&#125;;
+<span class="hljs-keyword">var</span> obj = <span class="hljs-title class_">Object</span>.<span class="hljs-title function_">create</span>(proto);
+<span class="hljs-title class_">Object</span>.<span class="hljs-title function_">getPrototypeOf</span>(obj) === proto; <span class="hljs-comment">// true</span></code></pre>
 <h4 id="Object-getOwnPropertyNames"><a href="#Object-getOwnPropertyNames" class="headerlink" title="Object.getOwnPropertyNames()"></a>Object.getOwnPropertyNames()</h4><p>返回一个由指定对象的所有自身属性的属性名（包括不可枚举属性）组成的数组。</p>
 <p><code>Object.getOwnPropertyNames(obj)</code></p>
 <p>obj:一个对象，其自身的可枚举和不可枚举属性的名称被返回。<br>示例：</p>
-<pre><code class="javascript">var arr = [&quot;a&quot;, &quot;b&quot;, &quot;c&quot;];
-console.log(Object.getOwnPropertyNames(arr).sort()); // [&quot;0&quot;, &quot;1&quot;, &quot;2&quot;, &quot;length&quot;]
-</code></pre>
+<pre><code class="hljs javascript"><span class="hljs-keyword">var</span> arr = [<span class="hljs-string">&quot;a&quot;</span>, <span class="hljs-string">&quot;b&quot;</span>, <span class="hljs-string">&quot;c&quot;</span>];
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title class_">Object</span>.<span class="hljs-title function_">getOwnPropertyNames</span>(arr).<span class="hljs-title function_">sort</span>()); <span class="hljs-comment">// [&quot;0&quot;, &quot;1&quot;, &quot;2&quot;, &quot;length&quot;]</span></code></pre>
 <h4 id="Object-defineProperty"><a href="#Object-defineProperty" class="headerlink" title="Object.defineProperty()"></a>Object.defineProperty()</h4><p>直接在一个对象上定义一个新属性，或者修改一个已经存在的属性， 并返回这个对象。  </p>
 <p><code>Object.defineProperty(obj, prop, descriptor)</code></p>
 <p>obj:需要定义属性的对象。<br>prop:需定义或修改的属性的名字。<br>descriptor:将被定义或修改的属性的描述符。<br>示例：</p>
-<pre><code class="javascript">Object.defineProperty(obj, &quot;key&quot;, &#123;
-  enumerable: false,
-  configurable: false,
-  writable: false,
-  value: &quot;static&quot;
-&#125;);
-</code></pre>
+<pre><code class="hljs javascript"><span class="hljs-title class_">Object</span>.<span class="hljs-title function_">defineProperty</span>(obj, <span class="hljs-string">&quot;key&quot;</span>, &#123;
+  <span class="hljs-attr">enumerable</span>: <span class="hljs-literal">false</span>,
+  <span class="hljs-attr">configurable</span>: <span class="hljs-literal">false</span>,
+  <span class="hljs-attr">writable</span>: <span class="hljs-literal">false</span>,
+  <span class="hljs-attr">value</span>: <span class="hljs-string">&quot;static&quot;</span>
+&#125;);</code></pre>
 <h4 id="Object-defineProperties"><a href="#Object-defineProperties" class="headerlink" title="Object.defineProperties()"></a>Object.defineProperties()</h4><p>在一个对象上添加或修改一个或者多个自有属性，并返回该对象。</p>
 <p><code>Object.defineProperties(obj, props)</code></p>
 <p>obj:将要被添加属性或修改属性的对象<br>props:该对象的一个或多个键值对定义了将要为对象添加或修改的属性的具体配置<br>示例：</p>
-<pre><code class="javascript">var obj = &#123;&#125;;
-Object.defineProperties(obj, &#123;
-  &quot;property1&quot;: &#123;
-    value: true,
-    writable: true
+<pre><code class="hljs javascript"><span class="hljs-keyword">var</span> obj = &#123;&#125;;
+<span class="hljs-title class_">Object</span>.<span class="hljs-title function_">defineProperties</span>(obj, &#123;
+  <span class="hljs-string">&quot;property1&quot;</span>: &#123;
+    <span class="hljs-attr">value</span>: <span class="hljs-literal">true</span>,
+    <span class="hljs-attr">writable</span>: <span class="hljs-literal">true</span>
   &#125;,
-  &quot;property2&quot;: &#123;
-    value: &quot;Hello&quot;,
-    writable: false
+  <span class="hljs-string">&quot;property2&quot;</span>: &#123;
+    <span class="hljs-attr">value</span>: <span class="hljs-string">&quot;Hello&quot;</span>,
+    <span class="hljs-attr">writable</span>: <span class="hljs-literal">false</span>
   &#125;
 &#125;);
-console.log(obj) //&#123;property1:true,property2:&quot;Hello&quot;&#125;
-</code></pre>
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(obj) <span class="hljs-comment">//&#123;property1:true,property2:&quot;Hello&quot;&#125;</span></code></pre>
 <h4 id="Object-getOwnPropertyDescriptor"><a href="#Object-getOwnPropertyDescriptor" class="headerlink" title="Object.getOwnPropertyDescriptor()"></a>Object.getOwnPropertyDescriptor()</h4><p>指定对象上一个自有属性对应的属性描述符（自有属性指的是直接赋予该对象的属性，不需要从原型链上进行查找的属性）。如果指定的属性存在于对象上，则返回其属性描述符（property descriptor），否则返回 undefined。</p>
 <p><code>Object.getOwnPropertyDescriptor(obj, prop)</code></p>
 <p>obj:在该对象上查看属性<br>prop:一个属性名称，该属性的属性描述符将被返回<br>示例：</p>
-<pre><code class="javscript">var o, d;
+<pre><code class="hljs javscript">var o, d;
 o = &#123; bar: 42 &#125;;
 d = Object.getOwnPropertyDescriptor(o, &quot;bar&quot;);
-console.log(d);//&#123; configurable: true, enumerable: true, value: 42, writable: true &#125;
-</code></pre>
+console.log(d);//&#123; configurable: true, enumerable: true, value: 42, writable: true &#125;</code></pre>
 <h4 id="Object-seal"><a href="#Object-seal" class="headerlink" title="Object.seal()"></a>Object.seal()</h4><p>可以让一个对象密封，并返回被密封后的对象。密封对象是指那些不能添加新的属性，不能删除已有属性，以及不能修改已有属性的可枚举性、可配置性、可写性，但可能可以修改已有属性的值的对象。</p>
 <p><code>Object.seal(obj)</code></p>
 <h4 id="Object-freeze"><a href="#Object-freeze" class="headerlink" title="Object.freeze()"></a>Object.freeze()</h4><p>可以冻结一个对象，冻结指的是不能向这个对象添加新的属性，不能修改其已有属性的值，不能删除已有属性，以及不能修改该对象已有属性的可枚举性、可配置性、可写性。也就是说，这个对象永远是不可变的。该方法返回被冻结的对象。</p>
@@ -371,192 +365,175 @@ console.log(d);//&#123; configurable: true, enumerable: true, value: 42, writabl
 <h4 id="Object-isExtrensible"><a href="#Object-isExtrensible" class="headerlink" title="Object.isExtrensible()"></a>Object.isExtrensible()</h4><p>判断一个对象是否是可扩展的（是否可以在它上面添加新的属性）。</p>
 <p><code>Object.isExtensible(obj)</code></p>
 <p>示例：</p>
-<pre><code class="javascript">// 新对象默认是可扩展的.
-var empty = &#123;&#125;;
-Object.isExtensible(empty); // === true
-// ...可以变的不可扩展.
-Object.preventExtensions(empty);
-Object.isExtensible(empty); // === false
-</code></pre>
+<pre><code class="hljs javascript"><span class="hljs-comment">// 新对象默认是可扩展的.</span>
+<span class="hljs-keyword">var</span> empty = &#123;&#125;;
+<span class="hljs-title class_">Object</span>.<span class="hljs-title function_">isExtensible</span>(empty); <span class="hljs-comment">// === true</span>
+<span class="hljs-comment">// ...可以变的不可扩展.</span>
+<span class="hljs-title class_">Object</span>.<span class="hljs-title function_">preventExtensions</span>(empty);
+<span class="hljs-title class_">Object</span>.<span class="hljs-title function_">isExtensible</span>(empty); <span class="hljs-comment">// === false</span></code></pre>
 <h4 id="Object-isSealed"><a href="#Object-isSealed" class="headerlink" title="Object.isSealed()"></a>Object.isSealed()</h4><p>判断一个对象是否是密封的（sealed）。</p>
 <p><code>Object.isSealed(obj)</code></p>
 <p>示例：</p>
-<pre><code class="javascript">// 新建的对象默认不是密封的.
-var empty = &#123;&#125;;
-Object.isSealed(empty); // === false
+<pre><code class="hljs javascript"><span class="hljs-comment">// 新建的对象默认不是密封的.</span>
+<span class="hljs-keyword">var</span> empty = &#123;&#125;;
+<span class="hljs-title class_">Object</span>.<span class="hljs-title function_">isSealed</span>(empty); <span class="hljs-comment">// === false</span>
 
-// 如果你把一个空对象变的不可扩展,则它同时也会变成个密封对象.
-Object.preventExtensions(empty);
-Object.isSealed(empty); // === true
-</code></pre>
+<span class="hljs-comment">// 如果你把一个空对象变的不可扩展,则它同时也会变成个密封对象.</span>
+<span class="hljs-title class_">Object</span>.<span class="hljs-title function_">preventExtensions</span>(empty);
+<span class="hljs-title class_">Object</span>.<span class="hljs-title function_">isSealed</span>(empty); <span class="hljs-comment">// === true</span></code></pre>
 <h4 id="Object-isFrozen"><a href="#Object-isFrozen" class="headerlink" title="Object.isFrozen()"></a>Object.isFrozen()</h4><p>判断一个对象是否被冻结（frozen）。</p>
 <p><code>Object.isFrozen(obj)</code></p>
 <h4 id="Object-keys"><a href="#Object-keys" class="headerlink" title="Object.keys()"></a>Object.keys()</h4><p>返回一个由给定对象的自身可枚举属性组成的数组，数组中属性名的排列顺序和使用 for…in 循环遍历该对象时返回的顺序一致 （两者的主要区别是 一个 for-in 循环还会枚举其原型链上的属性）。</p>
 <p><code>Object.keys(obj)</code></p>
 <p>示例：</p>
-<pre><code class="javascript">var arr = [&quot;a&quot;, &quot;b&quot;, &quot;c&quot;];
-console.log(Object.keys(arr));// [ &#39;0&#39;, &#39;1&#39;, &#39;2&#39; ]
-</code></pre>
+<pre><code class="hljs javascript"><span class="hljs-keyword">var</span> arr = [<span class="hljs-string">&quot;a&quot;</span>, <span class="hljs-string">&quot;b&quot;</span>, <span class="hljs-string">&quot;c&quot;</span>];
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title class_">Object</span>.<span class="hljs-title function_">keys</span>(arr));<span class="hljs-comment">// [ &#x27;0&#x27;, &#x27;1&#x27;, &#x27;2&#x27; ]</span></code></pre>
 <h3 id="Object-prototype新增方法"><a href="#Object-prototype新增方法" class="headerlink" title="Object.prototype新增方法"></a>Object.prototype新增方法</h3><h4 id="Object-prototype-isPrototypeOf"><a href="#Object-prototype-isPrototypeOf" class="headerlink" title="Object.prototype.isPrototypeOf()"></a>Object.prototype.isPrototypeOf()</h4><p>用于测试一个对象是否存在于另一个对象的原型链上。</p>
 <p><code>Obj.prototype.isPrototypeOf(object)</code></p>
 <p>object:在该对象的原型链上搜寻<br>示例：</p>
-<pre><code class="javascript">var arr = [];
-console.log(arr instanceof Array);//true
-console.log(Array.prototype.isPrototypeOf(arr));//true
-</code></pre>
+<pre><code class="hljs javascript"><span class="hljs-keyword">var</span> arr = [];
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(arr <span class="hljs-keyword">instanceof</span> <span class="hljs-title class_">Array</span>);<span class="hljs-comment">//true</span>
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title class_">Array</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-title function_">isPrototypeOf</span>(arr));<span class="hljs-comment">//true</span></code></pre>
 <p> isPrototypeOf 和 instanceof operator 是不一样的。在表达式 object instanceof AFunction 中，检测的是 AFunction.prototype 是否在object 的原型链中，而不是检测 AFunction 自身。</p>
 <h4 id="Object-prototype-propertyIsEnumerable"><a href="#Object-prototype-propertyIsEnumerable" class="headerlink" title="Object.prototype.propertyIsEnumerable()"></a>Object.prototype.propertyIsEnumerable()</h4><p>返回一个布尔值，表明指定的属性名是否是当前对象可枚举的自身属性。</p>
 <p><code>obj.propertyIsEnumerable(prop)</code></p>
 <p>示例：</p>
-<pre><code class="javascript">var o = &#123;&#125;;
-o.prop = &#39;is enumerable&#39;;
-o.propertyIsEnumerable(&#39;prop&#39;);   //  返回 true
-</code></pre>
+<pre><code class="hljs javascript"><span class="hljs-keyword">var</span> o = &#123;&#125;;
+o.<span class="hljs-property">prop</span> = <span class="hljs-string">&#x27;is enumerable&#x27;</span>;
+o.<span class="hljs-title function_">propertyIsEnumerable</span>(<span class="hljs-string">&#x27;prop&#x27;</span>);   <span class="hljs-comment">//  返回 true</span></code></pre>
+
 <h3 id="Function-prototype新增方法"><a href="#Function-prototype新增方法" class="headerlink" title="Function.prototype新增方法"></a>Function.prototype新增方法</h3><h4 id="Function-prototype-bind"><a href="#Function-prototype-bind" class="headerlink" title="Function.prototype.bind()"></a>Function.prototype.bind()</h4><p>bind()方法会创建一个新函数。当这个新函数被调用时，bind()的第一个参数将作为它运行时的 this, 之后的一序列参数将会在传递的实参前传入作为它的参数。</p>
 <p><code>fun.bind(thisArg[, arg1[, arg2[, ...]]])</code></p>
 <p>thisArg:当绑定函数被调用时，该参数会作为原函数运行时的 this 指向。当使用new 操作符调用绑定函数时，该参数无效。<br>arg1, arg2, …:当绑定函数被调用时，这些参数将置于实参之前传递给被绑定的方法。</p>
 <p>示例：</p>
-<pre><code class="javascript">this.x = 9; 
-var module = &#123;
-  x: 81,
-  getX: function() &#123; return this.x; &#125;
+<pre><code class="hljs javascript"><span class="hljs-variable language_">this</span>.<span class="hljs-property">x</span> = <span class="hljs-number">9</span>; 
+<span class="hljs-keyword">var</span> <span class="hljs-variable language_">module</span> = &#123;
+  <span class="hljs-attr">x</span>: <span class="hljs-number">81</span>,
+  <span class="hljs-attr">getX</span>: <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) &#123; <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">x</span>; &#125;
 &#125;;
-module.getX(); // 返回 81
-var retrieveX = module.getX;
-retrieveX(); // 返回 9, 在这种情况下，&quot;this&quot;指向全局作用域
-// 创建一个新函数，将&quot;this&quot;绑定到module对象
-// 新手可能会被全局的x变量和module里的属性x所迷惑
-var boundGetX = retrieveX.bind(module);
-boundGetX(); // 返回 81
-</code></pre>
+<span class="hljs-variable language_">module</span>.<span class="hljs-title function_">getX</span>(); <span class="hljs-comment">// 返回 81</span>
+<span class="hljs-keyword">var</span> retrieveX = <span class="hljs-variable language_">module</span>.<span class="hljs-property">getX</span>;
+<span class="hljs-title function_">retrieveX</span>(); <span class="hljs-comment">// 返回 9, 在这种情况下，&quot;this&quot;指向全局作用域</span>
+<span class="hljs-comment">// 创建一个新函数，将&quot;this&quot;绑定到module对象</span>
+<span class="hljs-comment">// 新手可能会被全局的x变量和module里的属性x所迷惑</span>
+<span class="hljs-keyword">var</span> boundGetX = retrieveX.<span class="hljs-title function_">bind</span>(<span class="hljs-variable language_">module</span>);
+<span class="hljs-title function_">boundGetX</span>(); <span class="hljs-comment">// 返回 81</span></code></pre>
+
 <h3 id="Array新增方法："><a href="#Array新增方法：" class="headerlink" title="Array新增方法："></a>Array新增方法：</h3><h4 id="Array-isArray"><a href="#Array-isArray" class="headerlink" title="Array.isArray()"></a>Array.isArray()</h4><p>该方法适用于确定传递的值是否为Array。</p>
 <p><code>Array.isArray(obj)</code></p>
 <p>示例：</p>
-<pre><code class="javascript">Array.isArray([1, 2, 3]);  // true
-Array.isArray(&#123;foo: 123&#125;); // false
-Array.isArray(&quot;foobar&quot;);   // false
-Array.isArray(undefined);  // false
-</code></pre>
+<pre><code class="hljs javascript"><span class="hljs-title class_">Array</span>.<span class="hljs-title function_">isArray</span>([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>]);  <span class="hljs-comment">// true</span>
+<span class="hljs-title class_">Array</span>.<span class="hljs-title function_">isArray</span>(&#123;<span class="hljs-attr">foo</span>: <span class="hljs-number">123</span>&#125;); <span class="hljs-comment">// false</span>
+<span class="hljs-title class_">Array</span>.<span class="hljs-title function_">isArray</span>(<span class="hljs-string">&quot;foobar&quot;</span>);   <span class="hljs-comment">// false</span>
+<span class="hljs-title class_">Array</span>.<span class="hljs-title function_">isArray</span>(<span class="hljs-literal">undefined</span>);  <span class="hljs-comment">// false</span></code></pre>
+
 <p>位置方法：</p>
 <h4 id="Array-prototype-indexOf"><a href="#Array-prototype-indexOf" class="headerlink" title="Array.prototype.indexOf()"></a>Array.prototype.indexOf()</h4><p>返回在数组中可以找到给定元素的第一个索引，如果不存在，则返回-1。</p>
 <p><code>arr.indexOf(searchElement)</code></p>
 <p>示例：</p>
-<pre><code class="javascript">var a = [2, 9, 9]; 
-a.indexOf(2); // 0 
-</code></pre>
+<pre><code class="hljs javascript"><span class="hljs-keyword">var</span> a = [<span class="hljs-number">2</span>, <span class="hljs-number">9</span>, <span class="hljs-number">9</span>]; 
+a.<span class="hljs-title function_">indexOf</span>(<span class="hljs-number">2</span>); <span class="hljs-comment">// 0 </span></code></pre>
 <h4 id="Array-prototype-lastIndexOf"><a href="#Array-prototype-lastIndexOf" class="headerlink" title="Array.prototype.lastIndexOf()"></a>Array.prototype.lastIndexOf()</h4><p>返回指定元素（也即有效的 JavaScript 值或变量）在数组中的最后一个的索引，如果不存在则返回 -1。从数组的后面向前查找，从 fromIndex 处开始。</p>
 <p><code>arr.lastIndexOf(searchElement[, fromIndex = arr.length - 1])</code></p>
 <p>searchElement:被查找的元素。<br>fromIndex:从此位置开始逆向查找。默认为数组的长度减 1，即整个数组都被查找。如果该值大于或等于数组的长度，则整个数组会被查找。如果为负值，将其视为从数组末尾向前的偏移。即使该值为负，数组仍然会被从后向前查找。如果该值为负时，其绝对值大于数组长度，则方法返回 -1，即数组不会被查找。</p>
 <p>示例：</p>
-<pre><code class="javascript">var array = [2, 5, 9, 2];
-var index = array.lastIndexOf(2);//3
-</code></pre>
+<pre><code class="hljs javascript"><span class="hljs-keyword">var</span> array = [<span class="hljs-number">2</span>, <span class="hljs-number">5</span>, <span class="hljs-number">9</span>, <span class="hljs-number">2</span>];
+<span class="hljs-keyword">var</span> index = array.<span class="hljs-title function_">lastIndexOf</span>(<span class="hljs-number">2</span>);<span class="hljs-comment">//3</span></code></pre>
 <p>迭代方法：</p>
 <h4 id="Array-prototype-every"><a href="#Array-prototype-every" class="headerlink" title="Array.prototype.every()"></a>Array.prototype.every()</h4><p>测试数组的所有元素是否都通过了指定函数的测试。<br>every 方法为数组中的每个元素执行一次 callback 函数，直到它找到一个使 callback 返回 false（表示可转换为布尔值 false 的值）的元素。如果发现了一个这样的元素，every 方法将会立即返回 false。否则，callback 为每一个元素返回 true，every 就会返回 true。</p>
 <p><code>arr.every(callback[, thisArg])</code></p>
 <p>callback:用来测试每个元素的函数。<br>thisArg:执行 callback 时使用的 this 值。 </p>
 <p>示例：</p>
-<pre><code class="javascript">function isBigEnough(element, index, array) &#123;
-  return (element &gt;= 10);
+<pre><code class="hljs javascript"><span class="hljs-keyword">function</span> <span class="hljs-title function_">isBigEnough</span>(<span class="hljs-params">element, index, array</span>) &#123;
+  <span class="hljs-keyword">return</span> (element &gt;= <span class="hljs-number">10</span>);
 &#125;
-var passed = [12, 5, 8, 130, 44].every(isBigEnough);// false
-passed = [12, 54, 18, 130, 44].every(isBigEnough);// true
-</code></pre>
+<span class="hljs-keyword">var</span> passed = [<span class="hljs-number">12</span>, <span class="hljs-number">5</span>, <span class="hljs-number">8</span>, <span class="hljs-number">130</span>, <span class="hljs-number">44</span>].<span class="hljs-title function_">every</span>(isBigEnough);<span class="hljs-comment">// false</span>
+passed = [<span class="hljs-number">12</span>, <span class="hljs-number">54</span>, <span class="hljs-number">18</span>, <span class="hljs-number">130</span>, <span class="hljs-number">44</span>].<span class="hljs-title function_">every</span>(isBigEnough);<span class="hljs-comment">// true</span></code></pre>
 <h4 id="Array-prototype-some"><a href="#Array-prototype-some" class="headerlink" title="Array.prototype.some()"></a>Array.prototype.some()</h4><p>测试数组中的某些元素是否通过了指定函数的测试。<br>some 为数组中的每一个元素执行一次 callback 函数，直到找到一个使得 callback 返回一个“真值”（即可转换为布尔值 true 的值）。如果找到了这样一个值，some 将会立即返回 true。否则，some 返回 false。</p>
 <p><code>arr.some(callback[, thisArg])</code></p>
 <p>示例：</p>
-<pre><code class="javascript">function isBigEnough(element, index, array) &#123;
-  return (element &gt;= 10);
+<pre><code class="hljs javascript"><span class="hljs-keyword">function</span> <span class="hljs-title function_">isBigEnough</span>(<span class="hljs-params">element, index, array</span>) &#123;
+  <span class="hljs-keyword">return</span> (element &gt;= <span class="hljs-number">10</span>);
 &#125;
-var passed = [2, 5, 8, 1, 4].some(isBigEnough);
-// passed is false
-passed = [12, 5, 8, 1, 4].some(isBigEnough);
-// passed is true
-</code></pre>
+<span class="hljs-keyword">var</span> passed = [<span class="hljs-number">2</span>, <span class="hljs-number">5</span>, <span class="hljs-number">8</span>, <span class="hljs-number">1</span>, <span class="hljs-number">4</span>].<span class="hljs-title function_">some</span>(isBigEnough);
+<span class="hljs-comment">// passed is false</span>
+passed = [<span class="hljs-number">12</span>, <span class="hljs-number">5</span>, <span class="hljs-number">8</span>, <span class="hljs-number">1</span>, <span class="hljs-number">4</span>].<span class="hljs-title function_">some</span>(isBigEnough);
+<span class="hljs-comment">// passed is true</span></code></pre>
 <h4 id="Array-prototype-filter"><a href="#Array-prototype-filter" class="headerlink" title="Array.prototype.filter()"></a>Array.prototype.filter()</h4><p>使用指定的函数测试所有元素，并创建一个包含所有通过测试的元素的新数组。<br>filter 为数组中的每个元素调用一次 callback 函数，并利用所有使得 callback 返回 true 或 等价于 true 的值 的元素创建一个新数组。</p>
 <p><code>var new_arrary = arr.filter(callback[, thisArg])</code></p>
 <p>示例：</p>
-<pre><code class="javascript">function isBigEnough(value) &#123;
-  return value &gt;= 10;
+<pre><code class="hljs javascript"><span class="hljs-keyword">function</span> <span class="hljs-title function_">isBigEnough</span>(<span class="hljs-params">value</span>) &#123;
+  <span class="hljs-keyword">return</span> value &gt;= <span class="hljs-number">10</span>;
 &#125;
 
-var filtered = [12, 5, 8, 130, 44].filter(isBigEnough);//[12, 130, 44]
-</code></pre>
+<span class="hljs-keyword">var</span> filtered = [<span class="hljs-number">12</span>, <span class="hljs-number">5</span>, <span class="hljs-number">8</span>, <span class="hljs-number">130</span>, <span class="hljs-number">44</span>].<span class="hljs-title function_">filter</span>(isBigEnough);<span class="hljs-comment">//[12, 130, 44]</span></code></pre>
 <h4 id="Array-prototype-forEach"><a href="#Array-prototype-forEach" class="headerlink" title="Array.prototype.forEach()"></a>Array.prototype.forEach()</h4><p>方法对数组的每个元素执行一次提供的函数。</p>
 <p><code>array.forEach(callback[, thisArg])</code></p>
 <p>示例：</p>
-<pre><code class="javascript">var a = [&#39;a&#39;, &#39;b&#39;, &#39;c&#39;];
+<pre><code class="hljs javascript"><span class="hljs-keyword">var</span> a = [<span class="hljs-string">&#x27;a&#x27;</span>, <span class="hljs-string">&#x27;b&#x27;</span>, <span class="hljs-string">&#x27;c&#x27;</span>];
 
-a.forEach(function(element) &#123;
-    console.log(element);
+a.<span class="hljs-title function_">forEach</span>(<span class="hljs-keyword">function</span>(<span class="hljs-params">element</span>) &#123;
+    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(element);
 &#125;);
-// a
-// b
-// c
-</code></pre>
+<span class="hljs-comment">// a</span>
+<span class="hljs-comment">// b</span>
+<span class="hljs-comment">// c</span></code></pre>
 <p>forEach() 为每个数组元素执行callback函数；不像map() 或者reduce() ，它总是返回 undefined值，并且不可链式调用。</p>
 <h4 id="Array-prototype-map"><a href="#Array-prototype-map" class="headerlink" title="Array.prototype.map()"></a>Array.prototype.map()</h4><p>创建一个新数组，其结果是该数组中的每个元素调用一个提供的函数。<br>map 方法会给原数组中的每个元素都按顺序调用一次 callback 函数。callback 每次执行后的返回值（包括 undefined）组合起来形成一个新数组。  </p>
 <p><code>var new_array = arr.map(callback[, thisArg])</code></p>
 <p>示例：</p>
-<pre><code class="javascript">var numbers = [1, 5, 10, 15];
-var roots = numbers.map(function(x) &#123;
-    return x * 2;
+<pre><code class="hljs javascript"><span class="hljs-keyword">var</span> numbers = [<span class="hljs-number">1</span>, <span class="hljs-number">5</span>, <span class="hljs-number">10</span>, <span class="hljs-number">15</span>];
+<span class="hljs-keyword">var</span> roots = numbers.<span class="hljs-title function_">map</span>(<span class="hljs-keyword">function</span>(<span class="hljs-params">x</span>) &#123;
+    <span class="hljs-keyword">return</span> x * <span class="hljs-number">2</span>;
 &#125;);
-// roots is now [2, 10, 20, 30]
-// numbers is still [1, 5, 10, 15]
-</code></pre>
+<span class="hljs-comment">// roots is now [2, 10, 20, 30]</span>
+<span class="hljs-comment">// numbers is still [1, 5, 10, 15]</span></code></pre>
 <p>归并方法：</p>
 <h4 id="Array-prototype-reduce"><a href="#Array-prototype-reduce" class="headerlink" title="Array.prototype.reduce()"></a>Array.prototype.reduce()</h4><p>对累加器和数组的每个值 (从左到右)应用一个函数，以将其减少为单个值。  </p>
 <p><code>arr.reduce(callback,[initialValue])</code></p>
 <p>callback:执行数组中每个值的函数，包含四个参数<br>accumulator:上一次调用回调返回的值，或者是提供的初始值（initialValue）<br>currentValue:数组中正在处理的元素<br>currentIndex:数据中正在处理的元素索引，如果提供了 initialValue ，从0开始；否则从1开始<br>array:调用 reduce 的数组<br>initialValue:可选项，其值用于第一次调用 callback 的第一个参数。 </p>
 <p>示例：</p>
-<pre><code class="javascript">var sum = [0, 1, 2, 3].reduce(function(acc, val) &#123;
-  return acc + val;
-&#125;, 0);
+<pre><code class="hljs javascript"><span class="hljs-keyword">var</span> sum = [<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>].<span class="hljs-title function_">reduce</span>(<span class="hljs-keyword">function</span>(<span class="hljs-params">acc, val</span>) &#123;
+  <span class="hljs-keyword">return</span> acc + val;
+&#125;, <span class="hljs-number">0</span>);
 
-console.log(sum);// 6
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(sum);<span class="hljs-comment">// 6</span>
 </code></pre>
 <h4 id="Array-prototype-reduceRight"><a href="#Array-prototype-reduceRight" class="headerlink" title="Array.prototype.reduceRight();"></a>Array.prototype.reduceRight();</h4><p>reduceRight() 方法接受一个函数作为累加器（accumulator），让每个值（从右到左，亦即从尾到头）缩减为一个值。（与 reduce() 的执行方向相反）</p>
 <p><code>arr.reduceRight(callback[, initialValue])</code></p>
 <p>示例：</p>
-<pre><code class="javascript">var flattened = [[0, 1], [2, 3], [4, 5]].reduceRight(function(a, b) &#123;
-    return a.concat(b);
+<pre><code class="hljs javascript"><span class="hljs-keyword">var</span> flattened = [[<span class="hljs-number">0</span>, <span class="hljs-number">1</span>], [<span class="hljs-number">2</span>, <span class="hljs-number">3</span>], [<span class="hljs-number">4</span>, <span class="hljs-number">5</span>]].<span class="hljs-title function_">reduceRight</span>(<span class="hljs-keyword">function</span>(<span class="hljs-params">a, b</span>) &#123;
+    <span class="hljs-keyword">return</span> a.<span class="hljs-title function_">concat</span>(b);
 &#125;, []);
-// flattened is [4, 5, 2, 3, 0, 1]
-</code></pre>
+<span class="hljs-comment">// flattened is [4, 5, 2, 3, 0, 1]</span></code></pre>
+
 <h3 id="String"><a href="#String" class="headerlink" title="String"></a>String</h3><h4 id="String-trim"><a href="#String-trim" class="headerlink" title="String.trim()"></a>String.trim()</h4><p>会删除一个字符串两端的空白字符。</p>
 <p><code>var newStr = str.trim()</code></p>
 <p>示例：</p>
-<pre><code class="javascript">var orig = &#39;   foo  &#39;;
-console.log(orig.trim()); // &#39;foo&#39;
-</code></pre>
+<pre><code class="hljs javascript"><span class="hljs-keyword">var</span> orig = <span class="hljs-string">&#x27;   foo  &#x27;</span>;
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(orig.<span class="hljs-title function_">trim</span>()); <span class="hljs-comment">// &#x27;foo&#x27;</span></code></pre>
 <h3 id="Date"><a href="#Date" class="headerlink" title="Date"></a>Date</h3><h4 id="Date-now"><a href="#Date-now" class="headerlink" title="Date.now()"></a>Date.now()</h4><p>返回自1970年1月1日 00:00:00 UTC到当前时间的毫秒数。</p>
 <p><code>var timeInMs = Date.now();</code></p>
 <p>IE8及以下可以用以下代码来兼容：</p>
-<pre><code class="javascript">if (!Date.now) &#123;
-  Date.now = function now() &#123;
-    return new Date().getTime();
+<pre><code class="hljs javascript"><span class="hljs-keyword">if</span> (!<span class="hljs-title class_">Date</span>.<span class="hljs-property">now</span>) &#123;
+  <span class="hljs-title class_">Date</span>.<span class="hljs-property">now</span> = <span class="hljs-keyword">function</span> <span class="hljs-title function_">now</span>(<span class="hljs-params"></span>) &#123;
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Date</span>().<span class="hljs-title function_">getTime</span>();
   &#125;;
-&#125;
-</code></pre>
+&#125;</code></pre>
 <h4 id="Date-prototype-toISOString"><a href="#Date-prototype-toISOString" class="headerlink" title="Date.prototype.toISOString()"></a>Date.prototype.toISOString()</h4><p>返回一个 ISO（ISO 8601 Extended Format）格式的字符串： YYYY-MM-DDTHH:mm:ss.sssZ。时区总是UTC（协调世界时），加一个后缀“Z”标识。</p>
 <p><code>dateObj.toISOString()</code></p>
 <p>示例：</p>
-<pre><code class="javascript">var today = new Date(&quot;05 October 2011 14:48 UTC&quot;);
-console.log(today.toISOString()); // 返回2011-10-05T14:48:00.000Z
-</code></pre>
+<pre><code class="hljs javascript"><span class="hljs-keyword">var</span> today = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Date</span>(<span class="hljs-string">&quot;05 October 2011 14:48 UTC&quot;</span>);
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(today.<span class="hljs-title function_">toISOString</span>()); <span class="hljs-comment">// 返回2011-10-05T14:48:00.000Z</span></code></pre>
 <h3 id="JSON"><a href="#JSON" class="headerlink" title="JSON"></a>JSON</h3><h4 id="JSON-parse"><a href="#JSON-parse" class="headerlink" title="JSON.parse()"></a>JSON.parse()</h4><p>解析一个JSON字符串，构造由字符串描述的JavaScript值或对象。可以提供可选的reviver函数以在返回之前对所得到的对象执行变换。</p>
 <p><code>JSON.parse(text[, reviver])</code></p>
 <p>text:要被解析成JavaSctipt值的字符串，查看 JSON 对象学习的JSON 语法的说明。<br>reviver: 可选,如果是一个函数，则规定了原始值如何被解析改造，在被返回之前。</p>
 <p>示例：</p>
-<pre><code class="javascript">JSON.parse(&#39;&#123;&quot;name&quot; : &quot;jesse&quot;,&quot;age&quot;:25 &#125;&#39;);//&#123; name: &#39;jesse&#39;, age: 25 &#125;
-</code></pre>
+<pre><code class="hljs javascript"><span class="hljs-title class_">JSON</span>.<span class="hljs-title function_">parse</span>(<span class="hljs-string">&#x27;&#123;&quot;name&quot; : &quot;jesse&quot;,&quot;age&quot;:25 &#125;&#x27;</span>);<span class="hljs-comment">//&#123; name: &#x27;jesse&#x27;, age: 25 &#125;</span></code></pre>
 <h4 id="JSON-stringfy"><a href="#JSON-stringfy" class="headerlink" title="JSON.stringfy()"></a>JSON.stringfy()</h4><p>JSON.stringify() 方法将JavaScript值转换为JSON字符串</p>
 <p><code>JSON.stringify(value[, replacer [, space]])</code></p>
 <p>示例：</p>
-<pre><code class="javascript">JSON.stringify(&#123; name: &#39;jesse&#39;, age: 25 &#125;);//&#123;&quot;name&quot;:&quot;jesse&quot;,&quot;age&quot;:25&#125;
-</code></pre>
- 
+<pre><code class="hljs javascript"><span class="hljs-title class_">JSON</span>.<span class="hljs-title function_">stringify</span>(&#123; <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;jesse&#x27;</span>, <span class="hljs-attr">age</span>: <span class="hljs-number">25</span> &#125;);<span class="hljs-comment">//&#123;&quot;name&quot;:&quot;jesse&quot;,&quot;age&quot;:25&#125;</span></code></pre> 
       <div id="toc-article">
   <div class="widget-wrap" id="toc-wrap">
     <h3 class="widget-title"><i class="fa fa-toc"></i> 文章目录</h3>

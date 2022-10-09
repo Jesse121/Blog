@@ -274,57 +274,57 @@
        <p>在 H5 页面开发中，我们常需要设置各种头部标签以帮助浏览器更好的解析页面，将页面完美呈现，这里列出了工作中常用的各种头部标签，以备查询。</p>
 <span id="more"></span>
 
-<h3 id="viewport"><a href="#viewport" class="headerlink" title="viewport"></a><a target="_blank" rel="noopener" href="http://www.css88.com/archives/5975">viewport</a></h3><pre><code class="html">&lt;meta
-  name=&quot;viewport&quot;
-  content=&quot;width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0&quot;
-/&gt;
-</code></pre>
+<h3 id="viewport"><a href="#viewport" class="headerlink" title="viewport"></a><a target="_blank" rel="noopener" href="http://www.css88.com/archives/5975">viewport</a></h3><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">meta</span></span>
+<span class="hljs-tag">  <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;viewport&quot;</span></span>
+<span class="hljs-tag">  <span class="hljs-attr">content</span>=<span class="hljs-string">&quot;width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0&quot;</span></span>
+<span class="hljs-tag">/&gt;</span></code></pre>
+
 <p>initial-scale 属性控制页面最初加载时的缩放等级。maximum-scale、minimum-scale 及 user-scalable 属性控制允许用户以怎样的方式放大或缩小页面。</p>
 <p>使用目的：阻止页面缩放</p>
 <p>Safari 无效，其他均能阻止页面缩放<br>safari 可以使用以下方法</p>
-<pre><code class="js">window.onload = function () &#123;
-  document.addEventListener(&quot;touchstart&quot;, function (event) &#123;
-    if (event.touches.length &gt; 1) &#123;
-      //多触点
-      event.preventDefault(); //阻止默认缩放
+<pre><code class="hljs js"><span class="hljs-variable language_">window</span>.<span class="hljs-property">onload</span> = <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) &#123;
+  <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">addEventListener</span>(<span class="hljs-string">&quot;touchstart&quot;</span>, <span class="hljs-keyword">function</span> (<span class="hljs-params">event</span>) &#123;
+    <span class="hljs-keyword">if</span> (event.<span class="hljs-property">touches</span>.<span class="hljs-property">length</span> &gt; <span class="hljs-number">1</span>) &#123;
+      <span class="hljs-comment">//多触点</span>
+      event.<span class="hljs-title function_">preventDefault</span>(); <span class="hljs-comment">//阻止默认缩放</span>
     &#125;
   &#125;);
-  var lastTouchEnd = 0;
-  document.addEventListener(
-    &quot;touchend&quot;,
-    function (event) &#123;
-      var now = new Date().getTime();
-      if (now - lastTouchEnd &lt;= 300) &#123;
-        event.preventDefault(); //阻止双击放大
+  <span class="hljs-keyword">var</span> lastTouchEnd = <span class="hljs-number">0</span>;
+  <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">addEventListener</span>(
+    <span class="hljs-string">&quot;touchend&quot;</span>,
+    <span class="hljs-keyword">function</span> (<span class="hljs-params">event</span>) &#123;
+      <span class="hljs-keyword">var</span> now = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Date</span>().<span class="hljs-title function_">getTime</span>();
+      <span class="hljs-keyword">if</span> (now - lastTouchEnd &lt;= <span class="hljs-number">300</span>) &#123;
+        event.<span class="hljs-title function_">preventDefault</span>(); <span class="hljs-comment">//阻止双击放大</span>
       &#125;
       lastTouchEnd = now;
     &#125;,
-    false
+    <span class="hljs-literal">false</span>
   );
-&#125;;
-</code></pre>
+&#125;;</code></pre>
+
 <h3 id="ios-meta"><a href="#ios-meta" class="headerlink" title="ios meta"></a>ios meta</h3><!-- <meta name="apple-touch-fullscreen" content="yes"> -->
 
-<pre><code>&lt;meta name=&quot;apple-mobile-web-app-capable&quot; content=&quot;yes&quot;/&gt;
-</code></pre>
+<pre><code class="hljs plaintext">&lt;meta name=&quot;apple-mobile-web-app-capable&quot; content=&quot;yes&quot;/&gt;</code></pre>
+
 <p>启用 WebApp 全屏模式，删除苹果默认的工具栏和菜单栏</p>
-<pre><code>&lt;meta name=&quot;apple-mobile-web-app-title&quot; content=&quot;标题&quot;&gt;
-</code></pre>
+<pre><code class="hljs plaintext">&lt;meta name=&quot;apple-mobile-web-app-title&quot; content=&quot;标题&quot;&gt;</code></pre>
+
 <p>设置添加到主屏后的标题</p>
-<pre><code>&lt;meta name=&quot;apple-mobile-web-app-status-bar-style&quot; content=&quot;black&quot;/&gt;
-</code></pre>
+<pre><code class="hljs plaintext">&lt;meta name=&quot;apple-mobile-web-app-status-bar-style&quot; content=&quot;black&quot;/&gt;</code></pre>
+
 <p>在 web app 应用下状态条（屏幕顶部条）的颜色，default（白色）black（黑色） black-translucent（灰色半透明）<br>若值为”black-translucent”将会占据页面位置（会覆盖页面 20px 高度–iphone4 和 itouch4 的 Retina 屏幕为 40px）。</p>
-<pre><code>&lt;meta name=&quot;format-detection&quot; content=&quot;telphone=no, email=no&quot;/&gt;
-</code></pre>
+<pre><code class="hljs plaintext">&lt;meta name=&quot;format-detection&quot; content=&quot;telphone=no, email=no&quot;/&gt;</code></pre>
+
 <p>忽略页面中的数字识别为电话，忽略 email 识别</p>
-<h4 id="iOS-添加到主屏图标"><a href="#iOS-添加到主屏图标" class="headerlink" title="iOS 添加到主屏图标"></a>iOS 添加到主屏图标</h4><pre><code>&lt;link rel=&quot;apple-touch-icon&quot; href=&quot;apple-touch-icon.png&quot;&gt;
-</code></pre>
+<h4 id="iOS-添加到主屏图标"><a href="#iOS-添加到主屏图标" class="headerlink" title="iOS 添加到主屏图标"></a>iOS 添加到主屏图标</h4><pre><code class="hljs plaintext">&lt;link rel=&quot;apple-touch-icon&quot; href=&quot;apple-touch-icon.png&quot;&gt;</code></pre>
+
 <p>ios7 以前系统默认会对图标添加特效（圆角及高光），如果不希望系统添加特效，则可以用 apple-touch-icon-precomposed.png 代替 apple-touch-icon.png</p>
-<pre><code>&lt;link rel=&quot;apple-touch-icon-precomposed&quot; href=&quot;apple-touch-icon-57x57-precomposed.png&quot;/&gt;
-</code></pre>
+<pre><code class="hljs plaintext">&lt;link rel=&quot;apple-touch-icon-precomposed&quot; href=&quot;apple-touch-icon-57x57-precomposed.png&quot;/&gt;</code></pre>
+
 <p>iPhone 和 iTouch，默认 57x57 像素，必须有</p>
-<pre><code>&lt;link rel=&quot;apple-touch-icon-precomposed&quot; href=&quot;apple-touch-icon-114x114-precomposed.png&quot;/&gt;
-</code></pre>
+<pre><code class="hljs plaintext">&lt;link rel=&quot;apple-touch-icon-precomposed&quot; href=&quot;apple-touch-icon-114x114-precomposed.png&quot;/&gt;</code></pre>
+
 <p>Retina iPhone 和 Retina iTouch，114x114 像素，可以没有，但推荐有</p>
 <p>图标使用的优先级如下：</p>
 <ul>
@@ -332,67 +332,67 @@
 <li>如果没有比推荐尺寸大的图标，会优先选择最接近推荐尺寸的图标。</li>
 </ul>
 <h4 id="iOS-启动画面"><a href="#iOS-启动画面" class="headerlink" title="iOS 启动画面"></a>iOS 启动画面</h4><p>iPhone</p>
-<pre><code>&lt;link rel=&quot;apple-touch-startup-image&quot; media=&quot;(device-width: 320px)&quot; href=&quot;apple-touch-startup-image-320x460.png&quot;   /&gt;
-</code></pre>
+<pre><code class="hljs plaintext">&lt;link rel=&quot;apple-touch-startup-image&quot; media=&quot;(device-width: 320px)&quot; href=&quot;apple-touch-startup-image-320x460.png&quot;   /&gt;</code></pre>
+
 <p>iPhone Retina</p>
-<pre><code>&lt;link href=&quot;apple-touch-startup-image-640x920.png&quot; media=&quot;(device-width: 320px) and (-webkit-device-pixel-ratio: 2)&quot; rel=&quot;apple-touch-startup-image&quot; /&gt;
-</code></pre>
+<pre><code class="hljs plaintext">&lt;link href=&quot;apple-touch-startup-image-640x920.png&quot; media=&quot;(device-width: 320px) and (-webkit-device-pixel-ratio: 2)&quot; rel=&quot;apple-touch-startup-image&quot; /&gt;</code></pre>
+
 <p>iPhone 5</p>
-<pre><code>&lt;link rel=&quot;apple-touch-startup-image&quot; media=&quot;(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)&quot; href=&quot;apple-touch-startup-image-640x1096.png&quot;&gt;
-</code></pre>
+<pre><code class="hljs plaintext">&lt;link rel=&quot;apple-touch-startup-image&quot; media=&quot;(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)&quot; href=&quot;apple-touch-startup-image-640x1096.png&quot;&gt;</code></pre>
+
 <p>iPad portrait</p>
-<pre><code>&lt;link href=&quot;apple-touch-startup-image-768x1004.png&quot; media=&quot;(device-width: 768px) and (orientation: portrait)&quot; rel=&quot;apple-touch-startup-image&quot; /&gt;
-</code></pre>
+<pre><code class="hljs plaintext">&lt;link href=&quot;apple-touch-startup-image-768x1004.png&quot; media=&quot;(device-width: 768px) and (orientation: portrait)&quot; rel=&quot;apple-touch-startup-image&quot; /&gt;</code></pre>
+
 <p>iPad landscape</p>
-<pre><code>&lt;link href=&quot;apple-touch-startup-image-748x1024.png&quot; media=&quot;(device-width: 768px) and (orientation: landscape)&quot; rel=&quot;apple-touch-startup-image&quot; /&gt;
-</code></pre>
+<pre><code class="hljs plaintext">&lt;link href=&quot;apple-touch-startup-image-748x1024.png&quot; media=&quot;(device-width: 768px) and (orientation: landscape)&quot; rel=&quot;apple-touch-startup-image&quot; /&gt;</code></pre>
+
 <p>iPad Retina portrait</p>
-<pre><code>&lt;link href=&quot;apple-touch-startup-image-1536x2008.png&quot; media=&quot;(device-width: 1536px) and (orientation: portrait) and (-webkit-device-pixel-ratio: 2)&quot; rel=&quot;apple-touch-startup-image&quot; /&gt;
-</code></pre>
+<pre><code class="hljs plaintext">&lt;link href=&quot;apple-touch-startup-image-1536x2008.png&quot; media=&quot;(device-width: 1536px) and (orientation: portrait) and (-webkit-device-pixel-ratio: 2)&quot; rel=&quot;apple-touch-startup-image&quot; /&gt;</code></pre>
+
 <p>iPad Retina landscape</p>
-<pre><code>&lt;link href=&quot;apple-touch-startup-image-1496x2048.png&quot;media=&quot;(device-width: 1536px) and (orientation: landscape) and (-webkit-device-pixel-ratio: 2)&quot;rel=&quot;apple-touch-startup-image&quot; /&gt;
-</code></pre>
-<h3 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h3><pre><code>&lt;link rel=&quot;dns-prefetch&quot; href=&quot;//api.m.taobao.com&quot;&gt;
-</code></pre>
+<pre><code class="hljs plaintext">&lt;link href=&quot;apple-touch-startup-image-1496x2048.png&quot;media=&quot;(device-width: 1536px) and (orientation: landscape) and (-webkit-device-pixel-ratio: 2)&quot;rel=&quot;apple-touch-startup-image&quot; /&gt;</code></pre>
+
+<h3 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h3><pre><code class="hljs plaintext">&lt;link rel=&quot;dns-prefetch&quot; href=&quot;//api.m.taobao.com&quot;&gt;</code></pre>
+
 <p>DNS 预解析</p>
-<pre><code>&lt;link rel=&quot;shortcut icon&quot; type=&quot;image/ico&quot; href=&quot;/favicon.ico&quot;/&gt;
-</code></pre>
+<pre><code class="hljs plaintext">&lt;link rel=&quot;shortcut icon&quot; type=&quot;image/ico&quot; href=&quot;/favicon.ico&quot;/&gt;</code></pre>
+
 <p>添加 favicon icon</p>
-<pre><code>&lt;meta name=&quot;renderer&quot; content=&quot;webkit&quot;&gt;
-</code></pre>
+<pre><code class="hljs plaintext">&lt;meta name=&quot;renderer&quot; content=&quot;webkit&quot;&gt;</code></pre>
+
 <p>启用 360 浏览器的极速模式(webkit)</p>
-<pre><code>&lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=edge&quot;&gt;
-</code></pre>
+<pre><code class="hljs plaintext">&lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=edge&quot;&gt;</code></pre>
+
 <p>IE 使用现有最高版本</p>
-<pre><code>&lt;meta http-equiv=&quot;Cache-Control&quot; content=&quot;no-siteapp&quot; /&gt;
-</code></pre>
+<pre><code class="hljs plaintext">&lt;meta http-equiv=&quot;Cache-Control&quot; content=&quot;no-siteapp&quot; /&gt;</code></pre>
+
 <p>不让百度转码</p>
 <!-- <meta name="HandheldFriendly" content="true"> -->
 <!-- 针对手持设备优化，主要是针对一些老的不识别viewport的浏览器，比如黑莓 -->
 
-<pre><code>&lt;meta name=&quot;x5-orientation&quot; content=&quot;portrait&quot;&gt;
-</code></pre>
+<pre><code class="hljs plaintext">&lt;meta name=&quot;x5-orientation&quot; content=&quot;portrait&quot;&gt;</code></pre>
+
 <p>QQ 强制竖屏</p>
-<pre><code>&lt;meta name=&quot;x5-fullscreen&quot; content=&quot;true&quot;&gt;
-</code></pre>
+<pre><code class="hljs plaintext">&lt;meta name=&quot;x5-fullscreen&quot; content=&quot;true&quot;&gt;</code></pre>
+
 <p>QQ 强制全屏</p>
-<pre><code>&lt;meta name=&quot;x5-page-mode&quot; content=&quot;app&quot;&gt;
-</code></pre>
+<pre><code class="hljs plaintext">&lt;meta name=&quot;x5-page-mode&quot; content=&quot;app&quot;&gt;</code></pre>
+
 <p>QQ 应用模式</p>
-<pre><code>&lt;meta name=&quot;screen-orientation&quot; content=&quot;portrait&quot;&gt;
-</code></pre>
+<pre><code class="hljs plaintext">&lt;meta name=&quot;screen-orientation&quot; content=&quot;portrait&quot;&gt;</code></pre>
+
 <p>UC 强制竖屏</p>
-<pre><code>&lt;meta name=&quot;full-screen&quot; content=&quot;yes&quot;&gt;
-</code></pre>
+<pre><code class="hljs plaintext">&lt;meta name=&quot;full-screen&quot; content=&quot;yes&quot;&gt;</code></pre>
+
 <p>UC 强制全屏</p>
-<pre><code>&lt;meta name=&quot;browsermode&quot; content=&quot;application&quot;&gt;
-</code></pre>
+<pre><code class="hljs plaintext">&lt;meta name=&quot;browsermode&quot; content=&quot;application&quot;&gt;</code></pre>
+
 <p>UC 应用模式</p>
-<pre><code>&lt;meta name=&quot;msapplication-tap-highlight&quot; content=&quot;no&quot;&gt;
-</code></pre>
+<pre><code class="hljs plaintext">&lt;meta name=&quot;msapplication-tap-highlight&quot; content=&quot;no&quot;&gt;</code></pre>
+
 <p>windows phone 点击无高光</p>
-<pre><code>&lt;meta name=&quot;robots&quot; content=&quot;index,follow&quot;/&gt;
-</code></pre>
+<pre><code class="hljs plaintext">&lt;meta name=&quot;robots&quot; content=&quot;index,follow&quot;/&gt;</code></pre>
+
 <p>搜索引擎抓取<br>说明：<br>robots 用来告诉搜索机器人哪些页面需要索引，哪些页面不需要索引。<br>具体参数如下：<br>信息参数为 all：文件将被检索，且页面上的链接可以被查询；<br>信息参数为 none：文件将不被检索，且页面上的链接不可以被查询；<br>信息参数为 index：文件将被检索；<br>信息参数为 follow：页面上的链接可以被查询；<br>信息参数为 noindex：文件将不被检索，但页面上的链接可以被查询；<br>信息参数为 nofollow：文件将被检索，但页面上的链接不可以被查询；</p>
 <!-- 为移动设备添加 viewport -->
 <!-- <meta name="viewport" content="initial-scale=1, maximum-scale=3, minimum-scale=1, user-scalable=no"> -->

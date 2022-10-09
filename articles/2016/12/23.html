@@ -296,11 +296,10 @@
 <li>报文主体 （应被发送的数据）通常并不一定要有报文主体</li>
 </ul>
 <p>下面对百度首页请求报文首部进行分析：<br><strong>请求行</strong></p>
-<pre><code>请求方法GET 请求URI /   HTTP协议版本 1.1
-GET / HTTP/1.1                                  
-</code></pre>
+<pre><code class="hljs plaintext">请求方法GET 请求URI /   HTTP协议版本 1.1
+GET / HTTP/1.1</code></pre>
 <p><strong>首部字段</strong></p>
-<pre><code>请求资源所在服务器
+<pre><code class="hljs plaintext">请求资源所在服务器
 Host: www.baidu.com
 连接方式：持久连接     HTTP/1.1之前版本默认非持久连接
 Connection: keep-alive
@@ -317,18 +316,17 @@ Accept-Encoding: gzip, deflate, sdch
 可接受的语言
 Accept-Language: zh-CN,zh;q=0.8
 相关信息或标记
-Cookie: BAIDUID=3C67AA3EF6B3347D3AA986CE489268C4:FG=1; BIDUPSID=3C67AA3EF6B3347D3AA986CE489268C4;
-</code></pre>
+Cookie: BAIDUID=3C67AA3EF6B3347D3AA986CE489268C4:FG=1; BIDUPSID=3C67AA3EF6B3347D3AA986CE489268C4;</code></pre>
+
 <h3 id="传输层-确保传输报文可靠性的TCP协议"><a href="#传输层-确保传输报文可靠性的TCP协议" class="headerlink" title="传输层 确保传输报文可靠性的TCP协议"></a>传输层 确保传输报文可靠性的TCP协议</h3><p>位于传输层的TCP协议为传输报文提供可靠的字节流服务。为了方便传输，将大块的数据分割成以报文段为单位的数据包进行管理，并为它们编号，方便服务器接收时能准确地还原报文信息。TCP协议通过“三次握手”等方法保证传输的安全可靠。<br>“三次握手”的过程是，发送端先发送一个带有SYN（synchronize）标志的数据包给接收端，在一定的延迟时间内等待接收的回复。接收端收到数据包后，传回一个带有SYN&#x2F;ACK标志的数据包以示传达确认信息。接收方收到后再发送一个带有ACK标志的数据包给接收端以示握手成功。在这个过程中，如果发送端在规定延迟时间内没有收到回复则默认接收方没有收到请求，而再次发送，直到收到回复为止。<br>详细过程如下图<br><img src="http://o8l2fza1x.bkt.clouddn.com/%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B.png" alt="三次握手"></p>
 <h3 id="网络层-负责传输的IP协议"><a href="#网络层-负责传输的IP协议" class="headerlink" title="网络层 负责传输的IP协议"></a>网络层 负责传输的IP协议</h3><p>IP协议的作用是把TCP分割好的各种数据包传送给接收方。而要保证确实能传到接收方还需要接收方的MAC地址，也就是物理地址。IP地址和MAC地址是一一对应的关系，一个网络设备的IP地址可以更换，但是MAC地址一般是固定不变的。ARP协议可以将IP地址解析成对应的MAC地址。当通信的双方不在同一个局域网时，需要多次中转才能到达最终的目标，在中转的过程中需要通过下一个中转站的MAC地址来搜索下一个中转目标。具体过程如下图：<br><img src="http://o8l2fza1x.bkt.clouddn.com/IP%E5%8D%8F%E8%AE%AE.png" alt="IP协议"></p>
 <h3 id="链路层-传输数据的硬件部分"><a href="#链路层-传输数据的硬件部分" class="headerlink" title="链路层 传输数据的硬件部分"></a>链路层 传输数据的硬件部分</h3><p>在网络层找到对方的MAC地址后，就将数据发送到数据链路层传输。至此请求报文已发出，客户端发送请求的阶段结束</p>
 <h3 id="服务器接收报文"><a href="#服务器接收报文" class="headerlink" title="服务器接收报文"></a>服务器接收报文</h3><p>接收端服务器在链路层接收到数据后，删除该层的首部信息并向网络层传递，网络层将接收的数据向传输层传递，在传输层会将传输的数据按序号从组请求报文并传送给应用层。当数据传输到应用层才能算真正接收到由客户端发送过来的HTTP请求</p>
 <h3 id="应用层-服务器发送HTTP响应报文"><a href="#应用层-服务器发送HTTP响应报文" class="headerlink" title="应用层 服务器发送HTTP响应报文"></a>应用层 服务器发送HTTP响应报文</h3><p>下面对百度首页响应报文首部进行分析：<br><strong>状态行</strong></p>
-<pre><code>协议版本 状态码 状态码原因短语
-HTTP/1.1 200 OK
-</code></pre>
+<pre><code class="hljs plaintext">协议版本 状态码 状态码原因短语
+HTTP/1.1 200 OK</code></pre>
 <p><strong>首部字段</strong></p>
-<pre><code>当前服务器上安装的HTTP服务器程序信息
+<pre><code class="hljs plaintext">当前服务器上安装的HTTP服务器程序信息
 bfe:Baidu Front End。百度人自己写的反向代理及防攻击接入层
 Server: bfe/1.0.8.18
 响应日期时间
@@ -353,8 +351,7 @@ BDPAGETYPE: 1
 BDQID: 0xc9d964a600018bb8
 BDUSERID: 0
 设置cookie
-Set-Cookie: H_PS_PSSID=1451_21116_17001_21408_21417_21554_20929; path=/;
-</code></pre>
+Set-Cookie: H_PS_PSSID=1451_21116_17001_21408_21417_21554_20929; path=/;</code></pre>
 <p>响应报文的传输方式与请求报文相同，简单点说就是原路返回<br>在响应报文中我们通过Chrome DevTool的Network面板可以看到输入的<a target="_blank" rel="noopener" href="http://www.baidu.com会被重定向到https//www.baidu.com/,%E7%82%B9%E5%87%BB%E9%87%8D%E5%AE%9A%E5%90%91%E5%90%8E%E7%9A%84www.baidu.com,%E5%9C%A8%E5%8F%B3%E8%BE%B9%E7%9A%84Response%E9%9D%A2%E6%9D%BF%E4%B8%AD%E5%8F%AF%E4%BB%A5%E7%9C%8B%E5%88%B0%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%8E%A5%E6%94%B6%E5%88%B0%E7%9A%84%E6%8A%A5%E6%96%87%E5%AE%9E%E4%BD%93%E5%8D%B3%E8%BF%94%E5%9B%9E%E7%9A%84HTML%E9%A1%B5%E9%9D%A2%E4%BB%A3%E7%A0%81">www.baidu.com会被重定向到https://www.baidu.com/,点击重定向后的www.baidu.com,在右边的Response面板中可以看到客户端接收到的报文实体即返回的HTML页面代码</a></p>
 <p><strong>网络通信流程图</strong><br><img src="http://o8l2fza1x.bkt.clouddn.com/360%E5%8F%8D%E9%A6%88%E6%84%8F%E8%A7%81%E6%88%AA%E5%9B%BE16380515263720.png" alt="网络通信流程图"></p>
 <h3 id="在网络通信阶段对前端优化建议："><a href="#在网络通信阶段对前端优化建议：" class="headerlink" title="在网络通信阶段对前端优化建议："></a>在网络通信阶段对前端优化建议：</h3><ol>

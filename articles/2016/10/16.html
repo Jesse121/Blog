@@ -276,7 +276,7 @@
 
 <p>这篇博文不适合Bootstrap新手</p>
 <p>在<a target="_blank" rel="noopener" href="http://v3.bootcss.com/getting-started/#download">Bootstrap官网</a>点击下载我们可以看到有用于生产环境中的Bootstrap和Bootstrap源码以及Sass，我们知道Bootstrap 的源码是基于最流行的 CSS 预处理脚本 - Less 和 Sass 开发的。今天我们就来学习一下以Less开发的Bootstrap。如果不熟悉Less语法的朋友可以先在<a target="_blank" rel="noopener" href="http://lesscss.cn/">Less官网</a>学习下，在下载的bootstrap-3.3.0\less文件夹中打开bootstrap.less，我们可以看到源码的整体架构</p>
-<pre><code>// Core variables and mixins
+<pre><code class="hljs plaintext">// Core variables and mixins
 //定义变量，方便后面调用
 @import &quot;variables.less&quot;;               
 //定义混合 这类似定义函数或者宏，在mixins文件夹中可看到所定义的函数
@@ -364,8 +364,7 @@
 //实用工具类，编译后对应源码为6064~6147行
 @import &quot;utilities.less&quot;;               
 //响应式工具类，编译后对应源码为6148~6357行
-@import &quot;responsive-utilities.less&quot;;    
-</code></pre>
+@import &quot;responsive-utilities.less&quot;;</code></pre>
 <p>这些Less文件进过编译后形成了完整的Bootstrap框架。在Bootstrap官网最后我们可以定制自己的Bootstrap，可根据项目的需要自行选择不同的Less文件。<br>在《深入理解Bootstrap》一书中以图表的形式概括了Bootstrap整体架构，图片如下：<br><img src="http://o8l2fza1x.bkt.clouddn.com/594946-20160105095231746-1295822530.png" alt="Bootstrap源码分析系列之整体架构"><br>在接下来的文章中，将对Bootstrap框架中一些常用的样式及组件进行分析，经过自己梳理使得对Bootstrap更加了解了。<br>整个Bootstrap源码可分为4个部分：<br>第一部分是定义的变量及混合，方便后面的css属性使用，这也使得后期的修改和维护将更加的容易。<br>第二部分是css初始化和依赖项，这部分也是为后面的css做准备，这部分包括normalize标准化css样式库和打印样式及字体。<br>第三部分是核心CSS，这里包括许多常用的表格、表单及按钮等样式，最重要的是引入了栅格系统，这正是Bootstrap支持响应式的根本。<br>第四部分是常用的CSS组件，这里将介绍网页中常用的各种样式组件，如果还有其他组件这里还可以继续扩充，这使得Bootstrap能都不断完善。<br>第五部分是javascript组件库所需的样式。<br>第六部分是常用的工具类，包括响应式工具类和打印类<br>在Bootstrap框架的实际使用中，我们不仅要知道各种样式的成因，还需要熟练使用他们的类名与HTML的完美配合才能体现书Bootstrap框架的魅力。</p>
  
       <div id="toc-article">

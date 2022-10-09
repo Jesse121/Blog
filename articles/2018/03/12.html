@@ -329,77 +329,75 @@
 </style>
 
 <p>此时当我们再旋转的时候发现，圆环可以实现一点一点的消失了，但是当转过一个180度的时候这个半圆右出现了，此时我们可以用到前面的overflow:hidden;<br>CSS代码如下  </p>
-<pre><code class="css">.circleProgress_wrapper&#123;
-    width: 160px;
-    height: 160px;
-    margin: 10px auto;
-    position: relative;
+<pre><code class="hljs css"><span class="hljs-selector-class">.circleProgress_wrapper</span>&#123;
+    <span class="hljs-attribute">width</span>: <span class="hljs-number">160px</span>;
+    <span class="hljs-attribute">height</span>: <span class="hljs-number">160px</span>;
+    <span class="hljs-attribute">margin</span>: <span class="hljs-number">10px</span> auto;
+    <span class="hljs-attribute">position</span>: relative;
 &#125;
-.wrapper&#123;
-    width: 80px;
-    height: 160px;
-    position: absolute;
-    top:0;
-    overflow: hidden;
+<span class="hljs-selector-class">.wrapper</span>&#123;
+    <span class="hljs-attribute">width</span>: <span class="hljs-number">80px</span>;
+    <span class="hljs-attribute">height</span>: <span class="hljs-number">160px</span>;
+    <span class="hljs-attribute">position</span>: absolute;
+    <span class="hljs-attribute">top</span>:<span class="hljs-number">0</span>;
+    <span class="hljs-attribute">overflow</span>: hidden;
 &#125;
-.right&#123;
-    right:0;
+<span class="hljs-selector-class">.right</span>&#123;
+    <span class="hljs-attribute">right</span>:<span class="hljs-number">0</span>;
 &#125;
-.left&#123;
-    left:0;
+<span class="hljs-selector-class">.left</span>&#123;
+    <span class="hljs-attribute">left</span>:<span class="hljs-number">0</span>;
 &#125;
-.circleProgress&#123;
-    width: 160px;
-    height: 160px;
-    border:20px solid transparent;
-    border-radius: 50%;
-    position: absolute;
-    top:0;
-    /*transform: rotate(45deg);*/
+<span class="hljs-selector-class">.circleProgress</span>&#123;
+    <span class="hljs-attribute">width</span>: <span class="hljs-number">160px</span>;
+    <span class="hljs-attribute">height</span>: <span class="hljs-number">160px</span>;
+    <span class="hljs-attribute">border</span>:<span class="hljs-number">20px</span> solid transparent;
+    <span class="hljs-attribute">border-radius</span>: <span class="hljs-number">50%</span>;
+    <span class="hljs-attribute">position</span>: absolute;
+    <span class="hljs-attribute">top</span>:<span class="hljs-number">0</span>;
+    <span class="hljs-comment">/*transform: rotate(45deg);*/</span>
 &#125;
- .rightcircle&#123;
-    border-top:20px solid red;
-    border-right:20px solid red;
-    right:0;
-    animation: circleProgressLoad_right 6s linear infinite;
+ <span class="hljs-selector-class">.rightcircle</span>&#123;
+    <span class="hljs-attribute">border-top</span>:<span class="hljs-number">20px</span> solid red;
+    <span class="hljs-attribute">border-right</span>:<span class="hljs-number">20px</span> solid red;
+    <span class="hljs-attribute">right</span>:<span class="hljs-number">0</span>;
+    <span class="hljs-attribute">animation</span>: circleProgressLoad_right <span class="hljs-number">6s</span> linear infinite;
 &#125;
-.leftcircle&#123;
-    border-bottom:20px solid red;
-    border-left:20px solid red;
-    left:0;
-    animation: circleProgressLoad_left 6s linear infinite;
-&#125;
-</code></pre>
+<span class="hljs-selector-class">.leftcircle</span>&#123;
+    <span class="hljs-attribute">border-bottom</span>:<span class="hljs-number">20px</span> solid red;
+    <span class="hljs-attribute">border-left</span>:<span class="hljs-number">20px</span> solid red;
+    <span class="hljs-attribute">left</span>:<span class="hljs-number">0</span>;
+    <span class="hljs-attribute">animation</span>: circleProgressLoad_left <span class="hljs-number">6s</span> linear infinite;
+&#125;</code></pre>
 <p>接下来用css3写个旋转动画即可</p>
-<pre><code class="css"> .rightcircle&#123;
-    border-top:20px solid red;
-    border-right:20px solid red;
-    right:0;
-    animation: circleProgressLoad_right 6s linear infinite;
+<pre><code class="hljs css"> <span class="hljs-selector-class">.rightcircle</span>&#123;
+    <span class="hljs-attribute">border-top</span>:<span class="hljs-number">20px</span> solid red;
+    <span class="hljs-attribute">border-right</span>:<span class="hljs-number">20px</span> solid red;
+    <span class="hljs-attribute">right</span>:<span class="hljs-number">0</span>;
+    <span class="hljs-attribute">animation</span>: circleProgressLoad_right <span class="hljs-number">6s</span> linear infinite;
 &#125;
-.leftcircle&#123;
-    border-bottom:20px solid red;
-    border-left:20px solid red;
-    left:0;
-    animation: circleProgressLoad_left 6s linear infinite;
+<span class="hljs-selector-class">.leftcircle</span>&#123;
+    <span class="hljs-attribute">border-bottom</span>:<span class="hljs-number">20px</span> solid red;
+    <span class="hljs-attribute">border-left</span>:<span class="hljs-number">20px</span> solid red;
+    <span class="hljs-attribute">left</span>:<span class="hljs-number">0</span>;
+    <span class="hljs-attribute">animation</span>: circleProgressLoad_left <span class="hljs-number">6s</span> linear infinite;
 &#125;
-@keyframes circleProgressLoad_right&#123;
-    0%&#123;
-        transform: rotate(45deg);
+<span class="hljs-keyword">@keyframes</span> circleProgressLoad_right&#123;
+    <span class="hljs-number">0%</span>&#123;
+        <span class="hljs-attribute">transform</span>: <span class="hljs-built_in">rotate</span>(<span class="hljs-number">45deg</span>);
     &#125;
-    50%,100%&#123;
-        transform: rotate(225deg);
-    &#125;
-&#125;
-@keyframes circleProgressLoad_left&#123;
-    0%,50%&#123;
-        transform: rotate(45deg);
-    &#125;
-    100%&#123;
-        transform: rotate(225deg);
+    <span class="hljs-number">50%</span>,<span class="hljs-number">100%</span>&#123;
+        <span class="hljs-attribute">transform</span>: <span class="hljs-built_in">rotate</span>(<span class="hljs-number">225deg</span>);
     &#125;
 &#125;
-</code></pre>
+<span class="hljs-keyword">@keyframes</span> circleProgressLoad_left&#123;
+    <span class="hljs-number">0%</span>,<span class="hljs-number">50%</span>&#123;
+        <span class="hljs-attribute">transform</span>: <span class="hljs-built_in">rotate</span>(<span class="hljs-number">45deg</span>);
+    &#125;
+    <span class="hljs-number">100%</span>&#123;
+        <span class="hljs-attribute">transform</span>: <span class="hljs-built_in">rotate</span>(<span class="hljs-number">225deg</span>);
+    &#125;
+&#125;</code></pre>
 <p><a href="../../../demo/css3-circle-progress.html">点击查看完整的demo</a><br>目前这里的倒计时动画是动画时间是6s，这里可以根据需要自行修改，这里的运行时间我在项目中是用js控制的，这样可以根据后台下发的时间值来倒计时，非常方便。</p>
  
       <div id="toc-article">

@@ -304,11 +304,11 @@
 <td>x</td>
 </tr>
 </tbody></table>
-<pre><code>a 代表ugo
+<pre><code class="hljs plaintext">a 代表ugo
 + 添加权限
 - 移除权限
-= 赋值权限
-</code></pre>
+= 赋值权限</code></pre>
+
 <p>chmod [-R] ugo 文件或目录<br>u 所有者权限 g 所属组权限 o 其他用户权限<br>chmod -R a&#x3D;rwx file</p>
 <h5 id="2-数字表示法"><a href="#2-数字表示法" class="headerlink" title="2.数字表示法"></a>2.数字表示法</h5><p>r 可读权限 2^2&#x3D;4<br>w 可写权限 2^1&#x3D;2<br>x 可执行权限 2^0&#x3D;1</p>
 <p>r:4 w:2 x:1 rwx 总和即权限<br>chmod -R 777 *</p>
@@ -316,14 +316,14 @@
 <h4 id="切换账户"><a href="#切换账户" class="headerlink" title="切换账户"></a>切换账户</h4><p>su username<br>从普通用户切换到 root 用户 sudo su root<br>从 root 用户切换到普通用户 sudo su jesse</p>
 <h3 id="压缩与解压"><a href="#压缩与解压" class="headerlink" title="压缩与解压"></a>压缩与解压</h3><h4 id="打包压缩"><a href="#打包压缩" class="headerlink" title="打包压缩"></a>打包压缩</h4><p>tar [-ctxzjJvf] 压缩文件 [源文件]<br>c 打包压缩&#x2F;t 查看内容&#x2F;x 解打包解压缩&#x2F;v 显示过程&#x2F;f 指定压缩包名称<br>z 使用 gzip 方式&#x2F;j 使用 bzip2 方式&#x2F;J 使用 xz 方式<br>tar -czvf a.tar.gz a<br>tar -cjvf a.tar.bz2 a</p>
 <h4 id="解压"><a href="#解压" class="headerlink" title="解压"></a>解压</h4><p>tar -xzvf a.tar.gz -C 解压目录<br>tar -xjvf a.tar.bz2 -C 解压目录</p>
-<h4 id="gzip-压缩文件"><a href="#gzip-压缩文件" class="headerlink" title="gzip 压缩文件"></a>gzip 压缩文件</h4><pre><code>gzip [-cdtv#] test
-</code></pre>
+<h4 id="gzip-压缩文件"><a href="#gzip-压缩文件" class="headerlink" title="gzip 压缩文件"></a>gzip 压缩文件</h4><pre><code class="hljs plaintext">gzip [-cdtv#] test</code></pre>
+
 <p>压缩扩展名为 gz<br>-c 将压缩数据输出到屏幕上<br>-d 解压缩参数<br>-t 校验文件是否损坏<br>-V 显示和源文件压缩比<br>-# 压缩等级 -1 最快 -9 最慢 默认-6</p>
-<h3 id="bzip2-压缩文件"><a href="#bzip2-压缩文件" class="headerlink" title="bzip2 压缩文件"></a>bzip2 压缩文件</h3><pre><code>bzip2 [-cdkv#] test
-</code></pre>
+<h3 id="bzip2-压缩文件"><a href="#bzip2-压缩文件" class="headerlink" title="bzip2 压缩文件"></a>bzip2 压缩文件</h3><pre><code class="hljs plaintext">bzip2 [-cdkv#] test</code></pre>
+
 <p>-c 将压缩数据输出到屏幕上<br>-d 解压缩参数<br>-k 保留原文件<br>-V 显示和源文件压缩比<br>-# 压缩等级 -1 最快 -9 最慢 默认-6</p>
-<h4 id="zip-压缩"><a href="#zip-压缩" class="headerlink" title="zip 压缩"></a>zip 压缩</h4><pre><code>zip [-q -r -e -m -o] [yourName].zip someThing
-</code></pre>
+<h4 id="zip-压缩"><a href="#zip-压缩" class="headerlink" title="zip 压缩"></a>zip 压缩</h4><pre><code class="hljs plaintext">zip [-q -r -e -m -o] [yourName].zip someThing</code></pre>
+
 <p>-q 表示不显示压缩进度状态<br>-r 表示子目录子文件全部压缩为 zip<br>-e 表示你的压缩文件需要加密，终端会提示你输入密码的<br>-m 表示压缩完删除原文件<br>-o 表示设置所有被压缩文件的最后修改时间为当前压缩时间</p>
 <h3 id="软件的安装与卸载"><a href="#软件的安装与卸载" class="headerlink" title="软件的安装与卸载"></a>软件的安装与卸载</h3><h4 id="源码包安装"><a href="#源码包安装" class="headerlink" title="源码包安装"></a>源码包安装</h4><p>下载源码包(curl,wget)<br>解压(tar)<br>进入目录(cd)<br>编译前配置(.&#x2F;configure)<br>编译(make)<br>编译安装(make install)<br>删除源码包 make clean</p>
 <h4 id="rpm-包安装"><a href="#rpm-包安装" class="headerlink" title="rpm 包安装"></a>rpm 包安装</h4><p>下载 rpm 安装包<br>rpm -ivh 软件包<br>-i 安装 -v 显示详细信息 -h 显示进度<br>卸载 rpm -e 安装包(不可以有后缀.rpm)</p>

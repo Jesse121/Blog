@@ -274,124 +274,124 @@
        <p>今年上半年主要是做 IM 桌面客户端项目的开发，主要用到的技术有 Electron+Vue+Vite，这里主要介绍下这个项目的构建过程方便下次快速创建类型项目。</p>
 <span id="more"></span>
 
-<h3 id="用-vite-构建-vue3-项目"><a href="#用-vite-构建-vue3-项目" class="headerlink" title="用 vite 构建 vue3 项目"></a>用 vite 构建 vue3 项目</h3><pre><code class="sh">yarn create vite electron-vue-vite-template --template vue-ts
-cd electron-vue-vite-template
-yarn
-</code></pre>
+<h3 id="用-vite-构建-vue3-项目"><a href="#用-vite-构建-vue3-项目" class="headerlink" title="用 vite 构建 vue3 项目"></a>用 vite 构建 vue3 项目</h3><pre><code class="hljs sh">yarn create vite electron-vue-vite-template --template vue-ts
+<span class="hljs-built_in">cd</span> electron-vue-vite-template
+yarn</code></pre>
+
 <p><img src="https://raw.githubusercontent.com/Jesse121/publicPic/master/blog/pictures/20220718204128.png" alt="20220718204128"><br>至此一个简单的 vue3 项目已经搭建好</p>
 <h3 id="安装-Electron-并搭建基础架构"><a href="#安装-Electron-并搭建基础架构" class="headerlink" title="安装 Electron 并搭建基础架构"></a>安装 Electron 并搭建基础架构</h3><p>在安装 electron 之前我们先配置下下载源<br>在项目跟目录下新建.yarnrc 文件</p>
-<pre><code>registry=https://registry.npmmirror.com/
-electron_mirror=https://npmmirror.com/mirrors/electron/
-</code></pre>
+<pre><code class="hljs plaintext">registry=https://registry.npmmirror.com/
+electron_mirror=https://npmmirror.com/mirrors/electron/</code></pre>
+
 <p>安装 electron</p>
-<pre><code class="sh">yarn add electron@19.0.8 -D
-</code></pre>
+<pre><code class="hljs sh">yarn add electron@19.0.8 -D</code></pre>
+
 <p>这里要说明下，因为我们开发的 IM 是要在国产银河麒麟上运行，而 electron 官网并没有提供麒麟系统 mips 架构的安装包，查询资料得知这里需要我们自己离线安装，详细内容可参考<a target="_blank" rel="noopener" href="https://github.com/Jesse121/blog/issues/1">如何在国产银河麒麟系统 mips 架构上离线安装 electron</a></p>
 <p>安装好 electron 后需要新建以下目录和文件：</p>
-<pre><code class="sh">mkdir electron &amp;&amp; cd electron
-mkdir main &amp;&amp; cd main &amp;&amp; touch index.ts
-cd .. &amp;&amp; mkdir preload &amp;&amp; cd preload &amp;&amp; touch index.ts
-</code></pre>
+<pre><code class="hljs sh"><span class="hljs-built_in">mkdir</span> electron &amp;&amp; <span class="hljs-built_in">cd</span> electron
+<span class="hljs-built_in">mkdir</span> main &amp;&amp; <span class="hljs-built_in">cd</span> main &amp;&amp; <span class="hljs-built_in">touch</span> index.ts
+<span class="hljs-built_in">cd</span> .. &amp;&amp; <span class="hljs-built_in">mkdir</span> preload &amp;&amp; <span class="hljs-built_in">cd</span> preload &amp;&amp; <span class="hljs-built_in">touch</span> index.ts</code></pre>
+
 <p><img src="https://raw.githubusercontent.com/Jesse121/publicPic/master/blog/pictures/20220719101642.png" alt="20220719101642"></p>
 <p>main 文件夹里的内容是 electron 主进程代码<br>preload 文件夹内容是预加载脚本<br>src 文件夹是渲染进程运行 web 网页</p>
 <p>Electron 的主进程是一个具有完全操作系统访问权限的 Node.js 环境。在 Electron 模块之上，您还可以访问 Node.js 内置插件，以及通过 npm 安装的任何包。另一方面，渲染器进程运行网页并且出于安全原因默认不运行 Node.js。<br>为了将 Electron 的不同进程类型连接在一起，我们需要使用一个称为 preload 的特殊脚本。</p>
 <p>编写 main&#x2F;index.ts</p>
-<pre><code class="ts">import &#123; app, BrowserWindow &#125; from &quot;electron&quot;;
-import path, &#123; join &#125; from &quot;path&quot;;
+<pre><code class="hljs ts"><span class="hljs-keyword">import</span> &#123; app, <span class="hljs-title class_">BrowserWindow</span> &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;electron&quot;</span>;
+<span class="hljs-keyword">import</span> path, &#123; join &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;path&quot;</span>;
 
-const createWindow = () =&gt; &#123;
-  const win = new BrowserWindow(&#123;
-    width: 800,
-    height: 600,
-    webPreferences: &#123;
-      preload: path.join(__dirname, &quot;../preload/index.js&quot;),
+<span class="hljs-keyword">const</span> <span class="hljs-title function_">createWindow</span> = (<span class="hljs-params"></span>) =&gt; &#123;
+  <span class="hljs-keyword">const</span> win = <span class="hljs-keyword">new</span> <span class="hljs-title class_">BrowserWindow</span>(&#123;
+    <span class="hljs-attr">width</span>: <span class="hljs-number">800</span>,
+    <span class="hljs-attr">height</span>: <span class="hljs-number">600</span>,
+    <span class="hljs-attr">webPreferences</span>: &#123;
+      <span class="hljs-attr">preload</span>: path.<span class="hljs-title function_">join</span>(__dirname, <span class="hljs-string">&quot;../preload/index.js&quot;</span>),
     &#125;,
   &#125;);
 
-  if (app.isPackaged) &#123;
-    win.loadFile(join(__dirname, &quot;../../index.html&quot;));
-  &#125; else &#123;
-    // 环境变量VITE_DEV_SERVER_HOST和VITE_DEV_SERVER_PORT在vite-plugin-electron插件中默认定义
-    const url = `http://$&#123;process.env[&quot;VITE_DEV_SERVER_HOST&quot;]&#125;:$&#123;process.env[&quot;VITE_DEV_SERVER_PORT&quot;]&#125;`;
+  <span class="hljs-keyword">if</span> (app.<span class="hljs-property">isPackaged</span>) &#123;
+    win.<span class="hljs-title function_">loadFile</span>(<span class="hljs-title function_">join</span>(__dirname, <span class="hljs-string">&quot;../../index.html&quot;</span>));
+  &#125; <span class="hljs-keyword">else</span> &#123;
+    <span class="hljs-comment">// 环境变量VITE_DEV_SERVER_HOST和VITE_DEV_SERVER_PORT在vite-plugin-electron插件中默认定义</span>
+    <span class="hljs-keyword">const</span> url = <span class="hljs-string">`http://<span class="hljs-subst">$&#123;process.env[<span class="hljs-string">&quot;VITE_DEV_SERVER_HOST&quot;</span>]&#125;</span>:<span class="hljs-subst">$&#123;process.env[<span class="hljs-string">&quot;VITE_DEV_SERVER_PORT&quot;</span>]&#125;</span>`</span>;
 
-    win.loadURL(url);
+    win.<span class="hljs-title function_">loadURL</span>(url);
   &#125;
 &#125;;
 
-app.whenReady().then(() =&gt; &#123;
-  createWindow();
+app.<span class="hljs-title function_">whenReady</span>().<span class="hljs-title function_">then</span>(<span class="hljs-function">() =&gt;</span> &#123;
+  <span class="hljs-title function_">createWindow</span>();
 
-  app.on(&quot;activate&quot;, () =&gt; &#123;
-    if (BrowserWindow.getAllWindows().length === 0) &#123;
-      createWindow();
+  app.<span class="hljs-title function_">on</span>(<span class="hljs-string">&quot;activate&quot;</span>, <span class="hljs-function">() =&gt;</span> &#123;
+    <span class="hljs-keyword">if</span> (<span class="hljs-title class_">BrowserWindow</span>.<span class="hljs-title function_">getAllWindows</span>().<span class="hljs-property">length</span> === <span class="hljs-number">0</span>) &#123;
+      <span class="hljs-title function_">createWindow</span>();
     &#125;
   &#125;);
 &#125;);
 
-app.on(&quot;window-all-closed&quot;, () =&gt; &#123;
-  if (process.platform !== &quot;darwin&quot;) &#123;
-    app.quit();
+app.<span class="hljs-title function_">on</span>(<span class="hljs-string">&quot;window-all-closed&quot;</span>, <span class="hljs-function">() =&gt;</span> &#123;
+  <span class="hljs-keyword">if</span> (process.<span class="hljs-property">platform</span> !== <span class="hljs-string">&quot;darwin&quot;</span>) &#123;
+    app.<span class="hljs-title function_">quit</span>();
   &#125;
-&#125;);
-</code></pre>
-<p>编写 preload&#x2F;index.ts</p>
-<pre><code class="ts">import &#123; contextBridge &#125; from &quot;electron&quot;;
+&#125;);</code></pre>
 
-contextBridge.exposeInMainWorld(&quot;versions&quot;, &#123;
-  node: () =&gt; process.versions.node,
-  chrome: () =&gt; process.versions.chrome,
-  electron: () =&gt; process.versions.electron,
-&#125;);
-</code></pre>
+<p>编写 preload&#x2F;index.ts</p>
+<pre><code class="hljs ts"><span class="hljs-keyword">import</span> &#123; contextBridge &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;electron&quot;</span>;
+
+contextBridge.<span class="hljs-title function_">exposeInMainWorld</span>(<span class="hljs-string">&quot;versions&quot;</span>, &#123;
+  <span class="hljs-attr">node</span>: <span class="hljs-function">() =&gt;</span> process.<span class="hljs-property">versions</span>.<span class="hljs-property">node</span>,
+  <span class="hljs-attr">chrome</span>: <span class="hljs-function">() =&gt;</span> process.<span class="hljs-property">versions</span>.<span class="hljs-property">chrome</span>,
+  <span class="hljs-attr">electron</span>: <span class="hljs-function">() =&gt;</span> process.<span class="hljs-property">versions</span>.<span class="hljs-property">electron</span>,
+&#125;);</code></pre>
+
 <p>这里将 versions 对象暴露给渲染进程</p>
-<h3 id="安装-electron-和-vite-相关包"><a href="#安装-electron-和-vite-相关包" class="headerlink" title="安装 electron 和 vite 相关包"></a>安装 electron 和 vite 相关包</h3><pre><code class="sh">yarn add electron-builder@23.1.0 vite-plugin-electron@0.7.5 -D
-</code></pre>
+<h3 id="安装-electron-和-vite-相关包"><a href="#安装-electron-和-vite-相关包" class="headerlink" title="安装 electron 和 vite 相关包"></a>安装 electron 和 vite 相关包</h3><pre><code class="hljs sh">yarn add electron-builder@23.1.0 vite-plugin-electron@0.7.5 -D</code></pre>
+
 <p>electron-builder 用于 electron 应用打包<br>vite-plugin-electron 方便用 vite 热更新 electron</p>
 <p>编辑 vite.config.ts</p>
-<pre><code class="ts">import &#123; defineConfig &#125; from &quot;vite&quot;;
-import vue from &quot;@vitejs/plugin-vue&quot;;
-import &#123; join &#125; from &quot;path&quot;;
-import electron from &quot;vite-plugin-electron&quot;;
+<pre><code class="hljs ts"><span class="hljs-keyword">import</span> &#123; defineConfig &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;vite&quot;</span>;
+<span class="hljs-keyword">import</span> vue <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;@vitejs/plugin-vue&quot;</span>;
+<span class="hljs-keyword">import</span> &#123; join &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;path&quot;</span>;
+<span class="hljs-keyword">import</span> electron <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;vite-plugin-electron&quot;</span>;
 
-// https://vitejs.dev/config/
-export default defineConfig(&#123;
-  plugins: [
-    vue(),
-    electron(&#123;
-      main: &#123;
-        entry: &quot;electron/main/index.ts&quot;,
-        vite: &#123;
-          build: &#123;
-            outDir: &quot;dist/electron/main&quot;,
+<span class="hljs-comment">// https://vitejs.dev/config/</span>
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-title function_">defineConfig</span>(&#123;
+  <span class="hljs-attr">plugins</span>: [
+    <span class="hljs-title function_">vue</span>(),
+    <span class="hljs-title function_">electron</span>(&#123;
+      <span class="hljs-attr">main</span>: &#123;
+        <span class="hljs-attr">entry</span>: <span class="hljs-string">&quot;electron/main/index.ts&quot;</span>,
+        <span class="hljs-attr">vite</span>: &#123;
+          <span class="hljs-attr">build</span>: &#123;
+            <span class="hljs-attr">outDir</span>: <span class="hljs-string">&quot;dist/electron/main&quot;</span>,
           &#125;,
         &#125;,
       &#125;,
-      preload: &#123;
-        input: &#123;
-          // Must be use absolute path, this is the restrict of Rollup
-          index: join(__dirname, &quot;electron/preload/index.ts&quot;),
+      <span class="hljs-attr">preload</span>: &#123;
+        <span class="hljs-attr">input</span>: &#123;
+          <span class="hljs-comment">// Must be use absolute path, this is the restrict of Rollup</span>
+          <span class="hljs-attr">index</span>: <span class="hljs-title function_">join</span>(__dirname, <span class="hljs-string">&quot;electron/preload/index.ts&quot;</span>),
         &#125;,
-        vite: &#123;
-          build: &#123;
-            sourcemap: &quot;inline&quot;,
-            outDir: &quot;dist/electron/preload&quot;,
+        <span class="hljs-attr">vite</span>: &#123;
+          <span class="hljs-attr">build</span>: &#123;
+            <span class="hljs-attr">sourcemap</span>: <span class="hljs-string">&quot;inline&quot;</span>,
+            <span class="hljs-attr">outDir</span>: <span class="hljs-string">&quot;dist/electron/preload&quot;</span>,
           &#125;,
         &#125;,
       &#125;,
     &#125;),
   ],
-&#125;);
-</code></pre>
+&#125;);</code></pre>
+
 <p>去掉 package.json 中<code>&quot;type&quot;:&quot;module&quot;</code>，因为项目中会用到 commonJS 类型包,增加<code>&quot;main&quot;:&quot;dist/electron/main/index.js&quot;</code>项目入口</p>
 <p>在 vite-env.d.ts 中增加 versions 对象申明</p>
-<pre><code class="ts">declare const versions: &#123;
-  node: () =&gt; string;
-  chrome: () =&gt; string;
-  electron: () =&gt; string;
-&#125;;
-</code></pre>
+<pre><code class="hljs ts"><span class="hljs-keyword">declare</span> <span class="hljs-keyword">const</span> <span class="hljs-attr">versions</span>: &#123;
+  <span class="hljs-attr">node</span>: <span class="hljs-function">() =&gt;</span> <span class="hljs-built_in">string</span>;
+  <span class="hljs-attr">chrome</span>: <span class="hljs-function">() =&gt;</span> <span class="hljs-built_in">string</span>;
+  <span class="hljs-attr">electron</span>: <span class="hljs-function">() =&gt;</span> <span class="hljs-built_in">string</span>;
+&#125;;</code></pre>
+
 <p>在 App.vue 中加入以下下代码</p>
-<pre><code>&lt;template&gt;
+<pre><code class="hljs plaintext">&lt;template&gt;
  &lt;p&gt;
     app is using Chrome (&#123;&#123; chrome &#125;&#125;), Node.js (&#123;&#123; node &#125;&#125;), and Electron (&#123;&#123;
       electron
@@ -403,41 +403,41 @@ import &#123; ref &#125; from &quot;vue&quot;;
 const chrome = ref(versions.chrome());
 const node = ref(versions.node());
 const electron = ref(versions.electron());
-&lt;/script&gt;
-</code></pre>
+&lt;/script&gt;</code></pre>
+
 <p>执行 yarn dev 即可看到项目启动效果<br><img src="https://raw.githubusercontent.com/Jesse121/publicPic/master/blog/pictures/20220719154827.png" alt="20220719154827"><br>热更新也正常</p>
 <h3 id="开始打包"><a href="#开始打包" class="headerlink" title="开始打包"></a>开始打包</h3><p>修改 build 命令，加入 electron-builder 打包</p>
-<pre><code class="json">&quot;build&quot;: &quot;vue-tsc --noEmit &amp;&amp; vite build &amp;&amp; electron-builder&quot;,
-</code></pre>
+<pre><code class="hljs json"><span class="hljs-attr">&quot;build&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;vue-tsc --noEmit &amp;&amp; vite build &amp;&amp; electron-builder&quot;</span><span class="hljs-punctuation">,</span></code></pre>
+
 <p>在根目录下新建 electron-builder.json5 文件</p>
-<pre><code class="json">&#123;
-  &quot;appId&quot;: &quot;YourAppID&quot;,
-  &quot;asar&quot;: true,
-  &quot;directories&quot;: &#123;
-    &quot;output&quot;: &quot;release/$&#123;version&#125;&quot;
-  &#125;,
-  &quot;files&quot;: [&quot;dist&quot;],
-  &quot;mac&quot;: &#123;
-    &quot;artifactName&quot;: &quot;$&#123;productName&#125;_$&#123;version&#125;.$&#123;ext&#125;&quot;,
-    &quot;target&quot;: [&quot;dmg&quot;]
-  &#125;,
-  &quot;win&quot;: &#123;
-    &quot;target&quot;: [
-      &#123;
-        &quot;target&quot;: &quot;nsis&quot;,
-        &quot;arch&quot;: [&quot;x64&quot;]
-      &#125;
-    ],
-    &quot;artifactName&quot;: &quot;$&#123;productName&#125;_$&#123;version&#125;.$&#123;ext&#125;&quot;
-  &#125;,
-  &quot;nsis&quot;: &#123;
-    &quot;oneClick&quot;: false, // 是否一键安装
-    &quot;perMachine&quot;: false,
-    &quot;allowToChangeInstallationDirectory&quot;: true, // 是否允许更改安装目录
-    &quot;deleteAppDataOnUninstall&quot;: false // 卸载是否删除AppData
-  &#125;
-&#125;
-</code></pre>
+<pre><code class="hljs json"><span class="hljs-punctuation">&#123;</span>
+  <span class="hljs-attr">&quot;appId&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;YourAppID&quot;</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">&quot;asar&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-literal"><span class="hljs-keyword">true</span></span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">&quot;directories&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span>
+    <span class="hljs-attr">&quot;output&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;release/$&#123;version&#125;&quot;</span>
+  <span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">&quot;files&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-string">&quot;dist&quot;</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">&quot;mac&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span>
+    <span class="hljs-attr">&quot;artifactName&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;$&#123;productName&#125;_$&#123;version&#125;.$&#123;ext&#125;&quot;</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">&quot;target&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-string">&quot;dmg&quot;</span><span class="hljs-punctuation">]</span>
+  <span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">&quot;win&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span>
+    <span class="hljs-attr">&quot;target&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>
+      <span class="hljs-punctuation">&#123;</span>
+        <span class="hljs-attr">&quot;target&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;nsis&quot;</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">&quot;arch&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-string">&quot;x64&quot;</span><span class="hljs-punctuation">]</span>
+      <span class="hljs-punctuation">&#125;</span>
+    <span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">&quot;artifactName&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;$&#123;productName&#125;_$&#123;version&#125;.$&#123;ext&#125;&quot;</span>
+  <span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">&quot;nsis&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span>
+    <span class="hljs-attr">&quot;oneClick&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-literal"><span class="hljs-keyword">false</span></span><span class="hljs-punctuation">,</span> <span class="hljs-comment">// 是否一键安装</span>
+    <span class="hljs-attr">&quot;perMachine&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-literal"><span class="hljs-keyword">false</span></span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">&quot;allowToChangeInstallationDirectory&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-literal"><span class="hljs-keyword">true</span></span><span class="hljs-punctuation">,</span> <span class="hljs-comment">// 是否允许更改安装目录</span>
+    <span class="hljs-attr">&quot;deleteAppDataOnUninstall&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-literal"><span class="hljs-keyword">false</span></span> <span class="hljs-comment">// 卸载是否删除AppData</span>
+  <span class="hljs-punctuation">&#125;</span>
+<span class="hljs-punctuation">&#125;</span></code></pre>
+
 <p>执行 yarn build 打包命令,执行完后可以在根目录下看到 release 文件夹里面有生成的 exe 可执行文件<br><img src="https://raw.githubusercontent.com/Jesse121/publicPic/master/blog/pictures/20220719160234.png" alt="20220719160234"></p>
 <p><strong>注意</strong><br>在打包过程中会从网上下载 electron,如果使用的 electron 版本较低 无法从镜像下载可以参考<a target="_blank" rel="noopener" href="https://juejin.cn/post/7033932629128773669">Electron 无法从淘宝镜像下载安装，报错 HTTPError Response code 404 (Not Found)的问题</a></p>
 <p>至此，第一期一个简单的桌面客户端应用已经搭建完成，第二期继续完善 vue3 项目基础内容。</p>

@@ -274,206 +274,204 @@
        <p>在上一节中我们介绍了Bootstrap整体架构，本节我们将介绍Bootstrap框架第二部分初始化及依赖项，这部分内容位于源码的第8~885行，打开源码这部分内容似乎也不是很难理解。但是请站在一个开发者的角度来面对这段源码。为什么要这样写？如果没有Bootstrap框架我能写出类似这样的框架吗？  </p>
 <span id="more"></span>
 <p>我们先来分析normalize.less编译后的源码,我们知道normalize.css是一个专门将不同浏览器的默认css特性设置为统一效果的css库,它和reset.css还是有区别的，normalize.css并不是简单的重置了所有的样式，而是有针对的修改，同时也保留了标签的语义化。</p>
-<pre><code class="css">html &#123;
-  font-family: sans-serif;
-  -webkit-text-size-adjust: 100%;  //防止IOS系统方向改变(特别是手持设备)后字体大小的调整，不禁用用户缩放。
-      -ms-text-size-adjust: 100%;
+<pre><code class="hljs css"><span class="hljs-selector-tag">html</span> &#123;
+  <span class="hljs-attribute">font-family</span>: sans-serif;
+  -webkit-text-size-adjust: <span class="hljs-number">100%</span>;  //防止IOS系统方向改变(特别是手持设备)后字体大小的调整，不禁用用户缩放。
+      -ms-text-size-adjust: <span class="hljs-number">100%</span>;
 &#125;
-body &#123;
-  margin: 0;
+<span class="hljs-selector-tag">body</span> &#123;
+  <span class="hljs-attribute">margin</span>: <span class="hljs-number">0</span>;
 &#125;
-article,
-aside,
-details,
-figcaption,
-figure,
-footer,
-header,
-hgroup,
-main,
-menu,
-nav,
-section,
-summary &#123;
-  display: block; //修正IE中未定义的html5块状元素
+<span class="hljs-selector-tag">article</span>,
+<span class="hljs-selector-tag">aside</span>,
+<span class="hljs-selector-tag">details</span>,
+<span class="hljs-selector-tag">figcaption</span>,
+<span class="hljs-selector-tag">figure</span>,
+<span class="hljs-selector-tag">footer</span>,
+<span class="hljs-selector-tag">header</span>,
+<span class="hljs-selector-tag">hgroup</span>,
+<span class="hljs-selector-tag">main</span>,
+<span class="hljs-selector-tag">menu</span>,
+<span class="hljs-selector-tag">nav</span>,
+<span class="hljs-selector-tag">section</span>,
+<span class="hljs-selector-tag">summary</span> &#123;
+  <span class="hljs-attribute">display</span>: block; //修正IE中未定义的html5块状元素
 &#125;
-audio,
-canvas,
+<span class="hljs-selector-tag">audio</span>,
+<span class="hljs-selector-tag">canvas</span>,
 progress,
-video &#123;
-  display: inline-block;
-  vertical-align: baseline;
+<span class="hljs-selector-tag">video</span> &#123;
+  <span class="hljs-attribute">display</span>: inline-block;
+  <span class="hljs-attribute">vertical-align</span>: baseline;
 &#125;
-audio:not([controls]) &#123;//否定伪类,匹配所有没有controls属性的audio
-  display: none;  //防止现代浏览器显示没有控制条的音频。
-  height: 0;  //在iOS5设备中去除多余的高度。
+<span class="hljs-selector-tag">audio</span><span class="hljs-selector-pseudo">:not</span>(<span class="hljs-selector-attr">[controls]</span>) &#123;//否定伪类,匹配所有没有controls属性的<span class="hljs-selector-tag">audio</span>
+  <span class="hljs-attribute">display</span>: none;  //防止现代浏览器显示没有控制条的音频。
+  <span class="hljs-attribute">height</span>: <span class="hljs-number">0</span>;  //在iOS5设备中去除多余的高度。
 &#125;
-[hidden],
+<span class="hljs-selector-attr">[hidden]</span>,
 template &#123;//template标签主要用于声明是“模板元素”。
-  display: none; //template标签和有hidden属性的元素不显示
+  <span class="hljs-attribute">display</span>: none; //template标签和有hidden属性的元素不显示
 &#125;
-a &#123;
-  background-color: transparent;
+<span class="hljs-selector-tag">a</span> &#123;
+  <span class="hljs-attribute">background-color</span>: transparent;
 &#125;
-a:active,
-a:hover &#123;
-  outline: 0;
+<span class="hljs-selector-tag">a</span><span class="hljs-selector-pseudo">:active</span>,
+<span class="hljs-selector-tag">a</span><span class="hljs-selector-pseudo">:hover</span> &#123;
+  <span class="hljs-attribute">outline</span>: <span class="hljs-number">0</span>;
 &#125;
-abbr[title] &#123;
-  border-bottom: 1px dotted;//这是缩写形式，border-bottom-color:initial;
+<span class="hljs-selector-tag">abbr</span><span class="hljs-selector-attr">[title]</span> &#123;
+  <span class="hljs-attribute">border-bottom</span>: <span class="hljs-number">1px</span> dotted;//这是缩写形式，<span class="hljs-attribute">border-bottom-color</span>:initial;
 &#125;
-b,
-strong &#123;
-  font-weight: bold;
+<span class="hljs-selector-tag">b</span>,
+<span class="hljs-selector-tag">strong</span> &#123;
+  <span class="hljs-attribute">font-weight</span>: bold;
 &#125;
-dfn &#123;  //用来定义一个定义项目。
-  font-style: italic;
+<span class="hljs-selector-tag">dfn</span> &#123;  //用来定义一个定义项目。
+  <span class="hljs-attribute">font-style</span>: italic;
 &#125;
-h1 &#123;
-  margin: .67em 0;
-  font-size: 2em;
+<span class="hljs-selector-tag">h1</span> &#123;
+  <span class="hljs-attribute">margin</span>: .<span class="hljs-number">67em</span> <span class="hljs-number">0</span>;
+  <span class="hljs-attribute">font-size</span>: <span class="hljs-number">2em</span>;
 &#125;
-mark &#123; //部分文本高亮显示,请在需要突出显示文本时使用
-  color: #000;
-  background: #ff0;
+<span class="hljs-selector-tag">mark</span> &#123; //部分文本高亮显示,请在需要突出显示文本时使用
+  <span class="hljs-attribute">color</span>: <span class="hljs-number">#000</span>;
+  <span class="hljs-attribute">background</span>: <span class="hljs-number">#ff0</span>;
 &#125;
 small &#123;
-  font-size: 80%;
+  <span class="hljs-attribute">font-size</span>: <span class="hljs-number">80%</span>;
 &#125;
 sub,
-sup &#123; //防止sub sup影响行高
-  position: relative;
-  font-size: 75%;
-  line-height: 0;
-  vertical-align: baseline;
+<span class="hljs-selector-tag">sup</span> &#123; //防止sub <span class="hljs-selector-tag">sup</span>影响行高
+  <span class="hljs-attribute">position</span>: relative;
+  <span class="hljs-attribute">font-size</span>: <span class="hljs-number">75%</span>;
+  <span class="hljs-attribute">line-height</span>: <span class="hljs-number">0</span>;
+  <span class="hljs-attribute">vertical-align</span>: baseline;
 &#125;
-sup &#123;
-  top: -.5em;
+<span class="hljs-selector-tag">sup</span> &#123;
+  <span class="hljs-attribute">top</span>: -.<span class="hljs-number">5em</span>;
 &#125;
 sub &#123;
-  bottom: -.25em;
+  <span class="hljs-attribute">bottom</span>: -.<span class="hljs-number">25em</span>;
 &#125;
-img &#123;
-  border: 0;
+<span class="hljs-selector-tag">img</span> &#123;
+  <span class="hljs-attribute">border</span>: <span class="hljs-number">0</span>;
 &#125;
-svg:not(:root) &#123;//非根目录的svg标签
-  overflow: hidden;
+svg<span class="hljs-selector-pseudo">:not</span>(<span class="hljs-selector-pseudo">:root</span>) &#123;//非根目录的svg标签
+  <span class="hljs-attribute">overflow</span>: hidden;
 &#125;
-figure &#123; //标记文档中的一个图像
-  margin: 1em 40px;
+<span class="hljs-selector-tag">figure</span> &#123; //标记文档中的一个图像
+  <span class="hljs-attribute">margin</span>: <span class="hljs-number">1em</span> <span class="hljs-number">40px</span>;
 &#125;
 hr &#123;
-  height: 0;
-  -webkit-box-sizing: content-box;
-     -moz-box-sizing: content-box;
-          box-sizing: content-box;
+  <span class="hljs-attribute">height</span>: <span class="hljs-number">0</span>;
+  -webkit-<span class="hljs-attribute">box-sizing</span>: content-box;
+     -moz-<span class="hljs-attribute">box-sizing</span>: content-box;
+          <span class="hljs-attribute">box-sizing</span>: content-box;
 &#125;
 pre &#123;
-  overflow: auto;
+  <span class="hljs-attribute">overflow</span>: auto;
 &#125;
-code,
-kbd,
+<span class="hljs-selector-tag">code</span>,
+<span class="hljs-selector-tag">kbd</span>,
 pre,
-samp &#123;
-  font-family: monospace, monospace;
-  font-size: 1em;
+<span class="hljs-selector-tag">samp</span> &#123;
+  <span class="hljs-attribute">font-family</span>: monospace, monospace;
+  <span class="hljs-attribute">font-size</span>: <span class="hljs-number">1em</span>;
 &#125;
-button,
-input,
+<span class="hljs-selector-tag">button</span>,
+<span class="hljs-selector-tag">input</span>,
 optgroup,
 select,
-textarea &#123;
-  margin: 0;
-  font: inherit;
-  color: inherit;
+<span class="hljs-selector-tag">textarea</span> &#123;
+  <span class="hljs-attribute">margin</span>: <span class="hljs-number">0</span>;
+  <span class="hljs-attribute">font</span>: inherit;
+  <span class="hljs-attribute">color</span>: inherit;
 &#125;
-button &#123;
-  overflow: visible;
+<span class="hljs-selector-tag">button</span> &#123;
+  <span class="hljs-attribute">overflow</span>: visible;
 &#125;
-button,
+<span class="hljs-selector-tag">button</span>,
 select &#123;
-  text-transform: none;
+  <span class="hljs-attribute">text-transform</span>: none;
 &#125;
-button,
-html input[type=&quot;button&quot;],
-input[type=&quot;reset&quot;],
-input[type=&quot;submit&quot;] &#123;
+<span class="hljs-selector-tag">button</span>,
+<span class="hljs-selector-tag">html</span> <span class="hljs-selector-tag">input</span><span class="hljs-selector-attr">[type=<span class="hljs-string">&quot;button&quot;</span>]</span>,
+<span class="hljs-selector-tag">input</span><span class="hljs-selector-attr">[type=<span class="hljs-string">&quot;reset&quot;</span>]</span>,
+<span class="hljs-selector-tag">input</span><span class="hljs-selector-attr">[type=<span class="hljs-string">&quot;submit&quot;</span>]</span> &#123;
   -webkit-appearance: button;
-  cursor: pointer;
+  <span class="hljs-attribute">cursor</span>: pointer;
 &#125;
-button[disabled],
-html input[disabled] &#123;
-  cursor: default;
+<span class="hljs-selector-tag">button</span><span class="hljs-selector-attr">[disabled]</span>,
+<span class="hljs-selector-tag">html</span> <span class="hljs-selector-tag">input</span><span class="hljs-selector-attr">[disabled]</span> &#123;
+  <span class="hljs-attribute">cursor</span>: default;
 &#125;
-button::-moz-focus-inner,
-input::-moz-focus-inner &#123; //删除在火狐浏览器4及以上中的按钮的内部填充和边框
-  padding: 0;
-  border: 0;
+<span class="hljs-selector-tag">button</span>::-moz-focus-inner,
+input::-moz-focus-inner &#123; //删除在火狐浏览器<span class="hljs-number">4</span>及以上中的按钮的内部填充和边框
+  <span class="hljs-attribute">padding</span>: <span class="hljs-number">0</span>;
+  <span class="hljs-attribute">border</span>: <span class="hljs-number">0</span>;
 &#125;
-input &#123;
-  line-height: normal;
+<span class="hljs-selector-tag">input</span> &#123;
+  <span class="hljs-attribute">line-height</span>: normal;
 &#125;
-input[type=&quot;checkbox&quot;],
-input[type=&quot;radio&quot;] &#123;
-  -webkit-box-sizing: border-box;
-     -moz-box-sizing: border-box;
-          box-sizing: border-box;
-  padding: 0;
+<span class="hljs-selector-tag">input</span><span class="hljs-selector-attr">[type=<span class="hljs-string">&quot;checkbox&quot;</span>]</span>,
+<span class="hljs-selector-tag">input</span><span class="hljs-selector-attr">[type=<span class="hljs-string">&quot;radio&quot;</span>]</span> &#123;
+  -webkit-<span class="hljs-attribute">box-sizing</span>: border-box;
+     -moz-<span class="hljs-attribute">box-sizing</span>: border-box;
+          <span class="hljs-attribute">box-sizing</span>: border-box;
+  <span class="hljs-attribute">padding</span>: <span class="hljs-number">0</span>;
 &#125;
-input[type=&quot;number&quot;]::-webkit-inner-spin-button,
-input[type=&quot;number&quot;]::-webkit-outer-spin-button &#123;
-  height: auto;
+<span class="hljs-selector-tag">input</span><span class="hljs-selector-attr">[type=<span class="hljs-string">&quot;number&quot;</span>]</span>::-webkit-inner-spin-button,
+input[type=<span class="hljs-string">&quot;number&quot;</span>]::-webkit-outer-spin-button &#123;
+  <span class="hljs-attribute">height</span>: auto;
 &#125;
-input[type=&quot;search&quot;] &#123;
-  -webkit-box-sizing: content-box;
-     -moz-box-sizing: content-box;
-          box-sizing: content-box;
+<span class="hljs-selector-tag">input</span><span class="hljs-selector-attr">[type=<span class="hljs-string">&quot;search&quot;</span>]</span> &#123;
+  -webkit-<span class="hljs-attribute">box-sizing</span>: content-box;
+     -moz-<span class="hljs-attribute">box-sizing</span>: content-box;
+          <span class="hljs-attribute">box-sizing</span>: content-box;
   -webkit-appearance: textfield;
 &#125;
-input[type=&quot;search&quot;]::-webkit-search-cancel-button,
-input[type=&quot;search&quot;]::-webkit-search-decoration &#123;
+<span class="hljs-selector-tag">input</span><span class="hljs-selector-attr">[type=<span class="hljs-string">&quot;search&quot;</span>]</span>::-webkit-search-cancel-button,
+input[type=<span class="hljs-string">&quot;search&quot;</span>]::-webkit-search-decoration &#123;
   -webkit-appearance: none;
 &#125;
-fieldset &#123;//将表单内的相关元素分组。
-  padding: .35em .625em .75em;
-  margin: 0 2px;
-  border: 1px solid #c0c0c0;
+<span class="hljs-selector-tag">fieldset</span> &#123;//将表单内的相关元素分组。
+  <span class="hljs-attribute">padding</span>: .<span class="hljs-number">35em</span> .<span class="hljs-number">625em</span> .<span class="hljs-number">75em</span>;
+  <span class="hljs-attribute">margin</span>: <span class="hljs-number">0</span> <span class="hljs-number">2px</span>;
+  <span class="hljs-attribute">border</span>: <span class="hljs-number">1px</span> solid <span class="hljs-number">#c0c0c0</span>;
 &#125;
-legend &#123;
-  padding: 0;
-  border: 0;
+<span class="hljs-selector-tag">legend</span> &#123;
+  <span class="hljs-attribute">padding</span>: <span class="hljs-number">0</span>;
+  <span class="hljs-attribute">border</span>: <span class="hljs-number">0</span>;
 &#125;
-textarea &#123;
-  overflow: auto;
+<span class="hljs-selector-tag">textarea</span> &#123;
+  <span class="hljs-attribute">overflow</span>: auto;
 &#125;
 optgroup &#123;//用于把相关的选项组合在一起。
-  font-weight: bold;
+  <span class="hljs-attribute">font-weight</span>: bold;
 &#125;
-table &#123;
-  border-spacing: 0;
-  border-collapse: collapse;
+<span class="hljs-selector-tag">table</span> &#123;
+  <span class="hljs-attribute">border-spacing</span>: <span class="hljs-number">0</span>;
+  <span class="hljs-attribute">border-collapse</span>: collapse;
 &#125;
-td,
-th &#123;
-  padding: 0;
-&#125;
-</code></pre>
+<span class="hljs-selector-tag">td</span>,
+<span class="hljs-selector-tag">th</span> &#123;
+  <span class="hljs-attribute">padding</span>: <span class="hljs-number">0</span>;
+&#125;</code></pre>
 <p>print.less主要是网页的打印样式，在此就不做分析了<br>glyphicons.less是Bootstrap引入的字体图标样式，个人觉得提供的字体图标样式太少，而且不太适合国内的网页特点，所以在定制自己的Bootstrap框架时完全可以将其去掉，或者用其他的字体替换。我个人喜欢使用淘宝的iconfont字体，其使用方式与Bootstrap相同，都是在需要使用图标的地方加上相应的类名即可。<br>来分析下部分glyphicons源码</p>
-<pre><code class="css">.glyphicon &#123;
-  position: relative;
-  top: 1px;
-  display: inline-block;
-  font-family: &#39;Glyphicons Halflings&#39;;
-  font-style: normal;
-  font-weight: normal;
-  line-height: 1;
-  -webkit-font-smoothing: antialiased; //字体灰度平滑
-  -moz-osx-font-smoothing: grayscale;// 灰阶渲染
+<pre><code class="hljs css"><span class="hljs-selector-class">.glyphicon</span> &#123;
+  <span class="hljs-attribute">position</span>: relative;
+  <span class="hljs-attribute">top</span>: <span class="hljs-number">1px</span>;
+  <span class="hljs-attribute">display</span>: inline-block;
+  <span class="hljs-attribute">font-family</span>: <span class="hljs-string">&#x27;Glyphicons Halflings&#x27;</span>;
+  <span class="hljs-attribute">font-style</span>: normal;
+  <span class="hljs-attribute">font-weight</span>: normal;
+  <span class="hljs-attribute">line-height</span>: <span class="hljs-number">1</span>;
+  -webkit-<span class="hljs-attribute">font-smoothing</span>: antialiased; //字体灰度平滑
+  -moz-osx-<span class="hljs-attribute">font-smoothing</span>: grayscale;// 灰阶渲染
 &#125;
-.glyphicon-asterisk:before &#123;
-  content: &quot;\2a&quot;; //与引入的字体文件中图标对应
-&#125;
-</code></pre>
+<span class="hljs-selector-class">.glyphicon-asterisk</span><span class="hljs-selector-pseudo">:before</span> &#123;
+  <span class="hljs-attribute">content</span>: <span class="hljs-string">&quot;\2a&quot;</span>; //与引入的字体文件中图标对应
+&#125;</code></pre>
 <p>这些字体图标的本质是使用before伪类，其content后面的数字码则是与那个图标一一对应。</p>
  
       <div id="toc-article">

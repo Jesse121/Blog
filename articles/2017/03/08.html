@@ -291,204 +291,184 @@
 <li>Eval的代码 – 在Eval函数内运行的代码。</li>
 </ul>
 <p>一个执行的上下文可以抽象的理解为一个对象。每一个执行的上下文都有一系列的属性(变量对象(variable object)，this指针(this value)，作用域链(scope chain) )</p>
-<pre><code>Execution Contexts = &#123;
+<pre><code class="hljs plaintext">Execution Contexts = &#123;
     variable object：变量对象;
     this value: this指针;
     scope chain：作用域链;
-&#125;
-</code></pre>
+&#125;</code></pre>
 <h4 id="执行上下文堆栈-Execution-Contexts-Stack"><a href="#执行上下文堆栈-Execution-Contexts-Stack" class="headerlink" title="执行上下文堆栈 Execution Contexts Stack"></a>执行上下文堆栈 Execution Contexts Stack</h4><p>活动的执行上下文组在逻辑上组成一个堆栈。堆栈底部永远都是全局上下文(globalContext)，而顶部就是当前(活动的)执行上下文。  </p>
-<pre><code class="html">&lt;script&gt;
-function add(num)&#123;
-    var sum = 5;
-    return sum + num;
-&#125;
-var sum = add(4);
-&lt;/script&gt;
-</code></pre>
+<pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="language-javascript"></span>
+<span class="language-javascript"><span class="hljs-keyword">function</span> <span class="hljs-title function_">add</span>(<span class="hljs-params">num</span>)&#123;</span>
+<span class="language-javascript">    <span class="hljs-keyword">var</span> sum = <span class="hljs-number">5</span>;</span>
+<span class="language-javascript">    <span class="hljs-keyword">return</span> sum + num;</span>
+<span class="language-javascript">&#125;</span>
+<span class="language-javascript"><span class="hljs-keyword">var</span> sum = <span class="hljs-title function_">add</span>(<span class="hljs-number">4</span>);</span>
+<span class="language-javascript"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre>
 <p>当add函数被调用时，add函数执行上下文被压入执行上下文堆栈的顶端，此时执行上下文堆栈可表示为：</p>
-<pre><code>EC Stack = [
+<pre><code class="hljs plaintext">EC Stack = [
   &lt;add&gt; functionContext
   globalContext
-];
-</code></pre>
+];</code></pre>
 <p>add函数执行完毕后，其执行上下文将会从执行上下文堆栈顶端弹出并被销毁。全局执行上下文只有在浏览器关闭时才会从执行上下文堆栈中销毁  </p>
 <h4 id="变量对象-Variable-Object"><a href="#变量对象-Variable-Object" class="headerlink" title="变量对象 Variable Object"></a>变量对象 Variable Object</h4><p>如果变量与执行上下文相关，那变量自己应该知道它的数据存储在哪里，并且知道如何访问。这种机制称为变量对象(variable object)。<br>可以说变量对象是与执行上下文相关的数据作用域(scope of data) 。它是与执行上下文关联的特殊对象，用于存储被定义在执行上下文中的变量(variables)、函数声明(function declarations) 。<br>当进入全局上下文时，全局上下文的变量对象可表示为：</p>
-<pre><code>VO = &#123;
+<pre><code class="hljs plaintext">VO = &#123;
     add: &lt;reference to function&gt;,
     sum: undefined,
     Math: &lt;...&gt;,
     String: &lt;...&gt;
     ...
     window: global //引用自身
-&#125;
-</code></pre>
+&#125;</code></pre>
 <h4 id="活动对象-Activation-Object"><a href="#活动对象-Activation-Object" class="headerlink" title="活动对象 Activation Object"></a>活动对象 Activation Object</h4><p>当函数被调用者激活时，这个特殊的活动对象(activation object) 就被创建了。它包含普通参数(formal parameters) 与特殊参数(arguments)对象(具有索引属性的参数映射表)。活动对象在函数上下文中作为变量对象使用。<br>当add函数被调用时，add函数执行上下文被压入执行上下文堆栈的顶端，add函数执行上下文中活动对象可表示为</p>
-<pre><code>AO = &#123;
+<pre><code class="hljs plaintext">AO = &#123;
     num: 4,
     sum :5,
     arguments:&#123;0:4&#125;
-&#125;
-</code></pre>
+&#125;</code></pre>
 <h4 id="作用域链-Scope-Chain"><a href="#作用域链-Scope-Chain" class="headerlink" title="作用域链 Scope Chain"></a>作用域链 Scope Chain</h4><p>函数上下文的作用域链在函数调用时创建的，包含活动对象AO和这个函数内部的[[scope]]属性。</p>
-<pre><code class="js">var x = 10;
-function foo() &#123;
-  var y = 20;
-  function bar() &#123;
-    var z = 30;
-    alert(x +  y + z);
+<pre><code class="hljs js"><span class="hljs-keyword">var</span> x = <span class="hljs-number">10</span>;
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">foo</span>(<span class="hljs-params"></span>) &#123;
+  <span class="hljs-keyword">var</span> y = <span class="hljs-number">20</span>;
+  <span class="hljs-keyword">function</span> <span class="hljs-title function_">bar</span>(<span class="hljs-params"></span>) &#123;
+    <span class="hljs-keyword">var</span> z = <span class="hljs-number">30</span>;
+    <span class="hljs-title function_">alert</span>(x +  y + z);
   &#125;
-  bar();
+  <span class="hljs-title function_">bar</span>();
 &#125;
-foo(); 
-</code></pre>
+<span class="hljs-title function_">foo</span>();</code></pre>
 <p>在这段代码中我们看到变量”y”在函数”foo”中定义（意味着它在foo上下文的AO中）”z”在函数”bar”中定义，但是变量”x”并未在”bar”上下文中定义，相应地，它也不会添加到”bar”的AO中。乍一看，变量”x”相对于函数”bar”根本就不存在；<br>函数”bar”如何访问到变量”x”？理论上函数应该能访问一个更高一层上下文的变量对象。实际上它正是这样，这种机制是通过函数内部的[[scope]]属性来实现的。<br>[[scope]]是所有父级变量对象的层级链，处于当前函数上下文之上，在函数创建时存于其中。</p>
 <p>**注意: **[[scope]]在函数创建时被存储是静态的（不变的），直至函数销毁。即：函数可以永不调用，但[[scope]]属性已经写入，并存储在函数对象中。<br>在这里我们逐步分析下<br>全局上下文的变量对象是：</p>
-<pre><code>globalContext.VO === Global = &#123;
+<pre><code class="hljs plaintext">globalContext.VO === Global = &#123;
   x: 10
   foo: &lt;reference to function&gt;
-&#125;;
-</code></pre>
+&#125;;</code></pre>
 <p>在”foo”创建时，”foo”的[[scope]]属性是：</p>
-<pre><code>foo.[[Scope]] = [
+<pre><code class="hljs plaintext">foo.[[Scope]] = [
   globalContext.VO
-];
-</code></pre>
+];</code></pre>
 <p>在”foo”激活时（进入上下文），”foo”上下文的活动对象是：</p>
-<pre><code>fooContext.AO = &#123;
+<pre><code class="hljs plaintext">fooContext.AO = &#123;
   y: 20,
   bar: &lt;reference to function&gt;
-&#125;;
-</code></pre>
+&#125;;</code></pre>
 <p>“foo”上下文的作用域链为：</p>
-<pre><code>fooContext.Scope = [
+<pre><code class="hljs plaintext">fooContext.Scope = [
   fooContext.AO,
   globalContext.VO
-];
-</code></pre>
+];</code></pre>
 <p>内部函数”bar”创建时，其[[scope]]为：</p>
-<pre><code>bar.[[Scope]] = [
+<pre><code class="hljs plaintext">bar.[[Scope]] = [
   fooContext.AO,
   globalContext.VO
-];
-</code></pre>
+];</code></pre>
 <p>在”bar”激活时，”bar”上下文的活动对象为：</p>
-<pre><code>barContext.AO = &#123;
+<pre><code class="hljs plaintext">barContext.AO = &#123;
   z: 30
-&#125;;
-</code></pre>
+&#125;;</code></pre>
 <p>“bar”上下文的作用域链为：</p>
-<pre><code>bar.Scope= [
+<pre><code class="hljs plaintext">bar.Scope= [
   barContext.AO,
   fooContext.AO,
   globalContext.VO
-];
-</code></pre>
+];</code></pre>
 <p>介绍了一大堆内容，是不是有点晕忽忽的？坚持一下，下面是重点</p>
 <h3 id="闭包的原理"><a href="#闭包的原理" class="headerlink" title="闭包的原理"></a>闭包的原理</h3><p>我们通过一个闭包的例子来分析一下闭包的形成原理</p>
-<pre><code class="js">function add()&#123;
-    var sum =5;
-    var func = function () &#123;
-        console.log(sum);
+<pre><code class="hljs js"><span class="hljs-keyword">function</span> <span class="hljs-title function_">add</span>(<span class="hljs-params"></span>)&#123;
+    <span class="hljs-keyword">var</span> sum =<span class="hljs-number">5</span>;
+    <span class="hljs-keyword">var</span> func = <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) &#123;
+        <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(sum);
     &#125;
-    return func;
+    <span class="hljs-keyword">return</span> func;
 &#125;
-var addFunc = add();
-addFunc(); //5
-</code></pre>
+<span class="hljs-keyword">var</span> addFunc = <span class="hljs-title function_">add</span>();
+<span class="hljs-title function_">addFunc</span>(); <span class="hljs-comment">//5</span></code></pre>
 <p>js执行流进入全局执行上下文环境时,全局执行上下文可表示为：</p>
-<pre><code>globalContext = &#123;
+<pre><code class="hljs plaintext">globalContext = &#123;
     VO: &#123;
         add: &lt;reference to function&gt;,
         addFunc: undefined
     &#125;,
     this: window,
     scope chain: window 
-&#125;
-</code></pre>
+&#125;</code></pre>
 <p>当add函数被调用时，add函数执行上下文可表示为：</p>
-<pre><code>addContext = &#123;
+<pre><code class="hljs plaintext">addContext = &#123;
     AO: &#123;
         sum: undefined //代码进入执行阶段时此处被赋值为5
         func: undefined //代码进入执行阶段时此处被赋值为function ()&#123;console.log(sum);&#125;
     &#125;,
     this: window,
     scope chain: addContext.AO + globalContext.VO 
-&#125;
-</code></pre>
+&#125;</code></pre>
 <p>add函数执行完毕后，js执行流回到全局上下文环境中，将add函数的返回值赋值给addFunc。</p>
 <p><strong>由于addFunc仍保存着func函数的引用，所以add函数执行上下文从执行上下文堆栈顶端弹出后并未被销毁而是保存在内存中。</strong></p>
 <p>当addFunc()执行时，func函数被调用，此时func函数执行上下文可表示为:</p>
-<pre><code>funcContext = &#123;
+<pre><code class="hljs plaintext">funcContext = &#123;
     this: window,
     scope chain: addContext.AO + globalContext.VO 
-&#125;
-</code></pre>
+&#125;</code></pre>
 <p>当要访问变量sum时，func的活动对象中未能找到，则会沿着作用域链查找，由于js遵循词法作用域，作用域在函数创建阶段就被确定，在add函数的活动对象中找到sum &#x3D; 5;  </p>
 <p>介绍到这里你明白形成闭包的原因了吗？<br><strong>Javascript允许使用内部函数—即函数定义和函数表达式位于另一个函数的函数体内。而且，这些内部函数可以访问它们所在的外部函数中声明的所有局部变量、参数和声明的其他内部函数。当其中一个这样的内部函数在包含它们的外部函数之外被调用时，就会形成闭包。</strong></p>
 <h3 id="闭包的用途"><a href="#闭包的用途" class="headerlink" title="闭包的用途"></a>闭包的用途</h3><p>闭包可以用在许多地方。它的最大用处有两个，一个是前面提到的可以读取函数内部的变量，另一个就是让这些变量的值始终保持在内存中。</p>
 <h4 id="1-保护变量的安全实现JS私有属性和私有方法"><a href="#1-保护变量的安全实现JS私有属性和私有方法" class="headerlink" title="1. 保护变量的安全实现JS私有属性和私有方法"></a>1. 保护变量的安全实现JS私有属性和私有方法</h4><p>利用闭包可以读取函数内部的变量，变量在函数外部不能直接读取到，从而达到保护变量安全的作用。因为私有方法在函数内部都能被访问到，从而实现了私有属性和方法的共享。<br>常见的模块模式就是利用闭包的这种特性建立的  </p>
-<pre><code class="js">var Counter = (function() &#123;
-  //私有属性
-  var privateCounter = 0; 
-  //私有方法
-  function changeBy(val) &#123; 
+<pre><code class="hljs js"><span class="hljs-keyword">var</span> <span class="hljs-title class_">Counter</span> = (<span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) &#123;
+  <span class="hljs-comment">//私有属性</span>
+  <span class="hljs-keyword">var</span> privateCounter = <span class="hljs-number">0</span>; 
+  <span class="hljs-comment">//私有方法</span>
+  <span class="hljs-keyword">function</span> <span class="hljs-title function_">changeBy</span>(<span class="hljs-params">val</span>) &#123; 
     privateCounter += val;
   &#125;
-  return &#123;
-    increment: function() &#123;
-      changeBy(1);
+  <span class="hljs-keyword">return</span> &#123;
+    <span class="hljs-attr">increment</span>: <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) &#123;
+      <span class="hljs-title function_">changeBy</span>(<span class="hljs-number">1</span>);
     &#125;,
-    decrement: function() &#123;
-      changeBy(-1);
+    <span class="hljs-attr">decrement</span>: <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) &#123;
+      <span class="hljs-title function_">changeBy</span>(-<span class="hljs-number">1</span>);
     &#125;,
-    value: function() &#123;
-      return privateCounter;
+    <span class="hljs-attr">value</span>: <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) &#123;
+      <span class="hljs-keyword">return</span> privateCounter;
     &#125;
   &#125;   
 &#125;)();
-console.log(privateCounter); //privateCounter is not defined 
-console.log(Counter.value()); // 0
-Counter.increment();
-Counter.increment();
-console.log(Counter.value()); // 2
-Counter.decrement();
-console.log(Counter.value()); // 1
-</code></pre>
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(privateCounter); <span class="hljs-comment">//privateCounter is not defined </span>
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title class_">Counter</span>.<span class="hljs-title function_">value</span>()); <span class="hljs-comment">// 0</span>
+<span class="hljs-title class_">Counter</span>.<span class="hljs-title function_">increment</span>();
+<span class="hljs-title class_">Counter</span>.<span class="hljs-title function_">increment</span>();
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title class_">Counter</span>.<span class="hljs-title function_">value</span>()); <span class="hljs-comment">// 2</span>
+<span class="hljs-title class_">Counter</span>.<span class="hljs-title function_">decrement</span>();
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title class_">Counter</span>.<span class="hljs-title function_">value</span>()); <span class="hljs-comment">// 1</span></code></pre>
 <p>在jQuery框架的私有方法和变量也是这么设计的</p>
-<pre><code class="js">var $ = jQuery = function()&#123;
-    return jQuery.fn.init();
+<pre><code class="hljs js"><span class="hljs-keyword">var</span> $ = jQuery = <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)&#123;
+    <span class="hljs-keyword">return</span> jQuery.<span class="hljs-property">fn</span>.<span class="hljs-title function_">init</span>();
 &#125;
-jQuery.fn = jQuery.prototype = &#123;
-    init:function()&#123;
-        return this;  //this指向jQuery.prototype
+jQuery.<span class="hljs-property">fn</span> = jQuery.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span> = &#123;
+    <span class="hljs-attr">init</span>:<span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)&#123;
+        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>;  <span class="hljs-comment">//this指向jQuery.prototype</span>
     &#125;,
-    length: 1,
-    size: function()&#123;
-        return this.length;
+    <span class="hljs-attr">length</span>: <span class="hljs-number">1</span>,
+    <span class="hljs-attr">size</span>: <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)&#123;
+        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">length</span>;
     &#125;
 &#125;
-console.log($().size()); // 1
-</code></pre>
-<h4 id="2-将处理结果缓存"><a href="#2-将处理结果缓存" class="headerlink" title="2. 将处理结果缓存"></a>2. 将处理结果缓存</h4><pre><code class="js">var CachedSearchBox = (function()&#123;    
-    var cache = &#123;&#125;,count = [];    
-    return &#123;    
-       attachSearchBox : function(dsid)&#123;    
-           if(dsid in cache)&#123;//如果结果在缓存中    
-              return cache[dsid];//直接返回缓存中的对象    
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>($().<span class="hljs-title function_">size</span>()); <span class="hljs-comment">// 1</span></code></pre>
+<h4 id="2-将处理结果缓存"><a href="#2-将处理结果缓存" class="headerlink" title="2. 将处理结果缓存"></a>2. 将处理结果缓存</h4><pre><code class="hljs js"><span class="hljs-keyword">var</span> <span class="hljs-title class_">CachedSearchBox</span> = (<span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)&#123;    
+    <span class="hljs-keyword">var</span> cache = &#123;&#125;,count = [];    
+    <span class="hljs-keyword">return</span> &#123;    
+       attachSearchBox : <span class="hljs-keyword">function</span>(<span class="hljs-params">dsid</span>)&#123;    
+           <span class="hljs-keyword">if</span>(dsid <span class="hljs-keyword">in</span> cache)&#123;<span class="hljs-comment">//如果结果在缓存中    </span>
+              <span class="hljs-keyword">return</span> cache[dsid];<span class="hljs-comment">//直接返回缓存中的对象    </span>
            &#125;    
-           var fsb = new uikit.webctrl.SearchBox(dsid);//新建    
-           cache[dsid] = fsb;//更新缓存    
-           if(count.length &gt; 100)&#123;//保正缓存的大小&lt;=100    
-              delete cache[count.shift()];    
+           <span class="hljs-keyword">var</span> fsb = <span class="hljs-keyword">new</span> uikit.<span class="hljs-property">webctrl</span>.<span class="hljs-title class_">SearchBox</span>(dsid);<span class="hljs-comment">//新建    </span>
+           cache[dsid] = fsb;<span class="hljs-comment">//更新缓存    </span>
+           <span class="hljs-keyword">if</span>(count.<span class="hljs-property">length</span> &gt; <span class="hljs-number">100</span>)&#123;<span class="hljs-comment">//保正缓存的大小&lt;=100    </span>
+              <span class="hljs-keyword">delete</span> cache[count.<span class="hljs-title function_">shift</span>()];    
            &#125;    
-           return fsb;          
+           <span class="hljs-keyword">return</span> fsb;          
        &#125;
     &#125;;    
 &#125;)();    
      
-CachedSearchBox.attachSearchBox(&quot;input&quot;);  
-</code></pre>
+<span class="hljs-title class_">CachedSearchBox</span>.<span class="hljs-title function_">attachSearchBox</span>(<span class="hljs-string">&quot;input&quot;</span>);</code></pre>
 <p>这样我们在第二次调用的时候，就会从缓存中读取到该对象。  </p>
 <p>理解了闭包的原理我们发现闭包的这些用途都是利用了闭包保存了当前函数的活动对象的特点，这样闭包函数在作用域之外被调用时依然能够访问其创建时的作用域  </p>
 <h3 id="闭包的缺点"><a href="#闭包的缺点" class="headerlink" title="闭包的缺点"></a>闭包的缺点</h3><ul>

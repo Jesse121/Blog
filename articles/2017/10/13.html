@@ -276,14 +276,12 @@
 <h4 id="vim编辑器个人设置"><a href="#vim编辑器个人设置" class="headerlink" title="vim编辑器个人设置"></a>vim编辑器个人设置</h4><ol>
 <li>先复制一份vim配置模板到个人目录下<br> <code>cp /usr/share/vim/vimrc ~/.vimrc</code></li>
 <li>编辑个人目录下的.vimrc<br> <code>vi ~/.vimrc</code></li>
-<li>进入vim编辑模式编写以下配置信息</li>
+<li>进入vim编辑模式编写以下配置信息  <pre><code class="hljs plaintext">syntax on           &#x27;开启语法高亮&#x27;
+set nu!             &#x27;设置行号&#x27;
+set autoindent      &#x27;自动缩进&#x27;
+set tabstop=4       &#x27;设置tab键为4个空格&#x27;   
+set showmatch       &#x27;设置匹配模式，类似当输入一个左括号时会匹配相应的右括号&#x27;</code></pre></li>
 </ol>
-<pre><code>syntax on           &#39;开启语法高亮&#39;
-set nu!             &#39;设置行号&#39;
-set autoindent      &#39;自动缩进&#39;
-set tabstop=4       &#39;设置tab键为4个空格&#39;   
-set showmatch       &#39;设置匹配模式，类似当输入一个左括号时会匹配相应的右括号&#39;
-</code></pre>
 <h4 id="命令模式（command-mode）—执行命令"><a href="#命令模式（command-mode）—执行命令" class="headerlink" title="命令模式（command mode）—执行命令"></a>命令模式（command mode）—执行命令</h4><p>　　在该模式中，可以输入命令来执行许多种功能。控制屏幕光标的移动，字符、字或行的删除，移动复制某区段及进入Insert mode下，或者到 last line mode。</p>
 <h4 id="输入模式（Insert-mode）—输入文本"><a href="#输入模式（Insert-mode）—输入文本" class="headerlink" title="输入模式（Insert mode）—输入文本"></a>输入模式（Insert mode）—输入文本</h4><p>　　vi被运行时，通常处在命令模式下，键入以下命令 可以使vi退出命令模式，进入输入模式：I（i）、A（a）、O（o）。</p>
 <h4 id="末行模式（last-line-mode）—执行待定命令"><a href="#末行模式（last-line-mode）—执行待定命令" class="headerlink" title="末行模式（last line mode）—执行待定命令"></a>末行模式（last line mode）—执行待定命令</h4><p>　　将文件保存或退出vi，也可以设置编辑环境，如寻找字符串、列出行号……等。不过一般我们在使用时把vi简化成两个模式，就是将末行模式（last line mode）也算入命令行模式command mode）。</p>

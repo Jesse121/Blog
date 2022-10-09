@@ -5,14 +5,13 @@ $(function () {
 
   $("pre").after($highlight_lang);
   $("pre").each(function () {
-    var code_language = $(this).attr("class");
+    var code_language = $(this).children().attr("class");
 
     if (!code_language) {
       return true;
     }
     var lang_name = code_language
-      .replace("line-numbers", "")
-      .trim()
+      .match(/language-(\w)*/g)[0]
       .replace("language-", "")
       .trim();
 

@@ -277,15 +277,15 @@
 <p><img src="https://raw.githubusercontent.com/Jesse121/publicPic/master/blog/pictures/801336-20200412170533810-852634927.png" alt="801336-20200412170533810-852634927"></p>
 <p>Wireshark 的抓包原理是直接读取并分析网卡数据，要想让它解密 HTTPS 流量，有两个办法：<br>1）如果你拥有 HTTPS 网站的加密私钥，可以用来解密这个网站的加密流量；<br>2）某些浏览器支持将 TLS 会话中使用的对称密钥保存在外部文件中，可供 Wireshark 加密使用。</p>
 <p>Firefox 和 Chrome 都支持生成上述第二种方式的文件，具体格式见这里：<a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Mozilla/Projects/NSS/Key_Log_Format">NSS Key Log Format</a>。<br>但 Firefox 和 Chrome 只会在系统环境变量中存在 SSLKEYLOGFILE 路径时才会生成它，先来加上这个环境变量（以 OSX 为例）：</p>
-<pre><code class="sh"># 新建sslkeylog.log文件
-mkdir ~/tls &amp;&amp; touch ~/tls/sslkeylog.log
-# 添加环境变量
-export SSLKEYLOGFILE=~/tls/sslkeylog.log
-</code></pre>
+<pre><code class="hljs sh"><span class="hljs-comment"># 新建sslkeylog.log文件</span>
+<span class="hljs-built_in">mkdir</span> ~/tls &amp;&amp; <span class="hljs-built_in">touch</span> ~/tls/sslkeylog.log
+<span class="hljs-comment"># 添加环境变量</span>
+<span class="hljs-built_in">export</span> SSLKEYLOGFILE=~/tls/sslkeylog.log</code></pre>
+
 <p>接着，在 Wireshark 的 SSL 配置面板的 「(Pre)-Master-Secret log filename」选项中这个文件选上。如下图：<br><img src="https://raw.githubusercontent.com/Jesse121/publicPic/master/blog/pictures/801336-20200412170559708-1461204153.png" alt="801336-20200412170559708-1461204153"></p>
 <p>通过终端启动 Firefox 或 Chrome（确保能读取到环境变量）：</p>
-<pre><code class="sh">open /Applications/Google\ Chrome.app
-</code></pre>
+<pre><code class="hljs sh">open /Applications/Google\ Chrome.app</code></pre>
+
 <p>启动 chrome 后访问 http2 网站抓包结果如图<br><img src="https://raw.githubusercontent.com/Jesse121/publicPic/master/blog/pictures/801336-20200412170701088-664317070.png" alt="801336-20200412170701088-664317070"><br>已经可以看到 http2 请求的响应体了</p>
 <p>参考：<br><a target="_blank" rel="noopener" href="https://imququ.com/post/http2-traffic-in-wireshark.html">使用 Wireshark 调试 HTTP&#x2F;2 流量</a></p>
  

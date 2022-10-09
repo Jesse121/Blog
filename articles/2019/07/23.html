@@ -274,609 +274,609 @@
        <h3 id="第-2-章-this-call-apply"><a href="#第-2-章-this-call-apply" class="headerlink" title="第 2 章 this call apply"></a>第 2 章 this call apply</h3><p>bind()方法创建一个新的函数，在 bind()被调用时，这个新函数的 this 被 bind 的第一个参数指定，其余的参数将作为新函数的参数供调用时使用。<br>bind()方法底层实现</p>
 <span id="more"></span>
 
-<pre><code class="js">Function.prototype.bind =
-  Function.prototype.bind ||
-  function () &#123;
-    var self = this;
-    var rest1 = Array.prototype.slice.call(arguments);
-    var context = rest1.shift(); // 获取第一个参数，this的指向
-    return function () &#123;
-      var rest2 = Array.prototype.slice.call(arguments); // 获取其余参数
-      return self.apply(context, rest1.concat(rest2)); // 将预设参数和其余参数一起传参
+<pre><code class="hljs js"><span class="hljs-title class_">Function</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">bind</span> =
+  <span class="hljs-title class_">Function</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">bind</span> ||
+  <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) &#123;
+    <span class="hljs-keyword">var</span> self = <span class="hljs-variable language_">this</span>;
+    <span class="hljs-keyword">var</span> rest1 = <span class="hljs-title class_">Array</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">slice</span>.<span class="hljs-title function_">call</span>(<span class="hljs-variable language_">arguments</span>);
+    <span class="hljs-keyword">var</span> context = rest1.<span class="hljs-title function_">shift</span>(); <span class="hljs-comment">// 获取第一个参数，this的指向</span>
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) &#123;
+      <span class="hljs-keyword">var</span> rest2 = <span class="hljs-title class_">Array</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">slice</span>.<span class="hljs-title function_">call</span>(<span class="hljs-variable language_">arguments</span>); <span class="hljs-comment">// 获取其余参数</span>
+      <span class="hljs-keyword">return</span> self.<span class="hljs-title function_">apply</span>(context, rest1.<span class="hljs-title function_">concat</span>(rest2)); <span class="hljs-comment">// 将预设参数和其余参数一起传参</span>
     &#125;;
   &#125;;
-var food = &#123;
-  name: &quot;汉堡&quot;,
-  price: &quot;5块钱&quot;,
-  getPrice: function (place, name) &#123;
-    console.log(place + this.price + name);
+<span class="hljs-keyword">var</span> food = &#123;
+  <span class="hljs-attr">name</span>: <span class="hljs-string">&quot;汉堡&quot;</span>,
+  <span class="hljs-attr">price</span>: <span class="hljs-string">&quot;5块钱&quot;</span>,
+  <span class="hljs-attr">getPrice</span>: <span class="hljs-keyword">function</span> (<span class="hljs-params">place, name</span>) &#123;
+    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(place + <span class="hljs-variable language_">this</span>.<span class="hljs-property">price</span> + name);
   &#125;,
 &#125;;
-var getPrice1 = food.getPrice.bind(&#123; name: &quot;鸡腿&quot;, price: &quot;7块钱&quot; &#125;, &quot;肯打鸡 &quot;);
-getPrice1(&quot;jesse&quot;);
-</code></pre>
+<span class="hljs-keyword">var</span> getPrice1 = food.<span class="hljs-property">getPrice</span>.<span class="hljs-title function_">bind</span>(&#123; <span class="hljs-attr">name</span>: <span class="hljs-string">&quot;鸡腿&quot;</span>, <span class="hljs-attr">price</span>: <span class="hljs-string">&quot;7块钱&quot;</span> &#125;, <span class="hljs-string">&quot;肯打鸡 &quot;</span>);
+<span class="hljs-title function_">getPrice1</span>(<span class="hljs-string">&quot;jesse&quot;</span>);</code></pre>
+
 <p>bind()的另一个最简单的用法是使一个函数拥有预设的初始参数。只要将这些参数（如果有的话）作为 bind()的参数写在 this 后面。当绑定函数被调用时，这些参数会被插入到目标函数的参数列表的开始位置，传递给绑定函数的参数会跟在它们后面</p>
 <h3 id="第-3-章-闭包和高阶函数"><a href="#第-3-章-闭包和高阶函数" class="headerlink" title="第 3 章 闭包和高阶函数"></a>第 3 章 闭包和高阶函数</h3><h4 id="高阶函数的应用"><a href="#高阶函数的应用" class="headerlink" title="高阶函数的应用"></a>高阶函数的应用</h4><p>函数柯里化</p>
-<pre><code class="js">var curring = function(fn)&#123;
-    var args = [];
-    return  function()&#123;
-        if(arguments.length === 0)&#123;
-            return fn.apply(this,args);
-        &#125;else&#123;
-            [].push.apply(args,arguments);
-            return arguments.callee;
+<pre><code class="hljs js"><span class="hljs-keyword">var</span> curring = <span class="hljs-keyword">function</span>(<span class="hljs-params">fn</span>)&#123;
+    <span class="hljs-keyword">var</span> args = [];
+    <span class="hljs-keyword">return</span>  <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)&#123;
+        <span class="hljs-keyword">if</span>(<span class="hljs-variable language_">arguments</span>.<span class="hljs-property">length</span> === <span class="hljs-number">0</span>)&#123;
+            <span class="hljs-keyword">return</span> fn.<span class="hljs-title function_">apply</span>(<span class="hljs-variable language_">this</span>,args);
+        &#125;<span class="hljs-keyword">else</span>&#123;
+            [].<span class="hljs-property">push</span>.<span class="hljs-title function_">apply</span>(args,<span class="hljs-variable language_">arguments</span>);
+            <span class="hljs-keyword">return</span> <span class="hljs-variable language_">arguments</span>.<span class="hljs-property">callee</span>;
         &#125;
     &#125;
 &#125;
-var cost = (function()&#123;
-    var money = 0;
-    return function()&#123;
-        for(var i = 0;,l = arguments.length;i &lt; l;i++)&#123;
+<span class="hljs-keyword">var</span> cost = (<span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)&#123;
+    <span class="hljs-keyword">var</span> money = <span class="hljs-number">0</span>;
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)&#123;
+        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>;,l = <span class="hljs-variable language_">arguments</span>.<span class="hljs-property">length</span>;i &lt; l;i++)&#123;
             money += aruments[i];
         &#125;
-        return money;
+        <span class="hljs-keyword">return</span> money;
     &#125;
 &#125;)()
-var cost = curring(cost);
-cost(100);
-console.log(cost());
-</code></pre>
+<span class="hljs-keyword">var</span> cost = <span class="hljs-title function_">curring</span>(cost);
+<span class="hljs-title function_">cost</span>(<span class="hljs-number">100</span>);
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title function_">cost</span>());</code></pre>
+
 <p>uncurring()</p>
-<pre><code class="js">Function.prototype.uncurring = fucntion()&#123;
-    var self = this;
-    return function()&#123;
-        var obj = Array.prototype.shift.call(arguments);
-        return self.apply(obj,arguments);
+<pre><code class="hljs js"><span class="hljs-title class_">Function</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">uncurring</span> = <span class="hljs-title function_">fucntion</span>(<span class="hljs-params"></span>)&#123;
+    <span class="hljs-keyword">var</span> self = <span class="hljs-variable language_">this</span>;
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)&#123;
+        <span class="hljs-keyword">var</span> obj = <span class="hljs-title class_">Array</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">shift</span>.<span class="hljs-title function_">call</span>(<span class="hljs-variable language_">arguments</span>);
+        <span class="hljs-keyword">return</span> self.<span class="hljs-title function_">apply</span>(obj,<span class="hljs-variable language_">arguments</span>);
     &#125;
 &#125;
-var push = Array.prototype.push.uncurring();
-(function()&#123;
-    push(arguments,4);
-    console.log(arguments); //[1,2,3,4]
-&#125;)(1,2,3);
-</code></pre>
+<span class="hljs-keyword">var</span> push = <span class="hljs-title class_">Array</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">push</span>.<span class="hljs-title function_">uncurring</span>();
+(<span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)&#123;
+    <span class="hljs-title function_">push</span>(<span class="hljs-variable language_">arguments</span>,<span class="hljs-number">4</span>);
+    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-variable language_">arguments</span>); <span class="hljs-comment">//[1,2,3,4]</span>
+&#125;)(<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>);</code></pre>
+
 <p>函数节流，用于解决函数频繁被调用而造成的性能问题</p>
-<pre><code class="js">var throttle = function (fn, interval) &#123;
-  var _self = fn,
+<pre><code class="hljs js"><span class="hljs-keyword">var</span> throttle = <span class="hljs-keyword">function</span> (<span class="hljs-params">fn, interval</span>) &#123;
+  <span class="hljs-keyword">var</span> _self = fn,
     timer,
-    firstTime = true;
-  return function () &#123;
-    var args = arguments,
-      _me = this;
-    if (firstTime) &#123;
-      _self.apply(_me, args);
-      return (firstTime = false);
+    firstTime = <span class="hljs-literal">true</span>;
+  <span class="hljs-keyword">return</span> <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) &#123;
+    <span class="hljs-keyword">var</span> args = <span class="hljs-variable language_">arguments</span>,
+      _me = <span class="hljs-variable language_">this</span>;
+    <span class="hljs-keyword">if</span> (firstTime) &#123;
+      _self.<span class="hljs-title function_">apply</span>(_me, args);
+      <span class="hljs-keyword">return</span> (firstTime = <span class="hljs-literal">false</span>);
     &#125;
-    if (timer) &#123;
-      //500毫秒之内再次触发的缩放事件不处理
-      return false;
+    <span class="hljs-keyword">if</span> (timer) &#123;
+      <span class="hljs-comment">//500毫秒之内再次触发的缩放事件不处理</span>
+      <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
     &#125;
-    timer = setTimeout(function () &#123;
-      clearTimeout(timer);
-      timer = null;
-      _self.apply(_me, args);
-    &#125;, interval || 500);
+    timer = <span class="hljs-built_in">setTimeout</span>(<span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) &#123;
+      <span class="hljs-built_in">clearTimeout</span>(timer);
+      timer = <span class="hljs-literal">null</span>;
+      _self.<span class="hljs-title function_">apply</span>(_me, args);
+    &#125;, interval || <span class="hljs-number">500</span>);
   &#125;;
 &#125;;
-window.onresize = throttle(function () &#123;
-  console.log(1);
-&#125;, 500);
-</code></pre>
+<span class="hljs-variable language_">window</span>.<span class="hljs-property">onresize</span> = <span class="hljs-title function_">throttle</span>(<span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) &#123;
+  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-number">1</span>);
+&#125;, <span class="hljs-number">500</span>);</code></pre>
+
 <p>惰性加载函数</p>
-<pre><code class="js">var addEvent = function (elem, type, handler) &#123;
-  if (window.addEventListener) &#123;
-    addEvent = function (elem, type, handler) &#123;
-      //重写函数,避免频繁调用嗅探函数
-      elem.addEventListener(type, handler, false);
+<pre><code class="hljs js"><span class="hljs-keyword">var</span> addEvent = <span class="hljs-keyword">function</span> (<span class="hljs-params">elem, type, handler</span>) &#123;
+  <span class="hljs-keyword">if</span> (<span class="hljs-variable language_">window</span>.<span class="hljs-property">addEventListener</span>) &#123;
+    addEvent = <span class="hljs-keyword">function</span> (<span class="hljs-params">elem, type, handler</span>) &#123;
+      <span class="hljs-comment">//重写函数,避免频繁调用嗅探函数</span>
+      elem.<span class="hljs-title function_">addEventListener</span>(type, handler, <span class="hljs-literal">false</span>);
     &#125;;
-  &#125; else if (window.attachEvent) &#123;
-    addEvent = function (elem, type, handler) &#123;
-      elem.attachEvent(&quot;on&quot; + type, handler);
+  &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (<span class="hljs-variable language_">window</span>.<span class="hljs-property">attachEvent</span>) &#123;
+    addEvent = <span class="hljs-keyword">function</span> (<span class="hljs-params">elem, type, handler</span>) &#123;
+      elem.<span class="hljs-title function_">attachEvent</span>(<span class="hljs-string">&quot;on&quot;</span> + type, handler);
     &#125;;
   &#125;
-  addEvent(elem, type, handler);
+  <span class="hljs-title function_">addEvent</span>(elem, type, handler);
 &#125;;
 
-var div = document.getElementById(&quot;div1&quot;);
-addEvent(div, &quot;click&quot;, function () &#123;
-  alert(1);
+<span class="hljs-keyword">var</span> div = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(<span class="hljs-string">&quot;div1&quot;</span>);
+<span class="hljs-title function_">addEvent</span>(div, <span class="hljs-string">&quot;click&quot;</span>, <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) &#123;
+  <span class="hljs-title function_">alert</span>(<span class="hljs-number">1</span>);
 &#125;);
-addEvent(div, &quot;click&quot;, function () &#123;
-  alert(2);
-&#125;);
-</code></pre>
+<span class="hljs-title function_">addEvent</span>(div, <span class="hljs-string">&quot;click&quot;</span>, <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) &#123;
+  <span class="hljs-title function_">alert</span>(<span class="hljs-number">2</span>);
+&#125;);</code></pre>
+
 <h3 id="第-4-章-单例模式"><a href="#第-4-章-单例模式" class="headerlink" title="第 4 章 单例模式"></a>第 4 章 单例模式</h3><p>单例模式的核心是确保只有一个实例，并提供全局访问。<br>该模式可用于定义单一弹窗</p>
-<pre><code class="js">var CreateDiv = function (html) &#123;
-  this.html = html;
-  this.init();
+<pre><code class="hljs js"><span class="hljs-keyword">var</span> <span class="hljs-title class_">CreateDiv</span> = <span class="hljs-keyword">function</span> (<span class="hljs-params">html</span>) &#123;
+  <span class="hljs-variable language_">this</span>.<span class="hljs-property">html</span> = html;
+  <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">init</span>();
 &#125;;
-CreateDiv.prototype.init = function () &#123;
-  var div = document.createElement(&quot;div&quot;);
-  div.innerHTML = this.html;
-  document.body.appendChild(div);
+<span class="hljs-title class_">CreateDiv</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">init</span> = <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) &#123;
+  <span class="hljs-keyword">var</span> div = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">createElement</span>(<span class="hljs-string">&quot;div&quot;</span>);
+  div.<span class="hljs-property">innerHTML</span> = <span class="hljs-variable language_">this</span>.<span class="hljs-property">html</span>;
+  <span class="hljs-variable language_">document</span>.<span class="hljs-property">body</span>.<span class="hljs-title function_">appendChild</span>(div);
 &#125;;
-//将创建对象和保证单一对象分开
-var ProxySingletonCreateDiv = (function () &#123;
-  var instance;
-  return function (html) &#123;
-    if (!instance) &#123;
-      instance = new CreateDiv(html);
+<span class="hljs-comment">//将创建对象和保证单一对象分开</span>
+<span class="hljs-keyword">var</span> <span class="hljs-title class_">ProxySingletonCreateDiv</span> = (<span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) &#123;
+  <span class="hljs-keyword">var</span> instance;
+  <span class="hljs-keyword">return</span> <span class="hljs-keyword">function</span> (<span class="hljs-params">html</span>) &#123;
+    <span class="hljs-keyword">if</span> (!instance) &#123;
+      instance = <span class="hljs-keyword">new</span> <span class="hljs-title class_">CreateDiv</span>(html);
     &#125;
-    return instance;
+    <span class="hljs-keyword">return</span> instance;
   &#125;;
 &#125;)();
 
-var a = new ProxySingletonCreateDiv(&quot;sven1&quot;);
-var b = new ProxySingletonCreateDiv(&quot;sven2&quot;);
-alert(a === b);
-</code></pre>
+<span class="hljs-keyword">var</span> a = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ProxySingletonCreateDiv</span>(<span class="hljs-string">&quot;sven1&quot;</span>);
+<span class="hljs-keyword">var</span> b = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ProxySingletonCreateDiv</span>(<span class="hljs-string">&quot;sven2&quot;</span>);
+<span class="hljs-title function_">alert</span>(a === b);</code></pre>
+
 <p>ES6 写法</p>
-<pre><code class="js">let instance;
-class CreateDiv &#123;
-  constructor(html) &#123;
-    if (instance) &#123;
-      return instance;
+<pre><code class="hljs js"><span class="hljs-keyword">let</span> instance;
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">CreateDiv</span> &#123;
+  <span class="hljs-title function_">constructor</span>(<span class="hljs-params">html</span>) &#123;
+    <span class="hljs-keyword">if</span> (instance) &#123;
+      <span class="hljs-keyword">return</span> instance;
     &#125;
-    this.html = html;
-    this.init();
-    return (instance = this);
+    <span class="hljs-variable language_">this</span>.<span class="hljs-property">html</span> = html;
+    <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">init</span>();
+    <span class="hljs-keyword">return</span> (instance = <span class="hljs-variable language_">this</span>);
   &#125;
 
-  init() &#123;
-    var div = document.createElement(&quot;div&quot;);
-    div.innerHTML = this.html;
-    document.body.appendChild(div);
+  <span class="hljs-title function_">init</span>(<span class="hljs-params"></span>) &#123;
+    <span class="hljs-keyword">var</span> div = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">createElement</span>(<span class="hljs-string">&quot;div&quot;</span>);
+    div.<span class="hljs-property">innerHTML</span> = <span class="hljs-variable language_">this</span>.<span class="hljs-property">html</span>;
+    <span class="hljs-variable language_">document</span>.<span class="hljs-property">body</span>.<span class="hljs-title function_">appendChild</span>(div);
   &#125;
 &#125;
-var a = new CreateDiv(&quot;sven1&quot;);
-var b = new CreateDiv(&quot;sven2&quot;);
-console.log(a === b); // true
-</code></pre>
+<span class="hljs-keyword">var</span> a = <span class="hljs-keyword">new</span> <span class="hljs-title class_">CreateDiv</span>(<span class="hljs-string">&quot;sven1&quot;</span>);
+<span class="hljs-keyword">var</span> b = <span class="hljs-keyword">new</span> <span class="hljs-title class_">CreateDiv</span>(<span class="hljs-string">&quot;sven2&quot;</span>);
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(a === b); <span class="hljs-comment">// true</span></code></pre>
+
 <h3 id="第-5-章-策略模式"><a href="#第-5-章-策略模式" class="headerlink" title="第 5 章 策略模式"></a>第 5 章 策略模式</h3><p>策略模式指的是定义一系列的算法，把它们一个个封装起来，并且使它们可以相互替换<br>该模式常用于表单校验</p>
-<pre><code class="js">var strategies = &#123;
-  S: function (salary) &#123;
-    return salary * 4;
+<pre><code class="hljs js"><span class="hljs-keyword">var</span> strategies = &#123;
+  <span class="hljs-attr">S</span>: <span class="hljs-keyword">function</span> (<span class="hljs-params">salary</span>) &#123;
+    <span class="hljs-keyword">return</span> salary * <span class="hljs-number">4</span>;
   &#125;,
-  A: function (salary) &#123;
-    return salary * 3;
+  <span class="hljs-attr">A</span>: <span class="hljs-keyword">function</span> (<span class="hljs-params">salary</span>) &#123;
+    <span class="hljs-keyword">return</span> salary * <span class="hljs-number">3</span>;
   &#125;,
-  B: function (salary) &#123;
-    return salary * 2;
+  <span class="hljs-attr">B</span>: <span class="hljs-keyword">function</span> (<span class="hljs-params">salary</span>) &#123;
+    <span class="hljs-keyword">return</span> salary * <span class="hljs-number">2</span>;
   &#125;,
 &#125;;
-var calculateBonus = function (level, salary) &#123;
-  return strategies[level](salary);
+<span class="hljs-keyword">var</span> calculateBonus = <span class="hljs-keyword">function</span> (<span class="hljs-params">level, salary</span>) &#123;
+  <span class="hljs-keyword">return</span> strategies[level](salary);
 &#125;;
 
-console.log(calculateBonus(&quot;S&quot;, 20000)); // 输出：80000
-console.log(calculateBonus(&quot;A&quot;, 10000)); // 输出：30000
-</code></pre>
-<h4 id="5-6-2-用策略模式重构表单校验"><a href="#5-6-2-用策略模式重构表单校验" class="headerlink" title="5.6.2 用策略模式重构表单校验"></a>5.6.2 用策略模式重构表单校验</h4><pre><code class="js">/***********************策略对象**************************/
-var strategies = &#123;
-  isNonEmpty: function (value, errorMsg) &#123;
-    if (value === &quot;&quot;) &#123;
-      return errorMsg;
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title function_">calculateBonus</span>(<span class="hljs-string">&quot;S&quot;</span>, <span class="hljs-number">20000</span>)); <span class="hljs-comment">// 输出：80000</span>
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title function_">calculateBonus</span>(<span class="hljs-string">&quot;A&quot;</span>, <span class="hljs-number">10000</span>)); <span class="hljs-comment">// 输出：30000</span></code></pre>
+
+<h4 id="5-6-2-用策略模式重构表单校验"><a href="#5-6-2-用策略模式重构表单校验" class="headerlink" title="5.6.2 用策略模式重构表单校验"></a>5.6.2 用策略模式重构表单校验</h4><pre><code class="hljs js"><span class="hljs-comment">/***********************策略对象**************************/</span>
+<span class="hljs-keyword">var</span> strategies = &#123;
+  <span class="hljs-attr">isNonEmpty</span>: <span class="hljs-keyword">function</span> (<span class="hljs-params">value, errorMsg</span>) &#123;
+    <span class="hljs-keyword">if</span> (value === <span class="hljs-string">&quot;&quot;</span>) &#123;
+      <span class="hljs-keyword">return</span> errorMsg;
     &#125;
   &#125;,
-  minLength: function (value, length, errorMsg) &#123;
-    if (value.length &lt; length) &#123;
-      return errorMsg;
+  <span class="hljs-attr">minLength</span>: <span class="hljs-keyword">function</span> (<span class="hljs-params">value, length, errorMsg</span>) &#123;
+    <span class="hljs-keyword">if</span> (value.<span class="hljs-property">length</span> &lt; length) &#123;
+      <span class="hljs-keyword">return</span> errorMsg;
     &#125;
   &#125;,
-  isMobile: function (value, errorMsg) &#123;
-    if (!/(^1[3|5|8][0-9]&#123;9&#125;$)/.test(value)) &#123;
-      return errorMsg;
+  <span class="hljs-attr">isMobile</span>: <span class="hljs-keyword">function</span> (<span class="hljs-params">value, errorMsg</span>) &#123;
+    <span class="hljs-keyword">if</span> (!<span class="hljs-regexp">/(^1[3|5|8][0-9]&#123;9&#125;$)/</span>.<span class="hljs-title function_">test</span>(value)) &#123;
+      <span class="hljs-keyword">return</span> errorMsg;
     &#125;
   &#125;,
 &#125;;
-/***********************Validator 类**************************/
-var Validator = function () &#123;
-  this.cache = [];
+<span class="hljs-comment">/***********************Validator 类**************************/</span>
+<span class="hljs-keyword">var</span> <span class="hljs-title class_">Validator</span> = <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) &#123;
+  <span class="hljs-variable language_">this</span>.<span class="hljs-property">cache</span> = [];
 &#125;;
-Validator.prototype.add = function (dom, rules) &#123;
-  var self = this;
-  for (var i = 0, rule; (rule = rules[i++]); ) &#123;
-    (function (rule) &#123;
-      var strategyAry = rule.strategy.split(&quot;:&quot;);
-      var errorMsg = rule.errorMsg;
-      self.cache.push(function () &#123;
-        var strategy = strategyAry.shift();
-        strategyAry.unshift(dom.value);
-        strategyAry.push(errorMsg);
-        return strategies[strategy].apply(dom, strategyAry);
+<span class="hljs-title class_">Validator</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">add</span> = <span class="hljs-keyword">function</span> (<span class="hljs-params">dom, rules</span>) &#123;
+  <span class="hljs-keyword">var</span> self = <span class="hljs-variable language_">this</span>;
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>, rule; (rule = rules[i++]); ) &#123;
+    (<span class="hljs-keyword">function</span> (<span class="hljs-params">rule</span>) &#123;
+      <span class="hljs-keyword">var</span> strategyAry = rule.<span class="hljs-property">strategy</span>.<span class="hljs-title function_">split</span>(<span class="hljs-string">&quot;:&quot;</span>);
+      <span class="hljs-keyword">var</span> errorMsg = rule.<span class="hljs-property">errorMsg</span>;
+      self.<span class="hljs-property">cache</span>.<span class="hljs-title function_">push</span>(<span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) &#123;
+        <span class="hljs-keyword">var</span> strategy = strategyAry.<span class="hljs-title function_">shift</span>();
+        strategyAry.<span class="hljs-title function_">unshift</span>(dom.<span class="hljs-property">value</span>);
+        strategyAry.<span class="hljs-title function_">push</span>(errorMsg);
+        <span class="hljs-keyword">return</span> strategies[strategy].<span class="hljs-title function_">apply</span>(dom, strategyAry);
       &#125;);
     &#125;)(rule);
   &#125;
 &#125;;
-Validator.prototype.start = function () &#123;
-  for (var i = 0, validatorFunc; (validatorFunc = this.cache[i++]); ) &#123;
-    var errorMsg = validatorFunc();
-    if (errorMsg) &#123;
-      return errorMsg;
+<span class="hljs-title class_">Validator</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">start</span> = <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) &#123;
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>, validatorFunc; (validatorFunc = <span class="hljs-variable language_">this</span>.<span class="hljs-property">cache</span>[i++]); ) &#123;
+    <span class="hljs-keyword">var</span> errorMsg = <span class="hljs-title function_">validatorFunc</span>();
+    <span class="hljs-keyword">if</span> (errorMsg) &#123;
+      <span class="hljs-keyword">return</span> errorMsg;
     &#125;
   &#125;
 &#125;;
-/***********************客户调用代码**************************/
-var registerForm = document.getElementById(&quot;registerForm&quot;);
-var validataFunc = function () &#123;
-  var validator = new Validator();
-  validator.add(registerForm.userName, [
+<span class="hljs-comment">/***********************客户调用代码**************************/</span>
+<span class="hljs-keyword">var</span> registerForm = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(<span class="hljs-string">&quot;registerForm&quot;</span>);
+<span class="hljs-keyword">var</span> validataFunc = <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) &#123;
+  <span class="hljs-keyword">var</span> validator = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Validator</span>();
+  validator.<span class="hljs-title function_">add</span>(registerForm.<span class="hljs-property">userName</span>, [
     &#123;
-      strategy: &quot;isNonEmpty&quot;,
-      errorMsg: &quot;用户名不能为空&quot;,
+      <span class="hljs-attr">strategy</span>: <span class="hljs-string">&quot;isNonEmpty&quot;</span>,
+      <span class="hljs-attr">errorMsg</span>: <span class="hljs-string">&quot;用户名不能为空&quot;</span>,
     &#125;,
     &#123;
-      strategy: &quot;minLength:6&quot;,
-      errorMsg: &quot;用户名长度不能小于10 位&quot;,
-    &#125;,
-  ]);
-  validator.add(registerForm.password, [
-    &#123;
-      strategy: &quot;minLength:6&quot;,
-      errorMsg: &quot;密码长度不能小于6 位&quot;,
+      <span class="hljs-attr">strategy</span>: <span class="hljs-string">&quot;minLength:6&quot;</span>,
+      <span class="hljs-attr">errorMsg</span>: <span class="hljs-string">&quot;用户名长度不能小于10 位&quot;</span>,
     &#125;,
   ]);
-  var errorMsg = validator.start();
-  return errorMsg;
+  validator.<span class="hljs-title function_">add</span>(registerForm.<span class="hljs-property">password</span>, [
+    &#123;
+      <span class="hljs-attr">strategy</span>: <span class="hljs-string">&quot;minLength:6&quot;</span>,
+      <span class="hljs-attr">errorMsg</span>: <span class="hljs-string">&quot;密码长度不能小于6 位&quot;</span>,
+    &#125;,
+  ]);
+  <span class="hljs-keyword">var</span> errorMsg = validator.<span class="hljs-title function_">start</span>();
+  <span class="hljs-keyword">return</span> errorMsg;
 &#125;;
-registerForm.onsubmit = function () &#123;
-  var errorMsg = validataFunc();
-  if (errorMsg) &#123;
-    alert(errorMsg);
-    return false;
+registerForm.<span class="hljs-property">onsubmit</span> = <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) &#123;
+  <span class="hljs-keyword">var</span> errorMsg = <span class="hljs-title function_">validataFunc</span>();
+  <span class="hljs-keyword">if</span> (errorMsg) &#123;
+    <span class="hljs-title function_">alert</span>(errorMsg);
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
   &#125;
-&#125;;
-</code></pre>
-<h3 id="第-6-章-代理模式"><a href="#第-6-章-代理模式" class="headerlink" title="第 6 章 代理模式"></a>第 6 章 代理模式</h3><h4 id="虚拟代理在惰性加载中的应用"><a href="#虚拟代理在惰性加载中的应用" class="headerlink" title="虚拟代理在惰性加载中的应用"></a>虚拟代理在惰性加载中的应用</h4><pre><code class="js">var miniConsole = (function()&#123;
-    var cache = [];
-    var handler = function( ev )&#123;
-        if ( ev.keyCode === 113 )&#123;
-            var script = document.createElement( &#39;script&#39; );
-            script.onload = function()&#123;
-                for ( var i = 0, fn; fn = cache[ i++ ]; )&#123;
-                    fn();
+&#125;;</code></pre>
+
+<h3 id="第-6-章-代理模式"><a href="#第-6-章-代理模式" class="headerlink" title="第 6 章 代理模式"></a>第 6 章 代理模式</h3><h4 id="虚拟代理在惰性加载中的应用"><a href="#虚拟代理在惰性加载中的应用" class="headerlink" title="虚拟代理在惰性加载中的应用"></a>虚拟代理在惰性加载中的应用</h4><pre><code class="hljs js"><span class="hljs-keyword">var</span> miniConsole = (<span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)&#123;
+    <span class="hljs-keyword">var</span> cache = [];
+    <span class="hljs-keyword">var</span> handler = <span class="hljs-keyword">function</span>(<span class="hljs-params"> ev </span>)&#123;
+        <span class="hljs-keyword">if</span> ( ev.<span class="hljs-property">keyCode</span> === <span class="hljs-number">113</span> )&#123;
+            <span class="hljs-keyword">var</span> script = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">createElement</span>( <span class="hljs-string">&#x27;script&#x27;</span> );
+            script.<span class="hljs-property">onload</span> = <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)&#123;
+                <span class="hljs-keyword">for</span> ( <span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>, fn; fn = cache[ i++ ]; )&#123;
+                    <span class="hljs-title function_">fn</span>();
                 &#125;
             &#125;;
-            script.src = &#39;miniConsole.js&#39;;
-            document.getElementsByTagName( &#39;head&#39; )[0].appendChild( script );
-            document.body.removeEventListener( &#39;keydown&#39;, handler );// 只加载一次miniConsole.js
+            script.<span class="hljs-property">src</span> = <span class="hljs-string">&#x27;miniConsole.js&#x27;</span>;
+            <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementsByTagName</span>( <span class="hljs-string">&#x27;head&#x27;</span> )[<span class="hljs-number">0</span>].<span class="hljs-title function_">appendChild</span>( script );
+            <span class="hljs-variable language_">document</span>.<span class="hljs-property">body</span>.<span class="hljs-title function_">removeEventListener</span>( <span class="hljs-string">&#x27;keydown&#x27;</span>, handler );<span class="hljs-comment">// 只加载一次miniConsole.js</span>
         &#125;
     &#125;;
-    document.body.addEventListener( &#39;keydown&#39;, handler, false );
-    return &#123;
-        log: function()&#123;
-            var args = arguments;
-            cache.push( function()&#123;
-                return miniConsole.log.apply( miniConsole, args );
+    <span class="hljs-variable language_">document</span>.<span class="hljs-property">body</span>.<span class="hljs-title function_">addEventListener</span>( <span class="hljs-string">&#x27;keydown&#x27;</span>, handler, <span class="hljs-literal">false</span> );
+    <span class="hljs-keyword">return</span> &#123;
+        <span class="hljs-attr">log</span>: <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)&#123;
+            <span class="hljs-keyword">var</span> args = <span class="hljs-variable language_">arguments</span>;
+            cache.<span class="hljs-title function_">push</span>( <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)&#123;
+                <span class="hljs-keyword">return</span> miniConsole.<span class="hljs-property">log</span>.<span class="hljs-title function_">apply</span>( miniConsole, args );
             &#125;);
         &#125;
     &#125;
 &#125;)();
 
-miniConsole.log( 11 ); // 开始打印log
-// miniConsole.js 代码
+miniConsole.<span class="hljs-title function_">log</span>( <span class="hljs-number">11</span> ); <span class="hljs-comment">// 开始打印log</span>
+<span class="hljs-comment">// miniConsole.js 代码</span>
 miniConsole = &#123;
-    log: function()&#123;
-    // 真正代码略
-    console.log( Array.prototype.join.call( arguments ) );
-&#125;
-</code></pre>
-<h4 id="缓存代理"><a href="#缓存代理" class="headerlink" title="缓存代理"></a>缓存代理</h4><pre><code class="js">var mult = function()&#123;
-    console.log( &#39;开始计算乘积&#39; );
-    var a = 1;
-    for ( var i = 0, l = arguments.length; i &lt; l; i++ )&#123;
-        a = a * arguments[i];
+    <span class="hljs-attr">log</span>: <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)&#123;
+    <span class="hljs-comment">// 真正代码略</span>
+    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>( <span class="hljs-title class_">Array</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">join</span>.<span class="hljs-title function_">call</span>( <span class="hljs-variable language_">arguments</span> ) );
+&#125;</code></pre>
+
+<h4 id="缓存代理"><a href="#缓存代理" class="headerlink" title="缓存代理"></a>缓存代理</h4><pre><code class="hljs js"><span class="hljs-keyword">var</span> mult = <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)&#123;
+    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>( <span class="hljs-string">&#x27;开始计算乘积&#x27;</span> );
+    <span class="hljs-keyword">var</span> a = <span class="hljs-number">1</span>;
+    <span class="hljs-keyword">for</span> ( <span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>, l = <span class="hljs-variable language_">arguments</span>.<span class="hljs-property">length</span>; i &lt; l; i++ )&#123;
+        a = a * <span class="hljs-variable language_">arguments</span>[i];
     &#125;
-    return a;
+    <span class="hljs-keyword">return</span> a;
 &#125;;
-mult( 2, 3 ); // 输出：6
-mult( 2, 3, 4 ); // 输出：24
-//现在加入缓存代理函数：
-var proxyMult = (function()&#123;
-    var cache = &#123;&#125;;
-    return function()&#123;
-        var args = Array.prototype.join.call( arguments, &#39;,&#39; );
-        if ( args in cache )&#123;
-            return cache[ args ];
+<span class="hljs-title function_">mult</span>( <span class="hljs-number">2</span>, <span class="hljs-number">3</span> ); <span class="hljs-comment">// 输出：6</span>
+<span class="hljs-title function_">mult</span>( <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span> ); <span class="hljs-comment">// 输出：24</span>
+<span class="hljs-comment">//现在加入缓存代理函数：</span>
+<span class="hljs-keyword">var</span> proxyMult = (<span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)&#123;
+    <span class="hljs-keyword">var</span> cache = &#123;&#125;;
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)&#123;
+        <span class="hljs-keyword">var</span> args = <span class="hljs-title class_">Array</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">join</span>.<span class="hljs-title function_">call</span>( <span class="hljs-variable language_">arguments</span>, <span class="hljs-string">&#x27;,&#x27;</span> );
+        <span class="hljs-keyword">if</span> ( args <span class="hljs-keyword">in</span> cache )&#123;
+            <span class="hljs-keyword">return</span> cache[ args ];
         &#125;
-        return cache[ args ] = mult.apply( this, arguments );
+        <span class="hljs-keyword">return</span> cache[ args ] = mult.<span class="hljs-title function_">apply</span>( <span class="hljs-variable language_">this</span>, <span class="hljs-variable language_">arguments</span> );
     &#125;
 &#125;)();
 
-proxyMult( 1, 2, 3, 4 ); // 输出：24
-proxyMult( 1, 2, 3, 4 ); // 输出：24
-我们在常常在项目中遇到分页的需求，同一页的数据理论上只需要去后台拉取一次，这些已经拉取到的数据在某个地方被缓存之后，下次再请求同一页的时候，便可以直接使用之前的数据。
-</code></pre>
+<span class="hljs-title function_">proxyMult</span>( <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span> ); <span class="hljs-comment">// 输出：24</span>
+<span class="hljs-title function_">proxyMult</span>( <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span> ); <span class="hljs-comment">// 输出：24</span>
+我们在常常在项目中遇到分页的需求，同一页的数据理论上只需要去后台拉取一次，这些已经拉取到的数据在某个地方被缓存之后，下次再请求同一页的时候，便可以直接使用之前的数据。</code></pre>
+
 <h3 id="第-7-章-迭代器模式"><a href="#第-7-章-迭代器模式" class="headerlink" title="第 7 章 迭代器模式"></a>第 7 章 迭代器模式</h3><p>迭代器模式是指提供一种方法顺序访问一个聚合对象中的各种元素，而又不需要暴露该对象的内部表示</p>
-<pre><code class="js">var getActiveUploadObj = function () &#123;
-  //...
+<pre><code class="hljs js"><span class="hljs-keyword">var</span> getActiveUploadObj = <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) &#123;
+  <span class="hljs-comment">//...</span>
 &#125;;
-var getFlashUploadObj = function () &#123;
-  //...
+<span class="hljs-keyword">var</span> getFlashUploadObj = <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) &#123;
+  <span class="hljs-comment">//...</span>
 &#125;;
-var getFormUploadObj = function () &#123;
-  //...
+<span class="hljs-keyword">var</span> getFormUploadObj = <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) &#123;
+  <span class="hljs-comment">//...</span>
 &#125;;
-var iteratorUploadObj = function () &#123;
-  for (var i = 0, fn; (fn = arguments[i++]); ) &#123;
-    var uploadObj = fn();
-    if (uploadObj !== false) &#123;
-      return uploadObj;
+<span class="hljs-keyword">var</span> iteratorUploadObj = <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) &#123;
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>, fn; (fn = <span class="hljs-variable language_">arguments</span>[i++]); ) &#123;
+    <span class="hljs-keyword">var</span> uploadObj = <span class="hljs-title function_">fn</span>();
+    <span class="hljs-keyword">if</span> (uploadObj !== <span class="hljs-literal">false</span>) &#123;
+      <span class="hljs-keyword">return</span> uploadObj;
     &#125;
   &#125;
 &#125;;
-var uploadObj = iteratorUploadObj(
+<span class="hljs-keyword">var</span> uploadObj = <span class="hljs-title function_">iteratorUploadObj</span>(
   getActiveUploadObj,
   getFlashUploadObj,
   getFormUploadObj
-);
-</code></pre>
+);</code></pre>
+
 <h3 id="第-8-章-发布订阅模式"><a href="#第-8-章-发布订阅模式" class="headerlink" title="第 8 章 发布订阅模式"></a>第 8 章 发布订阅模式</h3><p>发布—订阅模式又叫观察者模式，它定义对象间的一种一对多的依赖关系，当一个对象的状 态发生改变时，所有依赖于它的对象都将得到通知。在 JavaScript 开发中，我们一般用事件模型 来替代传统的发布—订阅模式。</p>
-<pre><code class="js">var Event = (function () &#123;
-  var clientList = &#123;&#125;,
+<pre><code class="hljs js"><span class="hljs-keyword">var</span> <span class="hljs-title class_">Event</span> = (<span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) &#123;
+  <span class="hljs-keyword">var</span> clientList = &#123;&#125;,
     listen,
     trigger,
     remove;
-  listen = function (key, fn) &#123;
-    if (!clientList[key]) &#123;
+  listen = <span class="hljs-keyword">function</span> (<span class="hljs-params">key, fn</span>) &#123;
+    <span class="hljs-keyword">if</span> (!clientList[key]) &#123;
       clientList[key] = [];
     &#125;
-    clientList[key].push(fn);
+    clientList[key].<span class="hljs-title function_">push</span>(fn);
   &#125;;
-  trigger = function () &#123;
-    var key = Array.prototype.shift.call(arguments),
+  trigger = <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) &#123;
+    <span class="hljs-keyword">var</span> key = <span class="hljs-title class_">Array</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">shift</span>.<span class="hljs-title function_">call</span>(<span class="hljs-variable language_">arguments</span>),
       fns = clientList[key];
-    if (!fns || fns.length === 0) &#123;
-      return false;
+    <span class="hljs-keyword">if</span> (!fns || fns.<span class="hljs-property">length</span> === <span class="hljs-number">0</span>) &#123;
+      <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
     &#125;
-    for (var i = 0, fn; (fn = fns[i++]); ) &#123;
-      fn.apply(this, arguments);
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>, fn; (fn = fns[i++]); ) &#123;
+      fn.<span class="hljs-title function_">apply</span>(<span class="hljs-variable language_">this</span>, <span class="hljs-variable language_">arguments</span>);
     &#125;
   &#125;;
-  remove = function (key, fn) &#123;
-    var fns = clientList[key];
-    if (!fns) &#123;
-      return false;
+  remove = <span class="hljs-keyword">function</span> (<span class="hljs-params">key, fn</span>) &#123;
+    <span class="hljs-keyword">var</span> fns = clientList[key];
+    <span class="hljs-keyword">if</span> (!fns) &#123;
+      <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
     &#125;
-    if (!fn) &#123;
-      fns &amp;&amp; (fns.length = 0);
-    &#125; else &#123;
-      for (var l = fns.length - 1; l &gt;= 0; l--) &#123;
-        var _fn = fns[l];
-        if (_fn === fn) &#123;
-          fns.splice(l, 1);
+    <span class="hljs-keyword">if</span> (!fn) &#123;
+      fns &amp;&amp; (fns.<span class="hljs-property">length</span> = <span class="hljs-number">0</span>);
+    &#125; <span class="hljs-keyword">else</span> &#123;
+      <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> l = fns.<span class="hljs-property">length</span> - <span class="hljs-number">1</span>; l &gt;= <span class="hljs-number">0</span>; l--) &#123;
+        <span class="hljs-keyword">var</span> _fn = fns[l];
+        <span class="hljs-keyword">if</span> (_fn === fn) &#123;
+          fns.<span class="hljs-title function_">splice</span>(l, <span class="hljs-number">1</span>);
         &#125;
       &#125;
     &#125;
   &#125;;
-  return &#123;
-    listen: listen,
-    trigger: trigger,
-    remove: remove,
+  <span class="hljs-keyword">return</span> &#123;
+    <span class="hljs-attr">listen</span>: listen,
+    <span class="hljs-attr">trigger</span>: trigger,
+    <span class="hljs-attr">remove</span>: remove,
   &#125;;
 &#125;)();
 
-Event.listen(&quot;squareMeter88&quot;, function (price) &#123;
-  // 小红订阅消息
-  console.log(&quot;价格= &quot; + price); // 输出：&#39;价格=2000000&#39;
+<span class="hljs-title class_">Event</span>.<span class="hljs-title function_">listen</span>(<span class="hljs-string">&quot;squareMeter88&quot;</span>, <span class="hljs-keyword">function</span> (<span class="hljs-params">price</span>) &#123;
+  <span class="hljs-comment">// 小红订阅消息</span>
+  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;价格= &quot;</span> + price); <span class="hljs-comment">// 输出：&#x27;价格=2000000&#x27;</span>
 &#125;);
 
-Event.trigger(&quot;squareMeter88&quot;, 2000000); // 售楼处发布消息
-</code></pre>
+<span class="hljs-title class_">Event</span>.<span class="hljs-title function_">trigger</span>(<span class="hljs-string">&quot;squareMeter88&quot;</span>, <span class="hljs-number">2000000</span>); <span class="hljs-comment">// 售楼处发布消息</span></code></pre>
+
 <h3 id="第-9-章-命令模式"><a href="#第-9-章-命令模式" class="headerlink" title="第 9 章 命令模式"></a>第 9 章 命令模式</h3><p>在面向对象设计中，命令模式的接收者被当成 command 对象的属性保存起来，同时约定执行命令的操作调用 command.execute 方法。在使用闭包的命令模式实现中，接收者被封闭在闭包产生的环境中，执行命令的操作可以更加简单，仅仅执行回调函数即可。无论接收者被保存为对象的属性，还是被封闭在闭包产生的环境中，在将来执行命令的时候，接收者都能被顺利访问。用闭包实现的命令模式如下代码所示:</p>
-<pre><code class="js">var RefreshMenuBarCommand = function (receiver) &#123;
-  return &#123;
-    execute: function () &#123;
-      receiver.refresh();
+<pre><code class="hljs js"><span class="hljs-keyword">var</span> <span class="hljs-title class_">RefreshMenuBarCommand</span> = <span class="hljs-keyword">function</span> (<span class="hljs-params">receiver</span>) &#123;
+  <span class="hljs-keyword">return</span> &#123;
+    <span class="hljs-attr">execute</span>: <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) &#123;
+      receiver.<span class="hljs-title function_">refresh</span>();
     &#125;,
   &#125;;
 &#125;;
-var setCommand = function (button, command) &#123;
-  button.onclick = function () &#123;
-    command.execute();
+<span class="hljs-keyword">var</span> setCommand = <span class="hljs-keyword">function</span> (<span class="hljs-params">button, command</span>) &#123;
+  button.<span class="hljs-property">onclick</span> = <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) &#123;
+    command.<span class="hljs-title function_">execute</span>();
   &#125;;
 &#125;;
-var refreshMenuBarCommand = RefreshMenuBarCommand(MenuBar);
-setCommand(button1, refreshMenuBarCommand);
-</code></pre>
-<h3 id="第-10-章-组合模式"><a href="#第-10-章-组合模式" class="headerlink" title="第 10 章 组合模式"></a>第 10 章 组合模式</h3><h4 id="10-7-组合模式的例子——扫描文件夹"><a href="#10-7-组合模式的例子——扫描文件夹" class="headerlink" title="10.7 组合模式的例子——扫描文件夹"></a>10.7 组合模式的例子——扫描文件夹</h4><pre><code class="js">var Folder = function (name) &#123;
-  this.name = name;
-  this.files = [];
+<span class="hljs-keyword">var</span> refreshMenuBarCommand = <span class="hljs-title class_">RefreshMenuBarCommand</span>(<span class="hljs-title class_">MenuBar</span>);
+<span class="hljs-title function_">setCommand</span>(button1, refreshMenuBarCommand);</code></pre>
+
+<h3 id="第-10-章-组合模式"><a href="#第-10-章-组合模式" class="headerlink" title="第 10 章 组合模式"></a>第 10 章 组合模式</h3><h4 id="10-7-组合模式的例子——扫描文件夹"><a href="#10-7-组合模式的例子——扫描文件夹" class="headerlink" title="10.7 组合模式的例子——扫描文件夹"></a>10.7 组合模式的例子——扫描文件夹</h4><pre><code class="hljs js"><span class="hljs-keyword">var</span> <span class="hljs-title class_">Folder</span> = <span class="hljs-keyword">function</span> (<span class="hljs-params">name</span>) &#123;
+  <span class="hljs-variable language_">this</span>.<span class="hljs-property">name</span> = name;
+  <span class="hljs-variable language_">this</span>.<span class="hljs-property">files</span> = [];
 &#125;;
-Folder.prototype.add = function (file) &#123;
-  this.files.push(file);
+<span class="hljs-title class_">Folder</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">add</span> = <span class="hljs-keyword">function</span> (<span class="hljs-params">file</span>) &#123;
+  <span class="hljs-variable language_">this</span>.<span class="hljs-property">files</span>.<span class="hljs-title function_">push</span>(file);
 &#125;;
-Folder.prototype.scan = function () &#123;
-  console.log(&quot;开始扫描文件夹: &quot; + this.name);
-  for (var i = 0, file, files = this.files; (file = files[i++]); ) &#123;
-    file.scan();
+<span class="hljs-title class_">Folder</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">scan</span> = <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) &#123;
+  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;开始扫描文件夹: &quot;</span> + <span class="hljs-variable language_">this</span>.<span class="hljs-property">name</span>);
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>, file, files = <span class="hljs-variable language_">this</span>.<span class="hljs-property">files</span>; (file = files[i++]); ) &#123;
+    file.<span class="hljs-title function_">scan</span>();
   &#125;
 &#125;;
-/******************************* File ******************************/
-var File = function (name) &#123;
-  this.name = name;
+<span class="hljs-comment">/******************************* File ******************************/</span>
+<span class="hljs-keyword">var</span> <span class="hljs-title class_">File</span> = <span class="hljs-keyword">function</span> (<span class="hljs-params">name</span>) &#123;
+  <span class="hljs-variable language_">this</span>.<span class="hljs-property">name</span> = name;
 &#125;;
-File.prototype.add = function () &#123;
-  throw new Error(&quot;文件下面不能再添加文件&quot;);
+<span class="hljs-title class_">File</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">add</span> = <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) &#123;
+  <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Error</span>(<span class="hljs-string">&quot;文件下面不能再添加文件&quot;</span>);
 &#125;;
-File.prototype.scan = function () &#123;
-  console.log(&quot;开始扫描文件: &quot; + this.name);
+<span class="hljs-title class_">File</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">scan</span> = <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) &#123;
+  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;开始扫描文件: &quot;</span> + <span class="hljs-variable language_">this</span>.<span class="hljs-property">name</span>);
 &#125;;
 
-var folder = new Folder(&quot;学习资料&quot;);
-var folder1 = new Folder(&quot;JavaScript&quot;);
-var folder2 = new Folder(&quot;jQuery&quot;);
-var file1 = new File(&quot;JavaScript 设计模式与开发实践&quot;);
-var file2 = new File(&quot;精通jQuery&quot;);
-var file3 = new File(&quot;重构与模式&quot;);
-folder1.add(file1);
-folder2.add(file2);
-folder.add(folder1);
-folder.add(folder2);
-folder.add(file3);
+<span class="hljs-keyword">var</span> folder = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Folder</span>(<span class="hljs-string">&quot;学习资料&quot;</span>);
+<span class="hljs-keyword">var</span> folder1 = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Folder</span>(<span class="hljs-string">&quot;JavaScript&quot;</span>);
+<span class="hljs-keyword">var</span> folder2 = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Folder</span>(<span class="hljs-string">&quot;jQuery&quot;</span>);
+<span class="hljs-keyword">var</span> file1 = <span class="hljs-keyword">new</span> <span class="hljs-title class_">File</span>(<span class="hljs-string">&quot;JavaScript 设计模式与开发实践&quot;</span>);
+<span class="hljs-keyword">var</span> file2 = <span class="hljs-keyword">new</span> <span class="hljs-title class_">File</span>(<span class="hljs-string">&quot;精通jQuery&quot;</span>);
+<span class="hljs-keyword">var</span> file3 = <span class="hljs-keyword">new</span> <span class="hljs-title class_">File</span>(<span class="hljs-string">&quot;重构与模式&quot;</span>);
+folder1.<span class="hljs-title function_">add</span>(file1);
+folder2.<span class="hljs-title function_">add</span>(file2);
+folder.<span class="hljs-title function_">add</span>(folder1);
+folder.<span class="hljs-title function_">add</span>(folder2);
+folder.<span class="hljs-title function_">add</span>(file3);
 
-var folder3 = new Folder(&quot;Nodejs&quot;);
-var file4 = new File(&quot;深入浅出Node.js&quot;);
-folder3.add(file4);
-var file5 = new File(&quot;JavaScript 语言精髓与编程实践&quot;);
+<span class="hljs-keyword">var</span> folder3 = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Folder</span>(<span class="hljs-string">&quot;Nodejs&quot;</span>);
+<span class="hljs-keyword">var</span> file4 = <span class="hljs-keyword">new</span> <span class="hljs-title class_">File</span>(<span class="hljs-string">&quot;深入浅出Node.js&quot;</span>);
+folder3.<span class="hljs-title function_">add</span>(file4);
+<span class="hljs-keyword">var</span> file5 = <span class="hljs-keyword">new</span> <span class="hljs-title class_">File</span>(<span class="hljs-string">&quot;JavaScript 语言精髓与编程实践&quot;</span>);
 
-folder.add(folder3);
-folder.add(file5);
+folder.<span class="hljs-title function_">add</span>(folder3);
+folder.<span class="hljs-title function_">add</span>(file5);
 
-folder.scan();
-</code></pre>
+folder.<span class="hljs-title function_">scan</span>();</code></pre>
+
 <h4 id="10-8-一些值得注意的地方"><a href="#10-8-一些值得注意的地方" class="headerlink" title="10.8 一些值得注意的地方"></a>10.8 一些值得注意的地方</h4><ol>
 <li>组合模式不是父子关系 组合对象把请求委托给它所包含的所有叶对象，它们能够合作的关键是拥有相同的接口。</li>
 <li>对叶对象操作的一致性</li>
 <li>双向映射关系</li>
 </ol>
-<h3 id="第-11-章-模板方法模式"><a href="#第-11-章-模板方法模式" class="headerlink" title="第 11 章 模板方法模式"></a>第 11 章 模板方法模式</h3><pre><code class="js">var Beverage = function () &#123;&#125;;
-Beverage.prototype.boilWater = function () &#123;
-  console.log(&quot;把水煮沸&quot;);
+<h3 id="第-11-章-模板方法模式"><a href="#第-11-章-模板方法模式" class="headerlink" title="第 11 章 模板方法模式"></a>第 11 章 模板方法模式</h3><pre><code class="hljs js"><span class="hljs-keyword">var</span> <span class="hljs-title class_">Beverage</span> = <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) &#123;&#125;;
+<span class="hljs-title class_">Beverage</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">boilWater</span> = <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) &#123;
+  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;把水煮沸&quot;</span>);
 &#125;;
-Beverage.prototype.brew = function () &#123;
-  throw new Error(&quot;子类必须重写brew 方法&quot;);
+<span class="hljs-title class_">Beverage</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">brew</span> = <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) &#123;
+  <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Error</span>(<span class="hljs-string">&quot;子类必须重写brew 方法&quot;</span>);
 &#125;;
-Beverage.prototype.pourInCup = function () &#123;
-  throw new Error(&quot;子类必须重写pourInCup 方法&quot;);
+<span class="hljs-title class_">Beverage</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">pourInCup</span> = <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) &#123;
+  <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Error</span>(<span class="hljs-string">&quot;子类必须重写pourInCup 方法&quot;</span>);
 &#125;;
-Beverage.prototype.addCondiments = function () &#123;
-  throw new Error(&quot;子类必须重写addCondiments 方法&quot;);
+<span class="hljs-title class_">Beverage</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">addCondiments</span> = <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) &#123;
+  <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Error</span>(<span class="hljs-string">&quot;子类必须重写addCondiments 方法&quot;</span>);
 &#125;;
-Beverage.prototype.customerWantsCondiments = function () &#123;
-  return true; // 默认需要调料
+<span class="hljs-title class_">Beverage</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">customerWantsCondiments</span> = <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) &#123;
+  <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>; <span class="hljs-comment">// 默认需要调料</span>
 &#125;;
-Beverage.prototype.init = function () &#123;
-  //封装了子类的算法框架
-  this.boilWater();
-  this.brew();
-  this.pourInCup();
-  if (this.customerWantsCondiments()) &#123;
-    // 如果挂钩返回true，则需要调料
-    this.addCondiments();
+<span class="hljs-title class_">Beverage</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">init</span> = <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) &#123;
+  <span class="hljs-comment">//封装了子类的算法框架</span>
+  <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">boilWater</span>();
+  <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">brew</span>();
+  <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">pourInCup</span>();
+  <span class="hljs-keyword">if</span> (<span class="hljs-variable language_">this</span>.<span class="hljs-title function_">customerWantsCondiments</span>()) &#123;
+    <span class="hljs-comment">// 如果挂钩返回true，则需要调料</span>
+    <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">addCondiments</span>();
   &#125;
 &#125;;
-var CoffeeWithHook = function () &#123;&#125;;
-CoffeeWithHook.prototype = new Beverage();
-CoffeeWithHook.prototype.brew = function () &#123;
-  console.log(&quot;用沸水冲泡咖啡&quot;);
+<span class="hljs-keyword">var</span> <span class="hljs-title class_">CoffeeWithHook</span> = <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) &#123;&#125;;
+<span class="hljs-title class_">CoffeeWithHook</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span> = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Beverage</span>();
+<span class="hljs-title class_">CoffeeWithHook</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">brew</span> = <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) &#123;
+  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;用沸水冲泡咖啡&quot;</span>);
 &#125;;
-CoffeeWithHook.prototype.pourInCup = function () &#123;
-  console.log(&quot;把咖啡倒进杯子&quot;);
+<span class="hljs-title class_">CoffeeWithHook</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">pourInCup</span> = <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) &#123;
+  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;把咖啡倒进杯子&quot;</span>);
 &#125;;
-CoffeeWithHook.prototype.addCondiments = function () &#123;
-  console.log(&quot;加糖和牛奶&quot;);
+<span class="hljs-title class_">CoffeeWithHook</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">addCondiments</span> = <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) &#123;
+  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;加糖和牛奶&quot;</span>);
 &#125;;
-CoffeeWithHook.prototype.customerWantsCondiments = function () &#123;
-  return window.confirm(&quot;请问需要调料吗？&quot;);
+<span class="hljs-title class_">CoffeeWithHook</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">customerWantsCondiments</span> = <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) &#123;
+  <span class="hljs-keyword">return</span> <span class="hljs-variable language_">window</span>.<span class="hljs-title function_">confirm</span>(<span class="hljs-string">&quot;请问需要调料吗？&quot;</span>);
 &#125;;
-var coffeeWithHook = new CoffeeWithHook();
-coffeeWithHook.init();
-</code></pre>
+<span class="hljs-keyword">var</span> coffeeWithHook = <span class="hljs-keyword">new</span> <span class="hljs-title class_">CoffeeWithHook</span>();
+coffeeWithHook.<span class="hljs-title function_">init</span>();</code></pre>
+
 <p>模板方法模式是基于继承的一种设计模式，父类封装了子类的算法框架和方法的执行顺序，<br>子类继承父类之后，父类通知子类执行这些方法</p>
-<h3 id="第-12-章-享元模式"><a href="#第-12-章-享元模式" class="headerlink" title="第 12 章 享元模式"></a>第 12 章 享元模式</h3><pre><code class="js">var Upload = function (uploadType) &#123;
-  this.uploadType = uploadType;
+<h3 id="第-12-章-享元模式"><a href="#第-12-章-享元模式" class="headerlink" title="第 12 章 享元模式"></a>第 12 章 享元模式</h3><pre><code class="hljs js"><span class="hljs-keyword">var</span> <span class="hljs-title class_">Upload</span> = <span class="hljs-keyword">function</span> (<span class="hljs-params">uploadType</span>) &#123;
+  <span class="hljs-variable language_">this</span>.<span class="hljs-property">uploadType</span> = uploadType;
 &#125;;
 
-Upload.prototype.delFile = function (id) &#123;
-  uploadManager.setExternalState(id, this); // (1)
-  if (this.fileSize &lt; 3000) &#123;
-    return this.dom.parentNode.removeChild(this.dom);
+<span class="hljs-title class_">Upload</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">delFile</span> = <span class="hljs-keyword">function</span> (<span class="hljs-params">id</span>) &#123;
+  uploadManager.<span class="hljs-title function_">setExternalState</span>(id, <span class="hljs-variable language_">this</span>); <span class="hljs-comment">// (1)</span>
+  <span class="hljs-keyword">if</span> (<span class="hljs-variable language_">this</span>.<span class="hljs-property">fileSize</span> &lt; <span class="hljs-number">3000</span>) &#123;
+    <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">dom</span>.<span class="hljs-property">parentNode</span>.<span class="hljs-title function_">removeChild</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">dom</span>);
   &#125;
 
-  if (window.confirm(&quot;确定要删除该文件吗? &quot; + this.fileName)) &#123;
-    return this.dom.parentNode.removeChild(this.dom);
+  <span class="hljs-keyword">if</span> (<span class="hljs-variable language_">window</span>.<span class="hljs-title function_">confirm</span>(<span class="hljs-string">&quot;确定要删除该文件吗? &quot;</span> + <span class="hljs-variable language_">this</span>.<span class="hljs-property">fileName</span>)) &#123;
+    <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">dom</span>.<span class="hljs-property">parentNode</span>.<span class="hljs-title function_">removeChild</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">dom</span>);
   &#125;
 &#125;;
 
-var UploadFactory = (function () &#123;
-  var createdFlyWeightObjs = &#123;&#125;;
-  return &#123;
-    create: function (uploadType) &#123;
-      if (createdFlyWeightObjs[uploadType]) &#123;
-        return createdFlyWeightObjs[uploadType];
+<span class="hljs-keyword">var</span> <span class="hljs-title class_">UploadFactory</span> = (<span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) &#123;
+  <span class="hljs-keyword">var</span> createdFlyWeightObjs = &#123;&#125;;
+  <span class="hljs-keyword">return</span> &#123;
+    <span class="hljs-attr">create</span>: <span class="hljs-keyword">function</span> (<span class="hljs-params">uploadType</span>) &#123;
+      <span class="hljs-keyword">if</span> (createdFlyWeightObjs[uploadType]) &#123;
+        <span class="hljs-keyword">return</span> createdFlyWeightObjs[uploadType];
       &#125;
-      return (createdFlyWeightObjs[uploadType] = new Upload(uploadType));
+      <span class="hljs-keyword">return</span> (createdFlyWeightObjs[uploadType] = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Upload</span>(uploadType));
     &#125;,
   &#125;;
 &#125;)();
 
-var uploadManager = (function () &#123;
-  var uploadDatabase = &#123;&#125;;
-  return &#123;
-    add: function (id, uploadType, fileName, fileSize) &#123;
-      var flyWeightObj = UploadFactory.create(uploadType);
-      var dom = document.createElement(&quot;div&quot;);
-      dom.innerHTML =
-        &quot;&lt;span&gt;文件名称:&quot; +
+<span class="hljs-keyword">var</span> uploadManager = (<span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) &#123;
+  <span class="hljs-keyword">var</span> uploadDatabase = &#123;&#125;;
+  <span class="hljs-keyword">return</span> &#123;
+    <span class="hljs-attr">add</span>: <span class="hljs-keyword">function</span> (<span class="hljs-params">id, uploadType, fileName, fileSize</span>) &#123;
+      <span class="hljs-keyword">var</span> flyWeightObj = <span class="hljs-title class_">UploadFactory</span>.<span class="hljs-title function_">create</span>(uploadType);
+      <span class="hljs-keyword">var</span> dom = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">createElement</span>(<span class="hljs-string">&quot;div&quot;</span>);
+      dom.<span class="hljs-property">innerHTML</span> =
+        <span class="hljs-string">&quot;&lt;span&gt;文件名称:&quot;</span> +
         fileName +
-        &quot;, 文件大小: &quot; +
+        <span class="hljs-string">&quot;, 文件大小: &quot;</span> +
         fileSize +
-        &quot;&lt;/span&gt;&quot; +
-        &#39;&lt;button class=&quot;delFile&quot;&gt;删除&lt;/button&gt;&#39;;
-      dom.querySelector(&quot;.delFile&quot;).onclick = function () &#123;
-        flyWeightObj.delFile(id);
+        <span class="hljs-string">&quot;&lt;/span&gt;&quot;</span> +
+        <span class="hljs-string">&#x27;&lt;button class=&quot;delFile&quot;&gt;删除&lt;/button&gt;&#x27;</span>;
+      dom.<span class="hljs-title function_">querySelector</span>(<span class="hljs-string">&quot;.delFile&quot;</span>).<span class="hljs-property">onclick</span> = <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) &#123;
+        flyWeightObj.<span class="hljs-title function_">delFile</span>(id);
       &#125;;
 
-      document.body.appendChild(dom);
+      <span class="hljs-variable language_">document</span>.<span class="hljs-property">body</span>.<span class="hljs-title function_">appendChild</span>(dom);
       uploadDatabase[id] = &#123;
-        fileName: fileName,
-        fileSize: fileSize,
-        dom: dom,
+        <span class="hljs-attr">fileName</span>: fileName,
+        <span class="hljs-attr">fileSize</span>: fileSize,
+        <span class="hljs-attr">dom</span>: dom,
       &#125;;
-      return flyWeightObj;
+      <span class="hljs-keyword">return</span> flyWeightObj;
     &#125;,
-    setExternalState: function (id, flyWeightObj) &#123;
-      var uploadData = uploadDatabase[id];
-      for (var i in uploadData) &#123;
+    <span class="hljs-attr">setExternalState</span>: <span class="hljs-keyword">function</span> (<span class="hljs-params">id, flyWeightObj</span>) &#123;
+      <span class="hljs-keyword">var</span> uploadData = uploadDatabase[id];
+      <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i <span class="hljs-keyword">in</span> uploadData) &#123;
         flyWeightObj[i] = uploadData[i];
       &#125;
     &#125;,
   &#125;;
 &#125;)();
 
-var id = 0;
-window.startUpload = function (uploadType, files) &#123;
-  for (var i = 0, file; (file = files[i++]); ) &#123;
-    var uploadObj = uploadManager.add(
+<span class="hljs-keyword">var</span> id = <span class="hljs-number">0</span>;
+<span class="hljs-variable language_">window</span>.<span class="hljs-property">startUpload</span> = <span class="hljs-keyword">function</span> (<span class="hljs-params">uploadType, files</span>) &#123;
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>, file; (file = files[i++]); ) &#123;
+    <span class="hljs-keyword">var</span> uploadObj = uploadManager.<span class="hljs-title function_">add</span>(
       ++id,
       uploadType,
-      file.fileName,
-      file.fileSize
+      file.<span class="hljs-property">fileName</span>,
+      file.<span class="hljs-property">fileSize</span>
     );
   &#125;
 &#125;;
 
-startUpload(&quot;plugin&quot;, [
+<span class="hljs-title function_">startUpload</span>(<span class="hljs-string">&quot;plugin&quot;</span>, [
   &#123;
-    fileName: &quot;1.txt&quot;,
-    fileSize: 1000,
+    <span class="hljs-attr">fileName</span>: <span class="hljs-string">&quot;1.txt&quot;</span>,
+    <span class="hljs-attr">fileSize</span>: <span class="hljs-number">1000</span>,
   &#125;,
   &#123;
-    fileName: &quot;2.html&quot;,
-    fileSize: 3000,
+    <span class="hljs-attr">fileName</span>: <span class="hljs-string">&quot;2.html&quot;</span>,
+    <span class="hljs-attr">fileSize</span>: <span class="hljs-number">3000</span>,
   &#125;,
   &#123;
-    fileName: &quot;3.txt&quot;,
-    fileSize: 5000,
+    <span class="hljs-attr">fileName</span>: <span class="hljs-string">&quot;3.txt&quot;</span>,
+    <span class="hljs-attr">fileSize</span>: <span class="hljs-number">5000</span>,
   &#125;,
 ]);
-startUpload(&quot;flash&quot;, [
+<span class="hljs-title function_">startUpload</span>(<span class="hljs-string">&quot;flash&quot;</span>, [
   &#123;
-    fileName: &quot;4.txt&quot;,
-    fileSize: 1000,
+    <span class="hljs-attr">fileName</span>: <span class="hljs-string">&quot;4.txt&quot;</span>,
+    <span class="hljs-attr">fileSize</span>: <span class="hljs-number">1000</span>,
   &#125;,
   &#123;
-    fileName: &quot;5.html&quot;,
-    fileSize: 3000,
+    <span class="hljs-attr">fileName</span>: <span class="hljs-string">&quot;5.html&quot;</span>,
+    <span class="hljs-attr">fileSize</span>: <span class="hljs-number">3000</span>,
   &#125;,
   &#123;
-    fileName: &quot;6.txt&quot;,
+    <span class="hljs-attr">fileName</span>: <span class="hljs-string">&quot;6.txt&quot;</span>,
 
-    fileSize: 5000,
+    <span class="hljs-attr">fileSize</span>: <span class="hljs-number">5000</span>,
   &#125;,
-]);
-</code></pre>
+]);</code></pre>
+
 <p>享元模式带来的好处很大程度上取决于如何使用以及何时使用，一般来说，以下情况发生时 便可以使用享元模式。</p>
 <ol>
 <li>一个程序中使用了大量的相似对象。</li>
@@ -885,274 +885,274 @@ startUpload(&quot;flash&quot;, [
 <li>剥离出对象的外部状态之后，可以用相对较少的共享对象取代大量对象。</li>
 </ol>
 <h3 id="第-13-章-职责链模式"><a href="#第-13-章-职责链模式" class="headerlink" title="第 13 章 职责链模式"></a>第 13 章 职责链模式</h3><p>职责链模式的最大优点就是解耦了请求发送者和 N 个接收者之间的复杂关 系，由于不知道链中的哪个节点可以处理你发出的请求，所以你只需把请求传递给第一个节点即 可</p>
-<pre><code class="js">var order500 = function( orderType, pay, stock )&#123;
-    if ( orderType === 1 &amp;&amp; pay === true )&#123;
-        console.log( &#39;500 元定金预购，得到100 优惠券&#39; );
-    &#125;else&#123;
-        return &#39;nextSuccessor&#39;; // 我不知道下一个节点是谁，反正把请求往后面传递
+<pre><code class="hljs js"><span class="hljs-keyword">var</span> order500 = <span class="hljs-keyword">function</span>(<span class="hljs-params"> orderType, pay, stock </span>)&#123;
+    <span class="hljs-keyword">if</span> ( orderType === <span class="hljs-number">1</span> &amp;&amp; pay === <span class="hljs-literal">true</span> )&#123;
+        <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>( <span class="hljs-string">&#x27;500 元定金预购，得到100 优惠券&#x27;</span> );
+    &#125;<span class="hljs-keyword">else</span>&#123;
+        <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;nextSuccessor&#x27;</span>; <span class="hljs-comment">// 我不知道下一个节点是谁，反正把请求往后面传递</span>
     &#125;
 &#125;;
 
-var order200 = function( orderType, pay, stock )&#123;
-    if ( orderType === 2 &amp;&amp; pay === true )&#123;
-        console.log( &#39;200 元定金预购，得到50 优惠券&#39; );
-    &#125;else&#123;
-        return &#39;nextSuccessor&#39;; // 我不知道下一个节点是谁，反正把请求往后面传递
+<span class="hljs-keyword">var</span> order200 = <span class="hljs-keyword">function</span>(<span class="hljs-params"> orderType, pay, stock </span>)&#123;
+    <span class="hljs-keyword">if</span> ( orderType === <span class="hljs-number">2</span> &amp;&amp; pay === <span class="hljs-literal">true</span> )&#123;
+        <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>( <span class="hljs-string">&#x27;200 元定金预购，得到50 优惠券&#x27;</span> );
+    &#125;<span class="hljs-keyword">else</span>&#123;
+        <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;nextSuccessor&#x27;</span>; <span class="hljs-comment">// 我不知道下一个节点是谁，反正把请求往后面传递</span>
     &#125;
 &#125;;
 
-var orderNormal = function( orderType, pay, stock )&#123;
-    if ( stock &gt; 0 )&#123;
-        console.log( &#39;普通购买，无优惠券&#39; );
-    &#125;else&#123;
-        console.log( &#39;手机库存不足&#39; );
+<span class="hljs-keyword">var</span> orderNormal = <span class="hljs-keyword">function</span>(<span class="hljs-params"> orderType, pay, stock </span>)&#123;
+    <span class="hljs-keyword">if</span> ( stock &gt; <span class="hljs-number">0</span> )&#123;
+        <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>( <span class="hljs-string">&#x27;普通购买，无优惠券&#x27;</span> );
+    &#125;<span class="hljs-keyword">else</span>&#123;
+        <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>( <span class="hljs-string">&#x27;手机库存不足&#x27;</span> );
     &#125;
 &#125;;
 
-Chain.prototype.setNextSuccessor 指定在链中的下一个节点
-Chain.prototype.passRequest 传递请求给某个节点
-var Chain = function( fn )&#123;
-    this.fn = fn;
-    this.successor = null;
+<span class="hljs-title class_">Chain</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">setNextSuccessor</span> 指定在链中的下一个节点
+<span class="hljs-title class_">Chain</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">passRequest</span> 传递请求给某个节点
+<span class="hljs-keyword">var</span> <span class="hljs-title class_">Chain</span> = <span class="hljs-keyword">function</span>(<span class="hljs-params"> fn </span>)&#123;
+    <span class="hljs-variable language_">this</span>.<span class="hljs-property">fn</span> = fn;
+    <span class="hljs-variable language_">this</span>.<span class="hljs-property">successor</span> = <span class="hljs-literal">null</span>;
 &#125;;
 
-Chain.prototype.setNextSuccessor = function( successor )&#123;
-    return this.successor = successor;
+<span class="hljs-title class_">Chain</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">setNextSuccessor</span> = <span class="hljs-keyword">function</span>(<span class="hljs-params"> successor </span>)&#123;
+    <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">successor</span> = successor;
 &#125;;
 
-Chain.prototype.passRequest = function()&#123;
+<span class="hljs-title class_">Chain</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">passRequest</span> = <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)&#123;
 
-    var ret = this.fn.apply( this, arguments );
-    if ( ret === &#39;nextSuccessor&#39; )&#123;
-        return this.successor &amp;&amp; this.successor.passRequest.apply( this.successor, arguments );
+    <span class="hljs-keyword">var</span> ret = <span class="hljs-variable language_">this</span>.<span class="hljs-property">fn</span>.<span class="hljs-title function_">apply</span>( <span class="hljs-variable language_">this</span>, <span class="hljs-variable language_">arguments</span> );
+    <span class="hljs-keyword">if</span> ( ret === <span class="hljs-string">&#x27;nextSuccessor&#x27;</span> )&#123;
+        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">successor</span> &amp;&amp; <span class="hljs-variable language_">this</span>.<span class="hljs-property">successor</span>.<span class="hljs-property">passRequest</span>.<span class="hljs-title function_">apply</span>( <span class="hljs-variable language_">this</span>.<span class="hljs-property">successor</span>, <span class="hljs-variable language_">arguments</span> );
     &#125;
-    return ret;
+    <span class="hljs-keyword">return</span> ret;
 &#125;;
 
-var chainOrder500 = new Chain( order500 );
-var chainOrder200 = new Chain( order200 );
-var chainOrderNormal = new Chain( orderNormal );
+<span class="hljs-keyword">var</span> chainOrder500 = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Chain</span>( order500 );
+<span class="hljs-keyword">var</span> chainOrder200 = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Chain</span>( order200 );
+<span class="hljs-keyword">var</span> chainOrderNormal = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Chain</span>( orderNormal );
 
-chainOrder500.setNextSuccessor( chainOrder200 );
-chainOrder200.setNextSuccessor( chainOrderNormal );
-chainOrder500.passRequest( 1, true, 500 ); // 输出：500 元定金预购，得到100 优惠券
-chainOrder500.passRequest( 2, true, 500 ); // 输出：200 元定金预购，得到50 优惠券
-chainOrder500.passRequest( 3, true, 500 ); // 输出：普通购买，无优惠券
-chainOrder500.passRequest( 1, false, 0 ); // 输出：手机库存不足
+chainOrder500.<span class="hljs-title function_">setNextSuccessor</span>( chainOrder200 );
+chainOrder200.<span class="hljs-title function_">setNextSuccessor</span>( chainOrderNormal );
+chainOrder500.<span class="hljs-title function_">passRequest</span>( <span class="hljs-number">1</span>, <span class="hljs-literal">true</span>, <span class="hljs-number">500</span> ); <span class="hljs-comment">// 输出：500 元定金预购，得到100 优惠券</span>
+chainOrder500.<span class="hljs-title function_">passRequest</span>( <span class="hljs-number">2</span>, <span class="hljs-literal">true</span>, <span class="hljs-number">500</span> ); <span class="hljs-comment">// 输出：200 元定金预购，得到50 优惠券</span>
+chainOrder500.<span class="hljs-title function_">passRequest</span>( <span class="hljs-number">3</span>, <span class="hljs-literal">true</span>, <span class="hljs-number">500</span> ); <span class="hljs-comment">// 输出：普通购买，无优惠券</span>
+chainOrder500.<span class="hljs-title function_">passRequest</span>( <span class="hljs-number">1</span>, <span class="hljs-literal">false</span>, <span class="hljs-number">0</span> ); <span class="hljs-comment">// 输出：手机库存不足</span>
 
-Function.prototype.after = function( fn )&#123;
-    var self = this;
-    return function()&#123;
-        var ret = self.apply( this, arguments );
-        if ( ret === &#39;nextSuccessor&#39; )&#123;
-            return fn.apply( this, arguments );
+<span class="hljs-title class_">Function</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">after</span> = <span class="hljs-keyword">function</span>(<span class="hljs-params"> fn </span>)&#123;
+    <span class="hljs-keyword">var</span> self = <span class="hljs-variable language_">this</span>;
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)&#123;
+        <span class="hljs-keyword">var</span> ret = self.<span class="hljs-title function_">apply</span>( <span class="hljs-variable language_">this</span>, <span class="hljs-variable language_">arguments</span> );
+        <span class="hljs-keyword">if</span> ( ret === <span class="hljs-string">&#x27;nextSuccessor&#x27;</span> )&#123;
+            <span class="hljs-keyword">return</span> fn.<span class="hljs-title function_">apply</span>( <span class="hljs-variable language_">this</span>, <span class="hljs-variable language_">arguments</span> );
         &#125;
-        return ret;
+        <span class="hljs-keyword">return</span> ret;
     &#125;
 &#125;;
 
-var order = order500yuan.after( order200yuan ).after( orderNormal );
-order( 1, true, 500 ); // 输出：500 元定金预购，得到100 优惠券
-order( 2, true, 500 ); // 输出：200 元定金预购，得到50 优惠券
-order( 1, false, 500 ); // 输出：普通购买，无优惠券
-</code></pre>
+<span class="hljs-keyword">var</span> order = order500yuan.<span class="hljs-title function_">after</span>( order200yuan ).<span class="hljs-title function_">after</span>( orderNormal );
+<span class="hljs-title function_">order</span>( <span class="hljs-number">1</span>, <span class="hljs-literal">true</span>, <span class="hljs-number">500</span> ); <span class="hljs-comment">// 输出：500 元定金预购，得到100 优惠券</span>
+<span class="hljs-title function_">order</span>( <span class="hljs-number">2</span>, <span class="hljs-literal">true</span>, <span class="hljs-number">500</span> ); <span class="hljs-comment">// 输出：200 元定金预购，得到50 优惠券</span>
+<span class="hljs-title function_">order</span>( <span class="hljs-number">1</span>, <span class="hljs-literal">false</span>, <span class="hljs-number">500</span> ); <span class="hljs-comment">// 输出：普通购买，无优惠券</span></code></pre>
+
 <h3 id="第-14-章-中介者模式"><a href="#第-14-章-中介者模式" class="headerlink" title="第 14 章 中介者模式"></a>第 14 章 中介者模式</h3><p>中介者模式的作用就是解除对象与对象之间的紧耦合关系。增加一个中介者对象后，所有的相关对象都通过中介者对象来通信，而不是互相引用，所以当一个对象发生改变时，只需要通知中介者对象即可。中介者使各对象之间耦合松散，而且可以独立地改变它们之间的交互。</p>
-<pre><code class="js">var goods = &#123;
-  // 手机库存
-  &quot;red|32G&quot;: 3,
-  &quot;red|16G&quot;: 0,
-  &quot;blue|32G&quot;: 1,
-  &quot;blue|16G&quot;: 6,
+<pre><code class="hljs js"><span class="hljs-keyword">var</span> goods = &#123;
+  <span class="hljs-comment">// 手机库存</span>
+  <span class="hljs-string">&quot;red|32G&quot;</span>: <span class="hljs-number">3</span>,
+  <span class="hljs-string">&quot;red|16G&quot;</span>: <span class="hljs-number">0</span>,
+  <span class="hljs-string">&quot;blue|32G&quot;</span>: <span class="hljs-number">1</span>,
+  <span class="hljs-string">&quot;blue|16G&quot;</span>: <span class="hljs-number">6</span>,
 &#125;;
-var colorSelect = document.getElementById(&quot;colorSelect&quot;),
-  memorySelect = document.getElementById(&quot;memorySelect&quot;),
-  numberInput = document.getElementById(&quot;numberInput&quot;),
-  colorInfo = document.getElementById(&quot;colorInfo&quot;),
-  memoryInfo = document.getElementById(&quot;memoryInfo&quot;),
-  numberInfo = document.getElementById(&quot;numberInfo&quot;),
-  nextBtn = document.getElementById(&quot;nextBtn&quot;);
-var mediator = (function () &#123;
-  return &#123;
-    changed: function (obj) &#123;
-      var color = colorSelect.value, // 颜色
-        memory = memorySelect.value, // 内存
-        number = numberInput.value, // 数量
-        stock = goods[color + &quot;|&quot; + memory]; // 颜色和内存对应的手机库存数量
-      if (obj === colorSelect) &#123;
-        // 如果改变的是选择颜色下拉框
-        colorInfo.innerHTML = color;
-      &#125; else if (obj === memorySelect) &#123;
-        memoryInfo.innerHTML = memory;
-      &#125; else if (obj === numberInput) &#123;
-        numberInfo.innerHTML = number;
+<span class="hljs-keyword">var</span> colorSelect = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(<span class="hljs-string">&quot;colorSelect&quot;</span>),
+  memorySelect = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(<span class="hljs-string">&quot;memorySelect&quot;</span>),
+  numberInput = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(<span class="hljs-string">&quot;numberInput&quot;</span>),
+  colorInfo = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(<span class="hljs-string">&quot;colorInfo&quot;</span>),
+  memoryInfo = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(<span class="hljs-string">&quot;memoryInfo&quot;</span>),
+  numberInfo = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(<span class="hljs-string">&quot;numberInfo&quot;</span>),
+  nextBtn = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(<span class="hljs-string">&quot;nextBtn&quot;</span>);
+<span class="hljs-keyword">var</span> mediator = (<span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) &#123;
+  <span class="hljs-keyword">return</span> &#123;
+    <span class="hljs-attr">changed</span>: <span class="hljs-keyword">function</span> (<span class="hljs-params">obj</span>) &#123;
+      <span class="hljs-keyword">var</span> color = colorSelect.<span class="hljs-property">value</span>, <span class="hljs-comment">// 颜色</span>
+        memory = memorySelect.<span class="hljs-property">value</span>, <span class="hljs-comment">// 内存</span>
+        number = numberInput.<span class="hljs-property">value</span>, <span class="hljs-comment">// 数量</span>
+        stock = goods[color + <span class="hljs-string">&quot;|&quot;</span> + memory]; <span class="hljs-comment">// 颜色和内存对应的手机库存数量</span>
+      <span class="hljs-keyword">if</span> (obj === colorSelect) &#123;
+        <span class="hljs-comment">// 如果改变的是选择颜色下拉框</span>
+        colorInfo.<span class="hljs-property">innerHTML</span> = color;
+      &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (obj === memorySelect) &#123;
+        memoryInfo.<span class="hljs-property">innerHTML</span> = memory;
+      &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (obj === numberInput) &#123;
+        numberInfo.<span class="hljs-property">innerHTML</span> = number;
       &#125;
-      if (!color) &#123;
-        nextBtn.disabled = true;
-        nextBtn.innerHTML = &quot;请选择手机颜色&quot;;
-        return;
+      <span class="hljs-keyword">if</span> (!color) &#123;
+        nextBtn.<span class="hljs-property">disabled</span> = <span class="hljs-literal">true</span>;
+        nextBtn.<span class="hljs-property">innerHTML</span> = <span class="hljs-string">&quot;请选择手机颜色&quot;</span>;
+        <span class="hljs-keyword">return</span>;
       &#125;
-      if (!memory) &#123;
-        nextBtn.disabled = true;
-        nextBtn.innerHTML = &quot;请选择内存大小&quot;;
-        return;
+      <span class="hljs-keyword">if</span> (!memory) &#123;
+        nextBtn.<span class="hljs-property">disabled</span> = <span class="hljs-literal">true</span>;
+        nextBtn.<span class="hljs-property">innerHTML</span> = <span class="hljs-string">&quot;请选择内存大小&quot;</span>;
+        <span class="hljs-keyword">return</span>;
       &#125;
-      if (((number - 0) | 0) !== number - 0) &#123;
-        // 输入购买数量是否为正整数
-        nextBtn.disabled = true;
-        nextBtn.innerHTML = &quot;请输入正确的购买数量&quot;;
-        return;
+      <span class="hljs-keyword">if</span> (((number - <span class="hljs-number">0</span>) | <span class="hljs-number">0</span>) !== number - <span class="hljs-number">0</span>) &#123;
+        <span class="hljs-comment">// 输入购买数量是否为正整数</span>
+        nextBtn.<span class="hljs-property">disabled</span> = <span class="hljs-literal">true</span>;
+        nextBtn.<span class="hljs-property">innerHTML</span> = <span class="hljs-string">&quot;请输入正确的购买数量&quot;</span>;
+        <span class="hljs-keyword">return</span>;
       &#125;
-      nextBtn.disabled = false;
-      nextBtn.innerHTML = &quot;放入购物车&quot;;
+      nextBtn.<span class="hljs-property">disabled</span> = <span class="hljs-literal">false</span>;
+      nextBtn.<span class="hljs-property">innerHTML</span> = <span class="hljs-string">&quot;放入购物车&quot;</span>;
     &#125;,
   &#125;;
 &#125;)();
-// 事件函数:
-colorSelect.onchange = function () &#123;
-  mediator.changed(this);
+<span class="hljs-comment">// 事件函数:</span>
+colorSelect.<span class="hljs-property">onchange</span> = <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) &#123;
+  mediator.<span class="hljs-title function_">changed</span>(<span class="hljs-variable language_">this</span>);
 &#125;;
-memorySelect.onchange = function () &#123;
-  mediator.changed(this);
+memorySelect.<span class="hljs-property">onchange</span> = <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) &#123;
+  mediator.<span class="hljs-title function_">changed</span>(<span class="hljs-variable language_">this</span>);
 &#125;;
-numberInput.oninput = function () &#123;
-  mediator.changed(this);
-&#125;;
-</code></pre>
+numberInput.<span class="hljs-property">oninput</span> = <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) &#123;
+  mediator.<span class="hljs-title function_">changed</span>(<span class="hljs-variable language_">this</span>);
+&#125;;</code></pre>
+
 <h3 id="第-15-章-装饰者模式"><a href="#第-15-章-装饰者模式" class="headerlink" title="第 15 章 装饰者模式"></a>第 15 章 装饰者模式</h3><p>因为装饰者对象和它所装饰的对象拥有一致的接口,所以它们对使用该对象的客户来说是透 明的，被装饰的对象也并不需要了解它曾经被装饰过，这种透明性使得我们可以递归地嵌套任意 多个装饰者对象</p>
-<pre><code class="js">var plane = &#123;
-  fire: function () &#123;
-    console.log(&quot;发射普通子弹&quot;);
+<pre><code class="hljs js"><span class="hljs-keyword">var</span> plane = &#123;
+  <span class="hljs-attr">fire</span>: <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) &#123;
+    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;发射普通子弹&quot;</span>);
   &#125;,
 &#125;;
-var missileDecorator = function () &#123;
-  console.log(&quot;发射导弹&quot;);
+<span class="hljs-keyword">var</span> missileDecorator = <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) &#123;
+  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;发射导弹&quot;</span>);
 &#125;;
-var atomDecorator = function () &#123;
-  console.log(&quot;发射原子弹&quot;);
+<span class="hljs-keyword">var</span> atomDecorator = <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) &#123;
+  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;发射原子弹&quot;</span>);
 &#125;;
-var fire1 = plane.fire;
-plane.fire = function () &#123;
-  fire1();
-  missileDecorator();
+<span class="hljs-keyword">var</span> fire1 = plane.<span class="hljs-property">fire</span>;
+plane.<span class="hljs-property">fire</span> = <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) &#123;
+  <span class="hljs-title function_">fire1</span>();
+  <span class="hljs-title function_">missileDecorator</span>();
 &#125;;
-var fire2 = plane.fire;
-plane.fire = function () &#123;
-  fire2();
-  atomDecorator();
+<span class="hljs-keyword">var</span> fire2 = plane.<span class="hljs-property">fire</span>;
+plane.<span class="hljs-property">fire</span> = <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) &#123;
+  <span class="hljs-title function_">fire2</span>();
+  <span class="hljs-title function_">atomDecorator</span>();
 &#125;;
-plane.fire();
-// 分别输出： 发射普通子弹、发射导弹、发射原子弹
-</code></pre>
-<h4 id="用-AOP-装饰函数"><a href="#用-AOP-装饰函数" class="headerlink" title="用 AOP 装饰函数"></a>用 AOP 装饰函数</h4><pre><code class="js">Function.prototype.before = function (beforefn) &#123;
-  var __self = this; // 保存原函数的引用
-  return function () &#123;
-    // 返回包含了原函数和新函数的&quot;代理&quot;函数
-    beforefn.apply(this, arguments); // 执行新函数，且保证 this 不被劫持，新函数接受的参数 // 也会被原封不动地传入原函数，新函数在原函数之前执行
-    return __self.apply(this, arguments); // 执行原函数并返回原函数的执行结果， 2 // 并且保证 this 不被劫持
+plane.<span class="hljs-title function_">fire</span>();
+<span class="hljs-comment">// 分别输出： 发射普通子弹、发射导弹、发射原子弹</span></code></pre>
+
+<h4 id="用-AOP-装饰函数"><a href="#用-AOP-装饰函数" class="headerlink" title="用 AOP 装饰函数"></a>用 AOP 装饰函数</h4><pre><code class="hljs js"><span class="hljs-title class_">Function</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">before</span> = <span class="hljs-keyword">function</span> (<span class="hljs-params">beforefn</span>) &#123;
+  <span class="hljs-keyword">var</span> __self = <span class="hljs-variable language_">this</span>; <span class="hljs-comment">// 保存原函数的引用</span>
+  <span class="hljs-keyword">return</span> <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) &#123;
+    <span class="hljs-comment">// 返回包含了原函数和新函数的&quot;代理&quot;函数</span>
+    beforefn.<span class="hljs-title function_">apply</span>(<span class="hljs-variable language_">this</span>, <span class="hljs-variable language_">arguments</span>); <span class="hljs-comment">// 执行新函数，且保证 this 不被劫持，新函数接受的参数 // 也会被原封不动地传入原函数，新函数在原函数之前执行</span>
+    <span class="hljs-keyword">return</span> __self.<span class="hljs-title function_">apply</span>(<span class="hljs-variable language_">this</span>, <span class="hljs-variable language_">arguments</span>); <span class="hljs-comment">// 执行原函数并返回原函数的执行结果， 2 // 并且保证 this 不被劫持</span>
   &#125;;
 &#125;;
-Function.prototype.after = function (afterfn) &#123;
-  var __self = this;
-  return function () &#123;
-    var ret = __self.apply(this, arguments);
-    afterfn.apply(this, arguments);
-    return ret;
+<span class="hljs-title class_">Function</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">after</span> = <span class="hljs-keyword">function</span> (<span class="hljs-params">afterfn</span>) &#123;
+  <span class="hljs-keyword">var</span> __self = <span class="hljs-variable language_">this</span>;
+  <span class="hljs-keyword">return</span> <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) &#123;
+    <span class="hljs-keyword">var</span> ret = __self.<span class="hljs-title function_">apply</span>(<span class="hljs-variable language_">this</span>, <span class="hljs-variable language_">arguments</span>);
+    afterfn.<span class="hljs-title function_">apply</span>(<span class="hljs-variable language_">this</span>, <span class="hljs-variable language_">arguments</span>);
+    <span class="hljs-keyword">return</span> ret;
   &#125;;
 &#125;;
-document.getElementById = document.getElementById.before(function () &#123;
-  alert(1);
+<span class="hljs-variable language_">document</span>.<span class="hljs-property">getElementById</span> = <span class="hljs-variable language_">document</span>.<span class="hljs-property">getElementById</span>.<span class="hljs-title function_">before</span>(<span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) &#123;
+  <span class="hljs-title function_">alert</span>(<span class="hljs-number">1</span>);
 &#125;);
-var button = document.getElementById(&quot;button&quot;);
-</code></pre>
+<span class="hljs-keyword">var</span> button = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(<span class="hljs-string">&quot;button&quot;</span>);</code></pre>
+
 <p>不喜欢这种污染原型的方式，那么我们可以做一些变通</p>
-<pre><code class="js">var before = function (fn, beforefn) &#123;
-  return function () &#123;
-    beforefn.apply(this, arguments);
-    return fn.apply(this, arguments);
+<pre><code class="hljs js"><span class="hljs-keyword">var</span> before = <span class="hljs-keyword">function</span> (<span class="hljs-params">fn, beforefn</span>) &#123;
+  <span class="hljs-keyword">return</span> <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) &#123;
+    beforefn.<span class="hljs-title function_">apply</span>(<span class="hljs-variable language_">this</span>, <span class="hljs-variable language_">arguments</span>);
+    <span class="hljs-keyword">return</span> fn.<span class="hljs-title function_">apply</span>(<span class="hljs-variable language_">this</span>, <span class="hljs-variable language_">arguments</span>);
   &#125;;
 &#125;;
-var a = before(
-  function () &#123;
-    alert(3);
+<span class="hljs-keyword">var</span> a = <span class="hljs-title function_">before</span>(
+  <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) &#123;
+    <span class="hljs-title function_">alert</span>(<span class="hljs-number">3</span>);
   &#125;,
-  function () &#123;
-    alert(2);
+  <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) &#123;
+    <span class="hljs-title function_">alert</span>(<span class="hljs-number">2</span>);
   &#125;
 );
-a = before(a, function () &#123;
-  alert(1);
+a = <span class="hljs-title function_">before</span>(a, <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) &#123;
+  <span class="hljs-title function_">alert</span>(<span class="hljs-number">1</span>);
 &#125;);
-a();
-</code></pre>
+<span class="hljs-title function_">a</span>();</code></pre>
+
 <h3 id="第-16-章-状态模式"><a href="#第-16-章-状态模式" class="headerlink" title="第 16 章 状态模式"></a>第 16 章 状态模式</h3><p>状态模式的关键是把事物的每种状态都封装成单独的类，跟此种状态有关的行为都被封装在这个类的内部</p>
-<h4 id="javascript-版的状态机"><a href="#javascript-版的状态机" class="headerlink" title="javascript 版的状态机"></a>javascript 版的状态机</h4><pre><code class="js">var Light = function () &#123;
-  this.currState = FSM.off; // 设置当前状态
-  this.button = null;
+<h4 id="javascript-版的状态机"><a href="#javascript-版的状态机" class="headerlink" title="javascript 版的状态机"></a>javascript 版的状态机</h4><pre><code class="hljs js"><span class="hljs-keyword">var</span> <span class="hljs-title class_">Light</span> = <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) &#123;
+  <span class="hljs-variable language_">this</span>.<span class="hljs-property">currState</span> = <span class="hljs-variable constant_">FSM</span>.<span class="hljs-property">off</span>; <span class="hljs-comment">// 设置当前状态</span>
+  <span class="hljs-variable language_">this</span>.<span class="hljs-property">button</span> = <span class="hljs-literal">null</span>;
 &#125;;
 
-Light.prototype.init = function () &#123;
-  var button = document.createElement(&quot;button&quot;),
-    self = this;
-  button.innerHTML = &quot;已关灯&quot;;
-  this.button = document.body.appendChild(button);
-  this.button.onclick = function () &#123;
-    self.currState.buttonWasPressed.call(self); // 把请求委托给FSM 状态机
+<span class="hljs-title class_">Light</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">init</span> = <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) &#123;
+  <span class="hljs-keyword">var</span> button = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">createElement</span>(<span class="hljs-string">&quot;button&quot;</span>),
+    self = <span class="hljs-variable language_">this</span>;
+  button.<span class="hljs-property">innerHTML</span> = <span class="hljs-string">&quot;已关灯&quot;</span>;
+  <span class="hljs-variable language_">this</span>.<span class="hljs-property">button</span> = <span class="hljs-variable language_">document</span>.<span class="hljs-property">body</span>.<span class="hljs-title function_">appendChild</span>(button);
+  <span class="hljs-variable language_">this</span>.<span class="hljs-property">button</span>.<span class="hljs-property">onclick</span> = <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) &#123;
+    self.<span class="hljs-property">currState</span>.<span class="hljs-property">buttonWasPressed</span>.<span class="hljs-title function_">call</span>(self); <span class="hljs-comment">// 把请求委托给FSM 状态机</span>
   &#125;;
 &#125;;
-var FSM = &#123;
-  off: &#123;
-    buttonWasPressed: function () &#123;
-      console.log(&quot;关灯&quot;);
-      this.button.innerHTML = &quot;下一次按我是开灯&quot;;
-      this.currState = FSM.on;
+<span class="hljs-keyword">var</span> <span class="hljs-variable constant_">FSM</span> = &#123;
+  <span class="hljs-attr">off</span>: &#123;
+    <span class="hljs-attr">buttonWasPressed</span>: <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) &#123;
+      <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;关灯&quot;</span>);
+      <span class="hljs-variable language_">this</span>.<span class="hljs-property">button</span>.<span class="hljs-property">innerHTML</span> = <span class="hljs-string">&quot;下一次按我是开灯&quot;</span>;
+      <span class="hljs-variable language_">this</span>.<span class="hljs-property">currState</span> = <span class="hljs-variable constant_">FSM</span>.<span class="hljs-property">on</span>;
     &#125;,
   &#125;,
-  on: &#123;
-    buttonWasPressed: function () &#123;
-      console.log(&quot;开灯&quot;);
-      this.button.innerHTML = &quot;下一次按我是关灯&quot;;
-      this.currState = FSM.off;
+  <span class="hljs-attr">on</span>: &#123;
+    <span class="hljs-attr">buttonWasPressed</span>: <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) &#123;
+      <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;开灯&quot;</span>);
+      <span class="hljs-variable language_">this</span>.<span class="hljs-property">button</span>.<span class="hljs-property">innerHTML</span> = <span class="hljs-string">&quot;下一次按我是关灯&quot;</span>;
+      <span class="hljs-variable language_">this</span>.<span class="hljs-property">currState</span> = <span class="hljs-variable constant_">FSM</span>.<span class="hljs-property">off</span>;
     &#125;,
   &#125;,
 &#125;;
-var light = new Light();
-light.init();
-</code></pre>
+<span class="hljs-keyword">var</span> light = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Light</span>();
+light.<span class="hljs-title function_">init</span>();</code></pre>
+
 <h3 id="第-17-章-适配器模式"><a href="#第-17-章-适配器模式" class="headerlink" title="第 17 章 适配器模式"></a>第 17 章 适配器模式</h3><p>适配器模式的作用是解决两个软件实体间的接口不兼容的问题。使用适配器模式之后，原本由于接口不兼容而不能工作的两个软件实体可以一起工作。</p>
-<pre><code class="js">var guangdongCity = &#123;
-  shenzhen: 11,
-  guangzhou: 12,
-  zhuhai: 13,
+<pre><code class="hljs js"><span class="hljs-keyword">var</span> guangdongCity = &#123;
+  <span class="hljs-attr">shenzhen</span>: <span class="hljs-number">11</span>,
+  <span class="hljs-attr">guangzhou</span>: <span class="hljs-number">12</span>,
+  <span class="hljs-attr">zhuhai</span>: <span class="hljs-number">13</span>,
 &#125;;
-var getGuangdongCity = function () &#123;
-  var guangdongCity = [
+<span class="hljs-keyword">var</span> getGuangdongCity = <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) &#123;
+  <span class="hljs-keyword">var</span> guangdongCity = [
     &#123;
-      name: &quot;shenzhen&quot;,
-      id: 11,
+      <span class="hljs-attr">name</span>: <span class="hljs-string">&quot;shenzhen&quot;</span>,
+      <span class="hljs-attr">id</span>: <span class="hljs-number">11</span>,
     &#125;,
     &#123;
-      name: &quot;guangzhou&quot;,
-      id: 12,
+      <span class="hljs-attr">name</span>: <span class="hljs-string">&quot;guangzhou&quot;</span>,
+      <span class="hljs-attr">id</span>: <span class="hljs-number">12</span>,
     &#125;,
   ];
-  return guangdongCity;
+  <span class="hljs-keyword">return</span> guangdongCity;
 &#125;;
-var render = function (fn) &#123;
-  console.log(&quot;开始渲染广东省地图&quot;);
-  document.write(JSON.stringify(fn()));
+<span class="hljs-keyword">var</span> render = <span class="hljs-keyword">function</span> (<span class="hljs-params">fn</span>) &#123;
+  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;开始渲染广东省地图&quot;</span>);
+  <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">write</span>(<span class="hljs-title class_">JSON</span>.<span class="hljs-title function_">stringify</span>(<span class="hljs-title function_">fn</span>()));
 &#125;;
-var addressAdapter = function (oldAddressfn) &#123;
-  var address = &#123;&#125;,
-    oldAddress = oldAddressfn();
-  for (var i = 0, c; (c = oldAddress[i++]); ) &#123;
-    address[c.name] = c.id;
+<span class="hljs-keyword">var</span> addressAdapter = <span class="hljs-keyword">function</span> (<span class="hljs-params">oldAddressfn</span>) &#123;
+  <span class="hljs-keyword">var</span> address = &#123;&#125;,
+    oldAddress = <span class="hljs-title function_">oldAddressfn</span>();
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>, c; (c = oldAddress[i++]); ) &#123;
+    address[c.<span class="hljs-property">name</span>] = c.<span class="hljs-property">id</span>;
   &#125;
-  return function () &#123;
-    return address;
+  <span class="hljs-keyword">return</span> <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) &#123;
+    <span class="hljs-keyword">return</span> address;
   &#125;;
 &#125;;
-render(addressAdapter(getGuangdongCity));
-</code></pre>
+<span class="hljs-title function_">render</span>(<span class="hljs-title function_">addressAdapter</span>(getGuangdongCity));</code></pre>
+
 <ol>
 <li>适配器模式主要用来解决两个已有接口之间不匹配的问题，它不考虑这些接口是怎样实现的，也不考虑它们将来可能会如何演化。适配器模式不需要改变已有的接口，就能够使它们协同作用。</li>
 <li>装饰者模式和代理模式也不会改变原有对象的接口，但装饰者模式的作用是为了给对象增加功能。装饰者模式常常形成一条长的装饰链，而适配器模式通常只包装一次。代理模式是为了控制对对象的访问，通常也只包装一次。</li>

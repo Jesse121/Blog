@@ -279,91 +279,82 @@
 </ol>
 <span id="more"></span>
 
-<h3 id="规范解读"><a href="#规范解读" class="headerlink" title="规范解读"></a>规范解读</h3><h4 id="innerHTML"><a href="#innerHTML" class="headerlink" title="innerHTML"></a><a target="_blank" rel="noopener" href="https://www.w3.org/TR/DOM-Parsing/#widl-Element-innerHTML">innerHTML</a></h4><pre><code>element.innerHTML
-Returns a fragment of HTML or XML that represents the element&#39;s contents.
+<h3 id="规范解读"><a href="#规范解读" class="headerlink" title="规范解读"></a>规范解读</h3><h4 id="innerHTML"><a href="#innerHTML" class="headerlink" title="innerHTML"></a><a target="_blank" rel="noopener" href="https://www.w3.org/TR/DOM-Parsing/#widl-Element-innerHTML">innerHTML</a></h4><pre><code class="hljs plaintext">element.innerHTML
+Returns a fragment of HTML or XML that represents the element&#x27;s contents.
 //取值操作，返回内容包含描述所有后代元素的序列化HTML代码。        
 
 element.innerHTML = value 
 Can be set, to replace the contents of the element with nodes parsed from the given string.
-//赋值操作，用解析后的字符串替换元素的内容
-</code></pre>
-<h4 id="innerText"><a href="#innerText" class="headerlink" title="innerText"></a><a target="_blank" rel="noopener" href="https://html.spec.whatwg.org/multipage/dom.html#the-innertext-idl-attribute">innerText</a></h4><pre><code>element.innerText
-Returns the element&#39;s text content &quot;as rendered&quot;.
+//赋值操作，用解析后的字符串替换元素的内容</code></pre>
+
+<h4 id="innerText"><a href="#innerText" class="headerlink" title="innerText"></a><a target="_blank" rel="noopener" href="https://html.spec.whatwg.org/multipage/dom.html#the-innertext-idl-attribute">innerText</a></h4><pre><code class="hljs plaintext">element.innerText
+Returns the element&#x27;s text content &quot;as rendered&quot;.
 //取值操作，返回元素“渲染”后的文本内容
 
 element.innerText = value 
-Can be set, to replace the element&#39;s children with the given value, but with line breaks converted to br elements.
-//赋值操作，用所给的值替换该元素的子元素，其中换行符会被替换为`&lt;br&gt;`元素
-</code></pre>
-<h4 id="textContent"><a href="#textContent" class="headerlink" title="textContent"></a><a target="_blank" rel="noopener" href="https://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core.html#Node3-textContent">textContent</a></h4><pre><code>element.textContent
+Can be set, to replace the element&#x27;s children with the given value, but with line breaks converted to br elements.
+//赋值操作，用所给的值替换该元素的子元素，其中换行符会被替换为`&lt;br&gt;`元素</code></pre>
+<h4 id="textContent"><a href="#textContent" class="headerlink" title="textContent"></a><a target="_blank" rel="noopener" href="https://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core.html#Node3-textContent">textContent</a></h4><pre><code class="hljs plaintext">element.textContent
 returns the text content of this node and its descendants. 
 //取值操作，返回一个节点元素及其后代的文本内容
 
 element.textContent = value
 On setting, any possible children this node may have are removed and, if it the new string is not empty or null, 
 replaced by a single Text node containing the string this attribute is set to. 
-//赋值操作，用所给的值以字符串文本的形式替换该元素的子元素
-</code></pre>
+//赋值操作，用所给的值以字符串文本的形式替换该元素的子元素</code></pre>
 <h3 id="属性的异同"><a href="#属性的异同" class="headerlink" title="属性的异同"></a>属性的异同</h3><p>是不是对上面的规范的介绍一知半解？没关系，接下来将从取值操作和赋值操作的角度用实例来说明他们之间的差异</p>
-<pre><code class="html">&lt;style type=&quot;text/css&quot;&gt;
-  #demo&#123;color:red;text-transform: uppercase;&#125;
-&lt;/style&gt;
-&lt;div id=&quot;demo&quot;&gt;
-    This is &amp;&lt;&gt; &#39;&#39; &quot;&quot;
-    &lt;br&gt;
-    &lt;span&gt;some&lt;/span&gt;
+<pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">style</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;text/css&quot;</span>&gt;</span><span class="language-css"></span>
+<span class="language-css">  <span class="hljs-selector-id">#demo</span>&#123;<span class="hljs-attribute">color</span>:red;<span class="hljs-attribute">text-transform</span>: uppercase;&#125;</span>
+<span class="language-css"></span><span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;demo&quot;</span>&gt;</span>
+    This is &amp;<span class="hljs-tag">&lt;&gt;</span> &#x27;&#x27; &quot;&quot;
+    <span class="hljs-tag">&lt;<span class="hljs-name">br</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span>some<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
     demo
-&lt;/div&gt;
-&lt;h2&gt;innerHTML&lt;/h2&gt;
-&lt;div id=&quot;asHTML&quot;&gt;&lt;/div&gt;
-&lt;h2&gt;innerText&lt;/h2&gt;
-&lt;div id=&quot;asText&quot;&gt;&lt;/div&gt;
-&lt;h2&gt;textContent&lt;/h2&gt;
-&lt;div id=&quot;asContent&quot;&gt;&lt;/div&gt;
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">h2</span>&gt;</span>innerHTML<span class="hljs-tag">&lt;/<span class="hljs-name">h2</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;asHTML&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">h2</span>&gt;</span>innerText<span class="hljs-tag">&lt;/<span class="hljs-name">h2</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;asText&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">h2</span>&gt;</span>textContent<span class="hljs-tag">&lt;/<span class="hljs-name">h2</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;asContent&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
 
-&lt;script type=&quot;text/javascript&quot;&gt;
-  var get = document.getElementById(&#39;demo&#39;);
-  var string = &quot;&lt;a href=&#39;http://www.baidu.com&#39;&gt; &amp;amp; www.baidu.com &lt;span&gt;child&lt;/span&gt; &lt;/a&gt;&quot;;
-  
-  var HTML = document.getElementById(&#39;asHTML&#39;);
-  console.log(get.innerHTML);
-  HTML.innerHTML = string;
-  
-  var Text = document.getElementById(&#39;asText&#39;);
-  console.log(demo.innerText);
-  Text.innerText = string;
-  
-  var content = document.getElementById(&#39;asContent&#39;);
-  console.log(demo.textContent);
-  content.textContent = string;
-&lt;/script&gt;
-</code></pre>
+<span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;text/javascript&quot;</span>&gt;</span><span class="language-javascript"></span>
+<span class="language-javascript">  <span class="hljs-keyword">var</span> get = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(<span class="hljs-string">&#x27;demo&#x27;</span>);</span>
+<span class="language-javascript">  <span class="hljs-keyword">var</span> string = <span class="hljs-string">&quot;&lt;a href=&#x27;http://www.baidu.com&#x27;&gt; &amp;amp; www.baidu.com &lt;span&gt;child&lt;/span&gt; &lt;/a&gt;&quot;</span>;</span>
+<span class="language-javascript">  </span>
+<span class="language-javascript">  <span class="hljs-keyword">var</span> <span class="hljs-variable constant_">HTML</span> = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(<span class="hljs-string">&#x27;asHTML&#x27;</span>);</span>
+<span class="language-javascript">  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(get.<span class="hljs-property">innerHTML</span>);</span>
+<span class="language-javascript">  <span class="hljs-variable constant_">HTML</span>.<span class="hljs-property">innerHTML</span> = string;</span>
+<span class="language-javascript">  </span>
+<span class="language-javascript">  <span class="hljs-keyword">var</span> <span class="hljs-title class_">Text</span> = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(<span class="hljs-string">&#x27;asText&#x27;</span>);</span>
+<span class="language-javascript">  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(demo.<span class="hljs-property">innerText</span>);</span>
+<span class="language-javascript">  <span class="hljs-title class_">Text</span>.<span class="hljs-property">innerText</span> = string;</span>
+<span class="language-javascript">  </span>
+<span class="language-javascript">  <span class="hljs-keyword">var</span> content = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(<span class="hljs-string">&#x27;asContent&#x27;</span>);</span>
+<span class="language-javascript">  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(demo.<span class="hljs-property">textContent</span>);</span>
+<span class="language-javascript">  content.<span class="hljs-property">textContent</span> = string;</span>
+<span class="language-javascript"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre>
 <h4 id="取值操作返回结果"><a href="#取值操作返回结果" class="headerlink" title="取值操作返回结果"></a>取值操作返回结果</h4><p><strong>innerHTML</strong></p>
-<pre><code>    This is &amp;amp; &amp;lt;&amp;gt; &#39;&#39; &quot;&quot;
-    &lt;br&gt;
-    &lt;span&gt;some&lt;/span&gt;
-    demo
-</code></pre>
+<pre><code class="hljs plaintext">This is &amp;amp; &amp;lt;&amp;gt; &#x27;&#x27; &quot;&quot;
+&lt;br&gt;
+&lt;span&gt;some&lt;/span&gt;
+demo</code></pre>
 <p>返回经过序列化算法之后的html代码，其中 &amp; &lt; &gt;等特殊符号被转义,子元素原样输出<br><strong>innerText</strong></p>
-<pre><code>THIS IS &amp; &lt; &gt; &#39;&#39; &quot;&quot; 
-SOME DEMO
-</code></pre>
+<pre><code class="hljs plaintext">THIS IS &amp; &lt; &gt; &#x27;&#x27; &quot;&quot; 
+SOME DEMO</code></pre>
 <p>返回被部分CSS渲染后的结果，多余的空格被合并<br><strong>textContent</strong></p>
-<pre><code>    This is &amp; &lt;&gt; &#39;&#39; &quot;&quot;
-    
-    some
-    demo
-</code></pre>
+<pre><code class="hljs plaintext">This is &amp; &lt;&gt; &#x27;&#x27; &quot;&quot;
+
+some
+demo</code></pre>
 <p>返回元素及其后代元素的文本内容，特殊字符不被转义</p>
 <h4 id="赋值操作返回结果"><a href="#赋值操作返回结果" class="headerlink" title="赋值操作返回结果"></a>赋值操作返回结果</h4><p><strong>innerHTML</strong>  </p>
-<pre><code>&amp; www.baidu.com child
-</code></pre>
+<pre><code class="hljs plaintext">&amp; www.baidu.com child</code></pre>
 <p>后代元素html标签被解析,实体字符被解析<br><strong>innerText</strong></p>
-<pre><code>&lt;a href=&#39;http://www.baidu.com&#39;&gt; &amp;amp; www.baidu.com &lt;span&gt;child&lt;/span&gt; &lt;/a&gt;
-</code></pre>
+<pre><code class="hljs plaintext">&lt;a href=&#x27;http://www.baidu.com&#x27;&gt; &amp;amp; www.baidu.com &lt;span&gt;child&lt;/span&gt; &lt;/a&gt;</code></pre>
 <p><strong>textContent</strong></p>
-<pre><code>&lt;a href=&#39;http://www.baidu.com&#39;&gt; &amp;amp; www.baidu.com &lt;span&gt;child&lt;/span&gt; &lt;/a&gt;
-</code></pre>
+<pre><code class="hljs plaintext">&lt;a href=&#x27;http://www.baidu.com&#x27;&gt; &amp;amp; www.baidu.com &lt;span&gt;child&lt;/span&gt; &lt;/a&gt;</code></pre>
 <h4 id="差异"><a href="#差异" class="headerlink" title="差异"></a>差异</h4><h5 id="浏览器兼容性"><a href="#浏览器兼容性" class="headerlink" title="浏览器兼容性"></a>浏览器兼容性</h5><p>从Caniuse网站上查询结果来看：<br>innerHTML IE8&#x2F;9部分支持 IE10+ chrome45+<br>在IE8&#x2F;9中，innerHTML对以下元素是只读的：<br>col, colgroup, frameset, html, head, style, table, tbody, tfoot, thead, title, and tr.<br>innerText IE6+ chrome45+<br>textContent IE9+ chrome45+  </p>
 <p>textContent与innerText的区别</p>
 <p>textContent 会获取所有元素的内容，包括 <code>&lt;script&gt;</code> 和 <code>&lt;style&gt;</code> 元素，然而 innerText 不会。<br>innerText意识到样式，并且不会返回隐藏元素的文本，而textContent会。<br>由于 innerText 受 CSS 样式的影响，它会触发重排（reflow），但textContent 不会。<br>在 Internet Explorer (对于小于等于 IE11 的版本) 中对 innerText 进行修改， 不仅会移除当前元素的子节点，而且还会永久性地破坏所有后代文本节点（所以不可能再次将节点再次插入到任何其他元素或同一元素中）。</p>

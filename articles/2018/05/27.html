@@ -282,44 +282,44 @@
 </ul>
 <p>这些软件安装好后接下来才真正开始使用 vagrant</p>
 <h3 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h3><p>在 xshell 中执行</p>
-<pre><code>cd D:
+<pre><code class="hljs plaintext">cd D:
 mkdir vagrant/centos
 cd  vagrant/centos
-vagrant init
-</code></pre>
+vagrant init</code></pre>
+
 <p>此时可以看到在 centos 文件夹下有一个 Vagrantfile 文件，<br>用 sublime 或其他编辑器打开此文件找到 config.vm.box &#x3D; “base”，并将它改为 config.vm.box &#x3D; “centos&#x2F;7”，同时也可以添加一下这个 box 的版本号 config.vm.box_version&#x3D;”1804.02”</p>
 <p><strong>这里为什么将 base 改为 centos&#x2F;7?</strong><br>我这里打算用 linux 的 centos7 发行版，vagrant 为我们提供了很多的 box,我们可以在这里查询到<a target="_blank" rel="noopener" href="https://app.vagrantup.com/boxes/search">https://app.vagrantup.com/boxes/search</a>,选择 centos7,就可以看到它推荐我们将 config.vm.box &#x3D; “centos&#x2F;7”，同时选好我们使用的版本，这里我们选择用 1804.02</p>
-<pre><code>vagrant up
-</code></pre>
+<pre><code class="hljs plaintext">vagrant up</code></pre>
+
 <p>在这里使用 window 的朋友需要将 powershell 升级到 3.0 及以上<br>如何升级可参考这篇博客<a target="_blank" rel="noopener" href="https://blog.csdn.net/i_am_wangbo/article/details/50033473">https://blog.csdn.net/i_am_wangbo&#x2F;article&#x2F;details&#x2F;50033473</a><br>升级好后再次执行 vagrant up<br><img src="/blog/static/images/vagrant/1.png"><br>可以看到 vagrant 在自动下载我们配置好的 box<br><img src="/blog/static/images/vagrant/2.png"><br>如果出现如图所示情况，我们可以更改下 Vagrantfile 的配置，<br><img src="/blog/static/images/vagrant/3.png"><br>启用 vb.gui &#x3D; true 配置，以图形界面的形式启动虚拟机，这样我们就能看到具体是什么报错了<br><img src="/blog/static/images/vagrant/4.png"><br>这里我们需要开启硬件加速<br>具体如何开启可参考这篇<a target="_blank" rel="noopener" href="https://jingyan.baidu.com/article/4b52d702a3e0aafc5d774b7c.html">https://jingyan.baidu.com/article/4b52d702a3e0aafc5d774b7c.html</a><br>设置好后再次执行 vagrant up,这次没有报错了，此时我们可以看到执行到了 centos 的登录界面<br><img src="/blog/static/images/vagrant/5.png"></p>
 <p>至此 mac 用户可以直接执行 vagrant ssh<br>window 用户可以根据提供的 address username port 新建 ssh 连接<br>输入用户名后，密钥我们点击浏览，选择文件 D:\vagrant\CentOS.vagrant\machines\default\virtualbox\private_key，这是刚生成的密钥<br><img src="/blog/static/images/vagrant/6.png"><br>至此我们已经登录进了 centos 系统了。</p>
 <p>进入系统后我们就可以安装配置我们的环境了，具体的 PHP 开发环境可参<a target="_blank" rel="noopener" href="https://www.cnblogs.com/jesse131/p/9079370.html">LNMP + Apache 架构配置</a>.<br>可开发环境安装好后如何让他人和我有相同的环境配置呢？</p>
 <h3 id="box-的打包与分发"><a href="#box-的打包与分发" class="headerlink" title="box 的打包与分发"></a>box 的打包与分发</h3><p>现在开发环境安装好后我们需要将我们的 box 打包，</p>
-<pre><code>vagrant package --output D:/vagrant/box/CentOS.box
-</code></pre>
+<pre><code class="hljs plaintext">vagrant package --output D:/vagrant/box/CentOS.box</code></pre>
+
 <p>我们可以看到在 box 文件夹下生成了一个 CentOS.box 文件，我们可以通过 U 盘或网盘将这个 box 分发给其他同事。<br>提他同事安装后 vagrant 就可以用这个 box 了<br>载入这个 box</p>
-<pre><code>vagrant box add CentOS.box
-</code></pre>
+<pre><code class="hljs plaintext">vagrant box add CentOS.box</code></pre>
+
 <p>vagrant up 就可以直接使用了，这样其他同事就和我们有相同的环境配置了</p>
 <h3 id="vagrant-优化"><a href="#vagrant-优化" class="headerlink" title="vagrant 优化"></a>vagrant 优化</h3><p>如果一个 box 在使用的过程中又安装了其他软件怎么办？<br>对于新用户我们可以重新打包分发，对于老用户我们可以修改 Vagrantfile 文件</p>
-<pre><code>config.vm.provision &quot;shell&quot;, inline: &lt;&lt;-SHELL
+<pre><code class="hljs plaintext">config.vm.provision &quot;shell&quot;, inline: &lt;&lt;-SHELL
     yum install -y apache2
-SHELL
-</code></pre>
+SHELL</code></pre>
+
 <p>这样在下次执行 vagrant up 的时候会自动安装新的软件</p>
 <p><strong>如何以固定 ip 的形式访问虚拟机上的 web 服务器</strong><br>这里我们可以通过设置私有网络 ip 的形式供自己访问，</p>
-<pre><code>config.vm.network &quot;private_network&quot;,ip:&quot;192.168.10.10&quot;
-</code></pre>
+<pre><code class="hljs plaintext">config.vm.network &quot;private_network&quot;,ip:&quot;192.168.10.10&quot;</code></pre>
+
 <p>这样我们就可以通过这个 ip 访问到我们的服务器了</p>
 <h3 id="vagrant-常用命令"><a href="#vagrant-常用命令" class="headerlink" title="vagrant 常用命令"></a>vagrant 常用命令</h3><p>vagrant box list 查看目前已有的 box<br>vagrant box add 新增加一个 box<br>vagrant box remove<br>vagrant inti 初始化配置生成 vagrantfile<br>vagrant up 启动虚拟机<br>vagrant ssh 登录虚拟机<br>vagrant suspend 挂起虚拟机<br>vagrant reload 重启虚拟机<br>vagrant halt 关闭虚拟机<br>vagrant status 查看虚拟机<br>vagrant destory 删除虚拟机</p>
 <h3 id="设置-vagrant-默认以-root-用户身份登录"><a href="#设置-vagrant-默认以-root-用户身份登录" class="headerlink" title="设置 vagrant 默认以 root 用户身份登录"></a>设置 vagrant 默认以 root 用户身份登录</h3><p>当通过 vagrant up,以 vagrant 身份进入 linux 后，</p>
-<pre><code>sudo su root
+<pre><code class="hljs plaintext">sudo su root
 vi /etc/ssh/sshd_config
 找到PermitRootLogin设置为 yes
 找到PasswordAuthentication设置为yes
 保存后执行重启sshd
-service sshd restart
-</code></pre>
+service sshd restart</code></pre>
+
 <p>重启该 box 后我们就可以用 root 身份登录了，需要填写密码默认是 vagrant</p>
  
       <div id="toc-article">

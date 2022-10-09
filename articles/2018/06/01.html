@@ -301,14 +301,14 @@
 <h4 id="生成自签证书"><a href="#生成自签证书" class="headerlink" title="生成自签证书"></a>生成自签证书</h4><p>生成私钥文件<br>sudo openssl genrsa -out server.key 2048<br>生成自签证书文件<br>sudo openssl req -new -x509 -days 1826 -key server.key -out server.crt</p>
 <h4 id="修改-apache-配置"><a href="#修改-apache-配置" class="headerlink" title="修改 apache 配置"></a>修改 apache 配置</h4><p>apache2.4<br>需开启的模块<br>LoadModule ssl_module libexec&#x2F;apache2&#x2F;mod_ssl.so<br>LoadModule socache_shmcb_module libexec&#x2F;apache2&#x2F;mod_socache_shmcb.so</p>
 <p>sudo vim httpd-ssl.conf</p>
-<pre><code>&lt;VirtualHost *:443&gt;
+<pre><code class="hljs plaintext">&lt;VirtualHost *:443&gt;
     DocumentRoot &quot;/var/www/html&quot;
     ServerName www.domain.com:443
     SSLEngine on
     SSLCertificateFile /usr/local/apache/conf/server.crt #添加证书文件
     SSLCertificateKeyFile /usr/local/apache/conf/server.key #添加私钥文件
-&lt;/VirtualHost&gt;
-</code></pre>
+&lt;/VirtualHost&gt;</code></pre>
+
 <p>检测配置文件是否有错误<br>sudo apachectl configtest<br>重启 apache<br>sudo apachectl restart</p>
 <h3 id="Fiddler-x2F-Charles-是如何监听-HTTPS"><a href="#Fiddler-x2F-Charles-是如何监听-HTTPS" class="headerlink" title="Fiddler&#x2F;Charles 是如何监听 HTTPS?"></a>Fiddler&#x2F;Charles 是如何监听 HTTPS?</h3><p>第一步，Fiddler 截获客户端发送给服务器的 HTTPS 请求，Fiddler 伪装成客户端向服务器发送请求进行握手 。<br>第二步，服务器发回相应，Fiddler 获取到服务器的 CA 证书， 用根证书（这里的根证书是 CA 认证中心给自己颁发的证书）公钥进行解密， 验证服务器数据签名， 获取到服务器 CA 证书公钥。然后 Fiddler 伪造自己的 CA 证书（这里的 CA 证书，也是根证书，只不过是 Fiddler 伪造的根证书）， 冒充服务器证书传递给客户端浏览器。<br>第三步，与普通过程中客户端的操作相同，客户端根据返回的数据进行证书校验、生成密码 Pre_master、用 Fiddler 伪造的证书公钥加密，并生成 HTTPS 通信用的对称密钥 enc_key。<br>第四步，客户端将重要信息传递给服务器， 又被 Fiddler 截获。Fiddler 将截获的密文用自己伪造证书的私钥解开， 获得并计算得到 HTTPS 通信用的对称密钥 enc_key。Fiddler 将对称密钥用服务器证书公钥加密传递给服务器。<br>第五步，与普通过程中服务器端的操作相同，服务器用私钥解开后建立信任，然后再发送加密的握手消息给客户端。<br>第六步，Fiddler 截获服务器发送的密文， 用对称密钥解开， 再用自己伪造证书的私钥加密传给客户端。<br>第七步，客户端拿到加密信息后，用公钥解开，验证 HASH。握手过程正式完成，客户端与服务器端就这样建立了”信任“。</p>
 <p>在之后的正常加密通信过程中，Fiddler 如何在服务器与客户端之间充当第三者呢？<br>服务器—&gt;客户端：Fiddler 接收到服务器发送的密文， 用对称密钥解开， 获得服务器发送的明文。再次加密， 发送给客户端。<br>客户端—&gt;服务端：客户端用对称密钥加密，被 Fiddler 截获后，解密获得明文。再次加密，发送给服务器端。由于 Fiddler 一直拥有通信用对称密钥 enc_key， 所以在整个 HTTPS 通信过程中信息对其透明。<br><img src="/blog/static/images/https/5.png"></p>

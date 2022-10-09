@@ -282,16 +282,14 @@
 <li>开发过程中开启静态服务器并启动热更新，实时调试</li>
 </ol>
 <h3 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h3><h4 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h4><p>默认已安装node<br>新建项目文件夹及package.json文件</p>
-<pre><code class="js">mkdir webpack
+<pre><code class="hljs js">mkdir webpack
 cd webpack
-npm init
-</code></pre>
+npm init</code></pre>
 <p>一路回车，按需填写即可。</p>
 <h4 id="全局安装"><a href="#全局安装" class="headerlink" title="全局安装"></a>全局安装</h4><p>这里为了构建多项目并行开发需要全局安装webpack和webpack-dev-server</p>
-<pre><code>npm i -g webpack@2.2.1 webpack-dev-server@2.5.0 
-</code></pre>
+<pre><code class="hljs plaintext">npm i -g webpack@2.2.1 webpack-dev-server@2.5.0</code></pre>
 <h4 id="安装依赖包"><a href="#安装依赖包" class="headerlink" title="安装依赖包"></a>安装依赖包</h4><p>这里都指定了安装版本，在配置的时候就不会因为依赖包的升级而导致不能用</p>
-<pre><code>npm i --save-dev 
+<pre><code class="hljs plaintext">npm i --save-dev 
     autoprefixer@7.1.1
     babel-core@6.25.0
     babel-loader@7.1.0
@@ -304,111 +302,110 @@ npm init
     postcss-loader@2.0.6
     style-loader@0.18.2
     webpack@2.2.1
-    webpack-dev-server@2.5.0
-</code></pre>
+    webpack-dev-server@2.5.0</code></pre>
+
 <h4 id="新建配置文件"><a href="#新建配置文件" class="headerlink" title="新建配置文件"></a>新建配置文件</h4><p>新建项目文件夹及webpack.config.js文件</p>
-<pre><code>mkdir Demo
-cd Demo
-</code></pre>
-<h4 id="webpack-config-js"><a href="#webpack-config-js" class="headerlink" title="webpack.config.js"></a>webpack.config.js</h4><pre><code class="js">const path = require(&quot;path&quot;);
-const webpack = require(&#39;webpack&#39;);
-//html模板插件 详见https://www.npmjs.com/package/html-webpack-plugin
-const htmlWebpackPlugin = require(&#39;html-webpack-plugin&#39;);
-//代码分离插件 详见https://www.npmjs.com/package/extract-text-webpack-plugin
-const ExtractTextPlugin = require(&quot;extract-text-webpack-plugin&quot;);
+<pre><code class="hljs plaintext">mkdir Demo
+cd Demo</code></pre>
 
-module.exports = &#123;
-  //错误定位
-  devtool: &#39;#cheap-eval-source-map&#39;,
-  //程序入口文件  其他详细配置参见http://webpack.github.io/docs/configuration.html#entry
-  entry: __dirname + &#39;/src/js/main.js&#39;,
-  //程序出口文件  其他详细配置参见http://webpack.github.io/docs/configuration.html#output
-  output: &#123;
-    path: path.join(__dirname, &quot;dist&quot;),
-    filename: &#39;js/bundle-[hash:5].js&#39;,
-    // 用户添加CDN
-    // publicPath:&#39;http://cdn.com/&#39;
+<h4 id="webpack-config-js"><a href="#webpack-config-js" class="headerlink" title="webpack.config.js"></a>webpack.config.js</h4><pre><code class="hljs js"><span class="hljs-keyword">const</span> path = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;path&quot;</span>);
+<span class="hljs-keyword">const</span> webpack = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;webpack&#x27;</span>);
+<span class="hljs-comment">//html模板插件 详见https://www.npmjs.com/package/html-webpack-plugin</span>
+<span class="hljs-keyword">const</span> htmlWebpackPlugin = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;html-webpack-plugin&#x27;</span>);
+<span class="hljs-comment">//代码分离插件 详见https://www.npmjs.com/package/extract-text-webpack-plugin</span>
+<span class="hljs-keyword">const</span> <span class="hljs-title class_">ExtractTextPlugin</span> = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;extract-text-webpack-plugin&quot;</span>);
+
+<span class="hljs-variable language_">module</span>.<span class="hljs-property">exports</span> = &#123;
+  <span class="hljs-comment">//错误定位</span>
+  <span class="hljs-attr">devtool</span>: <span class="hljs-string">&#x27;#cheap-eval-source-map&#x27;</span>,
+  <span class="hljs-comment">//程序入口文件  其他详细配置参见http://webpack.github.io/docs/configuration.html#entry</span>
+  <span class="hljs-attr">entry</span>: __dirname + <span class="hljs-string">&#x27;/src/js/main.js&#x27;</span>,
+  <span class="hljs-comment">//程序出口文件  其他详细配置参见http://webpack.github.io/docs/configuration.html#output</span>
+  <span class="hljs-attr">output</span>: &#123;
+    <span class="hljs-attr">path</span>: path.<span class="hljs-title function_">join</span>(__dirname, <span class="hljs-string">&quot;dist&quot;</span>),
+    <span class="hljs-attr">filename</span>: <span class="hljs-string">&#x27;js/bundle-[hash:5].js&#x27;</span>,
+    <span class="hljs-comment">// 用户添加CDN</span>
+    <span class="hljs-comment">// publicPath:&#x27;http://cdn.com/&#x27;</span>
   &#125;,
-  // webpack-dev-server配置 详见https://webpack.js.org/configuration/dev-server/
-  devServer: &#123;
-    //设置服务器主文件夹，默认情况下，从项目的根目录提供文件
-    contentBase: path.join(__dirname, &quot;dist&quot;),
-    //使用inlilne模式
-    inline: true,
-    //当编译错误的时候，网页上显示错误信息
-    overlay: &#123;
-      warnings: true,
-      errors: true
+  <span class="hljs-comment">// webpack-dev-server配置 详见https://webpack.js.org/configuration/dev-server/</span>
+  <span class="hljs-attr">devServer</span>: &#123;
+    <span class="hljs-comment">//设置服务器主文件夹，默认情况下，从项目的根目录提供文件</span>
+    <span class="hljs-attr">contentBase</span>: path.<span class="hljs-title function_">join</span>(__dirname, <span class="hljs-string">&quot;dist&quot;</span>),
+    <span class="hljs-comment">//使用inlilne模式</span>
+    <span class="hljs-attr">inline</span>: <span class="hljs-literal">true</span>,
+    <span class="hljs-comment">//当编译错误的时候，网页上显示错误信息</span>
+    <span class="hljs-attr">overlay</span>: &#123;
+      <span class="hljs-attr">warnings</span>: <span class="hljs-literal">true</span>,
+      <span class="hljs-attr">errors</span>: <span class="hljs-literal">true</span>
     &#125;,
-    //设置域名，默认是localhost
-    // host: &quot;10.74.138.249&quot;,
-    // port: 3000
+    <span class="hljs-comment">//设置域名，默认是localhost</span>
+    <span class="hljs-comment">// host: &quot;10.74.138.249&quot;,</span>
+    <span class="hljs-comment">// port: 3000</span>
   &#125;,
 
-  module: &#123;
-    rules: [&#123;
-      test: /\.(js|jsx)$/,
-      include: [
-        path.join(__dirname, &quot;src&quot;)
+  <span class="hljs-attr">module</span>: &#123;
+    <span class="hljs-attr">rules</span>: [&#123;
+      <span class="hljs-attr">test</span>: <span class="hljs-regexp">/\.(js|jsx)$/</span>,
+      <span class="hljs-attr">include</span>: [
+        path.<span class="hljs-title function_">join</span>(__dirname, <span class="hljs-string">&quot;src&quot;</span>)
       ],
-      loader: &#39;babel-loader&#39;,
-      query: &#123;
-        presets: [&#39;env&#39;]
+      <span class="hljs-attr">loader</span>: <span class="hljs-string">&#x27;babel-loader&#x27;</span>,
+      <span class="hljs-attr">query</span>: &#123;
+        <span class="hljs-attr">presets</span>: [<span class="hljs-string">&#x27;env&#x27;</span>]
       &#125;
     &#125;, &#123;
-      test: /\.css$/,
-      use: ExtractTextPlugin.extract(&#123;
-        fallback: &#39;style-loader&#39;,
-        use: [
+      <span class="hljs-attr">test</span>: <span class="hljs-regexp">/\.css$/</span>,
+      <span class="hljs-attr">use</span>: <span class="hljs-title class_">ExtractTextPlugin</span>.<span class="hljs-title function_">extract</span>(&#123;
+        <span class="hljs-attr">fallback</span>: <span class="hljs-string">&#x27;style-loader&#x27;</span>,
+        <span class="hljs-attr">use</span>: [
           &#123;
-            loader: &#39;css-loader&#39;,
-            options: &#123;
-              minimize: true //css压缩
+            <span class="hljs-attr">loader</span>: <span class="hljs-string">&#x27;css-loader&#x27;</span>,
+            <span class="hljs-attr">options</span>: &#123;
+              <span class="hljs-attr">minimize</span>: <span class="hljs-literal">true</span> <span class="hljs-comment">//css压缩</span>
             &#125;
           &#125;, &#123;
-            loader: &#39;postcss-loader&#39;,
-            options: &#123;
-              plugins: function () &#123;
-                return [require(&#39;autoprefixer&#39;)]
+            <span class="hljs-attr">loader</span>: <span class="hljs-string">&#x27;postcss-loader&#x27;</span>,
+            <span class="hljs-attr">options</span>: &#123;
+              <span class="hljs-attr">plugins</span>: <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) &#123;
+                <span class="hljs-keyword">return</span> [<span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;autoprefixer&#x27;</span>)]
               &#125;
             &#125;
           &#125;
         ]
       &#125;)
     &#125;, &#123;
-      test: /\.scss$/,
-      use: [&#39;style-loader&#39;, &#39;css-loader&#39;, &#39;sass-loader&#39;]
+      <span class="hljs-attr">test</span>: <span class="hljs-regexp">/\.scss$/</span>,
+      <span class="hljs-attr">use</span>: [<span class="hljs-string">&#x27;style-loader&#x27;</span>, <span class="hljs-string">&#x27;css-loader&#x27;</span>, <span class="hljs-string">&#x27;sass-loader&#x27;</span>]
     &#125;, &#123;
-      test: /\.(png|jpe?g|gif)$/i,
-      use: [&#123;
-        loader: &#39;file-loader&#39;,
-        query: &#123;
-          limit: 10000,
-          name: &#39;./img/[name]-[hash:5].[ext]&#39;
+      <span class="hljs-attr">test</span>: <span class="hljs-regexp">/\.(png|jpe?g|gif)$/i</span>,
+      <span class="hljs-attr">use</span>: [&#123;
+        <span class="hljs-attr">loader</span>: <span class="hljs-string">&#x27;file-loader&#x27;</span>,
+        <span class="hljs-attr">query</span>: &#123;
+          <span class="hljs-attr">limit</span>: <span class="hljs-number">10000</span>,
+          <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;./img/[name]-[hash:5].[ext]&#x27;</span>
         &#125;
       &#125;]
     &#125;]
   &#125;,
-  plugins: [
-    new webpack.optimize.UglifyJsPlugin(&#123;
-      compress: &#123;
-        warnings: false
+  <span class="hljs-attr">plugins</span>: [
+    <span class="hljs-keyword">new</span> webpack.<span class="hljs-property">optimize</span>.<span class="hljs-title class_">UglifyJsPlugin</span>(&#123;
+      <span class="hljs-attr">compress</span>: &#123;
+        <span class="hljs-attr">warnings</span>: <span class="hljs-literal">false</span>
       &#125;
     &#125;),
-    // webpack.optimize.CommonsChunkPlugin(),
-    new htmlWebpackPlugin(&#123;
-      template: &#39;src/index.html&#39;,
-      inject: &#39;body&#39;,
-      minify: &#123;
-        removeComments: true,
-        collapseWhitespace: true
+    <span class="hljs-comment">// webpack.optimize.CommonsChunkPlugin(),</span>
+    <span class="hljs-keyword">new</span> <span class="hljs-title function_">htmlWebpackPlugin</span>(&#123;
+      <span class="hljs-attr">template</span>: <span class="hljs-string">&#x27;src/index.html&#x27;</span>,
+      <span class="hljs-attr">inject</span>: <span class="hljs-string">&#x27;body&#x27;</span>,
+      <span class="hljs-attr">minify</span>: &#123;
+        <span class="hljs-attr">removeComments</span>: <span class="hljs-literal">true</span>,
+        <span class="hljs-attr">collapseWhitespace</span>: <span class="hljs-literal">true</span>
       &#125;
     &#125;),
-    new ExtractTextPlugin(&#39;css/common.css&#39;)
+    <span class="hljs-keyword">new</span> <span class="hljs-title class_">ExtractTextPlugin</span>(<span class="hljs-string">&#x27;css/common.css&#x27;</span>)
   ]
-&#125;
-</code></pre>
-<h4 id="目录结构"><a href="#目录结构" class="headerlink" title="目录结构"></a>目录结构</h4><pre><code>|--Demo
+&#125;</code></pre>
+<h4 id="目录结构"><a href="#目录结构" class="headerlink" title="目录结构"></a>目录结构</h4><pre><code class="hljs plaintext">|--Demo
 |  |--dist/
 |  |--src
 |     |--css/
@@ -416,10 +413,9 @@ module.exports = &#123;
 |     |--index.html
 |  |--webpack.config.js
 |--React-app/  //react项目暂不做介绍
-|--package.json
-</code></pre>
+|--package.json</code></pre>
 <h3 id="如何使用"><a href="#如何使用" class="headerlink" title="如何使用"></a>如何使用</h3><p>以上这些内容只是对webpack脚手架工具的构建过程的基本介绍，当然如果你想使用的话也可以直接下载使用</p>
-<pre><code>//下载webpack脚手架工具
+<pre><code class="hljs plaintext">//下载webpack脚手架工具
 git clone git@github.com:Jess121/Webpack.git
 //安装依赖 在此之前需要全局安转webpack和webpack-dev-server
 npm i -g webpack@2.2.1 webpack-dev-server@2.5.0 
@@ -427,8 +423,8 @@ npm install
 //启动项目，输入以下命令会自动打浏览器并访问localhost:8080(而配置中未修改host和port)
 webpack-dev-server --open
 //打包项目，并展示打包进度
-webpack --progress
-</code></pre>
+webpack --progress</code></pre>
+
 <p><strong>PS:</strong> 以上展示的是脚手架工具的基本功能，其他功能结合项目需要后期在做补充</p>
  
       <div id="toc-article">

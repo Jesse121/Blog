@@ -287,69 +287,63 @@
 </ul>
 <p>下面我们将按照调用方式的不同，分别讨论 this 的含义。</p>
 <h3 id="作为对象方法调用"><a href="#作为对象方法调用" class="headerlink" title="作为对象方法调用"></a>作为对象方法调用</h3><p>当一个函数被保存为对象的一个属性时，我们称它为一个方法。方法被调用时,this被绑定到该对象。通过this可取得所属对象的公有方法</p>
-<pre><code class="js">var myObject = &#123;
-    value:0,
-    increment:function(inc)&#123;
-        this.value += typeof inc === &#39;number&#39; ? inc : 1;
-        console.log(this);  //&#123;value:1,increment:function()&#123;&#125;&#125;
+<pre><code class="hljs js"><span class="hljs-keyword">var</span> myObject = &#123;
+    <span class="hljs-attr">value</span>:<span class="hljs-number">0</span>,
+    <span class="hljs-attr">increment</span>:<span class="hljs-keyword">function</span>(<span class="hljs-params">inc</span>)&#123;
+        <span class="hljs-variable language_">this</span>.<span class="hljs-property">value</span> += <span class="hljs-keyword">typeof</span> inc === <span class="hljs-string">&#x27;number&#x27;</span> ? inc : <span class="hljs-number">1</span>;
+        <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-variable language_">this</span>);  <span class="hljs-comment">//&#123;value:1,increment:function()&#123;&#125;&#125;</span>
     &#125;
 &#125;
-myObject.increment();  //作为对象方法调用
-</code></pre>
+myObject.<span class="hljs-title function_">increment</span>();  <span class="hljs-comment">//作为对象方法调用</span></code></pre>
 <h3 id="作为函数调用"><a href="#作为函数调用" class="headerlink" title="作为函数调用"></a>作为函数调用</h3><p>当一个函数并非一个对象的属性时，那么它就是被当做一个函数来调用的，以此模式调用函数时，this被绑定到全局对象。</p>
-<pre><code class="js">var myObject = &#123;
-    value : 0,
-    double : function()&#123;
-        var helper = function()&#123;
-            console.log(this); //window
+<pre><code class="hljs js"><span class="hljs-keyword">var</span> myObject = &#123;
+    value : <span class="hljs-number">0</span>,
+    double : <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)&#123;
+        <span class="hljs-keyword">var</span> helper = <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)&#123;
+            <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-variable language_">this</span>); <span class="hljs-comment">//window</span>
         &#125;;
-        helper();  //作为函数调用
+        <span class="hljs-title function_">helper</span>();  <span class="hljs-comment">//作为函数调用</span>
     &#125;
-&#125;
-</code></pre>
+&#125;</code></pre>
 <h3 id="作为构造函数调用"><a href="#作为构造函数调用" class="headerlink" title="作为构造函数调用"></a>作为构造函数调用</h3><p>如果一个函数前面带上new来调用，那么背地里将会创建一个连接到该函数的prototype成员的新对象，同时this会被绑定到那个新对象上。</p>
-<pre><code class="js">function Quo(string)&#123;
-    this.status = string;
+<pre><code class="hljs js"><span class="hljs-keyword">function</span> <span class="hljs-title function_">Quo</span>(<span class="hljs-params">string</span>)&#123;
+    <span class="hljs-variable language_">this</span>.<span class="hljs-property">status</span> = string;
 &#125;
-Quo.prototype.getStatus = function()&#123;
-    return this;
+<span class="hljs-title class_">Quo</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">getStatus</span> = <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)&#123;
+    <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>;
 &#125;
-var myQuo = new Quo(&quot;confused&quot;);
-console.log(myQuo.getStatus()); //作为构造函数调用 this指向这个新对象Quo &#123;status: &quot;confused&quot;&#125;
-</code></pre>
+<span class="hljs-keyword">var</span> myQuo = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Quo</span>(<span class="hljs-string">&quot;confused&quot;</span>);
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(myQuo.<span class="hljs-title function_">getStatus</span>()); <span class="hljs-comment">//作为构造函数调用 this指向这个新对象Quo &#123;status: &quot;confused&quot;&#125;</span></code></pre>
 <h3 id="apply或call-调用"><a href="#apply或call-调用" class="headerlink" title="apply或call 调用"></a>apply或call 调用</h3><p>apply方法允许我们构建一个函数数组传递给调用函数，也允许选择this的值</p>
-<pre><code class="js">var statusObject = &#123;
-    status: &quot;ok&quot;
+<pre><code class="hljs js"><span class="hljs-keyword">var</span> statusObject = &#123;
+    <span class="hljs-attr">status</span>: <span class="hljs-string">&quot;ok&quot;</span>
 &#125;;
-function Quo(string)&#123;
-    this.status = string;
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">Quo</span>(<span class="hljs-params">string</span>)&#123;
+    <span class="hljs-variable language_">this</span>.<span class="hljs-property">status</span> = string;
 &#125;
-Quo.prototype.getStatus = function()&#123;
-    return console.log(this); //&#123;status: &quot;ok&quot;&#125;
+<span class="hljs-title class_">Quo</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">getStatus</span> = <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)&#123;
+    <span class="hljs-keyword">return</span> <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-variable language_">this</span>); <span class="hljs-comment">//&#123;status: &quot;ok&quot;&#125;</span>
 &#125;
-Quo.prototype.getStatus.apply(statusObject); //将方法中的this指向传入的对象
-Quo.prototype.getStatus.call(statusObject); //将方法中的this指向传入的对象
-</code></pre>
+<span class="hljs-title class_">Quo</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">getStatus</span>.<span class="hljs-title function_">apply</span>(statusObject); <span class="hljs-comment">//将方法中的this指向传入的对象</span>
+<span class="hljs-title class_">Quo</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">getStatus</span>.<span class="hljs-title function_">call</span>(statusObject); <span class="hljs-comment">//将方法中的this指向传入的对象</span></code></pre>
 <h3 id="通过bind调用"><a href="#通过bind调用" class="headerlink" title="通过bind调用"></a>通过bind调用</h3><p>bind()方法创建一个新的函数, 当被调用时，将其this关键字设置为提供的值，在调用新函数时，在任何提供之前提供一个给定的参数序列。<br><code>fun.bind(thisArg[, arg1[, arg2[, ...]]])</code><br>** 返回由指定的this值和初始化参数改造的原函数拷贝**</p>
-<pre><code class="js">window.color = &quot;red&quot;;
-var o = &#123;color:&quot;blue&quot;&#125;;
-function sayColor()&#123;
-  return this.color;
+<pre><code class="hljs js"><span class="hljs-variable language_">window</span>.<span class="hljs-property">color</span> = <span class="hljs-string">&quot;red&quot;</span>;
+<span class="hljs-keyword">var</span> o = &#123;<span class="hljs-attr">color</span>:<span class="hljs-string">&quot;blue&quot;</span>&#125;;
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">sayColor</span>(<span class="hljs-params"></span>)&#123;
+  <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">color</span>;
 &#125;
-var objectSayColor = sayColor.bind(o); //此处将方法中的this指向了o对象
-objectSayColor();//由于bind返回的是改造后的原函数的拷贝，并没有执行
-</code></pre>
+<span class="hljs-keyword">var</span> objectSayColor = sayColor.<span class="hljs-title function_">bind</span>(o); <span class="hljs-comment">//此处将方法中的this指向了o对象</span>
+<span class="hljs-title function_">objectSayColor</span>();<span class="hljs-comment">//由于bind返回的是改造后的原函数的拷贝，并没有执行</span></code></pre>
 <h3 id="箭头函数里的this"><a href="#箭头函数里的this" class="headerlink" title="箭头函数里的this"></a>箭头函数里的this</h3><p>函数体内的 this 对象，是定义时所在的对象，而不是使用时所在的对象。</p>
-<pre><code class="js">var handler = &#123;
-  id: &#39;123456&#39;,
-  init: function() &#123;
-    document.addEventListener(&#39;click&#39;,event =&gt; this.doSomething(event.type), false);
+<pre><code class="hljs js"><span class="hljs-keyword">var</span> handler = &#123;
+  <span class="hljs-attr">id</span>: <span class="hljs-string">&#x27;123456&#x27;</span>,
+  <span class="hljs-attr">init</span>: <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) &#123;
+    <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">addEventListener</span>(<span class="hljs-string">&#x27;click&#x27;</span>,<span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">doSomething</span>(event.<span class="hljs-property">type</span>), <span class="hljs-literal">false</span>);
   &#125;,
-  doSomething: function(type) &#123;
-    console.log(&#39;Handling &#39; + type + &#39; for &#39; + this.id);
+  <span class="hljs-attr">doSomething</span>: <span class="hljs-keyword">function</span>(<span class="hljs-params">type</span>) &#123;
+    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;Handling &#x27;</span> + type + <span class="hljs-string">&#x27; for &#x27;</span> + <span class="hljs-variable language_">this</span>.<span class="hljs-property">id</span>);
   &#125;
-&#125;;
-</code></pre>
+&#125;;</code></pre>
 <p>上面代码的 init 方法中，使用了箭头函数，这导致这个箭头函数里面的 this ，总是指向 handler 对象。否则，回调函数运行时， this.doSomething 这一行会报错，因为此时 this 指向 document 对象。<br>this 指向的固定化，并不是因为箭头函数内部有绑定 this 的机制，实际原因是箭头函数根本没有自己的 this ，导致内部的 this 就是外层代码块<br>的 this 。正是因为它没有 this ，所以也就不能用作构造函数。</p>
  
       <div id="toc-article">

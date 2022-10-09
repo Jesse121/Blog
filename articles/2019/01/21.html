@@ -289,7 +289,7 @@
 <h4 id="更改镜像仓库地址"><a href="#更改镜像仓库地址" class="headerlink" title="更改镜像仓库地址"></a>更改镜像仓库地址</h4><p>docker 默认的镜像仓库地址是<a target="_blank" rel="noopener" href="https://hub.docker.com/">https://hub.docker.com/</a>，但国内的下载速度太过缓慢，最好使用国内镜像，<br>参考<a target="_blank" rel="noopener" href="http://guide.daocloud.io/dcs/daocloud-9153151.html#docker-toolbox">http://guide.daocloud.io/dcs/daocloud-9153151.html#docker-toolbox</a>设置镜像加速</p>
 <h3 id="docker-在-mac-上的安装"><a href="#docker-在-mac-上的安装" class="headerlink" title="docker 在 mac 上的安装"></a>docker 在 mac 上的安装</h3><p>在 docker 官网上我们可以直接下载 Docker Desktop (Mac) 可直接在<a target="_blank" rel="noopener" href="https://hub.docker.com/editions/community/docker-ce-desktop-mac">https://hub.docker.com/editions/community/docker-ce-desktop-mac</a>下载(需要登录),下载后双击执行 docker.dmg 正常安装即可<br>启动 docker 后在系统菜单栏我们可以看到 docker 标志,说明 docker 安装成功</p>
 <h4 id="docker-镜像加速"><a href="#docker-镜像加速" class="headerlink" title="docker 镜像加速"></a>docker 镜像加速</h4><p>参考<a target="_blank" rel="noopener" href="http://guide.daocloud.io/dcs/daocloud-9153151.html#docker-toolbox">http://guide.daocloud.io/dcs/daocloud-9153151.html#docker-toolbox</a>设置镜像加速<br><img src="/blog/static/images/docker/3.png"></p>
-<h3 id="docker-基本命令"><a href="#docker-基本命令" class="headerlink" title="docker 基本命令"></a>docker 基本命令</h3><pre><code>// 列出本地已有镜像
+<h3 id="docker-基本命令"><a href="#docker-基本命令" class="headerlink" title="docker 基本命令"></a>docker 基本命令</h3><pre><code class="hljs plaintext">// 列出本地已有镜像
 docker images
 // 从远端下载镜像
 docker pull &lt;image name&gt;
@@ -344,14 +344,14 @@ docker run -p 8080:80 -d nginx
 // 容器拷贝到主机
 docker cp &lt;container id&gt;:文件路径 主机目标路径
 // 主机拷贝到容器
-docker cp 主机文件路径 &lt;container id&gt;:文件路径
-</code></pre>
+docker cp 主机文件路径 &lt;container id&gt;:文件路径</code></pre>
+
 <h3 id="win7-上文件以数据卷的形式挂载到-docker-容器中"><a href="#win7-上文件以数据卷的形式挂载到-docker-容器中" class="headerlink" title="win7 上文件以数据卷的形式挂载到 docker 容器中"></a>win7 上文件以数据卷的形式挂载到 docker 容器中</h3><p>1.先设置 win7 到 VirtualBox 中 docker 用的那个虚拟机的共享文件夹<br>　填写好共享文件夹路径和名称。如：共享文件夹路径：E:\ 共享文件夹名称: e<br>　然后勾选自动挂载和固定分配 2.重启 docker 3. docker run -it -v &#x2F;test:&#x2F;var&#x2F;www myimage &#x2F;bin&#x2F;bash</p>
 <h3 id="制作镜像"><a href="#制作镜像" class="headerlink" title="制作镜像"></a>制作镜像</h3><p>在上面的镜像容器中我们可以搭建自己所需要的各种环境，搭建好后可将这个更改后的容器打包成一个镜像，并上传到镜像仓库供大家使用<br>在搭建好环境的容器中退出时我们应当使用 ctrl+p+q 快捷键，而不是 exit 退出，因为这样直接退出会关闭当前容器<br>docker commit :从容器创建一个新的镜像。<br><code>docker commit -a &quot;username&quot; -m &quot;this is profile&quot; &lt;container id&gt; imageName</code><br>这里以阿里云为例，将镜像推送到 Registry</p>
-<pre><code>$ sudo docker login --username=jesse131 registry.cn-shenzhen.aliyuncs.com
+<pre><code class="hljs plaintext">$ sudo docker login --username=jesse131 registry.cn-shenzhen.aliyuncs.com
 $ sudo docker tag [ImageId] registry.cn-shenzhen.aliyuncs.com/mirror-study/study:[镜像版本号]
-$ sudo docker push registry.cn-shenzhen.aliyuncs.com/mirror-study/study:[镜像版本号]
-</code></pre>
+$ sudo docker push registry.cn-shenzhen.aliyuncs.com/mirror-study/study:[镜像版本号]</code></pre>
+
 <p>如果不想通过网络拉去镜像也可以通过 U 盘拷贝镜像</p>
 <h4 id="导出镜像到本地"><a href="#导出镜像到本地" class="headerlink" title="导出镜像到本地"></a>导出镜像到本地</h4><p><code>docker save &lt;container id&gt; -o d:/www/centos.tar</code></p>
 <h4 id="加载本地镜像"><a href="#加载本地镜像" class="headerlink" title="加载本地镜像"></a>加载本地镜像</h4><p><code>docker load -i d:/www/centos.tar</code></p>

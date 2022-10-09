@@ -273,8 +273,7 @@
     <div class="e-content article-entry" itemprop="articleBody">
        <p>参考工具<br><a target="_blank" rel="noopener" href="http://www.css88.com/book/css/">css3手册</a><br><a target="_blank" rel="noopener" href="http://css3clickchart.com/#box-sizing">CSS3 click chart</a></p>
 <h3 id="border-radius"><a href="#border-radius" class="headerlink" title="border-radius"></a>border-radius</h3><p>用于添加圆角效果</p>
-<h4 id="语法"><a href="#语法" class="headerlink" title="语法:"></a>语法:</h4><pre><code>border-radius：[ &lt;length&gt; | &lt;percentage&gt; ]&#123;1,4&#125; [ / [ &lt;length&gt; | &lt;percentage&gt; ]&#123;1,4&#125; ]?
-</code></pre>
+<h4 id="语法"><a href="#语法" class="headerlink" title="语法:"></a>语法:</h4><pre><code class="hljs plaintext">border-radius：[ &lt;length&gt; | &lt;percentage&gt; ]&#123;1,4&#125; [ / [ &lt;length&gt; | &lt;percentage&gt; ]&#123;1,4&#125; ]?</code></pre>
 <p><code>&lt;length&gt;：</code>用长度值设置对象的圆角半径长度。不允许负值<br><code>&lt;percentage&gt;：</code>用百分比设置对象的圆角半径长度。不允许负值  </p>
 <span id="more"></span>
 <h4 id="实例"><a href="#实例" class="headerlink" title="实例:"></a>实例:</h4><p><code>border-radius:10px;</code></p>
@@ -285,25 +284,21 @@
 <div style="width:100px;height:100px;border-radius:26px 106px 162px 32px/28px 80px 178px 26px;background-color:red"></div>
 `border-radius:50%;  //是相对于元素占据尺寸的百分比，即包含边框和padding后的尺寸`
 <div style="width:100px;height:100px;border:1px solid red;border-radius: 50%;"></div>
-```css
-.radius{
-    border-top-left-radius:5px;      /*左上角，注意顺序是先上下后左右*/
-    border-top-right-radius:10px;    /*右上角*/
-    border-bottom-left-radius:15px;  /*左下角*/
-    border-bottom-left-radius:20px;  /*右下角*/
-    /*即使元素没有边框，圆角也可以用到 background 上面，
-    具体效果受 background-clip 影响。*/
-    background-color:red;  
-}
-```
+<pre><code class="hljs css"><span class="hljs-selector-class">.radius</span>&#123;
+    <span class="hljs-attribute">border-top-left-radius</span>:<span class="hljs-number">5px</span>;      <span class="hljs-comment">/*左上角，注意顺序是先上下后左右*/</span>
+    <span class="hljs-attribute">border-top-right-radius</span>:<span class="hljs-number">10px</span>;    <span class="hljs-comment">/*右上角*/</span>
+    <span class="hljs-attribute">border-bottom-left-radius</span>:<span class="hljs-number">15px</span>;  <span class="hljs-comment">/*左下角*/</span>
+    <span class="hljs-attribute">border-bottom-left-radius</span>:<span class="hljs-number">20px</span>;  <span class="hljs-comment">/*右下角*/</span>
+    <span class="hljs-comment">/*即使元素没有边框，圆角也可以用到 background 上面，</span>
+<span class="hljs-comment">    具体效果受 background-clip 影响。*/</span>
+    <span class="hljs-attribute">background-color</span>:red;  
+&#125;</code></pre>
 <div style="width:100px;height:100px;border-top-left-radius:5px;border-top-right-radius:10px;border-bottom-left-radius:15px;border-bottom-right-radius:20px;background-color:red;"></div>
 
 <h4 id="兼容性："><a href="#兼容性：" class="headerlink" title="兼容性："></a>兼容性：</h4><p>IE9+,Firefox4+,Chrome5+,Safari5+,Opera01.5+,iOS Safari4+,Android Browser2.2+ ,Android Chrome18+</p>
 <h4 id="兼容方法："><a href="#兼容方法：" class="headerlink" title="兼容方法："></a>兼容方法：</h4><p>低版本的chrome:<code>-webkit-border-radius:10px;</code><br>低版本的firefox:<code>-moz-border-radius:10px;</code><br>IE6&#x2F;7&#x2F;8:</p>
 <ul>
-<li>使用DD_roudies.js(推荐)，详情参考<a target="_blank" rel="noopener" href="http://dillerdesign.com/experiment/DD_roundies/">DD_roundies</a></li>
-</ul>
-<pre><code>&lt;style type=&quot;text/css&quot;&gt;
+<li>使用DD_roudies.js(推荐)，详情参考<a target="_blank" rel="noopener" href="http://dillerdesign.com/experiment/DD_roundies/">DD_roundies</a><pre><code class="hljs plaintext">&lt;style type=&quot;text/css&quot;&gt;
 .radius &#123;
     width: 300px;
     height: 300px;
@@ -313,13 +308,9 @@
 &lt;div class=&quot;radius&quot;&gt;&lt;/div&gt;
 &lt;script src=&quot;http://dillerdesign.com/experiment/DD_roundies/DD_roundies_0.0.2a-min.js&quot;&gt;&lt;/script&gt;
 &lt;script type=&quot;text/javascript&quot;&gt;
-    DD_roundies.addRule(&#39;.radius&#39;, &#39;10px 15px 30px 0&#39;,false);
-&lt;/script&gt;
-</code></pre>
-<ul>
-<li>使用jquery.corner.js，详情参考<a target="_blank" rel="noopener" href="http://www.zhangxinxu.com/study/201001/jquery-plugin-round-corner.html">jquery.corner.js</a></li>
-</ul>
-<pre><code>&lt;style type=&quot;text/css&quot;&gt;
+    DD_roundies.addRule(&#x27;.radius&#x27;, &#x27;10px 15px 30px 0&#x27;,false);
+&lt;/script&gt;</code></pre></li>
+<li>使用jquery.corner.js，详情参考<a target="_blank" rel="noopener" href="http://www.zhangxinxu.com/study/201001/jquery-plugin-round-corner.html">jquery.corner.js</a><pre><code class="hljs plaintext">&lt;style type=&quot;text/css&quot;&gt;
 .render &#123;
     width: 300px;
     height: 300px;
@@ -330,23 +321,18 @@
 &lt;script src=&quot;http://apps.bdimg.com/libs/jquery/1.2.6/jquery.min.js&quot;&gt;&lt;/script&gt;
 &lt;script src=&quot;jquery.corner.js&quot;&gt;&lt;/script&gt;
 &lt;script type=&quot;text/javascript&quot;&gt;
-    $(&#39;.render&#39;).corner(&quot;top 30px&quot;);
-&lt;/script&gt;
-</code></pre>
-<ul>
-<li>引入ie-css3兼容文件，详情参阅<a target="_blank" rel="noopener" href="http://www.zhangxinxu.com/wordpress/2010/04/%E8%AE%A9ie6ie7ie8%E6%B5%8F%E8%A7%88%E5%99%A8%E6%94%AF%E6%8C%81css3%E5%B1%9E%E6%80%A7/">让IE6&#x2F;IE7&#x2F;IE8浏览器支持CSS3属性</a></li>
-</ul>
-<pre><code>.radius&#123;
+    $(&#x27;.render&#x27;).corner(&quot;top 30px&quot;);
+&lt;/script&gt;</code></pre></li>
+<li>引入ie-css3兼容文件，详情参阅<a target="_blank" rel="noopener" href="http://www.zhangxinxu.com/wordpress/2010/04/%E8%AE%A9ie6ie7ie8%E6%B5%8F%E8%A7%88%E5%99%A8%E6%94%AF%E6%8C%81css3%E5%B1%9E%E6%80%A7/">让IE6&#x2F;IE7&#x2F;IE8浏览器支持CSS3属性</a> <pre><code class="hljs plaintext">.radius&#123;
     -moz-border-radius: 15px; /* Firefox */
     -webkit-border-radius: 15px; /* Safari 和 Chrome */
     border-radius: 15px; /* Opera 10.5+, 以及使用了IE-CSS3的IE浏览器 */
     behavior: url(ie-css3.htc);
-&#125;
-</code></pre>
+&#125;</code></pre></li>
+</ul>
 <p>详情参阅<a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/border-radius">border-radius</a></p>
 <h3 id="box-shadow"><a href="#box-shadow" class="headerlink" title="box-shadow"></a>box-shadow</h3><p>用于添加阴影效果</p>
-<h4 id="语法："><a href="#语法：" class="headerlink" title="语法："></a>语法：</h4><pre><code>box-shadow：none|[inset? &amp;&amp; [&lt;offset-x&gt;&lt;offset-y&gt;&lt;blur-radius&gt;?&lt;spread-radius&gt;?&lt;color&gt;?]]#
-</code></pre>
+<h4 id="语法："><a href="#语法：" class="headerlink" title="语法："></a>语法：</h4><pre><code class="hljs plaintext">box-shadow：none|[inset? &amp;&amp; [&lt;offset-x&gt;&lt;offset-y&gt;&lt;blur-radius&gt;?&lt;spread-radius&gt;?&lt;color&gt;?]]#</code></pre>
 <p>inset：设置对象的阴影类型为内阴影。该值为空时，则对象的阴影类型为外阴影<br><code>&lt;offset-x&gt;</code>: 这是第一个 length值设置水平偏移量，如果是负值则阴影位于元素左边。<br><code>&lt;offset-y&gt;</code>: 这是第二个 length值设置垂直偏移量，如果是负值则阴影位于元素上面。<br><code>&lt;blur-radius&gt;</code>:这是第三个 length值。值越大，糊糊面积越大，阴影就越大越淡。不能为负值。默认为0，此时阴影边缘锐利。<br><code>&lt;color&gt;</code>：设置对象的阴影的颜色。  </p>
 <h4 id="实例："><a href="#实例：" class="headerlink" title="实例："></a>实例：</h4><p><code>box-shadow: 10px 10px 5px gray;</code></p>
 <div style="width:100px;height:100px;background-color:red;-webkit-box-shadow:10px 10px 5px gray;-moz-box-shadow:10px 10px 5px gray;box-shadow: 10px 10px 5px gray;"></div>
@@ -356,9 +342,7 @@
 <h4 id="兼容性：-1"><a href="#兼容性：-1" class="headerlink" title="兼容性："></a>兼容性：</h4><p>IE9.0+,Firefox4.0+,Chrome10.0+,Safari5.1+,Opera10.5+,Safari5.0+,Android Browser4.0+,Android Chrome18.0+</p>
 <h4 id="兼容方法：-1"><a href="#兼容方法：-1" class="headerlink" title="兼容方法："></a>兼容方法：</h4><p>低版本的chrome:<code>-webkit-box-shadow:10px 10px 5px #888;</code><br>低版本的firefox:<code>-moz-box-shadow:10px 10px 5px #888;</code><br>IE6&#x2F;7&#x2F;8:</p>
 <ul>
-<li>引入ie-css3兼容文件(推荐)，缺点：不支持除了黑色(#000)以外的其他颜色，详情参阅<a target="_blank" rel="noopener" href="http://www.zhangxinxu.com/wordpress/2010/04/%E8%AE%A9ie6ie7ie8%E6%B5%8F%E8%A7%88%E5%99%A8%E6%94%AF%E6%8C%81css3%E5%B1%9E%E6%80%A7/">让IE6&#x2F;IE7&#x2F;IE8浏览器支持CSS3属性</a></li>
-</ul>
-<pre><code>.box&#123;
+<li>引入ie-css3兼容文件(推荐)，缺点：不支持除了黑色(#000)以外的其他颜色，详情参阅<a target="_blank" rel="noopener" href="http://www.zhangxinxu.com/wordpress/2010/04/%E8%AE%A9ie6ie7ie8%E6%B5%8F%E8%A7%88%E5%99%A8%E6%94%AF%E6%8C%81css3%E5%B1%9E%E6%80%A7/">让IE6&#x2F;IE7&#x2F;IE8浏览器支持CSS3属性</a><pre><code class="hljs plaintext">.box&#123;
     width:100px;
     height:100px;
     background-color:red;
@@ -366,23 +350,14 @@
     -moz-box-shadow:10px 10px 5px gray;
     box-shadow: 10px 10px 5px gray;
     behavior:url(ie-css3.htc);
-&#125;
-</code></pre>
-<ul>
-<li>使用DropShadow滤镜，缺点：阴影不能边缘模糊</li>
+&#125;</code></pre></li>
+<li>使用DropShadow滤镜，缺点：阴影不能边缘模糊<pre><code class="hljs plaintext">filter:progid:dXImageTransform.Microsoft.DropShadow(color=#888888,offX=10,offY=10,positives=true);</code></pre></li>
+<li>使用Shadow滤镜，类似于投影效果，缺点：阴影不能边缘模糊<pre><code class="hljs plaintext">filter:progid:DXImageTransform.Microsoft.Shadow(color=&#x27;#0099ff&#x27;, Direction=&#x27;120&#x27;, Strength=&#x27;10&#x27;);</code></pre>
+详情参阅<a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/box-shadow">box-shadow</a></li>
 </ul>
-<pre><code>filter:progid:dXImageTransform.Microsoft.DropShadow(color=#888888,offX=10,offY=10,positives=true);
-</code></pre>
-<ul>
-<li>使用Shadow滤镜，类似于投影效果，缺点：阴影不能边缘模糊</li>
-</ul>
-<pre><code>filter:progid:DXImageTransform.Microsoft.Shadow(color=&#39;#0099ff&#39;, Direction=&#39;120&#39;, Strength=&#39;10&#39;);
-</code></pre>
-<p>详情参阅<a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/box-shadow">box-shadow</a></p>
 <h3 id="border-image"><a href="#border-image" class="headerlink" title="border-image"></a>border-image</h3><p>用来给元素边框添加背景图片</p>
-<h4 id="语法：-1"><a href="#语法：-1" class="headerlink" title="语法："></a>语法：</h4><pre><code>border-image：&lt;&#39; border-image-source &#39;&gt; || &lt;&#39; border-image-slice &#39;&gt; [ / &lt;&#39; border-image-width &#39;&gt; | 
-/ &lt;&#39; border-image-width &#39;&gt;? / &lt;&#39; border-image-outset &#39;&gt; ]? || &lt;&#39; border-image-repeat &#39;&gt;
-</code></pre>
+<h4 id="语法：-1"><a href="#语法：-1" class="headerlink" title="语法："></a>语法：</h4><pre><code class="hljs plaintext">border-image：&lt;&#x27; border-image-source &#x27;&gt; || &lt;&#x27; border-image-slice &#x27;&gt; [ / &lt;&#x27; border-image-width &#x27;&gt; | 
+/ &lt;&#x27; border-image-width &#x27;&gt;? / &lt;&#x27; border-image-outset &#x27;&gt; ]? || &lt;&#x27; border-image-repeat &#x27;&gt;</code></pre>
 <p>&lt;’ border-image-source ‘&gt;：设置或检索对象的边框是否用图像定义样式或图像来源路径。<br>&lt;’ border-image-slice ‘&gt;： 设置或检索对象的边框背景图的分割方式,该属性指定从上，右，下，左方位来分隔图像，将图像分成4个角，4条边和中间区域共9份，中间区域始终是透明的（即没图像填充），除非加上关键字 fill。<br>&lt;’ border-image-width ‘&gt;： 设置或检索对象的边框厚度。<br>&lt;’ border-image-outset ‘&gt;：设置或检索对象的边框图像可超出边框盒的大小。<br>&lt;’ border-image-repeat ‘&gt;：设置或检索对象的边框图像的平铺方式repeat,round,stretch。</p>
 <h4 id="实例：-1"><a href="#实例：-1" class="headerlink" title="实例："></a>实例：</h4><p><code>border-image:url(&quot;http://www.w3school.com.cn/i/border.png&quot;) 30 30 round;</code></p>
 <div style="width:100px;height:100px;padding: 10px 20px;border: 15px solid transparent;-webkit-border-image:url('http://www.w3school.com.cn/i/border.png') 30 30 stretch;-moz-border-image:url('http://www.w3school.com.cn/i/border.png') 30 30 stretch;-o-border-image:url('http://www.w3school.com.cn/i/border.png') 30 30 stretch;border-image:url('http://www.w3school.com.cn/i/border.png')30 30 round;"></div>
@@ -401,30 +376,24 @@
 <h4 id="兼容性：-3"><a href="#兼容性：-3" class="headerlink" title="兼容性："></a>兼容性：</h4><p>IE9+,Firefox4+, Chrome15+,Safari7+, Opera15+,   iOS Safari7+,  Android Browser4.4+, Android Chrome18+</p>
 <h4 id="兼容方法：-3"><a href="#兼容方法：-3" class="headerlink" title="兼容方法："></a>兼容方法：</h4><p>低版本的chrome:<code>-webkit-background-size:10px 10px 5px #888; //不支持background简写</code><br>低版本的firefox:<code>-moz-background-size:10px 10px 5px #888;</code><br>IE8：</p>
 <ul>
-<li>方法一(推荐)、引入backgroundsize.min.htc兼容文件</li>
+<li>方法一(推荐)、引入backgroundsize.min.htc兼容文件<pre><code class="hljs css"><span class="hljs-selector-class">.size</span> &#123;
+    <span class="hljs-attribute">width</span>: <span class="hljs-number">400px</span>;
+    <span class="hljs-attribute">height</span>: <span class="hljs-number">400px</span>;
+    <span class="hljs-attribute">margin</span>: <span class="hljs-number">20px</span> auto <span class="hljs-number">0</span>;
+    <span class="hljs-attribute">background</span>:  green <span class="hljs-built_in">url</span>(<span class="hljs-string">img/1.jpg</span>) no-repeat scroll center <span class="hljs-number">0</span>;
+    <span class="hljs-attribute">background-size</span>: cover;
+    -ms-behavior: <span class="hljs-built_in">url</span>(<span class="hljs-string">js/backgroundsize.min.htc</span>);
+&#125;</code></pre></li>
+<li>方法二、针对IE8的hack<pre><code class="hljs html"><span class="hljs-comment">&lt;!--[if IE 8]&gt;</span>
+<span class="hljs-comment">&lt;style type=&quot;text/css&quot;&gt;</span>
+<span class="hljs-comment">.size&#123;</span>
+<span class="hljs-comment">    -ms-filter: &quot;progid:DXImageTransform.Microsoft.AlphaImageLoader(src=&#x27;img/1.jpg&#x27;, sizingMethod=&#x27;scale&#x27;)&quot;;</span>
+<span class="hljs-comment">&#125;  </span>
+<span class="hljs-comment">//该函数只能模仿cover值,IE8下效果与IE9/10稍有不同,图片占满背景大小且不超出,而且可能会带来其他影响</span>
+<span class="hljs-comment">&lt;/style&gt;</span>
+<span class="hljs-comment">&lt;![endif]--&gt;</span></code></pre>
+详情参阅<a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/background-size">background-size</a></li>
 </ul>
-<pre><code class="css">.size &#123;
-    width: 400px;
-    height: 400px;
-    margin: 20px auto 0;
-    background:  green url(img/1.jpg) no-repeat scroll center 0;
-    background-size: cover;
-    -ms-behavior: url(js/backgroundsize.min.htc);
-&#125;
-</code></pre>
-<ul>
-<li>方法二、针对IE8的hack</li>
-</ul>
-<pre><code class="html">&lt;!--[if IE 8]&gt;
-&lt;style type=&quot;text/css&quot;&gt;
-.size&#123;
-    -ms-filter: &quot;progid:DXImageTransform.Microsoft.AlphaImageLoader(src=&#39;img/1.jpg&#39;, sizingMethod=&#39;scale&#39;)&quot;;
-&#125;  
-//该函数只能模仿cover值,IE8下效果与IE9/10稍有不同,图片占满背景大小且不超出,而且可能会带来其他影响
-&lt;/style&gt;
-&lt;![endif]--&gt;
-</code></pre>
-<p>详情参阅<a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/background-size">background-size</a></p>
 <h3 id="background-origin"><a href="#background-origin" class="headerlink" title="background-origin"></a>background-origin</h3><p>指定背景图片background-image 属性的原点位置的背景相对区域,当使用 background-attachment 为fixed时，该属性将被忽略不起作用 </p>
 <h4 id="语法：-3"><a href="#语法：-3" class="headerlink" title="语法："></a>语法：</h4><p><code>background-origin：&lt;box&gt;#</code><br><code>&lt;box&gt; = border-box | padding-box | content-box</code><br>padding-box：从padding区域（含padding）开始显示背景图像。<br>border-box： 从border区域（含border）开始显示背景图像。<br>content-box：从content区域开始显示背景图像<br><img src="http://www.w3school.com.cn/i/background-origin.gif" alt="background-origin">  </p>
 <h4 id="实例：-3"><a href="#实例：-3" class="headerlink" title="实例："></a>实例：</h4><p><code>background-origin:content-box;padding:10px;</code>  </p>
@@ -441,16 +410,14 @@
 
 <h4 id="兼容性：-5"><a href="#兼容性：-5" class="headerlink" title="兼容性："></a>兼容性：</h4><p>IE9+,Firefox4.0+, Chrome4.0+,  Safari6.0+,iOS Safari6.0+, Android Browser3.0+, Android Chrome18.0+</p>
 <h4 id="兼容方法：-5"><a href="#兼容方法：-5" class="headerlink" title="兼容方法："></a>兼容方法：</h4><p>firefox4.0以下：<code>-moz-background-clip:padding | border; //没有content</code><br>IE8下background-clip默认为padding-box</p>
-<h3 id="multiple-backgrounds"><a href="#multiple-backgrounds" class="headerlink" title="multiple backgrounds"></a>multiple backgrounds</h3><h4 id="语法：-5"><a href="#语法：-5" class="headerlink" title="语法："></a>语法：</h4><pre><code>background：[&lt;bg-layer&gt;,]*&lt;final-bg-layer&gt;&lt;bg-layer&gt;=&lt;bg-image&gt;||&lt;position&gt;[/&lt;bg-size&gt;]?
+<h3 id="multiple-backgrounds"><a href="#multiple-backgrounds" class="headerlink" title="multiple backgrounds"></a>multiple backgrounds</h3><h4 id="语法：-5"><a href="#语法：-5" class="headerlink" title="语法："></a>语法：</h4><pre><code class="hljs plaintext">background：[&lt;bg-layer&gt;,]*&lt;final-bg-layer&gt;&lt;bg-layer&gt;=&lt;bg-image&gt;||&lt;position&gt;[/&lt;bg-size&gt;]?
 ||&lt;repeat-style&gt;||&lt;attachment&gt;||&lt;box&gt;||&lt;box&gt;&lt;final-bg-layer&gt;=&lt;bg-image&gt;
 ||&lt;position&gt;[/&lt;bg-size&gt;]?||&lt;repeat-style&gt;||&lt;attachment&gt;
-||&lt;box&gt;||box&gt;||&lt;&#39;background-color&#39;&gt;
-</code></pre>
-<h4 id="实例：-5"><a href="#实例：-5" class="headerlink" title="实例："></a>实例：</h4><pre><code>background:
+||&lt;box&gt;||box&gt;||&lt;&#x27;background-color&#x27;&gt;</code></pre>
+<h4 id="实例：-5"><a href="#实例：-5" class="headerlink" title="实例："></a>实例：</h4><pre><code class="hljs plaintext">background:
     url(test1.jpg) no-repeat scroll 10px 20px/50px 60px padding-box,
     url(test1.jpg) no-repeat scroll 10px 20px/70px 90px padding-box,
-    url(test1.jpg) no-repeat scroll 10px 20px/110px 130px padding-box #aaa;
-</code></pre>
+    url(test1.jpg) no-repeat scroll 10px 20px/110px 130px padding-box #aaa;</code></pre>
 <h4 id="兼容性：-6"><a href="#兼容性：-6" class="headerlink" title="兼容性："></a>兼容性：</h4><p>IE9+,Firefox3.6+, Chrome4.0+,  Safari3.1+</p>
 <h4 id="兼容方法：-6"><a href="#兼容方法：-6" class="headerlink" title="兼容方法："></a>兼容方法：</h4><p>未解决</p>
 <h3 id="text-shadow"><a href="#text-shadow" class="headerlink" title="text-shadow"></a>text-shadow</h3><p>为文字添加阴影</p>
@@ -473,24 +440,22 @@
 <h4 id="兼容性：-8"><a href="#兼容性：-8" class="headerlink" title="兼容性："></a>兼容性：</h4><p>IE6+,Firefox3.5+, Chrome4+,  Safari6+,  iOS Safari6+,  Android Browser2.1+, Android Chrome18+</p>
 <h4 id="兼容方法：-8"><a href="#兼容方法：-8" class="headerlink" title="兼容方法："></a>兼容方法：</h4><p>现代浏览器几乎都支持</p>
 <h3 id="font-face"><a href="#font-face" class="headerlink" title="@font-face"></a>@font-face</h3><p>能够加载服务器端的字体文件，让客户端显示客户端所没有安装的字体。</p>
-<h4 id="语法：-8"><a href="#语法：-8" class="headerlink" title="语法："></a>语法：</h4><pre><code class="css">@font-face &#123;
-    font-family: &lt;YourWebFontName&gt;;
-    src: &lt;source&gt; [&lt;format&gt;][,&lt;source&gt; [&lt;format&gt;]]*;
-    [font-weight: &lt;weight&gt;];
-    [font-style: &lt;style&gt;];
-&#125;
-</code></pre>
-<h4 id="实例：-8"><a href="#实例：-8" class="headerlink" title="实例："></a>实例：</h4><pre><code class="css">@font-face &#123;
-    font-family: &#39;YourWebFontName&#39;;
-    src: url(&#39;YourWebFontName.eot&#39;); /* IE9 Compat Modes */
-    src: url(&#39;YourWebFontName.eot?#iefix&#39;) format(&#39;embedded-opentype&#39;), /* IE6-IE8 */
-         url(&#39;YourWebFontName.woff&#39;) format(&#39;woff&#39;), /* Modern Browsers */
-         url(&#39;YourWebFontName.ttf&#39;)  format(&#39;truetype&#39;), /* Safari, Android, iOS */
-         url(&#39;YourWebFontName.svg#YourWebFontName&#39;) format(&#39;svg&#39;); /* Legacy iOS */
-    font-weight: normal;
-    font-style: normal;
-&#125;
-</code></pre>
+<h4 id="语法：-8"><a href="#语法：-8" class="headerlink" title="语法："></a>语法：</h4><pre><code class="hljs css"><span class="hljs-keyword">@font-face</span> &#123;
+    <span class="hljs-attribute">font-family</span>: &lt;YourWebFontName&gt;;
+    <span class="hljs-attribute">src</span>: &lt;source&gt; [&lt;format&gt;][,&lt;source&gt; [&lt;format&gt;]]*;
+    <span class="hljs-selector-attr">[font-weight: &lt;weight&gt;]</span>;
+    <span class="hljs-selector-attr">[font-style: &lt;style&gt;]</span>;
+&#125;</code></pre>
+<h4 id="实例：-8"><a href="#实例：-8" class="headerlink" title="实例："></a>实例：</h4><pre><code class="hljs css"><span class="hljs-keyword">@font-face</span> &#123;
+    <span class="hljs-attribute">font-family</span>: <span class="hljs-string">&#x27;YourWebFontName&#x27;</span>;
+    <span class="hljs-attribute">src</span>: <span class="hljs-built_in">url</span>(<span class="hljs-string">&#x27;YourWebFontName.eot&#x27;</span>); <span class="hljs-comment">/* IE9 Compat Modes */</span>
+    <span class="hljs-attribute">src</span>: <span class="hljs-built_in">url</span>(<span class="hljs-string">&#x27;YourWebFontName.eot?#iefix&#x27;</span>) <span class="hljs-built_in">format</span>(<span class="hljs-string">&#x27;embedded-opentype&#x27;</span>), <span class="hljs-comment">/* IE6-IE8 */</span>
+         <span class="hljs-built_in">url</span>(<span class="hljs-string">&#x27;YourWebFontName.woff&#x27;</span>) <span class="hljs-built_in">format</span>(<span class="hljs-string">&#x27;woff&#x27;</span>), <span class="hljs-comment">/* Modern Browsers */</span>
+         <span class="hljs-built_in">url</span>(<span class="hljs-string">&#x27;YourWebFontName.ttf&#x27;</span>)  <span class="hljs-built_in">format</span>(<span class="hljs-string">&#x27;truetype&#x27;</span>), <span class="hljs-comment">/* Safari, Android, iOS */</span>
+         <span class="hljs-built_in">url</span>(<span class="hljs-string">&#x27;YourWebFontName.svg#YourWebFontName&#x27;</span>) <span class="hljs-built_in">format</span>(<span class="hljs-string">&#x27;svg&#x27;</span>); <span class="hljs-comment">/* Legacy iOS */</span>
+    <span class="hljs-attribute">font-weight</span>: normal;
+    <span class="hljs-attribute">font-style</span>: normal;
+&#125;</code></pre>
 <h4 id="兼容性：-9"><a href="#兼容性：-9" class="headerlink" title="兼容性："></a>兼容性：</h4><p>几乎所有浏览器支持网络字体@font-face的用法</p>
 <h4 id="兼容方法：-9"><a href="#兼容方法：-9" class="headerlink" title="兼容方法："></a>兼容方法：</h4><p>详情参阅<a target="_blank" rel="noopener" href="http://www.w3cplus.com/content/css3-font-face"> @font-face</a></p>
 <h3 id="transform"><a href="#transform" class="headerlink" title="transform"></a>transform</h3><p>元素可以按照设定的值变形、旋转、缩放、倾斜</p>
@@ -529,32 +494,28 @@
 <div style="width:100px;height:100px;background-color:red;transform:translate(100px,20px);"></div>
 
 <h4 id="兼容性：-10"><a href="#兼容性：-10" class="headerlink" title="兼容性："></a>兼容性：</h4><p>IE9+, Firefox3.5+, Chrome4.0+,  Safari6.0+,  iOS Safari8.4+,  Android Browser4.4+, Android Chrome34+</p>
-<h4 id="兼容方法：-10"><a href="#兼容方法：-10" class="headerlink" title="兼容方法："></a>兼容方法：</h4><pre><code class="css">.transform&#123;
-    -webkit-transform: x,y;
-    -moz-transform: x,y;
-    -ms-transform: x,y;
-    -o-transform: x,y;
-    transform: x,y;
-&#125;
-</code></pre>
+<h4 id="兼容方法：-10"><a href="#兼容方法：-10" class="headerlink" title="兼容方法："></a>兼容方法：</h4><pre><code class="hljs css"><span class="hljs-selector-class">.transform</span>&#123;
+    -webkit-<span class="hljs-attribute">transform</span>: x,y;
+    -moz-<span class="hljs-attribute">transform</span>: x,y;
+    -ms-<span class="hljs-attribute">transform</span>: x,y;
+    -o-<span class="hljs-attribute">transform</span>: x,y;
+    <span class="hljs-attribute">transform</span>: x,y;
+&#125;</code></pre>
 <p>IE8及以下：用IE滤镜 </p>
-<pre><code class="css">&#123;
-    filter:fliph;/*水平翻转相当于transform:rotateY(180deg)*/
-    filter:flipv;/*垂直翻转相当于transform:rotateX(180deg)*/
-&#125;
-</code></pre>
+<pre><code class="hljs css">&#123;
+    <span class="hljs-attribute">filter</span>:fliph;<span class="hljs-comment">/*水平翻转相当于transform:rotateY(180deg)*/</span>
+    <span class="hljs-attribute">filter</span>:flipv;<span class="hljs-comment">/*垂直翻转相当于transform:rotateX(180deg)*/</span>
+&#125;</code></pre>
 <p>详情参阅<a target="_blank" rel="noopener" href="http://www.w3cplus.com/content/css3-transform">transform</a></p>
 <h3 id="transition"><a href="#transition" class="headerlink" title="transition"></a>transition</h3><p>css的属性值在一定的时间区间内平滑地过渡</p>
-<h4 id="语法：-10"><a href="#语法：-10" class="headerlink" title="语法："></a>语法：</h4><pre><code>transition ：[&lt;&#39;transition-property&#39;&gt; || &lt;&#39;transition-duration&#39;&gt; ||
-&lt;&#39;transition-timing-function&#39;&gt; || &lt;&#39;transition-delay&#39;&gt; [, [&lt;&#39;transition-property&#39;&gt; 
-|| &lt;&#39;transition-duration&#39;&gt; || &lt;&#39;transition-timing-function&#39;&gt; || &lt;&#39;transition-delay&#39;&gt;]]* 
-</code></pre>
+<h4 id="语法：-10"><a href="#语法：-10" class="headerlink" title="语法："></a>语法：</h4><pre><code class="hljs plaintext">transition ：[&lt;&#x27;transition-property&#x27;&gt; || &lt;&#x27;transition-duration&#x27;&gt; ||
+&lt;&#x27;transition-timing-function&#x27;&gt; || &lt;&#x27;transition-delay&#x27;&gt; [, [&lt;&#x27;transition-property&#x27;&gt; 
+|| &lt;&#x27;transition-duration&#x27;&gt; || &lt;&#x27;transition-timing-function&#x27;&gt; || &lt;&#x27;transition-delay&#x27;&gt;]]*</code></pre>
 <p><code>transition-property ： none | all | [ &lt;ident&gt; ] [, &lt;ident&gt; ]*</code>检索或设置对象中的参与过渡的属性<br><code>transition-duration ： &lt;time&gt; [, &lt;time&gt;]* </code>检索或设置对象过渡的持续时间  </p>
-<pre><code>transition-timing-function ：ease | linear | ease-in | ease-out | ease-in-out | step-start 
+<pre><code class="hljs plaintext">transition-timing-function ：ease | linear | ease-in | ease-out | ease-in-out | step-start 
 | step-end | steps(&lt;integer&gt;[, [ start | end ] ]?) | cubic-bezier(&lt;number&gt;, &lt;number&gt;, &lt;number&gt;, &lt;number&gt;)
 [,ease | linear | ease-in | ease-out | ease-in-out | step-start | step-end | steps(&lt;integer&gt;[, 
-[ start | end ] ]?) | cubic-bezier(&lt;number&gt;, &lt;number&gt;, &lt;number&gt;, &lt;number&gt;)]*
-</code></pre>
+[ start | end ] ]?) | cubic-bezier(&lt;number&gt;, &lt;number&gt;, &lt;number&gt;, &lt;number&gt;)]*</code></pre>
 <p>检索或设置对象中过渡的动画类型  </p>
 <p><code>transition-delay ： &lt;time&gt; [, &lt;time&gt;]*</code> 检索或设置对象延迟过渡的时间  </p>
 <h4 id="实例：-10"><a href="#实例：-10" class="headerlink" title="实例："></a>实例：</h4><p><code>transition: all .5s ease-in-out 1s;</code></p>
@@ -562,38 +523,35 @@
 <div class="transition"></div>
 
 <h4 id="兼容性：-11"><a href="#兼容性：-11" class="headerlink" title="兼容性："></a>兼容性：</h4><p>IE10+,  Firefox16+,  Chrome26+  ,Safari6.1+ , iOS Safari7+,  Android Browser4.4+, Android Chrome25+</p>
-<h4 id="兼容方法：-11"><a href="#兼容方法：-11" class="headerlink" title="兼容方法："></a>兼容方法：</h4><pre><code class="css">p &#123;
-  -webkit-transition: all .5s ease-in-out 1s;
-  -moz-transition: all .5s ease-in-out 1s;
-  -o-transition: all .5s ease-in-out 1s;
-  transition: all .5s ease-in-out 1s;
-&#125;
-</code></pre>
+<h4 id="兼容方法：-11"><a href="#兼容方法：-11" class="headerlink" title="兼容方法："></a>兼容方法：</h4><pre><code class="hljs css"><span class="hljs-selector-tag">p</span> &#123;
+  -webkit-<span class="hljs-attribute">transition</span>: all .<span class="hljs-number">5s</span> ease-in-out <span class="hljs-number">1s</span>;
+  -moz-<span class="hljs-attribute">transition</span>: all .<span class="hljs-number">5s</span> ease-in-out <span class="hljs-number">1s</span>;
+  -o-<span class="hljs-attribute">transition</span>: all .<span class="hljs-number">5s</span> ease-in-out <span class="hljs-number">1s</span>;
+  <span class="hljs-attribute">transition</span>: all .<span class="hljs-number">5s</span> ease-in-out <span class="hljs-number">1s</span>;
+&#125;</code></pre>
 <p>IE9以及更早的版本，不支持 transition 属性。<br>详情参阅<a target="_blank" rel="noopener" href="http://www.w3cplus.com/content/css3-transition">transition</a></p>
 <h3 id="animation"><a href="#animation" class="headerlink" title="animation"></a>animation</h3><p>检索或设置对象所应用的动画特效。</p>
 <h4 id="语法：-11"><a href="#语法：-11" class="headerlink" title="语法："></a>语法：</h4><p><code>animation：&lt;single-animation&gt;[,&lt;single-animation&gt;]*</code>  </p>
-<pre><code>&lt;single-animation&gt; = &lt;single-animation-name&gt; || &lt;time&gt; || &lt;single-animation-timing-function&gt;
+<pre><code class="hljs plaintext">&lt;single-animation&gt; = &lt;single-animation-name&gt; || &lt;time&gt; || &lt;single-animation-timing-function&gt;
  || &lt;time&gt; || &lt;single-animation-iteration-count&gt; || &lt;single-animation-direction&gt; ||
-  &lt;single-animation-fill-mode&gt; || &lt;single-animation-play-state&gt;
-</code></pre>
+  &lt;single-animation-fill-mode&gt; || &lt;single-animation-play-state&gt;</code></pre>
 <p>&lt;’ animation-name ‘&gt;：检索或设置对象所应用的动画名称<br>&lt;’ animation-duration ‘&gt;：检索或设置对象动画的持续时间<br>&lt;’ animation-timing-function ‘&gt;：检索或设置对象动画的过渡类型<br>&lt;’ animation-delay ‘&gt;：检索或设置对象动画延迟的时间<br>&lt;’ animation-iteration-count ‘&gt;：检索或设置对象动画的循环次数<br>&lt;’ animation-direction ‘&gt;：检索或设置对象动画在循环中是否反向运动<br>&lt;’ animation-fill-mode ‘&gt;：检索或设置对象动画时间之外的状态<br>&lt;’ animation-play-state ‘&gt;：检索或设置对象动画的状态。</p>
 <h4 id="实例：-11"><a href="#实例：-11" class="headerlink" title="实例："></a>实例：</h4><iframe style="width: 100%; height: 100px" src="http://sandbox.runjs.cn/show/2fkpryt4" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
 
 <h4 id="兼容性：-12"><a href="#兼容性：-12" class="headerlink" title="兼容性："></a>兼容性：</h4><p>IE10+,Firefox16+, Chrome43+,  Safari9+</p>
 <h4 id="兼容方法：-12"><a href="#兼容方法：-12" class="headerlink" title="兼容方法："></a>兼容方法：</h4><p>低版本的chrome:-webkit-<br>低版本的firefox：-moz-<br>IE9及以下不支持<br>详情参阅<a target="_blank" rel="noopener" href="http://www.w3cplus.com/content/css3-animation">animation</a></p>
 <h3 id="keyframes"><a href="#keyframes" class="headerlink" title="@keyframes"></a>@keyframes</h3><p>用于创建动画</p>
-<h4 id="语法：-12"><a href="#语法：-12" class="headerlink" title="语法："></a>语法：</h4><pre><code class="css">@keyframes IDENT &#123;
-      0% &#123;
+<h4 id="语法：-12"><a href="#语法：-12" class="headerlink" title="语法："></a>语法：</h4><pre><code class="hljs css"><span class="hljs-keyword">@keyframes</span> IDENT &#123;
+      <span class="hljs-number">0%</span> &#123;
          Properties:Properties value;
       &#125;
       Percentage &#123;
          Properties:Properties value;
       &#125;
-      100% &#123;
+      <span class="hljs-number">100%</span> &#123;
          Properties:Properties value;
       &#125;
-&#125;
-</code></pre>
+&#125;</code></pre>
 <h4 id="实例：-12"><a href="#实例：-12" class="headerlink" title="实例："></a>实例：</h4><p>见上例</p>
 <h4 id="兼容性：-13"><a href="#兼容性：-13" class="headerlink" title="兼容性："></a>兼容性：</h4><p>IE10+,Firefox16+, Chrome43+,  Safari9+</p>
 <h4 id="兼容方法：-13"><a href="#兼容方法：-13" class="headerlink" title="兼容方法："></a>兼容方法：</h4><p>低版本的chrome:-webkit-<br>低版本的firefox：-moz-<br>IE9及以下不支持<br>详情参阅<a target="_blank" rel="noopener" href="http://www.w3cplus.com/content/css3-animation">animation</a></p>
@@ -606,8 +564,7 @@
 
 <h4 id="兼容性：-14"><a href="#兼容性：-14" class="headerlink" title="兼容性："></a>兼容性：</h4><p>IE10+,  Firefox16+, Chrome26+,  Safari6.1+</p>
 <h4 id="兼容方法：-14"><a href="#兼容方法：-14" class="headerlink" title="兼容方法："></a>兼容方法：</h4><p>低版本的chrome:-webkit-<br>低版本的firefox：-moz-<br>IE9及以下可使用 IE 滤镜处理:</p>
-<pre><code>filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=&#39;#000000&#39;,endColorstr=&#39;#ffffff&#39;);
-</code></pre>
+<pre><code class="hljs plaintext">filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=&#x27;#000000&#x27;,endColorstr=&#x27;#ffffff&#x27;);</code></pre>
 <p>详情参阅<a target="_blank" rel="noopener" href="http://www.w3cplus.com/content/css3-gradient">gradient</a></p>
 <h3 id="rgba-r-g-b-a"><a href="#rgba-r-g-b-a" class="headerlink" title="rgba(r,g,b,a)"></a>rgba(r,g,b,a)</h3><p>设置颜色red+green+blue+alpha</p>
 <h4 id="语法：-14"><a href="#语法：-14" class="headerlink" title="语法："></a>语法：</h4><p><code>rgba(r,g,b,alpha)</code></p>
@@ -616,8 +573,7 @@
 
 <h4 id="兼容性：-15"><a href="#兼容性：-15" class="headerlink" title="兼容性："></a>兼容性：</h4><p>IE9+,  Firefox2+, Chrome4+,  Safari3+, iOS Safari3.2+,  Android Browser2.1+, Android Chrome18+</p>
 <h4 id="兼容方法：-15"><a href="#兼容方法：-15" class="headerlink" title="兼容方法："></a>兼容方法：</h4><p>IE6&#x2F;7&#x2F;8不支持使用 rgba 模式实现透明度，可使用 IE 滤镜处理  </p>
-<pre><code>filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#7fff0000,endColorstr=#7fff0000);
-</code></pre>
+<pre><code class="hljs plaintext">filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#7fff0000,endColorstr=#7fff0000);</code></pre>
 <p>详情参阅<a target="_blank" rel="noopener" href="http://www.cnblogs.com/jesse131/p/4771611.html">IE8下兼容rgba颜色的半透明背景</a></p>
 <h3 id="flex"><a href="#flex" class="headerlink" title="flex"></a>flex</h3><p>设置或检索弹性盒模型对象的子元素如何分配空间。用在子容器上</p>
 <h4 id="语法：-15"><a href="#语法：-15" class="headerlink" title="语法："></a>语法：</h4><p><code>flex：none | &lt;&#39; flex-grow &#39;&gt; &lt;&#39; flex-shrink &gt;&#39;? || &lt;&#39; flex-basis &#39;&gt; </code><br>默认值为0 1 auto，建议优先使用这个属性，而不是单独写三个分离的属性，因为浏览器会推算相关值。<br><code>flex-grow：&lt;number&gt;设置或检索弹性盒的扩展比率。</code><br>默认为0,如果所有子容器的flex-grow属性都为1，则它们将等分剩余空间（如果有的话）。如果一个子容器的flex-grow属性为2，其他都为1，则前者占据的剩余空间将比其他项多一倍。<br><code>flex-shrink：&lt;number&gt;设置或检索弹性盒的收缩比率。</code><br>如果所有子容器的flex-shrink属性都为1，当空间不足时，都将等比例缩小。如果一个子容器的flex-shrink属性为0，其他子容器都为1，则空间不足时，前者不缩小。<br><code>flex-basis：&lt;length&gt; | &lt;percentage&gt; | auto | content </code><br>定义了在分配多余空间之前，子容器占据的主轴空间（main size）。浏览器根据这个属性，计算主轴是否有多余空间。它的默认值为auto，即子容器的本来大小。</p>
@@ -721,9 +677,7 @@
 IE8不兼容 Firefox Chrome Safari现代版都兼容 
 #### 兼容方法：
 IE8及以下可使用IE滤镜处理
-```
-filter：alpha(opacity=50);
-```
+<pre><code class="hljs plaintext">filter：alpha(opacity=50);</code></pre>
 对于行内元素需要先将其转化为块状元素才行
 
  

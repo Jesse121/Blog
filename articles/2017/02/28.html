@@ -276,7 +276,7 @@
 
 <p>在讲解操作DOM的api之前，首先我们来复习一下一些基本概念，这些概念是掌握api的关键，必须理解它们。</p>
 <h3 id="Node类型"><a href="#Node类型" class="headerlink" title="Node类型"></a>Node类型</h3><p>DOM1级定义了一个Node接口，该接口由DOM中所有节点类型实现。这个Node接口在JS中是作为Node类型实现的。在IE9以下版本无法访问到这个类型，JS中所有节点都继承自Node类型，都共享着相同的基本属性和方法。<br>每个节点都有一个nodeType属性，用于表明节点的类型。节点类型由在Node类型中定义的下列12个数值常量来表示，任何节点类型必居其一：</p>
-<pre><code>Node.ELEMENT_NODE:1
+<pre><code class="hljs plaintext">Node.ELEMENT_NODE:1
 Node.ATTRIBUTE_NODE:2
 Node.TEXT_NODE:3
 Node.CDATA_SECTION_NODE:4
@@ -287,13 +287,11 @@ Node.COMMENT_NODE:8
 Node.DOCUMENT_NODE:9
 Node.DOCUMENT_TYPE_NODE:10
 Node.DOCUMENT_FRAGMENT_NODE:11
-Node.NOTATION_NODE:12
-</code></pre>
+Node.NOTATION_NODE:12</code></pre>
 <p>假设我们要判断一个Node是不是元素，我们可以这样判断</p>
-<pre><code class="javascript">if(someNode.nodeType == 1)&#123;
-console.log(&quot;Node is a element&quot;);
-&#125;
-</code></pre>
+<pre><code class="hljs javascript"><span class="hljs-keyword">if</span>(someNode.<span class="hljs-property">nodeType</span> == <span class="hljs-number">1</span>)&#123;
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;Node is a element&quot;</span>);
+&#125;</code></pre>
 <p>这些Node类型中，我们最常用的就是element，text，attribute，comment，document，document_fragment这几种类型。<br>我们简单来介绍一下这几种类型：</p>
 <h4 id="Element类型"><a href="#Element类型" class="headerlink" title="Element类型"></a>Element类型</h4><p>Element类型用于表现XML或HTML元素，提供了对元素标签名，子节点和特性的访问，我们常用HTML元素比如div，span，a等标签就是element中的一种。Element有下面几条特性：</p>
 <ul>
@@ -350,18 +348,16 @@ console.log(&quot;Node is a element&quot;);
 <p><code>var textNode = document.createTextNode(&quot;Hello World!&quot;);</code></p>
 <p>createTextNode接收一个参数，这个参数就是文本节点中的文本，和createElement一样，创建后的文本节点也只是独立的一个节点，同样需要appendChild将其添加到HTML文档树中</p>
 <h4 id="cloneNode"><a href="#cloneNode" class="headerlink" title="cloneNode()"></a>cloneNode()</h4><p>cloneNode是用来返回调用方法的节点的一个副本，它接收一个bool参数，true用来表示复制本身节点及整个子节点树，false表示只复制本身节点，使用如下：</p>
-<pre><code class="javascript">var parent = document.getElementById(&quot;parentElement&quot;);
-var parent2 = parent.cloneNode(true);// 传入true
-parent2.id = &quot;parent2&quot;;
-</code></pre>
+<pre><code class="hljs javascript"><span class="hljs-keyword">var</span> parent = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(<span class="hljs-string">&quot;parentElement&quot;</span>);
+<span class="hljs-keyword">var</span> parent2 = parent.<span class="hljs-title function_">cloneNode</span>(<span class="hljs-literal">true</span>);<span class="hljs-comment">// 传入true</span>
+parent2.<span class="hljs-property">id</span> = <span class="hljs-string">&quot;parent2&quot;</span>;</code></pre>
 <p>这段代码通过cloneNode复制了一份parent元素，其中cloneNode的参数为true，表示parent的子节点也被复制，如果传入false，则表示只复制了parent节点。<br>我们看看这个例子</p>
-<pre><code class="javascript">var parent = document.getElementById(&quot;parent&quot;);
-document.getElementById(&quot;btnCopy&quot;).onclick = function()&#123;
-    var parent2 = parent.cloneNode(true);
-    parent2.id = &quot;parent2&quot;;
-    document.body.appendChild(parent2);
-&#125;
-</code></pre>
+<pre><code class="hljs javascript"><span class="hljs-keyword">var</span> parent = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(<span class="hljs-string">&quot;parent&quot;</span>);
+<span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(<span class="hljs-string">&quot;btnCopy&quot;</span>).<span class="hljs-property">onclick</span> = <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)&#123;
+    <span class="hljs-keyword">var</span> parent2 = parent.<span class="hljs-title function_">cloneNode</span>(<span class="hljs-literal">true</span>);
+    parent2.<span class="hljs-property">id</span> = <span class="hljs-string">&quot;parent2&quot;</span>;
+    <span class="hljs-variable language_">document</span>.<span class="hljs-property">body</span>.<span class="hljs-title function_">appendChild</span>(parent2);
+&#125;</code></pre>
 <p>这段代码很简单，主要是绑定button事件，事件内容是复制了一个parent，修改其id，然后添加到文档中。<br>这里有几点要注意：</p>
 <ol>
 <li>和createElement一样，cloneNode创建的节点只是游离有html文档外的节点，要调用appendChild方法才能添加到文档树中</li>
@@ -370,29 +366,27 @@ document.getElementById(&quot;btnCopy&quot;).onclick = function()&#123;
 </ol>
 <p>除此之外，我们还有一个需要注意的点：<br>如果被复制的节点绑定了事件，则副本也会跟着绑定该事件吗？这里要分情况讨论：<br>（1）如果是通过addEventListener或者比如onclick进行绑定事件，则副本节点不会绑定该事件<br>（2）如果是内联方式绑定比如<code>&lt;div onclick=&quot;showParent()&quot;&gt;&lt;/div&gt;</code>这样的话，副本节点同样会触发事件。</p>
 <h4 id="document-createDocumentFragment"><a href="#document-createDocumentFragment" class="headerlink" title="document.createDocumentFragment()"></a>document.createDocumentFragment()</h4><p>在前面我们说到DocumentFragment表示一种轻量级的文档，它的作用主要是存储临时的节点用来准备添加到文档中。该方法主要是用于添加大量节点到文档中时。假设要循环一组数据，然后创建多个节点添加到文档中，比如示例</p>
-<pre><code class="javascript">document.getElementById(&quot;btnAdd&quot;).onclick = function()&#123;
-    var list = document.getElementById(&quot;list&quot;);
-    for(var i = 0;i &lt; 100; i++)&#123;
-        var li = document.createElement(&quot;li&quot;);
-        li.textContent = i;
-        list.appendChild(li);
+<pre><code class="hljs javascript"><span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(<span class="hljs-string">&quot;btnAdd&quot;</span>).<span class="hljs-property">onclick</span> = <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)&#123;
+    <span class="hljs-keyword">var</span> list = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(<span class="hljs-string">&quot;list&quot;</span>);
+    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>;i &lt; <span class="hljs-number">100</span>; i++)&#123;
+        <span class="hljs-keyword">var</span> li = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">createElement</span>(<span class="hljs-string">&quot;li&quot;</span>);
+        li.<span class="hljs-property">textContent</span> = i;
+        list.<span class="hljs-title function_">appendChild</span>(li);
     &#125;
-&#125;
-</code></pre>
+&#125;</code></pre>
 <p>这段代码将按钮绑定了一个事件，这个事件创建了100个li节点，然后依次将其添加HTML文档中。这样做有一个缺点：每次一创建一个新的元素，然后添加到文档树中，这个过程会造成浏览器的回流。所谓回流简单说就是指元素大小和位置会被重新计算，如果添加的元素太多，会造成性能问题。这个时候，就是使用createDocumentFragment了。<br>DocumentFragment不是文档树的一部分，它是保存在内存中的，所以不会造成回流问题。我们修改上面的代码如下：</p>
-<pre><code class="javascript">document.getElementById(&quot;btnAdd&quot;).onclick = function()&#123;
-    var list = document.getElementById(&quot;list&quot;);
-    var fragment = document.createDocumentFragment();
+<pre><code class="hljs javascript"><span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(<span class="hljs-string">&quot;btnAdd&quot;</span>).<span class="hljs-property">onclick</span> = <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)&#123;
+    <span class="hljs-keyword">var</span> list = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(<span class="hljs-string">&quot;list&quot;</span>);
+    <span class="hljs-keyword">var</span> fragment = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">createDocumentFragment</span>();
 
-    for(var i = 0;i &lt; 100; i++)&#123;
-      var li = document.createElement(&quot;li&quot;);
-        li.textContent = i;
-        fragment.appendChild(li);
+    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>;i &lt; <span class="hljs-number">100</span>; i++)&#123;
+      <span class="hljs-keyword">var</span> li = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">createElement</span>(<span class="hljs-string">&quot;li&quot;</span>);
+        li.<span class="hljs-property">textContent</span> = i;
+        fragment.<span class="hljs-title function_">appendChild</span>(li);
     &#125;
 
-    list.appendChild(fragment);
-&#125;
-</code></pre>
+    list.<span class="hljs-title function_">appendChild</span>(fragment);
+&#125;</code></pre>
 <p>优化后的代码主要是创建了一个fragment，每次生成的li节点先添加到fragment，最后一次性添加到list.</p>
 <h4 id="节点创建型API总结"><a href="#节点创建型API总结" class="headerlink" title="节点创建型API总结"></a>节点创建型API总结</h4><p>创建型api主要包括<code>document.createElement()</code>，<code>document.createTextNode()</code>，<code>cloneNode()</code>和<code>document.createDocumentFragment()</code>四个方法，需要注意下面几点：</p>
 <ul>
@@ -404,7 +398,7 @@ document.getElementById(&quot;btnCopy&quot;).onclick = function()&#123;
 <h4 id="appendChild"><a href="#appendChild" class="headerlink" title="appendChild()"></a>appendChild()</h4><p>appendChild我们在前面已经用到多次，就是将指定的节点添加到调用该方法的节点的子元素的末尾。调用方法如下：</p>
 <p><code>parent.appendChild(child);</code></p>
 <p>child节点将会作为parent节点的最后一个子节点。<br>appendChild这个方法很简单，但是还有一点需要注意：如果被添加的节点是一个页面中已经存在的节点，则执行后这个节点将会添加到指定位置，其原本所在的位置将移除该节点，也就是说不会同时存在两个该节点在页面上，相当于把这个节点移动到另一个地方。我们来看例子</p>
-<pre><code>&lt;div id=&quot;child&quot;&gt;
+<pre><code class="hljs plaintext">&lt;div id=&quot;child&quot;&gt;
     要被添加的节点
 &lt;/div&gt;
 &lt;br/&gt;
@@ -418,13 +412,12 @@ document.getElementById(&quot;btnCopy&quot;).onclick = function()&#123;
 document.getElementById(&quot;btnMove&quot;).onclick = function()&#123;
     var child = document.getElementById(&quot;child&quot;);
     document.getElementById(&quot;parent&quot;).appendChild(child);
-&#125;
-</code></pre>
+&#125;</code></pre>
 <p>这段代码主要是获取页面上的child节点，然后添加到指定位置，可以看到原本的child节点被移动到parent中了。<br>这里还有一个要注意的点：如果child绑定了事件，被移动时，它依然绑定着该事件。</p>
 <h4 id="insertBefore"><a href="#insertBefore" class="headerlink" title="insertBefore()"></a>insertBefore()</h4><p>insertBefore用来添加一个节点到一个参照节点之前，用法如下：</p>
 <p><code>parentNode.insertBefore(newNode,refNode);</code></p>
 <p>parentNode表示新节点被添加后的父节点<br>newNode表示要添加的节点<br>refNode表示参照节点，新节点会添加到这个节点之前<br>我们来看这个例子</p>
-<pre><code>&lt;div id=&quot;parent&quot;&gt;
+<pre><code class="hljs plaintext">&lt;div id=&quot;parent&quot;&gt;
     父节点
     &lt;div id=&quot;child&quot;&gt;                
         子元素
@@ -438,8 +431,7 @@ document.getElementById(&quot;insertNode&quot;).onclick = function()&#123;
     var newNode = document.createElement(&quot;div&quot;);
     newNode.textContent = &quot;新节点&quot;
     parent.insertBefore(newNode,child);
-&#125;
-</code></pre>
+&#125;</code></pre>
 <p>这段代码创建了一个新节点，然后添加到child节点之前。<br>和appendChild一样，如果插入的节点是页面上的节点，则会移动该节点到指定位置，并且保留其绑定的事件。</p>
 <p>关于第二个参数参照节点还有几个注意的地方：</p>
 <ul>
@@ -449,10 +441,9 @@ document.getElementById(&quot;insertNode&quot;).onclick = function()&#123;
 <h4 id="removeChild"><a href="#removeChild" class="headerlink" title="removeChild()"></a>removeChild()</h4><p>removeChild顾名思义，就是删除指定的子节点并返回该节点，用法如下：</p>
 <p><code>var deletedChild = parent.removeChild(node);</code></p>
 <p>deletedChild指向被删除节点的引用，它等于node，被删除的节点仍然存在于内存中，可以对其进行下一步操作。<br>注意：如果被删除的节点不是其子节点，则程序将会报错。我们可以通过下面的方式来确保可以删除：</p>
-<pre><code class="javascript">if(node.parentNode)&#123;
-    node.parentNode.removeChild(node);
-&#125;
-</code></pre>
+<pre><code class="hljs javascript"><span class="hljs-keyword">if</span>(node.<span class="hljs-property">parentNode</span>)&#123;
+    node.<span class="hljs-property">parentNode</span>.<span class="hljs-title function_">removeChild</span>(node);
+&#125;</code></pre>
 <p>通过节点自己获取节点的父节点，然后将自身删除。</p>
 <h4 id="replaceChild"><a href="#replaceChild" class="headerlink" title="replaceChild()"></a>replaceChild()</h4><p>replaceChild用于使用一个节点替换另一个节点，用法如下</p>
 <p><code>parent.replaceChild(newChild,oldChild);</code></p>
@@ -470,7 +461,7 @@ document.getElementById(&quot;insertNode&quot;).onclick = function()&#123;
 <li>只从文档中进行搜索元素，如果创建了一个元素并指定id，但并没有添加到文档中，则这个元素是不会被查找到的</li>
 </ul>
 <h4 id="document-querySelector"><a href="#document-querySelector" class="headerlink" title="document.querySelector()"></a>document.querySelector()</h4><p>document.querySelector返回第一个匹配的元素，如果没有匹配的元素，则返回null。<br>注意，由于返回的是第一个匹配的元素，这个api使用的深度优先搜索来获取元素。我们来看这个例子：</p>
-<pre><code>&lt;div&gt;
+<pre><code class="hljs plaintext">&lt;div&gt;
     &lt;div&gt;
         &lt;span class=&quot;test&quot;&gt;第三级的span&lt;/span&gt;  
     &lt;/div&gt;
@@ -483,11 +474,10 @@ document.getElementById(&quot;insertNode&quot;).onclick = function()&#123;
 document.getElementById(&quot;btnGet&quot;).addEventListener(&quot;click&quot;,function()&#123;
     var element = document.querySelector(&quot;.test&quot;);
     alert(element.textContent);
-&#125;)
-</code></pre>
+&#125;)</code></pre>
 <p>这个例子很简单，就是两个class都包含“test”的元素，一个在文档树的前面，但是它在第三级，另一个在文档树的后面，但它在第一级，通过querySelector获取元素时，它通过深度优先搜索，拿到文档树前面的第三级的元素。</p>
 <h4 id="document-querySelectorAll"><a href="#document-querySelectorAll" class="headerlink" title="document.querySelectorAll()"></a>document.querySelectorAll()</h4><p>document.querySelectorAll的不同之处在于它返回的是所有匹配的元素，而且可以匹配多个选择符，我们来看看下面这个例子</p>
-<pre><code>&lt;div class=&quot;test&quot;&gt;
+<pre><code class="hljs plaintext">&lt;div class=&quot;test&quot;&gt;
     class为test
 &lt;/div&gt;
 &lt;div id=&quot;test&quot;&gt;
@@ -500,8 +490,8 @@ document.getElementById(&quot;btnShow&quot;).addEventListener(&quot;click&quot;,
     for(var i = 0,length = elements.length;i&lt;length;i++)&#123;
         alert(elements[i].textContent);
     &#125;   
-&#125;)
-</code></pre>
+&#125;)</code></pre>
+
 <p>这段代码通过querySelectorAll，使用id选择器和class选择器选择了两个元素，并依次输出其内容。要注意两点：</p>
 <ul>
 <li>querySelectorAll也是通过深度优先搜索，搜索的元素顺序和选择器的顺序无关</li>
@@ -518,7 +508,7 @@ document.getElementById(&quot;btnShow&quot;).addEventListener(&quot;click&quot;,
 </ol>
 <p><code>var elements = document.getElementsByClassName(&quot;test1 test2&quot;);</code></p>
 <h4 id="document-getElementsByTagName"><a href="#document-getElementsByTagName" class="headerlink" title="document.getElementsByTagName()"></a>document.getElementsByTagName()</h4><p>这个接口根据元素标签名获取元素，返回一个即时的HTMLCollection类型，什么是即时的HTMLCollection类型呢？我们来看看这个示例</p>
-<pre><code>&lt;div&gt;div1&lt;/div&gt;
+<pre><code class="hljs plaintext">&lt;div&gt;div1&lt;/div&gt;
 &lt;div&gt;div2&lt;/div&gt;
         
 &lt;input type=&quot;button&quot; value=&quot;新增div&quot; id=&quot;btnAddDiv&quot;/&gt; 
@@ -533,8 +523,7 @@ document.getElementById(&quot;btnAddDiv&quot;).onclick = function()&#123;
     
 document.getElementById(&quot;btnShowCount&quot;).onclick = function()&#123;
     alert(divList.length);//3
-&#125;
-</code></pre>
+&#125;</code></pre>
 <p>这段代码中有两个按钮，一个按钮可以新增一个div标签到文档中，另一个按钮是显示HTMLCollection元素的个数。前面提到HTMLCollcetion元素是即时的表示该集合是随时变化的，也就是是文档中有几个div，它会随时进行变化，当我们新增一个div后，再访问HTMLCollection时，就会包含这个新增的div。<br>使用document.getElementsByTagName这个方法有几点要注意：</p>
 <ol>
 <li>如果要对HTMLCollection集合进行循环操作，最好将其长度缓存起来，因为每次循环都会去计算长度，暂时缓存起来可以提高效率</li>
@@ -556,9 +545,8 @@ document.getElementById(&quot;btnShowCount&quot;).onclick = function()&#123;
 <h3 id="元素属性型API"><a href="#元素属性型API" class="headerlink" title="元素属性型API"></a>元素属性型API</h3><h4 id="setAttribute"><a href="#setAttribute" class="headerlink" title="setAttribute()"></a>setAttribute()</h4><p>setAttribute：根据名称和值修改元素的特性，用法如下。</p>
 <p><code>element.setAttribute(name, value);</code></p>
 <p>其中name是特性名，value是特性值。如果元素不包含该特性，则会创建该特性并赋值。<br>如果元素本身包含指定的特性名为属性，则可以世界访问属性进行赋值，比如下面两条代码是等价的：</p>
-<pre><code class="javascript">element.setAttribute(&quot;id&quot;,&quot;test&quot;);
-element.id = &quot;test&quot;;
-</code></pre>
+<pre><code class="hljs javascript">element.<span class="hljs-title function_">setAttribute</span>(<span class="hljs-string">&quot;id&quot;</span>,<span class="hljs-string">&quot;test&quot;</span>);
+element.<span class="hljs-property">id</span> = <span class="hljs-string">&quot;test&quot;</span>;</code></pre>
 <h4 id="getAttribute"><a href="#getAttribute" class="headerlink" title="getAttribute()"></a>getAttribute()</h4><p>getAttribute返回指定的特性名相应的特性值，如果不存在，则返回null或空字符串。用法如下：</p>
 <p><code>var value = element.getAttribute(&quot;id&quot;);</code></p>
 <h4 id="removeAttribute"><a href="#removeAttribute" class="headerlink" title="removeAttribute()"></a>removeAttribute()</h4><p><code>element.removeAttribute(attrName)</code></p>

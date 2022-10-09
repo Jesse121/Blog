@@ -281,36 +281,36 @@
 <h5 id="设置-postfix-开机自启，并启动，postfix-支持-gitlab-发信功能"><a href="#设置-postfix-开机自启，并启动，postfix-支持-gitlab-发信功能" class="headerlink" title="设置 postfix 开机自启，并启动，postfix 支持 gitlab 发信功能"></a>设置 postfix 开机自启，并启动，postfix 支持 gitlab 发信功能</h5><p>sudo systemctl enable postfix<br>sudo systemctl start postfix</p>
 <h5 id="打开系统防火墙-HTTP"><a href="#打开系统防火墙-HTTP" class="headerlink" title="打开系统防火墙 HTTP"></a>打开系统防火墙 HTTP</h5><p>sudo systemctl start firewalld<br>sudo firewall-cmd –permanent –add-service&#x3D;http<br>sudo systemctl reload firewalld</p>
 <h4 id="添加-GitLab-镜像源并安装"><a href="#添加-GitLab-镜像源并安装" class="headerlink" title="添加 GitLab 镜像源并安装"></a>添加 GitLab 镜像源并安装</h4><p>vim &#x2F;etc&#x2F;yum.repos.d&#x2F;gitlab_gitlab-ce.repo<br>修改内容如下：</p>
-<pre><code>[gitlab-ce]
+<pre><code class="hljs plaintext">[gitlab-ce]
 name=gitlab-ce
 baseurl=http://mirrors.tuna.tsinghua.edu.cn/gitlab-ce/yum/el7
 repo_gpgcheck=0
 gpgcheck=0
 enabled=1
-gpgkey=https://packages.gitlab.com/gpg.key
-</code></pre>
+gpgkey=https://packages.gitlab.com/gpg.key</code></pre>
+
 <h5 id="安装-gitlab"><a href="#安装-gitlab" class="headerlink" title="安装 gitlab"></a>安装 gitlab</h5><p>sudo yum install gitlab-ce</p>
 <h4 id="配置-gitlab-ce"><a href="#配置-gitlab-ce" class="headerlink" title="配置 gitlab-ce"></a>配置 gitlab-ce</h4><p>sudo vim &#x2F;etc&#x2F;gitlab&#x2F;gitlab.rb</p>
-<pre><code>external_url &#39;http://192.168.10.11&#39; //服务器ip地址
-unicorn[&#39;listen&#39;] = &#39;192.168.10.11&#39;
-unicorn[&#39;port&#39;] = 9090
-</code></pre>
+<pre><code class="hljs plaintext">external_url &#x27;http://192.168.10.11&#x27; //服务器ip地址
+unicorn[&#x27;listen&#x27;] = &#x27;192.168.10.11&#x27;
+unicorn[&#x27;port&#x27;] = 9090</code></pre>
+
 <h4 id="配置完后重新启动"><a href="#配置完后重新启动" class="headerlink" title="配置完后重新启动"></a>配置完后重新启动</h4><p>sudo gitlab-ctl reconfigure<br>sudo gitlab-ctl restart</p>
 <h4 id="配置访问端口防止端口被占用"><a href="#配置访问端口防止端口被占用" class="headerlink" title="配置访问端口防止端口被占用"></a>配置访问端口防止端口被占用</h4><p>sudo vim &#x2F;var&#x2F;opt&#x2F;gitlab&#x2F;nginx&#x2F;conf&#x2F;gitlab-http.conf<br>将 80 端口改为 3000<br>listen *:3000;</p>
 <p>访问 192.168.10.11:3000 即可看到 gitlab 的充值密码页面<br><img src="/blog/static/images/jenkins/2.png"></p>
 <p>管理员的用户名为 root<br>重置密码登录后会看到 gitlab 欢迎界面<br><img src="/blog/static/images/jenkins/3.png"></p>
 <p>至此 gitlab 服务器已搭建完成，至于 gitlab 中项目的配置我们后面再介绍。</p>
-<h3 id="Jenkins-安装与配置"><a href="#Jenkins-安装与配置" class="headerlink" title="Jenkins 安装与配置"></a>Jenkins 安装与配置</h3><h4 id="添加-yum-repos，然后安装"><a href="#添加-yum-repos，然后安装" class="headerlink" title="添加 yum repos，然后安装"></a>添加 yum repos，然后安装</h4><pre><code>sudo wget -O /etc/yum.repos.d/jenkins.repo http://pkg.jenkins-ci.org/redhat/jenkins.repo
+<h3 id="Jenkins-安装与配置"><a href="#Jenkins-安装与配置" class="headerlink" title="Jenkins 安装与配置"></a>Jenkins 安装与配置</h3><h4 id="添加-yum-repos，然后安装"><a href="#添加-yum-repos，然后安装" class="headerlink" title="添加 yum repos，然后安装"></a>添加 yum repos，然后安装</h4><pre><code class="hljs plaintext">sudo wget -O /etc/yum.repos.d/jenkins.repo http://pkg.jenkins-ci.org/redhat/jenkins.repo
 sudo rpm --import https://jenkins-ci.org/redhat/jenkins-ci.org.key
-sudo yum -y install jenkins
-</code></pre>
+sudo yum -y install jenkins</code></pre>
+
 <p>如果没有 java 的话要安装 java</p>
-<pre><code>sudo yum -y install java
-</code></pre>
+<pre><code class="hljs plaintext">sudo yum -y install java</code></pre>
+
 <p>配置文件在 &#x2F;etc&#x2F;sysconfig&#x2F;jenkins<br>默认 jenkins 使用 8080 端口，如果有冲突可以在配置文件中修改</p>
 <p>启动和停止</p>
-<pre><code>sudo service jenkins start/stop/restart
-</code></pre>
+<pre><code class="hljs plaintext">sudo service jenkins start/stop/restart</code></pre>
+
 <p>开放 8080 端口<br>firewall-cmd –zone&#x3D;public –add-port&#x3D;8080&#x2F;tcp –permanent</p>
 <p>访问<a target="_blank" rel="noopener" href="http://192.168.10.11:8080/">http://192.168.10.11:8080/</a> 可以看到解锁 Jenkins 的页面<br><img src="/blog/static/images/jenkins/4.png"></p>
 <p>至此 jenkins 搭建完成</p>

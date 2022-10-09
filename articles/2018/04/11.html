@@ -275,70 +275,70 @@
 <span id="more"></span>
 
 <h4 id="用-css3-播放逐帧动画"><a href="#用-css3-播放逐帧动画" class="headerlink" title="用 css3 播放逐帧动画"></a>用 css3 播放逐帧动画</h4><p>动效设计师给了我们 11 张(300*300)帧动画图片，现需要用 css3 以动画的形式播放这些图片<br>第一个想到的办法就是通过 animation 改变 DOM 元素的背景图片</p>
-<pre><code class="less">.boom-2 &#123;
-  position: fixed;
-  width: 300px;
-  height: 300px;
-  transform: translate(-50%, -50%);
-  pointer-events: none;
-  animation: boom-2 1s forwards;
+<pre><code class="hljs less"><span class="hljs-selector-class">.boom-2</span> &#123;
+  <span class="hljs-attribute">position</span>: fixed;
+  <span class="hljs-attribute">width</span>: <span class="hljs-number">300px</span>;
+  <span class="hljs-attribute">height</span>: <span class="hljs-number">300px</span>;
+  <span class="hljs-attribute">transform</span>: <span class="hljs-built_in">translate</span>(-<span class="hljs-number">50%</span>, -<span class="hljs-number">50%</span>);
+  <span class="hljs-attribute">pointer-events</span>: none;
+  <span class="hljs-attribute">animation</span>: boom-<span class="hljs-number">2</span> <span class="hljs-number">1s</span> forwards;
 &#125;
-@keyframes boom-2 &#123;
-  0% &#123;
-    background-image: url(&quot;../hit/0.png&quot;);
+<span class="hljs-keyword">@keyframes</span> boom-<span class="hljs-number">2</span> &#123;
+  <span class="hljs-number">0%</span> &#123;
+    <span class="hljs-attribute">background-image</span>: url(<span class="hljs-string">&quot;../hit/0.png&quot;</span>);
   &#125;
-  10% &#123;
-    background-image: url(&quot;../hit/1.png&quot;);
+  <span class="hljs-number">10%</span> &#123;
+    <span class="hljs-attribute">background-image</span>: url(<span class="hljs-string">&quot;../hit/1.png&quot;</span>);
   &#125;
-  20% &#123;
-    background-image: url(&quot;../hit/2.png&quot;);
+  <span class="hljs-number">20%</span> &#123;
+    <span class="hljs-attribute">background-image</span>: url(<span class="hljs-string">&quot;../hit/2.png&quot;</span>);
   &#125;
-  30% &#123;
-    background-image: url(&quot;../hit/3.png&quot;);
+  <span class="hljs-number">30%</span> &#123;
+    <span class="hljs-attribute">background-image</span>: url(<span class="hljs-string">&quot;../hit/3.png&quot;</span>);
   &#125;
-  40% &#123;
-    background-image: url(&quot;../hit/4.png&quot;);
+  <span class="hljs-number">40%</span> &#123;
+    <span class="hljs-attribute">background-image</span>: url(<span class="hljs-string">&quot;../hit/4.png&quot;</span>);
   &#125;
-  50% &#123;
-    background-image: url(&quot;../hit/5.png&quot;);
+  <span class="hljs-number">50%</span> &#123;
+    <span class="hljs-attribute">background-image</span>: url(<span class="hljs-string">&quot;../hit/5.png&quot;</span>);
   &#125;
-  60% &#123;
-    background-image: url(&quot;../hit/6.png&quot;);
+  <span class="hljs-number">60%</span> &#123;
+    <span class="hljs-attribute">background-image</span>: url(<span class="hljs-string">&quot;../hit/6.png&quot;</span>);
   &#125;
-  70% &#123;
-    background-image: url(&quot;../hit/7.png&quot;);
+  <span class="hljs-number">70%</span> &#123;
+    <span class="hljs-attribute">background-image</span>: url(<span class="hljs-string">&quot;../hit/7.png&quot;</span>);
   &#125;
-  80% &#123;
-    background-image: url(&quot;../hit/8.png&quot;);
+  <span class="hljs-number">80%</span> &#123;
+    <span class="hljs-attribute">background-image</span>: url(<span class="hljs-string">&quot;../hit/8.png&quot;</span>);
   &#125;
-  90% &#123;
-    background-image: url(&quot;../hit/9.png&quot;);
+  <span class="hljs-number">90%</span> &#123;
+    <span class="hljs-attribute">background-image</span>: url(<span class="hljs-string">&quot;../hit/9.png&quot;</span>);
   &#125;
-  100% &#123;
-    background-image: url(&quot;../hit/10.png&quot;);
+  <span class="hljs-number">100%</span> &#123;
+    <span class="hljs-attribute">background-image</span>: url(<span class="hljs-string">&quot;../hit/10.png&quot;</span>);
   &#125;
-&#125;
-</code></pre>
+&#125;</code></pre>
+
 <p>结果在 chrome firefox 上运行良好，可是在 IE 上看不到效果,在网上搜一下发现<br><a target="_blank" rel="noopener" href="https://www.w3.org/TR/css-backgrounds-3/#the-background-image">background-image 不支持动画</a><br>既然不行那就在想想办法。</p>
 <p>第二种办法就是通过动画改变 background-position,在加上以帧动画的形式播放,关键点：<code>animation-timing-function:steps(11)</code>;</p>
-<pre><code class="less">.boom-2 &#123;
-  position: fixed;
-  width: 300px;
-  height: 300px;
-  transform: translate(-50%, -50%) scale(0.5);
-  pointer-events: none;
-  animation: boomSvg 0.4s steps(11) forwards;
-  background-image: url(&quot;./boom.png&quot;);
+<pre><code class="hljs less"><span class="hljs-selector-class">.boom-2</span> &#123;
+  <span class="hljs-attribute">position</span>: fixed;
+  <span class="hljs-attribute">width</span>: <span class="hljs-number">300px</span>;
+  <span class="hljs-attribute">height</span>: <span class="hljs-number">300px</span>;
+  <span class="hljs-attribute">transform</span>: <span class="hljs-built_in">translate</span>(-<span class="hljs-number">50%</span>, -<span class="hljs-number">50%</span>) <span class="hljs-built_in">scale</span>(<span class="hljs-number">0.5</span>);
+  <span class="hljs-attribute">pointer-events</span>: none;
+  <span class="hljs-attribute">animation</span>: boomSvg <span class="hljs-number">0.4s</span> <span class="hljs-built_in">steps</span>(<span class="hljs-number">11</span>) forwards;
+  <span class="hljs-attribute">background-image</span>: url(<span class="hljs-string">&quot;./boom.png&quot;</span>);
 &#125;
-@keyframes boomSvg &#123;
-  0% &#123;
-    background-position: 0 0;
+<span class="hljs-keyword">@keyframes</span> boomSvg &#123;
+  <span class="hljs-number">0%</span> &#123;
+    <span class="hljs-attribute">background-position</span>: <span class="hljs-number">0</span> <span class="hljs-number">0</span>;
   &#125;
-  100% &#123;
-    background-position: 0 -1100%;
+  <span class="hljs-number">100%</span> &#123;
+    <span class="hljs-attribute">background-position</span>: <span class="hljs-number">0</span> -<span class="hljs-number">1100%</span>;
   &#125;
-&#125;
-</code></pre>
+&#125;</code></pre>
+
 <p>至此完美解决帧动画播放问题。<br>通过这个问题发现自己对 css3 动画不是非常了解，就顺便在延展下</p>
 <p>animation 属性是一个简写属性，用于设置 8 个动画属性：</p>
 <ul>
@@ -432,77 +432,75 @@
 <li>start 在变化过程中，都是以下一帧的显示效果来填充间隔动画，</li>
 <li>end 与上面相反，都是以上一帧的显示效果来填充间隔动画，</li>
 </ul>
-<h4 id="line-height-属性再探究"><a href="#line-height-属性再探究" class="headerlink" title="line-height 属性再探究"></a>line-height 属性再探究</h4><pre><code>line-height: normal | &lt;number&gt; | &lt;length&gt; | &lt;percentage&gt; | inherit
+<h4 id="line-height-属性再探究"><a href="#line-height-属性再探究" class="headerlink" title="line-height 属性再探究"></a>line-height 属性再探究</h4><pre><code class="hljs plaintext">line-height: normal | &lt;number&gt; | &lt;length&gt; | &lt;percentage&gt; | inherit
 Inherited: yes
-Percentages: refer to the font size of the element itself
-</code></pre>
+Percentages: refer to the font size of the element itself</code></pre>
+
 <p>line-height 默认值为 normal 不允许用负值<br>当元素没有设置高度的时候，其实是由 line-height 撑开了元素的高度<br>以百分数或数字为单位的时候是相对与本身字体大小而得到的计算结果<br>下面代码中设置的三个行高结果是相同的</p>
-<pre><code class="css">div &#123;
-  line-height: 1.2;
-  font-size: 10pt;
-&#125; /* number */
-div &#123;
-  line-height: 1.2em;
-  font-size: 10pt;
-&#125; /* length */
-div &#123;
-  line-height: 120%;
-  font-size: 10pt;
-&#125; /* percentage */
-</code></pre>
+<pre><code class="hljs css"><span class="hljs-selector-tag">div</span> &#123;
+  <span class="hljs-attribute">line-height</span>: <span class="hljs-number">1.2</span>;
+  <span class="hljs-attribute">font-size</span>: <span class="hljs-number">10pt</span>;
+&#125; <span class="hljs-comment">/* number */</span>
+<span class="hljs-selector-tag">div</span> &#123;
+  <span class="hljs-attribute">line-height</span>: <span class="hljs-number">1.2em</span>;
+  <span class="hljs-attribute">font-size</span>: <span class="hljs-number">10pt</span>;
+&#125; <span class="hljs-comment">/* length */</span>
+<span class="hljs-selector-tag">div</span> &#123;
+  <span class="hljs-attribute">line-height</span>: <span class="hljs-number">120%</span>;
+  <span class="hljs-attribute">font-size</span>: <span class="hljs-number">10pt</span>;
+&#125; <span class="hljs-comment">/* percentage */</span></code></pre>
+
 <p>通过设置 line-height 和 height 常用于单行文字的垂直居中</p>
 <p>通过 line-height 也可设置多行文本的垂直居中</p>
 <p style="width: 250px; line-height: 150px;"><span style="display: inline-block;
             vertical-align: middle;
             line-height: 20px;">asdfkjkj暗示的风景好看阿斯蒂芬框架啊世纪东方sadf </span></p>
-```css
-p{
-    width: 250px;
-    line-height: 150px;
-}
-span{
-    display: inline-block;
-    vertical-align: middle;
-    line-height: 20px;/*作用是设置文本的行高，并覆盖掉父元素的行高*/
-}
-```
+<pre><code class="hljs css"><span class="hljs-selector-tag">p</span>&#123;
+    <span class="hljs-attribute">width</span>: <span class="hljs-number">250px</span>;
+    <span class="hljs-attribute">line-height</span>: <span class="hljs-number">150px</span>;
+&#125;
+<span class="hljs-selector-tag">span</span>&#123;
+    <span class="hljs-attribute">display</span>: inline-block;
+    <span class="hljs-attribute">vertical-align</span>: middle;
+    <span class="hljs-attribute">line-height</span>: <span class="hljs-number">20px</span>;<span class="hljs-comment">/*作用是设置文本的行高，并覆盖掉父元素的行高*/</span>
+&#125;</code></pre>
 
 <p><a target="_blank" rel="noopener" href="http://www.zhangxinxu.com/wordpress/2009/11/css%E8%A1%8C%E9%AB%98line-height%E7%9A%84%E4%B8%80%E4%BA%9B%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E5%8F%8A%E5%BA%94%E7%94%A8/">css 行高 line-height 的一些深入理解及应用</a><br><a target="_blank" rel="noopener" href="https://drafts.csswg.org/css2/visudet.html#propdef-line-height">参考链接</a></p>
 <h4 id="pointer-events-属性让点击事件穿透"><a href="#pointer-events-属性让点击事件穿透" class="headerlink" title="pointer-events 属性让点击事件穿透"></a>pointer-events 属性让点击事件穿透</h4><p>在直播间特效开发中遇到点击图片无响应(图片父元素已绑定点击事件),仔细研究发现由于特效图片切换太快而不能将点击事件冒泡到父元素<br>解决办法：在特效图片上添加以下 css 属性，这样使得点击事件能够直接穿透到父元素上</p>
-<pre><code class="css">img &#123;
-  pointer-events: none;
-&#125;
-</code></pre>
+<pre><code class="hljs css"><span class="hljs-selector-tag">img</span> &#123;
+  <span class="hljs-attribute">pointer-events</span>: none;
+&#125;</code></pre>
+
 <p>pointer-events：auto | none | visiblepainted | visiblefill | visiblestroke | visible | painted | fill | stroke | all<br>none:元素永远不会成为鼠标事件的 target<br>兼容性：IE11+<br><a target="_blank" rel="noopener" href="http://www.css88.com/book/css/properties/user-interface/pointer-events.htm">参考链接</a></p>
 <h4 id="Date-parse-获取时间戳-IOS-不兼容的问题"><a href="#Date-parse-获取时间戳-IOS-不兼容的问题" class="headerlink" title="Date.parse()获取时间戳 IOS 不兼容的问题"></a>Date.parse()获取时间戳 IOS 不兼容的问题</h4><p>因为 IOS 系统不支持 2017-01-01 格式的时间导致的，<br>用正则替换 2017-01-01 日期格式为 2017&#x2F;01&#x2F;01 后问题解决</p>
-<pre><code class="js">var mydata = &quot;2017-01-01 11:00:00&quot;;
-mydata = mydata.replace(/-/g, &quot;/&quot;);
-var time = Date.parse(new Date(mydata)) / 1000;
-</code></pre>
+<pre><code class="hljs js"><span class="hljs-keyword">var</span> mydata = <span class="hljs-string">&quot;2017-01-01 11:00:00&quot;</span>;
+mydata = mydata.<span class="hljs-title function_">replace</span>(<span class="hljs-regexp">/-/g</span>, <span class="hljs-string">&quot;/&quot;</span>);
+<span class="hljs-keyword">var</span> time = <span class="hljs-title class_">Date</span>.<span class="hljs-title function_">parse</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Date</span>(mydata)) / <span class="hljs-number">1000</span>;</code></pre>
+
 <h4 id="移动端禁止页面长按复制"><a href="#移动端禁止页面长按复制" class="headerlink" title="移动端禁止页面长按复制"></a>移动端禁止页面长按复制</h4><p>在前端页面开发中有时会因为用户点击而导致页面被全选出现蓝色，这时可以禁用全选</p>
-<pre><code class="css">body &#123;
+<pre><code class="hljs css"><span class="hljs-selector-tag">body</span> &#123;
   user-select: none;
-&#125;
-</code></pre>
+&#125;</code></pre>
+
 <p>user-select：none | text | all | element<br>none：文本不能被选择<br>text：可以选择文本<br>all：当所有内容作为一个整体时可以被选择。如果双击或者在上下文上点击子元素，那么被选择的部分将是以该子元素向上回溯的最高祖先元素。<br>element：可以选择文本，但选择范围受元素边界的约束<br>兼容性：IE10+ 需要添加浏览器前缀 -ms- -moz- -webkit-<br>详细可参考<a target="_blank" rel="noopener" href="http://www.css88.com/book/css/properties/user-interface/user-select.htm">user-select</a></p>
 <h4 id="chrome-滚动条样式"><a href="#chrome-滚动条样式" class="headerlink" title="chrome 滚动条样式"></a>chrome 滚动条样式</h4><p>该样式只适用于 webkit 内核浏览器，由于兼容性问题，目前工作中改用改进后的<a target="_blank" rel="noopener" href="http://www.jesse131.cn/articles/jquery/fix-the-plugin-of-slimscroll.html">slimscroll.js 插件</a></p>
-<pre><code class="less">.scrollBox &#123;
-  overflow-y: auto;
-  &amp;::-webkit-scrollbar &#123;
-    width: 10px;
+<pre><code class="hljs less"><span class="hljs-selector-class">.scrollBox</span> &#123;
+  <span class="hljs-attribute">overflow-y</span>: auto;
+  <span class="hljs-selector-tag">&amp;</span>::<span class="hljs-selector-tag">-webkit-scrollbar</span> &#123;
+    <span class="hljs-attribute">width</span>: <span class="hljs-number">10px</span>;
   &#125;
-  &amp;::-webkit-scrollbar-button &#123;
-    background-color: transparent;
+  <span class="hljs-selector-tag">&amp;</span>::<span class="hljs-selector-tag">-webkit-scrollbar-button</span> &#123;
+    <span class="hljs-attribute">background-color</span>: transparent;
   &#125;
-  &amp;::-webkit-scrollbar-track &#123;
-    background-color: transparent;
+  <span class="hljs-selector-tag">&amp;</span>::<span class="hljs-selector-tag">-webkit-scrollbar-track</span> &#123;
+    <span class="hljs-attribute">background-color</span>: transparent;
   &#125;
-  &amp;::-webkit-scrollbar-thumb &#123;
-    background-color: #fe2545;
-    border-radius: 5px;
+  <span class="hljs-selector-tag">&amp;</span>::<span class="hljs-selector-tag">-webkit-scrollbar-thumb</span> &#123;
+    <span class="hljs-attribute">background-color</span>: <span class="hljs-number">#fe2545</span>;
+    <span class="hljs-attribute">border-radius</span>: <span class="hljs-number">5px</span>;
   &#125;
-&#125;
-</code></pre>
+&#125;</code></pre>
+
 <h4 id="镂空字体-1"><a href="#镂空字体-1" class="headerlink" title="镂空字体 1"></a>镂空字体 1</h4><p style="-webkit-text-stroke: 1px red;color:transparent;font-size:28px;font-weight:bold;">Jesse</p>
 关键css:  `-webkit-text-stroke: 1px red;`  
 兼容性:   
@@ -513,12 +511,10 @@ chrome 需要加-webkit-前缀
 <h4 id="镂空字体-2"><a href="#镂空字体-2" class="headerlink" title="镂空字体 2"></a>镂空字体 2</h4><p>背景是图片</p>
 <div style="background: url('https://jesse121.github.io/blog/img/bg.jpg');-webkit-background-clip:text;"><p style="font-size: 40px;font-weight: bold;-webkit-text-fill-color:transparent;">Jesse</p></div>
 关键css:  
-```css
-div{
-    -webkit-background-clip:text;
-    -webkit-text-fill-color:transparent;
-}
-```
+<pre><code class="hljs css"><span class="hljs-selector-tag">div</span>&#123;
+    -webkit-<span class="hljs-attribute">background-clip</span>:text;
+    -webkit-text-fill-<span class="hljs-attribute">color</span>:transparent;
+&#125;</code></pre>
 兼容性：  
 IE都不兼容 Edge16+ 需要加-webkit-前缀  
 firefox58+ 需要加-webkit-前缀  
@@ -531,16 +527,14 @@ chrome 需要加-webkit-前缀
     background-image: -webkit-gradient(linear, 0 0, 0 bottom, from(#fffaf3), to(#fbc677));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;">Jesse</p>
-```
-.text{
+<pre><code class="hljs plaintext">.text&#123;
     font-size:40px;
     font-weight:bold;
     color: #fde2ba;
     background-image: -webkit-gradient(linear, 0 0, 0 bottom, from(#fffaf3), to(#fbc677));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-}
-```
+&#125;</code></pre>
 
 <h5 id="3D-字体"><a href="#3D-字体" class="headerlink" title="3D 字体"></a>3D 字体</h5><p>用的是多层背景</p>
 <div style="text-align: center;
@@ -553,58 +547,49 @@ chrome 需要加-webkit-前缀
     font-weight: 700;
     text-shadow: 0 1px 0 #4a4a4e, -1px -1px 0 #4a4a4e, /*main 3d shadow*/ -1px 0px 0 #343437, -2px 1px 0 #343437, -3px 2px 0 #313134, -4px 3px 0 #2f2f31, -5px 4px 0 #2c2c2f, -6px 5px 0 #2a2a2c, -7px 6px 0 #27272a, -8px 7px 0 #252527, -9px 8px 0 #232324, -10px 9px 0 #202022, -11px 10px 0 #1e1e1f, -12px 11px 0 #1b1b1d, -13px 12px 0 #19191a, -14px 13px 0 #161617, -15px 14px 0 #141415, -16px 15px 0 #111112, /*top right*/ 0 -1px 1px #ffffff, 0 -2px 0px #ffffff, /*bottom left corner*/ -15px 14px 0px #ffffff, -16px 15px 0px #ffffff, -17px 16px 0px #ffffff, -18px 17px 0px #ffffff, -2px -1px 0 #ffffff, -3px 0px 0 #ffffff, /*top left corner*/ -19px 15px 0 #ffffff, -18px 14px 0 #ffffff, -17px 13px 0 #ffffff, -16px 12px 0 #ffffff, -15px 11px 0 #ffffff, -14px 10px 0 #ffffff, -13px 9px 0 #ffffff, -12px 8px 0 #ffffff, -11px 7px 0 #ffffff, -10px 6px 0 #ffffff, -9px 5px 0 #ffffff, -8px 4px 0 #ffffff, -7px 3px 0 #ffffff, -6px 2px 0 #ffffff, -5px 1px 0 #ffffff, -4px 0px 0 #ffffff, /*lower right / (upper right side for capital T like H etc letters. */ 0px 2px 0px #ffffff, -1px 3px 0px #ffffff, -2px 4px 0px #ffffff, -3px 5px 0px #ffffff, -4px 6px 0px #ffffff, -5px 7px 0px #ffffff, -6px 8px 0px #ffffff, -7px 9px 0px #ffffff, -8px 10px 0px #ffffff, -9px 11px 0px #ffffff, -10px 12px 0px #ffffff, -11px 13px 0px #ffffff, -12px 14px 0px #ffffff, -13px 15px 0px #ffffff, -14px 16px 0px #ffffff, -15px 17px 0px #ffffff;">3d</div>
 关键css:
-```css
--webkit-text-stroke: 2px white;
-text-shadow: 
-0 1px 0 #4a4a4e, 
-/*main 3d shadow*/ 
--1px -1px 0 #4a4a4e, -1px 0px 0 #343437, -2px 1px 0 #343437, -3px 2px 0 #313134, -4px 3px 0 #2f2f31, -5px 4px 0 #2c2c2f, -6px 5px 0 #2a2a2c, -7px 6px 0 #27272a, -8px 7px 0 #252527, -9px 8px 0 #232324, -10px 9px 0 #202022,-11px 10px 0 #1e1e1f,-12px 11px 0 #1b1b1d,-13px 12px 0 #19191a, -14px 13px 0 #161617, -15px 14px 0 #141415, -16px 15px 0 #111112, 
-/*top right*/ 
-0 -1px 1px #ffffff, 0 -2px 0px #ffffff, 
-/*bottom left corner*/ 
--15px 14px 0px #ffffff, -16px 15px 0px #ffffff, -17px 16px 0px #ffffff, -18px 17px 0px #ffffff, -2px -1px 0 #ffffff,-3px 0px 0 #ffffff, 
-/*top left corner*/ 
--19px 15px 0 #ffffff,-18px 14px 0 #ffffff, -17px 13px 0 #ffffff,-16px 12px 0 #ffffff, -15px 11px 0 #ffffff, -14px 10px 0 #ffffff,-13px 9px 0 #ffffff, -12px 8px 0 #ffffff, -11px 7px 0 #ffffff, -10px 6px 0 #ffffff,-9px 5px 0 #ffffff, -8px 4px 0 #ffffff, -7px 3px 0 #ffffff, -6px 2px 0 #ffffff, -5px 1px 0 #ffffff, -4px 0px 0 #ffffff, 
-/*lower right / (upper right side for capital T like H etc letters. */ 
-0px 2px 0px #ffffff, -1px 3px 0px #ffffff, -2px 4px 0px #ffffff, -3px 5px 0px #ffffff, -4px 6px 0px #ffffff, -5px 7px 0px #ffffff, -6px 8px 0px #ffffff, -7px 9px 0px #ffffff, -8px 10px 0px #ffffff, -9px 11px 0px #ffffff, -10px 12px 0px #ffffff, -11px 13px 0px #ffffff, -12px 14px 0px #ffffff, -13px 15px 0px #ffffff, -14px 16px 0px #ffffff, -15px 17px 0px #ffffff;
-```
+<pre><code class="hljs css">-webkit-text-stroke: <span class="hljs-number">2px</span> white;
+<span class="hljs-attribute">text-shadow</span>: 
+<span class="hljs-number">0</span> <span class="hljs-number">1px</span> <span class="hljs-number">0</span> <span class="hljs-number">#4a4a4e</span>, 
+<span class="hljs-comment">/*main 3d shadow*/</span> 
+-<span class="hljs-number">1px</span> -<span class="hljs-number">1px</span> <span class="hljs-number">0</span> <span class="hljs-number">#4a4a4e</span>, -<span class="hljs-number">1px</span> <span class="hljs-number">0px</span> <span class="hljs-number">0</span> <span class="hljs-number">#343437</span>, -<span class="hljs-number">2px</span> <span class="hljs-number">1px</span> <span class="hljs-number">0</span> <span class="hljs-number">#343437</span>, -<span class="hljs-number">3px</span> <span class="hljs-number">2px</span> <span class="hljs-number">0</span> <span class="hljs-number">#313134</span>, -<span class="hljs-number">4px</span> <span class="hljs-number">3px</span> <span class="hljs-number">0</span> <span class="hljs-number">#2f2f31</span>, -<span class="hljs-number">5px</span> <span class="hljs-number">4px</span> <span class="hljs-number">0</span> <span class="hljs-number">#2c2c2f</span>, -<span class="hljs-number">6px</span> <span class="hljs-number">5px</span> <span class="hljs-number">0</span> <span class="hljs-number">#2a2a2c</span>, -<span class="hljs-number">7px</span> <span class="hljs-number">6px</span> <span class="hljs-number">0</span> <span class="hljs-number">#27272a</span>, -<span class="hljs-number">8px</span> <span class="hljs-number">7px</span> <span class="hljs-number">0</span> <span class="hljs-number">#252527</span>, -<span class="hljs-number">9px</span> <span class="hljs-number">8px</span> <span class="hljs-number">0</span> <span class="hljs-number">#232324</span>, -<span class="hljs-number">10px</span> <span class="hljs-number">9px</span> <span class="hljs-number">0</span> <span class="hljs-number">#202022</span>,-<span class="hljs-number">11px</span> <span class="hljs-number">10px</span> <span class="hljs-number">0</span> <span class="hljs-number">#1e1e1f</span>,-<span class="hljs-number">12px</span> <span class="hljs-number">11px</span> <span class="hljs-number">0</span> <span class="hljs-number">#1b1b1d</span>,-<span class="hljs-number">13px</span> <span class="hljs-number">12px</span> <span class="hljs-number">0</span> <span class="hljs-number">#19191a</span>, -<span class="hljs-number">14px</span> <span class="hljs-number">13px</span> <span class="hljs-number">0</span> <span class="hljs-number">#161617</span>, -<span class="hljs-number">15px</span> <span class="hljs-number">14px</span> <span class="hljs-number">0</span> <span class="hljs-number">#141415</span>, -<span class="hljs-number">16px</span> <span class="hljs-number">15px</span> <span class="hljs-number">0</span> <span class="hljs-number">#111112</span>, 
+<span class="hljs-comment">/*top right*/</span> 
+<span class="hljs-number">0</span> -<span class="hljs-number">1px</span> <span class="hljs-number">1px</span> <span class="hljs-number">#ffffff</span>, <span class="hljs-number">0</span> -<span class="hljs-number">2px</span> <span class="hljs-number">0px</span> <span class="hljs-number">#ffffff</span>, 
+<span class="hljs-comment">/*bottom left corner*/</span> 
+-<span class="hljs-number">15px</span> <span class="hljs-number">14px</span> <span class="hljs-number">0px</span> <span class="hljs-number">#ffffff</span>, -<span class="hljs-number">16px</span> <span class="hljs-number">15px</span> <span class="hljs-number">0px</span> <span class="hljs-number">#ffffff</span>, -<span class="hljs-number">17px</span> <span class="hljs-number">16px</span> <span class="hljs-number">0px</span> <span class="hljs-number">#ffffff</span>, -<span class="hljs-number">18px</span> <span class="hljs-number">17px</span> <span class="hljs-number">0px</span> <span class="hljs-number">#ffffff</span>, -<span class="hljs-number">2px</span> -<span class="hljs-number">1px</span> <span class="hljs-number">0</span> <span class="hljs-number">#ffffff</span>,-<span class="hljs-number">3px</span> <span class="hljs-number">0px</span> <span class="hljs-number">0</span> <span class="hljs-number">#ffffff</span>, 
+<span class="hljs-comment">/*top left corner*/</span> 
+-<span class="hljs-number">19px</span> <span class="hljs-number">15px</span> <span class="hljs-number">0</span> <span class="hljs-number">#ffffff</span>,-<span class="hljs-number">18px</span> <span class="hljs-number">14px</span> <span class="hljs-number">0</span> <span class="hljs-number">#ffffff</span>, -<span class="hljs-number">17px</span> <span class="hljs-number">13px</span> <span class="hljs-number">0</span> <span class="hljs-number">#ffffff</span>,-<span class="hljs-number">16px</span> <span class="hljs-number">12px</span> <span class="hljs-number">0</span> <span class="hljs-number">#ffffff</span>, -<span class="hljs-number">15px</span> <span class="hljs-number">11px</span> <span class="hljs-number">0</span> <span class="hljs-number">#ffffff</span>, -<span class="hljs-number">14px</span> <span class="hljs-number">10px</span> <span class="hljs-number">0</span> <span class="hljs-number">#ffffff</span>,-<span class="hljs-number">13px</span> <span class="hljs-number">9px</span> <span class="hljs-number">0</span> <span class="hljs-number">#ffffff</span>, -<span class="hljs-number">12px</span> <span class="hljs-number">8px</span> <span class="hljs-number">0</span> <span class="hljs-number">#ffffff</span>, -<span class="hljs-number">11px</span> <span class="hljs-number">7px</span> <span class="hljs-number">0</span> <span class="hljs-number">#ffffff</span>, -<span class="hljs-number">10px</span> <span class="hljs-number">6px</span> <span class="hljs-number">0</span> <span class="hljs-number">#ffffff</span>,-<span class="hljs-number">9px</span> <span class="hljs-number">5px</span> <span class="hljs-number">0</span> <span class="hljs-number">#ffffff</span>, -<span class="hljs-number">8px</span> <span class="hljs-number">4px</span> <span class="hljs-number">0</span> <span class="hljs-number">#ffffff</span>, -<span class="hljs-number">7px</span> <span class="hljs-number">3px</span> <span class="hljs-number">0</span> <span class="hljs-number">#ffffff</span>, -<span class="hljs-number">6px</span> <span class="hljs-number">2px</span> <span class="hljs-number">0</span> <span class="hljs-number">#ffffff</span>, -<span class="hljs-number">5px</span> <span class="hljs-number">1px</span> <span class="hljs-number">0</span> <span class="hljs-number">#ffffff</span>, -<span class="hljs-number">4px</span> <span class="hljs-number">0px</span> <span class="hljs-number">0</span> <span class="hljs-number">#ffffff</span>, 
+<span class="hljs-comment">/*lower right / (upper right side for capital T like H etc letters. */</span> 
+<span class="hljs-number">0px</span> <span class="hljs-number">2px</span> <span class="hljs-number">0px</span> <span class="hljs-number">#ffffff</span>, -<span class="hljs-number">1px</span> <span class="hljs-number">3px</span> <span class="hljs-number">0px</span> <span class="hljs-number">#ffffff</span>, -<span class="hljs-number">2px</span> <span class="hljs-number">4px</span> <span class="hljs-number">0px</span> <span class="hljs-number">#ffffff</span>, -<span class="hljs-number">3px</span> <span class="hljs-number">5px</span> <span class="hljs-number">0px</span> <span class="hljs-number">#ffffff</span>, -<span class="hljs-number">4px</span> <span class="hljs-number">6px</span> <span class="hljs-number">0px</span> <span class="hljs-number">#ffffff</span>, -<span class="hljs-number">5px</span> <span class="hljs-number">7px</span> <span class="hljs-number">0px</span> <span class="hljs-number">#ffffff</span>, -<span class="hljs-number">6px</span> <span class="hljs-number">8px</span> <span class="hljs-number">0px</span> <span class="hljs-number">#ffffff</span>, -<span class="hljs-number">7px</span> <span class="hljs-number">9px</span> <span class="hljs-number">0px</span> <span class="hljs-number">#ffffff</span>, -<span class="hljs-number">8px</span> <span class="hljs-number">10px</span> <span class="hljs-number">0px</span> <span class="hljs-number">#ffffff</span>, -<span class="hljs-number">9px</span> <span class="hljs-number">11px</span> <span class="hljs-number">0px</span> <span class="hljs-number">#ffffff</span>, -<span class="hljs-number">10px</span> <span class="hljs-number">12px</span> <span class="hljs-number">0px</span> <span class="hljs-number">#ffffff</span>, -<span class="hljs-number">11px</span> <span class="hljs-number">13px</span> <span class="hljs-number">0px</span> <span class="hljs-number">#ffffff</span>, -<span class="hljs-number">12px</span> <span class="hljs-number">14px</span> <span class="hljs-number">0px</span> <span class="hljs-number">#ffffff</span>, -<span class="hljs-number">13px</span> <span class="hljs-number">15px</span> <span class="hljs-number">0px</span> <span class="hljs-number">#ffffff</span>, -<span class="hljs-number">14px</span> <span class="hljs-number">16px</span> <span class="hljs-number">0px</span> <span class="hljs-number">#ffffff</span>, -<span class="hljs-number">15px</span> <span class="hljs-number">17px</span> <span class="hljs-number">0px</span> <span class="hljs-number">#ffffff</span>;</code></pre>
 #### 边框渐变
 原理：对外层的div使用循环渐变
 ![边框渐变](/static/images/question-in-work/linear-gradient.png)
-```css
-background: -webkit-repeating-linear-gradient(45deg, #ffc9d0 0px, #ffc9d0 10px, #ff 233f 10px, #ff233f 40px);
-```
+<pre><code class="hljs css"><span class="hljs-attribute">background</span>: <span class="hljs-built_in">-webkit-repeating-linear-gradient</span>(<span class="hljs-number">45deg</span>, <span class="hljs-number">#ffc9d0</span> <span class="hljs-number">0px</span>, <span class="hljs-number">#ffc9d0</span> <span class="hljs-number">10px</span>, #ff <span class="hljs-number">233</span>f <span class="hljs-number">10px</span>, <span class="hljs-number">#ff233f</span> <span class="hljs-number">40px</span>);</code></pre>
 兼容性：
 IE11+ Firefox Chrome 基本都支持
 
 <h4 id="控制元素在-IOS-设备上是否使用滚动回弹效果"><a href="#控制元素在-IOS-设备上是否使用滚动回弹效果" class="headerlink" title="控制元素在 IOS 设备上是否使用滚动回弹效果"></a>控制元素在 IOS 设备上是否使用滚动回弹效果</h4><p>从前端开发的角度讲，只需要知道 CSS 的属性-webkit-overflow-scrolling 是真的创建了带有硬件加速的系统级控件，所以效率很高。但是这相对是耗更多内存的，最好在产生了非常大面积的 overflow 时才应用。</p>
-<pre><code class="css">body &#123;
-  -webkit-overflow-scrolling: touch; /*ios*/
-&#125;
-</code></pre>
+<pre><code class="hljs css"><span class="hljs-selector-tag">body</span> &#123;
+  -webkit-<span class="hljs-attribute">overflow</span>-scrolling: touch; <span class="hljs-comment">/*ios*/</span>
+&#125;</code></pre>
+
 <h4 id="css-波浪下划线"><a href="#css-波浪下划线" class="headerlink" title="css 波浪下划线"></a>css 波浪下划线</h4><div style="text-decoration-style:wavy;text-decoration-color: red;text-decoration-line:underline;">this is a test</div>
-```css
-div{
-    text-decoration-style:wavy;
-    text-decoration-color: red;
-    text-decoration-line:underline;
-}
-```
+<pre><code class="hljs css"><span class="hljs-selector-tag">div</span>&#123;
+    <span class="hljs-attribute">text-decoration-style</span>:wavy;
+    <span class="hljs-attribute">text-decoration-color</span>: red;
+    <span class="hljs-attribute">text-decoration-line</span>:underline;
+&#125;</code></pre>
 具体参考：
 [text-decoration](https://www.w3.org/TR/css-text-decor-3/#text-decoration-skip-property)  
 [兼容](https://www.jianshu.com/p/8570433e3669)
 
 <h4 id="css3-外发光"><a href="#css3-外发光" class="headerlink" title="css3 外发光"></a>css3 外发光</h4><div style="width:100px;height:100px;margin:0 50px;box-shadow: 0 0 10px red;"></div>
-```css
-div{
-    box-shadow: 0 0 10px #000;
-}
-```
+<pre><code class="hljs css"><span class="hljs-selector-tag">div</span>&#123;
+    <span class="hljs-attribute">box-shadow</span>: <span class="hljs-number">0</span> <span class="hljs-number">0</span> <span class="hljs-number">10px</span> <span class="hljs-number">#000</span>;
+&#125;</code></pre>
 
 <h4 id="ios-中激活-active-伪类"><a href="#ios-中激活-active-伪类" class="headerlink" title="ios 中激活 active 伪类"></a>ios 中激活 active 伪类</h4><p>在 iOS 系统的移动设备中，需要在按钮元素或 body&#x2F;html 上绑定一个 touchstart 事件才能激活:active 状态。</p>
-<pre><code class="js">//ios中激活active伪类
-document.body.addEventListener(&quot;touchstart&quot;, function () &#123;&#125;);
-</code></pre>
+<pre><code class="hljs js"><span class="hljs-comment">//ios中激活active伪类</span>
+<span class="hljs-variable language_">document</span>.<span class="hljs-property">body</span>.<span class="hljs-title function_">addEventListener</span>(<span class="hljs-string">&quot;touchstart&quot;</span>, <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) &#123;&#125;);</code></pre>
  
       <div id="toc-article">
   <div class="widget-wrap" id="toc-wrap">

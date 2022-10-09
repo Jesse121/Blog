@@ -283,118 +283,117 @@
 <li>vue 项目中全局异常捕获</li>
 </ol>
 <p>接下来介绍如何捕获这些异常</p>
-<h3 id="前端页面异常捕获方式"><a href="#前端页面异常捕获方式" class="headerlink" title="前端页面异常捕获方式"></a>前端页面异常捕获方式</h3><h4 id="window-onerror-捕获-javascript-异常"><a href="#window-onerror-捕获-javascript-异常" class="headerlink" title="window.onerror 捕获 javascript 异常"></a>window.onerror 捕获 javascript 异常</h4><pre><code class="js">/**
- * 捕获javascript异常
- * @param &#123;String&#125;  message    错误信息
- * @param &#123;String&#125;  source     出错文件
- * @param &#123;Number&#125;  lineno     行号
- * @param &#123;Number&#125;  colno      列号
- * @param &#123;Object&#125;  error      Error对象（对象）
- */
-window.onerror = function (message, source, lineno, colno, error) &#123;
-  console.log(&quot;捕获到异常：&quot;, &#123; message, source, lineno, colno, error &#125;);
-&#125;;
-</code></pre>
+<h3 id="前端页面异常捕获方式"><a href="#前端页面异常捕获方式" class="headerlink" title="前端页面异常捕获方式"></a>前端页面异常捕获方式</h3><h4 id="window-onerror-捕获-javascript-异常"><a href="#window-onerror-捕获-javascript-异常" class="headerlink" title="window.onerror 捕获 javascript 异常"></a>window.onerror 捕获 javascript 异常</h4><pre><code class="hljs js"><span class="hljs-comment">/**</span>
+<span class="hljs-comment"> * 捕获javascript异常</span>
+<span class="hljs-comment"> * <span class="hljs-doctag">@param</span> &#123;<span class="hljs-type">String</span>&#125;  message    错误信息</span>
+<span class="hljs-comment"> * <span class="hljs-doctag">@param</span> &#123;<span class="hljs-type">String</span>&#125;  source     出错文件</span>
+<span class="hljs-comment"> * <span class="hljs-doctag">@param</span> &#123;<span class="hljs-type">Number</span>&#125;  lineno     行号</span>
+<span class="hljs-comment"> * <span class="hljs-doctag">@param</span> &#123;<span class="hljs-type">Number</span>&#125;  colno      列号</span>
+<span class="hljs-comment"> * <span class="hljs-doctag">@param</span> &#123;<span class="hljs-type">Object</span>&#125;  error      Error对象（对象）</span>
+<span class="hljs-comment"> */</span>
+<span class="hljs-variable language_">window</span>.<span class="hljs-property">onerror</span> = <span class="hljs-keyword">function</span> (<span class="hljs-params">message, source, lineno, colno, error</span>) &#123;
+  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;捕获到异常：&quot;</span>, &#123; message, source, lineno, colno, error &#125;);
+&#125;;</code></pre>
+
 <h4 id="跨域脚本异常捕获"><a href="#跨域脚本异常捕获" class="headerlink" title="跨域脚本异常捕获"></a>跨域脚本异常捕获</h4><p>一般涉及跨域的 js 运行错误时会抛出错误提示 script error.，但没有具体信息（如出错文件，行列号提示等）, 可利用资源共享策略来捕获跨域 js 错误<br>客户端：在 script 标签增加 crossorigin&#x3D;”anonymous”属性<br>服务端：静态资源响应头 Access-Control-Allow-Origin: *</p>
 <h4 id="window-addEventListener-‘error’-cb-true-捕获资源加载异常"><a href="#window-addEventListener-‘error’-cb-true-捕获资源加载异常" class="headerlink" title="window.addEventListener(‘error’,cb,true)捕获资源加载异常"></a>window.addEventListener(‘error’,cb,true)捕获资源加载异常</h4><p>img 加载异常时会触发 img.onerror 函数</p>
-<pre><code class="js">// 捕获资源加载异常
-window.addEventListener(
-  &quot;error&quot;,
-  function (e) &#123;
-    const err = e.target.src || e.target.href;
-    if (err) &#123;
-      console.log(&quot;捕获到资源加载异常&quot;, err);
+<pre><code class="hljs js"><span class="hljs-comment">// 捕获资源加载异常</span>
+<span class="hljs-variable language_">window</span>.<span class="hljs-title function_">addEventListener</span>(
+  <span class="hljs-string">&quot;error&quot;</span>,
+  <span class="hljs-keyword">function</span> (<span class="hljs-params">e</span>) &#123;
+    <span class="hljs-keyword">const</span> err = e.<span class="hljs-property">target</span>.<span class="hljs-property">src</span> || e.<span class="hljs-property">target</span>.<span class="hljs-property">href</span>;
+    <span class="hljs-keyword">if</span> (err) &#123;
+      <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;捕获到资源加载异常&quot;</span>, err);
     &#125;
   &#125;,
-  true
-);
-</code></pre>
-<h4 id="ajax-接口请求异常捕获"><a href="#ajax-接口请求异常捕获" class="headerlink" title="ajax 接口请求异常捕获"></a>ajax 接口请求异常捕获</h4><pre><code class="js">// 统一拦截ajax请求
-function ajaxEventTrigger(event) &#123;
-  var ajaxEvent = new CustomEvent(event, &#123; detail: this &#125;);
-  window.dispatchEvent(ajaxEvent);
+  <span class="hljs-literal">true</span>
+);</code></pre>
+
+<h4 id="ajax-接口请求异常捕获"><a href="#ajax-接口请求异常捕获" class="headerlink" title="ajax 接口请求异常捕获"></a>ajax 接口请求异常捕获</h4><pre><code class="hljs js"><span class="hljs-comment">// 统一拦截ajax请求</span>
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">ajaxEventTrigger</span>(<span class="hljs-params">event</span>) &#123;
+  <span class="hljs-keyword">var</span> ajaxEvent = <span class="hljs-keyword">new</span> <span class="hljs-title class_">CustomEvent</span>(event, &#123; <span class="hljs-attr">detail</span>: <span class="hljs-variable language_">this</span> &#125;);
+  <span class="hljs-variable language_">window</span>.<span class="hljs-title function_">dispatchEvent</span>(ajaxEvent);
 &#125;
 
-var oldXHR = window.XMLHttpRequest;
-function newXHR() &#123;
-  var realXHR = new oldXHR();
-  realXHR.addEventListener(
-    &quot;readystatechange&quot;,
-    function () &#123;
-      ajaxEventTrigger.call(this, &quot;ajaxReadyStateChange&quot;);
+<span class="hljs-keyword">var</span> oldXHR = <span class="hljs-variable language_">window</span>.<span class="hljs-property">XMLHttpRequest</span>;
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">newXHR</span>(<span class="hljs-params"></span>) &#123;
+  <span class="hljs-keyword">var</span> realXHR = <span class="hljs-keyword">new</span> <span class="hljs-title function_">oldXHR</span>();
+  realXHR.<span class="hljs-title function_">addEventListener</span>(
+    <span class="hljs-string">&quot;readystatechange&quot;</span>,
+    <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) &#123;
+      ajaxEventTrigger.<span class="hljs-title function_">call</span>(<span class="hljs-variable language_">this</span>, <span class="hljs-string">&quot;ajaxReadyStateChange&quot;</span>);
     &#125;,
-    false
+    <span class="hljs-literal">false</span>
   );
-  return realXHR;
+  <span class="hljs-keyword">return</span> realXHR;
 &#125;
-window.XMLHttpRequest = newXHR;
-var startTime = 0;
-var gapTime = 0; // 计算请求延时
-window.addEventListener(&quot;ajaxReadyStateChange&quot;, function (e) &#123;
-  var xhr = e.detail;
-  var status = xhr.status;
-  var readyState = xhr.readyState;
-  /**
-   * 计算请求延时
-   */
-  if (readyState === 1) &#123;
-    startTime = new Date().getTime();
+<span class="hljs-variable language_">window</span>.<span class="hljs-property">XMLHttpRequest</span> = newXHR;
+<span class="hljs-keyword">var</span> startTime = <span class="hljs-number">0</span>;
+<span class="hljs-keyword">var</span> gapTime = <span class="hljs-number">0</span>; <span class="hljs-comment">// 计算请求延时</span>
+<span class="hljs-variable language_">window</span>.<span class="hljs-title function_">addEventListener</span>(<span class="hljs-string">&quot;ajaxReadyStateChange&quot;</span>, <span class="hljs-keyword">function</span> (<span class="hljs-params">e</span>) &#123;
+  <span class="hljs-keyword">var</span> xhr = e.<span class="hljs-property">detail</span>;
+  <span class="hljs-keyword">var</span> status = xhr.<span class="hljs-property">status</span>;
+  <span class="hljs-keyword">var</span> readyState = xhr.<span class="hljs-property">readyState</span>;
+  <span class="hljs-comment">/**</span>
+<span class="hljs-comment">   * 计算请求延时</span>
+<span class="hljs-comment">   */</span>
+  <span class="hljs-keyword">if</span> (readyState === <span class="hljs-number">1</span>) &#123;
+    startTime = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Date</span>().<span class="hljs-title function_">getTime</span>();
   &#125;
-  if (readyState === 4) &#123;
-    gapTime = new Date().getTime() - startTime;
+  <span class="hljs-keyword">if</span> (readyState === <span class="hljs-number">4</span>) &#123;
+    gapTime = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Date</span>().<span class="hljs-title function_">getTime</span>() - startTime;
   &#125;
-  /**
-   * 上报请求信息
-   */
-  if (readyState === 4) &#123;
-    if (status === 200) &#123;
-      // 接口正常响应时捕获接口响应耗时
-      console.log(&quot;接口&quot;, xhr.responseURL, &quot;耗时&quot;, gapTime);
-    &#125; else &#123;
-      // 接口异常时捕获异常接口及状态码
-      console.log(&quot;异常接口&quot;, xhr.responseURL, &quot;状态码&quot;, status);
+  <span class="hljs-comment">/**</span>
+<span class="hljs-comment">   * 上报请求信息</span>
+<span class="hljs-comment">   */</span>
+  <span class="hljs-keyword">if</span> (readyState === <span class="hljs-number">4</span>) &#123;
+    <span class="hljs-keyword">if</span> (status === <span class="hljs-number">200</span>) &#123;
+      <span class="hljs-comment">// 接口正常响应时捕获接口响应耗时</span>
+      <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;接口&quot;</span>, xhr.<span class="hljs-property">responseURL</span>, <span class="hljs-string">&quot;耗时&quot;</span>, gapTime);
+    &#125; <span class="hljs-keyword">else</span> &#123;
+      <span class="hljs-comment">// 接口异常时捕获异常接口及状态码</span>
+      <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;异常接口&quot;</span>, xhr.<span class="hljs-property">responseURL</span>, <span class="hljs-string">&quot;状态码&quot;</span>, status);
     &#125;
   &#125;
-&#125;);
-</code></pre>
+&#125;);</code></pre>
+
 <h4 id="promise-异常捕获"><a href="#promise-异常捕获" class="headerlink" title="promise 异常捕获"></a>promise 异常捕获</h4><p>promise 中的报错顺序是：<br>如果有 catch 等捕获函数，则走 catch 捕获函数。catch 捕获函数如果没有抛出新的异常，则下一个 then 将会认为没有什么报错，会继续执行。<br>如果没有 catch 等捕获函数，我们需要注册 window.addEventListener(‘unhandledrejection’) 来处理</p>
-<pre><code class="js">/**
- * Promise catch错误上报，需要在使用promise的地方显示调用.catch()，否则不会捕获错误
- */
-if (typeof Promise !== &quot;undefined&quot;) &#123;
-  var _promiseCatch = Promise.prototype.catch;
-  Promise.prototype.catch = function (foo) &#123;
-    return _promiseCatch.call(this, catCatch(foo));
+<pre><code class="hljs js"><span class="hljs-comment">/**</span>
+<span class="hljs-comment"> * Promise catch错误上报，需要在使用promise的地方显示调用.catch()，否则不会捕获错误</span>
+<span class="hljs-comment"> */</span>
+<span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> <span class="hljs-title class_">Promise</span> !== <span class="hljs-string">&quot;undefined&quot;</span>) &#123;
+  <span class="hljs-keyword">var</span> _promiseCatch = <span class="hljs-title class_">Promise</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">catch</span>;
+  <span class="hljs-title class_">Promise</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">catch</span> = <span class="hljs-keyword">function</span> (<span class="hljs-params">foo</span>) &#123;
+    <span class="hljs-keyword">return</span> _promiseCatch.<span class="hljs-title function_">call</span>(<span class="hljs-variable language_">this</span>, <span class="hljs-title function_">catCatch</span>(foo));
   &#125;;
 &#125;
-function catCatch(foo) &#123;
-  return function (args) &#123;
-    let msg = args.stack ? args.stack : args;
-    console.log(&quot;捕获到catch中的异常&quot;, msg);
-    foo &amp;&amp; foo.call(this, args);
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">catCatch</span>(<span class="hljs-params">foo</span>) &#123;
+  <span class="hljs-keyword">return</span> <span class="hljs-keyword">function</span> (<span class="hljs-params">args</span>) &#123;
+    <span class="hljs-keyword">let</span> msg = args.<span class="hljs-property">stack</span> ? args.<span class="hljs-property">stack</span> : args;
+    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;捕获到catch中的异常&quot;</span>, msg);
+    foo &amp;&amp; foo.<span class="hljs-title function_">call</span>(<span class="hljs-variable language_">this</span>, args);
   &#125;;
 &#125;
 
-/**
- * 监听promise未处理的reject错误, 跨域情况下监控不到
- */
-window.addEventListener(&quot;unhandledrejection&quot;, (event) =&gt; &#123;
-  console.log(&quot;捕获到未处理的promise异常&quot;, event.reson);
-&#125;);
-</code></pre>
-<h4 id="vue-项目全局异常捕获"><a href="#vue-项目全局异常捕获" class="headerlink" title="vue 项目全局异常捕获"></a>vue 项目全局异常捕获</h4><pre><code class="js">Vue.config.errorHandler = function (err, vm, info) &#123;
-  // `info` 是 Vue 特定的错误信息，比如错误所在的生命周期钩子
-  // 只在 2.2.0+ 可用
-  let msg = `错误发生在：$&#123;info&#125;中，具体信息：$&#123;err.stack&#125;`;
-  console.log(msg);
-&#125;;
-</code></pre>
+<span class="hljs-comment">/**</span>
+<span class="hljs-comment"> * 监听promise未处理的reject错误, 跨域情况下监控不到</span>
+<span class="hljs-comment"> */</span>
+<span class="hljs-variable language_">window</span>.<span class="hljs-title function_">addEventListener</span>(<span class="hljs-string">&quot;unhandledrejection&quot;</span>, <span class="hljs-function">(<span class="hljs-params">event</span>) =&gt;</span> &#123;
+  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;捕获到未处理的promise异常&quot;</span>, event.<span class="hljs-property">reson</span>);
+&#125;);</code></pre>
+
+<h4 id="vue-项目全局异常捕获"><a href="#vue-项目全局异常捕获" class="headerlink" title="vue 项目全局异常捕获"></a>vue 项目全局异常捕获</h4><pre><code class="hljs js"><span class="hljs-title class_">Vue</span>.<span class="hljs-property">config</span>.<span class="hljs-property">errorHandler</span> = <span class="hljs-keyword">function</span> (<span class="hljs-params">err, vm, info</span>) &#123;
+  <span class="hljs-comment">// `info` 是 Vue 特定的错误信息，比如错误所在的生命周期钩子</span>
+  <span class="hljs-comment">// 只在 2.2.0+ 可用</span>
+  <span class="hljs-keyword">let</span> msg = <span class="hljs-string">`错误发生在：<span class="hljs-subst">$&#123;info&#125;</span>中，具体信息：<span class="hljs-subst">$&#123;err.stack&#125;</span>`</span>;
+  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(msg);
+&#125;;</code></pre>
+
 <p>捕获到这些异常后我们需要将这些异常上报给服务器，我们直接以请求图片的形式发送上报内容</p>
-<h3 id="异常上报"><a href="#异常上报" class="headerlink" title="异常上报"></a>异常上报</h3><pre><code class="js">function report(msg) &#123;
-  var reportUrl = &quot;http://xxxx/report&quot;;
-  new Image().src = reportUrl + encodeURIComponent(JSON.stringify(msg));
-&#125;
-</code></pre>
+<h3 id="异常上报"><a href="#异常上报" class="headerlink" title="异常上报"></a>异常上报</h3><pre><code class="hljs js"><span class="hljs-keyword">function</span> <span class="hljs-title function_">report</span>(<span class="hljs-params">msg</span>) &#123;
+  <span class="hljs-keyword">var</span> reportUrl = <span class="hljs-string">&quot;http://xxxx/report&quot;</span>;
+  <span class="hljs-keyword">new</span> <span class="hljs-title class_">Image</span>().<span class="hljs-property">src</span> = reportUrl + <span class="hljs-built_in">encodeURIComponent</span>(<span class="hljs-title class_">JSON</span>.<span class="hljs-title function_">stringify</span>(msg));
+&#125;</code></pre>
  
       <div id="toc-article">
   <div class="widget-wrap" id="toc-wrap">

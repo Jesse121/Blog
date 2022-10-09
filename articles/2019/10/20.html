@@ -275,43 +275,43 @@
 <span id="more"></span>
 
 <p>题目如下：</p>
-<pre><code class="js">// 题目一：
-setTimeout(() =&gt; &#123;
-  console.log(&quot;setTimeout&quot;);
-&#125;, 0);
-setImmediate(() =&gt; &#123;
-  console.log(&quot;setImmediate&quot;);
+<pre><code class="hljs js"><span class="hljs-comment">// 题目一：</span>
+<span class="hljs-built_in">setTimeout</span>(<span class="hljs-function">() =&gt;</span> &#123;
+  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;setTimeout&quot;</span>);
+&#125;, <span class="hljs-number">0</span>);
+<span class="hljs-title function_">setImmediate</span>(<span class="hljs-function">() =&gt;</span> &#123;
+  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;setImmediate&quot;</span>);
 &#125;);
-// 题目二：
-const promise = Promise.resolve();
-promise.then(() =&gt; &#123;
-  console.log(&quot;promise&quot;);
+<span class="hljs-comment">// 题目二：</span>
+<span class="hljs-keyword">const</span> promise = <span class="hljs-title class_">Promise</span>.<span class="hljs-title function_">resolve</span>();
+promise.<span class="hljs-title function_">then</span>(<span class="hljs-function">() =&gt;</span> &#123;
+  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;promise&quot;</span>);
 &#125;);
-process.nextTick(() =&gt; &#123;
-  console.log(&quot;nextTick&quot;);
+process.<span class="hljs-title function_">nextTick</span>(<span class="hljs-function">() =&gt;</span> &#123;
+  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;nextTick&quot;</span>);
 &#125;);
-// 题目三：
-setTimeout(() =&gt; &#123;
-  console.log(1);
-&#125;, 0);
-new Promise((resolve, reject) =&gt; &#123;
-  console.log(2);
-  for (let i = 0; i &lt; 10000; i++) &#123;
-    i === 9999 &amp;&amp; resolve();
+<span class="hljs-comment">// 题目三：</span>
+<span class="hljs-built_in">setTimeout</span>(<span class="hljs-function">() =&gt;</span> &#123;
+  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-number">1</span>);
+&#125;, <span class="hljs-number">0</span>);
+<span class="hljs-keyword">new</span> <span class="hljs-title class_">Promise</span>(<span class="hljs-function">(<span class="hljs-params">resolve, reject</span>) =&gt;</span> &#123;
+  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-number">2</span>);
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">10000</span>; i++) &#123;
+    i === <span class="hljs-number">9999</span> &amp;&amp; <span class="hljs-title function_">resolve</span>();
   &#125;
-  console.log(3);
-&#125;).then(() =&gt; &#123;
-  console.log(4);
+  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-number">3</span>);
+&#125;).<span class="hljs-title function_">then</span>(<span class="hljs-function">() =&gt;</span> &#123;
+  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-number">4</span>);
 &#125;);
-console.log(5);
-// 题目四
-setInterval(() =&gt; &#123;
-  console.log(&quot;setInterval&quot;);
-&#125;, 100);
-process.nextTick(function tick() &#123;
-  process.nextTick(tick);
-&#125;);
-</code></pre>
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-number">5</span>);
+<span class="hljs-comment">// 题目四</span>
+<span class="hljs-built_in">setInterval</span>(<span class="hljs-function">() =&gt;</span> &#123;
+  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;setInterval&quot;</span>);
+&#125;, <span class="hljs-number">100</span>);
+process.<span class="hljs-title function_">nextTick</span>(<span class="hljs-keyword">function</span> <span class="hljs-title function_">tick</span>(<span class="hljs-params"></span>) &#123;
+  process.<span class="hljs-title function_">nextTick</span>(tick);
+&#125;);</code></pre>
+
 <p>在分析这几道题之前先有必要了解下 node.js 的事件循环</p>
 <h3 id="事件循环-Event-Loop"><a href="#事件循环-Event-Loop" class="headerlink" title="事件循环 Event Loop"></a>事件循环 Event Loop</h3><p>我们可以简单理解 Event Loop 如下：</p>
 <ol>
@@ -427,28 +427,28 @@ process.nextTick(function tick() &#123;
 <p>宏任务与微任务执行顺序图<br><img src="https://raw.githubusercontent.com/Jesse121/publicPic/master/blog/pictures/801336-20191020172507873-569608539.png" alt="801336-20191020172507873-569608539"></p>
 <p>图中绿色小块表示 Event Loop 的各个阶段，执行的是宏任务，粉色箭头表示执行的是微任务</p>
 <p>了解到这里我们再来分析上面的几道题<br>题目一的执行结果是：</p>
-<pre><code>setTimeout
+<pre><code class="hljs plaintext">setTimeout
 setImmediate
 //或者
 setImmediate
-setTimeout
-</code></pre>
+setTimeout</code></pre>
+
 <p>为什么结果不确定呢？我们知道 setTimeout 的回调函数在 timer 阶段执行，setImmediate 的回调函数在 check 阶段执行。但是从事件循环开始到 timer 阶段会消耗一定的时间，所以会出现两种情况：</p>
 <ol>
 <li>若 timer 前的准备时间超过 1ms，则执行 timer 阶段（setTimeout）的回调函数</li>
 <li>若 timer 前的准备时间少于 1ms，则执行 check 阶段（setImmediate）的回调函数，下次 event loop 循环在执行 timer 阶段的函数</li>
 </ol>
 <p>题目二的执行结果是</p>
-<pre><code>nextTick
-promise
-</code></pre>
+<pre><code class="hljs plaintext">nextTick
+promise</code></pre>
+
 <p>这里虽然和 process.nextTick 一样，promise.then 也将回调函数注册到 microtask,<strong>但 process.nextTick 的 microtask queue 总是优先于 promise 的 microtask queue 执行的</strong><br>题目三的执行结果是</p>
-<pre><code>2
+<pre><code class="hljs plaintext">2
 3
 5
 4
-1
-</code></pre>
+1</code></pre>
+
 <p>Promise 构造函数是同步执行的，所以先打印 2，3，在打印 5，接下来事件循环执行微任务执行 promise.then 的回调，打印 4，然后进入下一个事件循环执行 timer 阶段的回调打印 1</p>
 <p>题目四的执行结果是<br>永远不会打印 setInterval</p>
 <p>process.nextTick 会无限循环，将 event loop 阻塞在 microtask 阶段，导致 event loop 上其他 macrotask 阶段的回调函数没有机会执行<br>解决方法通常是用 setImmediate 代替 process.nextTick.<br>在 setImmediate 内执行 setImmedaite 时会将 immediate 注册到下一次 event loop 的 check 阶段，这样其他 macrotask 就有机会执行</p>

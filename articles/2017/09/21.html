@@ -273,31 +273,29 @@
     <div class="e-content article-entry" itemprop="articleBody">
        <p>在前端开发中我们经常需要将元素垂直居中对齐，我们很自然的想到使用vertical-align属性，但是使用后却发现有时候能起作用，有时候却又不起作用。究其原因还是因为我们没有将vertical-align属性弄清楚，今天就来分析一下这个属性，若分析有误，还请原谅，望一起探讨！</p>
 <span id="more"></span>
-<h3 id="规范介绍"><a href="#规范介绍" class="headerlink" title="规范介绍"></a><a target="_blank" rel="noopener" href="https://www.w3.org/TR/CSS2/visudet.html#propdef-vertical-align">规范介绍</a></h3><pre><code>Value:         baseline | sub | super | top | text-top | middle | bottom | text-bottom | &lt;percentage&gt; | &lt;length&gt; | inherit
+<h3 id="规范介绍"><a href="#规范介绍" class="headerlink" title="规范介绍"></a><a target="_blank" rel="noopener" href="https://www.w3.org/TR/CSS2/visudet.html#propdef-vertical-align">规范介绍</a></h3><pre><code class="hljs plaintext">Value:         baseline | sub | super | top | text-top | middle | bottom | text-bottom | &lt;percentage&gt; | &lt;length&gt; | inherit
 Initial:       baseline
-Applies to:    inline-level and &#39;table-cell&#39; elements
+Applies to:    inline-level and &#x27;table-cell&#x27; elements
 Inherited:     no
-Percentages:   refer to the &#39;line-height&#39; of the element itself
+Percentages:   refer to the &#x27;line-height&#x27; of the element itself
 Media:         visual
-Computed value:for &lt;percentage&gt; and &lt;length&gt; the absolute length, otherwise as specified
-</code></pre>
+Computed value:for &lt;percentage&gt; and &lt;length&gt; the absolute length, otherwise as specified</code></pre>
 <h3 id="适用元素"><a href="#适用元素" class="headerlink" title="适用元素"></a>适用元素</h3><p><strong>该属性仅适用于inline,inline-block,table-cell元素</strong></p>
 <h3 id="属性值介绍"><a href="#属性值介绍" class="headerlink" title="属性值介绍"></a>属性值介绍</h3><p>介绍属性之前先来了解一下各个属性值代表着什么，通过下面这张图可以知道<br><img src="http://o8l2fza1x.bkt.clouddn.com/base_line.jpg" alt="英语本子4条线"><br>我们知道英语本子每行有4条线，其中红色的线即为基线  </p>
 <p>所用demo</p>
-<pre><code class="html">&lt;div class=&quot;box&quot;&gt;
-    &lt;span class=&quot;aa&quot;&gt;&lt;/span&gt;
+<pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;box&quot;</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;aa&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
    x
-&lt;/div&gt;
-</code></pre>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
+
 <h4 id="baseline"><a href="#baseline" class="headerlink" title="baseline"></a>baseline</h4><p>将元素的基线与父元素的基线对齐  </p>
-<pre><code class="css">.aa4&#123;
-    display:inline-block;
-    width:5px;
-    height:5px;
-    background:blue;
-    vertical-align: baseline;
-&#125;
-</code></pre>
+<pre><code class="hljs css"><span class="hljs-selector-class">.aa4</span>&#123;
+    <span class="hljs-attribute">display</span>:inline-block;
+    <span class="hljs-attribute">width</span>:<span class="hljs-number">5px</span>;
+    <span class="hljs-attribute">height</span>:<span class="hljs-number">5px</span>;
+    <span class="hljs-attribute">background</span>:blue;
+    <span class="hljs-attribute">vertical-align</span>: baseline;
+&#125;</code></pre>
 <div style="height: 40px; width:200px; background:red; color:white; padding-left:20px; font-size:20px;"><span style="display:inline-block; width:5px; height:5px; background:blue;vertical-align: baseline;"></span>x</div>
 
 <p>baseline的确定规则</p>
@@ -308,105 +306,96 @@ Computed value:for &lt;percentage&gt; and &lt;length&gt; the absolute length, ot
 <li>inline-block元素，如果其内部没有line box或它的overflow属性不是visible，那么baseline将是这个inline-block元素的底margin边界。</li>
 </ol>
 <h4 id="length"><a href="#length" class="headerlink" title="length"></a>length</h4><p>基于基线上（正值）下（负值）移动元素  </p>
-<pre><code class="css">input[name=&quot;sex&quot;]&#123;
-    margin:0;
-    padding:0;
-    vertical-align:-2px;
-&#125;
-</code></pre>
+<pre><code class="hljs css"><span class="hljs-selector-tag">input</span><span class="hljs-selector-attr">[name=<span class="hljs-string">&quot;sex&quot;</span>]</span>&#123;
+    <span class="hljs-attribute">margin</span>:<span class="hljs-number">0</span>;
+    <span class="hljs-attribute">padding</span>:<span class="hljs-number">0</span>;
+    <span class="hljs-attribute">vertical-align</span>:-<span class="hljs-number">2px</span>;
+&#125;</code></pre>
 <p>基于基线向下移动-2px</p>
 <div style="width:100px; height: 50px; font-size:12px; background:red; color:white;"><input style="margin:0; padding:0; vertical-align:-2px;" type="radio" name="sex" value="female" checked>女性<input style="margin:0; padding:0; vertical-align:-2px;" type="radio" name="sex" value="male">男性</div>
 
 <h4 id="percentage"><a href="#percentage" class="headerlink" title="percentage"></a>percentage</h4><p>基于基线上（正值）下（负值）移动元素，值通过百分比乘上line-height而得</p>
-<pre><code class="css">.aa2&#123;
-    display:inline-block;
-    width:5px;
-    height:5px;
-    background:blue;
-    vertical-align: -10%;
-    line-height: 30px;
-&#125;
-</code></pre>
+<pre><code class="hljs css"><span class="hljs-selector-class">.aa2</span>&#123;
+    <span class="hljs-attribute">display</span>:inline-block;
+    <span class="hljs-attribute">width</span>:<span class="hljs-number">5px</span>;
+    <span class="hljs-attribute">height</span>:<span class="hljs-number">5px</span>;
+    <span class="hljs-attribute">background</span>:blue;
+    <span class="hljs-attribute">vertical-align</span>: -<span class="hljs-number">10%</span>;
+    <span class="hljs-attribute">line-height</span>: <span class="hljs-number">30px</span>;
+&#125;</code></pre>
 <div style="height: 40px; width:200px; background:red; color:white; padding-left:20px; font-size:20px;"><span style="display:inline-block; width:5px; height:5px; background:blue; vertical-align: -10%; line-height: 30px;"></span>x</div>
 
 <p>这里的vertical-align:-10%所代表的实际值是：-10% <code>*</code> 30 &#x3D; -3px，即向基线下方移动3px<br><span style="color:red;">注意：</span>若该元素没有定义line-height,则会使用继承的<strong>line-height</strong>值</p>
 <h4 id="middle"><a href="#middle" class="headerlink" title="middle"></a>middle</h4><p>将元素的中线与父元素的基线加上<strong>字母x的高度的一半</strong>对齐  </p>
-<pre><code class="css">.aa3&#123;
-    display:inline-block;
-    width:5px;
-    height:5px;
-    background:blue;
-    vertical-align: middle;
-&#125;
-</code></pre>
+<pre><code class="hljs css"><span class="hljs-selector-class">.aa3</span>&#123;
+    <span class="hljs-attribute">display</span>:inline-block;
+    <span class="hljs-attribute">width</span>:<span class="hljs-number">5px</span>;
+    <span class="hljs-attribute">height</span>:<span class="hljs-number">5px</span>;
+    <span class="hljs-attribute">background</span>:blue;
+    <span class="hljs-attribute">vertical-align</span>: middle;
+&#125;</code></pre>
 <div style="height: 40px; width:200px; background:red; color:white; padding-left:20px; font-size:20px;"><span style="display:inline-block; width:5px; height:5px; background:blue;vertical-align: middle;"></span>x</div>
 
 <h4 id="text-top"><a href="#text-top" class="headerlink" title="text-top"></a>text-top</h4><p>将元素的顶部与父元素正文区域的顶部对齐，元素的位置受父元素font-size的大小影响  </p>
-<pre><code class="css">.aa5&#123;
-    display:inline-block;
-    width:5px;
-    height:5px;
-    background:blue;
-    vertical-align: text-top;
-&#125;
-</code></pre>
+<pre><code class="hljs css"><span class="hljs-selector-class">.aa5</span>&#123;
+    <span class="hljs-attribute">display</span>:inline-block;
+    <span class="hljs-attribute">width</span>:<span class="hljs-number">5px</span>;
+    <span class="hljs-attribute">height</span>:<span class="hljs-number">5px</span>;
+    <span class="hljs-attribute">background</span>:blue;
+    <span class="hljs-attribute">vertical-align</span>: text-top;
+&#125;</code></pre>
 <div style="height: 40px; width:200px; background:red; color:white; padding-left:20px; font-size:20px;"><span style="display:inline-block; width:5px; height:5px; background:blue;vertical-align: text-top;"></span>x</div>
 
 <h4 id="text-bottom"><a href="#text-bottom" class="headerlink" title="text-bottom"></a>text-bottom</h4><p>将元素的底部与父元素的正文区域的底部对齐，元素的位置受父元素font-size的大小影响  </p>
-<pre><code>.aa6&#123;
+<pre><code class="hljs plaintext">.aa6&#123;
     display:inline-block;
     width:5px;
     height:5px;
     background:blue;
     vertical-align: text-bottom;
-&#125;
-</code></pre>
+&#125;</code></pre>
 <div style="height: 40px; width:200px; background:red; color:white; padding-left:20px; font-size:20px;"><span style="display:inline-block; width:5px; height:5px; background:blue;vertical-align: text-bottom;"></span>x</div>
 
 <h4 id="top"><a href="#top" class="headerlink" title="top"></a>top</h4><p>将元素的顶部与line box顶部对齐  </p>
-<pre><code class="css">.aa7&#123;
-    display:inline-block;
-    width:5px;
-    height:5px;
-    background:blue;
-    vertical-align: top;
-&#125;
-</code></pre>
+<pre><code class="hljs css"><span class="hljs-selector-class">.aa7</span>&#123;
+    <span class="hljs-attribute">display</span>:inline-block;
+    <span class="hljs-attribute">width</span>:<span class="hljs-number">5px</span>;
+    <span class="hljs-attribute">height</span>:<span class="hljs-number">5px</span>;
+    <span class="hljs-attribute">background</span>:blue;
+    <span class="hljs-attribute">vertical-align</span>: top;
+&#125;</code></pre>
 <div style="height: 40px; width:200px; background:red; color:white; padding-left:20px; font-size:20px;"><span style="display:inline-block; width:5px; height:5px; background:blue;vertical-align: top;"></span>x</div>
 
 <h4 id="bottom"><a href="#bottom" class="headerlink" title="bottom"></a>bottom</h4><p>将元素的底部与line box底部对齐</p>
-<pre><code class="css">.aa8&#123;
-    display:inline-block;
-    width:5px;
-    height:5px;
-    background:blue;
-    vertical-align: bottom;
-&#125;
-</code></pre>
+<pre><code class="hljs css"><span class="hljs-selector-class">.aa8</span>&#123;
+    <span class="hljs-attribute">display</span>:inline-block;
+    <span class="hljs-attribute">width</span>:<span class="hljs-number">5px</span>;
+    <span class="hljs-attribute">height</span>:<span class="hljs-number">5px</span>;
+    <span class="hljs-attribute">background</span>:blue;
+    <span class="hljs-attribute">vertical-align</span>: bottom;
+&#125;</code></pre>
 <p></style></p>
 <div style="height: 40px; width:200px; background:red; color:white; padding-left:20px; font-size:20px;"><span style="display:inline-block; width:5px; height:5px; background:blue;vertical-align: bottom;"></span>x</div>
 
 <h4 id="super"><a href="#super" class="headerlink" title="super"></a>super</h4><p>将元素置于基线上方合适的位置</p>
-<pre><code class="css">.aa10&#123;
-    display:inline-block;
-    width:5px;
-    height:5px;
-    background:blue;
-    vertical-align: super;
-&#125;
-</code></pre>
+<pre><code class="hljs css"><span class="hljs-selector-class">.aa10</span>&#123;
+    <span class="hljs-attribute">display</span>:inline-block;
+    <span class="hljs-attribute">width</span>:<span class="hljs-number">5px</span>;
+    <span class="hljs-attribute">height</span>:<span class="hljs-number">5px</span>;
+    <span class="hljs-attribute">background</span>:blue;
+    <span class="hljs-attribute">vertical-align</span>: super;
+&#125;</code></pre>
 <div style="height: 40px; width:200px; background:red; color:white; padding-left:20px; font-size:14px;">10<span style="display:inline-block; vertical-align: super;">2</span></div>
 
 
 <h4 id="sub"><a href="#sub" class="headerlink" title="sub"></a>sub</h4><p>将元素置于基线下方合适的位置</p>
-<pre><code class="css">.aa9&#123;
-    display:inline-block;
-    width:5px;
-    height:5px;
-    background:blue;
-    vertical-align: sub;
-&#125;
-</code></pre>
+<pre><code class="hljs css"><span class="hljs-selector-class">.aa9</span>&#123;
+    <span class="hljs-attribute">display</span>:inline-block;
+    <span class="hljs-attribute">width</span>:<span class="hljs-number">5px</span>;
+    <span class="hljs-attribute">height</span>:<span class="hljs-number">5px</span>;
+    <span class="hljs-attribute">background</span>:blue;
+    <span class="hljs-attribute">vertical-align</span>: sub;
+&#125;</code></pre>
 <div style="height: 40px; width:200px; background:red; color:white; padding-left:20px; font-size:20px;"><span style="display:inline-block; width:5px; height:5px; background:blue;vertical-align: sub;"></span>x</div>
 
 

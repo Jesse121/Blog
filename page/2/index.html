@@ -181,7 +181,7 @@
 
     </div>
     <div class="e-content article-entry" itemprop="articleBody">
-       <h3 id="发现问题"><a href="#发现问题" class="headerlink" title="发现问题"></a>发现问题</h3><p>最近在项目中使用<a href="mailto:&#104;&#117;&#115;&#107;&#x79;&#64;&#55;&#x2e;&#x30;&#46;&#49;">&#104;&#117;&#115;&#107;&#x79;&#64;&#55;&#x2e;&#x30;&#46;&#49;</a>给 git 添加执行钩子时发现在 window 系统上可以正常触发配置的 pre-commit 但是在 mac 上就是不行并且在控制台输出一下提示：</p> 
+       <h3 id="发现问题"><a href="#发现问题" class="headerlink" title="发现问题"></a>发现问题</h3><p>最近在项目中使用<a href="mailto:&#104;&#x75;&#x73;&#x6b;&#x79;&#x40;&#55;&#x2e;&#48;&#46;&#x31;">&#104;&#x75;&#x73;&#x6b;&#x79;&#x40;&#55;&#x2e;&#48;&#46;&#x31;</a>给 git 添加执行钩子时发现在 window 系统上可以正常触发配置的 pre-commit 但是在 mac 上就是不行并且在控制台输出一下提示：</p> 
     </div>
     <footer class="article-footer">
        
@@ -833,14 +833,13 @@ m.<span class="hljs-title function_">set</span>(<span class="hljs-string">&quot;
        <h3 id="用-docker-commit-的方式创建-ssh-直连-docker-容器镜像"><a href="#用-docker-commit-的方式创建-ssh-直连-docker-容器镜像" class="headerlink" title="用 docker commit 的方式创建 ssh 直连 docker 容器镜像"></a>用 docker commit 的方式创建 ssh 直连 docker 容器镜像</h3><ol>
 <li>拉取镜像，这里采用 centos:7 作为基础镜像</li>
 </ol>
-<pre><code>docker pull centos:7
-</code></pre>
+<pre><code class="hljs plaintext">docker pull centos:7</code></pre>
+
 <ol start="2">
 <li>运行镜像，生成容器</li>
 </ol>
-<pre><code>docker run -d --name ssh_box --privileged=true centos:7 /usr/sbin/init
-07228ec257564c4874ca24216d651bda65573d49e4149064a079cacca27de4e1 # 生成的容器ID
-</code></pre> 
+<pre><code class="hljs plaintext">docker run -d --name ssh_box --privileged=true centos:7 /usr/sbin/init
+07228ec257564c4874ca24216d651bda65573d49e4149064a079cacca27de4e1 # 生成的容器ID</code></pre> 
     </div>
     <footer class="article-footer">
        

@@ -304,7 +304,7 @@
 <li><a target="_blank" rel="noopener" href="http://www.bootcdn.cn/">Bootstrap</a></li>
 </ul>
 <h3 id="规则三、添加Expires"><a href="#规则三、添加Expires" class="headerlink" title="规则三、添加Expires"></a>规则三、添加Expires</h3><p>页面中都包含大量的组件，通过web服务器使用一个长久的expires头，使得这些组件可以被缓存，这样在后续页面中避免不必要的HTTP请求<br>缺点：要求服务器和客户端的时间严格同步，过期日期需要检查，并提供新日期<br>HTTP1.1引入Cache-Control头来克服Expires头的限制<br>cache-control使用max-age指令<br>max-age请求的内容过多久过期（相对于请求时间Date）失效，默认以秒为单位<br>具体的过期时间配置可在Apache配置文件中添加mod_expires.c配置信息。</p>
-<pre><code>&lt;IfModule mod_expires.c&gt;
+<pre><code class="hljs plaintext">&lt;IfModule mod_expires.c&gt;
     ExpiresActive On
     ExpiresByType text/css &quot;now plus 1 month&quot;
     ExpiresByType application/x-javascript &quot;now plus 5 day&quot;
@@ -315,11 +315,10 @@
     ExpiresByType image/png &quot;access plus 1 minutes&quot;
     ExpiresByType application/x-shockwave-flash &quot;access plus 1 month&quot;
     ExpiresDefault &quot;now plus 1 minutes&quot;
-&lt;/IfModule&gt;
-</code></pre>
+&lt;/IfModule&gt;</code></pre>
 <p>配置信息可参考<a target="_blank" rel="noopener" href="http://httpd.apache.org/docs/current/mod/mod_expires.html">Apache Module mod_expires</a></p>
 <h3 id="规则四、压缩组件"><a href="#规则四、压缩组件" class="headerlink" title="规则四、压缩组件"></a>规则四、压缩组件</h3><p>通过开启gzip压缩来减小HTTP响应数据包的大小<br>值得压缩的内容有HTML xml css js json<br>不该压缩的内容图片 pdf，他们在上传到服务器的时候一般就已压缩好，再压缩只会浪费CPU<br>通过配置Apache 2.x的mod_deflate模块</p>
-<pre><code>&lt;IfModule mod_deflate.c&gt;
+<pre><code class="hljs plaintext">&lt;IfModule mod_deflate.c&gt;
     DeflateCompressionLevel 6 
     SetOutputFilter DEFLATE 
     SetEnvIfNoCase Request_URI .(?:gif|jpe?g|png)$ no-gzip dont-vary 
@@ -331,8 +330,7 @@
         BrowserMatch ^Mozilla/4.0[678] no-gzip 
         BrowserMatch \bMSIE !no-gzip !gzip-only-text/html 
     &lt;/IfModule&gt;
-&lt;/IfModule&gt;
-</code></pre>
+&lt;/IfModule&gt;</code></pre>
 <p>配置信息可参考<a target="_blank" rel="noopener" href="http://httpd.apache.org/docs/current/mod/mod_deflate.html">Apache Module mod_deflate</a></p>
 <h3 id="规则五、将样式表放在顶部"><a href="#规则五、将样式表放在顶部" class="headerlink" title="规则五、将样式表放在顶部"></a>规则五、将样式表放在顶部</h3><p>将样式表放在head标签里可以避免白屏，这样浏览器能更快的展现内容，用户体验更好<br>而将样式表放在底部会导致浏览器阻止内容逐步呈现，为避免当样式变化时重绘页面，浏览器会延迟显示页面中的元素  </p>
 <h3 id="规则六、将脚本放在底部"><a href="#规则六、将脚本放在底部" class="headerlink" title="规则六、将脚本放在底部"></a>规则六、将脚本放在底部</h3><p>在下载脚本时浏览器会阻塞并行下载，原因：</p>
@@ -383,16 +381,15 @@
 <h4 id="实体标签"><a href="#实体标签" class="headerlink" title="实体标签"></a>实体标签</h4><p>ETag是唯一标识了一个组件的一个特性版本的字符串<br><code>ETag:&quot;24-54c6a9bd53bd1&quot;</code><br>当组件第一次被请求成功后浏览器缓存了该组件以及它的最新修改日期（允许缓存）还有ETag信息，当再次请求该组件时，浏览器会使用If-None-Match头将ETag和原始服务器上该组件的ETag进行比较，如果相同则返回一个304，而不传输数据，浏览器将使用缓存数据。</p>
 <h4 id="ETag带来的问题"><a href="#ETag带来的问题" class="headerlink" title="ETag带来的问题"></a>ETag带来的问题</h4><p>当你使用服务器集群时，相同的组件从一台服务器带另一台服务器，Aapache和IIS产生的ETag是不同的，这样组件下载次数将增加，导致性能下降<br>当If-None-Match比If-Modified-Since共存时，只有If-Modified-Since和If-None-Match在完全匹配时，服务器才能返回304。否则由于If-None-Match比If-Modified-Since具有更高的优先级,ETag不同，服务器就会返回200</p>
 <h4 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h4><ol>
-<li>配置ETag</li>
-</ol>
-<pre><code>FileEtag INode Mtime Size 
+<li>配置ETag  <pre><code class="hljs plaintext">FileEtag INode Mtime Size 
 INode:文件的索引节点(inode)数  
 MTime:文件的最后修改日期及时间  
 Size:文件的字节数  
 All:所有存在的域，等价于：FileETag INode MTime Size  
-None:移除ETag  
-</code></pre>
-<p>有网友建议只是用MTime和Size就好了，有待验证<br>2. 移除ETag<br>    在Aapache配置文件按中添加<code>FileETag none</code></p>
+None:移除ETag</code></pre>
+有网友建议只是用MTime和Size就好了，有待验证  </li>
+<li>移除ETag<br> 在Aapache配置文件按中添加<code>FileETag none</code></li>
+</ol>
 <h3 id="规则十四、使用Ajax可缓存"><a href="#规则十四、使用Ajax可缓存" class="headerlink" title="规则十四、使用Ajax可缓存"></a>规则十四、使用Ajax可缓存</h3><p>如果使用ajax向服务器发起大量的GET请求则可以为其请求的资源设置长久的expires头  </p>
  
       <div id="toc-article">

@@ -81,8 +81,107 @@
 </header>
 
       <div class="outer">
-        <section id="main">
-  <article
+        <section id="main"><style>
+  pre {
+    padding: 1.5rem !important;
+    margin: 1rem 0 !important;
+    background: #272822;
+    overflow: auto;
+    border-radius: 0.35rem;
+    tab-size: 4;
+  }
+
+  pre::before {
+    content: "";
+    height: 16px;
+    margin-bottom: 0;
+    display: block;
+  }
+
+  pre::after {
+    content: " ";
+    position: absolute;
+    border-radius: 50%;
+    background: #ff5f56;
+    width: 12px;
+    height: 12px;
+    top: 0;
+    left: 12px;
+    margin-top: 12px;
+    -webkit-box-shadow: 20px 0 #ffbd2e, 40px 0 #27c93f;
+    box-shadow: 20px 0 #ffbd2e, 40px 0 #27c93f;
+  }
+
+  code {
+    padding: 1px 5px;
+    font-family: Inconsolata, Monaco, Consolas, "Courier New", Courier,
+      monospace;
+    font-size: 0.91rem;
+    color: #e96900;
+    background-color: #f8f8f8;
+    border-radius: 2px;
+  }
+
+  .code_copy {
+    position: absolute;
+    top: 0.7rem;
+    right: 35px;
+    z-index: 1;
+    filter: invert(50%);
+    cursor: pointer;
+  }
+
+  .code_lang {
+    position: absolute;
+    top: 1.2rem;
+    right: 60px;
+    line-height: 0;
+    font-weight: bold;
+    font-family: normal;
+    z-index: 1;
+    filter: invert(50%);
+    cursor: pointer;
+  }
+
+  .code-expand {
+    position: absolute;
+    top: 4px;
+    right: 0px;
+    filter: invert(50%);
+    padding: 7px 10px;
+    z-index: 1;
+    cursor: pointer;
+    transition: all 0.3s;
+    transform: rotate(0deg);
+  }
+
+  .code-closed .code-expand {
+    transform: rotate(-180deg) !important;
+    transition: all 0.3s;
+  }
+
+  .code-closed pre::before {
+    height: 0px;
+  }
+
+  pre code {
+    padding: 0 !important;
+    color: #e8eaf6;
+    background-color: #272822 !important;
+  }
+
+  pre[class*="language-"] {
+    padding: 1.2em;
+    margin: 0.5em 0;
+  }
+
+  code[class*="language-"],
+  pre[class*="language-"] {
+    color: #e8eaf6;
+    white-space: pre-wrap !important;
+  }
+</style>
+ <article
   id="post-javascript/[转载]JavaScript代码优化之道"
   class="h-entry article article-type-post"
   itemprop="blogPost"
@@ -134,8 +233,6 @@
     </footer>
   </div>
 </article>
-
-
   <article
   id="post-electron/如何解决Electron应用安装在C盘没有权限更新的问题"
   class="h-entry article article-type-post"
@@ -188,8 +285,6 @@
     </footer>
   </div>
 </article>
-
-
   <article
   id="post-electron/如何用Electron+vue+vite构建桌面端应用(三)"
   class="h-entry article article-type-post"
@@ -242,8 +337,6 @@
     </footer>
   </div>
 </article>
-
-
   <article
   id="post-electron/如何用Electron+vue+vite构建桌面端应用(二)"
   class="h-entry article article-type-post"
@@ -296,8 +389,6 @@
     </footer>
   </div>
 </article>
-
-
   <article
   id="post-electron/从源码分析为什么electron+vue项目中router不能用history模式"
   class="h-entry article article-type-post"
@@ -351,8 +442,6 @@
     </footer>
   </div>
 </article>
-
-
   <article
   id="post-electron/如何用Electron+vue+vite构建桌面端应用(一)"
   class="h-entry article article-type-post"
@@ -405,8 +494,6 @@
     </footer>
   </div>
 </article>
-
-
   <article
   id="post-electron/如何在国产银河麒麟系统mips架构上离线安装electron"
   class="h-entry article article-type-post"
@@ -459,8 +546,6 @@
     </footer>
   </div>
 </article>
-
-
   <article
   id="post-typescript/Typescript工具类型和操作符介绍"
   class="h-entry article article-type-post"
@@ -530,8 +615,6 @@ Uncapitalize&lt;StringType&gt;</code></pre>
     </footer>
   </div>
 </article>
-
-
   <article
   id="post-notes/《深入理解Typescript》--读书笔记"
   class="h-entry article article-type-post"
@@ -585,8 +668,6 @@ Uncapitalize&lt;StringType&gt;</code></pre>
     </footer>
   </div>
 </article>
-
-
   <article
   id="post-web/什么是SSE(Server-sent event)"
   class="h-entry article article-type-post"
@@ -639,15 +720,11 @@ Uncapitalize&lt;StringType&gt;</code></pre>
     </footer>
   </div>
 </article>
-
-
-
-    <nav id="page-nav">
+   <nav id="page-nav">
 
 <span class="page-number current">1</span><a class="page-number" href="/blog/page/2/">2</a><a class="page-number" href="/blog/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/10/">10</a><a class="extend next" rel="next" href="/blog/page/2/">下一页</a>
 </nav>
-
-
+ 
 </section>
         
           <aside id="sidebar">

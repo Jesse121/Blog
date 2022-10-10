@@ -81,8 +81,107 @@
 </header>
 
       <div class="outer">
-        <section id="main">
-  <article
+        <section id="main"><style>
+  pre {
+    padding: 1.5rem !important;
+    margin: 1rem 0 !important;
+    background: #272822;
+    overflow: auto;
+    border-radius: 0.35rem;
+    tab-size: 4;
+  }
+
+  pre::before {
+    content: "";
+    height: 16px;
+    margin-bottom: 0;
+    display: block;
+  }
+
+  pre::after {
+    content: " ";
+    position: absolute;
+    border-radius: 50%;
+    background: #ff5f56;
+    width: 12px;
+    height: 12px;
+    top: 0;
+    left: 12px;
+    margin-top: 12px;
+    -webkit-box-shadow: 20px 0 #ffbd2e, 40px 0 #27c93f;
+    box-shadow: 20px 0 #ffbd2e, 40px 0 #27c93f;
+  }
+
+  code {
+    padding: 1px 5px;
+    font-family: Inconsolata, Monaco, Consolas, "Courier New", Courier,
+      monospace;
+    font-size: 0.91rem;
+    color: #e96900;
+    background-color: #f8f8f8;
+    border-radius: 2px;
+  }
+
+  .code_copy {
+    position: absolute;
+    top: 0.7rem;
+    right: 35px;
+    z-index: 1;
+    filter: invert(50%);
+    cursor: pointer;
+  }
+
+  .code_lang {
+    position: absolute;
+    top: 1.2rem;
+    right: 60px;
+    line-height: 0;
+    font-weight: bold;
+    font-family: normal;
+    z-index: 1;
+    filter: invert(50%);
+    cursor: pointer;
+  }
+
+  .code-expand {
+    position: absolute;
+    top: 4px;
+    right: 0px;
+    filter: invert(50%);
+    padding: 7px 10px;
+    z-index: 1;
+    cursor: pointer;
+    transition: all 0.3s;
+    transform: rotate(0deg);
+  }
+
+  .code-closed .code-expand {
+    transform: rotate(-180deg) !important;
+    transition: all 0.3s;
+  }
+
+  .code-closed pre::before {
+    height: 0px;
+  }
+
+  pre code {
+    padding: 0 !important;
+    color: #e8eaf6;
+    background-color: #272822 !important;
+  }
+
+  pre[class*="language-"] {
+    padding: 1.2em;
+    margin: 0.5em 0;
+  }
+
+  code[class*="language-"],
+  pre[class*="language-"] {
+    color: #e8eaf6;
+    white-space: pre-wrap !important;
+  }
+</style>
+ <article
   id="post-algorithm/算法的时间复杂度与空间复杂度分析"
   class="h-entry article article-type-post"
   itemprop="blogPost"
@@ -136,8 +235,6 @@
     </footer>
   </div>
 </article>
-
-
   <article
   id="post-tool/如何使用Wireshark抓取HTTP2报文？"
   class="h-entry article article-type-post"
@@ -190,8 +287,6 @@
     </footer>
   </div>
 </article>
-
-
   <article
   id="post-question/微信小程序无法抓包的解决办法及原因分析"
   class="h-entry article article-type-post"
@@ -244,8 +339,6 @@
     </footer>
   </div>
 </article>
-
-
   <article
   id="post-tool/Mac OS下如何把软件卸载干净？"
   class="h-entry article article-type-post"
@@ -298,8 +391,6 @@
     </footer>
   </div>
 </article>
-
-
   <article
   id="post-tool/如何做好前端页面异常监控？"
   class="h-entry article article-type-post"
@@ -352,8 +443,6 @@
     </footer>
   </div>
 </article>
-
-
   <article
   id="post-javascript/解读setTimeout, promise.then, process.nextTick, setImmediate的执行顺序"
   class="h-entry article article-type-post"
@@ -406,8 +495,6 @@
     </footer>
   </div>
 </article>
-
-
   <article
   id="post-tool/规范git commit提交记录和版本发布记录"
   class="h-entry article article-type-post"
@@ -460,8 +547,6 @@
     </footer>
   </div>
 </article>
-
-
   <article
   id="post-notes/《Javascript设计模式与开发实践》--读书笔记"
   class="h-entry article article-type-post"
@@ -514,8 +599,6 @@
     </footer>
   </div>
 </article>
-
-
   <article
   id="post-web/base64编码原理及应用"
   class="h-entry article article-type-post"
@@ -568,8 +651,6 @@
     </footer>
   </div>
 </article>
-
-
   <article
   id="post-html-css/CSS 计数器详解"
   class="h-entry article article-type-post"
@@ -622,15 +703,11 @@
     </footer>
   </div>
 </article>
-
-
-
-    <nav id="page-nav">
+   <nav id="page-nav">
 
 <a class="extend prev" rel="prev" href="/blog/page/2/">上一页</a><a class="page-number" href="/blog/">1</a><a class="page-number" href="/blog/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/blog/page/4/">4</a><a class="page-number" href="/blog/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/10/">10</a><a class="extend next" rel="next" href="/blog/page/4/">下一页</a>
 </nav>
-
-
+ 
 </section>
         
           <aside id="sidebar">

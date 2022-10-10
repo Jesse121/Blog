@@ -81,8 +81,107 @@
 </header>
 
       <div class="outer">
-        <section id="main">
-  <article
+        <section id="main"><style>
+  pre {
+    padding: 1.5rem !important;
+    margin: 1rem 0 !important;
+    background: #272822;
+    overflow: auto;
+    border-radius: 0.35rem;
+    tab-size: 4;
+  }
+
+  pre::before {
+    content: "";
+    height: 16px;
+    margin-bottom: 0;
+    display: block;
+  }
+
+  pre::after {
+    content: " ";
+    position: absolute;
+    border-radius: 50%;
+    background: #ff5f56;
+    width: 12px;
+    height: 12px;
+    top: 0;
+    left: 12px;
+    margin-top: 12px;
+    -webkit-box-shadow: 20px 0 #ffbd2e, 40px 0 #27c93f;
+    box-shadow: 20px 0 #ffbd2e, 40px 0 #27c93f;
+  }
+
+  code {
+    padding: 1px 5px;
+    font-family: Inconsolata, Monaco, Consolas, "Courier New", Courier,
+      monospace;
+    font-size: 0.91rem;
+    color: #e96900;
+    background-color: #f8f8f8;
+    border-radius: 2px;
+  }
+
+  .code_copy {
+    position: absolute;
+    top: 0.7rem;
+    right: 35px;
+    z-index: 1;
+    filter: invert(50%);
+    cursor: pointer;
+  }
+
+  .code_lang {
+    position: absolute;
+    top: 1.2rem;
+    right: 60px;
+    line-height: 0;
+    font-weight: bold;
+    font-family: normal;
+    z-index: 1;
+    filter: invert(50%);
+    cursor: pointer;
+  }
+
+  .code-expand {
+    position: absolute;
+    top: 4px;
+    right: 0px;
+    filter: invert(50%);
+    padding: 7px 10px;
+    z-index: 1;
+    cursor: pointer;
+    transition: all 0.3s;
+    transform: rotate(0deg);
+  }
+
+  .code-closed .code-expand {
+    transform: rotate(-180deg) !important;
+    transition: all 0.3s;
+  }
+
+  .code-closed pre::before {
+    height: 0px;
+  }
+
+  pre code {
+    padding: 0 !important;
+    color: #e8eaf6;
+    background-color: #272822 !important;
+  }
+
+  pre[class*="language-"] {
+    padding: 1.2em;
+    margin: 0.5em 0;
+  }
+
+  code[class*="language-"],
+  pre[class*="language-"] {
+    color: #e8eaf6;
+    white-space: pre-wrap !important;
+  }
+</style>
+ <article
   id="post-javascript/原生JavaScript操作DOM方法汇总"
   class="h-entry article article-type-post"
   itemprop="blogPost"
@@ -134,8 +233,6 @@
     </footer>
   </div>
 </article>
-
-
   <article
   id="post-javascript/JavaScript跨域方式总结"
   class="h-entry article article-type-post"
@@ -188,8 +285,6 @@
     </footer>
   </div>
 </article>
-
-
   <article
   id="post-web/从输入网址到页面呈现这个过程中都发生了什么"
   class="h-entry article article-type-post"
@@ -242,8 +337,6 @@
     </footer>
   </div>
 </article>
-
-
   <article
   id="post-javascript/javascript执行流总结"
   class="h-entry article article-type-post"
@@ -296,8 +389,6 @@
     </footer>
   </div>
 </article>
-
-
   <article
   id="post-html-css/CSS选择器性能分析"
   class="h-entry article article-type-post"
@@ -350,8 +441,6 @@
     </footer>
   </div>
 </article>
-
-
   <article
   id="post-notes/《jQuery内核详解与实践》--读书笔记"
   class="h-entry article article-type-post"
@@ -412,8 +501,6 @@ jQuery.<span class="hljs-property">fn</span> = jQuery.<span class="hljs-property
     </footer>
   </div>
 </article>
-
-
   <article
   id="post-photoshop/前端切图技巧"
   class="h-entry article article-type-post"
@@ -466,8 +553,6 @@ jQuery.<span class="hljs-property">fn</span> = jQuery.<span class="hljs-property
     </footer>
   </div>
 </article>
-
-
   <article
   id="post-notes/《Javascript权威指南》第六版--读书笔记"
   class="h-entry article article-type-post"
@@ -522,8 +607,6 @@ jQuery.<span class="hljs-property">fn</span> = jQuery.<span class="hljs-property
     </footer>
   </div>
 </article>
-
-
   <article
   id="post-bootstrap/Bootstrap源码分析系列之核心CSS"
   class="h-entry article article-type-post"
@@ -576,8 +659,6 @@ jQuery.<span class="hljs-property">fn</span> = jQuery.<span class="hljs-property
     </footer>
   </div>
 </article>
-
-
   <article
   id="post-bootstrap/Bootstrap源码分析系列之初始化和依赖项"
   class="h-entry article article-type-post"
@@ -630,15 +711,11 @@ jQuery.<span class="hljs-property">fn</span> = jQuery.<span class="hljs-property
     </footer>
   </div>
 </article>
-
-
-
-    <nav id="page-nav">
+   <nav id="page-nav">
 
 <a class="extend prev" rel="prev" href="/blog/page/7/">上一页</a><a class="page-number" href="/blog/">1</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/6/">6</a><a class="page-number" href="/blog/page/7/">7</a><span class="page-number current">8</span><a class="page-number" href="/blog/page/9/">9</a><a class="page-number" href="/blog/page/10/">10</a><a class="extend next" rel="next" href="/blog/page/9/">下一页</a>
 </nav>
-
-
+ 
 </section>
         
           <aside id="sidebar">

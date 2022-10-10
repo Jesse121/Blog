@@ -81,8 +81,107 @@
 </header>
 
       <div class="outer">
-        <section id="main">
-  <article
+        <section id="main"><style>
+  pre {
+    padding: 1.5rem !important;
+    margin: 1rem 0 !important;
+    background: #272822;
+    overflow: auto;
+    border-radius: 0.35rem;
+    tab-size: 4;
+  }
+
+  pre::before {
+    content: "";
+    height: 16px;
+    margin-bottom: 0;
+    display: block;
+  }
+
+  pre::after {
+    content: " ";
+    position: absolute;
+    border-radius: 50%;
+    background: #ff5f56;
+    width: 12px;
+    height: 12px;
+    top: 0;
+    left: 12px;
+    margin-top: 12px;
+    -webkit-box-shadow: 20px 0 #ffbd2e, 40px 0 #27c93f;
+    box-shadow: 20px 0 #ffbd2e, 40px 0 #27c93f;
+  }
+
+  code {
+    padding: 1px 5px;
+    font-family: Inconsolata, Monaco, Consolas, "Courier New", Courier,
+      monospace;
+    font-size: 0.91rem;
+    color: #e96900;
+    background-color: #f8f8f8;
+    border-radius: 2px;
+  }
+
+  .code_copy {
+    position: absolute;
+    top: 0.7rem;
+    right: 35px;
+    z-index: 1;
+    filter: invert(50%);
+    cursor: pointer;
+  }
+
+  .code_lang {
+    position: absolute;
+    top: 1.2rem;
+    right: 60px;
+    line-height: 0;
+    font-weight: bold;
+    font-family: normal;
+    z-index: 1;
+    filter: invert(50%);
+    cursor: pointer;
+  }
+
+  .code-expand {
+    position: absolute;
+    top: 4px;
+    right: 0px;
+    filter: invert(50%);
+    padding: 7px 10px;
+    z-index: 1;
+    cursor: pointer;
+    transition: all 0.3s;
+    transform: rotate(0deg);
+  }
+
+  .code-closed .code-expand {
+    transform: rotate(-180deg) !important;
+    transition: all 0.3s;
+  }
+
+  .code-closed pre::before {
+    height: 0px;
+  }
+
+  pre code {
+    padding: 0 !important;
+    color: #e8eaf6;
+    background-color: #272822 !important;
+  }
+
+  pre[class*="language-"] {
+    padding: 1.2em;
+    margin: 0.5em 0;
+  }
+
+  code[class*="language-"],
+  pre[class*="language-"] {
+    color: #e8eaf6;
+    white-space: pre-wrap !important;
+  }
+</style>
+ <article
   id="post-vue/如何用vite快速搭建一个vue3项目"
   class="h-entry article article-type-post"
   itemprop="blogPost"
@@ -140,8 +239,6 @@
     </footer>
   </div>
 </article>
-
-
   <article
   id="post-question/husky配置文件没有执行权限"
   class="h-entry article article-type-post"
@@ -181,7 +278,7 @@
 
     </div>
     <div class="e-content article-entry" itemprop="articleBody">
-       <h3 id="发现问题"><a href="#发现问题" class="headerlink" title="发现问题"></a>发现问题</h3><p>最近在项目中使用<a href="mailto:&#x68;&#x75;&#x73;&#x6b;&#x79;&#64;&#x37;&#46;&#48;&#46;&#x31;">&#x68;&#x75;&#x73;&#x6b;&#x79;&#64;&#x37;&#46;&#48;&#46;&#x31;</a>给 git 添加执行钩子时发现在 window 系统上可以正常触发配置的 pre-commit 但是在 mac 上就是不行并且在控制台输出一下提示：</p> 
+       <h3 id="发现问题"><a href="#发现问题" class="headerlink" title="发现问题"></a>发现问题</h3><p>最近在项目中使用<a href="mailto:&#x68;&#x75;&#115;&#x6b;&#x79;&#64;&#55;&#46;&#48;&#x2e;&#x31;">&#x68;&#x75;&#115;&#x6b;&#x79;&#64;&#55;&#46;&#48;&#x2e;&#x31;</a>给 git 添加执行钩子时发现在 window 系统上可以正常触发配置的 pre-commit 但是在 mac 上就是不行并且在控制台输出一下提示：</p> 
     </div>
     <footer class="article-footer">
        
@@ -194,8 +291,6 @@
     </footer>
   </div>
 </article>
-
-
   <article
   id="post-algorithm/javascript 数据结构与算法"
   class="h-entry article article-type-post"
@@ -735,8 +830,6 @@ m.<span class="hljs-title function_">set</span>(<span class="hljs-string">&quot;
     </footer>
   </div>
 </article>
-
-
   <article
   id="post-question/如何快速生成tsconfig.json文件"
   class="h-entry article article-type-post"
@@ -789,8 +882,6 @@ m.<span class="hljs-title function_">set</span>(<span class="hljs-string">&quot;
     </footer>
   </div>
 </article>
-
-
   <article
   id="post-tool/用ssh连接docker容器"
   class="h-entry article article-type-post"
@@ -852,8 +943,6 @@ m.<span class="hljs-title function_">set</span>(<span class="hljs-string">&quot;
     </footer>
   </div>
 </article>
-
-
   <article
   id="post-typescript/如何在vscode上直接运行typescript？"
   class="h-entry article article-type-post"
@@ -906,8 +995,6 @@ m.<span class="hljs-title function_">set</span>(<span class="hljs-string">&quot;
     </footer>
   </div>
 </article>
-
-
   <article
   id="post-tool/Wireshark过滤器使用介绍"
   class="h-entry article article-type-post"
@@ -960,8 +1047,6 @@ m.<span class="hljs-title function_">set</span>(<span class="hljs-string">&quot;
     </footer>
   </div>
 </article>
-
-
   <article
   id="post-question/webpack编译后的html中图片路径变为[object Module]的原因及解决办法"
   class="h-entry article article-type-post"
@@ -1014,8 +1099,6 @@ m.<span class="hljs-title function_">set</span>(<span class="hljs-string">&quot;
     </footer>
   </div>
 </article>
-
-
   <article
   id="post-algorithm/栈与队列"
   class="h-entry article article-type-post"
@@ -1068,8 +1151,6 @@ m.<span class="hljs-title function_">set</span>(<span class="hljs-string">&quot;
     </footer>
   </div>
 </article>
-
-
   <article
   id="post-algorithm/链表"
   class="h-entry article article-type-post"
@@ -1122,15 +1203,11 @@ m.<span class="hljs-title function_">set</span>(<span class="hljs-string">&quot;
     </footer>
   </div>
 </article>
-
-
-
-    <nav id="page-nav">
+   <nav id="page-nav">
 
 <a class="extend prev" rel="prev" href="/blog/">上一页</a><a class="page-number" href="/blog/">1</a><span class="page-number current">2</span><a class="page-number" href="/blog/page/3/">3</a><a class="page-number" href="/blog/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/10/">10</a><a class="extend next" rel="next" href="/blog/page/3/">下一页</a>
 </nav>
-
-
+ 
 </section>
         
           <aside id="sidebar">

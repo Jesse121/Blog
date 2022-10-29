@@ -335,7 +335,7 @@ docker rm 07228ec25756</code></pre>
 <pre><code class="hljs plaintext">docker run -d -p 2222:22 ssh_box /usr/sbin/sshd -D</code></pre>
 
 <p>12.然后可以使用 xshell 连接新生成的容器</p>
-<p>ip: 为宿主主机的 ip，而不是 docker 容器的 ip<br>端口:就是上面的 2222<br>用户名： root<br>密码： 就是上面 password 部分设置的密码<br>在 mac 上可通过 ssh <a href="mailto:&#114;&#111;&#x6f;&#116;&#x40;&#49;&#50;&#x37;&#x2e;&#48;&#x2e;&#48;&#x2e;&#x31;">&#114;&#111;&#x6f;&#116;&#x40;&#49;&#50;&#x37;&#x2e;&#48;&#x2e;&#48;&#x2e;&#x31;</a> -p:2222 登录新生成的容器</p>
+<p>ip: 为宿主主机的 ip，而不是 docker 容器的 ip<br>端口:就是上面的 2222<br>用户名： root<br>密码： 就是上面 password 部分设置的密码<br>在 mac 上可通过 ssh <a href="mailto:&#114;&#x6f;&#x6f;&#x74;&#x40;&#49;&#50;&#x37;&#46;&#48;&#46;&#x30;&#x2e;&#49;">&#114;&#x6f;&#x6f;&#x74;&#x40;&#49;&#50;&#x37;&#46;&#48;&#46;&#x30;&#x2e;&#49;</a> -p:2222 登录新生成的容器</p>
 <p>至此 ssh 连接 docker 容器连接成功</p>
 <h3 id="以-Dockerfile-的方式创建-ssh-直连-docker-容器"><a href="#以-Dockerfile-的方式创建-ssh-直连-docker-容器" class="headerlink" title="以 Dockerfile 的方式创建 ssh 直连 docker 容器"></a>以 Dockerfile 的方式创建 ssh 直连 docker 容器</h3><ol>
 <li>创建 Dockerfile 文件</li>
@@ -620,7 +620,17 @@ CMD    [&quot;/usr/sbin/sshd&quot;, &quot;-D&quot;]</code></pre>
  
 <script src="/blog/js/script.js"></script>
  
-   
+ 
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?8e59984317ab1777a88e5b3e62c7c767";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+  
 <script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
  
       

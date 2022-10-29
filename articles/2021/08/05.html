@@ -272,9 +272,63 @@
     </div>
     <div class="e-content article-entry" itemprop="articleBody">
        <h3 id="Typescript-项目"><a href="#Typescript-项目" class="headerlink" title="Typescript 项目"></a>Typescript 项目</h3><h4 id="编译上下文"><a href="#编译上下文" class="headerlink" title="编译上下文"></a>编译上下文</h4><p>项目中快速生成 tsconfig.json,先全局安装 typescript</p>
-<pre><code class="hljs plaintext">tsc --init</code></pre>
+<pre><code class="hljs sh">tsc --init</code></pre>
 
 <span id="more"></span>
+
+<h4 id="常用编译选项"><a href="#常用编译选项" class="headerlink" title="常用编译选项"></a>常用编译选项</h4><pre><code class="hljs js">&#123;
+  <span class="hljs-string">&quot;compilerOptions&quot;</span>: &#123;
+
+    <span class="hljs-comment">/* 基本选项 */</span>
+    <span class="hljs-string">&quot;target&quot;</span>: <span class="hljs-string">&quot;es5&quot;</span>,                       <span class="hljs-comment">// 指定 ECMAScript 目标版本: &#x27;ES3&#x27; (default), &#x27;ES5&#x27;, &#x27;ES6&#x27;/&#x27;ES2015&#x27;, &#x27;ES2016&#x27;, &#x27;ES2017&#x27;, or &#x27;ESNEXT&#x27;</span>
+    <span class="hljs-string">&quot;module&quot;</span>: <span class="hljs-string">&quot;commonjs&quot;</span>,                  <span class="hljs-comment">// 指定使用模块: &#x27;commonjs&#x27;, &#x27;amd&#x27;, &#x27;system&#x27;, &#x27;umd&#x27; or &#x27;es2015&#x27;</span>
+    <span class="hljs-string">&quot;lib&quot;</span>: [],                             <span class="hljs-comment">// 指定要包含在编译中的库文件</span>
+    <span class="hljs-string">&quot;allowJs&quot;</span>: <span class="hljs-literal">true</span>,                       <span class="hljs-comment">// 允许编译 javascript 文件</span>
+    <span class="hljs-string">&quot;checkJs&quot;</span>: <span class="hljs-literal">true</span>,                       <span class="hljs-comment">// 报告 javascript 文件中的错误</span>
+    <span class="hljs-string">&quot;jsx&quot;</span>: <span class="hljs-string">&quot;preserve&quot;</span>,                     <span class="hljs-comment">// 指定 jsx 代码的生成: &#x27;preserve&#x27;, &#x27;react-native&#x27;, or &#x27;react&#x27;</span>
+    <span class="hljs-string">&quot;declaration&quot;</span>: <span class="hljs-literal">true</span>,                   <span class="hljs-comment">// 生成相应的 &#x27;.d.ts&#x27; 文件</span>
+    <span class="hljs-string">&quot;sourceMap&quot;</span>: <span class="hljs-literal">true</span>,                     <span class="hljs-comment">// 生成相应的 &#x27;.map&#x27; 文件</span>
+    <span class="hljs-string">&quot;outFile&quot;</span>: <span class="hljs-string">&quot;./&quot;</span>,                       <span class="hljs-comment">// 将输出文件合并为一个文件</span>
+    <span class="hljs-string">&quot;outDir&quot;</span>: <span class="hljs-string">&quot;./&quot;</span>,                        <span class="hljs-comment">// 指定输出目录</span>
+    <span class="hljs-string">&quot;rootDir&quot;</span>: <span class="hljs-string">&quot;./&quot;</span>,                       <span class="hljs-comment">// 用来控制输出目录结构 --outDir.</span>
+    <span class="hljs-string">&quot;removeComments&quot;</span>: <span class="hljs-literal">true</span>,                <span class="hljs-comment">// 删除编译后的所有的注释</span>
+    <span class="hljs-string">&quot;noEmit&quot;</span>: <span class="hljs-literal">true</span>,                        <span class="hljs-comment">// 不生成输出文件</span>
+    <span class="hljs-string">&quot;importHelpers&quot;</span>: <span class="hljs-literal">true</span>,                 <span class="hljs-comment">// 从 tslib 导入辅助工具函数</span>
+    <span class="hljs-string">&quot;isolatedModules&quot;</span>: <span class="hljs-literal">true</span>,               <span class="hljs-comment">// 将每个文件作为单独的模块 （与 &#x27;ts.transpileModule&#x27; 类似）.</span>
+
+    <span class="hljs-comment">/* 严格的类型检查选项 */</span>
+    <span class="hljs-string">&quot;strict&quot;</span>: <span class="hljs-literal">true</span>,                        <span class="hljs-comment">// 启用所有严格类型检查选项</span>
+    <span class="hljs-string">&quot;noImplicitAny&quot;</span>: <span class="hljs-literal">true</span>,                 <span class="hljs-comment">// 在表达式和声明上有隐含的 any类型时报错</span>
+    <span class="hljs-string">&quot;strictNullChecks&quot;</span>: <span class="hljs-literal">true</span>,              <span class="hljs-comment">// 启用严格的 null 检查</span>
+    <span class="hljs-string">&quot;noImplicitThis&quot;</span>: <span class="hljs-literal">true</span>,                <span class="hljs-comment">// 当 this 表达式值为 any 类型的时候，生成一个错误</span>
+    <span class="hljs-string">&quot;alwaysStrict&quot;</span>: <span class="hljs-literal">true</span>,                  <span class="hljs-comment">// 以严格模式检查每个模块，并在每个文件里加入 &#x27;use strict&#x27;</span>
+
+    <span class="hljs-comment">/* 额外的检查 */</span>
+    <span class="hljs-string">&quot;noUnusedLocals&quot;</span>: <span class="hljs-literal">true</span>,                <span class="hljs-comment">// 有未使用的变量时，抛出错误</span>
+    <span class="hljs-string">&quot;noUnusedParameters&quot;</span>: <span class="hljs-literal">true</span>,            <span class="hljs-comment">// 有未使用的参数时，抛出错误</span>
+    <span class="hljs-string">&quot;noImplicitReturns&quot;</span>: <span class="hljs-literal">true</span>,             <span class="hljs-comment">// 并不是所有函数里的代码都有返回值时，抛出错误</span>
+    <span class="hljs-string">&quot;noFallthroughCasesInSwitch&quot;</span>: <span class="hljs-literal">true</span>,    <span class="hljs-comment">// 报告 switch 语句的 fallthrough 错误。（即，不允许 switch 的 case 语句贯穿）</span>
+
+    <span class="hljs-comment">/* 模块解析选项 */</span>
+    <span class="hljs-string">&quot;moduleResolution&quot;</span>: <span class="hljs-string">&quot;node&quot;</span>,            <span class="hljs-comment">// 选择模块解析策略： &#x27;node&#x27; (Node.js) or &#x27;classic&#x27; (TypeScript pre-1.6)</span>
+    <span class="hljs-string">&quot;baseUrl&quot;</span>: <span class="hljs-string">&quot;./&quot;</span>,                       <span class="hljs-comment">// 用于解析非相对模块名称的基目录</span>
+    <span class="hljs-string">&quot;paths&quot;</span>: &#123;&#125;,                           <span class="hljs-comment">// 模块名到基于 baseUrl 的路径映射的列表</span>
+    <span class="hljs-string">&quot;rootDirs&quot;</span>: [],                        <span class="hljs-comment">// 根文件夹列表，其组合内容表示项目运行时的结构内容</span>
+    <span class="hljs-string">&quot;typeRoots&quot;</span>: [],                       <span class="hljs-comment">// 包含类型声明的文件列表</span>
+    <span class="hljs-string">&quot;types&quot;</span>: [],                           <span class="hljs-comment">// 需要包含的类型声明文件名列表</span>
+    <span class="hljs-string">&quot;allowSyntheticDefaultImports&quot;</span>: <span class="hljs-literal">true</span>,  <span class="hljs-comment">// 允许从没有设置默认导出的模块中默认导入。</span>
+
+    <span class="hljs-comment">/* Source Map Options */</span>
+    <span class="hljs-string">&quot;sourceRoot&quot;</span>: <span class="hljs-string">&quot;./&quot;</span>,                    <span class="hljs-comment">// 指定调试器应该找到 TypeScript 文件而不是源文件的位置</span>
+    <span class="hljs-string">&quot;mapRoot&quot;</span>: <span class="hljs-string">&quot;./&quot;</span>,                       <span class="hljs-comment">// 指定调试器应该找到映射文件而不是生成文件的位置</span>
+    <span class="hljs-string">&quot;inlineSourceMap&quot;</span>: <span class="hljs-literal">true</span>,               <span class="hljs-comment">// 生成单个 soucemaps 文件，而不是将 sourcemaps 生成不同的文件</span>
+    <span class="hljs-string">&quot;inlineSources&quot;</span>: <span class="hljs-literal">true</span>,                 <span class="hljs-comment">// 将代码与 sourcemaps 生成到一个文件中，要求同时设置了 --inlineSourceMap 或 --sourceMap 属性</span>
+
+    <span class="hljs-comment">/* 其他选项 */</span>
+    <span class="hljs-string">&quot;experimentalDecorators&quot;</span>: <span class="hljs-literal">true</span>,        <span class="hljs-comment">// 启用装饰器</span>
+    <span class="hljs-string">&quot;emitDecoratorMetadata&quot;</span>: <span class="hljs-literal">true</span>          <span class="hljs-comment">// 为装饰器提供元数据的支持</span>
+  &#125;
+&#125;</code></pre>
 
 <h4 id="声明空间"><a href="#声明空间" class="headerlink" title="声明空间"></a>声明空间</h4><p>在 TypeScript 里存在两种声明空间：类型声明空间与变量声明空间。<br>类型声明空间包含用来当做类型注解的内容，例如以下的一些类型声明：</p>
 <p>类型声明空间</p>
@@ -345,12 +399,14 @@ sample = <span class="hljs-literal">true</span>; <span class="hljs-comment">// E
 
 <span class="hljs-title function_">move</span>(<span class="hljs-number">1</span>, <span class="hljs-string">&quot;North&quot;</span>); <span class="hljs-comment">// ok</span>
 <span class="hljs-title function_">move</span>(<span class="hljs-number">1</span>, <span class="hljs-string">&quot;Nurth&quot;</span>); <span class="hljs-comment">// Error</span></code></pre>
+
+<p>原书地址： <a target="_blank" rel="noopener" href="https://jkchao.github.io/typescript-book-chinese/">深入理解 Typescript</a></p>
  
       <div id="toc-article">
   <div class="widget-wrap" id="toc-wrap">
     <h3 class="widget-title"><i class="fa fa-toc"></i> 文章目录</h3>
     <div class="widget">
-      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Typescript-%E9%A1%B9%E7%9B%AE"><span class="toc-text">Typescript 项目</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BC%96%E8%AF%91%E4%B8%8A%E4%B8%8B%E6%96%87"><span class="toc-text">编译上下文</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A3%B0%E6%98%8E%E7%A9%BA%E9%97%B4"><span class="toc-text">声明空间</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Typescript-%E7%B1%BB%E5%9E%8B%E7%B3%BB%E7%BB%9F"><span class="toc-text">Typescript 类型系统</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B3%9B%E5%9E%8B"><span class="toc-text">泛型</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%81%94%E5%90%88%E7%B1%BB%E5%9E%8B"><span class="toc-text">联合类型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BA%A4%E5%8F%89%E7%B1%BB%E5%9E%8B"><span class="toc-text">交叉类型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%83%E7%BB%84%E7%B1%BB%E5%9E%8B"><span class="toc-text">元组类型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%B1%BB%E5%9E%8B%E5%88%AB%E5%90%8D-Type"><span class="toc-text">类型别名 Type</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8E%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E6%9E%9A%E4%B8%BE"><span class="toc-text">基于字符串的枚举</span></a></li></ol></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Typescript-%E9%A1%B9%E7%9B%AE"><span class="toc-text">Typescript 项目</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BC%96%E8%AF%91%E4%B8%8A%E4%B8%8B%E6%96%87"><span class="toc-text">编译上下文</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B8%B8%E7%94%A8%E7%BC%96%E8%AF%91%E9%80%89%E9%A1%B9"><span class="toc-text">常用编译选项</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A3%B0%E6%98%8E%E7%A9%BA%E9%97%B4"><span class="toc-text">声明空间</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Typescript-%E7%B1%BB%E5%9E%8B%E7%B3%BB%E7%BB%9F"><span class="toc-text">Typescript 类型系统</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B3%9B%E5%9E%8B"><span class="toc-text">泛型</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%81%94%E5%90%88%E7%B1%BB%E5%9E%8B"><span class="toc-text">联合类型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BA%A4%E5%8F%89%E7%B1%BB%E5%9E%8B"><span class="toc-text">交叉类型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%83%E7%BB%84%E7%B1%BB%E5%9E%8B"><span class="toc-text">元组类型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%B1%BB%E5%9E%8B%E5%88%AB%E5%90%8D-Type"><span class="toc-text">类型别名 Type</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8E%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E6%9E%9A%E4%B8%BE"><span class="toc-text">基于字符串的枚举</span></a></li></ol></li></ol>
     </div>
   </div>
 
@@ -582,7 +638,17 @@ sample = <span class="hljs-literal">true</span>; <span class="hljs-comment">// E
  
 <script src="/blog/js/script.js"></script>
  
-   
+ 
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?8e59984317ab1777a88e5b3e62c7c767";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+  
 <script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
  
       

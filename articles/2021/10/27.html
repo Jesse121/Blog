@@ -1,0 +1,904 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+   
+  <title>极客时间-正则表达式 | 前端之路</title>
+  <link rel="manifest" href="/blog/manifest.json" />
+  <meta name="theme-color" content="#bccddd" />
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, shrink-to-fit=no"
+  />
+
+  
+  <meta name="description" content="专注前端开发，前端开发技术博客" />
+   
+  <meta name="keywords" content="Web前端开发，Javascript，前端开发博客" />
+  
+  <link rel="dns-prefetch" href="https://unpkg.com" />
+  <link rel="dns-prefetch" href="https://busuanzi.ibruce.info" />
+   <link rel="alternate" href="/blog/atom.xml" title="前端之路" type="application/atom+xml">   <link rel="shortcut icon" href="/blog/favicon.ico"> 
+  <link rel="bookmark" href="/blog/favicon.ico" />
+  <link rel="apple-touch-icon" href="/blog/apple-touch-icon.png" />
+  <link rel="apple-touch-icon-precomposed" href="/blog/apple-touch-icon.png" />
+   
+<link rel="stylesheet" href="https://unpkg.com/@highlightjs/cdn-assets@11.6.0/styles/xt256.min.css">
+  
+<link rel="stylesheet" href="/blog/css/style.css">
+  
+<link rel="stylesheet" href="https://unpkg.com/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
+    
+<link rel="stylesheet" href="https://unpkg.com/gitalk@1.7.2/dist/gitalk.css">
+  
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/blog/" id="logo">前端之路</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/blog/" id="subtitle">路漫漫其修远兮，吾将上下而求索</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        
+          <a class="main-nav-link" href="/blog/."><i class="fa fa-home"></i> 首页</a>
+        
+          <a class="main-nav-link" href="/blog/archives/"><i class="fa fa-archive"></i> 归档</a>
+        
+          <a class="main-nav-link" href="/blog/about/"><i class="fa fa-user"></i> 关于</a>
+        
+      </nav>
+    </div>
+    <div id="search-form">
+      <div id="result-mask" class="hide"></div>
+      <label><input id="search-key" type="text" autocomplete="off" placeholder="搜索"></label>
+      <div id="result-wrap" class="hide">
+        <div id="search-result"></div>
+      </div>
+      <div class="hide">
+        <template id="search-tpl">
+          <div class="item">
+            <a href="/{path}" title="{title}">
+              <div class="title">{title}</div>
+              <div class="time">{date}</div>
+              <div class="tags">{tags}</div>
+            </a>
+          </div>
+        </template>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><style>
+  code {
+    padding: 1px 5px;
+    font-family: Inconsolata, Monaco, Consolas, "Courier New", Courier,
+      monospace;
+    /* font-size: 0.91rem; */
+    color: #e96900;
+    background-color: #f8f8f8;
+    border-radius: 2px;
+  }
+
+  pre code {
+    padding: 0 !important;
+    color: #e8eaf6;
+    background-color: #272822;
+  }
+
+  pre[class*="language-"] {
+    padding: 1.2em;
+    margin: 0.5em 0;
+  }
+
+  code[class*="language-"],
+  pre[class*="language-"] {
+    color: #e8eaf6;
+    white-space: pre-wrap !important;
+  }
+  .line-numbers-rows {
+    border-right-width: 0px !important;
+  }
+
+  .line-numbers {
+    padding: 1.5rem 1.5rem 1.5rem 3.2rem !important;
+    margin: 1rem 0 !important;
+    background: #272822;
+    overflow: auto;
+    border-radius: 0.35rem;
+    tab-size: 4;
+  }
+
+  pre {
+    padding: 1.5rem !important;
+    margin: 1rem 0 !important;
+    background: #272822;
+    overflow: auto;
+    border-radius: 0.35rem;
+    tab-size: 4;
+  }
+
+  pre::before {
+    content: "";
+    height: 16px;
+    margin-bottom: 0;
+    display: block;
+  }
+
+  pre::after {
+    content: " ";
+    position: absolute;
+    border-radius: 50%;
+    background: #ff5f56;
+    width: 12px;
+    height: 12px;
+    top: 0;
+    left: 12px;
+    margin-top: 12px;
+    -webkit-box-shadow: 20px 0 #ffbd2e, 40px 0 #27c93f;
+    box-shadow: 20px 0 #ffbd2e, 40px 0 #27c93f;
+  }
+
+  code {
+    padding: 1px 5px;
+    font-family: Inconsolata, Monaco, Consolas, "Courier New", Courier,
+      monospace;
+    font-size: 0.91rem;
+    color: #e96900;
+    background-color: #f8f8f8;
+    border-radius: 2px;
+  }
+
+  .code_copy {
+    position: absolute;
+    top: 0.7rem;
+    right: 35px;
+    z-index: 1;
+    filter: invert(50%);
+    cursor: pointer;
+  }
+
+  .code_lang {
+    position: absolute;
+    top: 1.2rem;
+    right: 60px;
+    line-height: 0;
+    font-weight: bold;
+    font-family: normal;
+    z-index: 1;
+    filter: invert(50%);
+    cursor: pointer;
+  }
+
+  .code-expand {
+    position: absolute;
+    top: 4px;
+    right: 0px;
+    filter: invert(50%);
+    padding: 7px 10px;
+    z-index: 1;
+    cursor: pointer;
+    transition: all 0.3s;
+    transform: rotate(0deg);
+  }
+
+  .code-closed .code-expand {
+    transform: rotate(-180deg) !important;
+    transition: all 0.3s;
+  }
+
+  .code-closed pre::before {
+    height: 0px;
+  }
+
+  pre code {
+    padding: 0;
+    color: #e8eaf6;
+    background-color: #272822 !important;
+  }
+
+  pre[class*="language-"] {
+    padding: 1.2em;
+    margin: 0.5em 0;
+  }
+
+  code[class*="language-"],
+  pre[class*="language-"] {
+    color: #e8eaf6;
+    white-space: pre-wrap !important;
+  }
+</style>
+<article
+  id="post-regexp/极客时间-正则表达式"
+  class="h-entry article article-type-post"
+  itemprop="blogPost"
+  itemscope
+  itemtype="https://schema.org/BlogPosting"
+>
+  <div class="article-inner">
+     
+    <header class="article-header">
+      
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      极客时间-正则表达式
+    </h1>
+  
+
+
+    </header>
+    
+    <div class="article-meta">
+       <span class="article-date">
+  <i class="fa fa-date"></i>
+  <time class="dt-published" datetime="2021-10-26T23:25:32.000Z" itemprop="datePublished">2021年10月27日</time>
+</span> 
+  <div class="article-category">
+    <i class="fa fa-classify"></i>
+    <a class="article-category-link" href="/blog/categories/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/">正则表达式</a>
+  </div>
+  <span class="article-views">
+  <i class="fa fa-views"></i>
+  <i id="busuanzi_container_page_pv">
+      <i id="busuanzi_value_page_pv"></i>
+  </i>
+</span>
+  
+<a href="/blog/articles/2021/10/27.html#comments" class="article-comment-link">
+  
+    
+    
+    
+    
+    
+  
+  <i class="fa fa-commt"></i>
+  留言
+</a>
+
+
+    </div>
+    <div class="e-content article-entry" itemprop="articleBody">
+       <p>在日常开发中难免会遇到写正则匹配的问题，平时总是从网上搜搜看，写的也匹配不了。总觉得这块自己的缺陷比较大，于是就专门在极客时间上学习了下正则表达式课程，这里记下学习记录，希望学完后所有的正则问题都能迎刃而解。加油！</p>
+<span id="more"></span>
+
+<h3 id="01-元字符：如何巧妙记忆正则表达式的基本元件？"><a href="#01-元字符：如何巧妙记忆正则表达式的基本元件？" class="headerlink" title="01 | 元字符：如何巧妙记忆正则表达式的基本元件？"></a>01 | 元字符：如何巧妙记忆正则表达式的基本元件？</h3><p>正则常见的三种功能：</p>
+<ul>
+<li>校验数据的有效性</li>
+<li>查找符合要求的文本</li>
+<li>对文本进行切割和替换等操作。</li>
+</ul>
+<h4 id="元字符的概念"><a href="#元字符的概念" class="headerlink" title="元字符的概念"></a>元字符的概念</h4><p>所谓元字符就是指那些在正则表达式中具有特殊意义的专用字符，元字符是构成正则表达式的基本元件</p>
+<h4 id="元字符的分类与记忆技巧"><a href="#元字符的分类与记忆技巧" class="headerlink" title="元字符的分类与记忆技巧"></a>元字符的分类与记忆技巧</h4><ol>
+<li>特殊单字符</li>
+</ol>
+<ul>
+<li>. 任意字符（换行除外）</li>
+<li>\d 任意字符 \D 任意非字符</li>
+<li>\w 任意数字字母下划线 \W 任意非数字字母下划线</li>
+<li>\s 任意空白符 \S 任意非空白符</li>
+</ul>
+<ol start="2">
+<li>空白符</li>
+</ol>
+<ul>
+<li>\r 回车符</li>
+<li>\n 换行符</li>
+<li>\f 换页符</li>
+<li>\t 制表符</li>
+<li>\v 垂直制表符</li>
+<li>\s 任意空白符</li>
+</ul>
+<ol start="3">
+<li>量词(匹配出现 0 次或多次)</li>
+</ol>
+<ul>
+<li>* ：0 到多次</li>
+<li>+ ：1 到多次</li>
+<li>？: 0 到 1 次</li>
+<li>{m}: 出现 m 次</li>
+<li>{m,} : 至少出现 m 次</li>
+<li>{m,n}： m 到 n 次</li>
+</ul>
+<ol start="4">
+<li>范围</li>
+</ol>
+<ul>
+<li>| 或</li>
+<li>[…] 多选一 括号中任意单个元素</li>
+<li>[a-z] 匹配 a-z 之间的任意单个元素</li>
+<li>[^…]取反 不能是括号中的任意单个元素</li>
+</ul>
+<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p><img src="https://raw.githubusercontent.com/Jesse121/publicPic/master/blog/pictures/20221028203028.png" alt="正则元字符"></p>
+<h3 id="02-丨量词与贪婪：小小的正则，也可能把-CPU-拖垮！"><a href="#02-丨量词与贪婪：小小的正则，也可能把-CPU-拖垮！" class="headerlink" title="02 丨量词与贪婪：小小的正则，也可能把 CPU 拖垮！"></a>02 丨量词与贪婪：小小的正则，也可能把 CPU 拖垮！</h3><p>正则中的三种模式，贪婪匹配、非贪婪匹配和独占模式<br>贪婪模式，简单说就是尽可能进行最长匹配。非贪婪模式呢，则会尽可能进行最短匹配</p>
+<p><strong>贪婪匹配（Greedy）</strong><br>表示次数的量词 默认是贪婪 尽可能多的匹配<br><strong>非贪婪匹配（Lazy）</strong><br>“数量”元字符后面加? 找出长度最小且满足要求的<br><strong>独占模式（Possessive）</strong><br>“数量”元字符后面加+ 尽可能长的去匹配 不会发生回溯</p>
+<p>独占模式和贪婪模式很像，独占模式会尽可能多地去匹配，如果匹配失败就结束，不会进行回溯，这样的话就比较节省时间。具体的方法就是在量词后面加上加号（+）。</p>
+<h4 id="总结-1"><a href="#总结-1" class="headerlink" title="总结"></a>总结</h4><p>正则中量词默认是贪婪匹配，如果想要进行非贪婪匹配需要在量词后面加上问号。贪婪和非贪婪匹配都可能会进行回溯，独占模式也是进行贪婪匹配，但不进行回溯<br><img src="https://raw.githubusercontent.com/Jesse121/publicPic/master/blog/pictures/20221028204851.png" alt="贪婪，非贪婪与独占模式"></p>
+<h3 id="03-分组与引用：如何用正则实现更复杂的查找和替换操作？"><a href="#03-分组与引用：如何用正则实现更复杂的查找和替换操作？" class="headerlink" title="03 | 分组与引用：如何用正则实现更复杂的查找和替换操作？"></a>03 | 分组与引用：如何用正则实现更复杂的查找和替换操作？</h3><h4 id="分组与编号"><a href="#分组与编号" class="headerlink" title="分组与编号"></a>分组与编号</h4><p>括号在正则中可以用于分组，被括号括起来的部分“子表达式”会被保存成一个子组</p>
+<pre><code class="hljs r"><span class="hljs-punctuation">\</span>d<span class="hljs-punctuation">&#123;</span><span class="hljs-number">15</span><span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">(</span><span class="hljs-punctuation">\</span>d<span class="hljs-punctuation">&#123;</span><span class="hljs-number">3</span><span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">)</span><span class="hljs-operator">?</span></code></pre>
+
+<h4 id="不保存子组"><a href="#不保存子组" class="headerlink" title="不保存子组"></a>不保存子组</h4><p>在括号里面的会保存成子组，但有些情况下，你可能只想用括号将某些部分看成一个整体，后续不用再用它，类似这种情况，在实际使用时，是没必要保存子组的。这时我们可以在括号里面使用 ?: 不保存子组。</p>
+<pre><code class="hljs r"><span class="hljs-punctuation">\</span>d<span class="hljs-punctuation">&#123;</span><span class="hljs-number">15</span><span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">(</span><span class="hljs-operator">?</span><span class="hljs-operator">:</span><span class="hljs-punctuation">\</span>d<span class="hljs-punctuation">&#123;</span><span class="hljs-number">3</span><span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">)</span><span class="hljs-operator">?</span></code></pre>
+
+<p>如果正则中出现了括号，那么我们就认为，这个子表达式在后续可能会再次被引用，所以不保存子组可以提高正则的性能</p>
+<h4 id="括号嵌套"><a href="#括号嵌套" class="headerlink" title="括号嵌套"></a>括号嵌套</h4><p>我们只需要数左括号（开括号）是第几个，就可以确定是第几个子组</p>
+<h4 id="命名分组"><a href="#命名分组" class="headerlink" title="命名分组"></a>命名分组</h4><p>命名分组的格式为(?P&lt;分组名&gt;正则)。</p>
+<h4 id="分组引用"><a href="#分组引用" class="headerlink" title="分组引用"></a>分组引用</h4><p>在知道了分组引用的编号 （number）后，大部分情况下，我们就可以使用 “反斜扛 + 编号”，即 \number 的方式来进行引用，而 JavaScript 中是通过$编号来引用，如$1</p>
+<pre><code class="hljs js"><span class="hljs-keyword">var</span> re = <span class="hljs-regexp">/(\w+)\s(\w+)/</span>;
+<span class="hljs-keyword">var</span> str = <span class="hljs-string">&quot;John Smith&quot;</span>;
+<span class="hljs-keyword">var</span> newstr = str.<span class="hljs-title function_">replace</span>(re, <span class="hljs-string">&quot;$2, $1&quot;</span>);
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(newstr);
+<span class="hljs-comment">// Smith, John</span></code></pre>
+
+<h4 id="总结-2"><a href="#总结-2" class="headerlink" title="总结"></a>总结</h4><p>今天我们学习到了正则中的分组和子组编号相关内容。括号可以将某部分括起来，看成一个整体，也可以保存成一个子组，在后续查找替换的时候使用。分组编号是指，在正则中第几个括号内就是第几个分组，而嵌套括号我们只要看左括号是第几个就可以了。如果不想将括号里面的内容保存成子组，可以在括号里面加上?: 来解决。<br><img src="https://raw.githubusercontent.com/Jesse121/publicPic/master/blog/pictures/20221028212204.png" alt="正则分组"></p>
+<h3 id="04-匹配模式：一次性掌握正则中常见的-4-种匹配模式"><a href="#04-匹配模式：一次性掌握正则中常见的-4-种匹配模式" class="headerlink" title="04 | 匹配模式：一次性掌握正则中常见的 4 种匹配模式"></a>04 | 匹配模式：一次性掌握正则中常见的 4 种匹配模式</h3><p>常见的匹配模式有 4 种，分别是不区分大小写模式、点号通配模式、多行模式和注释模式</p>
+<h4 id="不区分大小写模式（Case-Insensitive）"><a href="#不区分大小写模式（Case-Insensitive）" class="headerlink" title="不区分大小写模式（Case-Insensitive）"></a>不区分大小写模式（Case-Insensitive）</h4><p>模式修饰符是通过 (? 模式标识) 的方式来表示的。<br>当我们把模式修饰符放在整个正则前面时，就表示整个正则表达式都是不区分大小写的。</p>
+<pre><code class="hljs r"><span class="hljs-punctuation">(</span><span class="hljs-operator">?</span>i<span class="hljs-punctuation">)</span>cat
+<span class="hljs-punctuation">(</span><span class="hljs-operator">?</span>i<span class="hljs-punctuation">)</span><span class="hljs-punctuation">(</span>cat<span class="hljs-punctuation">)</span> <span class="hljs-punctuation">\</span><span class="hljs-number">1</span></code></pre>
+
+<p>上面讲到的通过修饰符指定匹配模式的方式，在大部分编程语言中都是可以直接使用的，<strong>但在 JS 中我们需要使用 &#x2F;regex&#x2F;i 来指定匹配模式</strong></p>
+<p>到这里我简单总结一下不区分大小写模式的要点：</p>
+<ol>
+<li>不区分大小写模式的指定方式，使用模式修饰符 (?i)；</li>
+<li>修饰符如果在括号内，作用范围是这个括号内的正则，而不是整个正则；</li>
+<li>使用编程语言时可以使用预定义好的常量来指定匹配模式</li>
+</ol>
+<h4 id="点号通配模式（Dot-All）"><a href="#点号通配模式（Dot-All）" class="headerlink" title="点号通配模式（Dot All）"></a>点号通配模式（Dot All）</h4><p>正则中提供了一种模式，让英文的点（.）可以匹配上包括换行的任何字符。这个模式就是点号通配模式。点号通配模式对应的修饰符是 (?s)，</p>
+<pre><code class="hljs r"><span class="hljs-punctuation">(</span><span class="hljs-operator">?</span>s<span class="hljs-punctuation">)</span>.<span class="hljs-operator">+</span>  <span class="hljs-comment"># .可以匹配换行</span></code></pre>
+
+<h4 id="多行匹配模式（Multiline）"><a href="#多行匹配模式（Multiline）" class="headerlink" title="多行匹配模式（Multiline）"></a>多行匹配模式（Multiline）</h4><p>^ 匹配整个字符串的开头，$ 匹配整个字符串的结尾<br>多行模式的作用在于，使 ^ 和 $ 能匹配上每行的开头或结尾，我们可以使用模式修饰符号(?m) 来指定这个模式。</p>
+<pre><code class="hljs r"><span class="hljs-punctuation">(</span><span class="hljs-operator">?</span>m<span class="hljs-punctuation">)</span><span class="hljs-operator">^</span>the<span class="hljs-operator">|</span>cat<span class="hljs-operator">$</span></code></pre>
+
+<h4 id="注释模式（Comment）"><a href="#注释模式（Comment）" class="headerlink" title="注释模式（Comment）"></a>注释模式（Comment）</h4><p>正则中注释模式是使用(?#comment) 来表示。</p>
+<pre><code class="hljs r"><span class="hljs-punctuation">(</span><span class="hljs-punctuation">\</span>w<span class="hljs-operator">+</span><span class="hljs-punctuation">)</span><span class="hljs-punctuation">(</span><span class="hljs-operator">?</span><span class="hljs-comment">#word) \1(?#word repeat again)</span></code></pre>
+
+<h4 id="总结-3"><a href="#总结-3" class="headerlink" title="总结"></a>总结</h4><p>正则中常见的四种匹配模式，分别是：不区分大小写、点号通配模式、多行模式和注释模式。</p>
+<ol>
+<li>不区分大小写模式，它可以让整个正则或正则中某一部分进行不区分大小写的匹配。</li>
+<li>点号通配模式也叫单行匹配，改变的是点号的匹配行为，让其可以匹配任何字符，包括换行。</li>
+<li>多行匹配说的是 ^ 和 $ 的匹配行为，让其可以匹配上每行的开头或结尾。</li>
+<li>注释模式则可以在正则中添加注释，让正则变得更容易阅读和维护。</li>
+</ol>
+<p><img src="https://raw.githubusercontent.com/Jesse121/publicPic/master/blog/pictures/20221028214226.png" alt="匹配模式"></p>
+<h3 id="05-断言：如何用断言更好地实现替换重复出现的单词？"><a href="#05-断言：如何用断言更好地实现替换重复出现的单词？" class="headerlink" title="05 | 断言：如何用断言更好地实现替换重复出现的单词？"></a>05 | 断言：如何用断言更好地实现替换重复出现的单词？</h3><p>断言是指对匹配到的文本位置有要求<br>常见的断言有三种：单词边界、行的开始或结束以及环视</p>
+<h4 id="单词边界（Word-Boundary）"><a href="#单词边界（Word-Boundary）" class="headerlink" title="单词边界（Word Boundary）"></a>单词边界（Word Boundary）</h4><p>在正则中使用\b 来表示单词的边界。</p>
+<h4 id="行的开始或结束"><a href="#行的开始或结束" class="headerlink" title="行的开始或结束"></a>行的开始或结束</h4><p>和单词的边界类似，在正则中还有文本每行的开始和结束，如果我们要求匹配的内容要出现在一行文本开头或结尾，就可以使用 ^ 和 $ 来进行位置界定</p>
+<h4 id="环视（-Look-Around）"><a href="#环视（-Look-Around）" class="headerlink" title="环视（ Look Around）"></a>环视（ Look Around）</h4><p>环视就是要求匹配部分的前面或后面要满足（或不满足）某种规则，有些地方也称环视为零宽断言</p>
+<table>
+<thead>
+<tr>
+<th>正则</th>
+<th>名称</th>
+<th>含义</th>
+<th>实例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>(?&lt;&#x3D;Y)</td>
+<td>肯定逆向环视</td>
+<td>左边 Y</td>
+<td>(?&lt;&#x3D;\d)th 左边是数字的 th，能匹配 9th</td>
+</tr>
+<tr>
+<td>(?&lt;!Y)</td>
+<td>否定逆向环视</td>
+<td>左边不是 Y</td>
+<td>(?&lt;!\d)th 左边不是数字的 th，能匹配 health</td>
+</tr>
+<tr>
+<td>(?&#x3D;Y)</td>
+<td>肯定顺序环视</td>
+<td>右边是 Y</td>
+<td>six(?&#x3D;\d)右边是数字的 six，能匹配 six6</td>
+</tr>
+<tr>
+<td>(?!Y)</td>
+<td>否定顺序环视</td>
+<td>右边不是 Y</td>
+<td>hi(?!\d)右边不是数字的 hi，能匹配 high</td>
+</tr>
+</tbody></table>
+<p><strong>左尖括号代表看左边，没有尖括号是看右边，感叹号是非的意思</strong></p>
+<h4 id="总结-4"><a href="#总结-4" class="headerlink" title="总结"></a>总结</h4><p>今天我们学习了正则中断言相关的内容，最常见的断言有三种：单词的边界、行的开始或结束、环视。</p>
+<p>单词的边界是使用 \b 来表示，这个比较简单。而多行模式下，每一行的开始和结束是使用^ 和 $ 符号。如果想匹配整个字符串的开始或结束，可以使用 \A 和 \z，它们不受匹配模式的影响。</p>
+<p>最后就是环视，它又分为四种情况：肯定逆向环视、否定逆向环视、肯定顺序环视、否定顺序环视。在使用的时候记住一个方法：有左尖括号代表看左边，没有尖括号是看右边，而感叹号是非的意思。</p>
+<p><img src="https://raw.githubusercontent.com/Jesse121/publicPic/master/blog/pictures/20221028220716.png" alt="断言"></p>
+<h3 id="06-转义：正则中转义需要注意哪些问题？"><a href="#06-转义：正则中转义需要注意哪些问题？" class="headerlink" title="06 转义：正则中转义需要注意哪些问题？"></a>06 转义：正则中转义需要注意哪些问题？</h3><p>转义序列通常有两种功能<br>第一种功能是编码无法用字母表直接表示的特殊数据。<br>第二种功能是用于表示无法直接键盘录入的字符（如回车符）。</p>
+<h4 id="常见的转义字符以及它们的含义"><a href="#常见的转义字符以及它们的含义" class="headerlink" title="常见的转义字符以及它们的含义"></a>常见的转义字符以及它们的含义</h4><table>
+<thead>
+<tr>
+<th>转义字符</th>
+<th>意义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>\n</td>
+<td>换行</td>
+</tr>
+<tr>
+<td>\r</td>
+<td>回车</td>
+</tr>
+<tr>
+<td>\t</td>
+<td>水平制表符</td>
+</tr>
+<tr>
+<td>\v</td>
+<td>垂直制表符</td>
+</tr>
+<tr>
+<td><code>\\</code></td>
+<td>反斜线</td>
+</tr>
+<tr>
+<td><code>\&#39;</code></td>
+<td>单引号字符</td>
+</tr>
+<tr>
+<td><code>\&quot;</code></td>
+<td>双引号字符</td>
+</tr>
+</tbody></table>
+<h4 id="正则中元字符的转义"><a href="#正则中元字符的转义" class="headerlink" title="正则中元字符的转义"></a>正则中元字符的转义</h4><p>如果现在我们要查找比如星号（*）、加号（+）、问号（?）本身，而不是元字符的功能，这时候就需要对其进行转义，直接在前面加上反斜杠就可以了</p>
+<h3 id="字符组中需要转义的有三种情况"><a href="#字符组中需要转义的有三种情况" class="headerlink" title="字符组中需要转义的有三种情况"></a>字符组中需要转义的有三种情况</h3><ol>
+<li>^字符在中括号中，且在第一个位置需要转义：<br>该符号在方括号表达式中使用时，表示不接受该方括号表达式中的字符集合</li>
+</ol>
+<pre><code class="hljs js"><span class="hljs-keyword">const</span> str = <span class="hljs-string">&quot;^ab&quot;</span>;
+<span class="hljs-keyword">const</span> matches = str.<span class="hljs-title function_">matchAll</span>(<span class="hljs-regexp">/[^ab]/g</span>);
+<span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> match <span class="hljs-keyword">of</span> matches) &#123;
+  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(
+    <span class="hljs-string">`Found <span class="hljs-subst">$&#123;match[<span class="hljs-number">0</span>]&#125;</span> start=<span class="hljs-subst">$&#123;match.index&#125;</span> end=<span class="hljs-subst">$&#123;</span></span>
+<span class="hljs-subst"><span class="hljs-string">      match.index + match[<span class="hljs-number">0</span>].length</span></span>
+<span class="hljs-subst"><span class="hljs-string">    &#125;</span>.`</span>
+  );
+&#125;
+<span class="hljs-comment">// Found ^ start=0 end=1.</span>
+<span class="hljs-keyword">const</span> res = str.<span class="hljs-title function_">matchAll</span>(<span class="hljs-regexp">/[\^ab]/g</span>);
+<span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> match <span class="hljs-keyword">of</span> res) &#123;
+  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(
+    <span class="hljs-string">`Found <span class="hljs-subst">$&#123;match[<span class="hljs-number">0</span>]&#125;</span> start=<span class="hljs-subst">$&#123;match.index&#125;</span> end=<span class="hljs-subst">$&#123;</span></span>
+<span class="hljs-subst"><span class="hljs-string">      match.index + match[<span class="hljs-number">0</span>].length</span></span>
+<span class="hljs-subst"><span class="hljs-string">    &#125;</span>.`</span>
+  );
+&#125;
+<span class="hljs-comment">// Found ^ start=0 end=1.</span>
+<span class="hljs-comment">// Found a start=1 end=2.</span>
+<span class="hljs-comment">// Found b start=2 end=3.</span></code></pre>
+
+<ol start="2">
+<li>中划线在中括号中，且不在首尾位置：</li>
+</ol>
+<pre><code class="hljs js"><span class="hljs-keyword">const</span> str = <span class="hljs-string">&quot;abc-&quot;</span>;
+<span class="hljs-comment">// 中划线在中间，代表&quot;范围&quot;</span>
+<span class="hljs-keyword">const</span> matches = str.<span class="hljs-title function_">matchAll</span>(<span class="hljs-regexp">/[a-c]/g</span>);
+<span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> match <span class="hljs-keyword">of</span> matches) &#123;
+  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(match[<span class="hljs-number">0</span>]);
+&#125;
+<span class="hljs-comment">// a b c</span>
+<span class="hljs-keyword">const</span> str = <span class="hljs-string">&quot;abc-&quot;</span>;
+<span class="hljs-comment">// 中划线在中间，转义后的</span>
+<span class="hljs-keyword">const</span> matches = str.<span class="hljs-title function_">matchAll</span>(<span class="hljs-regexp">/[a\-c]/g</span>);
+<span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> match <span class="hljs-keyword">of</span> matches) &#123;
+  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(match[<span class="hljs-number">0</span>]);
+&#125;
+<span class="hljs-comment">// a c -</span></code></pre>
+
+<ol start="3">
+<li>右括号在中括号中，且不在首位：</li>
+</ol>
+<pre><code class="hljs js"><span class="hljs-keyword">const</span> str = <span class="hljs-string">&quot;]ab&quot;</span>;
+<span class="hljs-keyword">const</span> matches = str.<span class="hljs-title function_">matchAll</span>(<span class="hljs-regexp">/[]ab]/g</span>);
+<span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> match <span class="hljs-keyword">of</span> matches) &#123;
+  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(match[<span class="hljs-number">0</span>]);
+&#125;
+<span class="hljs-comment">// undefined</span>
+<span class="hljs-comment">// 转义后代表普通字符</span>
+<span class="hljs-keyword">const</span> matches = str.<span class="hljs-title function_">matchAll</span>(<span class="hljs-regexp">/[\]ab]/g</span>);
+<span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> match <span class="hljs-keyword">of</span> matches) &#123;
+  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(match[<span class="hljs-number">0</span>]);
+&#125;
+<span class="hljs-comment">// ] a b</span></code></pre>
+
+<h4 id="字符组中其它的元字符"><a href="#字符组中其它的元字符" class="headerlink" title="字符组中其它的元字符"></a>字符组中其它的元字符</h4><p>一般来说如果我们要想将元字符（.+?() 之类）表示成它字面上本来的意思，是需要对其进行转义的，但如果它们出现在字符组中括号里，可以不转义。这种情况，一般都是单个长度的元字符，比如点号（.）、星号（*）、加号（+）、问号（?）、左右圆括号等。它们都不再具有特殊含义，而是代表字符本身。但如果在中括号中出现 \d 或 \w 等符号时，他们还是元字符本身的含义</p>
+<h4 id="总结-5"><a href="#总结-5" class="headerlink" title="总结"></a>总结</h4><p>正则中转义有些情况下会比较复杂，从录入的字符串文本，到最终的正则表达式，经过了字符串转义和正则转义两个步骤。元字符的转义一般在前面加反斜杠就行，方括号和花括号的转义一般转义开括号就可以，但圆括号两个都需要转义，我们可以借助编程语言中的转义函数来实现转义。另外我们也讲了字符组中三种需要转义的情况，详细的可以参考下面的脑图<br><img src="https://raw.githubusercontent.com/Jesse121/publicPic/master/blog/pictures/20221028075624.png" alt="20221028075624"></p>
+<h3 id="07-正则有哪些常见的流派及其特性？"><a href="#07-正则有哪些常见的流派及其特性？" class="headerlink" title="07 | 正则有哪些常见的流派及其特性？"></a>07 | 正则有哪些常见的流派及其特性？</h3><p>目前正则表达式主要有两大流派（Flavor）：POSIX 流派与 PCRE 流派。</p>
+<h4 id="POSIX-流派"><a href="#POSIX-流派" class="headerlink" title="POSIX 流派"></a>POSIX 流派</h4><p>POSIX 规范定义了正则表达式的两种标准：</p>
+<ul>
+<li>BRE 标准（Basic Regular Expression 基本正则表达式）；</li>
+<li>ERE 标准（Extended Regular Expression 扩展正则表达式）。</li>
+</ul>
+<p>POSIX 流派还有一个特殊的地方，就是有自己的字符组，叫 POSIX 字符组</p>
+<h4 id="PCRE-流派"><a href="#PCRE-流派" class="headerlink" title="PCRE 流派"></a>PCRE 流派</h4><p>目前大部分常用编程语言都是源于 PCRE 标准，这个流派显著特征是有\d、\w、\s 这类字符组简记方式。</p>
+<h4 id="在-Linux-中使用正则"><a href="#在-Linux-中使用正则" class="headerlink" title="在 Linux 中使用正则"></a>在 Linux 中使用正则</h4><p>在遵循 POSIX 规范的 UNIX&#x2F;LINUX 系统上，按照 BRE 标准 实现的有 grep、sed 和 vi&#x2F;vim 等，而按照 ERE 标准 实现的有 egrep、awk 等</p>
+<h4 id="总结-6"><a href="#总结-6" class="headerlink" title="总结"></a>总结</h4><p>正则主要有两大流派，分别是 POSIX 流派和 PCRE 流派。其中 POSIX 流派有两个标准，分别是 BRE 标准和 ERE 标准，一般情况下，我们面对的都是 GNU BRE 和 GNU ERE。它们的主要区别在于，前者要转义。另外，POSIX 流派一个特点就是有自己的字符组 POSIX 字符组，这不同于常见的 \d 等字符组。PCRE 流派是如今大多数编程语言实现的流派，最大的特点就是支持\d\s\w 等，我们前面讲的内容也是基于这个流派进行的。</p>
+<p>grep、sed、vi&#x2F;vim 等属于 BRE 标准，egrep、awk 属于 ERE 标准。而 sed -P、grep -P 等属于 PCRE 流派。这些也不需要死记硬背，使用时用 man 命令看一下就好了。<br>如果你需要在类 Unix 平台命令等上使用正则，使用前需要搞清楚工具属于哪个标准，比如</p>
+<p><strong>GNU ERE 名称中有两个 E，不需要再转义。而 GNU BRE 只有一个 E，使用时“花圆问管加”时都要转义</strong><br><img src="https://raw.githubusercontent.com/Jesse121/publicPic/master/blog/pictures/20221029111235.png" alt="正则流派"></p>
+<h3 id="08-应用-1：正则如何处理-Unicode-编码的文本？"><a href="#08-应用-1：正则如何处理-Unicode-编码的文本？" class="headerlink" title="08 | 应用 1：正则如何处理 Unicode 编码的文本？"></a>08 | 应用 1：正则如何处理 Unicode 编码的文本？</h3><h4 id="编码问题的坑"><a href="#编码问题的坑" class="headerlink" title="编码问题的坑"></a>编码问题的坑</h4><p>如果你在编程语言中使用正则，编码问题可能会让正则的匹配行为很奇怪。先说结论，在使用时一定尽可能地使用 Unicode 编码。</p>
+<h4 id="总结-7"><a href="#总结-7" class="headerlink" title="总结"></a>总结</h4><p><img src="https://raw.githubusercontent.com/Jesse121/publicPic/master/blog/pictures/20221031072733.png" alt="20221031072733"></p>
+<h3 id="10-应用-3：如何在语言中用正则让文本处理能力上一个台阶？"><a href="#10-应用-3：如何在语言中用正则让文本处理能力上一个台阶？" class="headerlink" title="10 | 应用 3：如何在语言中用正则让文本处理能力上一个台阶？"></a>10 | 应用 3：如何在语言中用正则让文本处理能力上一个台阶？</h3><p>在进行文本处理时，正则解决的问题大概可以分成四类，分别是校验文本内容、提取文本内容、替换文本内容、切割文本内容</p>
+<h4 id="校验文本内容"><a href="#校验文本内容" class="headerlink" title="校验文本内容"></a>校验文本内容</h4><pre><code class="hljs js"><span class="hljs-comment">// 方法1</span>
+/^\d&#123;<span class="hljs-number">4</span>&#125;-\d&#123;<span class="hljs-number">2</span>&#125;-\d&#123;<span class="hljs-number">2</span>&#125;$/.<span class="hljs-title function_">test</span>(<span class="hljs-string">&quot;2020-06-01&quot;</span>); <span class="hljs-comment">// true</span>
+<span class="hljs-comment">// 方法2</span>
+<span class="hljs-keyword">var</span> regex = <span class="hljs-keyword">new</span> <span class="hljs-title class_">RegExp</span>(<span class="hljs-regexp">/^\d&#123;4&#125;-\d&#123;2&#125;-\d&#123;2&#125;$/</span>);
+regex.<span class="hljs-title function_">test</span>(<span class="hljs-string">&quot;2020-01-01&quot;</span>); <span class="hljs-comment">// true</span>
+<span class="hljs-comment">// 方法3</span>
+<span class="hljs-keyword">var</span> regex = <span class="hljs-regexp">/^\d&#123;4&#125;-\d&#123;2&#125;-\d&#123;2&#125;$/</span>;
+<span class="hljs-string">&quot;2020-06-01&quot;</span>.<span class="hljs-title function_">search</span>(regex) == <span class="hljs-number">0</span>; <span class="hljs-comment">// true</span></code></pre>
+
+<h4 id="提取文本内容"><a href="#提取文本内容" class="headerlink" title="提取文本内容"></a>提取文本内容</h4><pre><code class="hljs js"><span class="hljs-comment">// 使用g模式，查找所有符合要求的内容</span>
+<span class="hljs-string">&quot;2020-06 2020-07&quot;</span>.<span class="hljs-title function_">match</span>(<span class="hljs-regexp">/\d&#123;4&#125;-\d&#123;2&#125;/g</span>);
+<span class="hljs-comment">// 输出：[&quot;2020-06&quot;, &quot;2020-07&quot;]</span>
+<span class="hljs-comment">// 不使用g模式，找到第一个就会停下来</span>
+<span class="hljs-string">&quot;2020-06 2020-07&quot;</span>.<span class="hljs-title function_">match</span>(<span class="hljs-regexp">/\d&#123;4&#125;-\d&#123;2&#125;/</span>);
+<span class="hljs-comment">// 输出：[&quot;2020-06&quot;, index: 0, input: &quot;2020-06 2020-07&quot;, groups: undefined]</span></code></pre>
+
+<h4 id="替换文本内容"><a href="#替换文本内容" class="headerlink" title="替换文本内容"></a>替换文本内容</h4><pre><code class="hljs js"><span class="hljs-comment">// 使用g模式，替换所有的</span>
+<span class="hljs-string">&quot;02-20-2020 05-21-2020&quot;</span>.<span class="hljs-title function_">replace</span>(<span class="hljs-regexp">/(\d&#123;2&#125;)-(\d&#123;2&#125;)-(\d&#123;4&#125;)/g</span>, <span class="hljs-string">&quot;$3年$1月$2日&quot;</span>);
+<span class="hljs-comment">// 输出 &quot;2020年02月20日 2020年05月21日&quot;</span>
+<span class="hljs-comment">// 不使用 g 模式时，只替换一次</span>
+<span class="hljs-string">&quot;02-20-2020 05-21-2020&quot;</span>.<span class="hljs-title function_">replace</span>(<span class="hljs-regexp">/(\d&#123;2&#125;)-(\d&#123;2&#125;)-(\d&#123;4&#125;)/</span>, <span class="hljs-string">&quot;$3年$1月$2日&quot;</span>);
+<span class="hljs-comment">// 输出 &quot;2020年02月20日 05-21-2020&quot;</span></code></pre>
+
+<h4 id="切割文本内容"><a href="#切割文本内容" class="headerlink" title="切割文本内容"></a>切割文本内容</h4><pre><code class="hljs js"><span class="hljs-string">&quot;apple, pear! orange; tea&quot;</span>.<span class="hljs-title function_">split</span>(<span class="hljs-regexp">/\W+/</span>);
+<span class="hljs-comment">// 输出：[&quot;apple&quot;, &quot;pear&quot;, &quot;orange&quot;, &quot;tea&quot;]</span>
+<span class="hljs-comment">// 传入第二个参数的情况</span>
+<span class="hljs-string">&quot;apple, pear! orange; tea&quot;</span>.<span class="hljs-title function_">split</span>(<span class="hljs-regexp">/\W+/</span>, <span class="hljs-number">1</span>);
+<span class="hljs-comment">// 输出 [&quot;apple&quot;]</span>
+<span class="hljs-string">&quot;apple, pear! orange; tea&quot;</span>.<span class="hljs-title function_">split</span>(<span class="hljs-regexp">/\W+/</span>, <span class="hljs-number">2</span>);
+<span class="hljs-comment">// 输出 [&quot;apple&quot;, &quot;pear&quot;]</span>
+<span class="hljs-string">&quot;apple, pear! orange; tea&quot;</span>.<span class="hljs-title function_">split</span>(<span class="hljs-regexp">/\W+/</span>, <span class="hljs-number">10</span>);
+<span class="hljs-comment">// 输出 [&quot;apple&quot;, &quot;pear&quot;, &quot;orange&quot;, &quot;tea&quot;]</span></code></pre>
+
+<h3 id="11-如何理解正则的匹配原理以及优化原则？"><a href="#11-如何理解正则的匹配原理以及优化原则？" class="headerlink" title="11 | 如何理解正则的匹配原理以及优化原则？"></a>11 | 如何理解正则的匹配原理以及优化原则？</h3><h4 id="有穷状态自动机"><a href="#有穷状态自动机" class="headerlink" title="有穷状态自动机"></a>有穷状态自动机</h4><p>正则之所以能够处理复杂文本，就是因为采用了有穷状态自动机（finite automaton）。</p>
+<p>那什么是有穷自动机呢？有穷状态是指一个系统具有有穷个状态，不同的状态代表不同的意义。自动机是指系统可以根据相应的条件，在不同的状态下进行转移。从一个初始状<br>态，根据对应的操作（比如录入的字符集）执行状态转移，最终达到终止状态（可能有一到多个终止状态）。<br>有穷自动机的具体实现称为正则引擎，主要有 DFA 和 NFA 两种，其中 NFA 又分为传统的 NFA 和 POSIX NFA</p>
+<p>DFA: 确定性有穷自动机（Deterministic finite automaton）<br>NFA: 非确定性有穷自动机（Non-deterministic finite automaton）</p>
+<h4 id="DFA-amp-NFA-工作机制"><a href="#DFA-amp-NFA-工作机制" class="headerlink" title="DFA &amp; NFA 工作机制"></a>DFA &amp; NFA 工作机制</h4><p>DFA 会先看文本，再看正则表达式，是以文本为主导的。<br>NFA 先看正则，再看文本，而且以正则为主导</p>
+<p>一般来说，DFA 引擎会更快一些，因为整个匹配过程中，字符串只看一遍，不会发生回<br>溯，相同的字符不会被测试两次。也就是说 DFA 引擎执行的时间一般是线性的。<br>NFA 以表达式为主导，它的引擎是使用贪心匹配回溯算法实现</p>
+<h4 id="正则优化建议"><a href="#正则优化建议" class="headerlink" title="正则优化建议"></a>正则优化建议</h4><ol>
+<li>测试性能的方法</li>
+<li>提前编译好正则</li>
+<li>尽量准确表示匹配范围</li>
+<li>提取出公共部分</li>
+<li>出现可能性大的放左边</li>
+<li>只在必要时才使用子组</li>
+<li>警惕嵌套的子组重复</li>
+<li>避免不同分支重复匹配</li>
+</ol>
+<h3 id="12-问题集锦：详解正则常见问题及解决方案"><a href="#12-问题集锦：详解正则常见问题及解决方案" class="headerlink" title="12 | 问题集锦：详解正则常见问题及解决方案"></a>12 | 问题集锦：详解正则常见问题及解决方案</h3><h4 id="问题处理思路"><a href="#问题处理思路" class="headerlink" title="问题处理思路"></a>问题处理思路</h4><p>比如将问题分解成多个小问题，每个小问题见招拆招，某个位置上可能有多个字符的话，就⽤字符组。某个位置上有多个字符串的话，就⽤多选结构。出现的次数不确定的话，就⽤量词。对出现的位置有要求的话，就⽤锚点锁定位置</p>
+<p>在正则中比较难的是某些字符不能出现，这个情况又可以进一步分为组成中不能出现，和要查找的内容前后不能出现。后一种用环视来解决就可以了，如果是要查找的内容中不能出现某些字符，这种情况比较简单，可以通过使用中括号来排除字符组，比如非元音字母可以使用 [^aeiou]来表示</p>
+<h4 id="常见问题及解决方案"><a href="#常见问题及解决方案" class="headerlink" title="常见问题及解决方案"></a>常见问题及解决方案</h4><ol>
+<li><p>匹配数字<br>数字的匹配比较简单，通过我们学习的字符组，量词等就可以轻松解决。<br>数字在正则中可以使用 \d 或 [0-9] 来表示。<br>如果是连续的多个数字，可以使用 \d+ 或 [0-9]+。<br>如果 n 位数据，可以使用 \d{n}。<br>如果是至少 n 位数据，可以使用 \d{n,}。<br>如果是 m-n 位数字，可以使用 \d{m,n}。</p>
+</li>
+<li><p>匹配正数、负数和小数<br>如果希望正则能匹配到比如 3，3.14，-3.3，+2.7 等数字，需要注意的是，开头的正负符号可能有，也可能没有，所以可以使用 [-+]? 来表示，小数点和后面的内容也不一定会有，所以可以使用 (?:.\d+)? 来表示，因此匹配正数、负数和小数的正则可以写成 [-+]?\d+(?:.\d+)?<br>非负整数，包含 0 和 正整数，可以表示成[1-9]\d*|0<br>非正整数，包含 0 和 负整数，可以表示成-[1-9]\d*|0</p>
+</li>
+<li><p>浮点数<br>其中表示正负的符号和小数点可能有，也可能没有，直接用 [-+]?\d+(?:.\d+)? 来表示。<br>负数浮点数表示：-\d+(?:.\d+)?<br>正数浮点数表示：+?(?:\d+(?:.\d+)?|.\d+)</p>
+</li>
+<li><p>十六进制数<br>十六进制的数字除了有 0-9 之外，还会有 a-f（或 A-F） 代表 10 到 15 这 6 个数字，所以<br>正则可以写成 [0-9A-Fa-f]+</p>
+</li>
+<li><p>手机号码<br>如果只限制前 2 位，可以表示成 1[3-9]\d{9}</p>
+</li>
+<li><p>身份证号码<br>[1-9]\d{14}(\d\d[0-9Xx])?</p>
+</li>
+<li><p>邮政编码<br>[1-9]\d{5}</p>
+</li>
+<li><p>中文字符<br>[\u4E00-\u9FFF]</p>
+</li>
+<li><p>IPv4 地址<br>\d{1,3}(.\d{1,3}){3}</p>
+</li>
+<li><p>日期和时间<br>\d{4}-(?:1[0-2]|0?[1-9])-(?:[12]\d|3[01]|0?[1-9])</p>
+</li>
+<li><p>邮箱<br>[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+</p>
+</li>
+</ol>
+ 
+      <div id="toc-article">
+  <div class="widget-wrap" id="toc-wrap">
+    <h3 class="widget-title"><i class="fa fa-toc"></i> 文章目录</h3>
+    <div class="widget">
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#01-%E5%85%83%E5%AD%97%E7%AC%A6%EF%BC%9A%E5%A6%82%E4%BD%95%E5%B7%A7%E5%A6%99%E8%AE%B0%E5%BF%86%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%85%83%E4%BB%B6%EF%BC%9F"><span class="toc-text">01 | 元字符：如何巧妙记忆正则表达式的基本元件？</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%83%E5%AD%97%E7%AC%A6%E7%9A%84%E6%A6%82%E5%BF%B5"><span class="toc-text">元字符的概念</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%83%E5%AD%97%E7%AC%A6%E7%9A%84%E5%88%86%E7%B1%BB%E4%B8%8E%E8%AE%B0%E5%BF%86%E6%8A%80%E5%B7%A7"><span class="toc-text">元字符的分类与记忆技巧</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-text">总结</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#02-%E4%B8%A8%E9%87%8F%E8%AF%8D%E4%B8%8E%E8%B4%AA%E5%A9%AA%EF%BC%9A%E5%B0%8F%E5%B0%8F%E7%9A%84%E6%AD%A3%E5%88%99%EF%BC%8C%E4%B9%9F%E5%8F%AF%E8%83%BD%E6%8A%8A-CPU-%E6%8B%96%E5%9E%AE%EF%BC%81"><span class="toc-text">02 丨量词与贪婪：小小的正则，也可能把 CPU 拖垮！</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%80%BB%E7%BB%93-1"><span class="toc-text">总结</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#03-%E5%88%86%E7%BB%84%E4%B8%8E%E5%BC%95%E7%94%A8%EF%BC%9A%E5%A6%82%E4%BD%95%E7%94%A8%E6%AD%A3%E5%88%99%E5%AE%9E%E7%8E%B0%E6%9B%B4%E5%A4%8D%E6%9D%82%E7%9A%84%E6%9F%A5%E6%89%BE%E5%92%8C%E6%9B%BF%E6%8D%A2%E6%93%8D%E4%BD%9C%EF%BC%9F"><span class="toc-text">03 | 分组与引用：如何用正则实现更复杂的查找和替换操作？</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%86%E7%BB%84%E4%B8%8E%E7%BC%96%E5%8F%B7"><span class="toc-text">分组与编号</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%8D%E4%BF%9D%E5%AD%98%E5%AD%90%E7%BB%84"><span class="toc-text">不保存子组</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8B%AC%E5%8F%B7%E5%B5%8C%E5%A5%97"><span class="toc-text">括号嵌套</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%91%BD%E5%90%8D%E5%88%86%E7%BB%84"><span class="toc-text">命名分组</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%86%E7%BB%84%E5%BC%95%E7%94%A8"><span class="toc-text">分组引用</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%80%BB%E7%BB%93-2"><span class="toc-text">总结</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#04-%E5%8C%B9%E9%85%8D%E6%A8%A1%E5%BC%8F%EF%BC%9A%E4%B8%80%E6%AC%A1%E6%80%A7%E6%8E%8C%E6%8F%A1%E6%AD%A3%E5%88%99%E4%B8%AD%E5%B8%B8%E8%A7%81%E7%9A%84-4-%E7%A7%8D%E5%8C%B9%E9%85%8D%E6%A8%A1%E5%BC%8F"><span class="toc-text">04 | 匹配模式：一次性掌握正则中常见的 4 种匹配模式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%8D%E5%8C%BA%E5%88%86%E5%A4%A7%E5%B0%8F%E5%86%99%E6%A8%A1%E5%BC%8F%EF%BC%88Case-Insensitive%EF%BC%89"><span class="toc-text">不区分大小写模式（Case-Insensitive）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%82%B9%E5%8F%B7%E9%80%9A%E9%85%8D%E6%A8%A1%E5%BC%8F%EF%BC%88Dot-All%EF%BC%89"><span class="toc-text">点号通配模式（Dot All）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A4%9A%E8%A1%8C%E5%8C%B9%E9%85%8D%E6%A8%A1%E5%BC%8F%EF%BC%88Multiline%EF%BC%89"><span class="toc-text">多行匹配模式（Multiline）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B3%A8%E9%87%8A%E6%A8%A1%E5%BC%8F%EF%BC%88Comment%EF%BC%89"><span class="toc-text">注释模式（Comment）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%80%BB%E7%BB%93-3"><span class="toc-text">总结</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#05-%E6%96%AD%E8%A8%80%EF%BC%9A%E5%A6%82%E4%BD%95%E7%94%A8%E6%96%AD%E8%A8%80%E6%9B%B4%E5%A5%BD%E5%9C%B0%E5%AE%9E%E7%8E%B0%E6%9B%BF%E6%8D%A2%E9%87%8D%E5%A4%8D%E5%87%BA%E7%8E%B0%E7%9A%84%E5%8D%95%E8%AF%8D%EF%BC%9F"><span class="toc-text">05 | 断言：如何用断言更好地实现替换重复出现的单词？</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8D%95%E8%AF%8D%E8%BE%B9%E7%95%8C%EF%BC%88Word-Boundary%EF%BC%89"><span class="toc-text">单词边界（Word Boundary）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%A1%8C%E7%9A%84%E5%BC%80%E5%A7%8B%E6%88%96%E7%BB%93%E6%9D%9F"><span class="toc-text">行的开始或结束</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%8E%AF%E8%A7%86%EF%BC%88-Look-Around%EF%BC%89"><span class="toc-text">环视（ Look Around）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%80%BB%E7%BB%93-4"><span class="toc-text">总结</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#06-%E8%BD%AC%E4%B9%89%EF%BC%9A%E6%AD%A3%E5%88%99%E4%B8%AD%E8%BD%AC%E4%B9%89%E9%9C%80%E8%A6%81%E6%B3%A8%E6%84%8F%E5%93%AA%E4%BA%9B%E9%97%AE%E9%A2%98%EF%BC%9F"><span class="toc-text">06 转义：正则中转义需要注意哪些问题？</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81%E7%9A%84%E8%BD%AC%E4%B9%89%E5%AD%97%E7%AC%A6%E4%BB%A5%E5%8F%8A%E5%AE%83%E4%BB%AC%E7%9A%84%E5%90%AB%E4%B9%89"><span class="toc-text">常见的转义字符以及它们的含义</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%AD%A3%E5%88%99%E4%B8%AD%E5%85%83%E5%AD%97%E7%AC%A6%E7%9A%84%E8%BD%AC%E4%B9%89"><span class="toc-text">正则中元字符的转义</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AD%97%E7%AC%A6%E7%BB%84%E4%B8%AD%E9%9C%80%E8%A6%81%E8%BD%AC%E4%B9%89%E7%9A%84%E6%9C%89%E4%B8%89%E7%A7%8D%E6%83%85%E5%86%B5"><span class="toc-text">字符组中需要转义的有三种情况</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AD%97%E7%AC%A6%E7%BB%84%E4%B8%AD%E5%85%B6%E5%AE%83%E7%9A%84%E5%85%83%E5%AD%97%E7%AC%A6"><span class="toc-text">字符组中其它的元字符</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%80%BB%E7%BB%93-5"><span class="toc-text">总结</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#07-%E6%AD%A3%E5%88%99%E6%9C%89%E5%93%AA%E4%BA%9B%E5%B8%B8%E8%A7%81%E7%9A%84%E6%B5%81%E6%B4%BE%E5%8F%8A%E5%85%B6%E7%89%B9%E6%80%A7%EF%BC%9F"><span class="toc-text">07 | 正则有哪些常见的流派及其特性？</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#POSIX-%E6%B5%81%E6%B4%BE"><span class="toc-text">POSIX 流派</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#PCRE-%E6%B5%81%E6%B4%BE"><span class="toc-text">PCRE 流派</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9C%A8-Linux-%E4%B8%AD%E4%BD%BF%E7%94%A8%E6%AD%A3%E5%88%99"><span class="toc-text">在 Linux 中使用正则</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%80%BB%E7%BB%93-6"><span class="toc-text">总结</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#08-%E5%BA%94%E7%94%A8-1%EF%BC%9A%E6%AD%A3%E5%88%99%E5%A6%82%E4%BD%95%E5%A4%84%E7%90%86-Unicode-%E7%BC%96%E7%A0%81%E7%9A%84%E6%96%87%E6%9C%AC%EF%BC%9F"><span class="toc-text">08 | 应用 1：正则如何处理 Unicode 编码的文本？</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BC%96%E7%A0%81%E9%97%AE%E9%A2%98%E7%9A%84%E5%9D%91"><span class="toc-text">编码问题的坑</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%80%BB%E7%BB%93-7"><span class="toc-text">总结</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#10-%E5%BA%94%E7%94%A8-3%EF%BC%9A%E5%A6%82%E4%BD%95%E5%9C%A8%E8%AF%AD%E8%A8%80%E4%B8%AD%E7%94%A8%E6%AD%A3%E5%88%99%E8%AE%A9%E6%96%87%E6%9C%AC%E5%A4%84%E7%90%86%E8%83%BD%E5%8A%9B%E4%B8%8A%E4%B8%80%E4%B8%AA%E5%8F%B0%E9%98%B6%EF%BC%9F"><span class="toc-text">10 | 应用 3：如何在语言中用正则让文本处理能力上一个台阶？</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A0%A1%E9%AA%8C%E6%96%87%E6%9C%AC%E5%86%85%E5%AE%B9"><span class="toc-text">校验文本内容</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8F%90%E5%8F%96%E6%96%87%E6%9C%AC%E5%86%85%E5%AE%B9"><span class="toc-text">提取文本内容</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9B%BF%E6%8D%A2%E6%96%87%E6%9C%AC%E5%86%85%E5%AE%B9"><span class="toc-text">替换文本内容</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%87%E5%89%B2%E6%96%87%E6%9C%AC%E5%86%85%E5%AE%B9"><span class="toc-text">切割文本内容</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#11-%E5%A6%82%E4%BD%95%E7%90%86%E8%A7%A3%E6%AD%A3%E5%88%99%E7%9A%84%E5%8C%B9%E9%85%8D%E5%8E%9F%E7%90%86%E4%BB%A5%E5%8F%8A%E4%BC%98%E5%8C%96%E5%8E%9F%E5%88%99%EF%BC%9F"><span class="toc-text">11 | 如何理解正则的匹配原理以及优化原则？</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9C%89%E7%A9%B7%E7%8A%B6%E6%80%81%E8%87%AA%E5%8A%A8%E6%9C%BA"><span class="toc-text">有穷状态自动机</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#DFA-amp-NFA-%E5%B7%A5%E4%BD%9C%E6%9C%BA%E5%88%B6"><span class="toc-text">DFA &amp; NFA 工作机制</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%AD%A3%E5%88%99%E4%BC%98%E5%8C%96%E5%BB%BA%E8%AE%AE"><span class="toc-text">正则优化建议</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#12-%E9%97%AE%E9%A2%98%E9%9B%86%E9%94%A6%EF%BC%9A%E8%AF%A6%E8%A7%A3%E6%AD%A3%E5%88%99%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E5%8F%8A%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88"><span class="toc-text">12 | 问题集锦：详解正则常见问题及解决方案</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%97%AE%E9%A2%98%E5%A4%84%E7%90%86%E6%80%9D%E8%B7%AF"><span class="toc-text">问题处理思路</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E5%8F%8A%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88"><span class="toc-text">常见问题及解决方案</span></a></li></ol></li></ol>
+    </div>
+  </div>
+
+</div>
+       
+      <blockquote id="copyright">
+        <p>
+           原文链接:
+          <a href="https://jesse121.github.io/blog/articles/2021/10/27.html"
+            >https://jesse121.github.io/blog/articles/2021/10/27.html</a
+          >
+        </p>
+        <p>版权声明: 转载请注明出处.</p>
+      </blockquote>
+       
+    </div>
+    <footer class="article-footer">
+      
+      <div class="article-tag-wrap">
+        
+ 
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" rel="tag">正则表达式</a></li></ul>
+ 
+
+
+      </div>
+        
+<nav id="article-nav">
+  
+    <a href="/blog/articles/2021/09/04.html" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">下一篇</strong>
+      <div class="article-nav-title">
+        
+          Typescript内置工具类型和操作符介绍
+        
+      </div>
+    </a>
+  
+  
+    <a href="/blog/articles/2022/06/15.html" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">上一篇</strong>
+      <div class="article-nav-title">
+        
+          如何在国产银河麒麟系统Mips架构上离线安装electron
+        
+      </div>
+    </a>
+  
+</nav>
+   
+  <div id="comments"></div>
+
+
+
+
+
+
+
+
+ 
+    </footer>
+  </div>
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-posts"></i> 最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/blog/articles/2022/10/29.html">如何使用Monorepo实现跨项目共享组件和模块</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2022/09/20.html">【转载】JavaScript代码优化之道</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2022/08/08.html">如何解决Electron应用安装在C盘没有权限更新的问题</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2022/08/05.html">如何用Electron+vue+vite构建桌面端应用(三)</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2022/08/04.html">如何用Electron+vue+vite构建桌面端应用(二)</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2022/07/22.html">从源码分析为什么Electron+vue项目中router不能用history模式</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2022/07/20.html">如何用Electron+vue+vite构建桌面端应用(一)</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2022/06/15.html">如何在国产银河麒麟系统Mips架构上离线安装electron</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2021/10/27.html">极客时间-正则表达式</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2021/09/04.html">Typescript内置工具类型和操作符介绍</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-tag"></i> 标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/blog/tags/angularjs/" style="font-size: 10px;">AngularJs</a> <a href="/blog/tags/apache/" style="font-size: 12.86px;">Apache</a> <a href="/blog/tags/bootstrap/" style="font-size: 12.86px;">Bootstrap</a> <a href="/blog/tags/css/" style="font-size: 18.57px;">CSS</a> <a href="/blog/tags/centos/" style="font-size: 10px;">CentOS</a> <a href="/blog/tags/docker/" style="font-size: 12.86px;">Docker</a> <a href="/blog/tags/git/" style="font-size: 11.43px;">Git</a> <a href="/blog/tags/gitlab/" style="font-size: 10px;">Gitlab</a> <a href="/blog/tags/gulp/" style="font-size: 10px;">Gulp</a> <a href="/blog/tags/html/" style="font-size: 12.86px;">HTML</a> <a href="/blog/tags/html5/" style="font-size: 10px;">HTML5</a> <a href="/blog/tags/http/" style="font-size: 12.86px;">HTTP</a> <a href="/blog/tags/https/" style="font-size: 10px;">HTTPS</a> <a href="/blog/tags/husky/" style="font-size: 10px;">Husky</a> <a href="/blog/tags/javascript/" style="font-size: 20px;">JavaScript</a> <a href="/blog/tags/jenkins/" style="font-size: 10px;">Jenkins</a> <a href="/blog/tags/linux/" style="font-size: 11.43px;">Linux</a> <a href="/blog/tags/mac/" style="font-size: 10px;">Mac</a> <a href="/blog/tags/mysql/" style="font-size: 12.86px;">MySQL</a> <a href="/blog/tags/nginx/" style="font-size: 11.43px;">Nginx</a> <a href="/blog/tags/node-js/" style="font-size: 11.43px;">Node.js</a> <a href="/blog/tags/php/" style="font-size: 15.71px;">PHP</a> <a href="/blog/tags/photoshop/" style="font-size: 10px;">Photoshop</a> <a href="/blog/tags/react/" style="font-size: 10px;">React</a> <a href="/blog/tags/redux/" style="font-size: 10px;">Redux</a> <a href="/blog/tags/sse/" style="font-size: 10px;">SSE</a> <a href="/blog/tags/sublimetext3/" style="font-size: 10px;">SublimeText3</a> <a href="/blog/tags/typescript/" style="font-size: 14.29px;">Typescript</a> <a href="/blog/tags/vagrant/" style="font-size: 10px;">Vagrant</a> <a href="/blog/tags/vim/" style="font-size: 10px;">Vim</a> <a href="/blog/tags/vue/" style="font-size: 10px;">Vue</a> <a href="/blog/tags/web/" style="font-size: 15.71px;">WEB</a> <a href="/blog/tags/webpack/" style="font-size: 12.86px;">Webpack</a> <a href="/blog/tags/wireshark/" style="font-size: 11.43px;">Wireshark</a> <a href="/blog/tags/yii/" style="font-size: 10px;">Yii</a> <a href="/blog/tags/electron/" style="font-size: 17.14px;">electron</a> <a href="/blog/tags/jquery/" style="font-size: 12.86px;">jQuery</a> <a href="/blog/tags/javascript/" style="font-size: 10px;">javascript</a> <a href="/blog/tags/kylin/" style="font-size: 10px;">kylin</a> <a href="/blog/tags/monorepo/" style="font-size: 10px;">monorepo</a> <a href="/blog/tags/ssh/" style="font-size: 10px;">ssh</a> <a href="/blog/tags/vite/" style="font-size: 14.29px;">vite</a> <a href="/blog/tags/vscode/" style="font-size: 10px;">vscode</a> <a href="/blog/tags/vue/" style="font-size: 10px;">vue</a> <a href="/blog/tags/vue3/" style="font-size: 14.29px;">vue3</a> <a href="/blog/tags/%E5%89%8D%E7%AB%AF%E7%9B%91%E6%8E%A7/" style="font-size: 10px;">前端监控</a> <a href="/blog/tags/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F/" style="font-size: 10px;">微信小程序</a> <a href="/blog/tags/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" style="font-size: 10px;">正则表达式</a> <a href="/blog/tags/%E7%AE%97%E6%B3%95/" style="font-size: 14.29px;">算法</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-classify"></i> 分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/blog/categories/bootstrap/">Bootstrap</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/electron/">Electron</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/html-css/">HTML-CSS</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/html5/">HTML5</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/javascript/">JavaScript</a><span class="category-list-count">11</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/linux/">Linux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/mysql/">MySQL</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/node-js/">Node.js</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/php/">PHP</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/photoshop/">Photoshop</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/typescript/">Typescript</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/vue/">Vue</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/web/">WEB</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/jquery/">jQuery</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/translation/">前端翻译</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/">开发工具</a><span class="category-list-count">16</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/%E5%BC%80%E5%8F%91%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/">开发问题记录</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/">正则表达式</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/%E7%AE%97%E6%B3%95/">算法</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/notes/">读书笔记</a><span class="category-list-count">17</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/%E8%BD%AC%E8%BD%BD/">转载</a><span class="category-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-archive"></i> 归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2022/">2022年</a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2021/">2021年</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2020/">2020年</a><span class="archive-list-count">12</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2019/">2019年</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/">2018年</a><span class="archive-list-count">12</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2017/">2017年</a><span class="archive-list-count">26</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/">2016年</a><span class="archive-list-count">27</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-link"></i> 友情链接</h3>
+    <div class="widget">
+      <ul>
+      
+        <li>
+          <a target="_blank" rel="noopener" href="http://www.mahaixiang.cn/internet/300.html">深入理解互联网协议的原理</a>
+        </li>
+      
+        <li>
+          <a target="_blank" rel="noopener" href="http://javascript.ruanyifeng.com/">JavaScript 标准参考教程</a>
+        </li>
+      
+        <li>
+          <a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript">Mozilla Developer Network</a>
+        </li>
+      
+      </ul>
+    </div>
+  </div>
+
+
+  
+</aside>
+        
+      </div>
+      <a id="totop" href="#top"></a>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      <p>
+        <a href="/blog/sitemap.xml">网站地图</a>
+        <span> | </span
+        ><a href="/blog/atom.xml">订阅本站</a>
+        <span> | </span
+        ><a href="/blog/about/">联系博主</a>
+      </p>
+      
+      <p>
+        <i class="fa fa-visitors"></i>
+        <i id="busuanzi_container_site_uv"
+          ><i id="busuanzi_value_site_uv"></i
+        ></i>
+        ，
+        <i class="fa fa-views"></i>
+        <i id="busuanzi_container_site_pv"
+          ><i id="busuanzi_value_site_pv"></i
+        ></i>
+      </p>
+      
+      <p>
+        <span
+          >Copyright &copy; 2022 Jesse.</span
+        >
+        <span
+          >Powered by <a href="https://hexo.io/" target="_blank">Hexo.</a></span
+        >
+      </p>
+    </div>
+  </div>
+</footer>
+
+    </div>
+  </div>
+  
+<script src="https://unpkg.com/@highlightjs/cdn-assets@11.6.0/highlight.min.js"></script>
+
+<script>
+  hljs.highlightAll();
+</script>
+
+<script src="https://unpkg.com/jquery@3.4.1/dist/jquery.min.js"></script>
+ 
+<script src="/blog/js/search.json.js"></script>
+  
+<script src="https://unpkg.com/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+
+ 
+<script src="/blog/js/script.js"></script>
+ 
+ 
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?8e59984317ab1777a88e5b3e62c7c767";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+  
+<script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+ 
+      
+<script src="https://unpkg.com/gitalk@1.7.2/dist/gitalk.min.js"></script>
+ 
+<script src="//cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.js"></script>
+
+<script>
+  var gitalk = new Gitalk({
+    clientID: "3c3e422527fd3f9fa17a",
+    clientSecret: "f28d1808ec9ab69fb24dc3e9fad81e1c3ab8dd83",
+    repo: "blog",
+    owner: "jesse121",
+    admin: ["jesse121"],
+    id: md5(window.location.pathname),
+    proxy: "https://stormy-gorge-51623.herokuapp.com/https://github.com/login/oauth/access_token",
+    distractionFreeMode: false,
+    language: "zh-CN",
+    body: "欢迎在下方提出问题，您的疑问促进我们共同进步！",
+    pagerDirection: "last",
+  });
+  gitalk.render("comments");
+</script>
+         
+ 
+<script>
+  if (navigator.serviceWorker) {
+    navigator.serviceWorker
+      .register("/blog/sw.js")
+      .then(function (registration) {
+        console.log("Registered events at scope: ", registration.scope);
+      })
+      .catch(function (err) {
+        console.log("ServiceWorker registration failed: ", err);
+      });
+  }
+</script>
+<script
+  type="text/javascript"
+  src="https://unpkg.com/clipboard@2.0.4/dist/clipboard.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="/blog/js/codeBlock/codeBlockFunction.js"
+></script>
+<script type="text/javascript" src="/blog/js/codeBlock/codeLang.js"></script>
+<script type="text/javascript" src="/blog/js/codeBlock/codeCopy.js"></script>
+<script type="text/javascript" src="/blog/js/codeBlock/codeShrink.js"></script>
+
+</body>
+</html>

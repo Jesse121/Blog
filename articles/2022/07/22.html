@@ -273,30 +273,32 @@
     <div class="e-content article-entry" itemprop="articleBody">
        <p>在 electron+vue 项目中，vue-router 采用 history 模式在开发环境下能够正常显示页面，但是打包后发现页面 app 节点中的内容为空，页面空白</p>
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;app&quot;</span> <span class="hljs-attr">data-v-app</span>=<span class="hljs-string">&quot;&quot;</span>&gt;</span><span class="hljs-comment">&lt;!----&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
-
 <span id="more"></span>
-
 <p>查资料后得知，electron+vue 应用在生产环境下 vue-router 不支持 history 模式，换成 hash 模式后才解决问题，这篇文章主要分析记录下为什么 electron+vue 项目中 router 不能用 history 模式？</p>
 <p>该文章中所使用的的 vue-router 版本是 4.1.2</p>
-<h3 id="调试-vue-router-源码"><a href="#调试-vue-router-源码" class="headerlink" title="调试 vue-router 源码"></a>调试 vue-router 源码</h3><p>这里我们先修改下 vite.config.ts</p>
+<h3 id="调试-vue-router-源码">调试 vue-router 源码</h3>
+<p>这里我们先修改下 vite.config.ts</p>
 <pre><code class="hljs ts"><span class="hljs-attr">build</span>: &#123;
   <span class="hljs-attr">minify</span>: <span class="hljs-literal">false</span>; <span class="hljs-comment">// 设置为 false 可以禁用最小化混淆 方便在生产环境直接调试</span>
 &#125;</code></pre>
-
 <p>从项目中的 vue-router 入口开始分析</p>
 <ol>
 <li>createWebHistory()</li>
 </ol>
-<p><img src="https://raw.githubusercontent.com/Jesse121/publicPic/master/blog/pictures/20220721204828.png" alt="20220721204828"><br>该方法用于创建 HTML5 历史记录。单页应用程序最常见的历史记录,返回一个 routerHistory 对象</p>
+<p><img src="https://raw.githubusercontents.com/Jesse121/publicPic/master/blog/pictures/20220721204828.png" alt="20220721204828" referrerPolicy="no-referrer"><br>
+该方法用于创建 HTML5 历史记录。单页应用程序最常见的历史记录,返回一个 routerHistory 对象</p>
 <ol start="2">
 <li>createRouter()</li>
 </ol>
-<p><img src="https://raw.githubusercontent.com/Jesse121/publicPic/master/blog/pictures/20220722091953.png" alt="20220722091953"><br>该方法创建一个可以被 vue-app 使用的路由实例，返回一个 router 对象。</p>
+<p><img src="https://raw.githubusercontents.com/Jesse121/publicPic/master/blog/pictures/20220722091953.png" alt="20220722091953" referrerPolicy="no-referrer"><br>
+该方法创建一个可以被 vue-app 使用的路由实例，返回一个 router 对象。</p>
 <ol start="3">
 <li>app.use(router)</li>
 </ol>
-<p><img src="https://raw.githubusercontent.com/Jesse121/publicPic/master/blog/pictures/20220722103338.png" alt="20220722103338"><br>在该方法中参数 plugin 就是第二步中返回的 router 对象，该对象中有 install 方法，直接执行 plugin.install(app2,…options)</p>
-<p><img src="https://raw.githubusercontent.com/Jesse121/publicPic/master/blog/pictures/20220722092507.png" alt="20220722092507"><br>可以看到 install 方法做了一下事情：</p>
+<p><img src="https://raw.githubusercontents.com/Jesse121/publicPic/master/blog/pictures/20220722103338.png" alt="20220722103338" referrerPolicy="no-referrer"><br>
+在该方法中参数 plugin 就是第二步中返回的 router 对象，该对象中有 install 方法，直接执行 plugin.install(app2,…options)</p>
+<p><img src="https://raw.githubusercontents.com/Jesse121/publicPic/master/blog/pictures/20220722092507.png" alt="20220722092507" referrerPolicy="no-referrer"><br>
+可以看到 install 方法做了一下事情：</p>
 <ul>
 <li>全局注册 RouterLink 和 RouterView 组件</li>
 <li>添加全局属性$router(Router实例对象本身),$route(当前 location 对应的路由对象)</li>
@@ -304,23 +306,23 @@
 <li>注入三个 provider</li>
 <li>拦截 vue 实例的 unmount 方法，在 unmount 方法调用之前，先执行 Router 相关事件的移除和状态恢复工作</li>
 </ul>
-<p>这里重点分析 push 方法跳转路由,按下 F11 进入 push 方法<br><img src="https://raw.githubusercontent.com/Jesse121/publicPic/master/blog/pictures/20220722094219.png" alt="20220722094219"><br>继续进入 pushWithRedirect(to)方法<br><img src="https://raw.githubusercontent.com/Jesse121/publicPic/master/blog/pictures/20220722094744.png" alt="20220722094744"><br>这里 failure 是 undefined,执行的是 navigate(toLocation,from),该方法也异步的，返回一个 Promise。根据浏览器事件循环机制(event-loop),javascript 遇到异步函数先将异步函数加入异步任务队列，再继续执行接下来的同步任务。所以这里又回到 install 方法继续往下执行，install 方法执行完后开始执行 app.mount(‘#app’)</p>
+<p>这里重点分析 push 方法跳转路由,按下 F11 进入 push 方法<br>
+<img src="https://raw.githubusercontents.com/Jesse121/publicPic/master/blog/pictures/20220722094219.png" alt="20220722094219" referrerPolicy="no-referrer"><br>
+继续进入 pushWithRedirect(to)方法<br>
+<img src="https://raw.githubusercontents.com/Jesse121/publicPic/master/blog/pictures/20220722094744.png" alt="20220722094744" referrerPolicy="no-referrer"><br>
+这里 failure 是 undefined,执行的是 navigate(toLocation,from),该方法也异步的，返回一个 Promise。根据浏览器事件循环机制(event-loop),javascript 遇到异步函数先将异步函数加入异步任务队列，再继续执行接下来的同步任务。所以这里又回到 install 方法继续往下执行，install 方法执行完后开始执行 app.mount(‘#app’)</p>
 <ol start="4">
 <li>app.mount(‘#app’)</li>
 </ol>
 <p>这里开始执行挂载操作</p>
 <pre><code class="hljs js"><span class="hljs-keyword">const</span> proxy = <span class="hljs-title function_">mount</span>(container, <span class="hljs-literal">false</span>, container <span class="hljs-keyword">instanceof</span> <span class="hljs-title class_">SVGElement</span>);</code></pre>
-
 <p>从根组件开始创建 vnode</p>
 <pre><code class="hljs js"><span class="hljs-keyword">const</span> vnode = <span class="hljs-title function_">createVNode</span>(rootComponent, rootProps);</code></pre>
-
 <p>这里 rootComponent 是 app.vue 的编译结果</p>
 <p>渲染 vnode</p>
 <pre><code class="hljs js"><span class="hljs-title function_">render2</span>(vnode, rootContainer, isSVG);</code></pre>
-
 <p>新旧节点对比</p>
 <pre><code class="hljs js"><span class="hljs-title function_">patch</span>(container.<span class="hljs-property">_vnode</span> || <span class="hljs-literal">null</span>, vnode, container, <span class="hljs-literal">null</span>, <span class="hljs-literal">null</span>, <span class="hljs-literal">null</span>, isSVG);</code></pre>
-
 <p>处理组件</p>
 <pre><code class="hljs js"><span class="hljs-title function_">processComponent</span>(
   n1,
@@ -333,7 +335,6 @@
   slotScopeIds,
   optimized
 );</code></pre>
-
 <p>挂载组件</p>
 <pre><code class="hljs js"><span class="hljs-title function_">mountComponent</span>(
   n2,
@@ -344,14 +345,12 @@
   isSVG,
   optimized
 );</code></pre>
-
 <p>创建组件实例</p>
 <pre><code class="hljs js"><span class="hljs-keyword">const</span> instance = (initialVNode.<span class="hljs-property">component</span> = <span class="hljs-title function_">createComponentInstance</span>(
   initialVNode,
   parentComponent,
   parentSuspense
 ));</code></pre>
-
 <p>做组件实例对象的初始化工作</p>
 <pre><code class="hljs js"><span class="hljs-title function_">setupComponent</span>(instance);
 <span class="hljs-comment">// ...</span>
@@ -364,7 +363,6 @@
   isSVG,
   optimized
 );</code></pre>
-
 <p>调用 renderComponentRoot 生成子节点 vnode</p>
 <pre><code class="hljs js"><span class="hljs-keyword">const</span> subTree = (instance.<span class="hljs-property">subTree</span> = <span class="hljs-title function_">renderComponentRoot</span>(instance));
 <span class="hljs-comment">// ...</span>
@@ -393,15 +391,14 @@
 );
 <span class="hljs-comment">// ...</span>
 <span class="hljs-title function_">setupComponent</span>(instance);</code></pre>
-
 <p>执行子节点的 setup 方法，setupResult 就是 RouterView 组件的 setup 方法的返回值</p>
 <pre><code class="hljs js"><span class="hljs-keyword">const</span> setupResult = <span class="hljs-title function_">callWithErrorHandling</span>(setup, instance, <span class="hljs-number">0</span>, [
   instance.<span class="hljs-property">props</span>,
   setupContext,
 ]);</code></pre>
-
-<p><img src="https://raw.githubusercontent.com/Jesse121/publicPic/master/blog/pictures/20220722151315.png" alt="20220722151315"></p>
-<p>将 setupResult 赋值给子节点组件实例的 render 属性<br><img src="https://raw.githubusercontent.com/Jesse121/publicPic/master/blog/pictures/20220722151742.png" alt="20220722151742"></p>
+<p><img src="https://raw.githubusercontents.com/Jesse121/publicPic/master/blog/pictures/20220722151315.png" alt="20220722151315" referrerPolicy="no-referrer"></p>
+<p>将 setupResult 赋值给子节点组件实例的 render 属性<br>
+<img src="https://raw.githubusercontents.com/Jesse121/publicPic/master/blog/pictures/20220722151742.png" alt="20220722151742" referrerPolicy="no-referrer"></p>
 <pre><code class="hljs js"><span class="hljs-title function_">setupRenderEffect</span>(
   instance,
   initialVNode,
@@ -413,25 +410,42 @@
 );
 <span class="hljs-comment">//...</span>
 <span class="hljs-keyword">const</span> subTree = (instance.<span class="hljs-property">subTree</span> = <span class="hljs-title function_">renderComponentRoot</span>(instance));</code></pre>
-
-<p>又调用 renderComponentRoot 生成子节点<br><img src="https://raw.githubusercontent.com/Jesse121/publicPic/master/blog/pictures/20220722152243.png" alt="20220722152243"><br>此时 render2 是 RouterView 组件的 setup 的返回值<br>返回值 result 是空节点类型的 vnode，因为 router-view 组件中没有子节点<br><img src="https://raw.githubusercontent.com/Jesse121/publicPic/master/blog/pictures/20220722154230.png" alt="20220722154230"></p>
-<p>同步函数执行完后开始执行异步队列中的函数<br><img src="https://raw.githubusercontent.com/Jesse121/publicPic/master/blog/pictures/20220722155003.png" alt="20220722155003"></p>
+<p>又调用 renderComponentRoot 生成子节点<br>
+<img src="https://raw.githubusercontents.com/Jesse121/publicPic/master/blog/pictures/20220722152243.png" alt="20220722152243" referrerPolicy="no-referrer"><br>
+此时 render2 是 RouterView 组件的 setup 的返回值<br>
+返回值 result 是空节点类型的 vnode，因为 router-view 组件中没有子节点<br>
+<img src="https://raw.githubusercontents.com/Jesse121/publicPic/master/blog/pictures/20220722154230.png" alt="20220722154230" referrerPolicy="no-referrer"></p>
+<p>同步函数执行完后开始执行异步队列中的函数<br>
+<img src="https://raw.githubusercontents.com/Jesse121/publicPic/master/blog/pictures/20220722155003.png" alt="20220722155003" referrerPolicy="no-referrer"></p>
 <pre><code class="hljs js">failure2 = <span class="hljs-title function_">finalizeNavigation</span>(toLocation, <span class="hljs-keyword">from</span>, <span class="hljs-literal">true</span>, replace2, data);</code></pre>
-
-<p>注意该函数中的 toLocation<br><img src="https://raw.githubusercontent.com/Jesse121/publicPic/master/blog/pictures/20220722155422.png" alt="20220722155422"><br>这里将传入的 toLocation 赋值给 currentRoute.value</p>
-<p>组件挂载完后又执行<code>const nextTree = renderComponentRoot(instance);</code><br><img src="https://raw.githubusercontent.com/Jesse121/publicPic/master/blog/pictures/20220722155728.png" alt="20220722155728"><br>此时 render2 是 RouterView 组件的 setup 的返回值<br><img src="https://raw.githubusercontent.com/Jesse121/publicPic/master/blog/pictures/20220722160008.png" alt="20220722160008"><br>结果发现 matchedRoute 为 undefined，导致 ViewComponent 也为 undefined,匹配到的路由组件为 undefined,在接下来的 patch 函数中将注释节点插入<code>&lt;div id=&quot;#app&quot;&gt;&lt;/div&gt;</code>中，最终导致页面空白。</p>
-<h3 id="为何-matchRoute-为-undefined"><a href="#为何-matchRoute-为-undefined" class="headerlink" title="为何 matchRoute 为 undefined"></a>为何 matchRoute 为 undefined</h3><pre><code class="hljs js">app2.<span class="hljs-title function_">provide</span>(routerViewLocationKey, currentRoute);
+<p>注意该函数中的 toLocation<br>
+<img src="https://raw.githubusercontents.com/Jesse121/publicPic/master/blog/pictures/20220722155422.png" alt="20220722155422" referrerPolicy="no-referrer"><br>
+这里将传入的 toLocation 赋值给 currentRoute.value</p>
+<p>组件挂载完后又执行<code>const nextTree = renderComponentRoot(instance);</code><br>
+<img src="https://raw.githubusercontents.com/Jesse121/publicPic/master/blog/pictures/20220722155728.png" alt="20220722155728" referrerPolicy="no-referrer"><br>
+此时 render2 是 RouterView 组件的 setup 的返回值<br>
+<img src="https://raw.githubusercontents.com/Jesse121/publicPic/master/blog/pictures/20220722160008.png" alt="20220722160008" referrerPolicy="no-referrer"><br>
+结果发现 matchedRoute 为 undefined，导致 ViewComponent 也为 undefined,匹配到的路由组件为 undefined,在接下来的 patch 函数中将注释节点插入<code>&lt;div id=&quot;#app&quot;&gt;&lt;/div&gt;</code>中，最终导致页面空白。</p>
+<h3 id="为何-matchRoute-为-undefined">为何 matchRoute 为 undefined</h3>
+<pre><code class="hljs js">app2.<span class="hljs-title function_">provide</span>(routerViewLocationKey, currentRoute);
 <span class="hljs-keyword">const</span> injectedRoute = <span class="hljs-title function_">inject</span>(routerViewLocationKey);
 <span class="hljs-keyword">const</span> routeToDisplay = <span class="hljs-title function_">computed</span>(<span class="hljs-function">() =&gt;</span> props.<span class="hljs-property">route</span> || injectedRoute.<span class="hljs-property">value</span>);
 <span class="hljs-keyword">const</span> matchedRouteRef = <span class="hljs-title function_">computed</span>(
   <span class="hljs-function">() =&gt;</span> routeToDisplay.<span class="hljs-property">value</span>.<span class="hljs-property">matched</span>[depth.<span class="hljs-property">value</span>]
 );</code></pre>
-
-<p>由于 currentRoute 的值由初始值<br><img src="https://raw.githubusercontent.com/Jesse121/publicPic/master/blog/pictures/20220722162956.png" alt="20220722162956"><br>改为<br><img src="https://raw.githubusercontent.com/Jesse121/publicPic/master/blog/pictures/20220722163038.png" alt="20220722163038"><br>由上述计算属性计算结果得知 matchedRoute 为 undefined</p>
-<h3 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h3><p>打包后的 electron 包用的是本地文件通过 file 协议访问，在 vue-router 用 history 模式下 location.pathname 并不是常规的 history 路由而是包含文件绝对路径<br><img src="https://raw.githubusercontent.com/Jesse121/publicPic/master/blog/pictures/20220722164615.png" alt="20220722164615"><br>源码中 matchers 为当前定义的所有路由的路径解析器<br><img src="https://raw.githubusercontent.com/Jesse121/publicPic/master/blog/pictures/20220722165241.png" alt="20220722165241"><br>而 path 却包含文件绝对路径导致无法匹配路由，最终导致无路由组件可渲染，页面空白。</p>
+<p>由于 currentRoute 的值由初始值<br>
+<img src="https://raw.githubusercontents.com/Jesse121/publicPic/master/blog/pictures/20220722162956.png" alt="20220722162956" referrerPolicy="no-referrer"><br>
+改为<br>
+<img src="https://raw.githubusercontents.com/Jesse121/publicPic/master/blog/pictures/20220722163038.png" alt="20220722163038" referrerPolicy="no-referrer"><br>
+由上述计算属性计算结果得知 matchedRoute 为 undefined</p>
+<h3 id="结论">结论</h3>
+<p>打包后的 electron 包用的是本地文件通过 file 协议访问，在 vue-router 用 history 模式下 location.pathname 并不是常规的 history 路由而是包含文件绝对路径<br>
+<img src="https://raw.githubusercontents.com/Jesse121/publicPic/master/blog/pictures/20220722164615.png" alt="20220722164615" referrerPolicy="no-referrer"><br>
+源码中 matchers 为当前定义的所有路由的路径解析器<br>
+<img src="https://raw.githubusercontents.com/Jesse121/publicPic/master/blog/pictures/20220722165241.png" alt="20220722165241" referrerPolicy="no-referrer"><br>
+而 path 却包含文件绝对路径导致无法匹配路由，最终导致无路由组件可渲染，页面空白。</p>
 <pre><code class="hljs js"><span class="hljs-comment">// 获取当前路径匹配的路由</span>
 matcher = matchers.<span class="hljs-title function_">find</span>(<span class="hljs-function">(<span class="hljs-params">m</span>) =&gt;</span> m.<span class="hljs-property">re</span>.<span class="hljs-title function_">test</span>(path));</code></pre>
-
 <p>啊，终于分析完了:)</p>
  
       <div id="toc-article">

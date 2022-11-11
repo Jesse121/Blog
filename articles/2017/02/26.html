@@ -273,15 +273,15 @@
     <div class="e-content article-entry" itemprop="articleBody">
        <p>在客户端编程语言中如javascript，同源策略规定跨域之间的脚本是隔离的，一个域的脚本不能访问和操作另外一个域的绝大部分属性和方法。只有当两个域具有相同的协议，相同的主机，相同的端口时，我们就认定他们是相同的域。可是在实际开发中我们经常需要获取其他域的资源，这个时候各种不同的跨域资源方式就各显神通了，今天主要来总结一下工作中常用的几种跨域方式，以备查询。</p>
 <span id="more"></span>
-<h3 id="1-window-name"><a href="#1-window-name" class="headerlink" title="1.window.name"></a>1.window.name</h3><p>window 对象的name属性是一个很特别的属性，当在 frame 中加载新页面时，name 的属性值依旧保持不变。那么我们可以在页面 A中用iframe加载其他域的页面B，而页面B中用JavaScript把需要传递的数据赋值给window.name，iframe加载完成之后，此时 name 属性值可被获取到，以访问 Web 服务发送的信息。但 name 属性仅对相同域名的 frame 可访问。这意味着为了访问 name 属性，当远程 Web 服务页面被加载后，必须导航 frame 回到原始域。即页面A修改iframe的地址，将其变成同域的一个地址，然后就可以读出window.name的值了。一旦 name 属性获得，销毁 frame 。这个方式非常适合单向的数据请求，而且协议简单、安全。  </p>
-<p>页面B(<a target="_blank" rel="noopener" href="http://www.jesse.com/data.html)%E4%BB%A3%E7%A0%81%E5%A6%82%E4%B8%8B%EF%BC%9A">www.jesse.com/data.html)代码如下：</a></p>
+<h3 id="1-window-name"><a target="_blank" rel="noopener" href="http://1.window.name">1.window.name</a></h3>
+<p>window 对象的name属性是一个很特别的属性，当在 frame 中加载新页面时，name 的属性值依旧保持不变。那么我们可以在页面 A中用iframe加载其他域的页面B，<a target="_blank" rel="noopener" href="http://xn--BJavaScriptwindow-vg60ah6kkygt10jmde0po768g6dhvs2dj0ghu5e37wal7sg92cgtcj5m.name">而页面B中用JavaScript把需要传递的数据赋值给window.name</a>，iframe加载完成之后，此时 name 属性值可被获取到，以访问 Web 服务发送的信息。但 name 属性仅对相同域名的 frame 可访问。这意味着为了访问 name 属性，当远程 Web 服务页面被加载后，必须导航 frame 回到原始域。即页面A修改iframe的地址，将其变成同域的一个地址，然后就可以读出window.name的值了。一旦 name 属性获得，销毁 frame 。这个方式非常适合单向的数据请求，而且协议简单、安全。</p>
+<p>页面B(<a target="_blank" rel="noopener" href="http://www.jesse.com/data.html">www.jesse.com/data.html</a>)代码如下：</p>
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;text/javascript&quot;</span>&gt;</span><span class="language-javascript"></span>
 <span class="language-javascript"><span class="hljs-variable language_">window</span>.<span class="hljs-property">name</span> = <span class="hljs-string">&#x27;I was there!&#x27;</span>;</span>
 <span class="language-javascript"><span class="hljs-comment">// 这里是要传输的数据，大小一般为2M，IE和firefox下可以大至32M左右</span></span>
 <span class="language-javascript"><span class="hljs-comment">// 数据格式可以自定义，如json、字符串</span></span>
 <span class="language-javascript"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre>
-
-<p>页面A(<a target="_blank" rel="noopener" href="http://www.jack.com/index.html)%E4%BB%A3%E7%A0%81%E5%A6%82%E4%B8%8B%EF%BC%9A">www.jack.com/index.html)代码如下：</a></p>
+<p>页面A(<a target="_blank" rel="noopener" href="http://www.jack.com/index.html">www.jack.com/index.html</a>)代码如下：</p>
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;text/javascript&quot;</span>&gt;</span><span class="language-javascript"></span>
 <span class="language-javascript"><span class="hljs-keyword">var</span> state = <span class="hljs-number">0</span>,</span>
 <span class="language-javascript">    iframe = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">createElement</span>(<span class="hljs-string">&#x27;iframe&#x27;</span>),</span>
@@ -309,10 +309,11 @@
 <span class="language-javascript">&#125;</span>
 <span class="language-javascript"><span class="hljs-variable language_">document</span>.<span class="hljs-property">body</span>.<span class="hljs-title function_">appendChild</span>(iframe);</span>
 <span class="language-javascript"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre>
-
-<h3 id="2-具备src的标签"><a href="#2-具备src的标签" class="headerlink" title="2.具备src的标签"></a>2.具备src的标签</h3><p>虽然浏览器默认禁止了跨域访问，但并不禁止在页面中用标签的src属性引用其他域的文件。根据这一点，可以方便地通过创建具有src属性的节点方法来实现完全跨域的通信。使用这种原理的跨域方式有以下几种：</p>
-<h4 id="动态创建script"><a href="#动态创建script" class="headerlink" title="动态创建script"></a>动态创建script</h4><p>例如我要从域A的页面pageA加载域B的数据，那么在域B的页面pageB中我以JavaScript的形式声明pageA需要的数据，然后在 pageA中用script标签把pageB加载进来，那么pageB中的脚本就会得以执行。  </p>
-<p>pageA(<a target="_blank" rel="noopener" href="http://www.jack.com/index.html)%E4%BB%A3%E7%A0%81%E5%A6%82%E4%B8%8B%EF%BC%9A">www.jack.com/index.html)代码如下：</a></p>
+<h3 id="2-具备src的标签">2.具备src的标签</h3>
+<p>虽然浏览器默认禁止了跨域访问，但并不禁止在页面中用标签的src属性引用其他域的文件。根据这一点，可以方便地通过创建具有src属性的节点方法来实现完全跨域的通信。使用这种原理的跨域方式有以下几种：</p>
+<h4 id="动态创建script">动态创建script</h4>
+<p>例如我要从域A的页面pageA加载域B的数据，那么在域B的页面pageB中我以JavaScript的形式声明pageA需要的数据，然后在 pageA中用script标签把pageB加载进来，那么pageB中的脚本就会得以执行。</p>
+<p>pageA(<a target="_blank" rel="noopener" href="http://www.jack.com/index.html">www.jack.com/index.html</a>)代码如下：</p>
 <pre><code class="hljs javascript"><span class="hljs-keyword">function</span> <span class="hljs-title function_">getData</span>(<span class="hljs-params">data</span>)&#123;
     <span class="hljs-comment">//这里是对获取的数据的相关操作</span>
     <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(data);
@@ -323,9 +324,11 @@
 originData.<span class="hljs-property">src</span> = <span class="hljs-string">&#x27;http://www.jesse.com/data.js&#x27;</span>;
 originData.<span class="hljs-title function_">setAttribute</span>(<span class="hljs-string">&quot;type&quot;</span>, <span class="hljs-string">&quot;text/javascript&quot;</span>);
 <span class="hljs-variable language_">document</span>.<span class="hljs-property">body</span>.<span class="hljs-title function_">appendChild</span>(originData);</code></pre>
-<p>pageB(<a target="_blank" rel="noopener" href="http://www.jesse.com/data.js)%E4%BB%A3%E7%A0%81%E5%A6%82%E4%B8%8B%EF%BC%9A">www.jesse.com/data.js)代码如下：</a></p>
+<p>pageB(<a target="_blank" rel="noopener" href="http://www.jesse.com/data.js">www.jesse.com/data.js</a>)代码如下：</p>
 <pre><code class="hljs javascript"><span class="hljs-title function_">getData</span>(<span class="hljs-string">&#x27;这里是远程跨域获取的数据&#x27;</span>);<span class="hljs-comment">//数据格式可以自定义，如json、字符串</span></code></pre>
-<h4 id="jsonp"><a href="#jsonp" class="headerlink" title="jsonp"></a>jsonp</h4><p>在用$.ajax()获取远程数据时，如果是跨域资源则可以使用jsonp方法，以前一直以为jsonp是ajax的一种，后来才明白他们根本就不是一回事。ajax是以xhr方式请求数据的，而jsonp是以script方式请求数据的，这个就是和上面的动态创建script方式一样。<br>pageA(<a target="_blank" rel="noopener" href="http://www.jack.com/index.html)%E4%BB%A3%E7%A0%81%E5%A6%82%E4%B8%8B%EF%BC%9A">www.jack.com/index.html)代码如下：</a></p>
+<h4 id="jsonp">jsonp</h4>
+<p>在用$.ajax()获取远程数据时，如果是跨域资源则可以使用jsonp方法，以前一直以为jsonp是ajax的一种，后来才明白他们根本就不是一回事。ajax是以xhr方式请求数据的，而jsonp是以script方式请求数据的，这个就是和上面的动态创建script方式一样。<br>
+pageA(<a target="_blank" rel="noopener" href="http://www.jack.com/index.html">www.jack.com/index.html</a>)代码如下：</p>
 <pre><code class="hljs javascript">$.<span class="hljs-title function_">ajax</span>(&#123;
     <span class="hljs-comment">//JSONP不支持POST方式</span>
     <span class="hljs-attr">type</span>:<span class="hljs-string">&quot;GET&quot;</span>,
@@ -341,14 +344,15 @@ originData.<span class="hljs-title function_">setAttribute</span>(<span class="h
     &#125;
 &#125;)
 </code></pre>
-<p>pageB(<a target="_blank" rel="noopener" href="http://www.jesse.com/data.js)%E4%BB%A3%E7%A0%81%E5%A6%82%E4%B8%8B%EF%BC%9A">www.jesse.com/data.js)代码如下：</a></p>
+<p>pageB(<a target="_blank" rel="noopener" href="http://www.jesse.com/data.js">www.jesse.com/data.js</a>)代码如下：</p>
 <pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span>
     <span class="hljs-variable">$callback</span> = <span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;callback&#x27;</span>];<span class="hljs-comment">//得到回调函数名,这里是getData</span>
     <span class="hljs-variable">$data</span> = <span class="hljs-keyword">array</span>(<span class="hljs-string">&#x27;a&#x27;</span>,<span class="hljs-string">&#x27;b&#x27;</span>,<span class="hljs-string">&#x27;c&#x27;</span>);<span class="hljs-comment">//要返回的数据</span>
     <span class="hljs-keyword">echo</span> <span class="hljs-variable">$callback</span>.<span class="hljs-string">&#x27;(&#x27;</span>.<span class="hljs-title function_ invoke__">json_encode</span>(<span class="hljs-variable">$data</span>).<span class="hljs-string">&#x27;)&#x27;</span>;<span class="hljs-comment">//输出</span>
 <span class="hljs-meta">?&gt;</span></code></pre>
-
-<h3 id="3-document-domain"><a href="#3-document-domain" class="headerlink" title="3.document.domain"></a>3.document.domain</h3><p>对于主域相同而子域不同的例子，可以通过设置document.domain的办法来解决。 具体的做法是可以在<a target="_blank" rel="noopener" href="http://www.a.com/a.html%E5%92%8Chttp://script.a.com/b.html%E4%B8%A4%E4%B8%AA%E6%96%87%E4%BB%B6%E4%B8%AD%E5%88%86%E5%88%AB%E5%8A%A0%E4%B8%8A">http://www.a.com/a.html和http://script.a.com/b.html两个文件中分别加上</a> document.domain &#x3D; “a.com”；然后通过a.html文件中创建一个iframe，去控制iframe的contentDocument，这样两个js文件之间就可以 “交互”了。当然这种办法只能解决主域相同而二级域名不同的情况<br><a target="_blank" rel="noopener" href="http://www.a.com上的a.html/">www.a.com上的a.html</a></p>
+<h3 id="3-document-domain">3.document.domain</h3>
+<p>对于主域相同而子域不同的例子，可以通过设置document.domain的办法来解决。 具体的做法是可以在http://www.a.com/a.html和http://script.a.com/b.html两个文件中分别加上 document.domain = “<a target="_blank" rel="noopener" href="http://a.com">a.com</a>”；然后通过a.html文件中创建一个iframe，去控制iframe的contentDocument，这样两个js文件之间就可以 “交互”了。当然这种办法只能解决主域相同而二级域名不同的情况<br>
+www.a.com上的a.html</p>
 <pre><code class="hljs javascript"><span class="hljs-variable language_">document</span>.<span class="hljs-property">domain</span> = <span class="hljs-string">&#x27;a.com&#x27;</span>;
 <span class="hljs-keyword">var</span> ifr = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">createElement</span>(<span class="hljs-string">&#x27;iframe&#x27;</span>);
 ifr.<span class="hljs-property">src</span> = <span class="hljs-string">&#x27;http://script.a.com/b.html&#x27;</span>;
@@ -361,9 +365,9 @@ ifr.<span class="hljs-property">onload</span> = <span class="hljs-keyword">funct
 &#125;;</code></pre>
 <p>script.a.com上的b.html</p>
 <pre><code class="hljs javascript"><span class="hljs-variable language_">document</span>.<span class="hljs-property">domain</span> = <span class="hljs-string">&#x27;a.com&#x27;</span>;</code></pre>
-
-<h3 id="4-跨域资源共享（CORS）"><a href="#4-跨域资源共享（CORS）" class="headerlink" title="4.跨域资源共享（CORS）"></a>4.跨域资源共享（CORS）</h3><p>原理:跨源资源共享(CORS)定义一种跨域访问的机制，可以让AJAX实现跨域访问。CORS允许一个域上的网络应用向另一个域提交跨域AJAX请求。实现此功能非常简单，只需由服务器发送一个响应标头即可。它是通过客户端+服务端协作声明的方式来确保请求安全的。服务端会在HTTP请求头中增加一系列HTTP请求参数(例如Access-Control-Allow-Origin等)，来限制哪些域的请求和哪些请求类型可以接受，而客户端在发起请求时必须声明自己的源(Orgin)，否则服务器将不予处理，如果客户端不作声明，请求甚至会被浏览器直接拦截都到不了服务端。服务端收到HTTP请求后会进行域的比较，只有同域的请求才会处理。  </p>
-<p>pageA(<a target="_blank" rel="noopener" href="http://www.jack.com/index.html)%E4%BB%A3%E7%A0%81%E5%A6%82%E4%B8%8B%EF%BC%9A">www.jack.com/index.html)代码如下：</a></p>
+<h3 id="4-跨域资源共享（CORS）">4.跨域资源共享（CORS）</h3>
+<p>原理:跨源资源共享(CORS)定义一种跨域访问的机制，可以让AJAX实现跨域访问。CORS允许一个域上的网络应用向另一个域提交跨域AJAX请求。实现此功能非常简单，只需由服务器发送一个响应标头即可。它是通过客户端+服务端协作声明的方式来确保请求安全的。服务端会在HTTP请求头中增加一系列HTTP请求参数(例如Access-Control-Allow-Origin等)，来限制哪些域的请求和哪些请求类型可以接受，而客户端在发起请求时必须声明自己的源(Orgin)，否则服务器将不予处理，如果客户端不作声明，请求甚至会被浏览器直接拦截都到不了服务端。服务端收到HTTP请求后会进行域的比较，只有同域的请求才会处理。</p>
+<p>pageA(<a target="_blank" rel="noopener" href="http://www.jack.com/index.html">www.jack.com/index.html</a>)代码如下：</p>
 <pre><code class="hljs javascript"><span class="hljs-keyword">var</span> xhr = <span class="hljs-keyword">new</span> <span class="hljs-title class_">XMLHttpRequest</span>();
 xhr.<span class="hljs-property">onreadystatechange</span> = <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)&#123;
     <span class="hljs-keyword">if</span>(xhr.<span class="hljs-property">readyState</span> === <span class="hljs-number">4</span> &amp;&amp; xhr.<span class="hljs-property">status</span> === <span class="hljs-number">200</span>)&#123;
@@ -372,7 +376,7 @@ xhr.<span class="hljs-property">onreadystatechange</span> = <span class="hljs-ke
 &#125;;
 xhr.<span class="hljs-title function_">open</span>(<span class="hljs-string">&quot;get&quot;</span>,<span class="hljs-string">&quot;http://www.jesse.com/data.php&quot;</span>);
 xhr.<span class="hljs-title function_">send</span>(<span class="hljs-literal">null</span>);</code></pre>
-<p>pageB(<a target="_blank" rel="noopener" href="http://www.jesse.com/data.php)%E4%BB%A3%E7%A0%81%E5%A6%82%E4%B8%8B%EF%BC%9A">www.jesse.com/data.php)代码如下：</a></p>
+<p>pageB(<a target="_blank" rel="noopener" href="http://www.jesse.com/data.php">www.jesse.com/data.php</a>)代码如下：</p>
 <pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span>
     <span class="hljs-title function_ invoke__">header</span>(<span class="hljs-string">&quot;Access-Control-Allow-Origin: http://www.jack.com&quot;</span>);<span class="hljs-comment">//与简单的请求相同</span>
     <span class="hljs-title function_ invoke__">header</span>(<span class="hljs-string">&quot;Access-Control-Allow-Methods: GET, POST&quot;</span>);<span class="hljs-comment">//允许请求的方法</span>
@@ -380,8 +384,9 @@ xhr.<span class="hljs-title function_">send</span>(<span class="hljs-literal">nu
     <span class="hljs-variable">$data</span> = <span class="hljs-keyword">array</span>(<span class="hljs-string">&#x27;a&#x27;</span>,<span class="hljs-string">&#x27;b&#x27;</span>,<span class="hljs-string">&#x27;c&#x27;</span>);<span class="hljs-comment">//要返回的数据</span>
     <span class="hljs-keyword">echo</span> <span class="hljs-title function_ invoke__">json_encode</span>(<span class="hljs-variable">$data</span>);<span class="hljs-comment">//输出</span>
 <span class="hljs-meta">?&gt;</span></code></pre>
-
-<h3 id="5-window-postMesage-不常用"><a href="#5-window-postMesage-不常用" class="headerlink" title="5.window.postMesage 不常用"></a>5.window.postMesage 不常用</h3><p>window.postMessage(message,targetOrigin)  方法是html5新引进的特性，可以使用它来向其它的window对象发送消息，无论这个window对象是属于同源或不同源，目前IE8+、FireFox、Chrome、Opera等浏览器都已经支持window.postMessage方法。<br>pageA(<a target="_blank" rel="noopener" href="http://www.jack.com/index.html)%E4%BB%A3%E7%A0%81%E5%A6%82%E4%B8%8B%EF%BC%9A">www.jack.com/index.html)代码如下：</a></p>
+<h3 id="5-window-postMesage-不常用">5.window.postMesage 不常用</h3>
+<p>window.postMessage(message,targetOrigin)  方法是html5新引进的特性，可以使用它来向其它的window对象发送消息，无论这个window对象是属于同源或不同源，目前IE8+、FireFox、Chrome、Opera等浏览器都已经支持window.postMessage方法。<br>
+pageA(<a target="_blank" rel="noopener" href="http://www.jack.com/index.html">www.jack.com/index.html</a>)代码如下：</p>
 <pre><code class="hljs plaintext">&lt;iframe id=&quot;proxy&quot; src=&quot;http://www.jesse.com/index.html&quot; onload=&quot;postMsg()&quot; style=&quot;display: none&quot;&gt;&lt;/iframe&gt;
 &lt;script type=&quot;text/javascript&quot;&gt;
 var obj = &#123;
@@ -394,13 +399,14 @@ function postMsg() &#123;
     win.postMessage(obj, &#x27;http://www.jesse.com&#x27;);
 &#125;
 &lt;/script&gt;</code></pre>
-<p>pageB(<a target="_blank" rel="noopener" href="http://www.jesse.com/data.php)%E4%BB%A3%E7%A0%81%E5%A6%82%E4%B8%8B%EF%BC%9A">www.jesse.com/data.php)代码如下：</a></p>
+<p>pageB(<a target="_blank" rel="noopener" href="http://www.jesse.com/data.php">www.jesse.com/data.php</a>)代码如下：</p>
 <pre><code class="hljs plaintext">&lt;script type=&quot;text/javascript&quot;&gt;
 window.onmessage = function(e) &#123;
     console.log(e.data.msg + &quot; from &quot; + e.origin);
 &#125;
 &lt;/script&gt;</code></pre>
-<h3 id="6-location-hash-不常用"><a href="#6-location-hash-不常用" class="headerlink" title="6. location.hash 不常用"></a>6. location.hash 不常用</h3><p>pageA(<a target="_blank" rel="noopener" href="http://www.jack.com/index.html)%E4%BB%A3%E7%A0%81%E5%A6%82%E4%B8%8B%EF%BC%9A">www.jack.com/index.html)代码如下：</a></p>
+<h3 id="6-location-hash-不常用">6. location.hash 不常用</h3>
+<p>pageA(<a target="_blank" rel="noopener" href="http://www.jack.com/index.html">www.jack.com/index.html</a>)代码如下：</p>
 <pre><code class="hljs javascript"><span class="hljs-keyword">function</span> <span class="hljs-title function_">startRequest</span>(<span class="hljs-params"></span>) &#123;
     <span class="hljs-keyword">var</span> ifr = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">createElement</span>(<span class="hljs-string">&#x27;iframe&#x27;</span>);
     ifr.<span class="hljs-property">style</span>.<span class="hljs-property">display</span> = <span class="hljs-string">&#x27;none&#x27;</span>;
@@ -418,9 +424,9 @@ window.onmessage = function(e) &#123;
 &#125;
 <span class="hljs-built_in">setInterval</span>(checkHash, <span class="hljs-number">5000</span>);
 <span class="hljs-variable language_">window</span>.<span class="hljs-property">onload</span> = startRequest;</code></pre>
-<p>pageA(<a target="_blank" rel="noopener" href="http://www.jack.com/proxy.html)%E4%BB%A3%E7%A0%81%E5%A6%82%E4%B8%8B%EF%BC%9A">www.jack.com/proxy.html)代码如下：</a></p>
+<p>pageA(<a target="_blank" rel="noopener" href="http://www.jack.com/proxy.html">www.jack.com/proxy.html</a>)代码如下：</p>
 <pre><code class="hljs javascript">parent.<span class="hljs-property">parent</span>.<span class="hljs-property">location</span>.<span class="hljs-property">hash</span> = self.<span class="hljs-property">location</span>.<span class="hljs-property">hash</span>.<span class="hljs-title function_">substring</span>(<span class="hljs-number">1</span>);</code></pre>
-<p>pageB(<a target="_blank" rel="noopener" href="http://www.jesse.com/b.html)%E4%BB%A3%E7%A0%81%E5%A6%82%E4%B8%8B%EF%BC%9A">www.jesse.com/b.html)代码如下：</a></p>
+<p>pageB(<a target="_blank" rel="noopener" href="http://www.jesse.com/b.html">www.jesse.com/b.html</a>)代码如下：</p>
 <pre><code class="hljs javascript"><span class="hljs-keyword">function</span> <span class="hljs-title function_">checkHash</span>(<span class="hljs-params"></span>) &#123;
     <span class="hljs-keyword">var</span> data = <span class="hljs-string">&#x27;&#x27;</span>;
     <span class="hljs-comment">//模拟一个简单的参数处理操作</span>
@@ -445,10 +451,9 @@ window.onmessage = function(e) &#123;
     <span class="hljs-variable language_">document</span>.<span class="hljs-property">body</span>.<span class="hljs-title function_">appendChild</span>(proxy);
 &#125;
 <span class="hljs-variable language_">window</span>.<span class="hljs-property">onload</span> = checkHash;</code></pre>
-
 <p>参考文章：</p>
 <ol>
-<li><a target="_blank" rel="noopener" href="http://www.planabc.net/2008/09/01/window_name_transport/">使用 window.name 解决跨域问题</a> </li>
+<li><a target="_blank" rel="noopener" href="http://www.planabc.net/2008/09/01/window_name_transport/">使用 window.name 解决跨域问题</a></li>
 <li><a target="_blank" rel="noopener" href="http://www.open-open.com/lib/view/open1476759920360.html">跨域方法总结</a></li>
 </ol>
  

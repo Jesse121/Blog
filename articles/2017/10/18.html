@@ -271,15 +271,69 @@
 
     </div>
     <div class="e-content article-entry" itemprop="articleBody">
-       <h3 id="linux-基础"><a href="#linux-基础" class="headerlink" title="linux 基础"></a>linux 基础</h3><p>ip a 查看 ip 地址<br>ip addr 查看网卡<br>关机 shutdown -h now<br>重启 shutdown -r now 或者 reboot<br>Linux 查看版本当前操作系统发行版信息<br>cat &#x2F;etc&#x2F;issue 或 cat &#x2F;etc&#x2F;redhat-release</p>
+       <h3 id="linux-基础">linux 基础</h3>
+<p>ip a 查看 ip 地址<br>
+ip addr 查看网卡<br>
+关机 shutdown -h now<br>
+重启 shutdown -r now 或者 reboot<br>
+Linux 查看版本当前操作系统发行版信息<br>
+cat /etc/issue 或 cat /etc/redhat-release</p>
  <span id="more"></span>
-
-<h3 id="linux-目录结构及操作命令"><a href="#linux-目录结构及操作命令" class="headerlink" title="linux 目录结构及操作命令"></a>linux 目录结构及操作命令</h3><h4 id="linux-目录结构"><a href="#linux-目录结构" class="headerlink" title="linux 目录结构"></a>linux 目录结构</h4><p>&#x2F;bin 命令存放目录<br>&#x2F;boot 启动目录<br>&#x2F;dev 设备文件存放目录<br>&#x2F;etc 配置文件存放目录<br>&#x2F;lib 函数库存放目录<br>&#x2F;home 普通用户家目录<br>&#x2F;mnt 系统挂载目录<br>&#x2F;media 媒体设备挂载目录<br>&#x2F;opt 第三方软件放置目录<br>&#x2F;root 超级用户家目录<br>&#x2F;tmp 临时目录<br>&#x2F;sbin 系统命令行存放目录<br>&#x2F;proc 放置数据到内存<br>&#x2F;srv 服务存放数据目录<br>&#x2F;usr 系统软件资源目录<br>&#x2F;var 系统相关文档目录</p>
-<h4 id="目录管理"><a href="#目录管理" class="headerlink" title="目录管理"></a>目录管理</h4><p>显示当前目录 pwd<br>目录创建 mkdir [-p] 目录名称 -p 依次创建目录<br>目录删除 rmdir [-p] 目录名称</p>
-<h4 id="文件操作"><a href="#文件操作" class="headerlink" title="文件操作"></a>文件操作</h4><p>创建文件 touch 文件名<br>编辑文件 vi 文件名<br>文件查看<br>cat 显示全部内容<br>less 分页显示内容<br>more 分页显示内容 按空格翻页<br>head 显示文件前几行<br>tail 显示文件后几行</p>
-<h4 id="文件管理"><a href="#文件管理" class="headerlink" title="文件管理"></a>文件管理</h4><p>复制 cp [-r] 来源文件 目标文件<br>移动 mv 来源文件 目标文件<br>删除 rm [-rf] 文件或目录<br>查找 find 目录 [-name&#x2F;user&#x2F;size] 文件名<br>查找命令 which 命令名</p>
-<h3 id="用户管理及组群管理"><a href="#用户管理及组群管理" class="headerlink" title="用户管理及组群管理"></a>用户管理及组群管理</h3><p>查看当前用户 who<br>创建用户 useradd [-g 群组] 用户名<br>设置密码 passwd 用户名<br>锁定账户 passwd -l 用户名<br>解锁账户 passws -u 用户名<br>修改用户名 usermod -l new_username old_username<br>删除用户 userdel [-r] 用户名<br>查看群组 groups [用户名]<br>创建群组 groupadd 群组名<br>删除群组 groupdel 群组名<br>用户组名修改 groupmod -n new_groupname old_groupname<br>切换用户 su 用户名</p>
-<h3 id="权限与角色"><a href="#权限与角色" class="headerlink" title="权限与角色"></a>权限与角色</h3><h4 id="权限与角色设置"><a href="#权限与角色设置" class="headerlink" title="权限与角色设置"></a>权限与角色设置</h4><h5 id="1-字符表示法"><a href="#1-字符表示法" class="headerlink" title="1.字符表示法"></a>1.字符表示法</h5><p>chmod [-R] mode file<br>mode 类别</p>
+<h3 id="linux-目录结构及操作命令">linux 目录结构及操作命令</h3>
+<h4 id="linux-目录结构">linux 目录结构</h4>
+<p>/bin 命令存放目录<br>
+/boot 启动目录<br>
+/dev 设备文件存放目录<br>
+/etc 配置文件存放目录<br>
+/lib 函数库存放目录<br>
+/home 普通用户家目录<br>
+/mnt 系统挂载目录<br>
+/media 媒体设备挂载目录<br>
+/opt 第三方软件放置目录<br>
+/root 超级用户家目录<br>
+/tmp 临时目录<br>
+/sbin 系统命令行存放目录<br>
+/proc 放置数据到内存<br>
+/srv 服务存放数据目录<br>
+/usr 系统软件资源目录<br>
+/var 系统相关文档目录</p>
+<h4 id="目录管理">目录管理</h4>
+<p>显示当前目录 pwd<br>
+目录创建 mkdir [-p] 目录名称 -p 依次创建目录<br>
+目录删除 rmdir [-p] 目录名称</p>
+<h4 id="文件操作">文件操作</h4>
+<p>创建文件 touch 文件名<br>
+编辑文件 vi 文件名<br>
+文件查看<br>
+cat 显示全部内容<br>
+less 分页显示内容<br>
+more 分页显示内容 按空格翻页<br>
+head 显示文件前几行<br>
+tail 显示文件后几行</p>
+<h4 id="文件管理">文件管理</h4>
+<p>复制 cp [-r] 来源文件 目标文件<br>
+移动 mv 来源文件 目标文件<br>
+删除 rm [-rf] 文件或目录<br>
+查找 find 目录 [-name/user/size] 文件名<br>
+查找命令 which 命令名</p>
+<h3 id="用户管理及组群管理">用户管理及组群管理</h3>
+<p>查看当前用户 who<br>
+创建用户 useradd [-g 群组] 用户名<br>
+设置密码 passwd 用户名<br>
+锁定账户 passwd -l 用户名<br>
+解锁账户 passws -u 用户名<br>
+修改用户名 usermod -l new_username old_username<br>
+删除用户 userdel [-r] 用户名<br>
+查看群组 groups [用户名]<br>
+创建群组 groupadd 群组名<br>
+删除群组 groupdel 群组名<br>
+用户组名修改 groupmod -n new_groupname old_groupname<br>
+切换用户 su 用户名</p>
+<h3 id="权限与角色">权限与角色</h3>
+<h4 id="权限与角色设置">权限与角色设置</h4>
+<h5 id="1-字符表示法">1.字符表示法</h5>
+<p>chmod [-R] mode file<br>
+mode 类别</p>
 <table>
 <thead>
 <tr>
@@ -288,7 +342,8 @@
 <th>permission</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>u(owner)</td>
 <td>+</td>
 <td>r</td>
@@ -300,42 +355,94 @@
 </tr>
 <tr>
 <td>o(others)</td>
-<td>&#x3D;</td>
+<td>=</td>
 <td>x</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
 <pre><code class="hljs plaintext">a 代表ugo
 + 添加权限
 - 移除权限
 = 赋值权限</code></pre>
-
-<p>chmod [-R] ugo 文件或目录<br>u 所有者权限 g 所属组权限 o 其他用户权限<br>chmod -R a&#x3D;rwx file</p>
-<h5 id="2-数字表示法"><a href="#2-数字表示法" class="headerlink" title="2.数字表示法"></a>2.数字表示法</h5><p>r 可读权限 2^2&#x3D;4<br>w 可写权限 2^1&#x3D;2<br>x 可执行权限 2^0&#x3D;1</p>
-<p>r:4 w:2 x:1 rwx 总和即权限<br>chmod -R 777 *</p>
-<p>修改所有者<br>chown [-R] 用户名 文件或目录<br>修改组<br>chgrp [-R] 组名 文件或目录<br>修改所有者和组<br>chown [-R] 用户名：组名 文件或目录</p>
-<h4 id="切换账户"><a href="#切换账户" class="headerlink" title="切换账户"></a>切换账户</h4><p>su username<br>从普通用户切换到 root 用户 sudo su root<br>从 root 用户切换到普通用户 sudo su jesse</p>
-<h3 id="压缩与解压"><a href="#压缩与解压" class="headerlink" title="压缩与解压"></a>压缩与解压</h3><h4 id="打包压缩"><a href="#打包压缩" class="headerlink" title="打包压缩"></a>打包压缩</h4><p>tar [-ctxzjJvf] 压缩文件 [源文件]<br>c 打包压缩&#x2F;t 查看内容&#x2F;x 解打包解压缩&#x2F;v 显示过程&#x2F;f 指定压缩包名称<br>z 使用 gzip 方式&#x2F;j 使用 bzip2 方式&#x2F;J 使用 xz 方式<br>tar -czvf a.tar.gz a<br>tar -cjvf a.tar.bz2 a</p>
-<h4 id="解压"><a href="#解压" class="headerlink" title="解压"></a>解压</h4><p>tar -xzvf a.tar.gz -C 解压目录<br>tar -xjvf a.tar.bz2 -C 解压目录</p>
-<h4 id="gzip-压缩文件"><a href="#gzip-压缩文件" class="headerlink" title="gzip 压缩文件"></a>gzip 压缩文件</h4><pre><code class="hljs plaintext">gzip [-cdtv#] test</code></pre>
-
-<p>压缩扩展名为 gz<br>-c 将压缩数据输出到屏幕上<br>-d 解压缩参数<br>-t 校验文件是否损坏<br>-V 显示和源文件压缩比<br>-# 压缩等级 -1 最快 -9 最慢 默认-6</p>
-<h3 id="bzip2-压缩文件"><a href="#bzip2-压缩文件" class="headerlink" title="bzip2 压缩文件"></a>bzip2 压缩文件</h3><pre><code class="hljs plaintext">bzip2 [-cdkv#] test</code></pre>
-
-<p>-c 将压缩数据输出到屏幕上<br>-d 解压缩参数<br>-k 保留原文件<br>-V 显示和源文件压缩比<br>-# 压缩等级 -1 最快 -9 最慢 默认-6</p>
-<h4 id="zip-压缩"><a href="#zip-压缩" class="headerlink" title="zip 压缩"></a>zip 压缩</h4><pre><code class="hljs plaintext">zip [-q -r -e -m -o] [yourName].zip someThing</code></pre>
-
-<p>-q 表示不显示压缩进度状态<br>-r 表示子目录子文件全部压缩为 zip<br>-e 表示你的压缩文件需要加密，终端会提示你输入密码的<br>-m 表示压缩完删除原文件<br>-o 表示设置所有被压缩文件的最后修改时间为当前压缩时间</p>
-<h3 id="软件的安装与卸载"><a href="#软件的安装与卸载" class="headerlink" title="软件的安装与卸载"></a>软件的安装与卸载</h3><h4 id="源码包安装"><a href="#源码包安装" class="headerlink" title="源码包安装"></a>源码包安装</h4><p>下载源码包(curl,wget)<br>解压(tar)<br>进入目录(cd)<br>编译前配置(.&#x2F;configure)<br>编译(make)<br>编译安装(make install)<br>删除源码包 make clean</p>
-<h4 id="rpm-包安装"><a href="#rpm-包安装" class="headerlink" title="rpm 包安装"></a>rpm 包安装</h4><p>下载 rpm 安装包<br>rpm -ivh 软件包<br>-i 安装 -v 显示详细信息 -h 显示进度<br>卸载 rpm -e 安装包(不可以有后缀.rpm)</p>
-<h4 id="yum-安装管理-rpm-包"><a href="#yum-安装管理-rpm-包" class="headerlink" title="yum 安装管理 rpm 包"></a>yum 安装管理 rpm 包</h4><p>安装 yum [-y] install 安装包<br>更新 yum [-y] update 安装包<br>卸载 yum [-y] remove 安装包</p>
-<h3 id="常用指令"><a href="#常用指令" class="headerlink" title="常用指令"></a>常用指令</h3><table>
+<p>chmod [-R] ugo 文件或目录<br>
+u 所有者权限 g 所属组权限 o 其他用户权限<br>
+chmod -R a=rwx file</p>
+<h5 id="2-数字表示法">2.数字表示法</h5>
+<p>r 可读权限 2^2=4<br>
+w 可写权限 2^1=2<br>
+x 可执行权限 2^0=1</p>
+<p>r:4 w:2 x:1 rwx 总和即权限<br>
+chmod -R 777 *</p>
+<p>修改所有者<br>
+chown [-R] 用户名 文件或目录<br>
+修改组<br>
+chgrp [-R] 组名 文件或目录<br>
+修改所有者和组<br>
+chown [-R] 用户名：组名 文件或目录</p>
+<h4 id="切换账户">切换账户</h4>
+<p>su username<br>
+从普通用户切换到 root 用户 sudo su root<br>
+从 root 用户切换到普通用户 sudo su jesse</p>
+<h3 id="压缩与解压">压缩与解压</h3>
+<h4 id="打包压缩">打包压缩</h4>
+<p>tar [-ctxzjJvf] 压缩文件 [源文件]<br>
+c 打包压缩/t 查看内容/x 解打包解压缩/v 显示过程/f 指定压缩包名称<br>
+z 使用 gzip 方式/j 使用 bzip2 方式/J 使用 xz 方式<br>
+tar -czvf a.tar.gz a<br>
+tar -cjvf a.tar.bz2 a</p>
+<h4 id="解压">解压</h4>
+<p>tar -xzvf a.tar.gz -C 解压目录<br>
+tar -xjvf a.tar.bz2 -C 解压目录</p>
+<h4 id="gzip-压缩文件">gzip 压缩文件</h4>
+<pre><code class="hljs plaintext">gzip [-cdtv#] test</code></pre>
+<p>压缩扩展名为 gz<br>
+-c 将压缩数据输出到屏幕上<br>
+-d 解压缩参数<br>
+-t 校验文件是否损坏<br>
+-V 显示和源文件压缩比<br>
+-# 压缩等级 -1 最快 -9 最慢 默认-6</p>
+<h3 id="bzip2-压缩文件">bzip2 压缩文件</h3>
+<pre><code class="hljs plaintext">bzip2 [-cdkv#] test</code></pre>
+<p>-c 将压缩数据输出到屏幕上<br>
+-d 解压缩参数<br>
+-k 保留原文件<br>
+-V 显示和源文件压缩比<br>
+-# 压缩等级 -1 最快 -9 最慢 默认-6</p>
+<h4 id="zip-压缩">zip 压缩</h4>
+<pre><code class="hljs plaintext">zip [-q -r -e -m -o] [yourName].zip someThing</code></pre>
+<p>-q 表示不显示压缩进度状态<br>
+-r 表示子目录子文件全部压缩为 zip<br>
+-e 表示你的压缩文件需要加密，终端会提示你输入密码的<br>
+-m 表示压缩完删除原文件<br>
+-o 表示设置所有被压缩文件的最后修改时间为当前压缩时间</p>
+<h3 id="软件的安装与卸载">软件的安装与卸载</h3>
+<h4 id="源码包安装">源码包安装</h4>
+<p>下载源码包(curl,wget)<br>
+解压(tar)<br>
+进入目录(cd)<br>
+编译前配置(./configure)<br>
+编译(make)<br>
+编译安装(make install)<br>
+删除源码包 make clean</p>
+<h4 id="rpm-包安装">rpm 包安装</h4>
+<p>下载 rpm 安装包<br>
+rpm -ivh 软件包<br>
+-i 安装 -v 显示详细信息 -h 显示进度<br>
+卸载 rpm -e 安装包(不可以有后缀.rpm)</p>
+<h4 id="yum-安装管理-rpm-包">yum 安装管理 rpm 包</h4>
+<p>安装 yum [-y] install 安装包<br>
+更新 yum [-y] update 安装包<br>
+卸载 yum [-y] remove 安装包</p>
+<h3 id="常用指令">常用指令</h3>
+<table>
 <thead>
 <tr>
 <th>命令</th>
 <th>作用</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>ls</td>
 <td>显示文件或目录</td>
 </tr>
@@ -423,19 +530,46 @@
 <td>head、tail</td>
 <td>显示文件头、尾内容</td>
 </tr>
-</tbody></table>
-<h3 id="在文件中查找内容-grep-指令"><a href="#在文件中查找内容-grep-指令" class="headerlink" title="在文件中查找内容 grep 指令"></a>在文件中查找内容 grep 指令</h3><p>grep [-cinv] ‘key’ filename<br>-c 计算字符出现的个数<br>-i 忽略大小写<br>-n 输出行号<br>-v 显示没有该字符的行<br>‘key’ 要查找的字符，支持正则</p>
-<h3 id="添加自定义命令"><a href="#添加自定义命令" class="headerlink" title="添加自定义命令"></a>添加自定义命令</h3><p>一般来说，Shell 的初始化脚本分为 2 种：一种是全局默认的，一种是用户自己的。<br>全局默认的路径为&#x2F;etc&#x2F;profile 在 profile 中，它默认会再加载&#x2F;etc&#x2F;bash.bashrc。<br>另一种用户自己的就是$HOME 目录下的.profile 它默认会载加载.bashrc 文件。</p>
+</tbody>
+</table>
+<h3 id="在文件中查找内容-grep-指令">在文件中查找内容 grep 指令</h3>
+<p>grep [-cinv] ‘key’ filename<br>
+-c 计算字符出现的个数<br>
+-i 忽略大小写<br>
+-n 输出行号<br>
+-v 显示没有该字符的行<br>
+‘key’ 要查找的字符，支持正则</p>
+<h3 id="添加自定义命令">添加自定义命令</h3>
+<p>一般来说，Shell 的初始化脚本分为 2 种：一种是全局默认的，一种是用户自己的。<br>
+全局默认的路径为/etc/profile 在 profile 中，它默认会再加载/etc/bash.bashrc。<br>
+另一种用户自己的就是$HOME 目录下的.profile 它默认会载加载.bashrc 文件。</p>
 <p>这里我修改$home 目录下的.bashrc 文件，如果没有这个文件就新建</p>
-<p>添加以下自定义命令<br>alias ll&#x3D;”ls -l”</p>
+<p>添加以下自定义命令<br>
+alias ll=“ls -l”</p>
 <p>执行 source .bashrc 使命令生效</p>
-<h3 id="linux-服务器文件下载到本机，本机上传到服务器"><a href="#linux-服务器文件下载到本机，本机上传到服务器" class="headerlink" title="linux 服务器文件下载到本机，本机上传到服务器"></a>linux 服务器文件下载到本机，本机上传到服务器</h3><p>安装 lrzsz<br>yum -y install lrzsz<br>使用方法：<br>上传文件<br>rz filename<br>下载文件<br>sz filename</p>
-<h3 id="ssh-服务的安装与配置"><a href="#ssh-服务的安装与配置" class="headerlink" title="ssh 服务的安装与配置"></a>ssh 服务的安装与配置</h3><p>yum install openssh-server openssh-clients 或者 apt-get install openssh-server openssh-client<br>ssh 配置文件位于&#x2F;etc&#x2F;ssh&#x2F;sshd_config</p>
-<h3 id="bash-shell-设置别名"><a href="#bash-shell-设置别名" class="headerlink" title="bash shell 设置别名"></a>bash shell 设置别名</h3><p>执行 cd ~ 进入到家目录，编辑 ~&#x2F;.bashrc 文件（没有的话则新建该文件），将需要执行的别名命令添加到这个文件末尾，如：<br><code>alias ll=&#39;ls -l&#39;</code><br>然后退出保存，执行 source ~&#x2F;.bashrc 使刚才的配置生效。</p>
-<h3 id="其他命令"><a href="#其他命令" class="headerlink" title="其他命令"></a>其他命令</h3><p>date -s 设置日期时间<br>例如：date -s “2017&#x2F;11&#x2F;11 00:00:00”</p>
-<p>快速清空文件内容<br>$ &gt; filename</p>
+<h3 id="linux-服务器文件下载到本机，本机上传到服务器">linux 服务器文件下载到本机，本机上传到服务器</h3>
+<p>安装 lrzsz<br>
+yum -y install lrzsz<br>
+使用方法：<br>
+上传文件<br>
+rz filename<br>
+下载文件<br>
+sz filename</p>
+<h3 id="ssh-服务的安装与配置">ssh 服务的安装与配置</h3>
+<p>yum install openssh-server openssh-clients 或者 apt-get install openssh-server openssh-client<br>
+ssh 配置文件位于/etc/ssh/sshd_config</p>
+<h3 id="bash-shell-设置别名">bash shell 设置别名</h3>
+<p>执行 cd ~ 进入到家目录，编辑 ~/.bashrc 文件（没有的话则新建该文件），将需要执行的别名命令添加到这个文件末尾，如：<br>
+<code>alias ll='ls -l'</code><br>
+然后退出保存，执行 source ~/.bashrc 使刚才的配置生效。</p>
+<h3 id="其他命令">其他命令</h3>
+<p>date -s 设置日期时间<br>
+例如：date -s “2017/11/11 00:00:00”</p>
+<p>快速清空文件内容<br>
+$ &gt; filename</p>
 <p>cal 输出当前日历</p>
-<h3 id="tail-命令"><a href="#tail-命令" class="headerlink" title="tail 命令"></a>tail 命令</h3><p>tail 命令从指定点开始将文件写到标准输出.使用 tail 命令的-f 选项可以方便的查阅正在改变的日志文件,tail -f filename 会把 filename 里最尾部的内容显示在屏幕上,并且不但刷新,使你看到最新的文件内容.</p>
+<h3 id="tail-命令">tail 命令</h3>
+<p>tail 命令从指定点开始将文件写到标准输出.使用 tail 命令的-f 选项可以方便的查阅正在改变的日志文件,tail -f filename 会把 filename 里最尾部的内容显示在屏幕上,并且不但刷新,使你看到最新的文件内容.</p>
 <p>1．命令格式;</p>
 <p>tail[必要参数][选择参数][文件]</p>
 <p>2．命令功能：</p>
@@ -446,9 +580,9 @@
 <p>-v 显示详细的处理信息</p>
 <p>-c&lt;数目&gt; 显示的字节数</p>
 <p>-n&lt;行数&gt; 显示行数</p>
-<p>–pid&#x3D;PID 与-f 合用,表示在进程 ID,PID 死掉之后结束.</p>
-<p>-q, –quiet, –silent 从不输出给出文件名的首部</p>
-<p>-s, –sleep-interval&#x3D;S 与-f 合用,表示在每次反复的间隔休眠 S 秒</p>
+<p>–pid=PID 与-f 合用,表示在进程 ID,PID 死掉之后结束.</p>
+<p>-q, --quiet, --silent 从不输出给出文件名的首部</p>
+<p>-s, --sleep-interval=S 与-f 合用,表示在每次反复的间隔休眠 S 秒</p>
 <p>4．使用实例：</p>
 <p>实例 1：显示文件末尾内容</p>
 <p>命令：</p>

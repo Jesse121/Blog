@@ -273,37 +273,51 @@
     <div class="e-content article-entry" itemprop="articleBody">
        <p>在前端开发中如何提升网站性能是每个前端工程师必须所考虑的内容。通过阅读《高性能网站建设指南》加深了对提升网站性能的各种方法的认识，同时在今后的开发中也能更好的运用。</p>
 <span id="more"></span>
-
-<h3 id="规则一、减少HTTP请求"><a href="#规则一、减少HTTP请求" class="headerlink" title="规则一、减少HTTP请求"></a>规则一、减少HTTP请求</h3><ol>
-<li><p>CSS Sprites合并图片，减少HTTP请求</p>
+<h3 id="规则一、减少HTTP请求">规则一、减少HTTP请求</h3>
+<ol>
+<li>
+<p>CSS Sprites合并图片，减少HTTP请求</p>
 </li>
-<li><p>内联图片。<br> 使用Data URL技术，图片数据以base64字符串格式嵌入到了页面中，减少了HTTP请求。  </p>
+<li>
+<p>内联图片。<br>
+使用Data URL技术，图片数据以base64字符串格式嵌入到了页面中，减少了HTTP请求。</p>
 <ul>
-<li><p>使用场景：</p>
+<li>
+<p>使用场景：</p>
 <ul>
 <li>当图片很小时，可用dataURL，这样既可以避免HTTP请求，同时数据量也不大</li>
 <li>当图片是服务器生成且每个用户都不一样的时候，例如验证码</li>
 <li>dataURL用在css文件中可避免单纯的dataURL图片不被浏览器缓存这个缺点</li>
 </ul>
 </li>
-<li><p>缺点：</p>
+<li>
+<p>缺点：</p>
 <ul>
-<li>Base64编码的数据体积通常是原数据的体积4&#x2F;3，也就是Data URL形式的图片会比二进制格式的图片体积大1&#x2F;3。</li>
+<li>Base64编码的数据体积通常是原数据的体积4/3，也就是Data URL形式的图片会比二进制格式的图片体积大1/3。</li>
 <li>Data URL形式的图片不会被浏览器缓存，这意味着每次访问这样页面时都被下载一次，不适合在网站中大量使用。</li>
 </ul>
 </li>
 </ul>
 </li>
-<li><p>合并脚本和样式表，尽量减少js和css的请求数量</p>
+<li>
+<p>合并脚本和样式表，尽量减少js和css的请求数量</p>
 </li>
 </ol>
-<h3 id="规则二、使用内容发布网络"><a href="#规则二、使用内容发布网络" class="headerlink" title="规则二、使用内容发布网络"></a>规则二、使用内容发布网络</h3><p>内容发布网络（CDN）是一组分布在多个不同地理位置的Web服务器，用于更加有效地向用户发布内容。<br>常用的CDN有：</p>
+<h3 id="规则二、使用内容发布网络">规则二、使用内容发布网络</h3>
+<p>内容发布网络（CDN）是一组分布在多个不同地理位置的Web服务器，用于更加有效地向用户发布内容。<br>
+常用的CDN有：</p>
 <ul>
 <li><a target="_blank" rel="noopener" href="http://cdn.code.baidu.com/">baidu</a></li>
 <li><a target="_blank" rel="noopener" href="https://cdnjs.com/">cdnjs</a></li>
 <li><a target="_blank" rel="noopener" href="http://www.bootcdn.cn/">Bootstrap</a></li>
 </ul>
-<h3 id="规则三、添加Expires"><a href="#规则三、添加Expires" class="headerlink" title="规则三、添加Expires"></a>规则三、添加Expires</h3><p>页面中都包含大量的组件，通过web服务器使用一个长久的expires头，使得这些组件可以被缓存，这样在后续页面中避免不必要的HTTP请求<br>缺点：要求服务器和客户端的时间严格同步，过期日期需要检查，并提供新日期<br>HTTP1.1引入Cache-Control头来克服Expires头的限制<br>cache-control使用max-age指令<br>max-age请求的内容过多久过期（相对于请求时间Date）失效，默认以秒为单位<br>具体的过期时间配置可在Apache配置文件中添加mod_expires.c配置信息。</p>
+<h3 id="规则三、添加Expires">规则三、添加Expires</h3>
+<p>页面中都包含大量的组件，通过web服务器使用一个长久的expires头，使得这些组件可以被缓存，这样在后续页面中避免不必要的HTTP请求<br>
+缺点：要求服务器和客户端的时间严格同步，过期日期需要检查，并提供新日期<br>
+HTTP1.1引入Cache-Control头来克服Expires头的限制<br>
+cache-control使用max-age指令<br>
+max-age请求的内容过多久过期（相对于请求时间Date）失效，默认以秒为单位<br>
+具体的过期时间配置可在Apache配置文件中添加mod_expires.c配置信息。</p>
 <pre><code class="hljs plaintext">&lt;IfModule mod_expires.c&gt;
     ExpiresActive On
     ExpiresByType text/css &quot;now plus 1 month&quot;
@@ -317,7 +331,11 @@
     ExpiresDefault &quot;now plus 1 minutes&quot;
 &lt;/IfModule&gt;</code></pre>
 <p>配置信息可参考<a target="_blank" rel="noopener" href="http://httpd.apache.org/docs/current/mod/mod_expires.html">Apache Module mod_expires</a></p>
-<h3 id="规则四、压缩组件"><a href="#规则四、压缩组件" class="headerlink" title="规则四、压缩组件"></a>规则四、压缩组件</h3><p>通过开启gzip压缩来减小HTTP响应数据包的大小<br>值得压缩的内容有HTML xml css js json<br>不该压缩的内容图片 pdf，他们在上传到服务器的时候一般就已压缩好，再压缩只会浪费CPU<br>通过配置Apache 2.x的mod_deflate模块</p>
+<h3 id="规则四、压缩组件">规则四、压缩组件</h3>
+<p>通过开启gzip压缩来减小HTTP响应数据包的大小<br>
+值得压缩的内容有HTML xml css js json<br>
+不该压缩的内容图片 pdf，他们在上传到服务器的时候一般就已压缩好，再压缩只会浪费CPU<br>
+通过配置Apache 2.x的mod_deflate模块</p>
 <pre><code class="hljs plaintext">&lt;IfModule mod_deflate.c&gt;
     DeflateCompressionLevel 6 
     SetOutputFilter DEFLATE 
@@ -332,65 +350,92 @@
     &lt;/IfModule&gt;
 &lt;/IfModule&gt;</code></pre>
 <p>配置信息可参考<a target="_blank" rel="noopener" href="http://httpd.apache.org/docs/current/mod/mod_deflate.html">Apache Module mod_deflate</a></p>
-<h3 id="规则五、将样式表放在顶部"><a href="#规则五、将样式表放在顶部" class="headerlink" title="规则五、将样式表放在顶部"></a>规则五、将样式表放在顶部</h3><p>将样式表放在head标签里可以避免白屏，这样浏览器能更快的展现内容，用户体验更好<br>而将样式表放在底部会导致浏览器阻止内容逐步呈现，为避免当样式变化时重绘页面，浏览器会延迟显示页面中的元素  </p>
-<h3 id="规则六、将脚本放在底部"><a href="#规则六、将脚本放在底部" class="headerlink" title="规则六、将脚本放在底部"></a>规则六、将脚本放在底部</h3><p>在下载脚本时浏览器会阻塞并行下载，原因：</p>
+<h3 id="规则五、将样式表放在顶部">规则五、将样式表放在顶部</h3>
+<p>将样式表放在head标签里可以避免白屏，这样浏览器能更快的展现内容，用户体验更好<br>
+而将样式表放在底部会导致浏览器阻止内容逐步呈现，为避免当样式变化时重绘页面，浏览器会延迟显示页面中的元素</p>
+<h3 id="规则六、将脚本放在底部">规则六、将脚本放在底部</h3>
+<p>在下载脚本时浏览器会阻塞并行下载，原因：</p>
 <ol>
 <li>脚本可能会修改页面内容，因此浏览器会等待</li>
 <li>需要保证脚本能够按照正确的顺序执行</li>
 </ol>
-<p>将脚本放到页面底部，这不会阻止页面内容呈现而且页面中的可视组件能尽早下载  </p>
-<h3 id="规则七、避免CSS表达式"><a href="#规则七、避免CSS表达式" class="headerlink" title="规则七、避免CSS表达式"></a>规则七、避免CSS表达式</h3><p>表达式的问题在于对其进行的求值的频率比人们期望的要高，它们不只在页面呈现和大小改变时求值，当页面滚动、甚至用户鼠标在页面上移过时都要被求值。频繁地求值计算会导致性能底下<br>解决方法：</p>
+<p>将脚本放到页面底部，这不会阻止页面内容呈现而且页面中的可视组件能尽早下载</p>
+<h3 id="规则七、避免CSS表达式">规则七、避免CSS表达式</h3>
+<p>表达式的问题在于对其进行的求值的频率比人们期望的要高，它们不只在页面呈现和大小改变时求值，当页面滚动、甚至用户鼠标在页面上移过时都要被求值。频繁地求值计算会导致性能底下<br>
+解决方法：</p>
 <ul>
 <li>避免使用css表达式</li>
-<li>若必须使用css表达式，可使用一次性表达式{background-color:expression(altBgcolor(this));}</li>
+<li background-color:expression(altBgcolor(this));="">若必须使用css表达式，可使用一次性表达式</li>
 <li>使用事件处理器</li>
 </ul>
-<h3 id="规则八、使用外部的JS和CSS"><a href="#规则八、使用外部的JS和CSS" class="headerlink" title="规则八、使用外部的JS和CSS"></a>规则八、使用外部的JS和CSS</h3><p>好处：</p>
+<h3 id="规则八、使用外部的JS和CSS">规则八、使用外部的JS和CSS</h3>
+<p>好处：</p>
 <ol>
 <li>外部js和css文件有机会被浏览器缓存起来</li>
 <li>外部文件可以提高页面组件的重用率</li>
 </ol>
-<h3 id="规则九、减少DNS查找"><a href="#规则九、减少DNS查找" class="headerlink" title="规则九、减少DNS查找"></a>规则九、减少DNS查找</h3><p>方法：</p>
+<h3 id="规则九、减少DNS查找">规则九、减少DNS查找</h3>
+<p>方法：</p>
 <ul>
 <li>通过使用Keep-Alive，重用现有连接避免重复DNS查找</li>
 <li>使用较少的域名可以减少DNS查找的数量（页面性能需要在减少DNS查找和并行下载之间权衡）</li>
 </ul>
-<h3 id="规则十、精简JavaScript和CSS"><a href="#规则十、精简JavaScript和CSS" class="headerlink" title="规则十、精简JavaScript和CSS"></a>规则十、精简JavaScript和CSS</h3><p>通过精简从代码中移除不必要的字符，注释，空白符等，从而达到减小请求文件大小的目的<br>在实际开发中一般将js和css通过工具压缩为min文件</p>
-<h3 id="规则十一、避免重定向"><a href="#规则十一、避免重定向" class="headerlink" title="规则十一、避免重定向"></a>规则十一、避免重定向</h3><p>常见的重定向状态码有：</p>
+<h3 id="规则十、精简JavaScript和CSS">规则十、精简JavaScript和CSS</h3>
+<p>通过精简从代码中移除不必要的字符，注释，空白符等，从而达到减小请求文件大小的目的<br>
+在实际开发中一般将js和css通过工具压缩为min文件</p>
+<h3 id="规则十一、避免重定向">规则十一、避免重定向</h3>
+<p>常见的重定向状态码有：</p>
 <ul>
 <li>301 Moved Permancently</li>
 <li>302 Moved Temporarily(Found)</li>
 <li>304 Not Modified 并不是真正的重定向，避免下载已经存在的缓存</li>
 </ul>
-<p>重定向会延长从发出请求到请求资源被下载的这段时间<br>有一种重定向最浪费也发生的很频繁 <strong>缺少结尾的斜线</strong><br>当缺少结尾的斜线时它允许自动索引(自动转到默认的index.html)并且能够获得与当前目录相关的URL<br>避免重定向方法</p>
+<p>重定向会延长从发出请求到请求资源被下载的这段时间<br>
+有一种重定向最浪费也发生的很频繁 <strong>缺少结尾的斜线</strong><br>
+当缺少结尾的斜线时它允许自动索引(自动转到默认的index.html)并且能够获得与当前目录相关的URL<br>
+避免重定向方法</p>
 <ul>
 <li>通过这事Alias mod_rewrite等</li>
 <li>如果域名变了可以使用CNAME记录</li>
 </ul>
-<h3 id="规则十二、移除重复脚本"><a href="#规则十二、移除重复脚本" class="headerlink" title="规则十二、移除重复脚本"></a>规则十二、移除重复脚本</h3><p>重复脚本损伤性能的两种方式</p>
+<h3 id="规则十二、移除重复脚本">规则十二、移除重复脚本</h3>
+<p>重复脚本损伤性能的两种方式</p>
 <ul>
 <li>带来不必要的HTTP请求</li>
 <li>执行脚本所浪费的时间</li>
 </ul>
-<h3 id="规则十三、配置或移除Etag"><a href="#规则十三、配置或移除Etag" class="headerlink" title="规则十三、配置或移除Etag"></a>规则十三、配置或移除Etag</h3><p>Etag是web服务器和浏览器用于确认缓存组件的有效性的一种机制<br>服务器在检测缓存的组件是否和原始服务器上的组件匹配时有两种方式：</p>
+<h3 id="规则十三、配置或移除Etag">规则十三、配置或移除Etag</h3>
+<p>Etag是web服务器和浏览器用于确认缓存组件的有效性的一种机制<br>
+服务器在检测缓存的组件是否和原始服务器上的组件匹配时有两种方式：</p>
 <ul>
 <li>比较最新修改时间</li>
 <li>比较实体标签</li>
 </ul>
-<h4 id="最新修改日期"><a href="#最新修改日期" class="headerlink" title="最新修改日期"></a>最新修改日期</h4><p>原始服务器通过Last-Modified响应头来返回组件的最新修改日期<br>当组件第一次被请求成功后浏览器缓存了该组件以及它的最新修改日期（允许缓存），当再次请求该组件时，浏览器会使用If-Modified-Since头将最新修改时间和原始服务器上该组件的最新修改时间进行比较，如果相同则返回一个304，而不传输数据，浏览器将使用缓存数据。</p>
-<h4 id="实体标签"><a href="#实体标签" class="headerlink" title="实体标签"></a>实体标签</h4><p>ETag是唯一标识了一个组件的一个特性版本的字符串<br><code>ETag:&quot;24-54c6a9bd53bd1&quot;</code><br>当组件第一次被请求成功后浏览器缓存了该组件以及它的最新修改日期（允许缓存）还有ETag信息，当再次请求该组件时，浏览器会使用If-None-Match头将ETag和原始服务器上该组件的ETag进行比较，如果相同则返回一个304，而不传输数据，浏览器将使用缓存数据。</p>
-<h4 id="ETag带来的问题"><a href="#ETag带来的问题" class="headerlink" title="ETag带来的问题"></a>ETag带来的问题</h4><p>当你使用服务器集群时，相同的组件从一台服务器带另一台服务器，Aapache和IIS产生的ETag是不同的，这样组件下载次数将增加，导致性能下降<br>当If-None-Match比If-Modified-Since共存时，只有If-Modified-Since和If-None-Match在完全匹配时，服务器才能返回304。否则由于If-None-Match比If-Modified-Since具有更高的优先级,ETag不同，服务器就会返回200</p>
-<h4 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h4><ol>
-<li>配置ETag  <pre><code class="hljs plaintext">FileEtag INode Mtime Size 
+<h4 id="最新修改日期">最新修改日期</h4>
+<p>原始服务器通过Last-Modified响应头来返回组件的最新修改日期<br>
+当组件第一次被请求成功后浏览器缓存了该组件以及它的最新修改日期（允许缓存），当再次请求该组件时，浏览器会使用If-Modified-Since头将最新修改时间和原始服务器上该组件的最新修改时间进行比较，如果相同则返回一个304，而不传输数据，浏览器将使用缓存数据。</p>
+<h4 id="实体标签">实体标签</h4>
+<p>ETag是唯一标识了一个组件的一个特性版本的字符串<br>
+<code>ETag:&quot;24-54c6a9bd53bd1&quot;</code><br>
+当组件第一次被请求成功后浏览器缓存了该组件以及它的最新修改日期（允许缓存）还有ETag信息，当再次请求该组件时，浏览器会使用If-None-Match头将ETag和原始服务器上该组件的ETag进行比较，如果相同则返回一个304，而不传输数据，浏览器将使用缓存数据。</p>
+<h4 id="ETag带来的问题">ETag带来的问题</h4>
+<p>当你使用服务器集群时，相同的组件从一台服务器带另一台服务器，Aapache和IIS产生的ETag是不同的，这样组件下载次数将增加，导致性能下降<br>
+当If-None-Match比If-Modified-Since共存时，只有If-Modified-Since和If-None-Match在完全匹配时，服务器才能返回304。否则由于If-None-Match比If-Modified-Since具有更高的优先级,ETag不同，服务器就会返回200</p>
+<h4 id="解决办法">解决办法</h4>
+<ol>
+<li>配置ETag</li>
+</ol>
+<pre><code class="hljs plaintext">FileEtag INode Mtime Size 
 INode:文件的索引节点(inode)数  
 MTime:文件的最后修改日期及时间  
 Size:文件的字节数  
 All:所有存在的域，等价于：FileETag INode MTime Size  
 None:移除ETag</code></pre>
-有网友建议只是用MTime和Size就好了，有待验证  </li>
-<li>移除ETag<br> 在Aapache配置文件按中添加<code>FileETag none</code></li>
-</ol>
-<h3 id="规则十四、使用Ajax可缓存"><a href="#规则十四、使用Ajax可缓存" class="headerlink" title="规则十四、使用Ajax可缓存"></a>规则十四、使用Ajax可缓存</h3><p>如果使用ajax向服务器发起大量的GET请求则可以为其请求的资源设置长久的expires头  </p>
+<p>有网友建议只是用MTime和Size就好了，有待验证<br>
+2. 移除ETag<br>
+在Aapache配置文件按中添加<code>FileETag none</code></p>
+<h3 id="规则十四、使用Ajax可缓存">规则十四、使用Ajax可缓存</h3>
+<p>如果使用ajax向服务器发起大量的GET请求则可以为其请求的资源设置长久的expires头</p>
  
       <div id="toc-article">
   <div class="widget-wrap" id="toc-wrap">

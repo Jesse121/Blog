@@ -273,8 +273,11 @@
     <div class="e-content article-entry" itemprop="articleBody">
        <p>随着WEB应用越来越复杂，用户对WEB安全也越来越重视。再加上前端工程师的工作面已逐渐扩大，开始覆盖到各种业务逻辑，因此如何应对各种WEB安全问题就显得十分重要，今天我们就来探讨下前端开发编码工作中可能造成的WEB安全问题及防御措施</p>
 <span id="more"></span>
-<h3 id="a链接target-x3D-”-blank”属性可造成钓鱼攻击"><a href="#a链接target-x3D-”-blank”属性可造成钓鱼攻击" class="headerlink" title="a链接target&#x3D;”_blank”属性可造成钓鱼攻击"></a>a链接target&#x3D;”_blank”属性可造成钓鱼攻击</h3><h4 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h4><p>如果你在页面上的超链接a标记上添加了<code>target=&#39;_blank&#39;</code>属性，当用户点击了该超链接后，浏览器会单独新建一个标签页来显示该链接所指向的内容。但是在这一瞬间，浏览器会允许新建的标签页通过一个名为”window.opener”的浏览器API来与之前的网页进行短暂通信。此时，攻击者就可以将恶意代码嵌入在新打开的网站中，然后检测用户是从哪一个网站跳转过来的，最后再利用window.opener接口来迫使原始网页打开一个新的URL地址。</p>
-<h4 id="攻击实例"><a href="#攻击实例" class="headerlink" title="攻击实例"></a>攻击实例</h4><p>你的正常登陆的网页 </p>
+<h3 id="a链接target-blank-属性可造成钓鱼攻击">a链接target=&quot;_blank&quot;属性可造成钓鱼攻击</h3>
+<h4 id="简介">简介</h4>
+<p>如果你在页面上的超链接a标记上添加了<code>target='_blank'</code>属性，当用户点击了该超链接后，浏览器会单独新建一个标签页来显示该链接所指向的内容。但是在这一瞬间，浏览器会允许新建的标签页通过一个名为&quot;window.opener&quot;的浏览器API来与之前的网页进行短暂通信。此时，攻击者就可以将恶意代码嵌入在新打开的网站中，然后检测用户是从哪一个网站跳转过来的，最后再利用window.opener接口来迫使原始网页打开一个新的URL地址。</p>
+<h4 id="攻击实例">攻击实例</h4>
+<p>你的正常登陆的网页</p>
 <pre><code class="hljs html"><span class="hljs-comment">&lt;!-- test1.html --&gt;</span>
 <span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-keyword">html</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">html</span>&gt;</span>
@@ -299,21 +302,32 @@
     <span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span></code></pre>
 <p>test2页面打开后通过js修改window.opener.location使得之前的test1页面的地址被更改，例子中改的是百度页面，在现实中攻击者可将其改为模拟的该网站的登录界面，用户在未发现网页已被篡改的情况下将登录信息填写提交给了攻击者</p>
-<h4 id="防御措施"><a href="#防御措施" class="headerlink" title="防御措施"></a>防御措施</h4><p>a链接中使用target&#x3D;”_blank”属性时需添加上 <code>rel=&quot;noopener noreferrer&quot;</code>，noreferrer是由于Firefox不支持noopener而添加的</p>
-<h3 id="XSS攻击"><a href="#XSS攻击" class="headerlink" title="XSS攻击"></a>XSS攻击</h3><h4 id="简介-1"><a href="#简介-1" class="headerlink" title="简介"></a>简介</h4><p>跨站脚本攻击，英文全称是Cross Site Script，在安全领域叫做“XSS”。XSS攻击通常指黑客通过“HTML注入”篡改了网页，插入了恶意脚本，从而在用户浏览网页时，控制用户浏览器的一种攻击。<br>XSS根据效果的不同可以分为如下几类：</p>
+<h4 id="防御措施">防御措施</h4>
+<p>a链接中使用target=&quot;_blank&quot;属性时需添加上 <code>rel=&quot;noopener noreferrer&quot;</code>，noreferrer是由于Firefox不支持noopener而添加的</p>
+<h3 id="XSS攻击">XSS攻击</h3>
+<h4 id="简介-2">简介</h4>
+<p>跨站脚本攻击，英文全称是Cross Site Script，在安全领域叫做“XSS”。XSS攻击通常指黑客通过“HTML注入”篡改了网页，插入了恶意脚本，从而在用户浏览网页时，控制用户浏览器的一种攻击。<br>
+XSS根据效果的不同可以分为如下几类：</p>
 <ul>
-<li>反射性 XSS<br>发出请求时，XSS代码出现在URL中，作为输入提交到服务器端，服务器端解析后响应，XSS代码随响应内容一起传回给浏览器，最后浏览器解析执行XSS代码，这个过程像一次反射，因此叫做反射型XSS  </li>
-<li>存储型XSS<br>存储型XSS会把用户输入的数据存储到服务器，这种攻击具有很强的稳定性,也叫“持久型XSS”  </li>
-<li>DOM Based XSS<br>通过修改页面的DOM节点形成的XSS</li>
+<li>反射性 XSS<br>
+发出请求时，XSS代码出现在URL中，作为输入提交到服务器端，服务器端解析后响应，XSS代码随响应内容一起传回给浏览器，最后浏览器解析执行XSS代码，这个过程像一次反射，因此叫做反射型XSS</li>
+<li>存储型XSS<br>
+存储型XSS会把用户输入的数据存储到服务器，这种攻击具有很强的稳定性,也叫“持久型XSS”</li>
+<li>DOM Based XSS<br>
+通过修改页面的DOM节点形成的XSS</li>
 </ul>
-<h4 id="反射性-XSS"><a href="#反射性-XSS" class="headerlink" title="反射性 XSS"></a>反射性 XSS</h4><p>有一个xss.php页面用于接收并显示传递过来的参数  </p>
+<h4 id="反射性-XSS">反射性 XSS</h4>
+<p>有一个xss.php页面用于接收并显示传递过来的参数</p>
 <pre><code class="hljs php"><span class="hljs-variable">$input</span> = <span class="hljs-variable">$_GET</span>[<span class="hljs-string">&quot;test&quot;</span>];
 <span class="hljs-keyword">echo</span> <span class="hljs-string">&quot;&lt;div&gt;&quot;</span>.<span class="hljs-variable">$input</span>.<span class="hljs-string">&quot;&lt;/div&gt;&quot;</span>;</code></pre>
-<p>在其他网页上有如下一个链接  </p>
+<p>在其他网页上有如下一个链接</p>
 <pre><code class="hljs plaintext">&lt;a href=&quot;xss.php?test=&lt;script&gt;alert(&#x27;XSS&#x27;)&lt;/script&gt;&quot;&gt;诱你点击&lt;/a&gt;</code></pre>
-<p>测试得知：<br>IE8和firfox都弹窗显示XSS，攻击成功。chrome则被浏览器的xss保护策略阻止</p>
-<h4 id="存储型XSS"><a href="#存储型XSS" class="headerlink" title="存储型XSS"></a>存储型XSS</h4><p>发表的文章中含有恶意脚本例如：<code>你可以试试看&lt;script&gt;alert(&#39;xss&#39;)&lt;/script&gt;</code>，后端没有对文章进行过滤就将内容存到数据库，当其他用户再次看这篇文章时，包含的恶意脚本被执行</p>
-<h4 id="DOM-Based-XSS"><a href="#DOM-Based-XSS" class="headerlink" title="DOM Based XSS"></a>DOM Based XSS</h4><pre><code class="hljs plaintext">&lt;script type=&quot;text/javascript&quot;&gt;
+<p>测试得知：<br>
+IE8和firfox都弹窗显示XSS，攻击成功。chrome则被浏览器的xss保护策略阻止</p>
+<h4 id="存储型XSS">存储型XSS</h4>
+<p>发表的文章中含有恶意脚本例如：<code>你可以试试看&lt;script&gt;alert('xss')&lt;/script&gt;</code>，后端没有对文章进行过滤就将内容存到数据库，当其他用户再次看这篇文章时，包含的恶意脚本被执行</p>
+<h4 id="DOM-Based-XSS">DOM Based XSS</h4>
+<pre><code class="hljs plaintext">&lt;script type=&quot;text/javascript&quot;&gt;
     function test() &#123;
         var str = document.getElementById(&quot;test&quot;).value;
         document.getElementById(&quot;t&quot;).innerHTML = &quot;&lt;a href=&#x27;&quot; + str + &quot;&#x27;&gt;test&lt;/a&gt;&quot;;
@@ -322,15 +336,19 @@
 &lt;div id=&quot;t&quot;&gt;&lt;/div&gt;
 &lt;input type=&quot;text&quot; id=&quot;test&quot; value=&quot;&quot;&gt;
 &lt;input type=&quot;submit&quot; value=&quot;submit&quot; onclick=&quot;test()&quot;&gt;</code></pre>
-<p>如果在输入框中填写<code>&#39;&gt;&lt;img src=# onerror=alert(&#39;xss&#39;) /&gt;&lt;&#39;</code>，点击按钮提交后浏览器会产生XSS弹窗，攻击成功。</p>
-<h4 id="防御措施-1"><a href="#防御措施-1" class="headerlink" title="防御措施"></a>防御措施</h4><ol>
+<p>如果在输入框中填写<code>'&gt;&lt;img src=# onerror=alert('xss') /&gt;&lt;'</code>，点击按钮提交后浏览器会产生XSS弹窗，攻击成功。</p>
+<h4 id="防御措施-2">防御措施</h4>
+<ol>
 <li>后端在接收请求数据时，需要做输入检查，过滤特殊符号和标签</li>
 <li>前端在显示后端数据时，需要做输出检查，不仅是标签内容需要过滤、转义，就连属性值和样式也都可能需要。</li>
 <li>在处理富文本时可以设置标签白名单</li>
 <li>设置HttpOnlly防止cookie劫持</li>
 </ol>
-<h3 id="CSRF攻击"><a href="#CSRF攻击" class="headerlink" title="CSRF攻击"></a>CSRF攻击</h3><h4 id="简介-2"><a href="#简介-2" class="headerlink" title="简介"></a>简介</h4><p>CSRF（Cross Site Request Forgery），中文是跨站点请求伪造。CSRF攻击者在用户已经登录目标网站之后，诱使用户访问一个攻击页面，利用目标网站对用户的信任，以用户身份在攻击页面对目标网站发起伪造用户操作的请求，达到攻击目的。</p>
-<h4 id="攻击实例-1"><a href="#攻击实例-1" class="headerlink" title="攻击实例"></a>攻击实例</h4><pre><code class="hljs php"><span class="hljs-comment">// submit.php 通过get请求获取数据</span>
+<h3 id="CSRF攻击">CSRF攻击</h3>
+<h4 id="简介-3">简介</h4>
+<p>CSRF（Cross Site Request Forgery），中文是跨站点请求伪造。CSRF攻击者在用户已经登录目标网站之后，诱使用户访问一个攻击页面，利用目标网站对用户的信任，以用户身份在攻击页面对目标网站发起伪造用户操作的请求，达到攻击目的。</p>
+<h4 id="攻击实例-2">攻击实例</h4>
+<pre><code class="hljs php"><span class="hljs-comment">// submit.php 通过get请求获取数据</span>
 <span class="hljs-variable">$username</span> = <span class="hljs-variable">$_COOKIE</span>[<span class="hljs-string">&#x27;username&#x27;</span>];
 <span class="hljs-variable">$productId</span> = <span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;pid&#x27;</span>];
 <span class="hljs-comment">// 这里进行购买操作</span>
@@ -347,17 +365,27 @@
     <span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span></code></pre>
 <p>当你正常浏览网页的时候会生成认证信息，此时黑客诱使你点击攻击页面，该页面会利用你当前的认证信息，从而对数据进行操作</p>
-<h4 id="防御措施-2"><a href="#防御措施-2" class="headerlink" title="防御措施"></a>防御措施</h4><h5 id="1-合理使用POST和GET"><a href="#1-合理使用POST和GET" class="headerlink" title="1.合理使用POST和GET"></a>1.合理使用POST和GET</h5><p>GET方法提交数据很容易被拿来做CSRF攻击，使用POST只能降低攻击风险，并不能杜绝，攻击者在第三方页面构造一个form就可以用POST提交数据构成CSRF攻击。</p>
-<h5 id="2-使用验证码"><a href="#2-使用验证码" class="headerlink" title="2.使用验证码"></a>2.使用验证码</h5><p>在通常情况下，验证码能很好遏制CSRF攻击。但是出于用户体验考虑，网站不能给所有的操作都加上验证码。因此验证码只能作为一种辅助手段，不能作为主要解决方案。</p>
-<h5 id="3-Referer信息检查"><a href="#3-Referer信息检查" class="headerlink" title="3.Referer信息检查"></a>3.Referer信息检查</h5><p>通过检查referer信息是否合法来判断用户是否被CSRF攻击，仅仅是满足防御的充分条件，Referer Check的缺陷在于服务器并非什么时候都收到Referer，并且Referer信息可以伪造</p>
-<h5 id="4-使用-Token"><a href="#4-使用-Token" class="headerlink" title="4.使用 Token"></a>4.使用 Token</h5><p>Token需要足够随机，必须使用足够安全的随机数生成算法<br>Token可以放在用户的Session中或Cookie中，在提交请求时，服务器只需要验证表单中Token与用户Session（或Cookie）中的Token是否一致，一致则认为合法<br>在使用Token时尽量把Token放在表单中，使用POST提交，以避免Token泄露<br>如果该网站还存在XSS漏洞，那么使用Token方法防御CSRF攻击也就无效了（XSRF攻击）</p>
-<h5 id="参考文献："><a href="#参考文献：" class="headerlink" title="参考文献："></a>参考文献：</h5><p>1.《白帽子讲WEB安全》<br>2.<a target="_blank" rel="noopener" href="http://www.cnblogs.com/hyddd/archive/2009/04/09/1432744.html%E6%B5%85%E8%B0%88CSRF%E6%94%BB%E5%87%BB%E6%96%B9%E5%BC%8F">浅谈CSRF攻击方式</a>  </p>
+<h4 id="防御措施-3">防御措施</h4>
+<h5 id="1-合理使用POST和GET">1.合理使用POST和GET</h5>
+<p>GET方法提交数据很容易被拿来做CSRF攻击，使用POST只能降低攻击风险，并不能杜绝，攻击者在第三方页面构造一个form就可以用POST提交数据构成CSRF攻击。</p>
+<h5 id="2-使用验证码">2.使用验证码</h5>
+<p>在通常情况下，验证码能很好遏制CSRF攻击。但是出于用户体验考虑，网站不能给所有的操作都加上验证码。因此验证码只能作为一种辅助手段，不能作为主要解决方案。</p>
+<h5 id="3-Referer信息检查">3.Referer信息检查</h5>
+<p>通过检查referer信息是否合法来判断用户是否被CSRF攻击，仅仅是满足防御的充分条件，Referer Check的缺陷在于服务器并非什么时候都收到Referer，并且Referer信息可以伪造</p>
+<h5 id="4-使用-Token">4.使用 Token</h5>
+<p>Token需要足够随机，必须使用足够安全的随机数生成算法<br>
+Token可以放在用户的Session中或Cookie中，在提交请求时，服务器只需要验证表单中Token与用户Session（或Cookie）中的Token是否一致，一致则认为合法<br>
+在使用Token时尽量把Token放在表单中，使用POST提交，以避免Token泄露<br>
+如果该网站还存在XSS漏洞，那么使用Token方法防御CSRF攻击也就无效了（XSRF攻击）</p>
+<h5 id="参考文献：">参考文献：</h5>
+<p>1.《白帽子讲WEB安全》<br>
+2.<a target="_blank" rel="noopener" href="http://www.cnblogs.com/hyddd/archive/2009/04/09/1432744.html%E6%B5%85%E8%B0%88CSRF%E6%94%BB%E5%87%BB%E6%96%B9%E5%BC%8F">浅谈CSRF攻击方式</a></p>
  
       <div id="toc-article">
   <div class="widget-wrap" id="toc-wrap">
     <h3 class="widget-title"><i class="fa fa-toc"></i> 文章目录</h3>
     <div class="widget">
-      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#a%E9%93%BE%E6%8E%A5target-x3D-%E2%80%9D-blank%E2%80%9D%E5%B1%9E%E6%80%A7%E5%8F%AF%E9%80%A0%E6%88%90%E9%92%93%E9%B1%BC%E6%94%BB%E5%87%BB"><span class="toc-text">a链接target&#x3D;”_blank”属性可造成钓鱼攻击</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AE%80%E4%BB%8B"><span class="toc-text">简介</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%94%BB%E5%87%BB%E5%AE%9E%E4%BE%8B"><span class="toc-text">攻击实例</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%98%B2%E5%BE%A1%E6%8E%AA%E6%96%BD"><span class="toc-text">防御措施</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#XSS%E6%94%BB%E5%87%BB"><span class="toc-text">XSS攻击</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AE%80%E4%BB%8B-1"><span class="toc-text">简介</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8F%8D%E5%B0%84%E6%80%A7-XSS"><span class="toc-text">反射性 XSS</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AD%98%E5%82%A8%E5%9E%8BXSS"><span class="toc-text">存储型XSS</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#DOM-Based-XSS"><span class="toc-text">DOM Based XSS</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%98%B2%E5%BE%A1%E6%8E%AA%E6%96%BD-1"><span class="toc-text">防御措施</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CSRF%E6%94%BB%E5%87%BB"><span class="toc-text">CSRF攻击</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AE%80%E4%BB%8B-2"><span class="toc-text">简介</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%94%BB%E5%87%BB%E5%AE%9E%E4%BE%8B-1"><span class="toc-text">攻击实例</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%98%B2%E5%BE%A1%E6%8E%AA%E6%96%BD-2"><span class="toc-text">防御措施</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-%E5%90%88%E7%90%86%E4%BD%BF%E7%94%A8POST%E5%92%8CGET"><span class="toc-text">1.合理使用POST和GET</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-%E4%BD%BF%E7%94%A8%E9%AA%8C%E8%AF%81%E7%A0%81"><span class="toc-text">2.使用验证码</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-Referer%E4%BF%A1%E6%81%AF%E6%A3%80%E6%9F%A5"><span class="toc-text">3.Referer信息检查</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#4-%E4%BD%BF%E7%94%A8-Token"><span class="toc-text">4.使用 Token</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE%EF%BC%9A"><span class="toc-text">参考文献：</span></a></li></ol></li></ol></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#a%E9%93%BE%E6%8E%A5target-blank-%E5%B1%9E%E6%80%A7%E5%8F%AF%E9%80%A0%E6%88%90%E9%92%93%E9%B1%BC%E6%94%BB%E5%87%BB"><span class="toc-text">a链接target&#x3D;&quot;_blank&quot;属性可造成钓鱼攻击</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AE%80%E4%BB%8B"><span class="toc-text">简介</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%94%BB%E5%87%BB%E5%AE%9E%E4%BE%8B"><span class="toc-text">攻击实例</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%98%B2%E5%BE%A1%E6%8E%AA%E6%96%BD"><span class="toc-text">防御措施</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#XSS%E6%94%BB%E5%87%BB"><span class="toc-text">XSS攻击</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AE%80%E4%BB%8B-2"><span class="toc-text">简介</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8F%8D%E5%B0%84%E6%80%A7-XSS"><span class="toc-text">反射性 XSS</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AD%98%E5%82%A8%E5%9E%8BXSS"><span class="toc-text">存储型XSS</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#DOM-Based-XSS"><span class="toc-text">DOM Based XSS</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%98%B2%E5%BE%A1%E6%8E%AA%E6%96%BD-2"><span class="toc-text">防御措施</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CSRF%E6%94%BB%E5%87%BB"><span class="toc-text">CSRF攻击</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AE%80%E4%BB%8B-3"><span class="toc-text">简介</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%94%BB%E5%87%BB%E5%AE%9E%E4%BE%8B-2"><span class="toc-text">攻击实例</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%98%B2%E5%BE%A1%E6%8E%AA%E6%96%BD-3"><span class="toc-text">防御措施</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-%E5%90%88%E7%90%86%E4%BD%BF%E7%94%A8POST%E5%92%8CGET"><span class="toc-text">1.合理使用POST和GET</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-%E4%BD%BF%E7%94%A8%E9%AA%8C%E8%AF%81%E7%A0%81"><span class="toc-text">2.使用验证码</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-Referer%E4%BF%A1%E6%81%AF%E6%A3%80%E6%9F%A5"><span class="toc-text">3.Referer信息检查</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#4-%E4%BD%BF%E7%94%A8-Token"><span class="toc-text">4.使用 Token</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE%EF%BC%9A"><span class="toc-text">参考文献：</span></a></li></ol></li></ol></li></ol>
     </div>
   </div>
 

@@ -271,7 +271,8 @@
 
     </div>
     <div class="e-content article-entry" itemprop="articleBody">
-       <p>因为之前做过一个技术栈为 vue3+vite+elementPlus 的后台管理系统项目，当时为了方便创建类似项目还搭建了项目模板（github：<a href="git@github.com:Jesse121/vue3-vite-elementPlus-admin.git">vue3-vite-elementPlus-admin</a>）。<br>随着公司业务发展类似项目越来越多，一个仓库一个项目的管理形式弊端越来越突出：</p>
+       <p>因为之前做过一个技术栈为 vue3+vite+elementPlus 的后台管理系统项目，当时为了方便创建类似项目还搭建了项目模板（github：<a href="git@github.com:Jesse121/vue3-vite-elementPlus-admin.git">vue3-vite-elementPlus-admin</a>）。<br>
+随着公司业务发展类似项目越来越多，一个仓库一个项目的管理形式弊端越来越突出：</p>
 <ol>
 <li>每个项目都要搭建 eslint+prettier+commitLint+styleLint 等代码规范校验</li>
 <li>每个项目都要搭建许多类似的常用组件和创建公共 utils 函数</li>
@@ -279,9 +280,10 @@
 <li>有时候组件改动会涉及到多个项目都要手动更改</li>
 </ol>
 <span id="more"></span>
-
-<p>考虑到我们的不同项目在业务和组件交互上存在很多相似性，可以考虑在不同项目中使用公共组件库和公共依赖库。目前为了实现模块复用,采用 monorepo 风格管理项目就比较合适了。<br>monorepo 可以让多个模块共享同一个仓库，因此他们可以共享同一套构建流程、代码规范也可以做到统一，特别是如果存在模块间有共享公共组件的情况，查看代码、修改 bug、调试等会更加方便。</p>
-<h3 id="Monorepo-和-Multi-Repo-优缺点比较"><a href="#Monorepo-和-Multi-Repo-优缺点比较" class="headerlink" title="Monorepo 和 Multi-Repo 优缺点比较"></a>Monorepo 和 Multi-Repo 优缺点比较</h3><table>
+<p>考虑到我们的不同项目在业务和组件交互上存在很多相似性，可以考虑在不同项目中使用公共组件库和公共依赖库。目前为了实现模块复用,采用 monorepo 风格管理项目就比较合适了。<br>
+monorepo 可以让多个模块共享同一个仓库，因此他们可以共享同一套构建流程、代码规范也可以做到统一，特别是如果存在模块间有共享公共组件的情况，查看代码、修改 bug、调试等会更加方便。</p>
+<h3 id="Monorepo-和-Multi-Repo-优缺点比较">Monorepo 和 Multi-Repo 优缺点比较</h3>
+<table>
 <thead>
 <tr>
 <th></th>
@@ -289,7 +291,8 @@
 <th>Multi-Repo</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>开发</td>
 <td>只需在一个仓库中开发，编码会相当方便，新成员入门简单，代码复用高，方便进行代码重构。</td>
 <td>仓库体积小，模块划分清晰。需要多仓库来回切换。无法实现跨项目代码复用</td>
@@ -314,7 +317,8 @@
 <td>有 lerna 工具支持</td>
 <td>如果多项目存在依赖关系，开发者就需要在不同的仓库按照依赖先后顺序去修改版本及进行部署。</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
 <p>市场上搭建 monorepo 项目常用的有三种方案</p>
 <ol>
 <li>lerna</li>
@@ -322,13 +326,13 @@
 <li>pnpm</li>
 </ol>
 <p>考虑到 pnpm 内置了对 monorepo 的支持，且搭建简单快捷，门槛较低，使用方便的原因，我们这里采用 pnpm 方案。具体使用 pnpm 的好处可以参考<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/419399115">为什么推荐使用 pnpm</a></p>
-<h3 id="初始化项目"><a href="#初始化项目" class="headerlink" title="初始化项目"></a>初始化项目</h3><p>新建 monorepoVueApps 文件夹，在该文件夹中新建 pnpm-workspace.yaml 文件，这个文件定义了工作空间的根目录，并能够使您从工作空间中包含 &#x2F; 排除目录</p>
+<h3 id="初始化项目">初始化项目</h3>
+<p>新建 monorepoVueApps 文件夹，在该文件夹中新建 pnpm-workspace.yaml 文件，这个文件定义了工作空间的根目录，并能够使您从工作空间中包含 / 排除目录</p>
 <pre><code class="hljs yaml"><span class="hljs-attr">packages:</span>
   <span class="hljs-comment"># 所有在 packages/  子目录下的模块</span>
   <span class="hljs-bullet">-</span> <span class="hljs-string">&quot;packages/**&quot;</span>
   <span class="hljs-comment"># 不包括在 test 文件夹下的模块</span>
   <span class="hljs-bullet">-</span> <span class="hljs-string">&quot;!**/test/**&quot;</span></code></pre>
-
 <p>在 monorepoVueApps 文件夹下创建以下目录</p>
 <pre><code class="hljs plaintext">|-- packages
 |   |-- apps           // 项目仓库文件夹 包含多个vue项目
@@ -338,22 +342,22 @@
 |   |-- hooks          // 公共hooks库
 |   `-- utils          // 公共工具函数库
 `-- pnpm-workspace.yaml</code></pre>
-
-<h3 id="安装依赖"><a href="#安装依赖" class="headerlink" title="安装依赖"></a>安装依赖</h3><h4 id="全局安装-pnpm"><a href="#全局安装-pnpm" class="headerlink" title="全局安装 pnpm"></a>全局安装 pnpm</h4><pre><code class="hljs sh">npm i pnpm -g</code></pre>
-
-<h4 id="生成-package-json"><a href="#生成-package-json" class="headerlink" title="生成 package.json"></a>生成 package.json</h4><p>分别在 components,hooks,utils 文件夹下执行</p>
+<h3 id="安装依赖">安装依赖</h3>
+<h4 id="全局安装-pnpm">全局安装 pnpm</h4>
+<pre><code class="hljs sh">npm i pnpm -g</code></pre>
+<h4 id="生成-package-json">生成 package.json</h4>
+<p>分别在 components,hooks,utils 文件夹下执行</p>
 <pre><code class="hljs sh">pnpm init -y</code></pre>
-
 <p>包名一般都通用为命名空间+项目名，这里命名空间名称为@vueapps</p>
-<h4 id="安装公共依赖"><a href="#安装公共依赖" class="headerlink" title="安装公共依赖"></a>安装公共依赖</h4><p>这里将相关开发工具和公共库安装至项目根目录，方便管理的各个项目直接使用。在根目录下执行</p>
+<h4 id="安装公共依赖">安装公共依赖</h4>
+<p>这里将相关开发工具和公共库安装至项目根目录，方便管理的各个项目直接使用。在根目录下执行</p>
 <pre><code class="hljs sh">pnpm add vue -w
 pnpm add typescript vite @vitejs/plugin-vue vue-tsc  -wD</code></pre>
-
-<p>pnpm 提供了 -w, –workspace-root 参数，可以将依赖包安装到工程的根目录下，作为所有 package 的公共依赖。</p>
-<h3 id="创建-vue3-项目-app1"><a href="#创建-vue3-项目-app1" class="headerlink" title="创建 vue3 项目 app1"></a>创建 vue3 项目 app1</h3><pre><code class="hljs sh"><span class="hljs-built_in">cd</span> packages/apps
+<p>pnpm 提供了 -w, --workspace-root 参数，可以将依赖包安装到工程的根目录下，作为所有 package 的公共依赖。</p>
+<h3 id="创建-vue3-项目-app1">创建 vue3 项目 app1</h3>
+<pre><code class="hljs sh"><span class="hljs-built_in">cd</span> packages/apps
 pnpm create vite app1 -- --template vue-ts</code></pre>
-
-<p>生成 app1 项目后修改 package.json。 将 name 改为”@vueapps&#x2F;app1”,将默认的依赖全部去掉,因为上面我们已经在根目录安装过</p>
+<p>生成 app1 项目后修改 package.json。 将 name 改为&quot;@vueapps/app1&quot;,将默认的依赖全部去掉,因为上面我们已经在根目录安装过</p>
 <pre><code class="hljs json"><span class="hljs-punctuation">&#123;</span>
   <span class="hljs-attr">&quot;name&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;@vueapps/app1&quot;</span><span class="hljs-punctuation">,</span>
   <span class="hljs-attr">&quot;private&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-literal"><span class="hljs-keyword">true</span></span><span class="hljs-punctuation">,</span>
@@ -367,24 +371,21 @@ pnpm create vite app1 -- --template vue-ts</code></pre>
   <span class="hljs-attr">&quot;dependencies&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span>
   <span class="hljs-attr">&quot;devDependencies&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><span class="hljs-punctuation">&#125;</span>
 <span class="hljs-punctuation">&#125;</span></code></pre>
-
 <p>在根目录 package.json 文件中添加 scripts</p>
 <pre><code class="hljs json">scripts<span class="hljs-punctuation">:</span><span class="hljs-punctuation">&#123;</span>
   <span class="hljs-attr">&quot;app1:dev&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;pnpm -F @vueapps/app1 run dev&quot;</span><span class="hljs-punctuation">,</span>
   <span class="hljs-attr">&quot;app1:build&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;pnpm -F @vueapps/app1 run build&quot;</span>
 <span class="hljs-punctuation">&#125;</span></code></pre>
-
 <p>pnpm 提供了 -F ,–filter 参数，可以用来对特定的 package 进行某些操作。</p>
 <p>在根目录下执行<code>pnpm run app1:dev</code>,即可看到 app1 项目正常运行</p>
 <p>我们用同样的方式创建 app2 项目，然后实现这两个项目共用 utils 工具函数</p>
-<h3 id="添加公共函数库-utils"><a href="#添加公共函数库-utils" class="headerlink" title="添加公共函数库 utils"></a>添加公共函数库 utils</h3><p>在 utils 文件夹下新建 getAge.ts</p>
+<h3 id="添加公共函数库-utils">添加公共函数库 utils</h3>
+<p>在 utils 文件夹下新建 getAge.ts</p>
 <pre><code class="hljs ts"><span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">getAge</span>(<span class="hljs-params"></span>) &#123;
   <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;26&quot;</span>;
 &#125;</code></pre>
-
 <p>新建 index.ts</p>
 <pre><code class="hljs ts"><span class="hljs-keyword">export</span> &#123; getAge &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;./getAge&quot;</span>;</code></pre>
-
 <p>修改该项目的 package.json 文件中的 main,并添加 exports 字段暴露出 getAge 方法</p>
 <pre><code class="hljs json"><span class="hljs-punctuation">&#123;</span>
   <span class="hljs-attr">&quot;main&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;index.ts&quot;</span><span class="hljs-punctuation">,</span>
@@ -392,20 +393,19 @@ pnpm create vite app1 -- --template vue-ts</code></pre>
     <span class="hljs-attr">&quot;./getAge&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;./getAge.ts&quot;</span>
   <span class="hljs-punctuation">&#125;</span>
 <span class="hljs-punctuation">&#125;</span></code></pre>
-
 <p>至此已经在 utils 工具函数库中增加 getAge 方法，其他项目中调用时需要先安装</p>
-<h3 id="局部安装项目依赖"><a href="#局部安装项目依赖" class="headerlink" title="局部安装项目依赖"></a>局部安装项目依赖</h3><p>utils 工具函数库中的方法并不是所有项目都会用到，所以我们不全局安装@vueapps&#x2F;utils，只是在具体用到的项目中安装<br>这里局部安装有两种方式：</p>
+<h3 id="局部安装项目依赖">局部安装项目依赖</h3>
+<p>utils 工具函数库中的方法并不是所有项目都会用到，所以我们不全局安装@vueapps/utils，只是在具体用到的项目中安装<br>
+这里局部安装有两种方式：</p>
 <ul>
 <li>进入到具体项目目录中去安装</li>
 </ul>
 <pre><code class="hljs sh">pnpm add @vueapps/utils -D</code></pre>
-
 <ul>
 <li>在根目录通过 -F 安装</li>
 </ul>
 <pre><code class="hljs sh">pnpm add @vueapps/utils -F @vueapps/app1  <span class="hljs-comment"># app1项目安装utils工具函数库</span></code></pre>
-
-<p>这里我们采用-F 安装，此时我们查看 app 的 package.json，可以看到 dependencies 字段中多了对 @vueapps&#x2F;utils 的引用，以 workspace: 开头，后面跟着具体的版本号</p>
+<p>这里我们采用-F 安装，此时我们查看 app 的 package.json，可以看到 dependencies 字段中多了对 @vueapps/utils 的引用，以 workspace: 开头，后面跟着具体的版本号</p>
 <pre><code class="hljs json"><span class="hljs-punctuation">&#123;</span>
   <span class="hljs-attr">&quot;name&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;@vueapps/app1&quot;</span><span class="hljs-punctuation">,</span>
   <span class="hljs-attr">&quot;private&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-literal"><span class="hljs-keyword">true</span></span><span class="hljs-punctuation">,</span>
@@ -420,17 +420,17 @@ pnpm create vite app1 -- --template vue-ts</code></pre>
     <span class="hljs-attr">&quot;@vueapps/utils&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;workspace:^1.0.0&quot;</span>
   <span class="hljs-punctuation">&#125;</span>
 <span class="hljs-punctuation">&#125;</span></code></pre>
-
-<h3 id="在不同项目中共享-utils-工具函数"><a href="#在不同项目中共享-utils-工具函数" class="headerlink" title="在不同项目中共享 utils 工具函数"></a>在不同项目中共享 utils 工具函数</h3><p>在 app1 项目中 app.vue 文件中使用 getAge 函数</p>
+<h3 id="在不同项目中共享-utils-工具函数">在不同项目中共享 utils 工具函数</h3>
+<p>在 app1 项目中 app.vue 文件中使用 getAge 函数</p>
 <pre><code class="hljs ts"><span class="hljs-keyword">import</span> &#123; getAge &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;@vueapps/utils/getAge&quot;</span>;
 <span class="hljs-keyword">const</span> age = <span class="hljs-title function_">getAge</span>();
 <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(age); <span class="hljs-comment">//26</span></code></pre>
-
 <p>可以在浏览器 console 面板中看到正常打印 26，说明 utils 公共函数库代码已经生效，同样在 app2 项目中也可以这样使用。从而达到公共函数库代码夸项目使用的目的</p>
-<p>在开发环境下我们将 getAge 函数结果改为 25，app1,app2 两个项目都会更新生效。<br>在生产环境下我们更新 getAge 函数后需要每个项目都重新打包发布才能生效</p>
-<h3 id="添加公共布局组件-components-并跨项目共享"><a href="#添加公共布局组件-components-并跨项目共享" class="headerlink" title="添加公共布局组件 components 并跨项目共享"></a>添加公共布局组件 components 并跨项目共享</h3><p>添加 Button 组件用于夸项目共享，在根目录下执行</p>
+<p>在开发环境下我们将 getAge 函数结果改为 25，app1,app2 两个项目都会更新生效。<br>
+在生产环境下我们更新 getAge 函数后需要每个项目都重新打包发布才能生效</p>
+<h3 id="添加公共布局组件-components-并跨项目共享">添加公共布局组件 components 并跨项目共享</h3>
+<p>添加 Button 组件用于夸项目共享，在根目录下执行</p>
 <pre><code class="hljs sh"><span class="hljs-built_in">cd</span> packages/components/basic &amp;&amp; <span class="hljs-built_in">mkdir</span> Button &amp;&amp; <span class="hljs-built_in">cd</span> Button &amp;&amp; <span class="hljs-built_in">touch</span> Button.vue</code></pre>
-
 <pre><code class="hljs vue">&lt;template&gt;
   &lt;ElButton type=&quot;primary&quot;&gt;
     &lt;slot&gt;&lt;/slot&gt;
@@ -440,7 +440,6 @@ pnpm create vite app1 -- --template vue-ts</code></pre>
 &lt;script setup lang=&quot;ts&quot;&gt;
 import &#123; ElButton &#125; from &quot;element-plus&quot;;
 &lt;/script&gt;</code></pre>
-
 <p>修改 components 文件夹下的 package.json 文件，添加 exports 暴露出 Button 组件</p>
 <pre><code class="hljs json"><span class="hljs-punctuation">&#123;</span>
   <span class="hljs-attr">&quot;exports&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span>
@@ -448,10 +447,8 @@ import &#123; ElButton &#125; from &quot;element-plus&quot;;
     <span class="hljs-attr">&quot;./Button&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;./basic/Button/Button.vue&quot;</span>
   <span class="hljs-punctuation">&#125;</span>
 <span class="hljs-punctuation">&#125;</span></code></pre>
-
 <p>为 app1 项目局部安装 Button 组件,在根目录下执行</p>
 <pre><code class="hljs sh">pnpm add @vueapps/components -F @vueapps/app1</code></pre>
-
 <p>在 app1 项目中引用 Button</p>
 <pre><code class="hljs vue">&lt;script setup lang=&quot;ts&quot;&gt;
 import Button from &quot;@vueapps/components/Button&quot;;
@@ -459,18 +456,23 @@ import Button from &quot;@vueapps/components/Button&quot;;
 &lt;template&gt;
   &lt;Button&gt;这是共享的按钮组件&lt;/Button&gt;
 &lt;/template&gt;</code></pre>
-
-<p>此时 Button 组件已经被使用，但是缺少样式文件<br>修改 app1 项目的 vite.config.ts 通过安装 unplugin-element-plus 插件实现对 ElementPlus 样式文件的支持</p>
+<p>此时 Button 组件已经被使用，但是缺少样式文件<br>
+修改 app1 项目的 vite.config.ts 通过安装 unplugin-element-plus 插件实现对 ElementPlus 样式文件的支持</p>
 <pre><code class="hljs ts"><span class="hljs-keyword">import</span> <span class="hljs-title class_">ElementPlus</span> <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;unplugin-element-plus/vite&quot;</span>;
 
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-title function_">defineConfig</span>(&#123;
   <span class="hljs-attr">plugins</span>: [<span class="hljs-title function_">vue</span>(), <span class="hljs-title class_">ElementPlus</span>()],
 &#125;);</code></pre>
-
-<p>至此 Button 组件在 app1 项目中完美使用<br><img src="https://raw.githubusercontent.com/Jesse121/publicPic/master/blog/pictures/20221030111506.png" alt="20221030111506"><br>在 app2 项目中可以同样安装使用</p>
-<h3 id="添加-eslint-prettier-commitLint-styleLint-统一代码规则校验"><a href="#添加-eslint-prettier-commitLint-styleLint-统一代码规则校验" class="headerlink" title="添加 eslint+prettier+commitLint+styleLint 统一代码规则校验"></a>添加 eslint+prettier+commitLint+styleLint 统一代码规则校验</h3><h4 id="安装-eslint"><a href="#安装-eslint" class="headerlink" title="安装 eslint"></a>安装 eslint</h4><pre><code class="hljs sh">pnpm add eslint@7.32.0 eslint-plugin-vue@7.15.1 @typescript-eslint/parser@5.30.7 @typescript-eslint/eslint-plugin@5.30.7 eslint-plugin-simple-import-sort@7.0.0 -wD</code></pre>
-
-<p>eslint-plugin-vue：Vue.js 的官方 ESLint 插件<br>@typescript-eslint&#x2F;parser：ESLint 的解析器，用于解析 typescript，从而检查和规范 Typescript 代码<br>@typescript-eslint&#x2F;eslint-plugin：ESLint 插件，包含了各类定义好的检测 Typescript 代码的规范<br>eslint-plugin-simple-import-sort：自动排序 import 的插件</p>
+<p>至此 Button 组件在 app1 项目中完美使用<br>
+<img src="https://raw.githubusercontents.com/Jesse121/publicPic/master/blog/pictures/20221030111506.png" alt="20221030111506" referrerPolicy="no-referrer"><br>
+在 app2 项目中可以同样安装使用</p>
+<h3 id="添加-eslint-prettier-commitLint-styleLint-统一代码规则校验">添加 eslint+prettier+commitLint+styleLint 统一代码规则校验</h3>
+<h4 id="安装-eslint">安装 eslint</h4>
+<pre><code class="hljs sh">pnpm add eslint@7.32.0 eslint-plugin-vue@7.15.1 @typescript-eslint/parser@5.30.7 @typescript-eslint/eslint-plugin@5.30.7 eslint-plugin-simple-import-sort@7.0.0 -wD</code></pre>
+<p>eslint-plugin-vue：Vue.js 的官方 ESLint 插件<br>
+@typescript-eslint/parser：ESLint 的解析器，用于解析 typescript，从而检查和规范 Typescript 代码<br>
+@typescript-eslint/eslint-plugin：ESLint 插件，包含了各类定义好的检测 Typescript 代码的规范<br>
+eslint-plugin-simple-import-sort：自动排序 import 的插件</p>
 <p>在项目根目录下新建.eslintrc.js</p>
 <pre><code class="hljs js"><span class="hljs-variable language_">module</span>.<span class="hljs-property">exports</span> = &#123;
   <span class="hljs-attr">env</span>: &#123;
@@ -534,10 +536,12 @@ import Button from &quot;@vueapps/components/Button&quot;;
     &#125;,
   ],
 &#125;;</code></pre>
-
-<h4 id="安装-prettier"><a href="#安装-prettier" class="headerlink" title="安装 prettier"></a>安装 prettier</h4><pre><code class="hljs sh">pnpm add prettier@2.7.1 eslint-config-prettier@8.5.0 eslint-plugin-prettier@4.2.1 -wD</code></pre>
-
-<p>eslint-config-prettier<br>解决 ESLint 中的样式规范和 prettier 中样式规范的冲突，以 prettier 的样式规范为准，使 ESLint 中的样式规范自动失效<br>eslint-plugin-prettier<br>将 prettier 作为 ESLint 规范来使用</p>
+<h4 id="安装-prettier">安装 prettier</h4>
+<pre><code class="hljs sh">pnpm add prettier@2.7.1 eslint-config-prettier@8.5.0 eslint-plugin-prettier@4.2.1 -wD</code></pre>
+<p>eslint-config-prettier<br>
+解决 ESLint 中的样式规范和 prettier 中样式规范的冲突，以 prettier 的样式规范为准，使 ESLint 中的样式规范自动失效<br>
+eslint-plugin-prettier<br>
+将 prettier 作为 ESLint 规范来使用</p>
 <p>在根目录下新建.prettierrc.js</p>
 <pre><code class="hljs js"><span class="hljs-variable language_">module</span>.<span class="hljs-property">exports</span> = &#123;
   <span class="hljs-attr">printWidth</span>: <span class="hljs-number">120</span>,
@@ -555,10 +559,9 @@ import Button from &quot;@vueapps/components/Button&quot;;
   <span class="hljs-attr">requirePragma</span>: <span class="hljs-literal">false</span>,
   <span class="hljs-attr">useTabs</span>: <span class="hljs-literal">true</span>,
 &#125;;</code></pre>
-
-<h4 id="安装-styleLint"><a href="#安装-styleLint" class="headerlink" title="安装 styleLint"></a>安装 styleLint</h4><pre><code class="hljs sh">pnpm add stylelint@13.13.1 stylelint-prettier@1.2.0 stylelint-config-prettier@8.0.2
+<h4 id="安装-styleLint">安装 styleLint</h4>
+<pre><code class="hljs sh">pnpm add stylelint@13.13.1 stylelint-prettier@1.2.0 stylelint-config-prettier@8.0.2
 stylelint-config-rational-order@0.1.2 -wD</code></pre>
-
 <p>在项目根目录下新建.stylelintrc.js</p>
 <pre><code class="hljs js"><span class="hljs-variable language_">module</span>.<span class="hljs-property">exports</span> = &#123;
   <span class="hljs-attr">defaultSeverity</span>: <span class="hljs-string">&quot;error&quot;</span>,
@@ -566,9 +569,8 @@ stylelint-config-rational-order@0.1.2 -wD</code></pre>
   <span class="hljs-attr">extends</span>: [<span class="hljs-string">&quot;stylelint-prettier/recommended&quot;</span>, <span class="hljs-string">&quot;stylelint-config-recess-order&quot;</span>],
   <span class="hljs-attr">rules</span>: &#123;&#125;,
 &#125;;</code></pre>
-
-<h4 id="安装-commitLint"><a href="#安装-commitLint" class="headerlink" title="安装 commitLint"></a>安装 commitLint</h4><pre><code class="hljs sh">pnpm add @commitlint/cli@17.0.3 @commitlint/config-conventional@17.0.3 -wD</code></pre>
-
+<h4 id="安装-commitLint">安装 commitLint</h4>
+<pre><code class="hljs sh">pnpm add @commitlint/cli@17.0.3 @commitlint/config-conventional@17.0.3 -wD</code></pre>
 <p>在项目根目录下新建.commitlintrc.js</p>
 <pre><code class="hljs js"><span class="hljs-variable language_">module</span>.<span class="hljs-property">exports</span> = &#123;
   <span class="hljs-attr">extends</span>: [<span class="hljs-string">&quot;@commitlint/config-conventional&quot;</span>],
@@ -591,8 +593,8 @@ stylelint-config-rational-order@0.1.2 -wD</code></pre>
     ],
   &#125;,
 &#125;;</code></pre>
-
-<h4 id="安装-husky-和-lint-staged"><a href="#安装-husky-和-lint-staged" class="headerlink" title="安装 husky 和 lint-staged"></a>安装 husky 和 lint-staged</h4><pre><code class="hljs sh">pnpm add husky@8.0.0 lint-staged@13.0.3 -wD
+<h4 id="安装-husky-和-lint-staged">安装 husky 和 lint-staged</h4>
+<pre><code class="hljs sh">pnpm add husky@8.0.0 lint-staged@13.0.3 -wD
 <span class="hljs-comment"># 设置husky</span>
 npx husky install
 npm pkg <span class="hljs-built_in">set</span> scripts.prepare=<span class="hljs-string">&quot;husky install&quot;</span>
@@ -600,7 +602,6 @@ npm pkg <span class="hljs-built_in">set</span> scripts.preinstall=<span class="h
 npx husky add .husky/commit-msg <span class="hljs-string">&#x27;yarn commitlint --edit &quot;$1&quot;&#x27;</span>
 npx husky add .husky/pre-commit <span class="hljs-string">&#x27;yarn lint-staged&#x27;</span>
 npx husky add .husky/post-merge <span class="hljs-string">&#x27;yarn&#x27;</span></code></pre>
-
 <p>在 package.json 中添加 lint-staged 脚本</p>
 <pre><code class="hljs json"><span class="hljs-attr">&quot;lint-staged&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span>
     <span class="hljs-attr">&quot;*.&#123;vue,ts,js&#125;&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>
@@ -614,8 +615,8 @@ npx husky add .husky/post-merge <span class="hljs-string">&#x27;yarn&#x27;</span
       <span class="hljs-string">&quot;ls-lint&quot;</span>
     <span class="hljs-punctuation">]</span>
   <span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span></code></pre>
-
-<h4 id="安装-editorConfig-确保不同编辑器代码风格一致"><a href="#安装-editorConfig-确保不同编辑器代码风格一致" class="headerlink" title="安装 editorConfig 确保不同编辑器代码风格一致"></a>安装 editorConfig 确保不同编辑器代码风格一致</h4><pre><code class="hljs yml"><span class="hljs-comment"># EditorConfig is awesome: https://EditorConfig.org</span>
+<h4 id="安装-editorConfig-确保不同编辑器代码风格一致">安装 editorConfig 确保不同编辑器代码风格一致</h4>
+<pre><code class="hljs yml"><span class="hljs-comment"># EditorConfig is awesome: https://EditorConfig.org</span>
 
 <span class="hljs-comment"># top-most EditorConfig file</span>
 <span class="hljs-string">root</span> <span class="hljs-string">=</span> <span class="hljs-literal">true</span>
@@ -627,8 +628,8 @@ npx husky add .husky/post-merge <span class="hljs-string">&#x27;yarn&#x27;</span
 <span class="hljs-string">charset</span> <span class="hljs-string">=</span> <span class="hljs-string">utf-8</span>
 <span class="hljs-string">trim_trailing_whitespace</span> <span class="hljs-string">=</span> <span class="hljs-literal">false</span>
 <span class="hljs-string">insert_final_newline</span> <span class="hljs-string">=</span> <span class="hljs-literal">false</span></code></pre>
-
-<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>看到这里我们应该能清楚的知道采用 monorepo 项目的好处以及它解决的实际问题，同时我们也发现采用 monorepo 后在组件跨模块共享上会带来新的问题，</p>
+<h3 id="总结">总结</h3>
+<p>看到这里我们应该能清楚的知道采用 monorepo 项目的好处以及它解决的实际问题，同时我们也发现采用 monorepo 后在组件跨模块共享上会带来新的问题，</p>
 <ol>
 <li>不同项目用到不同版本的依赖库</li>
 <li>公共组件库代码修改后，所有依赖这个库的项目都需要重新打包构建部署</li>

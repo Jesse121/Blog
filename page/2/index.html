@@ -220,7 +220,9 @@
 
     </div>
     <div class="e-content article-entry" itemprop="articleBody">
-       <h3 id="Typescript-项目"><a href="#Typescript-项目" class="headerlink" title="Typescript 项目"></a>Typescript 项目</h3><h4 id="编译上下文"><a href="#编译上下文" class="headerlink" title="编译上下文"></a>编译上下文</h4><p>项目中快速生成 tsconfig.json,先全局安装 typescript</p>
+       <h3 id="Typescript-项目">Typescript 项目</h3>
+<h4 id="编译上下文">编译上下文</h4>
+<p>项目中快速生成 tsconfig.json,先全局安装 typescript</p>
 <pre><code class="hljs sh">tsc --init</code></pre> 
     </div>
     <footer class="article-footer">
@@ -383,7 +385,8 @@
 
     </div>
     <div class="e-content article-entry" itemprop="articleBody">
-       <h3 id="发现问题"><a href="#发现问题" class="headerlink" title="发现问题"></a>发现问题</h3><p>最近在项目中使用<a href="mailto:&#104;&#117;&#115;&#107;&#x79;&#x40;&#55;&#x2e;&#x30;&#46;&#x31;">&#104;&#117;&#115;&#107;&#x79;&#x40;&#55;&#x2e;&#x30;&#46;&#x31;</a>给 git 添加执行钩子时发现在 window 系统上可以正常触发配置的 pre-commit 但是在 mac 上就是不行并且在控制台输出一下提示：</p> 
+       <h3 id="发现问题">发现问题</h3>
+<p>最近在项目中使用husky@7.0.1给 git 添加执行钩子时发现在 window 系统上可以正常触发配置的 pre-commit 但是在 mac 上就是不行并且在控制台输出一下提示：</p> 
     </div>
     <footer class="article-footer">
        
@@ -435,14 +438,16 @@
 
     </div>
     <div class="e-content article-entry" itemprop="articleBody">
-       <h3 id="栈"><a href="#栈" class="headerlink" title="栈"></a>栈</h3><p>一个后进先出的数据结构<br>javascript 中没有栈 可以用 Array 实践栈的所有功能</p>
+       <h3 id="栈">栈</h3>
+<p>一个后进先出的数据结构<br>
+javascript 中没有栈 可以用 Array 实践栈的所有功能</p>
 <pre><code class="hljs js"><span class="hljs-keyword">const</span> stack = [];
 stack.<span class="hljs-title function_">push</span>(<span class="hljs-number">1</span>);
 stack.<span class="hljs-title function_">push</span>(<span class="hljs-number">2</span>);
 <span class="hljs-keyword">const</span> item1 = stack.<span class="hljs-title function_">pop</span>();
 <span class="hljs-keyword">const</span> item2 = stack.<span class="hljs-title function_">pop</span>();</code></pre>
-
-<p>使用场景： 所有后进先出的场景 函数调用堆栈<br>leetcode 练习题：20</p> 
+<p>使用场景： 所有后进先出的场景 函数调用堆栈<br>
+leetcode 练习题：20</p> 
     </div>
     <footer class="article-footer">
        
@@ -494,7 +499,8 @@ stack.<span class="hljs-title function_">push</span>(<span class="hljs-number">2
 
     </div>
     <div class="e-content article-entry" itemprop="articleBody">
-       <h3 id="问题缘由"><a href="#问题缘由" class="headerlink" title="问题缘由"></a>问题缘由</h3><p>在 typescript 项目中我们都需要配置 tsconfig.json，在此之前的配置方法都是从网上模仿别人的然后修该或添加自己的配置项。随着项目的增多每次都要去复制感觉很麻烦，就想找一个更好的解决办法快速生成 tsconfig.json 文件。</p> 
+       <h3 id="问题缘由">问题缘由</h3>
+<p>在 typescript 项目中我们都需要配置 tsconfig.json，在此之前的配置方法都是从网上模仿别人的然后修该或添加自己的配置项。随着项目的增多每次都要去复制感觉很麻烦，就想找一个更好的解决办法快速生成 tsconfig.json 文件。</p> 
     </div>
     <footer class="article-footer">
        
@@ -546,11 +552,11 @@ stack.<span class="hljs-title function_">push</span>(<span class="hljs-number">2
 
     </div>
     <div class="e-content article-entry" itemprop="articleBody">
-       <h3 id="用-docker-commit-的方式创建-ssh-直连-docker-容器镜像"><a href="#用-docker-commit-的方式创建-ssh-直连-docker-容器镜像" class="headerlink" title="用 docker commit 的方式创建 ssh 直连 docker 容器镜像"></a>用 docker commit 的方式创建 ssh 直连 docker 容器镜像</h3><ol>
+       <h3 id="用-docker-commit-的方式创建-ssh-直连-docker-容器镜像">用 docker commit 的方式创建 ssh 直连 docker 容器镜像</h3>
+<ol>
 <li>拉取镜像，这里采用 centos:7 作为基础镜像</li>
 </ol>
 <pre><code class="hljs plaintext">docker pull centos:7</code></pre>
-
 <ol start="2">
 <li>运行镜像，生成容器</li>
 </ol>
@@ -659,7 +665,8 @@ stack.<span class="hljs-title function_">push</span>(<span class="hljs-number">2
 
     </div>
     <div class="e-content article-entry" itemprop="articleBody">
-       <p>在工作中我们常会用到 wireshark 抓取数据包进行分析，当使用 wireshark 默认设置时，会捕获到大量冗余的数据包，如果没有过滤器过滤，我们很难找到自己想要抓取的数据，这个时候就需要用到 wireshark 的过滤器来过滤，它们可以帮助我们在庞杂的结果中迅速找到我们需要的信息。<br>wireshark 提供的过滤器有捕捉过滤器和显示过滤器。</p> 
+       <p>在工作中我们常会用到 wireshark 抓取数据包进行分析，当使用 wireshark 默认设置时，会捕获到大量冗余的数据包，如果没有过滤器过滤，我们很难找到自己想要抓取的数据，这个时候就需要用到 wireshark 的过滤器来过滤，它们可以帮助我们在庞杂的结果中迅速找到我们需要的信息。<br>
+wireshark 提供的过滤器有捕捉过滤器和显示过滤器。</p> 
     </div>
     <footer class="article-footer">
        
@@ -711,7 +718,8 @@ stack.<span class="hljs-title function_">push</span>(<span class="hljs-number">2
 
     </div>
     <div class="e-content article-entry" itemprop="articleBody">
-       <h3 id="问题缘由"><a href="#问题缘由" class="headerlink" title="问题缘由"></a>问题缘由</h3><p>在 html 模板页面中我们有时候要直接插入图片 img。如果直接写绝对路径例如<code>&lt;img src=&quot;https://static.yidongtimes.com/dist/mobile/v2/img/notice/fishingTips/waiting.png&quot; alt=&quot;&quot;&gt;</code>，页面可以访问到图片但是图片不经过 webpack 处理（压缩，添加哈希后缀等）。这样操作图片也不能作为资源一起编译处理到 dist 文件夹中。因此需要找到更好的解决办法</p> 
+       <h3 id="问题缘由">问题缘由</h3>
+<p>在 html 模板页面中我们有时候要直接插入图片 img。如果直接写绝对路径例如<code>&lt;img src=&quot;https://static.yidongtimes.com/dist/mobile/v2/img/notice/fishingTips/waiting.png&quot; alt=&quot;&quot;&gt;</code>，页面可以访问到图片但是图片不经过 webpack 处理（压缩，添加哈希后缀等）。这样操作图片也不能作为资源一起编译处理到 dist 文件夹中。因此需要找到更好的解决办法</p> 
     </div>
     <footer class="article-footer">
        

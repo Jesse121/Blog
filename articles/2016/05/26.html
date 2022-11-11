@@ -273,7 +273,6 @@
     <div class="e-content article-entry" itemprop="articleBody">
        <p>本文主要介绍css各种选择器，总结一下方便自己查询与使用</p>
 <span id="more"></span>
-
 <table>
 <thead>
 <tr>
@@ -282,7 +281,8 @@
 <th>实例</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>ID选择器</td>
 <td>100</td>
 <td>#E</td>
@@ -298,7 +298,7 @@
 <td>:link,:visited, :focus, :hover, :actived, :lang</td>
 </tr>
 <tr>
-<td>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;UI元素状态伪类</td>
+<td>    UI元素状态伪类</td>
 <td></td>
 <td>E:enabled{}匹配所有用户界面（form表单）中处于可用状态的E元素</td>
 </tr>
@@ -313,7 +313,7 @@
 <td>E:checked{}匹配所有用户界面（form表单）中处于选中状态的E元素</td>
 </tr>
 <tr>
-<td>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;结构性伪类</td>
+<td>    结构性伪类</td>
 <td></td>
 <td>E:first-child{}匹配父元素中第一个E元素</td>
 </tr>
@@ -368,12 +368,12 @@
 <td>E:empty{} 不常用 匹配没有任何子元素（包括text节点）的元素E</td>
 </tr>
 <tr>
-<td>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;否定伪类</td>
+<td>    否定伪类</td>
 <td></td>
 <td>p:not(s){}匹配所有不匹配简单选择符s的元素p</td>
 </tr>
 <tr>
-<td>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;目标伪类</td>
+<td>    目标伪类</td>
 <td></td>
 <td>不常用</td>
 </tr>
@@ -382,45 +382,45 @@
 <td>10</td>
 <td></td>
 </tr>
-<tr>
-<td>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;简单属性选择器</td>
+<tr color:red;="">
+<td>    简单属性选择器</td>
 <td></td>
-<td>h1[foo]{color:red;}</td>
+<td>h1[foo]</td>
 </tr>
 <tr>
-<td>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;具体属性值选择器</td>
+<td>    具体属性值选择器</td>
 <td></td>
-<td>h1[foo&#x3D;”sun”]{color:red;} 选择foo属性值是sun的所有h1元素</td>
+<td>h1[foo=“sun”]{color:red;} 选择foo属性值是sun的所有h1元素</td>
 </tr>
 <tr>
-<td>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;子串匹配属性选择器</td>
+<td>    子串匹配属性选择器</td>
 <td></td>
-<td>h1[foo*&#x3D;”sun”]{color:red;} 选择foo属性值中包含sun的所有h1元素</td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td>h1[foo^&#x3D;”sun”]{color:red;} 选择foo属性值以sun开头的所有h1元素</td>
+<td>h1[foo*=“sun”]{color:red;} 选择foo属性值中包含sun的所有h1元素</td>
 </tr>
 <tr>
 <td></td>
 <td></td>
-<td>h1[foo$&#x3D;”sun”]{color:red;} 选择foo属性值以sun结尾的所有h1元素</td>
+<td>h1[foo^=“sun”]{color:red;} 选择foo属性值以sun开头的所有h1元素</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>h1[foo$=“sun”]{color:red;} 选择foo属性值以sun结尾的所有h1元素</td>
 </tr>
 <tr>
 <td>元素选择器</td>
 <td>1</td>
 <td></td>
 </tr>
-<tr>
-<td>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;子元素选择器</td>
+<tr color:red;="">
+<td>    子元素选择器</td>
 <td></td>
-<td>h1 &gt; span{color:red;}</td>
+<td>h1 &gt; span</td>
 </tr>
-<tr>
-<td>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;相邻兄弟元素选择器</td>
+<tr font-size:20px;="">
+<td>    相邻兄弟元素选择器</td>
 <td></td>
-<td>h1 + h1{font-size:20px;}</td>
+<td>h1 + h1</td>
 </tr>
 <tr>
 <td>伪元素选择器</td>
@@ -442,7 +442,8 @@
 <td></td>
 <td>p::selection{}设置被用户选取部分的样式</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
  
       <div id="toc-article">
   <div class="widget-wrap" id="toc-wrap">

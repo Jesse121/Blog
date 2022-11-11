@@ -273,12 +273,13 @@
     <div class="e-content article-entry" itemprop="articleBody">
        <p>近在做大屏数据可视化项目时要求用图表实时展示最新数据变化，考虑到有大量的图表需要展示，因此轮询请求不予以考虑了，然后想到了支持全双工通信的 websocket。为了实时展示这些图表专门建立一个 websocket 连接也是可以的，然而总觉得杀鸡用牛刀了。知道查询到 Server-sent Event，顿时觉得这才是完美的解决方案。</p>
 <span id="more"></span>
-
-<h3 id="什么是-Server-sent-Event"><a href="#什么是-Server-sent-Event" class="headerlink" title="什么是 Server-sent Event?"></a>什么是 Server-sent Event?</h3><p>一个网页获取新的数据通常需要发送一个请求到服务器，也就是向服务器请求的页面。使用 server-sent Event，服务器可以在任何时刻向我们的 Web 页面推送数据和信息。这些被推送进来的信息可以在这个页面上作为 Events + data 的形式来处理。</p>
+<h3 id="什么是-Server-sent-Event">什么是 Server-sent Event?</h3>
+<p>一个网页获取新的数据通常需要发送一个请求到服务器，也就是向服务器请求的页面。使用 server-sent Event，服务器可以在任何时刻向我们的 Web 页面推送数据和信息。这些被推送进来的信息可以在这个页面上作为 Events + data 的形式来处理。</p>
 <p>严格地说，HTTP 协议无法做到服务器主动推送信息。但是，有一种变通方法，就是服务器向客户端声明，接下来要发送的是流信息（streaming）。</p>
 <p>也就是说，发送的不是一次性的数据包，而是一个数据流，会连续不断地发送过来。这时，客户端不会关闭连接，会一直等着服务器发过来的新的数据流，视频播放就是这样的例子。本质上，这种通信就是以流信息的方式，完成一次用时很长的下载。</p>
-<p>SSE 就是利用这种机制，使用流信息向浏览器推送信息。它基于 HTTP 协议，目前除了 IE&#x2F;Edge，其他浏览器都支持。</p>
-<h3 id="如何使用？"><a href="#如何使用？" class="headerlink" title="如何使用？"></a>如何使用？</h3><p>用 node 开启 sse 服务</p>
+<p>SSE 就是利用这种机制，使用流信息向浏览器推送信息。它基于 HTTP 协议，目前除了 IE/Edge，其他浏览器都支持。</p>
+<h3 id="如何使用？">如何使用？</h3>
+<p>用 node 开启 sse 服务</p>
 <pre><code class="hljs js"><span class="hljs-keyword">var</span> http = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;http&quot;</span>);
 
 http
@@ -312,7 +313,6 @@ http
     &#125;
   &#125;)
   .<span class="hljs-title function_">listen</span>(<span class="hljs-number">8080</span>, <span class="hljs-string">&quot;127.0.0.1&quot;</span>);</code></pre>
-
 <p>在 html 页面上开启 sse 并兼听事件</p>
 <pre><code class="hljs js"><span class="hljs-keyword">var</span> source = <span class="hljs-keyword">new</span> <span class="hljs-title class_">EventSource</span>(<span class="hljs-string">&quot;http://127.0.0.1:8080/stream&quot;</span>);
 <span class="hljs-keyword">var</span> div = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(<span class="hljs-string">&quot;example&quot;</span>);
@@ -335,7 +335,6 @@ source.<span class="hljs-title function_">addEventListener</span>(
 source.<span class="hljs-title function_">addEventListener</span>(<span class="hljs-string">&quot;getdata&quot;</span>, <span class="hljs-keyword">function</span> (<span class="hljs-params">event</span>) &#123;
   div.<span class="hljs-property">innerHTML</span> += <span class="hljs-string">&quot;&lt;p&gt;Data: &quot;</span> + event.<span class="hljs-property">data</span> + <span class="hljs-string">&quot;&lt;/p&gt;&quot;</span>;
 &#125;);</code></pre>
-
 <p>此时在页面上可以看到从服务器发来源源不断的数据</p>
 <p>参考文章：</p>
 <ol>

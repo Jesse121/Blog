@@ -271,10 +271,15 @@
 
     </div>
     <div class="e-content article-entry" itemprop="articleBody">
-       <h3 id="第一章-node-js-介绍"><a href="#第一章-node-js-介绍" class="headerlink" title="第一章 node.js 介绍"></a>第一章 node.js 介绍</h3><h4 id="非阻塞型-I-x2F-O-机制"><a href="#非阻塞型-I-x2F-O-机制" class="headerlink" title="非阻塞型 I&#x2F;O 机制"></a>非阻塞型 I&#x2F;O 机制</h4><p>当在访问数据库取得搜索结果的时候，在开始访问数据库之后，数据库返回结果之前，存在一段等待时间。<br>在传统的单线程处理机制中，在执行了访问数据库的代码之后，整个线程都将暂停下来，等待数据库返回查询结果之后才能继续执行后面的代码。这是 I&#x2F;O 型阻塞<br>node.js 中在执行了访问数据库的代码之后将立即执行其后面的代码段，把数据库返回的结果的处理代码放在回调函数中。这是非阻塞型 I&#x2F;O 机制</p>
+       <h3 id="第一章-node-js-介绍">第一章 node.js 介绍</h3>
+<h4 id="非阻塞型-I-O-机制">非阻塞型 I/O 机制</h4>
+<p>当在访问数据库取得搜索结果的时候，在开始访问数据库之后，数据库返回结果之前，存在一段等待时间。<br>
+在传统的单线程处理机制中，在执行了访问数据库的代码之后，整个线程都将暂停下来，等待数据库返回查询结果之后才能继续执行后面的代码。这是 I/O 型阻塞<br>
+node.js 中在执行了访问数据库的代码之后将立即执行其后面的代码段，把数据库返回的结果的处理代码放在回调函数中。这是非阻塞型 I/O 机制</p>
 <span id="more"></span>
-
-<h3 id="第三章-node-js-中的全局作用域及全局函数"><a href="#第三章-node-js-中的全局作用域及全局函数" class="headerlink" title="第三章 node.js 中的全局作用域及全局函数"></a>第三章 node.js 中的全局作用域及全局函数</h3><p>timer.unref()用于取消 setTimeout 或 setInterval 函数中指定的回调函数的调用<br>timer.ref()恢复 unref 方法取消的回调函数</p>
+<h3 id="第三章-node-js-中的全局作用域及全局函数">第三章 node.js 中的全局作用域及全局函数</h3>
+<p>timer.unref()用于取消 setTimeout 或 setInterval 函数中指定的回调函数的调用<br>
+timer.ref()恢复 unref 方法取消的回调函数</p>
 <pre><code class="hljs js"><span class="hljs-keyword">var</span> testFunction = <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) &#123;
   <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;aaa&quot;</span>);
 &#125;;
@@ -283,13 +288,23 @@
 timer.<span class="hljs-title function_">unref</span>(); <span class="hljs-comment">//没有输出</span>
 <span class="hljs-comment">//恢复定时器对象的回调函数调用</span>
 <span class="hljs-comment">// timer.ref()//有输出</span></code></pre>
-
-<p>在任何模块文件内部，可以使用<code>__filename</code>变量获取当前模块文件名<br>在任何模块文件内部，可以使用<code>__dirname</code>变量获取当前模块文件所在目录的完成绝对路径</p>
-<h4 id="EventEmitter-类"><a href="#EventEmitter-类" class="headerlink" title="EventEmitter 类"></a>EventEmitter 类</h4><p><img src="/blog/static/images/nodejs/1.png"></p>
-<p>emitter.setMaxListeners(n)<br>默认情况下，如果为特定事件添加了超过 10 个监听器，则 EventEmitter 会打印一个警告<br>emitter.setMaxListeners() 方法可以为指定的 EventEmitter 实例修改限制。 值设为 Infinity（或 0）表示不限制监听器的数量。</p>
-<p>当需要手工触发某个对象的一个事件时，使用 EventEmitter 类的 emit 方法<br>emitter.emit(event,[arg1],…)</p>
-<h3 id="第六章-在-Node-js-中操作文件系统"><a href="#第六章-在-Node-js-中操作文件系统" class="headerlink" title="第六章 在 Node.js 中操作文件系统"></a>第六章 在 Node.js 中操作文件系统</h3><p>在 node.js 中使用 fs 模块来实现所有有关文件及目录的创建写入及删除操作，所有的操作都有同步(有 Sync 后缀)和异步的方法</p>
-<h4 id="文件的完整读写"><a href="#文件的完整读写" class="headerlink" title="文件的完整读写"></a>文件的完整读写</h4><p>fs.readFile(path,[options],callback)<br>options 参数为一个对象，在该参数值对象中可以使用 flag 属性指定对该文件采取什么操作，默认是‘r’<br>可指定值如下所示<br><img src="/blog/static/images/nodejs/2.png"><br>在 options 参数值中可使用 encoding 属性指定使用何种编码格式来读取该文件，可指定‘utf8’,’ascii’,’base64’</p>
+<p>在任何模块文件内部，可以使用<code>__filename</code>变量获取当前模块文件名<br>
+在任何模块文件内部，可以使用<code>__dirname</code>变量获取当前模块文件所在目录的完成绝对路径</p>
+<h4 id="EventEmitter-类">EventEmitter 类</h4>
+<p><img src="/static/images/nodejs/1.png" alt="" referrerPolicy="no-referrer"></p>
+<p>emitter.setMaxListeners(n)<br>
+默认情况下，如果为特定事件添加了超过 10 个监听器，则 EventEmitter 会打印一个警告<br>
+emitter.setMaxListeners() 方法可以为指定的 EventEmitter 实例修改限制。 值设为 Infinity（或 0）表示不限制监听器的数量。</p>
+<p>当需要手工触发某个对象的一个事件时，使用 EventEmitter 类的 emit 方法<br>
+emitter.emit(event,[arg1],…)</p>
+<h3 id="第六章-在-Node-js-中操作文件系统">第六章 在 Node.js 中操作文件系统</h3>
+<p>在 node.js 中使用 fs 模块来实现所有有关文件及目录的创建写入及删除操作，所有的操作都有同步(有 Sync 后缀)和异步的方法</p>
+<h4 id="文件的完整读写">文件的完整读写</h4>
+<p>fs.readFile(path,[options],callback)<br>
+options 参数为一个对象，在该参数值对象中可以使用 flag 属性指定对该文件采取什么操作，默认是‘r’<br>
+可指定值如下所示<br>
+<img src="/static/images/nodejs/2.png" alt="" referrerPolicy="no-referrer"><br>
+在 options 参数值中可使用 encoding 属性指定使用何种编码格式来读取该文件，可指定‘utf8’,‘ascii’,‘base64’</p>
 <pre><code class="hljs plaintext">var fs = require(&#x27;fs&#x27;)
 fs.readFile(&#x27;./test.txt&#x27;,utf8&#x27;,function(err,data)&#123;
     if(err)&#123;
@@ -298,14 +313,14 @@ fs.readFile(&#x27;./test.txt&#x27;,utf8&#x27;,function(err,data)&#123;
         coonsole.log(data.toString())    //将buffer对象转换为字符串
     &#125;
 &#125;)</code></pre>
-
-<p>fs.writeFile(path,data,[options],callback)<br>data 参数用于指定需要写入的内容，可以是一个字符串或一个 buffer 对象<br>options 参数值为一个对象</p>
+<p>fs.writeFile(path,data,[options],callback)<br>
+data 参数用于指定需要写入的内容，可以是一个字符串或一个 buffer 对象<br>
+options 参数值为一个对象</p>
 <pre><code class="hljs plaintext">var options= &#123;
     flag:&#x27;w&#x27; //用于指定对该文件采取何种操作，默认&#x27;w&#x27;
     mode:0666 //用于指定当文件被打开时对该文件的读写权限，默认0666（可读写）
     encoding:&#x27;utf8&#x27;//用于指定使用何种编码格式来写入该文件
 &#125;</code></pre>
-
 <pre><code class="hljs plaintext">var fs = require(&#x27;fs&#x27;)
 fs.writeFile(&#x27;./message.txt&#x27;,&#x27;这是第一行\r\n这是第二行&#x27;,function(err)&#123;
     if(err)&#123;
@@ -314,7 +329,6 @@ fs.writeFile(&#x27;./message.txt&#x27;,&#x27;这是第一行\r\n这是第二行&
         console.log(&#x27;success&#x27;)
     &#125;
 &#125;)</code></pre>
-
 <p>将一个字符串或一个缓冲区的数据追加到一个文件底部时，可以使用 fs.appendFile()或者 fs.appendFileSync()</p>
 <pre><code class="hljs plaintext">var fs = require(&#x27;fs&#x27;)
 fs.appendFile(&#x27;./message.txt&#x27;,&#x27;\r\n这是追加的数据&#x27;,function(err)&#123;
@@ -324,8 +338,9 @@ fs.appendFile(&#x27;./message.txt&#x27;,&#x27;\r\n这是追加的数据&#x27;,fu
         console.log(&#x27;success&#x27;)
     &#125;
 &#125;)</code></pre>
-
-<h4 id="从指定位置处开始读写文件"><a href="#从指定位置处开始读写文件" class="headerlink" title="从指定位置处开始读写文件"></a>从指定位置处开始读写文件</h4><p>首先需要使用 fs 模块中的 open 方法或者 openSync 方法打开文件<br>fs.open(path,flags,[model],callback)</p>
+<h4 id="从指定位置处开始读写文件">从指定位置处开始读写文件</h4>
+<p>首先需要使用 fs 模块中的 open 方法或者 openSync 方法打开文件<br>
+fs.open(path,flags,[model],callback)</p>
 <pre><code class="hljs plaintext">var fs = require(&#x27;fs&#x27;)
 
 fs.open(&#x27;./message.txt&#x27;,&#x27;r&#x27;,function(err,fd)&#123;
@@ -335,19 +350,22 @@ fs.open(&#x27;./message.txt&#x27;,&#x27;r&#x27;,function(err,fd)&#123;
         console.log(fd)//文件描述符
     &#125;
 &#125;)</code></pre>
-
-<p>打开文件后可以在回调函数中使用 fs.read()从文件指定位置处读取文件，也可以使用 fs.write()方法从文件的指定处开始写入数据<br>read()从文件的指定位置出读取文件，一直读取到文件底部然后将读取到的内容输出到一个缓冲区</p>
+<p>打开文件后可以在回调函数中使用 fs.read()从文件指定位置处读取文件，也可以使用 fs.write()方法从文件的指定处开始写入数据<br>
+read()从文件的指定位置出读取文件，一直读取到文件底部然后将读取到的内容输出到一个缓冲区</p>
 <pre><code class="hljs plaintext">fs.read(fd,buffer,offset,length,position,callback)</code></pre>
-
-<p>fd 参数值必须为 open 方法所使用的回调函数中返回的文件描述符<br>offset 参数用于指定向缓存区中写入数据的开始写入位置（以字节为单位）<br>length 参数用于指定从文件中读取的字节数<br>position 参数用于指定读取文件时的开始位置</p>
+<p>fd 参数值必须为 open 方法所使用的回调函数中返回的文件描述符<br>
+offset 参数用于指定向缓存区中写入数据的开始写入位置（以字节为单位）<br>
+length 参数用于指定从文件中读取的字节数<br>
+position 参数用于指定读取文件时的开始位置</p>
 <pre><code class="hljs plaintext">fs.open(&#x27;./message.txt&#x27;,&#x27;r&#x27;,function (err,fd) &#123;
     var buf = new Buffer(255)
     fs.read(fd,buf,0,9,3,function (err,bytesRead,buffer) &#123;
         console.log(buffer.slice(0,bytesRead).toString())
     &#125;)
 &#125;)</code></pre>
-
-<p>再打开文件之后，可以使用 fs.write()或者 writeSync()方法从一个缓存区中读取数据并且从文件的指定出开始写入数据<br>fs.write(fd,buffer,offset,length,position,callback)<br>参数与 open 方法参数类似</p>
+<p>再打开文件之后，可以使用 fs.write()或者 writeSync()方法从一个缓存区中读取数据并且从文件的指定出开始写入数据<br>
+fs.write(fd,buffer,offset,length,position,callback)<br>
+参数与 open 方法参数类似</p>
 <pre><code class="hljs plaintext">var buf = new Buffer(&#x27;我喜爱编程&#x27;)
 fs.open(&#x27;./message.txt&#x27;,&#x27;w&#x27;,function (err,fd) &#123;
     fs.write(fd,buf,3,9,0,function (err,written,buffer) &#123;
@@ -357,8 +375,10 @@ fs.open(&#x27;./message.txt&#x27;,&#x27;w&#x27;,function (err,fd) &#123;
         console.log(&#x27;success&#x27;)
     &#125;)
 &#125;)</code></pre>
-
-<p>在 fs 模块中提供 close()与 closeSync()关闭文件<br>fs.close(fd,[callback])<br>在使用 write()方法在文件中写入数据时，操作系统先将该部分数据读取到内存中，在把数据写入到文件中，当数据读完并不代表数据已经写入，此时调用 close()方法会将部分数据丢失。<br>我们需要调用 fs.fsync 方法对文件进行同步操作</p>
+<p>在 fs 模块中提供 close()与 closeSync()关闭文件<br>
+fs.close(fd,[callback])<br>
+在使用 write()方法在文件中写入数据时，操作系统先将该部分数据读取到内存中，在把数据写入到文件中，当数据读完并不代表数据已经写入，此时调用 close()方法会将部分数据丢失。<br>
+我们需要调用 fs.fsync 方法对文件进行同步操作</p>
 <pre><code class="hljs plaintext">var buf = new Buffer(&#x27;我喜爱编程&#x27;)
 fs.open(&#x27;./message.txt&#x27;,&#x27;a&#x27;,function (err,fd) &#123;
     fs.write(fd,buf,12,3,null,function (err,written,buffer) &#123;
@@ -370,8 +390,9 @@ fs.open(&#x27;./message.txt&#x27;,&#x27;a&#x27;,function (err,fd) &#123;
         fs.close(fd)
     &#125;)
 &#125;)</code></pre>
-
-<h4 id="创建与读取目录"><a href="#创建与读取目录" class="headerlink" title="创建与读取目录"></a>创建与读取目录</h4><p>fs.mkdir(path,[mode],callback)创建目录<br>mode 参数值用于指定该目录的权限，默认值 0777</p>
+<h4 id="创建与读取目录">创建与读取目录</h4>
+<p>fs.mkdir(path,[mode],callback)创建目录<br>
+mode 参数值用于指定该目录的权限，默认值 0777</p>
 <pre><code class="hljs plaintext">fs.mkdir(&#x27;./test&#x27;,function (err) &#123;
     if(err)&#123;
         console.log(err)
@@ -379,7 +400,6 @@ fs.open(&#x27;./message.txt&#x27;,&#x27;a&#x27;,function (err,fd) &#123;
         console.log(&#x27;success&#x27;)
     &#125;
 &#125;)</code></pre>
-
 <p>fs.readdir(path,callback) 读取目录</p>
 <pre><code class="hljs plaintext">fs.readdir(&#x27;./&#x27;,function (err,files) &#123;
     if(err)&#123;
@@ -388,54 +408,74 @@ fs.open(&#x27;./message.txt&#x27;,&#x27;a&#x27;,function (err,fd) &#123;
         console.log(files)
     &#125;
 &#125;)</code></pre>
-
-<h4 id="查看与修改文件或目录的信息"><a href="#查看与修改文件或目录的信息" class="headerlink" title="查看与修改文件或目录的信息"></a>查看与修改文件或目录的信息</h4><p>在 fs 模块中，可以使用 stat 方法或 lstat 方法查看一个文件或目录的信息，区别是当查看符号链接文件时必须使用 lstat()<br>fs.stat(path,callback)</p>
+<h4 id="查看与修改文件或目录的信息">查看与修改文件或目录的信息</h4>
+<p>在 fs 模块中，可以使用 stat 方法或 lstat 方法查看一个文件或目录的信息，区别是当查看符号链接文件时必须使用 lstat()<br>
+fs.stat(path,callback)</p>
 <pre><code class="hljs plaintext">fs.stat(&#x27;./message.txt&#x27;,function (err,stats) &#123;
     console.log(stats)
 &#125;)</code></pre>
-
-<p>stats 对象拥有以下属性和方法<br><img src="/blog/static/images/nodejs/3.png"><br><img src="/blog/static/images/nodejs/4.png"><br><img src="/blog/static/images/nodejs/5.png"><br>在使用 open 方法打开文件并返回文件描述符后可以使用 fs.fstat()查看文件信息<br>fs.fstat(fd,callback)</p>
-<h4 id="检查文件是否存在"><a href="#检查文件是否存在" class="headerlink" title="检查文件是否存在"></a>检查文件是否存在</h4><p>fs.access(path[, mode], callback)<br>mode 默认为 fs.constants.F_OK。</p>
+<p>stats 对象拥有以下属性和方法<br>
+<img src="/static/images/nodejs/3.png" alt="" referrerPolicy="no-referrer"><br>
+<img src="/static/images/nodejs/4.png" alt="" referrerPolicy="no-referrer"><br>
+<img src="/static/images/nodejs/5.png" alt="" referrerPolicy="no-referrer"><br>
+在使用 open 方法打开文件并返回文件描述符后可以使用 fs.fstat()查看文件信息<br>
+fs.fstat(fd,callback)</p>
+<h4 id="检查文件是否存在">检查文件是否存在</h4>
+<p>fs.access(path[, mode], callback)<br>
+mode 默认为 fs.constants.F_OK。</p>
 <pre><code class="hljs plaintext">fs.access(file, (err) =&gt; &#123;
   console.log(`$&#123;file&#125; $&#123;err ? &#x27;不存在&#x27; : &#x27;存在&#x27;&#125;`);
 &#125;);</code></pre>
-
-<h4 id="获取文件或目录的绝对路径"><a href="#获取文件或目录的绝对路径" class="headerlink" title="获取文件或目录的绝对路径"></a>获取文件或目录的绝对路径</h4><p>fs.realpath(path[, options], callback)</p>
+<h4 id="获取文件或目录的绝对路径">获取文件或目录的绝对路径</h4>
+<p>fs.realpath(path[, options], callback)</p>
 <pre><code class="hljs plaintext">fs.realpath(&#x27;./message.txt&#x27;,function (err,resolvedPath) &#123;
     if(err)throw err
     console.log(resolvedPath)
 &#125;)</code></pre>
-
-<h4 id="修改文件访问时间及修改时间"><a href="#修改文件访问时间及修改时间" class="headerlink" title="修改文件访问时间及修改时间"></a>修改文件访问时间及修改时间</h4><p>fs.utimes(path, atime, mtime, callback)<br>atime 参数用于指定修改后的访问时间<br>mtime 参数用于指定修改后的修改时间</p>
+<h4 id="修改文件访问时间及修改时间">修改文件访问时间及修改时间</h4>
+<p>fs.utimes(path, atime, mtime, callback)<br>
+atime 参数用于指定修改后的访问时间<br>
+mtime 参数用于指定修改后的修改时间</p>
 <pre><code class="hljs plaintext">let file = &#x27;./message.txt&#x27;;
 fs.utimes(file,new Date(),new Date(),function (err) &#123;
     if(err)console.log(err)
     console.log(&#x27;success&#x27;)
 &#125;)</code></pre>
-
-<p>在 open 方法打开的文件并返回文件描述符后可以使用 fs.futimes()修改文件的修改时间或访问时间<br>fs.futimes(fd,atime,mtime,callback)</p>
-<h4 id="修改文件或目录的读写权限"><a href="#修改文件或目录的读写权限" class="headerlink" title="修改文件或目录的读写权限"></a>修改文件或目录的读写权限</h4><p>fs.chmod(path, mode, callback)</p>
+<p>在 open 方法打开的文件并返回文件描述符后可以使用 fs.futimes()修改文件的修改时间或访问时间<br>
+fs.futimes(fd,atime,mtime,callback)</p>
+<h4 id="修改文件或目录的读写权限">修改文件或目录的读写权限</h4>
+<p>fs.chmod(path, mode, callback)</p>
 <pre><code class="hljs plaintext">let file = &#x27;./message.txt&#x27;;
 fs.chmod(file,0755,function (err) &#123;
     if(err)console.log(err)
     else console.log(&#x27;success&#x27;)
 &#125;)</code></pre>
-
-<h4 id="移动文件或目录"><a href="#移动文件或目录" class="headerlink" title="移动文件或目录"></a>移动文件或目录</h4><p>fs.rename(oldPath, newPath, callback)</p>
+<h4 id="移动文件或目录">移动文件或目录</h4>
+<p>fs.rename(oldPath, newPath, callback)</p>
 <pre><code class="hljs plaintext">fs.rename(&#x27;旧文件.txt&#x27;, &#x27;新文件.txt&#x27;, (err) =&gt; &#123;
   if (err) throw err;
   console.log(&#x27;已完成重命名&#x27;);
 &#125;);</code></pre>
-
-<h4 id="创建与删除文件的硬链接"><a href="#创建与删除文件的硬链接" class="headerlink" title="创建与删除文件的硬链接"></a>创建与删除文件的硬链接</h4><p>可以使用 link 方法创建文件的硬链接(表面上是两份文件，其实是一份文件，修改一个会影响其他)<br>fs.link(srcpath,dstpath,callback)<br>srcpath 用于指定需要被创建硬链接的文件的完整路径及文件名<br>dstpath 用于指定被创建的硬链接的完整路径及文件名</p>
+<h4 id="创建与删除文件的硬链接">创建与删除文件的硬链接</h4>
+<p>可以使用 link 方法创建文件的硬链接(表面上是两份文件，其实是一份文件，修改一个会影响其他)<br>
+fs.link(srcpath,dstpath,callback)<br>
+srcpath 用于指定需要被创建硬链接的文件的完整路径及文件名<br>
+dstpath 用于指定被创建的硬链接的完整路径及文件名</p>
 <pre><code class="hljs plaintext">let file = &quot;./message.txt&quot;;
 fs.link(file, &quot;./test/test.txt&quot;, function(err) &#123;
     if (err) console.log(err);
     else console.log(&quot;success&quot;);
 &#125;);</code></pre>
-
-<p>删除硬链接<br>fs.ulink(path,callback)</p>
-<h4 id="创建与查看符号链接"><a href="#创建与查看符号链接" class="headerlink" title="创建与查看符号链接"></a>创建与查看符号链接</h4><p>可以使用 fs.symlink 方法来创建文件或目录的符号链接<br>fs.symlink(srcpath, dstpath,[type], callback)<br>srcpath 用于指定需要被创建符号链接的文件的完整路径及文件名<br>dstpath 用于指定被创建的符号链接的完整路径及文件名<br>type 参数用于指定为文件创建符号链接还是目录链接，默认 file<br>file:文件创建符号链接，<br>dir 目录创建符号链接（junction:windows 系统中的目录创建符号链接）</p>
+<p>删除硬链接<br>
+fs.ulink(path,callback)</p>
+<h4 id="创建与查看符号链接">创建与查看符号链接</h4>
+<p>可以使用 fs.symlink 方法来创建文件或目录的符号链接<br>
+fs.symlink(srcpath, dstpath,[type], callback)<br>
+srcpath 用于指定需要被创建符号链接的文件的完整路径及文件名<br>
+dstpath 用于指定被创建的符号链接的完整路径及文件名<br>
+type 参数用于指定为文件创建符号链接还是目录链接，默认 file<br>
+file:文件创建符号链接，<br>
+dir 目录创建符号链接（junction:windows 系统中的目录创建符号链接）</p>
 <pre><code class="hljs plaintext">fs.symlink(&#x27;./a&#x27;,&#x27;./b&#x27;,&#x27;dir&#x27;,function(err)&#123;
     if(err)&#123;
         console.log(err)
@@ -446,9 +486,11 @@ fs.link(file, &quot;./test/test.txt&quot;, function(err) &#123;
         &#125;)
     &#125;
 &#125;)</code></pre>
-
-<p>readlink 方法用于读取符号链接中所包含的另一个文件或目录的路径及文件名操作<br>fs.readlink(path,callback)</p>
-<h4 id="截断文件"><a href="#截断文件" class="headerlink" title="截断文件"></a>截断文件</h4><p>fs.trunkcate(filename,len,callback)<br>len 参数值为一个整数，用于指定需要被截断后的文件尺寸</p>
+<p>readlink 方法用于读取符号链接中所包含的另一个文件或目录的路径及文件名操作<br>
+fs.readlink(path,callback)</p>
+<h4 id="截断文件">截断文件</h4>
+<p>fs.trunkcate(filename,len,callback)<br>
+len 参数值为一个整数，用于指定需要被截断后的文件尺寸</p>
 <pre><code class="hljs plaintext">let file = &#x27;./message.txt&#x27;;
 fs.truncate(file,9,function(err)&#123;
     if(err)&#123;
@@ -460,9 +502,14 @@ fs.truncate(file,9,function(err)&#123;
 
     &#125;
 &#125;)</code></pre>
-
-<h4 id="删除空目录"><a href="#删除空目录" class="headerlink" title="删除空目录"></a>删除空目录</h4><p>fs.rmdir(path,callback)</p>
-<h4 id="监视文件或目录"><a href="#监视文件或目录" class="headerlink" title="监视文件或目录"></a>监视文件或目录</h4><p>fs.watchFile(filename[, options], listener)<br>监视 filename 的变化。 每当文件被访问时会调用 listener。<br>options 对象可以有一个布尔值的 persistent 属性，表明当文件正在被监视时，进程是否继续运行。<br>options 对象可以指定一个 interval 属性，指定目标每隔多少毫秒被轮询。 默认值为 { persistent: true, interval: 5007 }。<br>listener 有两个参数，当前的状态对象 curr 和以前的状态对象 prev：</p>
+<h4 id="删除空目录">删除空目录</h4>
+<p>fs.rmdir(path,callback)</p>
+<h4 id="监视文件或目录">监视文件或目录</h4>
+<p>fs.watchFile(filename[, options], listener)<br>
+监视 filename 的变化。 每当文件被访问时会调用 listener。<br>
+options 对象可以有一个布尔值的 persistent 属性，表明当文件正在被监视时，进程是否继续运行。<br>
+options 对象可以指定一个 interval 属性，指定目标每隔多少毫秒被轮询。 默认值为 { persistent: true, interval: 5007 }。<br>
+listener 有两个参数，当前的状态对象 curr 和以前的状态对象 prev：</p>
 <pre><code class="hljs plaintext">let file = &#x27;./message.txt&#x27;;
 fs.watchFile(file,function(curr,prev)&#123;
     if(Date.parse(prev.ctime)==0)&#123;
@@ -473,16 +520,21 @@ fs.watchFile(file,function(curr,prev)&#123;
         console.log(&#x27;文件被修改&#x27;)
     &#125;
 &#125;)</code></pre>
-
-<p>可以用 unwatchFile()取消当前文件发生变化时所要执行的处理<br>fs.unwatchFile(filename,[listener])<br>可以使用 watch()方法对文件或目录进行监视变化并执行某些处理<br>var watcher &#x3D; fs.watch(filename,[options],[listener])<br>listener 有两个参数 (eventType, filename)。 eventType 可能是 ‘rename’ 或 ‘change’，filename 是触发事件的文件名。</p>
+<p>可以用 unwatchFile()取消当前文件发生变化时所要执行的处理<br>
+fs.unwatchFile(filename,[listener])<br>
+可以使用 watch()方法对文件或目录进行监视变化并执行某些处理<br>
+var watcher = fs.watch(filename,[options],[listener])<br>
+listener 有两个参数 (eventType, filename)。 eventType 可能是 ‘rename’ 或 ‘change’，filename 是触发事件的文件名。</p>
 <pre><code class="hljs plaintext">let file = &#x27;./message.txt&#x27;;
 var watcher= fs.watch(file,function(event,filename)&#123;
     console.log(event)
     console.log(filename)
     watcher.close()//停止监控
 &#125;)</code></pre>
-
-<h4 id="使用-ReadStream-对象读取文件"><a href="#使用-ReadStream-对象读取文件" class="headerlink" title="使用 ReadStream 对象读取文件"></a>使用 ReadStream 对象读取文件</h4><p>fs.createReadStream(path,[options])<br>options 参数为一个对象可使用的属性如下<br><img src="/blog/static/images/nodejs/6.png"></p>
+<h4 id="使用-ReadStream-对象读取文件">使用 ReadStream 对象读取文件</h4>
+<p>fs.createReadStream(path,[options])<br>
+options 参数为一个对象可使用的属性如下<br>
+<img src="/static/images/nodejs/6.png" alt="" referrerPolicy="no-referrer"></p>
 <pre><code class="hljs plaintext">var file = fs.createReadStream(&#x27;./message.txt&#x27;,&#123;start:3,end:12&#125;)
 file.on(&#x27;open&#x27;,function(fd)&#123;//开始读取数据
     console.log(&#x27;start&#x27;)
@@ -501,28 +553,44 @@ file.on(&quot;error&quot;, function() &#123;//读取失败
 &#125;);
 file.pause()//暂停读取
 file.sume()//恢复读取</code></pre>
-
-<h4 id="使用-writeStream-对象写入文件"><a href="#使用-writeStream-对象写入文件" class="headerlink" title="使用 writeStream 对象写入文件"></a>使用 writeStream 对象写入文件</h4><p>fs.createWriteStream(path,[options])<br>options 对象属性<br>flags <string> 详见支持的 flag。默认为 ‘w’。<br>encoding <string> 默认为 ‘utf8’。<br>fd <integer> 默认为 null。文件描述符。<br>mode <integer> 默认为 0o666。<br>autoClose <boolean> 默认为 true。<br>start <integer>开始写入位置</p>
-<h4 id="对路径进行操作"><a href="#对路径进行操作" class="headerlink" title="对路径进行操作"></a>对路径进行操作</h4><p>path.normalize(path)<br><img src="/blog/static/images/nodejs/7.png"></p>
+<h4 id="使用-writeStream-对象写入文件">使用 writeStream 对象写入文件</h4>
+<p>fs.createWriteStream(path,[options])<br>
+options 对象属性<br>
+flags <string> 详见支持的 flag。默认为 ‘w’。<br>
+encoding <string> 默认为 ‘utf8’。<br>
+fd <integer> 默认为 null。文件描述符。<br>
+mode <integer> 默认为 0o666。<br>
+autoClose <boolean> 默认为 true。<br>
+start <integer>开始写入位置</p>
+<h4 id="对路径进行操作">对路径进行操作</h4>
+<p>path.normalize(path)<br>
+<img src="/static/images/nodejs/7.png" alt="" referrerPolicy="no-referrer"></p>
 <pre><code class="hljs plaintext">var fs = require(&quot;fs&quot;);
 var path = require(&quot;path&quot;);
 var myPath = path.normalize(&quot;.//a//b//c/e&quot;);
 console.log(myPath);// a/b/c/e</code></pre>
-
-<p>path.join([…paths])<br>使用平台特定的分隔符把所有 path 片段连接到一起，并规范化生成的路径</p>
+<p>path.join([…paths])<br>
+使用平台特定的分隔符把所有 path 片段连接到一起，并规范化生成的路径</p>
 <pre><code class="hljs plaintext">path.join(&#x27;/foo&#x27;, &#x27;bar&#x27;, &#x27;baz/asdf&#x27;, &#x27;quux&#x27;, &#x27;..&#x27;); // &#x27;/foo/bar/baz/asdf&#x27;</code></pre>
-
-<p>path.resolve([…paths])<br>将路径或路径片段处理成绝对路径。</p>
+<p>path.resolve([…paths])<br>
+将路径或路径片段处理成绝对路径。</p>
 <pre><code class="hljs plaintext">var path = require(&#x27;path&#x27;)
 var myPath = path.resolve(&#x27;a&#x27;,&#x27;b&#x27;,&#x27;c&#x27;)</code></pre>
-
-<p>path.dirname(p)<br>获取路径中的目录名<br>当参数为目录路径时，该方法返回该目录的上层目录<br>当参数为文件路径时，该方法返回该文件所在目录<br>path.basename(p,[ext])<br>用于获取一个路径中的文件名</p>
+<p>path.dirname§<br>
+获取路径中的目录名<br>
+当参数为目录路径时，该方法返回该目录的上层目录<br>
+当参数为文件路径时，该方法返回该文件所在目录<br>
+path.basename(p,[ext])<br>
+用于获取一个路径中的文件名</p>
 <pre><code class="hljs plaintext">path.basename(&#x27;./foo/bar/baz/index.html&#x27;,&#x27;.html&#x27;)// index</code></pre>
-
-<p>extname()获取一个路径中的扩展名<br>path.extname(p)<br>path.sep 属性为操作系统的文件分隔符<br>path.delimiter 属性为操作系统指定的路径分隔符</p>
-<h3 id="第-10-章-Node-js-中的错误处理与断言处理"><a href="#第-10-章-Node-js-中的错误处理与断言处理" class="headerlink" title="第 10 章 Node.js 中的错误处理与断言处理"></a>第 10 章 Node.js 中的错误处理与断言处理</h3><p>在 js 中虽然可以使用 try…catch 机制来捕捉同步方法中抛出的错误，但是不能使用 try…catch 机制来捕捉异步方法中抛出的错误</p>
-<h4 id="创建并使用-domain-对象"><a href="#创建并使用-domain-对象" class="headerlink" title="创建并使用 domain 对象"></a>创建并使用 domain 对象</h4><pre><code class="hljs plaintext">var domain = domain.create()</code></pre>
-
+<p>extname()获取一个路径中的扩展名<br>
+path.extname§<br>
+path.sep 属性为操作系统的文件分隔符<br>
+path.delimiter 属性为操作系统指定的路径分隔符</p>
+<h3 id="第-10-章-Node-js-中的错误处理与断言处理">第 10 章 Node.js 中的错误处理与断言处理</h3>
+<p>在 js 中虽然可以使用 try…catch 机制来捕捉同步方法中抛出的错误，但是不能使用 try…catch 机制来捕捉异步方法中抛出的错误</p>
+<h4 id="创建并使用-domain-对象">创建并使用 domain 对象</h4>
+<pre><code class="hljs plaintext">var domain = domain.create()</code></pre>
 <p>当该对象捕捉到任何错误时，触发该对象的 error 事件，</p>
 <pre><code class="hljs plaintext">var domain=require(&#x27;domain&#x27;);
 var fs=require(&#x27;fs&#x27;);
@@ -540,8 +608,8 @@ d.run(function() &#123;
         &#125;, 1000);
     &#125;);
 &#125;);</code></pre>
-
-<h4 id="绑定回调函数与拦截回调函数"><a href="#绑定回调函数与拦截回调函数" class="headerlink" title="绑定回调函数与拦截回调函数"></a>绑定回调函数与拦截回调函数</h4><p>domain.bind(),将回调函数与 domain 对象进行绑定，从而捕捉回调函数的错误</p>
+<h4 id="绑定回调函数与拦截回调函数">绑定回调函数与拦截回调函数</h4>
+<p>domain.bind(),将回调函数与 domain 对象进行绑定，从而捕捉回调函数的错误</p>
 <pre><code class="hljs plaintext">var fs=require(&#x27;fs&#x27;);
 var domain = require(&#x27;domain&#x27;);
 var d = domain.create();
@@ -553,7 +621,6 @@ d.on(&#x27;error&#x27;, function(err) &#123;
     console.log(&#x27;读取文件时发生以下错误：&#x27;);
     console.log(err);
 &#125;);</code></pre>
-
 <p>domain,intercept()方法拦截一个回调函数中的错误，该方法与 bind 的区别在于回调函数中必须使用 throw 关键字抛出错误</p>
 <pre><code class="hljs plaintext">var fs=require(&#x27;fs&#x27;);
 var domain = require(&#x27;domain&#x27;);
@@ -570,7 +637,7 @@ d.on(&#x27;error&#x27;, function(err) &#123;
   <div class="widget-wrap" id="toc-wrap">
     <h3 class="widget-title"><i class="fa fa-toc"></i> 文章目录</h3>
     <div class="widget">
-      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E7%AB%A0-node-js-%E4%BB%8B%E7%BB%8D"><span class="toc-text">第一章 node.js 介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%9D%9E%E9%98%BB%E5%A1%9E%E5%9E%8B-I-x2F-O-%E6%9C%BA%E5%88%B6"><span class="toc-text">非阻塞型 I&#x2F;O 机制</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E4%B8%89%E7%AB%A0-node-js-%E4%B8%AD%E7%9A%84%E5%85%A8%E5%B1%80%E4%BD%9C%E7%94%A8%E5%9F%9F%E5%8F%8A%E5%85%A8%E5%B1%80%E5%87%BD%E6%95%B0"><span class="toc-text">第三章 node.js 中的全局作用域及全局函数</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#EventEmitter-%E7%B1%BB"><span class="toc-text">EventEmitter 类</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E5%85%AD%E7%AB%A0-%E5%9C%A8-Node-js-%E4%B8%AD%E6%93%8D%E4%BD%9C%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F"><span class="toc-text">第六章 在 Node.js 中操作文件系统</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E7%9A%84%E5%AE%8C%E6%95%B4%E8%AF%BB%E5%86%99"><span class="toc-text">文件的完整读写</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BB%8E%E6%8C%87%E5%AE%9A%E4%BD%8D%E7%BD%AE%E5%A4%84%E5%BC%80%E5%A7%8B%E8%AF%BB%E5%86%99%E6%96%87%E4%BB%B6"><span class="toc-text">从指定位置处开始读写文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E4%B8%8E%E8%AF%BB%E5%8F%96%E7%9B%AE%E5%BD%95"><span class="toc-text">创建与读取目录</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E4%B8%8E%E4%BF%AE%E6%94%B9%E6%96%87%E4%BB%B6%E6%88%96%E7%9B%AE%E5%BD%95%E7%9A%84%E4%BF%A1%E6%81%AF"><span class="toc-text">查看与修改文件或目录的信息</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A3%80%E6%9F%A5%E6%96%87%E4%BB%B6%E6%98%AF%E5%90%A6%E5%AD%98%E5%9C%A8"><span class="toc-text">检查文件是否存在</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%8E%B7%E5%8F%96%E6%96%87%E4%BB%B6%E6%88%96%E7%9B%AE%E5%BD%95%E7%9A%84%E7%BB%9D%E5%AF%B9%E8%B7%AF%E5%BE%84"><span class="toc-text">获取文件或目录的绝对路径</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9%E6%96%87%E4%BB%B6%E8%AE%BF%E9%97%AE%E6%97%B6%E9%97%B4%E5%8F%8A%E4%BF%AE%E6%94%B9%E6%97%B6%E9%97%B4"><span class="toc-text">修改文件访问时间及修改时间</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9%E6%96%87%E4%BB%B6%E6%88%96%E7%9B%AE%E5%BD%95%E7%9A%84%E8%AF%BB%E5%86%99%E6%9D%83%E9%99%90"><span class="toc-text">修改文件或目录的读写权限</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%A7%BB%E5%8A%A8%E6%96%87%E4%BB%B6%E6%88%96%E7%9B%AE%E5%BD%95"><span class="toc-text">移动文件或目录</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E4%B8%8E%E5%88%A0%E9%99%A4%E6%96%87%E4%BB%B6%E7%9A%84%E7%A1%AC%E9%93%BE%E6%8E%A5"><span class="toc-text">创建与删除文件的硬链接</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E4%B8%8E%E6%9F%A5%E7%9C%8B%E7%AC%A6%E5%8F%B7%E9%93%BE%E6%8E%A5"><span class="toc-text">创建与查看符号链接</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%88%AA%E6%96%AD%E6%96%87%E4%BB%B6"><span class="toc-text">截断文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%A0%E9%99%A4%E7%A9%BA%E7%9B%AE%E5%BD%95"><span class="toc-text">删除空目录</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%9B%91%E8%A7%86%E6%96%87%E4%BB%B6%E6%88%96%E7%9B%AE%E5%BD%95"><span class="toc-text">监视文件或目录</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8-ReadStream-%E5%AF%B9%E8%B1%A1%E8%AF%BB%E5%8F%96%E6%96%87%E4%BB%B6"><span class="toc-text">使用 ReadStream 对象读取文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8-writeStream-%E5%AF%B9%E8%B1%A1%E5%86%99%E5%85%A5%E6%96%87%E4%BB%B6"><span class="toc-text">使用 writeStream 对象写入文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AF%B9%E8%B7%AF%E5%BE%84%E8%BF%9B%E8%A1%8C%E6%93%8D%E4%BD%9C"><span class="toc-text">对路径进行操作</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC-10-%E7%AB%A0-Node-js-%E4%B8%AD%E7%9A%84%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86%E4%B8%8E%E6%96%AD%E8%A8%80%E5%A4%84%E7%90%86"><span class="toc-text">第 10 章 Node.js 中的错误处理与断言处理</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E5%B9%B6%E4%BD%BF%E7%94%A8-domain-%E5%AF%B9%E8%B1%A1"><span class="toc-text">创建并使用 domain 对象</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BB%91%E5%AE%9A%E5%9B%9E%E8%B0%83%E5%87%BD%E6%95%B0%E4%B8%8E%E6%8B%A6%E6%88%AA%E5%9B%9E%E8%B0%83%E5%87%BD%E6%95%B0"><span class="toc-text">绑定回调函数与拦截回调函数</span></a></li></ol></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E7%AB%A0-node-js-%E4%BB%8B%E7%BB%8D"><span class="toc-text">第一章 node.js 介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%9D%9E%E9%98%BB%E5%A1%9E%E5%9E%8B-I-O-%E6%9C%BA%E5%88%B6"><span class="toc-text">非阻塞型 I&#x2F;O 机制</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E4%B8%89%E7%AB%A0-node-js-%E4%B8%AD%E7%9A%84%E5%85%A8%E5%B1%80%E4%BD%9C%E7%94%A8%E5%9F%9F%E5%8F%8A%E5%85%A8%E5%B1%80%E5%87%BD%E6%95%B0"><span class="toc-text">第三章 node.js 中的全局作用域及全局函数</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#EventEmitter-%E7%B1%BB"><span class="toc-text">EventEmitter 类</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E5%85%AD%E7%AB%A0-%E5%9C%A8-Node-js-%E4%B8%AD%E6%93%8D%E4%BD%9C%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F"><span class="toc-text">第六章 在 Node.js 中操作文件系统</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E7%9A%84%E5%AE%8C%E6%95%B4%E8%AF%BB%E5%86%99"><span class="toc-text">文件的完整读写</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BB%8E%E6%8C%87%E5%AE%9A%E4%BD%8D%E7%BD%AE%E5%A4%84%E5%BC%80%E5%A7%8B%E8%AF%BB%E5%86%99%E6%96%87%E4%BB%B6"><span class="toc-text">从指定位置处开始读写文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E4%B8%8E%E8%AF%BB%E5%8F%96%E7%9B%AE%E5%BD%95"><span class="toc-text">创建与读取目录</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E4%B8%8E%E4%BF%AE%E6%94%B9%E6%96%87%E4%BB%B6%E6%88%96%E7%9B%AE%E5%BD%95%E7%9A%84%E4%BF%A1%E6%81%AF"><span class="toc-text">查看与修改文件或目录的信息</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A3%80%E6%9F%A5%E6%96%87%E4%BB%B6%E6%98%AF%E5%90%A6%E5%AD%98%E5%9C%A8"><span class="toc-text">检查文件是否存在</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%8E%B7%E5%8F%96%E6%96%87%E4%BB%B6%E6%88%96%E7%9B%AE%E5%BD%95%E7%9A%84%E7%BB%9D%E5%AF%B9%E8%B7%AF%E5%BE%84"><span class="toc-text">获取文件或目录的绝对路径</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9%E6%96%87%E4%BB%B6%E8%AE%BF%E9%97%AE%E6%97%B6%E9%97%B4%E5%8F%8A%E4%BF%AE%E6%94%B9%E6%97%B6%E9%97%B4"><span class="toc-text">修改文件访问时间及修改时间</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9%E6%96%87%E4%BB%B6%E6%88%96%E7%9B%AE%E5%BD%95%E7%9A%84%E8%AF%BB%E5%86%99%E6%9D%83%E9%99%90"><span class="toc-text">修改文件或目录的读写权限</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%A7%BB%E5%8A%A8%E6%96%87%E4%BB%B6%E6%88%96%E7%9B%AE%E5%BD%95"><span class="toc-text">移动文件或目录</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E4%B8%8E%E5%88%A0%E9%99%A4%E6%96%87%E4%BB%B6%E7%9A%84%E7%A1%AC%E9%93%BE%E6%8E%A5"><span class="toc-text">创建与删除文件的硬链接</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E4%B8%8E%E6%9F%A5%E7%9C%8B%E7%AC%A6%E5%8F%B7%E9%93%BE%E6%8E%A5"><span class="toc-text">创建与查看符号链接</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%88%AA%E6%96%AD%E6%96%87%E4%BB%B6"><span class="toc-text">截断文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%A0%E9%99%A4%E7%A9%BA%E7%9B%AE%E5%BD%95"><span class="toc-text">删除空目录</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%9B%91%E8%A7%86%E6%96%87%E4%BB%B6%E6%88%96%E7%9B%AE%E5%BD%95"><span class="toc-text">监视文件或目录</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8-ReadStream-%E5%AF%B9%E8%B1%A1%E8%AF%BB%E5%8F%96%E6%96%87%E4%BB%B6"><span class="toc-text">使用 ReadStream 对象读取文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8-writeStream-%E5%AF%B9%E8%B1%A1%E5%86%99%E5%85%A5%E6%96%87%E4%BB%B6"><span class="toc-text">使用 writeStream 对象写入文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AF%B9%E8%B7%AF%E5%BE%84%E8%BF%9B%E8%A1%8C%E6%93%8D%E4%BD%9C"><span class="toc-text">对路径进行操作</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC-10-%E7%AB%A0-Node-js-%E4%B8%AD%E7%9A%84%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86%E4%B8%8E%E6%96%AD%E8%A8%80%E5%A4%84%E7%90%86"><span class="toc-text">第 10 章 Node.js 中的错误处理与断言处理</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E5%B9%B6%E4%BD%BF%E7%94%A8-domain-%E5%AF%B9%E8%B1%A1"><span class="toc-text">创建并使用 domain 对象</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BB%91%E5%AE%9A%E5%9B%9E%E8%B0%83%E5%87%BD%E6%95%B0%E4%B8%8E%E6%8B%A6%E6%88%AA%E5%9B%9E%E8%B0%83%E5%87%BD%E6%95%B0"><span class="toc-text">绑定回调函数与拦截回调函数</span></a></li></ol></li></ol>
     </div>
   </div>
 

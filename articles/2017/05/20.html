@@ -273,14 +273,17 @@
     <div class="e-content article-entry" itemprop="articleBody">
        <p>在前端开发中经常会碰到各种类型布局的网页，这要求我们对css网页布局非常熟悉。其中水平垂直居中布局，多列布局等经常会被使用到，今天就来解决一下css布局方面的问题。</p>
 <span id="more"></span>
-<h3 id="水平垂直居中的几种方法"><a href="#水平垂直居中的几种方法" class="headerlink" title="水平垂直居中的几种方法"></a>水平垂直居中的几种方法</h3><p>说到水平垂直居中布局我们一般会立马想到以下几种情况：<br>实验参数设置</p>
+<h3 id="水平垂直居中的几种方法">水平垂直居中的几种方法</h3>
+<p>说到水平垂直居中布局我们一般会立马想到以下几种情况：<br>
+实验参数设置</p>
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;container&quot;</span>&gt;</span>
     123
     <span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;inner&quot;</span>&gt;</span>456<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;inner&quot;</span>&gt;</span>789<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">img</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;inner&quot;</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;img/1.jpg&quot;</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
-<h4 id="未脱离文档流时"><a href="#未脱离文档流时" class="headerlink" title="未脱离文档流时"></a>未脱离文档流时</h4><p><strong>文本元素</strong></p>
+<h4 id="未脱离文档流时">未脱离文档流时</h4>
+<p><strong>文本元素</strong></p>
 <pre><code class="hljs css"><span class="hljs-comment">/*方法一：*/</span>
 <span class="hljs-comment">/*配合单行文字使用*/</span>
 <span class="hljs-selector-class">.container</span>&#123;
@@ -350,7 +353,8 @@
     <span class="hljs-attribute">width</span>:<span class="hljs-number">200px</span>; <span class="hljs-comment">/*需要给子元素一个宽度*/</span>
     <span class="hljs-attribute">margin</span>: auto;
 &#125;</code></pre>
-<p><strong>替换元素</strong><br>常见的替换元素有：<code>&lt;img&gt; &lt;input&gt; &lt;textarea&gt; &lt;select&gt; &lt;button&gt;</code></p>
+<p><strong>替换元素</strong><br>
+常见的替换元素有：<code>&lt;img&gt; &lt;input&gt; &lt;textarea&gt; &lt;select&gt; &lt;button&gt;</code></p>
 <pre><code class="hljs css"><span class="hljs-comment">/*方法一：*/</span>
 <span class="hljs-selector-class">.container</span>&#123;
     <span class="hljs-attribute">height</span>: <span class="hljs-number">400px</span>;
@@ -402,8 +406,11 @@
     -ms-<span class="hljs-attribute">flex</span>-pack: center;
     -webkit-<span class="hljs-attribute">justify-content</span>: center;
 &#125;</code></pre>
-<p>优点：同样的代码解决各种问题<br>缺点：IE8及以下不兼容</p>
-<h4 id="脱离文档流时"><a href="#脱离文档流时" class="headerlink" title="脱离文档流时"></a>脱离文档流时</h4><p><strong>行内元素、块状元素、替换元素</strong><br>由于行内元素加上position:absolute;之后会生成一个块级框，与块状元素类似，其高宽可控</p>
+<p>优点：同样的代码解决各种问题<br>
+缺点：IE8及以下不兼容</p>
+<h4 id="脱离文档流时">脱离文档流时</h4>
+<p><strong>行内元素、块状元素、替换元素</strong><br>
+由于行内元素加上position:absolute;之后会生成一个块级框，与块状元素类似，其高宽可控</p>
 <pre><code class="hljs css"><span class="hljs-comment">/*当知道子元素高宽时*/</span>
 <span class="hljs-selector-class">.container</span>&#123;<span class="hljs-attribute">position</span>:relative;&#125;
 <span class="hljs-selector-class">.inner</span>&#123; 
@@ -437,8 +444,10 @@
     -ms-<span class="hljs-attribute">transform</span>: <span class="hljs-built_in">translate</span>(-<span class="hljs-number">50%</span>,-<span class="hljs-number">50%</span>);
     <span class="hljs-attribute">transform</span>: <span class="hljs-built_in">translate</span>(-<span class="hljs-number">50%</span>,-<span class="hljs-number">50%</span>);
 &#125;</code></pre>
-
-<h3 id="常见的几种页面布局"><a href="#常见的几种页面布局" class="headerlink" title="常见的几种页面布局"></a>常见的几种页面布局</h3><h4 id="固定布局"><a href="#固定布局" class="headerlink" title="固定布局"></a>固定布局</h4><h5 id="负边距除去列表右边框"><a href="#负边距除去列表右边框" class="headerlink" title="负边距除去列表右边框"></a>负边距除去列表右边框</h5><pre><code class="hljs plaintext">&lt;style type=&quot;text/css&quot;&gt;
+<h3 id="常见的几种页面布局">常见的几种页面布局</h3>
+<h4 id="固定布局">固定布局</h4>
+<h5 id="负边距除去列表右边框">负边距除去列表右边框</h5>
+<pre><code class="hljs plaintext">&lt;style type=&quot;text/css&quot;&gt;
 #div1 &#123; width: 580px; height: 380px; margin: 0 auto; border: 3px solid lightblue; overflow: hidden; margin-top: 10px; &#125;
 .box &#123; width: 180px; height: 180px; margin: 0 20px 20px 0; background: lightgreen; float: left; &#125;
 #div2 &#123; margin-right: -20px; /*通过在外面包裹的div上添加负边距，除去列表的右边框*/&#125;
@@ -453,11 +462,12 @@
         &lt;div class=&quot;box&quot;&gt;&lt;/div&gt;
     &lt;/div&gt;
 &lt;/div&gt;</code></pre>
-<h5 id="双飞翼布局"><a href="#双飞翼布局" class="headerlink" title="双飞翼布局"></a>双飞翼布局</h5><ol>
-<li>三列布局，中间宽度自适应，两边定宽； </li>
-<li>中间栏要在浏览器中优先展示渲染； </li>
+<h5 id="双飞翼布局">双飞翼布局</h5>
+<ol>
+<li>三列布局，中间宽度自适应，两边定宽；</li>
+<li>中间栏要在浏览器中优先展示渲染；</li>
 <li>允许任意列的高度最高；</li>
-<li>要求只用一个额外的DIV标签； </li>
+<li>要求只用一个额外的DIV标签；</li>
 <li>要求用最简单的CSS、最少的HACK语句；</li>
 </ol>
 <pre><code class="hljs html">body,html &#123; height: 100%; font: 20px/40px &quot;microsoft yahei&quot;; color: white; &#125;
@@ -497,18 +507,31 @@
         footer
     <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
-<h4 id="流式布局"><a href="#流式布局" class="headerlink" title="流式布局"></a>流式布局</h4><p>网页中主要的划分区域的尺寸使用百分数（搭配min-*、max-*属性使用）图片也作类似处理（width:100%, max-width一般设定为图片本身的尺寸，防止被拉伸而失真）。这种布局方式在Web前端开发的早期历史上，用来应对不同尺寸的PC屏幕，在当今的移动端开发也是常用布局方式。<br>缺点：宽度使用百分比定义，但是高度和文字大小等大都是用px来固定(现在用em,rem)，所以在大屏幕的手机下显示效果会变成有些页面元素宽度被拉的很长，但是高度、文字大小还是和原来一样（即，这些东西无法变得“流式”），显示非常不协调。</p>
-<h4 id="弹性布局"><a href="#弹性布局" class="headerlink" title="弹性布局"></a>弹性布局</h4><p>由于前人总结的很好，我就不造轮子了<br><a target="_blank" rel="noopener" href="https://juejin.im/post/58e3a5a0a0bb9f0069fc16bb">一劳永逸的搞定 flex 布局</a><br>由于flex是css3的属性，低版本浏览器不兼容</p>
-<h4 id="瀑布流布局"><a href="#瀑布流布局" class="headerlink" title="瀑布流布局"></a>瀑布流布局</h4><p><a target="_blank" rel="noopener" href="http://masonry.desandro.com/">masonry</a>实现瀑布流布局<br>具体使用方法可参考官网教程</p>
-<h4 id="响应式布局"><a href="#响应式布局" class="headerlink" title="响应式布局"></a>响应式布局</h4><pre><code class="hljs css"><span class="hljs-keyword">@media</span> screen <span class="hljs-keyword">and</span> (<span class="hljs-attribute">max-width</span>:<span class="hljs-number">320px</span>)&#123; <span class="hljs-comment">/*视窗&lt;=320px*/</span>
+<h4 id="流式布局">流式布局</h4>
+<p>网页中主要的划分区域的尺寸使用百分数（搭配min-*、max-*属性使用）图片也作类似处理（width:100%, max-width一般设定为图片本身的尺寸，防止被拉伸而失真）。这种布局方式在Web前端开发的早期历史上，用来应对不同尺寸的PC屏幕，在当今的移动端开发也是常用布局方式。<br>
+缺点：宽度使用百分比定义，但是高度和文字大小等大都是用px来固定(现在用em,rem)，所以在大屏幕的手机下显示效果会变成有些页面元素宽度被拉的很长，但是高度、文字大小还是和原来一样（即，这些东西无法变得“流式”），显示非常不协调。</p>
+<h4 id="弹性布局">弹性布局</h4>
+<p>由于前人总结的很好，我就不造轮子了<br>
+<a target="_blank" rel="noopener" href="https://juejin.im/post/58e3a5a0a0bb9f0069fc16bb">一劳永逸的搞定 flex 布局</a><br>
+由于flex是css3的属性，低版本浏览器不兼容</p>
+<h4 id="瀑布流布局">瀑布流布局</h4>
+<p><a target="_blank" rel="noopener" href="http://masonry.desandro.com/">masonry</a>实现瀑布流布局<br>
+具体使用方法可参考官网教程</p>
+<h4 id="响应式布局">响应式布局</h4>
+<pre><code class="hljs css"><span class="hljs-keyword">@media</span> screen <span class="hljs-keyword">and</span> (<span class="hljs-attribute">max-width</span>:<span class="hljs-number">320px</span>)&#123; <span class="hljs-comment">/*视窗&lt;=320px*/</span>
   <span class="hljs-comment">/*css code */</span>
 &#125;  
 <span class="hljs-keyword">@media</span> screen <span class="hljs-keyword">and</span> (<span class="hljs-attribute">min-width</span>:<span class="hljs-number">769px</span>)<span class="hljs-keyword">and</span>(<span class="hljs-attribute">max-width</span>:<span class="hljs-number">1000px</span>)&#123; <span class="hljs-comment">/* 769px&lt;=视窗&lt;=1000px */</span>
   <span class="hljs-comment">/*css code */</span>
 &#125;</code></pre>
-<h3 id="清除浮动的几种方法"><a href="#清除浮动的几种方法" class="headerlink" title="清除浮动的几种方法"></a>清除浮动的几种方法</h3><h4 id="空标签"><a href="#空标签" class="headerlink" title="空标签"></a>空标签</h4><pre><code class="hljs plaintext">&lt;div style=&quot;clear:both;&quot;&gt;&lt;/div&gt;</code></pre>
-<p>优点：简单明了<br>缺点：增加无意义的空标签，违背了结构表现分离，给后期维护带来了问题。</p>
-<h4 id="利用BFC"><a href="#利用BFC" class="headerlink" title="利用BFC"></a>利用BFC</h4><p>BFC(Block formatting context)直译为”块级格式化上下文”。它是一个独立的渲染区域，只有Block-level box参与， 它规定了内部的Block-level Box如何布局，并且与这个区域外部毫不相干。<br>BFC布局规则：</p>
+<h3 id="清除浮动的几种方法">清除浮动的几种方法</h3>
+<h4 id="空标签">空标签</h4>
+<pre><code class="hljs plaintext">&lt;div style=&quot;clear:both;&quot;&gt;&lt;/div&gt;</code></pre>
+<p>优点：简单明了<br>
+缺点：增加无意义的空标签，违背了结构表现分离，给后期维护带来了问题。</p>
+<h4 id="利用BFC">利用BFC</h4>
+<p>BFC(Block formatting context)直译为&quot;块级格式化上下文&quot;。它是一个独立的渲染区域，只有Block-level box参与， 它规定了内部的Block-level Box如何布局，并且与这个区域外部毫不相干。<br>
+BFC布局规则：</p>
 <ul>
 <li>内部的Box会在垂直方向，一个接一个地放置。</li>
 <li>Box垂直方向的距离由margin决定。属于同一个BFC的两个相邻Box的margin会发生重叠</li>
@@ -523,7 +546,8 @@ float属性不为none
 overflow不为visible
 position为absolute或fixed
 display为inline-block, table-cell, table-caption, flex, inline-flex中任何一个</code></pre>
-<h4 id="after伪类样式"><a href="#after伪类样式" class="headerlink" title="after伪类样式"></a>after伪类样式</h4><p>给父元素增加clearfix类即可,推荐使用</p>
+<h4 id="after伪类样式">after伪类样式</h4>
+<p>给父元素增加clearfix类即可,推荐使用</p>
 <pre><code class="hljs plaintext">.clearfix:after&#123;
     content: &quot;.&quot;;
     display: block;
@@ -531,7 +555,6 @@ display为inline-block, table-cell, table-caption, flex, inline-flex中任何一
     clear: both;
     visibility: hidden;
 &#125;</code></pre>
-
 <p>参考文章：</p>
 <ol>
 <li><a target="_blank" rel="noopener" href="http://www.cnblogs.com/best/p/6136165.html">CSS3与页面布局学习总结（四）——页面布局大全</a></li>

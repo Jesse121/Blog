@@ -273,15 +273,16 @@
     <div class="e-content article-entry" itemprop="articleBody">
        <p>在开发过程中我们一般都会用到git管理代码，在git commit提交代码时我们一般对git commit message随便写点简单的描述，可是随着项目参与人数的增多，发现提交的commit记录越来越杂乱，不便查阅，在网上找了下解决方案，总结一下方便在公司项目中运用。</p>
 <span id="more"></span>
-
-<h3 id="commit-message-格式"><a href="#commit-message-格式" class="headerlink" title="commit message 格式"></a>commit message 格式</h3><p>目前大家比较认可的是<a target="_blank" rel="noopener" href="https://github.com/angular/angular.js/blob/master/DEVELOPERS.md#-git-commit-guidelines">Angular团队的提交规范</a>，很多工具也是基于此规范开发的。该提交规范格式如下:</p>
+<h3 id="commit-message-格式">commit message 格式</h3>
+<p>目前大家比较认可的是<a target="_blank" rel="noopener" href="https://github.com/angular/angular.js/blob/master/DEVELOPERS.md#-git-commit-guidelines">Angular团队的提交规范</a>，很多工具也是基于此规范开发的。该提交规范格式如下:</p>
 <pre><code class="hljs plaintext">&lt;type&gt;(&lt;scope&gt;): &lt;subject&gt;
 &lt;BLANK LINE&gt;
 &lt;body&gt;
 &lt;BLANK LINE&gt;
 &lt;footer&gt;</code></pre>
 <p>每一个commit message由header（必填）、body（选填）和footer（选填）组成，header部分包括三个字段：type（必填）、scope（选填）和 subject（必填）。为了方便浏览，每一行的commit message不应超过100个字符。</p>
-<p><strong>type</strong><br>type 用于说明提交的commit的类别，有一下几种类型：</p>
+<p><strong>type</strong><br>
+type 用于说明提交的commit的类别，有一下几种类型：</p>
 <ul>
 <li>feat：添加新功能（feature）</li>
 <li>fix：改bug</li>
@@ -292,13 +293,26 @@
 <li>test：增加测试</li>
 <li>chore：构建过程或辅助工具的变动</li>
 </ul>
-<p><strong>scope</strong><br>本次改动影响的范围<br><strong>subject</strong><br>对本次改动的简单描述<br><strong>body</strong><br>commit 具体修改内容的详细描述, 可以分为多行<br><strong>footer</strong><br>一些备注, 通常是 BREAKING CHANGE 或修复的 bug 的链接.</p>
-<h3 id="如何规范提交记录"><a href="#如何规范提交记录" class="headerlink" title="如何规范提交记录"></a>如何规范提交记录</h3><p>上面介绍的是通用的git commit message规范，可是在git commit的时候如何用这写规范来写呢？</p>
+<p><strong>scope</strong><br>
+本次改动影响的范围<br>
+<strong>subject</strong><br>
+对本次改动的简单描述<br>
+<strong>body</strong><br>
+commit 具体修改内容的详细描述, 可以分为多行<br>
+<strong>footer</strong><br>
+一些备注, 通常是 BREAKING CHANGE 或修复的 bug 的链接.</p>
+<h3 id="如何规范提交记录">如何规范提交记录</h3>
+<p>上面介绍的是通用的git commit message规范，可是在git commit的时候如何用这写规范来写呢？</p>
 <p>如果是个人项目我们可以为 git 设置 commit template, 每次 git commit 的时候在 vim 中自动带上模板信息, 自己只要按照模板信息填写就行</p>
 <ol>
-<li>修改~&#x2F;.gitconfig(.git&#x2F;config文件), 添加:<pre><code class="hljs plaintext">[commit]
-    template = .git_template</code></pre></li>
-<li>新建.git_template 内容可如下：<pre><code class="hljs plaintext"># head: &lt;type&gt;(&lt;scope&gt;): &lt;subject&gt;
+<li>修改~/.gitconfig(.git/config文件), 添加:</li>
+</ol>
+<pre><code class="hljs plaintext">[commit]
+    template = .git_template</code></pre>
+<ol start="2">
+<li>新建.git_template 内容可如下：</li>
+</ol>
+<pre><code class="hljs plaintext"># head: &lt;type&gt;(&lt;scope&gt;): &lt;subject&gt;
 # - type: feat, fix, docs, style, refactor, test, chore
 # - scope: can be empty (eg. if the change is a global or difficult to assign to a single component)
 # - subject: start with verb (such as &#x27;change&#x27;), 50-character line
@@ -312,16 +326,24 @@
 # - Include a link to the ticket, if any.
 # - BREAKING CHANGE
 #</code></pre>
-这样在项目中执行git commit时vim编辑会带上这些信息</li>
-</ol>
-<p>如果我们的项目是多人参与的项目，这样就不合适了。这里我们推荐使用<a target="_blank" rel="noopener" href="https://www.npmjs.com/package/cz-customizable">cz-customizable</a>工具生成和约束commit message<br>cz-customizable有两种使用方式，这里我们采用官方推荐的第二种方式</p>
+<p>这样在项目中执行git commit时vim编辑会带上这些信息</p>
+<p>如果我们的项目是多人参与的项目，这样就不合适了。这里我们推荐使用<a target="_blank" rel="noopener" href="https://www.npmjs.com/package/cz-customizable">cz-customizable</a>工具生成和约束commit message<br>
+cz-customizable有两种使用方式，这里我们采用官方推荐的第二种方式</p>
 <ol>
-<li>安装cz-customizable<pre><code class="hljs plaintext">npm install  cz-customizable --save-dev</code></pre></li>
-<li>修改package.json文件，在scripts中加入commit命令<pre><code class="hljs plaintext">&quot;scripts&quot; : &#123;
+<li>安装cz-customizable</li>
+</ol>
+<pre><code class="hljs plaintext">npm install  cz-customizable --save-dev</code></pre>
+<ol start="2">
+<li>修改package.json文件，在scripts中加入commit命令</li>
+</ol>
+<pre><code class="hljs plaintext">&quot;scripts&quot; : &#123;
   ...
   &quot;commit&quot;: &quot;./node_modules/cz-customizable/standalone.js&quot;
-&#125;</code></pre></li>
-<li>新建.cz-config.js文件<pre><code class="hljs plaintext">module.exports = &#123;
+&#125;</code></pre>
+<ol start="3">
+<li>新建.cz-config.js文件</li>
+</ol>
+<pre><code class="hljs plaintext">module.exports = &#123;
 types: [
     &#123; value: &#x27;feat&#x27;, name: &#x27;feat: A new feature&#x27; &#125;,
     &#123; value: &#x27;fix&#x27;, name: &#x27;fix: A bug fix&#x27; &#125;,
@@ -385,33 +407,44 @@ subjectLimit: 100,
 &#125;;
 
 </code></pre>
-该文件的配置信息可参考<a target="_blank" rel="noopener" href="https://www.npmjs.com/package/cz-customizable#options">options</a></li>
-</ol>
+<p>该文件的配置信息可参考<a target="_blank" rel="noopener" href="https://www.npmjs.com/package/cz-customizable#options">options</a></p>
 <p>至此我们在提交代码时不在使用git commit命令，而是使用npm run commit这样就可以按照规范输出commit message。</p>
-<h3 id="校验commit-message"><a href="#校验commit-message" class="headerlink" title="校验commit message"></a>校验commit message</h3><p>上面的配置中我们并没有对commit message进行校验，也就是说如果项目中有成员继续使用git commit -m “message”提交仍是可以的，如果想增加commit message校验可以使用validate-commit-msg工具</p>
+<h3 id="校验commit-message">校验commit message</h3>
+<p>上面的配置中我们并没有对commit message进行校验，也就是说如果项目中有成员继续使用git commit -m &quot;message&quot;提交仍是可以的，如果想增加commit message校验可以使用validate-commit-msg工具</p>
 <ol>
-<li>安装相关依赖包 <pre><code class="hljs plaintext">npm install validate-commit-msg  husky --save-dev</code></pre></li>
-<li>在package.json文件中增加以下配置<pre><code class="hljs plaintext">&quot;husky&quot;: &#123;
+<li>安装相关依赖包</li>
+</ol>
+<pre><code class="hljs plaintext">npm install validate-commit-msg  husky --save-dev</code></pre>
+<ol start="2">
+<li>在package.json文件中增加以下配置</li>
+</ol>
+<pre><code class="hljs plaintext">&quot;husky&quot;: &#123;
     &quot;hooks&quot;: &#123;
         &quot;commit-msg&quot;: &quot;validate-commit-msg&quot;
     &#125;
 &#125;</code></pre>
-这样我们团队中如果有成员使用git commit -m ‘message’提交时，会提交不通过的提示<pre><code class="hljs plaintext">$ git commit -m &#x27;aaa&#x27;
+<p>这样我们团队中如果有成员使用git commit -m 'message’提交时，会提交不通过的提示</p>
+<pre><code class="hljs plaintext">$ git commit -m &#x27;aaa&#x27;
 husky &gt; commit-msg (node v8.11.3)
 INVALID COMMIT MSG: does not match &quot;&lt;type&gt;(&lt;scope&gt;): &lt;subject&gt;&quot; !
 aaa
 husky &gt; commit-msg hook failed (add --no-verify to bypass)</code></pre>
-至此用cz-customizable规范git commit提交记录配置完成</li>
-</ol>
-<h3 id="记录版本发布"><a href="#记录版本发布" class="headerlink" title="记录版本发布"></a>记录版本发布</h3><p>在之前的前端开发脚手架项目改动时，我们总是手动编写README文件，将做出的哪些改变一一列出来方便团队成员浏览知晓，后来在网上查阅参考别的项目得知我们可以通过<br>standard-version工具自动生成CHANGLOG文件记录版本变动</p>
+<p>至此用cz-customizable规范git commit提交记录配置完成</p>
+<h3 id="记录版本发布">记录版本发布</h3>
+<p>在之前的前端开发脚手架项目改动时，我们总是手动编写README文件，将做出的哪些改变一一列出来方便团队成员浏览知晓，后来在网上查阅参考别的项目得知我们可以通过<br>
+standard-version工具自动生成CHANGLOG文件记录版本变动</p>
 <ol>
-<li>安装<pre><code class="hljs plaintext">npm install  standard-version --save-dev</code></pre></li>
-<li>修改package.json文件，在scripts中加入release命令<pre><code class="hljs plaintext">&quot;scripts&quot;: &#123;
+<li>安装</li>
+</ol>
+<pre><code class="hljs plaintext">npm install  standard-version --save-dev</code></pre>
+<ol start="2">
+<li>修改package.json文件，在scripts中加入release命令</li>
+</ol>
+<pre><code class="hljs plaintext">&quot;scripts&quot;: &#123;
     ...
     &quot;release&quot;: &quot;standard-version&quot;
 &#125;,</code></pre>
-执行npm run release即可生成CHANGELOG文件，该文件中包含Features和Bug Fixes的提交记录</li>
-</ol>
+<p>执行npm run release即可生成CHANGELOG文件，该文件中包含Features和Bug Fixes的提交记录</p>
 <p>standard-version命令参数介绍</p>
 <pre><code class="hljs plaintext">--release-as, -r     Specify the release type manually (like npm version &lt;major|minor|patch|1.1.0&gt;) [字符串]
 // major: 1.0.0 -&gt; 2.0.0, minor: 1.0.0 -&gt; 1.1.0, patch : 1.0.0 -&gt; 1.0.1
@@ -427,8 +460,12 @@ husky &gt; commit-msg hook failed (add --no-verify to bypass)</code></pre>
 --scripts            Provide scripts to execute for lifecycle events (prebump, precommit, [默认值: &#123;&#125;]
 --skip               Map of steps in the release process that should be skipped    [默认值: &#123;&#125;]
 --dry-run            See the commands that running standard-version would run [布尔] [默认值: false]</code></pre>
-<p>&#x2F;&#x2F; 第一次发布版本<br>npm run release -f<br>&#x2F;&#x2F; 指定发布版本等级<br>npm run release  -r minor</p>
-<p><strong>注意</strong><br>使用standard-version生成CHANGELOG之前需要有完整的package.json文件，特别是有</p>
+<p>// 第一次发布版本<br>
+npm run release -f<br>
+// 指定发布版本等级<br>
+npm run release  -r minor</p>
+<p><strong>注意</strong><br>
+使用standard-version生成CHANGELOG之前需要有完整的package.json文件，特别是有</p>
 <pre><code class="hljs plaintext">&quot;repository&quot;: &#123;
     &quot;type&quot;: &quot;git&quot;,
     &quot;url&quot;: &quot;***&quot;

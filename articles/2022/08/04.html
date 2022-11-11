@@ -273,10 +273,9 @@
     <div class="e-content article-entry" itemprop="articleBody">
        <p>上一期我们主要介绍了<a href="https://jesse121.github.io/blog/articles/2022/07/20.html">如何用 Electron+vue+vite 搭建桌面端应用(一)</a>，只是简单创建了一个项目还有很多内容需要完善，今天来介绍下 vue3 项目开发的配套设施 vue+vue-router+pinia+element-plus 以及 eslint+prettier 等，比较熟悉的同学可以直接略过。</p>
 <span id="more"></span>
-
-<h3 id="安装-vue-router"><a href="#安装-vue-router" class="headerlink" title="安装 vue-router"></a>安装 vue-router</h3><pre><code class="hljs sh">yarn add vue-router@4.1.2
+<h3 id="安装-vue-router">安装 vue-router</h3>
+<pre><code class="hljs sh">yarn add vue-router@4.1.2
 <span class="hljs-built_in">cd</span> src &amp;&amp; <span class="hljs-built_in">mkdir</span> router &amp;&amp; <span class="hljs-built_in">cd</span> router &amp;&amp; <span class="hljs-built_in">touch</span> index.ts</code></pre>
-
 <p>编辑 index.ts</p>
 <pre><code class="hljs ts"><span class="hljs-keyword">import</span> &#123; createRouter, createWebHashHistory, <span class="hljs-title class_">RouteRecordRaw</span> &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;vue-router&quot;</span>;
 
@@ -307,7 +306,6 @@
 &#125;);
 
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> router;</code></pre>
-
 <p>这里为什么不能用 history 模式可以参考<a target="_blank" rel="noopener" href="http://192.168.137.36:8090/pages/viewpage.action?pageId=55083396">从源码分析为什么 electron+vue 项目中 router 不能用 history 模式</a></p>
 <p>这里为了快速引入文件使用了路径别名@，需要做以下设置</p>
 <pre><code class="hljs ts"><span class="hljs-comment">// vite.config.ts</span>
@@ -322,7 +320,6 @@
 <span class="hljs-string">&quot;paths&quot;</span>: &#123;
   <span class="hljs-string">&quot;@/*&quot;</span>: [<span class="hljs-string">&quot;src/*&quot;</span>]
 &#125;,</code></pre>
-
 <p>修改 main.ts</p>
 <pre><code class="hljs ts"><span class="hljs-keyword">import</span> &#123; createApp &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;vue&quot;</span>;
 <span class="hljs-keyword">import</span> <span class="hljs-string">&quot;./style.css&quot;</span>;
@@ -332,12 +329,10 @@
 <span class="hljs-keyword">const</span> app = <span class="hljs-title function_">createApp</span>(<span class="hljs-title class_">App</span>);
 app.<span class="hljs-title function_">use</span>(router);
 app.<span class="hljs-title function_">mount</span>(<span class="hljs-string">&quot;#app&quot;</span>);</code></pre>
-
 <p>修改 app.vue</p>
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">template</span>&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-name">router-view</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">router-view</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span></code></pre>
-
 <p>修改 home.vue 加入路由跳转</p>
 <pre><code class="hljs ts"><span class="hljs-keyword">import</span> &#123; useRouter &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;vue-router&quot;</span>;
 <span class="hljs-keyword">const</span> router = <span class="hljs-title function_">useRouter</span>();
@@ -347,11 +342,11 @@ app.<span class="hljs-title function_">mount</span>(<span class="hljs-string">&q
     <span class="hljs-attr">path</span>: <span class="hljs-string">&quot;/login&quot;</span>,
   &#125;);
 &#125;;</code></pre>
-
-<p>执行<code>yarn dev</code>可看到路由可以正常切换<br><img src="https://raw.githubusercontent.com/Jesse121/publicPic/master/blog/pictures/router.gif" alt="router"></p>
-<h3 id="安装-pinia"><a href="#安装-pinia" class="headerlink" title="安装 pinia"></a>安装 pinia</h3><pre><code class="hljs sh">yarn add pinia@2.0.16
+<p>执行<code>yarn dev</code>可看到路由可以正常切换<br>
+<img src="https://raw.githubusercontents.com/Jesse121/publicPic/master/blog/pictures/router.gif" alt="router" referrerPolicy="no-referrer"></p>
+<h3 id="安装-pinia">安装 pinia</h3>
+<pre><code class="hljs sh">yarn add pinia@2.0.16
 <span class="hljs-built_in">cd</span> src &amp;&amp; <span class="hljs-built_in">mkdir</span> stores &amp;&amp; <span class="hljs-built_in">cd</span> stores &amp;&amp; <span class="hljs-built_in">touch</span> counter.ts</code></pre>
-
 <p>编辑 counter.ts</p>
 <pre><code class="hljs ts"><span class="hljs-keyword">import</span> &#123; defineStore &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;pinia&quot;</span>;
 
@@ -364,15 +359,13 @@ app.<span class="hljs-title function_">mount</span>(<span class="hljs-string">&q
     &#125;,
   &#125;,
 &#125;);</code></pre>
-
 <p>修改 main.ts 添加 pinia</p>
 <pre><code class="hljs ts"><span class="hljs-keyword">import</span> &#123; createPinia &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;pinia&quot;</span>;
 
 <span class="hljs-keyword">const</span> pinia = <span class="hljs-title function_">createPinia</span>();
 app.<span class="hljs-title function_">use</span>(pinia);</code></pre>
-
-<h3 id="安装-element-plus"><a href="#安装-element-plus" class="headerlink" title="安装 element-plus"></a>安装 element-plus</h3><pre><code class="hljs ts">yarn add element-plus</code></pre>
-
+<h3 id="安装-element-plus">安装 element-plus</h3>
+<pre><code class="hljs ts">yarn add element-plus</code></pre>
 <p>修改 main.ts</p>
 <pre><code class="hljs ts"><span class="hljs-keyword">import</span> <span class="hljs-title class_">ElementPlus</span> <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;element-plus&quot;</span>;
 <span class="hljs-keyword">import</span> <span class="hljs-string">&quot;element-plus/dist/index.css&quot;</span>;
@@ -381,10 +374,8 @@ app.<span class="hljs-title function_">use</span>(pinia);</code></pre>
 app.<span class="hljs-title function_">use</span>(<span class="hljs-title class_">ElementPlus</span>, &#123;
   <span class="hljs-attr">locale</span>: zhCn,
 &#125;);</code></pre>
-
 <p>这里通过插件采用自动导入</p>
 <pre><code class="hljs ts">yarn add unplugin-vue-components unplugin-auto-<span class="hljs-keyword">import</span> -D</code></pre>
-
 <p>修改 vite.config.ts</p>
 <pre><code class="hljs ts"><span class="hljs-keyword">import</span> &#123; defineConfig &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;vite&quot;</span>;
 <span class="hljs-keyword">import</span> <span class="hljs-title class_">AutoImport</span> <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;unplugin-auto-import/vite&quot;</span>;
@@ -403,10 +394,10 @@ app.<span class="hljs-title function_">use</span>(<span class="hljs-title class_
     &#125;),
   ],
 &#125;);</code></pre>
-
-<p><img src="https://raw.githubusercontent.com/Jesse121/publicPic/master/blog/pictures/20220720175821.png" alt="20220720175821"><br>至此 vue3 全家桶及 element-plus 库已经正常引入项目</p>
-<h3 id="安装-axios-并设置请求和响应拦截器"><a href="#安装-axios-并设置请求和响应拦截器" class="headerlink" title="安装 axios 并设置请求和响应拦截器"></a>安装 axios 并设置请求和响应拦截器</h3><pre><code class="hljs sh">yarn add axios@0.27.2</code></pre>
-
+<p><img src="https://raw.githubusercontents.com/Jesse121/publicPic/master/blog/pictures/20220720175821.png" alt="20220720175821" referrerPolicy="no-referrer"><br>
+至此 vue3 全家桶及 element-plus 库已经正常引入项目</p>
+<h3 id="安装-axios-并设置请求和响应拦截器">安装 axios 并设置请求和响应拦截器</h3>
+<pre><code class="hljs sh">yarn add axios@0.27.2</code></pre>
 <p>在 utils 文件夹下新建 request.ts</p>
 <pre><code class="hljs ts"><span class="hljs-keyword">import</span> axios, &#123;
   <span class="hljs-title class_">AxiosError</span>,
@@ -477,9 +468,9 @@ service.<span class="hljs-property">interceptors</span>.<span class="hljs-proper
 );
 
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> service;</code></pre>
-
 <p>这里只是简单的设置了一下，具体的设置还需要根据项目的要求来</p>
-<h3 id="vue3API-自动导入"><a href="#vue3API-自动导入" class="headerlink" title="vue3API 自动导入"></a>vue3API 自动导入</h3><p>在 vite.config.ts 文件中添加配置</p>
+<h3 id="vue3API-自动导入">vue3API 自动导入</h3>
+<p>在 vite.config.ts 文件中添加配置</p>
 <pre><code class="hljs ts"><span class="hljs-attr">plugins</span>: [
   <span class="hljs-comment">//...</span>
   <span class="hljs-title class_">AutoImport</span>(&#123;
@@ -487,10 +478,9 @@ service.<span class="hljs-property">interceptors</span>.<span class="hljs-proper
     <span class="hljs-attr">imports</span>: [<span class="hljs-string">&quot;vue&quot;</span>],
   &#125;),
 ];</code></pre>
-
-<p><strong>注意</strong> 如果项目中使用了 eslint，直接在文件中使用 vue 的 api 会提示报错<br>解决办法：</p>
+<p><strong>注意</strong> 如果项目中使用了 eslint，直接在文件中使用 vue 的 api 会提示报错<br>
+解决办法：</p>
 <pre><code class="hljs sh">yarn add vue-global-api  -D</code></pre>
-
 <pre><code class="hljs js"><span class="hljs-comment">// eslintrc.js</span>
 <span class="hljs-variable language_">module</span>.<span class="hljs-property">exports</span> = &#123;
   <span class="hljs-comment">// ...</span>
@@ -499,19 +489,19 @@ service.<span class="hljs-property">interceptors</span>.<span class="hljs-proper
     <span class="hljs-string">&quot;vue-global-api&quot;</span>,
   ],
 &#125;;</code></pre>
-
 <pre><code class="hljs ts"><span class="hljs-comment">//main.ts</span>
 <span class="hljs-keyword">import</span> <span class="hljs-string">&quot;vue-global-api&quot;</span>;</code></pre>
-
-<h3 id="安装初始化样式-normalize-css"><a href="#安装初始化样式-normalize-css" class="headerlink" title="安装初始化样式 normalize.css"></a>安装初始化样式 normalize.css</h3><pre><code class="hljs sh">yarn add normalize.css@8.0.1</code></pre>
-
+<h3 id="安装初始化样式-normalize-css">安装初始化样式 normalize.css</h3>
+<pre><code class="hljs sh">yarn add normalize.css@8.0.1</code></pre>
 <p>在 main.ts 中引入</p>
 <pre><code class="hljs ts"><span class="hljs-comment">// main.ts</span>
 <span class="hljs-keyword">import</span> <span class="hljs-string">&quot;normalize.css/normalize.css&quot;</span>;</code></pre>
-
-<h3 id="安装-eslint"><a href="#安装-eslint" class="headerlink" title="安装 eslint"></a>安装 eslint</h3><pre><code class="hljs sh">yarn add eslint@7.32.0 eslint-plugin-vue@7.15.1 @typescript-eslint/parser@5.30.7 @typescript-eslint/eslint-plugin@5.30.7 eslint-plugin-simple-import-sort@7.0.0 -D</code></pre>
-
-<p>eslint-plugin-vue：Vue.js 的官方 ESLint 插件<br>@typescript-eslint&#x2F;parser：ESLint 的解析器，用于解析 typescript，从而检查和规范 Typescript 代码<br>@typescript-eslint&#x2F;eslint-plugin：ESLint 插件，包含了各类定义好的检测 Typescript 代码的规范<br>eslint-plugin-simple-import-sort：自动排序 import 的插件</p>
+<h3 id="安装-eslint">安装 eslint</h3>
+<pre><code class="hljs sh">yarn add eslint@7.32.0 eslint-plugin-vue@7.15.1 @typescript-eslint/parser@5.30.7 @typescript-eslint/eslint-plugin@5.30.7 eslint-plugin-simple-import-sort@7.0.0 -D</code></pre>
+<p>eslint-plugin-vue：Vue.js 的官方 ESLint 插件<br>
+@typescript-eslint/parser：ESLint 的解析器，用于解析 typescript，从而检查和规范 Typescript 代码<br>
+@typescript-eslint/eslint-plugin：ESLint 插件，包含了各类定义好的检测 Typescript 代码的规范<br>
+eslint-plugin-simple-import-sort：自动排序 import 的插件</p>
 <p>在项目根目录下新建.eslintrc.js</p>
 <pre><code class="hljs js"><span class="hljs-variable language_">module</span>.<span class="hljs-property">exports</span> = &#123;
   <span class="hljs-attr">env</span>: &#123;
@@ -575,10 +565,12 @@ service.<span class="hljs-property">interceptors</span>.<span class="hljs-proper
     &#125;,
   ],
 &#125;;</code></pre>
-
-<h3 id="安装-prettier"><a href="#安装-prettier" class="headerlink" title="安装 prettier"></a>安装 prettier</h3><pre><code class="hljs sh">yarn add prettier@2.7.1 eslint-config-prettier@8.5.0 eslint-plugin-prettier@4.2.1 -D</code></pre>
-
-<p>eslint-config-prettier<br>解决 ESLint 中的样式规范和 prettier 中样式规范的冲突，以 prettier 的样式规范为准，使 ESLint 中的样式规范自动失效<br>eslint-plugin-prettier<br>将 prettier 作为 ESLint 规范来使用</p>
+<h3 id="安装-prettier">安装 prettier</h3>
+<pre><code class="hljs sh">yarn add prettier@2.7.1 eslint-config-prettier@8.5.0 eslint-plugin-prettier@4.2.1 -D</code></pre>
+<p>eslint-config-prettier<br>
+解决 ESLint 中的样式规范和 prettier 中样式规范的冲突，以 prettier 的样式规范为准，使 ESLint 中的样式规范自动失效<br>
+eslint-plugin-prettier<br>
+将 prettier 作为 ESLint 规范来使用</p>
 <p>在根目录下新建.prettierrc.js</p>
 <pre><code class="hljs js"><span class="hljs-variable language_">module</span>.<span class="hljs-property">exports</span> = &#123;
   <span class="hljs-attr">printWidth</span>: <span class="hljs-number">120</span>,
@@ -596,10 +588,9 @@ service.<span class="hljs-property">interceptors</span>.<span class="hljs-proper
   <span class="hljs-attr">requirePragma</span>: <span class="hljs-literal">false</span>,
   <span class="hljs-attr">useTabs</span>: <span class="hljs-literal">true</span>,
 &#125;;</code></pre>
-
-<h3 id="安装-stylelint-规范样式"><a href="#安装-stylelint-规范样式" class="headerlink" title="安装 stylelint 规范样式"></a>安装 stylelint 规范样式</h3><pre><code class="hljs sh">yarn add stylelint@13.13.1 stylelint-prettier@1.2.0 stylelint-config-prettier@8.0.2
+<h3 id="安装-stylelint-规范样式">安装 stylelint 规范样式</h3>
+<pre><code class="hljs sh">yarn add stylelint@13.13.1 stylelint-prettier@1.2.0 stylelint-config-prettier@8.0.2
 stylelint-config-rational-order@0.1.2 -D</code></pre>
-
 <p>在项目根目录下新建.stylelintrc.js</p>
 <pre><code class="hljs js"><span class="hljs-variable language_">module</span>.<span class="hljs-property">exports</span> = &#123;
   <span class="hljs-attr">defaultSeverity</span>: <span class="hljs-string">&quot;error&quot;</span>,
@@ -607,9 +598,8 @@ stylelint-config-rational-order@0.1.2 -D</code></pre>
   <span class="hljs-attr">extends</span>: [<span class="hljs-string">&quot;stylelint-prettier/recommended&quot;</span>, <span class="hljs-string">&quot;stylelint-config-recess-order&quot;</span>],
   <span class="hljs-attr">rules</span>: &#123;&#125;,
 &#125;;</code></pre>
-
-<h3 id="安装-ls-lint-规范文件名"><a href="#安装-ls-lint-规范文件名" class="headerlink" title="安装 ls-lint 规范文件名"></a>安装 ls-lint 规范文件名</h3><pre><code class="hljs sh">yarn add @ls-lint/ls-lint@1.10.0 -D</code></pre>
-
+<h3 id="安装-ls-lint-规范文件名">安装 ls-lint 规范文件名</h3>
+<pre><code class="hljs sh">yarn add @ls-lint/ls-lint@1.10.0 -D</code></pre>
 <p>在项目跟目录下新建.ls-lint.yml</p>
 <pre><code class="hljs yml"><span class="hljs-comment"># 文件名及文件夹名命名规则</span>
 <span class="hljs-attr">ls:</span>
@@ -633,8 +623,8 @@ stylelint-config-rational-order@0.1.2 -D</code></pre>
   <span class="hljs-bullet">-</span> <span class="hljs-string">release</span>
   <span class="hljs-bullet">-</span> <span class="hljs-string">resources</span>
   <span class="hljs-bullet">-</span> <span class="hljs-string">node_modules</span></code></pre>
-
-<h3 id="安装-husky-和-lint-staged"><a href="#安装-husky-和-lint-staged" class="headerlink" title="安装 husky 和 lint-staged"></a>安装 husky 和 lint-staged</h3><pre><code class="hljs sh">yarn add husky@8.0.0 lint-staged@13.0.3 -D
+<h3 id="安装-husky-和-lint-staged">安装 husky 和 lint-staged</h3>
+<pre><code class="hljs sh">yarn add husky@8.0.0 lint-staged@13.0.3 -D
 <span class="hljs-comment"># 设置husky</span>
 npx husky install
 npm pkg <span class="hljs-built_in">set</span> scripts.prepare=<span class="hljs-string">&quot;husky install&quot;</span>
@@ -642,7 +632,6 @@ npm pkg <span class="hljs-built_in">set</span> scripts.preinstall=<span class="h
 npx husky add .husky/commit-msg <span class="hljs-string">&#x27;yarn commitlint --edit &quot;$1&quot;&#x27;</span>
 npx husky add .husky/pre-commit <span class="hljs-string">&#x27;yarn lint-staged&#x27;</span>
 npx husky add .husky/post-merge <span class="hljs-string">&#x27;yarn&#x27;</span></code></pre>
-
 <p>在 package.json 中添加 lint-staged 脚本</p>
 <pre><code class="hljs json"><span class="hljs-attr">&quot;lint-staged&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span>
     <span class="hljs-attr">&quot;*.&#123;vue,ts,js&#125;&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>
@@ -656,9 +645,8 @@ npx husky add .husky/post-merge <span class="hljs-string">&#x27;yarn&#x27;</span
       <span class="hljs-string">&quot;ls-lint&quot;</span>
     <span class="hljs-punctuation">]</span>
   <span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span></code></pre>
-
-<h3 id="安装-commitlint-规范-git-message"><a href="#安装-commitlint-规范-git-message" class="headerlink" title="安装 commitlint 规范 git message"></a>安装 commitlint 规范 git message</h3><pre><code class="hljs sh">yarn add @commitlint/cli@17.0.3 @commitlint/config-conventional@17.0.3 -D</code></pre>
-
+<h3 id="安装-commitlint-规范-git-message">安装 commitlint 规范 git message</h3>
+<pre><code class="hljs sh">yarn add @commitlint/cli@17.0.3 @commitlint/config-conventional@17.0.3 -D</code></pre>
 <p>在项目根目录下新建.commitlintrc.js</p>
 <pre><code class="hljs js"><span class="hljs-variable language_">module</span>.<span class="hljs-property">exports</span> = &#123;
   <span class="hljs-attr">extends</span>: [<span class="hljs-string">&quot;@commitlint/config-conventional&quot;</span>],
@@ -681,19 +669,18 @@ npx husky add .husky/post-merge <span class="hljs-string">&#x27;yarn&#x27;</span
     ],
   &#125;,
 &#125;;</code></pre>
-
-<h3 id="安装-conventional-changelog-cli-生成-changelog"><a href="#安装-conventional-changelog-cli-生成-changelog" class="headerlink" title="安装 conventional-changelog-cli 生成 changelog"></a>安装 conventional-changelog-cli 生成 changelog</h3><pre><code class="hljs sh">yarn add conventional-changelog-cli@2.2.2 -D
+<h3 id="安装-conventional-changelog-cli-生成-changelog">安装 conventional-changelog-cli 生成 changelog</h3>
+<pre><code class="hljs sh">yarn add conventional-changelog-cli@2.2.2 -D
 npm pkg <span class="hljs-built_in">set</span> scripts.postversion=<span class="hljs-string">&quot;conventional-changelog -p angular -i CHANGELOG.md -s -r 0&quot;</span></code></pre>
-
-<p>一般在发新版本时执行 npm version 命令会生成 CHANGELOG.MD 文件</p>
-<h3 id="editorConfig-保持多人开发一致编码样式"><a href="#editorConfig-保持多人开发一致编码样式" class="headerlink" title="editorConfig 保持多人开发一致编码样式"></a>editorConfig 保持多人开发一致编码样式</h3><p>在项目根目录下新建.editorconfig 文件</p>
+<p>一般在发新版本时执行 npm version 命令会生成 <a target="_blank" rel="noopener" href="http://CHANGELOG.MD">CHANGELOG.MD</a> 文件</p>
+<h3 id="editorConfig-保持多人开发一致编码样式">editorConfig 保持多人开发一致编码样式</h3>
+<p>在项目根目录下新建.editorconfig 文件</p>
 <pre><code class="hljs plaintext">[*.&#123;js,jsx,ts,tsx,vue&#125;]
 indent_style = tab
 indent_size = 2
 end_of_line = lf
 trim_trailing_whitespace = true
 insert_final_newline = true</code></pre>
-
 <p>至此，第二期一个具有路由，状态管理，UI 库，且具备代码规范和 git 提交规范的 vue3 项目搭建完成，第三期准备完善 electron 实战开发用到的相关插件</p>
 <p>源码 Github 仓库：<a target="_blank" rel="noopener" href="https://github.com/Jesse121/electron-vue-vite-template">electron-vue-vite-template</a>，如果觉得写得不错还希望给个小星星哦。</p>
  

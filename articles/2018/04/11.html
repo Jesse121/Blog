@@ -273,8 +273,9 @@
     <div class="e-content article-entry" itemprop="articleBody">
        <p>在前端开发工作中总会遇到各种各样的坑，今天这篇博文就是为了记录下踩过的坑，分析后发现容易掉坑里的地方一般是自己不熟悉的知识点或者是易忽略的知识点。故作此文，谨以自勉。</p>
 <span id="more"></span>
-
-<h4 id="用-css3-播放逐帧动画"><a href="#用-css3-播放逐帧动画" class="headerlink" title="用 css3 播放逐帧动画"></a>用 css3 播放逐帧动画</h4><p>动效设计师给了我们 11 张(300*300)帧动画图片，现需要用 css3 以动画的形式播放这些图片<br>第一个想到的办法就是通过 animation 改变 DOM 元素的背景图片</p>
+<h4 id="用-css3-播放逐帧动画">用 css3 播放逐帧动画</h4>
+<p>动效设计师给了我们 11 张(300*300)帧动画图片，现需要用 css3 以动画的形式播放这些图片<br>
+第一个想到的办法就是通过 animation 改变 DOM 元素的背景图片</p>
 <pre><code class="hljs less"><span class="hljs-selector-class">.boom-2</span> &#123;
   <span class="hljs-attribute">position</span>: fixed;
   <span class="hljs-attribute">width</span>: <span class="hljs-number">300px</span>;
@@ -318,8 +319,9 @@
     <span class="hljs-attribute">background-image</span>: url(<span class="hljs-string">&quot;../hit/10.png&quot;</span>);
   &#125;
 &#125;</code></pre>
-
-<p>结果在 chrome firefox 上运行良好，可是在 IE 上看不到效果,在网上搜一下发现<br><a target="_blank" rel="noopener" href="https://www.w3.org/TR/css-backgrounds-3/#the-background-image">background-image 不支持动画</a><br>既然不行那就在想想办法。</p>
+<p>结果在 chrome firefox 上运行良好，可是在 IE 上看不到效果,在网上搜一下发现<br>
+<a target="_blank" rel="noopener" href="https://www.w3.org/TR/css-backgrounds-3/#the-background-image">background-image 不支持动画</a><br>
+既然不行那就在想想办法。</p>
 <p>第二种办法就是通过动画改变 background-position,在加上以帧动画的形式播放,关键点：<code>animation-timing-function:steps(11)</code>;</p>
 <pre><code class="hljs less"><span class="hljs-selector-class">.boom-2</span> &#123;
   <span class="hljs-attribute">position</span>: fixed;
@@ -338,18 +340,18 @@
     <span class="hljs-attribute">background-position</span>: <span class="hljs-number">0</span> -<span class="hljs-number">1100%</span>;
   &#125;
 &#125;</code></pre>
-
-<p>至此完美解决帧动画播放问题。<br>通过这个问题发现自己对 css3 动画不是非常了解，就顺便在延展下</p>
+<p>至此完美解决帧动画播放问题。<br>
+通过这个问题发现自己对 css3 动画不是非常了解，就顺便在延展下</p>
 <p>animation 属性是一个简写属性，用于设置 8 个动画属性：</p>
 <ul>
-<li>animation-name &#x2F;&#x2F;规定需要绑定到选择器的 keyframe 名称</li>
-<li>animation-duration &#x2F;&#x2F;规定完成动画所花费的时间，以秒或毫秒计。</li>
-<li>animation-timing-function &#x2F;&#x2F;规定动画的速度曲线</li>
-<li>animation-delay &#x2F;&#x2F;规定在动画开始之前的延迟。</li>
-<li>animation-iteration-count &#x2F;&#x2F;规定动画应该播放的次数</li>
-<li>animation-direction &#x2F;&#x2F;规定是否应该轮流反向播放动画</li>
-<li>animation-fill-mode &#x2F;&#x2F;属性规定动画在播放之前或之后，其动画效果是否可见</li>
-<li>animation-play-state &#x2F;&#x2F;属性规定动画正在运行还是暂停</li>
+<li>animation-name //规定需要绑定到选择器的 keyframe 名称</li>
+<li>animation-duration //规定完成动画所花费的时间，以秒或毫秒计。</li>
+<li>animation-timing-function //规定动画的速度曲线</li>
+<li>animation-delay //规定在动画开始之前的延迟。</li>
+<li>animation-iteration-count //规定动画应该播放的次数</li>
+<li>animation-direction //规定是否应该轮流反向播放动画</li>
+<li>animation-fill-mode //属性规定动画在播放之前或之后，其动画效果是否可见</li>
+<li>animation-play-state //属性规定动画正在运行还是暂停</li>
 </ul>
 <p><strong>animation-fill-mode</strong></p>
 <table>
@@ -359,7 +361,8 @@
 <th>描述</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>none</td>
 <td>不改变默认行为。</td>
 </tr>
@@ -375,7 +378,8 @@
 <td>both</td>
 <td>向前和向后填充模式都被应用。</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
 <p><strong>animation-play-state</strong></p>
 <table>
 <thead>
@@ -384,7 +388,8 @@
 <th>描述</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>paused</td>
 <td>规定动画已暂停</td>
 </tr>
@@ -392,7 +397,8 @@
 <td>running</td>
 <td>规定动画正在播放</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
 <p><strong>animation-timing-function</strong></p>
 <table>
 <thead>
@@ -401,7 +407,8 @@
 <th>描述</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>linear</td>
 <td>动画从头到尾的速度是相同的</td>
 </tr>
@@ -425,18 +432,24 @@
 <td>cubic-bezier(n,n,n,n)</td>
 <td>在 cubic-bezier 函数中自己的值。可能的值是从 0 到 1 的数值。</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
 <p>以上 animation-timing-function 的值都是实现线性变化（两个状态之间是逐渐变化过去），其实 animation-timing-function 还可以实现帧动画（两个状态之间是直接跳跃变化）</p>
-<p>steps(11,start)<br>第一个参数 number 为指定的间隔数，即把两关键帧分为 n 步阶段性展示<br>第二个参数可选，接受 start 和 end 两个值，指定在每个间隔的起点或是终点发生阶跃变化，默认为 end</p>
+<p>steps(11,start)<br>
+第一个参数 number 为指定的间隔数，即把两关键帧分为 n 步阶段性展示<br>
+第二个参数可选，接受 start 和 end 两个值，指定在每个间隔的起点或是终点发生阶跃变化，默认为 end</p>
 <ul>
 <li>start 在变化过程中，都是以下一帧的显示效果来填充间隔动画，</li>
 <li>end 与上面相反，都是以上一帧的显示效果来填充间隔动画，</li>
 </ul>
-<h4 id="line-height-属性再探究"><a href="#line-height-属性再探究" class="headerlink" title="line-height 属性再探究"></a>line-height 属性再探究</h4><pre><code class="hljs plaintext">line-height: normal | &lt;number&gt; | &lt;length&gt; | &lt;percentage&gt; | inherit
+<h4 id="line-height-属性再探究">line-height 属性再探究</h4>
+<pre><code class="hljs plaintext">line-height: normal | &lt;number&gt; | &lt;length&gt; | &lt;percentage&gt; | inherit
 Inherited: yes
 Percentages: refer to the font size of the element itself</code></pre>
-
-<p>line-height 默认值为 normal 不允许用负值<br>当元素没有设置高度的时候，其实是由 line-height 撑开了元素的高度<br>以百分数或数字为单位的时候是相对与本身字体大小而得到的计算结果<br>下面代码中设置的三个行高结果是相同的</p>
+<p>line-height 默认值为 normal 不允许用负值<br>
+当元素没有设置高度的时候，其实是由 line-height 撑开了元素的高度<br>
+以百分数或数字为单位的时候是相对与本身字体大小而得到的计算结果<br>
+下面代码中设置的三个行高结果是相同的</p>
 <pre><code class="hljs css"><span class="hljs-selector-tag">div</span> &#123;
   <span class="hljs-attribute">line-height</span>: <span class="hljs-number">1.2</span>;
   <span class="hljs-attribute">font-size</span>: <span class="hljs-number">10pt</span>;
@@ -449,7 +462,6 @@ Percentages: refer to the font size of the element itself</code></pre>
   <span class="hljs-attribute">line-height</span>: <span class="hljs-number">120%</span>;
   <span class="hljs-attribute">font-size</span>: <span class="hljs-number">10pt</span>;
 &#125; <span class="hljs-comment">/* percentage */</span></code></pre>
-
 <p>通过设置 line-height 和 height 常用于单行文字的垂直居中</p>
 <p>通过 line-height 也可设置多行文本的垂直居中</p>
 <p style="width: 250px; line-height: 150px;"><span style="display: inline-block;
@@ -464,26 +476,38 @@ Percentages: refer to the font size of the element itself</code></pre>
     <span class="hljs-attribute">vertical-align</span>: middle;
     <span class="hljs-attribute">line-height</span>: <span class="hljs-number">20px</span>;<span class="hljs-comment">/*作用是设置文本的行高，并覆盖掉父元素的行高*/</span>
 &#125;</code></pre>
-
-<p><a target="_blank" rel="noopener" href="http://www.zhangxinxu.com/wordpress/2009/11/css%E8%A1%8C%E9%AB%98line-height%E7%9A%84%E4%B8%80%E4%BA%9B%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E5%8F%8A%E5%BA%94%E7%94%A8/">css 行高 line-height 的一些深入理解及应用</a><br><a target="_blank" rel="noopener" href="https://drafts.csswg.org/css2/visudet.html#propdef-line-height">参考链接</a></p>
-<h4 id="pointer-events-属性让点击事件穿透"><a href="#pointer-events-属性让点击事件穿透" class="headerlink" title="pointer-events 属性让点击事件穿透"></a>pointer-events 属性让点击事件穿透</h4><p>在直播间特效开发中遇到点击图片无响应(图片父元素已绑定点击事件),仔细研究发现由于特效图片切换太快而不能将点击事件冒泡到父元素<br>解决办法：在特效图片上添加以下 css 属性，这样使得点击事件能够直接穿透到父元素上</p>
+<p><a target="_blank" rel="noopener" href="http://www.zhangxinxu.com/wordpress/2009/11/css%E8%A1%8C%E9%AB%98line-height%E7%9A%84%E4%B8%80%E4%BA%9B%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E5%8F%8A%E5%BA%94%E7%94%A8/">css 行高 line-height 的一些深入理解及应用</a><br>
+<a target="_blank" rel="noopener" href="https://drafts.csswg.org/css2/visudet.html#propdef-line-height">参考链接</a></p>
+<h4 id="pointer-events-属性让点击事件穿透">pointer-events 属性让点击事件穿透</h4>
+<p>在直播间特效开发中遇到点击图片无响应(图片父元素已绑定点击事件),仔细研究发现由于特效图片切换太快而不能将点击事件冒泡到父元素<br>
+解决办法：在特效图片上添加以下 css 属性，这样使得点击事件能够直接穿透到父元素上</p>
 <pre><code class="hljs css"><span class="hljs-selector-tag">img</span> &#123;
   <span class="hljs-attribute">pointer-events</span>: none;
 &#125;</code></pre>
-
-<p>pointer-events：auto | none | visiblepainted | visiblefill | visiblestroke | visible | painted | fill | stroke | all<br>none:元素永远不会成为鼠标事件的 target<br>兼容性：IE11+<br><a target="_blank" rel="noopener" href="http://www.css88.com/book/css/properties/user-interface/pointer-events.htm">参考链接</a></p>
-<h4 id="Date-parse-获取时间戳-IOS-不兼容的问题"><a href="#Date-parse-获取时间戳-IOS-不兼容的问题" class="headerlink" title="Date.parse()获取时间戳 IOS 不兼容的问题"></a>Date.parse()获取时间戳 IOS 不兼容的问题</h4><p>因为 IOS 系统不支持 2017-01-01 格式的时间导致的，<br>用正则替换 2017-01-01 日期格式为 2017&#x2F;01&#x2F;01 后问题解决</p>
+<p>pointer-events：auto | none | visiblepainted | visiblefill | visiblestroke | visible | painted | fill | stroke | all<br>
+none:元素永远不会成为鼠标事件的 target<br>
+兼容性：IE11+<br>
+<a target="_blank" rel="noopener" href="http://www.css88.com/book/css/properties/user-interface/pointer-events.htm">参考链接</a></p>
+<h4 id="Date-parse-获取时间戳-IOS-不兼容的问题">Date.parse()获取时间戳 IOS 不兼容的问题</h4>
+<p>因为 IOS 系统不支持 2017-01-01 格式的时间导致的，<br>
+用正则替换 2017-01-01 日期格式为 2017/01/01 后问题解决</p>
 <pre><code class="hljs js"><span class="hljs-keyword">var</span> mydata = <span class="hljs-string">&quot;2017-01-01 11:00:00&quot;</span>;
 mydata = mydata.<span class="hljs-title function_">replace</span>(<span class="hljs-regexp">/-/g</span>, <span class="hljs-string">&quot;/&quot;</span>);
 <span class="hljs-keyword">var</span> time = <span class="hljs-title class_">Date</span>.<span class="hljs-title function_">parse</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Date</span>(mydata)) / <span class="hljs-number">1000</span>;</code></pre>
-
-<h4 id="移动端禁止页面长按复制"><a href="#移动端禁止页面长按复制" class="headerlink" title="移动端禁止页面长按复制"></a>移动端禁止页面长按复制</h4><p>在前端页面开发中有时会因为用户点击而导致页面被全选出现蓝色，这时可以禁用全选</p>
+<h4 id="移动端禁止页面长按复制">移动端禁止页面长按复制</h4>
+<p>在前端页面开发中有时会因为用户点击而导致页面被全选出现蓝色，这时可以禁用全选</p>
 <pre><code class="hljs css"><span class="hljs-selector-tag">body</span> &#123;
   user-select: none;
 &#125;</code></pre>
-
-<p>user-select：none | text | all | element<br>none：文本不能被选择<br>text：可以选择文本<br>all：当所有内容作为一个整体时可以被选择。如果双击或者在上下文上点击子元素，那么被选择的部分将是以该子元素向上回溯的最高祖先元素。<br>element：可以选择文本，但选择范围受元素边界的约束<br>兼容性：IE10+ 需要添加浏览器前缀 -ms- -moz- -webkit-<br>详细可参考<a target="_blank" rel="noopener" href="http://www.css88.com/book/css/properties/user-interface/user-select.htm">user-select</a></p>
-<h4 id="chrome-滚动条样式"><a href="#chrome-滚动条样式" class="headerlink" title="chrome 滚动条样式"></a>chrome 滚动条样式</h4><p>该样式只适用于 webkit 内核浏览器，由于兼容性问题，目前工作中改用改进后的<a target="_blank" rel="noopener" href="http://www.jesse131.cn/articles/jquery/fix-the-plugin-of-slimscroll.html">slimscroll.js 插件</a></p>
+<p>user-select：none | text | all | element<br>
+none：文本不能被选择<br>
+text：可以选择文本<br>
+all：当所有内容作为一个整体时可以被选择。如果双击或者在上下文上点击子元素，那么被选择的部分将是以该子元素向上回溯的最高祖先元素。<br>
+element：可以选择文本，但选择范围受元素边界的约束<br>
+兼容性：IE10+ 需要添加浏览器前缀 -ms- -moz- -webkit-<br>
+详细可参考<a target="_blank" rel="noopener" href="http://www.css88.com/book/css/properties/user-interface/user-select.htm">user-select</a></p>
+<h4 id="chrome-滚动条样式">chrome 滚动条样式</h4>
+<p>该样式只适用于 webkit 内核浏览器，由于兼容性问题，目前工作中改用改进后的<a target="_blank" rel="noopener" href="http://www.jesse131.cn/articles/jquery/fix-the-plugin-of-slimscroll.html">slimscroll.js 插件</a></p>
 <pre><code class="hljs less"><span class="hljs-selector-class">.scrollBox</span> &#123;
   <span class="hljs-attribute">overflow-y</span>: auto;
   <span class="hljs-selector-tag">&amp;</span>::<span class="hljs-selector-tag">-webkit-scrollbar</span> &#123;
@@ -500,15 +524,15 @@ mydata = mydata.<span class="hljs-title function_">replace</span>(<span class="h
     <span class="hljs-attribute">border-radius</span>: <span class="hljs-number">5px</span>;
   &#125;
 &#125;</code></pre>
-
-<h4 id="镂空字体-1"><a href="#镂空字体-1" class="headerlink" title="镂空字体 1"></a>镂空字体 1</h4><p style="-webkit-text-stroke: 1px red;color:transparent;font-size:28px;font-weight:bold;">Jesse</p>
+<h4 id="镂空字体-1">镂空字体 1</h4>
+<p style="-webkit-text-stroke: 1px red;color:transparent;font-size:28px;font-weight:bold;">Jesse</p>
 关键css:  `-webkit-text-stroke: 1px red;`  
 兼容性:   
 IE都不兼容 Edge16+ 需要加-webkit-前缀  
 firefox58+ 需要加-webkit-前缀  
 chrome 需要加-webkit-前缀
-
-<h4 id="镂空字体-2"><a href="#镂空字体-2" class="headerlink" title="镂空字体 2"></a>镂空字体 2</h4><p>背景是图片</p>
+<h4 id="镂空字体-2">镂空字体 2</h4>
+<p>背景是图片</p>
 <div style="background: url('https://jesse121.github.io/blog/img/bg.jpg');-webkit-background-clip:text;"><p style="font-size: 40px;font-weight: bold;-webkit-text-fill-color:transparent;">Jesse</p></div>
 关键css:  
 <pre><code class="hljs css"><span class="hljs-selector-tag">div</span>&#123;
@@ -519,8 +543,8 @@ chrome 需要加-webkit-前缀
 IE都不兼容 Edge16+ 需要加-webkit-前缀  
 firefox58+ 需要加-webkit-前缀  
 chrome 需要加-webkit-前缀
-
-<h4 id="渐变字体"><a href="#渐变字体" class="headerlink" title="渐变字体"></a>渐变字体</h4><p>背景是渐变色</p>
+<h4 id="渐变字体">渐变字体</h4>
+<p>背景是渐变色</p>
 <p style="font-size: 40px;
     color: #fde2ba;
     font-weight:bold;
@@ -535,8 +559,8 @@ chrome 需要加-webkit-前缀
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 &#125;</code></pre>
-
-<h5 id="3D-字体"><a href="#3D-字体" class="headerlink" title="3D 字体"></a>3D 字体</h5><p>用的是多层背景</p>
+<h5 id="3D-字体">3D 字体</h5>
+<p>用的是多层背景</p>
 <div style="text-align: center;
     -webkit-text-stroke: 2px white;
     position: relative;
@@ -562,17 +586,17 @@ chrome 需要加-webkit-前缀
 <span class="hljs-number">0px</span> <span class="hljs-number">2px</span> <span class="hljs-number">0px</span> <span class="hljs-number">#ffffff</span>, -<span class="hljs-number">1px</span> <span class="hljs-number">3px</span> <span class="hljs-number">0px</span> <span class="hljs-number">#ffffff</span>, -<span class="hljs-number">2px</span> <span class="hljs-number">4px</span> <span class="hljs-number">0px</span> <span class="hljs-number">#ffffff</span>, -<span class="hljs-number">3px</span> <span class="hljs-number">5px</span> <span class="hljs-number">0px</span> <span class="hljs-number">#ffffff</span>, -<span class="hljs-number">4px</span> <span class="hljs-number">6px</span> <span class="hljs-number">0px</span> <span class="hljs-number">#ffffff</span>, -<span class="hljs-number">5px</span> <span class="hljs-number">7px</span> <span class="hljs-number">0px</span> <span class="hljs-number">#ffffff</span>, -<span class="hljs-number">6px</span> <span class="hljs-number">8px</span> <span class="hljs-number">0px</span> <span class="hljs-number">#ffffff</span>, -<span class="hljs-number">7px</span> <span class="hljs-number">9px</span> <span class="hljs-number">0px</span> <span class="hljs-number">#ffffff</span>, -<span class="hljs-number">8px</span> <span class="hljs-number">10px</span> <span class="hljs-number">0px</span> <span class="hljs-number">#ffffff</span>, -<span class="hljs-number">9px</span> <span class="hljs-number">11px</span> <span class="hljs-number">0px</span> <span class="hljs-number">#ffffff</span>, -<span class="hljs-number">10px</span> <span class="hljs-number">12px</span> <span class="hljs-number">0px</span> <span class="hljs-number">#ffffff</span>, -<span class="hljs-number">11px</span> <span class="hljs-number">13px</span> <span class="hljs-number">0px</span> <span class="hljs-number">#ffffff</span>, -<span class="hljs-number">12px</span> <span class="hljs-number">14px</span> <span class="hljs-number">0px</span> <span class="hljs-number">#ffffff</span>, -<span class="hljs-number">13px</span> <span class="hljs-number">15px</span> <span class="hljs-number">0px</span> <span class="hljs-number">#ffffff</span>, -<span class="hljs-number">14px</span> <span class="hljs-number">16px</span> <span class="hljs-number">0px</span> <span class="hljs-number">#ffffff</span>, -<span class="hljs-number">15px</span> <span class="hljs-number">17px</span> <span class="hljs-number">0px</span> <span class="hljs-number">#ffffff</span>;</code></pre>
 #### 边框渐变
 原理：对外层的div使用循环渐变
-![边框渐变](/static/images/question-in-work/linear-gradient.png)
+![边框渐变](/static/images/question-in-work/linear-gradient.png){referrerPolicy=no-referrer}
 <pre><code class="hljs css"><span class="hljs-attribute">background</span>: <span class="hljs-built_in">-webkit-repeating-linear-gradient</span>(<span class="hljs-number">45deg</span>, <span class="hljs-number">#ffc9d0</span> <span class="hljs-number">0px</span>, <span class="hljs-number">#ffc9d0</span> <span class="hljs-number">10px</span>, #ff <span class="hljs-number">233</span>f <span class="hljs-number">10px</span>, <span class="hljs-number">#ff233f</span> <span class="hljs-number">40px</span>);</code></pre>
 兼容性：
 IE11+ Firefox Chrome 基本都支持
-
-<h4 id="控制元素在-IOS-设备上是否使用滚动回弹效果"><a href="#控制元素在-IOS-设备上是否使用滚动回弹效果" class="headerlink" title="控制元素在 IOS 设备上是否使用滚动回弹效果"></a>控制元素在 IOS 设备上是否使用滚动回弹效果</h4><p>从前端开发的角度讲，只需要知道 CSS 的属性-webkit-overflow-scrolling 是真的创建了带有硬件加速的系统级控件，所以效率很高。但是这相对是耗更多内存的，最好在产生了非常大面积的 overflow 时才应用。</p>
+<h4 id="控制元素在-IOS-设备上是否使用滚动回弹效果">控制元素在 IOS 设备上是否使用滚动回弹效果</h4>
+<p>从前端开发的角度讲，只需要知道 CSS 的属性-webkit-overflow-scrolling 是真的创建了带有硬件加速的系统级控件，所以效率很高。但是这相对是耗更多内存的，最好在产生了非常大面积的 overflow 时才应用。</p>
 <pre><code class="hljs css"><span class="hljs-selector-tag">body</span> &#123;
   -webkit-<span class="hljs-attribute">overflow</span>-scrolling: touch; <span class="hljs-comment">/*ios*/</span>
 &#125;</code></pre>
-
-<h4 id="css-波浪下划线"><a href="#css-波浪下划线" class="headerlink" title="css 波浪下划线"></a>css 波浪下划线</h4><div style="text-decoration-style:wavy;text-decoration-color: red;text-decoration-line:underline;">this is a test</div>
+<h4 id="css-波浪下划线">css 波浪下划线</h4>
+<div style="text-decoration-style:wavy;text-decoration-color: red;text-decoration-line:underline;">this is a test</div>
 <pre><code class="hljs css"><span class="hljs-selector-tag">div</span>&#123;
     <span class="hljs-attribute">text-decoration-style</span>:wavy;
     <span class="hljs-attribute">text-decoration-color</span>: red;
@@ -581,13 +605,13 @@ IE11+ Firefox Chrome 基本都支持
 具体参考：
 [text-decoration](https://www.w3.org/TR/css-text-decor-3/#text-decoration-skip-property)  
 [兼容](https://www.jianshu.com/p/8570433e3669)
-
-<h4 id="css3-外发光"><a href="#css3-外发光" class="headerlink" title="css3 外发光"></a>css3 外发光</h4><div style="width:100px;height:100px;margin:0 50px;box-shadow: 0 0 10px red;"></div>
+<h4 id="css3-外发光">css3 外发光</h4>
+<div style="width:100px;height:100px;margin:0 50px;box-shadow: 0 0 10px red;"></div>
 <pre><code class="hljs css"><span class="hljs-selector-tag">div</span>&#123;
     <span class="hljs-attribute">box-shadow</span>: <span class="hljs-number">0</span> <span class="hljs-number">0</span> <span class="hljs-number">10px</span> <span class="hljs-number">#000</span>;
 &#125;</code></pre>
-
-<h4 id="ios-中激活-active-伪类"><a href="#ios-中激活-active-伪类" class="headerlink" title="ios 中激活 active 伪类"></a>ios 中激活 active 伪类</h4><p>在 iOS 系统的移动设备中，需要在按钮元素或 body&#x2F;html 上绑定一个 touchstart 事件才能激活:active 状态。</p>
+<h4 id="ios-中激活-active-伪类">ios 中激活 active 伪类</h4>
+<p>在 iOS 系统的移动设备中，需要在按钮元素或 body/html 上绑定一个 touchstart 事件才能激活:active 状态。</p>
 <pre><code class="hljs js"><span class="hljs-comment">//ios中激活active伪类</span>
 <span class="hljs-variable language_">document</span>.<span class="hljs-property">body</span>.<span class="hljs-title function_">addEventListener</span>(<span class="hljs-string">&quot;touchstart&quot;</span>, <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) &#123;&#125;);</code></pre>
  

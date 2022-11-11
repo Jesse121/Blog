@@ -273,10 +273,17 @@
     <div class="e-content article-entry" itemprop="articleBody">
        <p>随着webpack3.x的发布，其功能也越来越强大，很多的项目的编译打包工具也由gulp逐渐转移到webpack。最近因为项目重构考虑使用使用vue，同时想从原来的gulp切换到webpack，所以搭建了webpack-vue的前端脚手架工具，这里记录下搭建的过程中的要点。<a target="_blank" rel="noopener" href="https://github.com/Jesse121/Webpack-Vue">项目源码</a></p>
 <span id="more"></span>
-<h3 id="1-用yarn代替npm"><a href="#1-用yarn代替npm" class="headerlink" title="1. 用yarn代替npm"></a>1. 用yarn代替npm</h3><p>npm是一款非常好的包管理工具，之前在用npm安装项目依赖的时候总会因为某些依赖包推出了新版本从而导致编译结果不一样的问题，这是因为在安装依赖的时候npm并没有锁定依赖包的版本号(npm5好像已经解决了这个问题)，每次安装的时候总是获取最新的依赖包，导致编译结果不一样。用yarn安装依赖包可以完美的解决这个问题。<br>去<a target="_blank" rel="noopener" href="https://yarnpkg.com/zh-Hans/">官网</a>下载并安装yarn<br>在命令行中执行yarn -versions,若能输出版本号表示安装成功    </p>
-<h3 id="2-初始化生成package-json文件"><a href="#2-初始化生成package-json文件" class="headerlink" title="2. 初始化生成package.json文件"></a>2. 初始化生成package.json文件</h3><p>执行yarn init,填写项目相关信息</p>
-<h3 id="3-安装项目依赖包和开发依赖包"><a href="#3-安装项目依赖包和开发依赖包" class="headerlink" title="3. 安装项目依赖包和开发依赖包"></a>3. 安装项目依赖包和开发依赖包</h3><p>执行yarn add *** ,安装项目依赖包，添加–dev表示安装成开发依赖，具体安装的依赖包可查阅项目源码中package.json文件  </p>
-<h3 id="4-建立常用库配置文件并打包常用库文件"><a href="#4-建立常用库配置文件并打包常用库文件" class="headerlink" title="4. 建立常用库配置文件并打包常用库文件"></a>4. 建立常用库配置文件并打包常用库文件</h3><h4 id="1-新建webpack-dll-config-js文件"><a href="#1-新建webpack-dll-config-js文件" class="headerlink" title="1. 新建webpack-dll.config.js文件"></a>1. 新建webpack-dll.config.js文件</h4><p>这个配置文件只要是用来打包库文件的，这里介绍下几个重点配置</p>
+<h3 id="1-用yarn代替npm">1. 用yarn代替npm</h3>
+<p>npm是一款非常好的包管理工具，之前在用npm安装项目依赖的时候总会因为某些依赖包推出了新版本从而导致编译结果不一样的问题，这是因为在安装依赖的时候npm并没有锁定依赖包的版本号(npm5好像已经解决了这个问题)，每次安装的时候总是获取最新的依赖包，导致编译结果不一样。用yarn安装依赖包可以完美的解决这个问题。<br>
+去<a target="_blank" rel="noopener" href="https://yarnpkg.com/zh-Hans/">官网</a>下载并安装yarn<br>
+在命令行中执行yarn -versions,若能输出版本号表示安装成功</p>
+<h3 id="2-初始化生成package-json文件">2. 初始化生成package.json文件</h3>
+<p>执行yarn init,填写项目相关信息</p>
+<h3 id="3-安装项目依赖包和开发依赖包">3. 安装项目依赖包和开发依赖包</h3>
+<p>执行yarn add *** ,安装项目依赖包，添加–dev表示安装成开发依赖，具体安装的依赖包可查阅项目源码中package.json文件</p>
+<h3 id="4-建立常用库配置文件并打包常用库文件">4. 建立常用库配置文件并打包常用库文件</h3>
+<h4 id="1-新建webpack-dll-config-js文件">1. 新建webpack-dll.config.js文件</h4>
+<p>这个配置文件只要是用来打包库文件的，这里介绍下几个重点配置</p>
 <pre><code class="hljs js"><span class="hljs-attr">output</span>: &#123;
     <span class="hljs-attr">path</span>: outputDir,
     <span class="hljs-attr">filename</span>: <span class="hljs-string">&#x27;js/lib/[name].js&#x27;</span>,
@@ -289,7 +296,7 @@
         <span class="hljs-attr">NODE_ENV</span>: <span class="hljs-title class_">JSON</span>.<span class="hljs-title function_">stringify</span>(<span class="hljs-string">&#x27;production&#x27;</span>)
     &#125;
 &#125;),</code></pre>
-<p>这里定义环境为开发环境，方便生成的库文件直接用于开发环境 </p>
+<p>这里定义环境为开发环境，方便生成的库文件直接用于开发环境</p>
 <pre><code class="hljs js"> <span class="hljs-comment">//稳定模块ID</span>
 <span class="hljs-keyword">new</span> webpack.<span class="hljs-title class_">HashedModuleIdsPlugin</span>(),
 
@@ -301,10 +308,14 @@
     <span class="hljs-comment">// 指定一个路径作为上下文环境，需要与DllReferencePlugin的context参数保持一致，建议统一设置为项目根目录</span>
     <span class="hljs-attr">context</span>: __dirname,
 &#125;)</code></pre>
-<p>这个是为了稳定模块ID并生成manifest文件，方便在生产环境中通过读取dll_manifest知道哪些文件已经被dll打包，而不需要再次打包  </p>
-<h4 id="2-生成库文件dll-js"><a href="#2-生成库文件dll-js" class="headerlink" title="2. 生成库文件dll.js"></a>2. 生成库文件dll.js</h4><p>执行 yarn dll,会在src&#x2F;app&#x2F;js&#x2F;lib&#x2F;文件夹下生成dll.js文件，该文件打包了vue2.5.13,axios0.17.1,flexible,webpack-zepto，具体要打包哪些文件可由webpack-dll.config.js中的entries来配置<br>若有必要可考虑生成dll.css</p>
-<h3 id="5-建立配置文件"><a href="#5-建立配置文件" class="headerlink" title="5. 建立配置文件"></a>5. 建立配置文件</h3><p>这里我将配置文件分为3个，一个基础配置文件，一个开发环境配置文件，一个生产环境配置文件，开发环境和生产环境配置文件通过webpack-merge插件调用基础配置文件。</p>
-<h4 id="基础配置文件webpack-base-js"><a href="#基础配置文件webpack-base-js" class="headerlink" title="基础配置文件webpack.base.js"></a>基础配置文件webpack.base.js</h4><p>在基础配置文件中包含了基本的配置信息，这里主要介绍下多页面配置中的htmlWebpackPlugin插件的使用。</p>
+<p>这个是为了稳定模块ID并生成manifest文件，方便在生产环境中通过读取dll_manifest知道哪些文件已经被dll打包，而不需要再次打包</p>
+<h4 id="2-生成库文件dll-js">2. 生成库文件dll.js</h4>
+<p>执行 yarn dll,会在src/app/js/lib/文件夹下生成dll.js文件，该文件打包了vue2.5.13,axios0.17.1,flexible,webpack-zepto，具体要打包哪些文件可由webpack-dll.config.js中的entries来配置<br>
+若有必要可考虑生成dll.css</p>
+<h3 id="5-建立配置文件">5. 建立配置文件</h3>
+<p>这里我将配置文件分为3个，一个基础配置文件，一个开发环境配置文件，一个生产环境配置文件，开发环境和生产环境配置文件通过webpack-merge插件调用基础配置文件。</p>
+<h4 id="基础配置文件webpack-base-js">基础配置文件webpack.base.js</h4>
+<p>在基础配置文件中包含了基本的配置信息，这里主要介绍下多页面配置中的htmlWebpackPlugin插件的使用。</p>
 <pre><code class="hljs js"><span class="hljs-keyword">var</span> pages = <span class="hljs-title function_">getEntry</span>(entryDir + <span class="hljs-string">&#x27;/html/**/*.ejs&#x27;</span>);
 <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> pathname <span class="hljs-keyword">in</span> pages) &#123;
     <span class="hljs-keyword">var</span> conf = &#123;
@@ -327,8 +338,9 @@
     &#125;
     <span class="hljs-variable language_">module</span>.<span class="hljs-property">exports</span>.<span class="hljs-property">plugins</span>.<span class="hljs-title function_">push</span>(<span class="hljs-keyword">new</span> <span class="hljs-title function_">htmlWebpackPlugin</span>(conf));
 &#125;</code></pre>
-<p>这里多页面配置采用的是ejs模板，通过循环入口文件，每个模板文件都配置一个htmlWebpackPlugin插件编译，最后达到生成多个页面的目的，通过chunks来提取页面的js&#x2F;css&#x2F;img等</p>
-<h4 id="开发环境配置文件webpack-dev-js"><a href="#开发环境配置文件webpack-dev-js" class="headerlink" title="开发环境配置文件webpack.dev.js"></a>开发环境配置文件webpack.dev.js</h4><p>在开发环境配置文件，通过使用webpack-dev-server插件来建立一个静态服务器提供服务</p>
+<p>这里多页面配置采用的是ejs模板，通过循环入口文件，每个模板文件都配置一个htmlWebpackPlugin插件编译，最后达到生成多个页面的目的，通过chunks来提取页面的js/css/img等</p>
+<h4 id="开发环境配置文件webpack-dev-js">开发环境配置文件webpack.dev.js</h4>
+<p>在开发环境配置文件，通过使用webpack-dev-server插件来建立一个静态服务器提供服务</p>
 <pre><code class="hljs js"><span class="hljs-attr">devServer</span>: &#123;
     <span class="hljs-comment">//设置服务器主文件夹，默认情况下，从项目的根目录提供文件</span>
     <span class="hljs-attr">contentBase</span>: outputDir,
@@ -357,7 +369,8 @@
 <p>在使用热更新时需要使用热更新插件</p>
 <pre><code class="hljs js"><span class="hljs-comment">//热模块替换插件</span>
 <span class="hljs-keyword">new</span> webpack.<span class="hljs-title class_">HotModuleReplacementPlugin</span>()</code></pre>
-<h4 id="生产环境配置文件webpack-prod-js"><a href="#生产环境配置文件webpack-prod-js" class="headerlink" title="生产环境配置文件webpack.prod.js"></a>生产环境配置文件webpack.prod.js</h4><p>在生产环境中我们需要关注公共组件的分离，代码压缩，文件缓存等问题，在公共组件分离时通过读取dll_manifest文件知道哪些文件不用打包，从而减少打包后的文件大小</p>
+<h4 id="生产环境配置文件webpack-prod-js">生产环境配置文件webpack.prod.js</h4>
+<p>在生产环境中我们需要关注公共组件的分离，代码压缩，文件缓存等问题，在公共组件分离时通过读取dll_manifest文件知道哪些文件不用打包，从而减少打包后的文件大小</p>
 <pre><code class="hljs js"><span class="hljs-keyword">new</span> webpack.<span class="hljs-title class_">HashedModuleIdsPlugin</span>(),
 <span class="hljs-keyword">new</span> webpack.<span class="hljs-title class_">DllReferencePlugin</span>(&#123;
     <span class="hljs-comment">// 指定一个路径作为上下文环境，需要与DllPlugin的context参数保持一致，建议统一设置为项目根目录</span>
@@ -396,8 +409,9 @@
     <span class="hljs-attr">filename</span>: <span class="hljs-string">&#x27;js/[name].js?v=[chunkhash:8]&#x27;</span>
 &#125;,</code></pre>
 <p>这里建议使用chunkhash,使用hash每次编译都会变化</p>
-<p>至此配置以基本完成，目前仍有一些不足之处，一直在改进。源码src&#x2F;app&#x2F;文件夹下有一demo，大家可参考demo愉快的进行开发了，有问题欢迎评论提出</p>
-<h5 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h5><ol>
+<p>至此配置以基本完成，目前仍有一些不足之处，一直在改进。源码src/app/文件夹下有一demo，大家可参考demo愉快的进行开发了，有问题欢迎评论提出</p>
+<h5 id="参考文献">参考文献</h5>
+<ol>
 <li><a target="_blank" rel="noopener" href="https://doc.webpack-china.org/concepts/">webpack官方文档</a>,</li>
 <li><a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000005969643">Webpack的dll功能</a>,</li>
 <li><a target="_blank" rel="noopener" href="http://www.jb51.net/article/132275.htm">详解webpack中的hash、chunkhash、contenthash区别</a></li>

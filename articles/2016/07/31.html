@@ -271,27 +271,40 @@
 
     </div>
     <div class="e-content article-entry" itemprop="articleBody">
-       <h4 id="什么是Web-Worker？"><a href="#什么是Web-Worker？" class="headerlink" title="什么是Web Worker？"></a>什么是Web Worker？</h4><p>web worker 是运行在后台的 JavaScript，不会影响页面的性能。</p>
-<h4 id="Web-Worker有什么用？"><a href="#Web-Worker有什么用？" class="headerlink" title="Web Worker有什么用？"></a>Web Worker有什么用？</h4><p>JavaScript语言采用的是单线程模型，也就是说，所有任务排成一个队列，一次只能做一件事。随着电脑计算能力的增强，尤其是多核CPU的出现，这一点带来很大的不便，无法充分发挥JavaScript的潜力。<br>Web Worker的目的，就是为JavaScript创造多线程环境，允许主线程将一些任务分配给子线程。在主线程运行的同时，子线程在后台运行，两者互不干扰。等到子线程完成计算任务，再把结果返回给主线程。因此，每一个子线程就好像一个“工人”（worker），默默地完成自己的工作。这样做的好处是，一些高计算量或高延迟的工作，被worker线程负担了，所以主进程（通常是UI进程）就会很流畅，不会被阻塞或拖慢，可以提高应用的总体性能，并且提升用户体验。</p>
+       <h4 id="什么是Web-Worker？">什么是Web Worker？</h4>
+<p>web worker 是运行在后台的 JavaScript，不会影响页面的性能。</p>
+<h4 id="Web-Worker有什么用？">Web Worker有什么用？</h4>
+<p>JavaScript语言采用的是单线程模型，也就是说，所有任务排成一个队列，一次只能做一件事。随着电脑计算能力的增强，尤其是多核CPU的出现，这一点带来很大的不便，无法充分发挥JavaScript的潜力。<br>
+Web Worker的目的，就是为JavaScript创造多线程环境，允许主线程将一些任务分配给子线程。在主线程运行的同时，子线程在后台运行，两者互不干扰。等到子线程完成计算任务，再把结果返回给主线程。因此，每一个子线程就好像一个“工人”（worker），默默地完成自己的工作。这样做的好处是，一些高计算量或高延迟的工作，被worker线程负担了，所以主进程（通常是UI进程）就会很流畅，不会被阻塞或拖慢，可以提高应用的总体性能，并且提升用户体验。</p>
 <span id="more"></span>
-
-<h4 id="Web-Worker的特点"><a href="#Web-Worker的特点" class="headerlink" title="Web Worker的特点"></a>Web Worker的特点</h4><p>Web Worker有以下几个特点：</p>
+<h4 id="Web-Worker的特点">Web Worker的特点</h4>
+<p>Web Worker有以下几个特点：</p>
 <ul>
 <li>同域限制。子线程加载的脚本文件，必须与主线程的脚本文件在同一个域。</li>
 <li>DOM限制。子线程所在的全局对象，与主进程不一样，它无法读取网页的DOM对象，即document、window、parent这些对象，子线程都无法得到。（但是，navigator对象和location对象可以获得。）</li>
 <li>脚本限制。子线程无法读取网页的全局变量和函数，也不能执行alert和confirm方法，不过可以执行setInterval和setTimeout，以及使用XMLHttpRequest对象发出AJAX请求。</li>
 <li>文件限制。子线程无法读取本地文件，即子线程无法打开本机的文件系统，它所加载的脚本，必须来自网络。</li>
 </ul>
-<h4 id="Web-Worker的兼容性"><a href="#Web-Worker的兼容性" class="headerlink" title="Web Worker的兼容性"></a>Web Worker的兼容性</h4><p>在创建 web worker 之前，请检测用户的浏览器是否支持它：  </p>
+<h4 id="Web-Worker的兼容性">Web Worker的兼容性</h4>
+<p>在创建 web worker 之前，请检测用户的浏览器是否支持它：</p>
 <pre><code class="hljs javascript"><span class="hljs-keyword">if</span>(<span class="hljs-variable language_">window</span>.<span class="hljs-property">Worker</span>)&#123;
     <span class="hljs-title class_">Yes</span>! <span class="hljs-title class_">Web</span> worker support!
     <span class="hljs-comment">// Some code.....</span>
   &#125;<span class="hljs-keyword">else</span>&#123;
       <span class="hljs-title class_">Sorry</span>! <span class="hljs-title class_">No</span> <span class="hljs-title class_">Web</span> <span class="hljs-title class_">Worker</span> support..
 &#125;</code></pre>
-<p>IE10+及所有主流浏览器均支持 web worker。  </p>
-<h4 id="Web-Worker常用API"><a href="#Web-Worker常用API" class="headerlink" title="Web Worker常用API"></a>Web Worker常用API</h4><p>1.<code>postMessage(data)</code><br>子线程与主线程之间互相通信使用方法，传递的data为任意值。<br>2.<code>message</code><br>当有消息发送时，触发该事件。消息发送是双向的，消息内容可通过data来获取。<br>3.<code>terminate()</code><br>主线程中终止worker，此后无法再利用其进行消息传递。注意：一旦terminate后，无法重新启用，只能另外创建。<br>4.<code>error</code><br>出错处理。错误消息可以通过e.message来获取。  </p>
-<h4 id="Web-Worker实例"><a href="#Web-Worker实例" class="headerlink" title="Web Worker实例"></a>Web Worker实例</h4><pre><code class="hljs javascript"><span class="hljs-comment">//file:main.js</span>
+<p>IE10+及所有主流浏览器均支持 web worker。</p>
+<h4 id="Web-Worker常用API">Web Worker常用API</h4>
+<p>1.<code>postMessage(data)</code><br>
+子线程与主线程之间互相通信使用方法，传递的data为任意值。<br>
+2.<code>message</code><br>
+当有消息发送时，触发该事件。消息发送是双向的，消息内容可通过data来获取。<br>
+3.<code>terminate()</code><br>
+主线程中终止worker，此后无法再利用其进行消息传递。注意：一旦terminate后，无法重新启用，只能另外创建。<br>
+4.<code>error</code><br>
+出错处理。错误消息可以通过e.message来获取。</p>
+<h4 id="Web-Worker实例">Web Worker实例</h4>
+<pre><code class="hljs javascript"><span class="hljs-comment">//file:main.js</span>
 <span class="hljs-comment">//创建worker子线程</span>
 <span class="hljs-keyword">var</span> worker = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Worker</span>(<span class="hljs-string">&quot;worker.js&quot;</span>);
 <span class="hljs-comment">//主线程向子线程发送内容</span>
@@ -314,14 +327,19 @@ self.<span class="hljs-property">onmessage</span> = <span class="hljs-keyword">f
     self.<span class="hljs-title function_">postMessage</span>(<span class="hljs-string">&#x27;You said: &#x27;</span> + e.<span class="hljs-property">data</span>);
 &#125;;
 </code></pre>
-<p>worker.js执行的上下文，与主页面执行时的上下文并不相同，最顶层的对象并不是window，而是WorkerGlobalScope，所以无法访问window、与window相关的DOM API，但是可以与setTimeout、setInterval等协作。<br>WorkerGlobalScope作用域下的常用属性、方法如下：</p>
+<p>worker.js执行的上下文，与主页面执行时的上下文并不相同，最顶层的对象并不是window，而是WorkerGlobalScope，所以无法访问window、与window相关的DOM API，但是可以与setTimeout、setInterval等协作。<br>
+WorkerGlobalScope作用域下的常用属性、方法如下：</p>
 <ol>
-<li>self<br>　　我们可以使用 WorkerGlobalScope 的 self 属性来或者这个对象本身的引用</li>
-<li>location<br>　　location 属性返回当线程被创建出来的时候与之关联的 WorkerLocation 对象，它表示用于初始化这个工作线程的脚步资源的绝对 URL，即使页面被多次重定向后，这个 URL 资源位置也不会改变。</li>
-<li>close<br>　　关闭当前线程，与terminate作用类似 <code>self.close()</code></li>
-<li>importScripts<br>　　我们可以通过<code>importScripts()</code>方法通过url在worker中加载库函数</li>
-<li>XMLHttpRequest  </li>
-<li>setTimeout&#x2F;setInterval以及addEventListener</li>
+<li>self<br>
+　　我们可以使用 WorkerGlobalScope 的 self 属性来或者这个对象本身的引用</li>
+<li>location<br>
+　　location 属性返回当线程被创建出来的时候与之关联的 WorkerLocation 对象，它表示用于初始化这个工作线程的脚步资源的绝对 URL，即使页面被多次重定向后，这个 URL 资源位置也不会改变。</li>
+<li>close<br>
+　　关闭当前线程，与terminate作用类似 <code>self.close()</code></li>
+<li>importScripts<br>
+　　我们可以通过<code>importScripts()</code>方法通过url在worker中加载库函数</li>
+<li>XMLHttpRequest</li>
+<li>setTimeout/setInterval以及addEventListener</li>
 </ol>
 <p>详见<a target="_blank" rel="noopener" href="http://javascript.ruanyifeng.com/htmlapi/webworker.html">JavaScript 标准参考教程</a></p>
  

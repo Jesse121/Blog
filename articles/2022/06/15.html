@@ -273,10 +273,14 @@
     <div class="e-content article-entry" itemprop="articleBody">
        <p>最近在国产银河麒麟系统上开发一个 im 桌面应用，采用 electron+vue3+vite 技术栈，在安装 electron 过程中发现在银河麒麟 mips 架构上无法安装 electron，因为 electron 官方并没有提供 mips 架构的包，求助龙芯开源社区采用离线安装 electron 才解决这个问题。</p>
 <span id="more"></span>
-
-<h3 id="正常安装报错"><a href="#正常安装报错" class="headerlink" title="正常安装报错"></a>正常安装报错</h3><p>正常安装 electron,执行<code>yarn add electron@10.1.0 -D</code>因为官网不存在这个系统架构的包所以会报错<br><img src="https://raw.githubusercontent.com/Jesse121/publicPic/master/blog/pictures/20220718172621.png" alt="20220718172621"></p>
-<h3 id="下载离线安装包"><a href="#下载离线安装包" class="headerlink" title="下载离线安装包"></a>下载离线安装包</h3><p>在<a target="_blank" rel="noopener" href="http://www.loongnix.cn/zh/api/electron/">龙芯开源社区</a>上下载 <a target="_blank" rel="noopener" href="http://ftp.loongnix.cn/os/loongnix/1.0/electron/electron-v10.1.0/electron_v10.1.0_kylin_v10.tar.gz">electron_v10.1.0_kylin_v10</a>(mips 版本)，后面要用到</p>
-<h3 id="修改源码"><a href="#修改源码" class="headerlink" title="修改源码"></a>修改源码</h3><p>这时候打开 node_modules&#x2F;electron&#x2F;install.js<br>找到下载 electron 的地方，如下</p>
+<h3 id="正常安装报错">正常安装报错</h3>
+<p>正常安装 electron,执行<code>yarn add electron@10.1.0 -D</code>因为官网不存在这个系统架构的包所以会报错<br>
+<img src="https://raw.githubusercontents.com/Jesse121/publicPic/master/blog/pictures/20220718172621.png" alt="20220718172621" referrerPolicy="no-referrer"></p>
+<h3 id="下载离线安装包">下载离线安装包</h3>
+<p>在<a target="_blank" rel="noopener" href="http://www.loongnix.cn/zh/api/electron/">龙芯开源社区</a>上下载 <a target="_blank" rel="noopener" href="http://ftp.loongnix.cn/os/loongnix/1.0/electron/electron-v10.1.0/electron_v10.1.0_kylin_v10.tar.gz">electron_v10.1.0_kylin_v10</a>(mips 版本)，后面要用到</p>
+<h3 id="修改源码">修改源码</h3>
+<p>这时候打开 node_modules/electron/install.js<br>
+找到下载 electron 的地方，如下</p>
 <pre><code class="hljs js"><span class="hljs-comment">// downloads if not cached</span>
 <span class="hljs-title function_">downloadArtifact</span>(&#123;
   version,
@@ -291,7 +295,6 @@
     <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">error</span>(err.<span class="hljs-property">stack</span>);
     process.<span class="hljs-title function_">exit</span>(<span class="hljs-number">1</span>);
   &#125;);</code></pre>
-
 <p>将上述代码注释掉，添加如下代码</p>
 <pre><code class="hljs js"><span class="hljs-comment">// downloads if not cached</span>
 <span class="hljs-title function_">extractFile</span>(<span class="hljs-string">&quot;electron-v10.1.0-linux-mips64el.zip&quot;</span>);
@@ -308,11 +311,11 @@
 <span class="hljs-comment">//     console.error(err.stack);</span>
 <span class="hljs-comment">//     process.exit(1);</span>
 <span class="hljs-comment">//   &#125;);</span></code></pre>
-
-<h3 id="重新安装"><a href="#重新安装" class="headerlink" title="重新安装"></a>重新安装</h3><p>将下载的离线包解压，并重新压缩成 zip 包，重命名为 electron-v10.1.0-linux-mips64el.zip<br>将重命名的 zip 包放到 node_modules&#x2F;electron&#x2F; 目录下，执行安装命令</p>
+<h3 id="重新安装">重新安装</h3>
+<p>将下载的离线包解压，并重新压缩成 zip 包，重命名为 electron-v10.1.0-linux-mips64el.zip<br>
+将重命名的 zip 包放到 node_modules/electron/ 目录下，执行安装命令</p>
 <pre><code class="hljs sh"><span class="hljs-built_in">cd</span> node_modules/electron
 node install.js</code></pre>
-
 <p>至此 electron 离线安装完成</p>
 <p>参考文章：</p>
 <ol>

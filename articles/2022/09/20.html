@@ -271,10 +271,11 @@
 
     </div>
     <div class="e-content article-entry" itemprop="articleBody">
-       <p>我们先引入一句话：代码主要是为了写给人看的，而不是写给机器看的，只是顺便也能用机器执行而已。<br>代码和语言文字一样是为了表达思想、记载信息，所以写得清楚能更有效地表达。本文多数总结自《重构：改善既有代码的设计(第 2 版)》我们直接进入正题，上代码！</p>
+       <p>我们先引入一句话：代码主要是为了写给人看的，而不是写给机器看的，只是顺便也能用机器执行而已。<br>
+代码和语言文字一样是为了表达思想、记载信息，所以写得清楚能更有效地表达。本文多数总结自《重构：改善既有代码的设计(第 2 版)》我们直接进入正题，上代码！</p>
 <span id="more"></span>
-
-<h3 id="提炼函数"><a href="#提炼函数" class="headerlink" title="提炼函数"></a>提炼函数</h3><p>what</p>
+<h3 id="提炼函数">提炼函数</h3>
+<p>what</p>
 <p>将一段代码提炼到一个独立的函数中，并以这段代码的作用命名。</p>
 <p>where</p>
 <p>如果需要花时间浏览一段代码才能弄清楚它到底要干什么，那么这时候就应该将其提炼到一个函数中，并根据它所做的事命名。以后再读这段代码时，一眼就能知道这个函数的用途。</p>
@@ -298,8 +299,8 @@
   <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;**** Customer Owes ****&quot;</span>);
   <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;***********************&quot;</span>);
 &#125;</code></pre>
-
-<h3 id="函数参数化"><a href="#函数参数化" class="headerlink" title="函数参数化"></a>函数参数化</h3><p>what</p>
+<h3 id="函数参数化">函数参数化</h3>
+<p>what</p>
 <p>以参数的形式传入不同的值，消除重复函数</p>
 <p>where</p>
 <p>如果发现两个函数逻辑非常相似， 只有一些字面量值不同， 可以将其合并成一个函数， 以参数的形式传入不同的值， 从而消除重复。</p>
@@ -335,8 +336,8 @@
     <span class="hljs-attr">params</span>:&#123;id, type&#125;
   &#125;)
 &#125;</code></pre>
-
-<h3 id="使用策略模式替换“胖”分支"><a href="#使用策略模式替换“胖”分支" class="headerlink" title="使用策略模式替换“胖”分支"></a>使用策略模式替换“胖”分支</h3><p>what</p>
+<h3 id="使用策略模式替换“胖”分支">使用策略模式替换“胖”分支</h3>
+<p>what</p>
 <p>使用策略模式替换“胖胖”的 if-else 或者 switch-case</p>
 <p>where</p>
 <p>当 if-else 或者 switch-case 分支过多时可以使用策略模式将各个分支独立出来</p>
@@ -373,8 +374,8 @@
 <span class="hljs-keyword">function</span> <span class="hljs-title function_">getPrice</span>(<span class="hljs-params">tag, originPrice</span>) &#123;
   <span class="hljs-keyword">return</span> priceHandler[tag](originPrice);
 &#125;</code></pre>
-
-<h3 id="提炼变量"><a href="#提炼变量" class="headerlink" title="提炼变量"></a>提炼变量</h3><p>what</p>
+<h3 id="提炼变量">提炼变量</h3>
+<p>what</p>
 <p>提炼局部变量替换表达式</p>
 <p>where</p>
 <p>一个表达式有可能非常复杂且难以阅读。这种情况下， 可以提炼出一个局部变量帮助我们将表达式分解为比较容易管理的形式 ，这样的变量在调试时也很方便。</p>
@@ -397,8 +398,8 @@
   <span class="hljs-keyword">const</span> shipping = <span class="hljs-title class_">Math</span>.<span class="hljs-title function_">min</span>(basePrice * <span class="hljs-number">0.1</span>, <span class="hljs-number">100</span>);
   <span class="hljs-keyword">return</span> basePrice - quantityDiscount + shipping;
 &#125;</code></pre>
-
-<h3 id="内联变量"><a href="#内联变量" class="headerlink" title="内联变量"></a>内联变量</h3><p>what</p>
+<h3 id="内联变量">内联变量</h3>
+<p>what</p>
 <p>用变量右侧表达式消除变量，这是提炼变量的逆操作</p>
 <p>where</p>
 <p>当变量名字并不比表达式本身更具表现力时可以采取该方法</p>
@@ -409,8 +410,8 @@
 
 <span class="hljs-comment">// ==================重构后==================</span>
 <span class="hljs-keyword">return</span> anOrder.<span class="hljs-property">basePrice</span> &gt; <span class="hljs-number">1000</span>;</code></pre>
-
-<h3 id="封装变量"><a href="#封装变量" class="headerlink" title="封装变量"></a>封装变量</h3><p>what</p>
+<h3 id="封装变量">封装变量</h3>
+<p>what</p>
 <p>将变量封装起来，只允许通过函数访问</p>
 <p>where</p>
 <p>对于所有可变的数据， 只要它的作用域超出单个函数，就可以采用封装变量的方法。数据被使用得越广， 就越是值得花精力给它一个体面的封装。</p>
@@ -433,8 +434,8 @@ defaultOwner = &#123; <span class="hljs-attr">firstName</span>: <span class="hlj
 spaceship.<span class="hljs-property">owner</span> = <span class="hljs-title function_">getDefaultOwner</span>();
 <span class="hljs-comment">// 赋值</span>
 <span class="hljs-title function_">setDefaultOwner</span>(&#123; <span class="hljs-attr">firstName</span>: <span class="hljs-string">&quot;Rebecca&quot;</span>, <span class="hljs-attr">lastName</span>: <span class="hljs-string">&quot;Parsons&quot;</span> &#125;);</code></pre>
-
-<h3 id="拆分阶段"><a href="#拆分阶段" class="headerlink" title="拆分阶段"></a>拆分阶段</h3><p>what</p>
+<h3 id="拆分阶段">拆分阶段</h3>
+<p>what</p>
 <p>把一大段行为拆分成多个顺序执行的阶段</p>
 <p>where</p>
 <p>当看见一段代码在同时处理两件不同的事， 可以把它拆分成各自独立的模块， 因为这样到了需要修改的时候， 就可以单独处理每个模块。</p>
@@ -489,8 +490,8 @@ spaceship.<span class="hljs-property">owner</span> = <span class="hljs-title fun
 
   <span class="hljs-keyword">return</span> priceData.<span class="hljs-property">basePrice</span> - priceData.<span class="hljs-property">discount</span> + shippingCost;
 &#125;</code></pre>
-
-<h3 id="拆分循环"><a href="#拆分循环" class="headerlink" title="拆分循环"></a>拆分循环</h3><p>what</p>
+<h3 id="拆分循环">拆分循环</h3>
+<p>what</p>
 <p>将一个循环拆分成多个循环</p>
 <p>where</p>
 <p>当遇到一个身兼数职的循环时可以将循环拆解，让一个循环只做一件事情， 那就能确保每次修改时你只需要理解要修改的那块代码的行为就可以了。该行为可能会被质疑，因为它会迫使你执行两次甚至多次循环，实际情况是，即使处理的列表数据更多一些，循环本身也很少成为性能瓶颈，更何况拆分出循环来通常还使一些更强大的优化手段变得可能。</p>
@@ -570,8 +571,8 @@ spaceship.<span class="hljs-property">owner</span> = <span class="hljs-title fun
 <span class="hljs-keyword">function</span> <span class="hljs-title function_">youngestAge</span>(<span class="hljs-params"></span>) &#123;
   <span class="hljs-keyword">return</span> <span class="hljs-title class_">Math</span>.<span class="hljs-title function_">min</span>(...people.<span class="hljs-title function_">map</span>(<span class="hljs-function">(<span class="hljs-params">p</span>) =&gt;</span> p.<span class="hljs-property">age</span>));
 &#125;</code></pre>
-
-<h3 id="拆分变量"><a href="#拆分变量" class="headerlink" title="拆分变量"></a>拆分变量</h3><p>what</p>
+<h3 id="拆分变量">拆分变量</h3>
+<p>what</p>
 <p>将一个变量拆分成两个或多个变量</p>
 <p>where</p>
 <p>如果变量承担多个责任， 它就应该被替换为多个变量， 每个变量只承担一个责任。</p>
@@ -587,13 +588,16 @@ temp = height * width;
 <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(perimeter);
 <span class="hljs-keyword">const</span> area = height * width;
 <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(area);</code></pre>
-
-<h3 id="分解条件表达式"><a href="#分解条件表达式" class="headerlink" title="分解条件表达式"></a>分解条件表达式</h3><p>what</p>
+<h3 id="分解条件表达式">分解条件表达式</h3>
+<p>what</p>
 <p>将条件表达式提炼成函数</p>
 <p>where</p>
 <p>在带有复杂条件逻辑的函数中，往往可以将原函数中对应的代码改为调用新函数。</p>
 <p>对于条件逻辑， 将每个分支条件分解成新函数可以带来的好处：</p>
-<p>提高可读性<br>可以突出条件逻辑， 更清楚地表明每个分支的作用<br>突出每个分支的原因<br>how</p>
+<p>提高可读性<br>
+可以突出条件逻辑， 更清楚地表明每个分支的作用<br>
+突出每个分支的原因<br>
+how</p>
 <pre><code class="hljs js"><span class="hljs-comment">// ==================重构前==================</span>
 <span class="hljs-comment">// 计算一件商品的总价，该商品在冬季和夏季的单价是不同的</span>
 <span class="hljs-keyword">if</span> (!aDate.<span class="hljs-title function_">isBefore</span>(plan.<span class="hljs-property">summerStart</span>) &amp;&amp; !aDate.<span class="hljs-title function_">isAfter</span>(plan.<span class="hljs-property">summerEnd</span>))
@@ -625,8 +629,8 @@ charge = <span class="hljs-title function_">summer</span>() ? <span class="hljs-
 <span class="hljs-keyword">function</span> <span class="hljs-title function_">regularCharge</span>(<span class="hljs-params"></span>) &#123;
   <span class="hljs-keyword">return</span> quantity * plan.<span class="hljs-property">regularRate</span> + plan.<span class="hljs-property">regularServiceCharge</span>;
 &#125;</code></pre>
-
-<h3 id="合并条件表达式"><a href="#合并条件表达式" class="headerlink" title="合并条件表达式"></a>合并条件表达式</h3><p>what</p>
+<h3 id="合并条件表达式">合并条件表达式</h3>
+<p>what</p>
 <p>将多个条件表达式合并</p>
 <p>where</p>
 <p>当发现这样一串条件检查：检查条件各不相同， 最终行为却一致。如果发现这种情况，就应该使用“逻辑或”和“逻辑与”将它们合并为一个条件表达式。</p>
@@ -645,8 +649,8 @@ charge = <span class="hljs-title function_">summer</span>() ? <span class="hljs-
     anEmployee.<span class="hljs-property">isPartTime</span>
   );
 &#125;</code></pre>
-
-<h3 id="以卫语句取代嵌套条件表达式"><a href="#以卫语句取代嵌套条件表达式" class="headerlink" title="以卫语句取代嵌套条件表达式"></a>以卫语句取代嵌套条件表达式</h3><p>what</p>
+<h3 id="以卫语句取代嵌套条件表达式">以卫语句取代嵌套条件表达式</h3>
+<p>what</p>
 <p>如果某个条件极其罕见，就应该单独检查该条件，并在该条件为真时立刻从函数中返回。这样的单独检查常常被称为“卫语句”（guard clauses）。</p>
 <p>where</p>
 <p>如果使用 if-else 结构，你对 if 分支和 else 分支的重视是同等的。这样的代码结构传递给阅读者的消息就是：各个分支有同样的重要性。卫语句就不同了，它告诉阅读者：“这种情况不是本函数的核心逻辑所关心的， 如果它真发生了，请做一些必要的整理工作，然后退出。” 为了传递这种信息可以使用卫语句替换嵌套结构。</p>
@@ -672,8 +676,8 @@ charge = <span class="hljs-title function_">summer</span>() ? <span class="hljs-
   <span class="hljs-keyword">if</span> (employee.<span class="hljs-property">isRetired</span>) <span class="hljs-keyword">return</span> &#123; <span class="hljs-attr">amount</span>: <span class="hljs-number">0</span>, <span class="hljs-attr">reasonCode</span>: <span class="hljs-string">&quot;RET&quot;</span> &#125;;
   <span class="hljs-keyword">return</span> <span class="hljs-title function_">someFinalComputation</span>();
 &#125;</code></pre>
-
-<h3 id="将查询函数和修改函数分离"><a href="#将查询函数和修改函数分离" class="headerlink" title="将查询函数和修改函数分离"></a>将查询函数和修改函数分离</h3><p>what</p>
+<h3 id="将查询函数和修改函数分离">将查询函数和修改函数分离</h3>
+<p>what</p>
 <p>将查询动作从修改动作中分离出来的方式</p>
 <p>where</p>
 <p>如果遇到一个“既有返回值又有副作用”的函数，此时可以将查询动作从修改动作中分离出来。</p>
@@ -713,9 +717,11 @@ charge = <span class="hljs-title function_">summer</span>() ? <span class="hljs-
 <span class="hljs-comment">// 调用方</span>
 <span class="hljs-keyword">const</span> found = <span class="hljs-title function_">findMiscreant</span>(people);
 <span class="hljs-title function_">alertForMiscreant</span>(people);</code></pre>
-
 <blockquote>
-<p>作者：是 ta 就是他<br>链接：<a target="_blank" rel="noopener" href="https://juejin.cn/post/7131211363493347335">https://juejin.cn/post/7131211363493347335</a><br>来源：稀土掘金<br>著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</p>
+<p>作者：是 ta 就是他<br>
+链接：<a target="_blank" rel="noopener" href="https://juejin.cn/post/7131211363493347335">https://juejin.cn/post/7131211363493347335</a><br>
+来源：稀土掘金<br>
+著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</p>
 </blockquote>
  
       <div id="toc-article">

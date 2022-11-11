@@ -273,42 +273,67 @@
     <div class="e-content article-entry" itemprop="articleBody">
        <p>最近我们公司的官网由原来的http1.1已升级到http2，而我们前端开发对http2还是一片懵懂，更不知道为何换成了这个，故此补充了下http2的相关知识。</p>
 <span id="more"></span>
-
-<h3 id="http1-1相比于http1-0有哪些优势？"><a href="#http1-1相比于http1-0有哪些优势？" class="headerlink" title="http1.1相比于http1.0有哪些优势？"></a>http1.1相比于http1.0有哪些优势？</h3><ol>
-<li><p>缓存处理<br>在HTTP1.0中主要使用header里的If-Modified-Since,Expires来做为缓存判断的标准，<br>HTTP1.1则引入了更多的缓存控制策略例如Entity tag，If-Unmodified-Since, If-Match, If-None-Match等更多可供选择的缓存头来控制缓存策略。</p>
+<h3 id="http1-1相比于http1-0有哪些优势？">http1.1相比于http1.0有哪些优势？</h3>
+<ol>
+<li>
+<p>缓存处理<br>
+在HTTP1.0中主要使用header里的If-Modified-Since,Expires来做为缓存判断的标准，<br>
+HTTP1.1则引入了更多的缓存控制策略例如Entity tag，If-Unmodified-Since, If-Match, If-None-Match等更多可供选择的缓存头来控制缓存策略。</p>
 </li>
-<li><p>带宽优化及网络连接的使用<br>HTTP1.0中，存在一些浪费带宽的现象，例如客户端只是需要某个对象的一部分，而服务器却将整个对象送过来了，并且不支持断点续传功能，HTTP1.1则在请求头引入了range头域，它允许只请求资源的某个部分，即返回码是206（Partial Content），这样就方便了开发者自由的选择以便于充分利用带宽和连接。</p>
+<li>
+<p>带宽优化及网络连接的使用<br>
+HTTP1.0中，存在一些浪费带宽的现象，例如客户端只是需要某个对象的一部分，而服务器却将整个对象送过来了，并且不支持断点续传功能，HTTP1.1则在请求头引入了range头域，它允许只请求资源的某个部分，即返回码是206（Partial Content），这样就方便了开发者自由的选择以便于充分利用带宽和连接。</p>
 </li>
-<li><p>错误通知的管理<br>在HTTP1.1中新增了24个错误状态响应码，如409（Conflict）表示请求的资源与资源的当前状态发生冲突；410（Gone）表示服务器上的某个资源被永久性的删除。</p>
+<li>
+<p>错误通知的管理<br>
+在HTTP1.1中新增了24个错误状态响应码，如409（Conflict）表示请求的资源与资源的当前状态发生冲突；410（Gone）表示服务器上的某个资源被永久性的删除。</p>
 </li>
-<li><p>Host头处理<br>在HTTP1.0中认为每台服务器都绑定一个唯一的IP地址，因此，请求消息中的URL并没有传递主机名（hostname）。但随着虚拟主机技术的发展，在一台物理服务器上可以存在多个虚拟主机（Multi-homed Web Servers），并且它们共享一个IP地址。<br>HTTP1.1的请求消息和响应消息都应支持Host头域，且请求消息中如果没有Host头域会报告一个错误（400 Bad Request）。</p>
+<li>
+<p>Host头处理<br>
+在HTTP1.0中认为每台服务器都绑定一个唯一的IP地址，因此，请求消息中的URL并没有传递主机名（hostname）。但随着虚拟主机技术的发展，在一台物理服务器上可以存在多个虚拟主机（Multi-homed Web Servers），并且它们共享一个IP地址。<br>
+HTTP1.1的请求消息和响应消息都应支持Host头域，且请求消息中如果没有Host头域会报告一个错误（400 Bad Request）。</p>
 </li>
-<li><p>长连接<br>HTTP 1.1支持长连接（PersistentConnection）和请求的流水线（Pipelining）处理，在一个TCP连接上可以传送多个HTTP请求和响应，减少了建立和关闭连接的消耗和延迟，在HTTP1.1中默认开启Connection： keep-alive，一定程度上弥补了HTTP1.0每次请求都要创建连接的缺点。</p>
+<li>
+<p>长连接<br>
+HTTP 1.1支持长连接（PersistentConnection）和请求的流水线（Pipelining）处理，在一个TCP连接上可以传送多个HTTP请求和响应，减少了建立和关闭连接的消耗和延迟，在HTTP1.1中默认开启Connection： keep-alive，一定程度上弥补了HTTP1.0每次请求都要创建连接的缺点。</p>
 </li>
 </ol>
-<h3 id="http2相比于http1-1有哪些优势？"><a href="#http2相比于http1-1有哪些优势？" class="headerlink" title="http2相比于http1.1有哪些优势？"></a>http2相比于http1.1有哪些优势？</h3><ol>
-<li>二进制分帧<br>HTTP&#x2F;2 采用二进制格式传输数据，而非 HTTP 1.x 的文本格式，二进制协议解析起来更高效。HTTP&#x2F;2 中，同域名下所有通信都在单个连接上完成，该连接可以承载任意数量的双向数据流。每个数据流都以消息的形式发送，而消息又由一个或多个帧组成。多个帧之间可以乱序发送，根据帧首部的流标识可以重新组装。</li>
-<li>多路复用<br>多路复用代替原来的序列和阻塞机制。所有就是请求的都是通过一个 TCP连接并发完成。 HTTP 1.x 中，如果想并发多个请求，必须使用多个 TCP 链接，且浏览器为了控制资源，还会对单个域名有 6-8个的TCP链接请求限制</li>
-<li>服务器推送<br>服务端可以在发送页面HTML时主动推送其它资源，而不用等到浏览器解析到相应位置，发起请求再响应。</li>
-<li>头部压缩<br>HTTP 1.1请求的大小变得越来越大，有时甚至会大于TCP窗口的初始大小，因为它们需要等待带着ACK的响应回来以后才能继续被发送。HTTP&#x2F;2对消息头采用HPACK（专为http&#x2F;2头部设计的压缩格式）进行压缩传输，能够节省消息头占用的网络的流量。而HTTP&#x2F;1.x每次请求，都会携带大量冗余头信息，浪费了很多带宽资源。</li>
+<h3 id="http2相比于http1-1有哪些优势？">http2相比于http1.1有哪些优势？</h3>
+<ol>
+<li>二进制分帧<br>
+HTTP/2 采用二进制格式传输数据，而非 HTTP 1.x 的文本格式，二进制协议解析起来更高效。HTTP/2 中，同域名下所有通信都在单个连接上完成，该连接可以承载任意数量的双向数据流。每个数据流都以消息的形式发送，而消息又由一个或多个帧组成。多个帧之间可以乱序发送，根据帧首部的流标识可以重新组装。</li>
+<li>多路复用<br>
+多路复用代替原来的序列和阻塞机制。所有就是请求的都是通过一个 TCP连接并发完成。 HTTP 1.x 中，如果想并发多个请求，必须使用多个 TCP 链接，且浏览器为了控制资源，还会对单个域名有 6-8个的TCP链接请求限制</li>
+<li>服务器推送<br>
+服务端可以在发送页面HTML时主动推送其它资源，而不用等到浏览器解析到相应位置，发起请求再响应。</li>
+<li>头部压缩<br>
+HTTP 1.1请求的大小变得越来越大，有时甚至会大于TCP窗口的初始大小，因为它们需要等待带着ACK的响应回来以后才能继续被发送。HTTP/2对消息头采用HPACK（专为http/2头部设计的压缩格式）进行压缩传输，能够节省消息头占用的网络的流量。而HTTP/1.x每次请求，都会携带大量冗余头信息，浪费了很多带宽资源。</li>
 </ol>
-<h3 id="HTTP2-0的多路复用和HTTP1-X中的长连接复用有什么区别？"><a href="#HTTP2-0的多路复用和HTTP1-X中的长连接复用有什么区别？" class="headerlink" title="HTTP2.0的多路复用和HTTP1.X中的长连接复用有什么区别？"></a>HTTP2.0的多路复用和HTTP1.X中的长连接复用有什么区别？</h3><ol>
-<li>HTTP&#x2F;1.0 一次请求-响应，建立一个连接，用完关闭；每一个请求都要建立一个连接；</li>
-<li>HTTP&#x2F;1.1 Pipeling解决方式为，若干个请求排队串行化单线程处理，后面的请求等待前面请求的返回才能获得执行机会，一旦有某请求超时等，后续请求只能被阻塞，毫无办法，也就是人们常说的线头阻塞；</li>
-<li>HTTP&#x2F;2多个请求可同时在一个连接上并行执行。某个请求任务耗时严重，不会影响到其它连接的正常执行；</li>
+<h3 id="HTTP2-0的多路复用和HTTP1-X中的长连接复用有什么区别？">HTTP2.0的多路复用和HTTP1.X中的长连接复用有什么区别？</h3>
+<ol>
+<li>HTTP/1.0 一次请求-响应，建立一个连接，用完关闭；每一个请求都要建立一个连接；</li>
+<li>HTTP/1.1 Pipeling解决方式为，若干个请求排队串行化单线程处理，后面的请求等待前面请求的返回才能获得执行机会，一旦有某请求超时等，后续请求只能被阻塞，毫无办法，也就是人们常说的线头阻塞；</li>
+<li>HTTP/2多个请求可同时在一个连接上并行执行。某个请求任务耗时严重，不会影响到其它连接的正常执行；</li>
 </ol>
-<h3 id="nginx上http2-0配置"><a href="#nginx上http2-0配置" class="headerlink" title="nginx上http2.0配置"></a>nginx上http2.0配置</h3><p>尽管HTTP2.0其实可以支持非HTTPS的，但是现在主流的浏览器像chrome，firefox表示还是只支持基于 TLS 部署的HTTP2.0协议，所以要想升级成HTTP2.0还是先升级HTTPS为好。<br>在https基础上配置成http2就非常简单了，<br>在 Nginx 上 开启 HTTP&#x2F;2 需要 Nginx 1.9.5 以上版本，并且需要 OpenSSL 版本在 1.0.2 以上。<br>查看openssl版本</p>
+<h3 id="nginx上http2-0配置">nginx上http2.0配置</h3>
+<p>尽管HTTP2.0其实可以支持非HTTPS的，但是现在主流的浏览器像chrome，firefox表示还是只支持基于 TLS 部署的HTTP2.0协议，所以要想升级成HTTP2.0还是先升级HTTPS为好。<br>
+在https基础上配置成http2就非常简单了，<br>
+在 Nginx 上 开启 HTTP/2 需要 Nginx 1.9.5 以上版本，并且需要 OpenSSL 版本在 1.0.2 以上。<br>
+查看openssl版本</p>
 <pre><code class="hljs plaintext">openss version
 OpenSSL 1.0.2k-fips  26 Jan 2017</code></pre>
-<p>修改Nginx配置<br>在 server 配置段中的 listen 后增加 http2 即可。</p>
+<p>修改Nginx配置<br>
+在 server 配置段中的 listen 后增加 http2 即可。</p>
 <pre><code class="hljs plaintext">server&#123;
     listen  443 ssl http2;
     ···
 &#125;</code></pre>
-<p>重启nginx  nginx -s reload<br>至此可以在浏览器访问看看http2是否生效</p>
-<h4 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h4><ol>
+<p>重启nginx  nginx -s reload<br>
+至此可以在浏览器访问看看http2是否生效</p>
+<h4 id="参考文档">参考文档</h4>
+<ol>
 <li><a target="_blank" rel="noopener" href="https://juejin.im/entry/5981c5df518825359a2b9476">HTTP1.0、HTTP1.1 和 HTTP2.0 的区别</a></li>
-<li><a target="_blank" rel="noopener" href="https://www.hi-linux.com/posts/24162.html">Nginx 上配置 HTTP&#x2F;2 简明教程</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.hi-linux.com/posts/24162.html">Nginx 上配置 HTTP/2 简明教程</a></li>
 </ol>
  
       <div id="toc-article">

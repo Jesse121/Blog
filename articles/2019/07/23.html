@@ -271,9 +271,10 @@
 
     </div>
     <div class="e-content article-entry" itemprop="articleBody">
-       <h3 id="第-2-章-this-call-apply"><a href="#第-2-章-this-call-apply" class="headerlink" title="第 2 章 this call apply"></a>第 2 章 this call apply</h3><p>bind()方法创建一个新的函数，在 bind()被调用时，这个新函数的 this 被 bind 的第一个参数指定，其余的参数将作为新函数的参数供调用时使用。<br>bind()方法底层实现</p>
+       <h3 id="第-2-章-this-call-apply">第 2 章 this call apply</h3>
+<p>bind()方法创建一个新的函数，在 bind()被调用时，这个新函数的 this 被 bind 的第一个参数指定，其余的参数将作为新函数的参数供调用时使用。<br>
+bind()方法底层实现</p>
 <span id="more"></span>
-
 <pre><code class="hljs js"><span class="hljs-title class_">Function</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">bind</span> =
   <span class="hljs-title class_">Function</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">bind</span> ||
   <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) &#123;
@@ -294,9 +295,10 @@
 &#125;;
 <span class="hljs-keyword">var</span> getPrice1 = food.<span class="hljs-property">getPrice</span>.<span class="hljs-title function_">bind</span>(&#123; <span class="hljs-attr">name</span>: <span class="hljs-string">&quot;鸡腿&quot;</span>, <span class="hljs-attr">price</span>: <span class="hljs-string">&quot;7块钱&quot;</span> &#125;, <span class="hljs-string">&quot;肯打鸡 &quot;</span>);
 <span class="hljs-title function_">getPrice1</span>(<span class="hljs-string">&quot;jesse&quot;</span>);</code></pre>
-
 <p>bind()的另一个最简单的用法是使一个函数拥有预设的初始参数。只要将这些参数（如果有的话）作为 bind()的参数写在 this 后面。当绑定函数被调用时，这些参数会被插入到目标函数的参数列表的开始位置，传递给绑定函数的参数会跟在它们后面</p>
-<h3 id="第-3-章-闭包和高阶函数"><a href="#第-3-章-闭包和高阶函数" class="headerlink" title="第 3 章 闭包和高阶函数"></a>第 3 章 闭包和高阶函数</h3><h4 id="高阶函数的应用"><a href="#高阶函数的应用" class="headerlink" title="高阶函数的应用"></a>高阶函数的应用</h4><p>函数柯里化</p>
+<h3 id="第-3-章-闭包和高阶函数">第 3 章 闭包和高阶函数</h3>
+<h4 id="高阶函数的应用">高阶函数的应用</h4>
+<p>函数柯里化</p>
 <pre><code class="hljs js"><span class="hljs-keyword">var</span> curring = <span class="hljs-keyword">function</span>(<span class="hljs-params">fn</span>)&#123;
     <span class="hljs-keyword">var</span> args = [];
     <span class="hljs-keyword">return</span>  <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)&#123;
@@ -320,7 +322,6 @@
 <span class="hljs-keyword">var</span> cost = <span class="hljs-title function_">curring</span>(cost);
 <span class="hljs-title function_">cost</span>(<span class="hljs-number">100</span>);
 <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title function_">cost</span>());</code></pre>
-
 <p>uncurring()</p>
 <pre><code class="hljs js"><span class="hljs-title class_">Function</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">uncurring</span> = <span class="hljs-title function_">fucntion</span>(<span class="hljs-params"></span>)&#123;
     <span class="hljs-keyword">var</span> self = <span class="hljs-variable language_">this</span>;
@@ -334,7 +335,6 @@
     <span class="hljs-title function_">push</span>(<span class="hljs-variable language_">arguments</span>,<span class="hljs-number">4</span>);
     <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-variable language_">arguments</span>); <span class="hljs-comment">//[1,2,3,4]</span>
 &#125;)(<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>);</code></pre>
-
 <p>函数节流，用于解决函数频繁被调用而造成的性能问题</p>
 <pre><code class="hljs js"><span class="hljs-keyword">var</span> throttle = <span class="hljs-keyword">function</span> (<span class="hljs-params">fn, interval</span>) &#123;
   <span class="hljs-keyword">var</span> _self = fn,
@@ -361,7 +361,6 @@
 <span class="hljs-variable language_">window</span>.<span class="hljs-property">onresize</span> = <span class="hljs-title function_">throttle</span>(<span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) &#123;
   <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-number">1</span>);
 &#125;, <span class="hljs-number">500</span>);</code></pre>
-
 <p>惰性加载函数</p>
 <pre><code class="hljs js"><span class="hljs-keyword">var</span> addEvent = <span class="hljs-keyword">function</span> (<span class="hljs-params">elem, type, handler</span>) &#123;
   <span class="hljs-keyword">if</span> (<span class="hljs-variable language_">window</span>.<span class="hljs-property">addEventListener</span>) &#123;
@@ -384,8 +383,9 @@
 <span class="hljs-title function_">addEvent</span>(div, <span class="hljs-string">&quot;click&quot;</span>, <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) &#123;
   <span class="hljs-title function_">alert</span>(<span class="hljs-number">2</span>);
 &#125;);</code></pre>
-
-<h3 id="第-4-章-单例模式"><a href="#第-4-章-单例模式" class="headerlink" title="第 4 章 单例模式"></a>第 4 章 单例模式</h3><p>单例模式的核心是确保只有一个实例，并提供全局访问。<br>该模式可用于定义单一弹窗</p>
+<h3 id="第-4-章-单例模式">第 4 章 单例模式</h3>
+<p>单例模式的核心是确保只有一个实例，并提供全局访问。<br>
+该模式可用于定义单一弹窗</p>
 <pre><code class="hljs js"><span class="hljs-keyword">var</span> <span class="hljs-title class_">CreateDiv</span> = <span class="hljs-keyword">function</span> (<span class="hljs-params">html</span>) &#123;
   <span class="hljs-variable language_">this</span>.<span class="hljs-property">html</span> = html;
   <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">init</span>();
@@ -409,7 +409,6 @@
 <span class="hljs-keyword">var</span> a = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ProxySingletonCreateDiv</span>(<span class="hljs-string">&quot;sven1&quot;</span>);
 <span class="hljs-keyword">var</span> b = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ProxySingletonCreateDiv</span>(<span class="hljs-string">&quot;sven2&quot;</span>);
 <span class="hljs-title function_">alert</span>(a === b);</code></pre>
-
 <p>ES6 写法</p>
 <pre><code class="hljs js"><span class="hljs-keyword">let</span> instance;
 <span class="hljs-keyword">class</span> <span class="hljs-title class_">CreateDiv</span> &#123;
@@ -431,8 +430,9 @@
 <span class="hljs-keyword">var</span> a = <span class="hljs-keyword">new</span> <span class="hljs-title class_">CreateDiv</span>(<span class="hljs-string">&quot;sven1&quot;</span>);
 <span class="hljs-keyword">var</span> b = <span class="hljs-keyword">new</span> <span class="hljs-title class_">CreateDiv</span>(<span class="hljs-string">&quot;sven2&quot;</span>);
 <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(a === b); <span class="hljs-comment">// true</span></code></pre>
-
-<h3 id="第-5-章-策略模式"><a href="#第-5-章-策略模式" class="headerlink" title="第 5 章 策略模式"></a>第 5 章 策略模式</h3><p>策略模式指的是定义一系列的算法，把它们一个个封装起来，并且使它们可以相互替换<br>该模式常用于表单校验</p>
+<h3 id="第-5-章-策略模式">第 5 章 策略模式</h3>
+<p>策略模式指的是定义一系列的算法，把它们一个个封装起来，并且使它们可以相互替换<br>
+该模式常用于表单校验</p>
 <pre><code class="hljs js"><span class="hljs-keyword">var</span> strategies = &#123;
   <span class="hljs-attr">S</span>: <span class="hljs-keyword">function</span> (<span class="hljs-params">salary</span>) &#123;
     <span class="hljs-keyword">return</span> salary * <span class="hljs-number">4</span>;
@@ -450,8 +450,8 @@
 
 <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title function_">calculateBonus</span>(<span class="hljs-string">&quot;S&quot;</span>, <span class="hljs-number">20000</span>)); <span class="hljs-comment">// 输出：80000</span>
 <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title function_">calculateBonus</span>(<span class="hljs-string">&quot;A&quot;</span>, <span class="hljs-number">10000</span>)); <span class="hljs-comment">// 输出：30000</span></code></pre>
-
-<h4 id="5-6-2-用策略模式重构表单校验"><a href="#5-6-2-用策略模式重构表单校验" class="headerlink" title="5.6.2 用策略模式重构表单校验"></a>5.6.2 用策略模式重构表单校验</h4><pre><code class="hljs js"><span class="hljs-comment">/***********************策略对象**************************/</span>
+<h4 id="5-6-2-用策略模式重构表单校验">5.6.2 用策略模式重构表单校验</h4>
+<pre><code class="hljs js"><span class="hljs-comment">/***********************策略对象**************************/</span>
 <span class="hljs-keyword">var</span> strategies = &#123;
   <span class="hljs-attr">isNonEmpty</span>: <span class="hljs-keyword">function</span> (<span class="hljs-params">value, errorMsg</span>) &#123;
     <span class="hljs-keyword">if</span> (value === <span class="hljs-string">&quot;&quot;</span>) &#123;
@@ -526,8 +526,9 @@ registerForm.<span class="hljs-property">onsubmit</span> = <span class="hljs-key
     <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
   &#125;
 &#125;;</code></pre>
-
-<h3 id="第-6-章-代理模式"><a href="#第-6-章-代理模式" class="headerlink" title="第 6 章 代理模式"></a>第 6 章 代理模式</h3><h4 id="虚拟代理在惰性加载中的应用"><a href="#虚拟代理在惰性加载中的应用" class="headerlink" title="虚拟代理在惰性加载中的应用"></a>虚拟代理在惰性加载中的应用</h4><pre><code class="hljs js"><span class="hljs-keyword">var</span> miniConsole = (<span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)&#123;
+<h3 id="第-6-章-代理模式">第 6 章 代理模式</h3>
+<h4 id="虚拟代理在惰性加载中的应用">虚拟代理在惰性加载中的应用</h4>
+<pre><code class="hljs js"><span class="hljs-keyword">var</span> miniConsole = (<span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)&#123;
     <span class="hljs-keyword">var</span> cache = [];
     <span class="hljs-keyword">var</span> handler = <span class="hljs-keyword">function</span>(<span class="hljs-params"> ev </span>)&#123;
         <span class="hljs-keyword">if</span> ( ev.<span class="hljs-property">keyCode</span> === <span class="hljs-number">113</span> )&#123;
@@ -560,8 +561,8 @@ miniConsole = &#123;
     <span class="hljs-comment">// 真正代码略</span>
     <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>( <span class="hljs-title class_">Array</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">join</span>.<span class="hljs-title function_">call</span>( <span class="hljs-variable language_">arguments</span> ) );
 &#125;</code></pre>
-
-<h4 id="缓存代理"><a href="#缓存代理" class="headerlink" title="缓存代理"></a>缓存代理</h4><pre><code class="hljs js"><span class="hljs-keyword">var</span> mult = <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)&#123;
+<h4 id="缓存代理">缓存代理</h4>
+<pre><code class="hljs js"><span class="hljs-keyword">var</span> mult = <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)&#123;
     <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>( <span class="hljs-string">&#x27;开始计算乘积&#x27;</span> );
     <span class="hljs-keyword">var</span> a = <span class="hljs-number">1</span>;
     <span class="hljs-keyword">for</span> ( <span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>, l = <span class="hljs-variable language_">arguments</span>.<span class="hljs-property">length</span>; i &lt; l; i++ )&#123;
@@ -586,8 +587,8 @@ miniConsole = &#123;
 <span class="hljs-title function_">proxyMult</span>( <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span> ); <span class="hljs-comment">// 输出：24</span>
 <span class="hljs-title function_">proxyMult</span>( <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span> ); <span class="hljs-comment">// 输出：24</span>
 我们在常常在项目中遇到分页的需求，同一页的数据理论上只需要去后台拉取一次，这些已经拉取到的数据在某个地方被缓存之后，下次再请求同一页的时候，便可以直接使用之前的数据。</code></pre>
-
-<h3 id="第-7-章-迭代器模式"><a href="#第-7-章-迭代器模式" class="headerlink" title="第 7 章 迭代器模式"></a>第 7 章 迭代器模式</h3><p>迭代器模式是指提供一种方法顺序访问一个聚合对象中的各种元素，而又不需要暴露该对象的内部表示</p>
+<h3 id="第-7-章-迭代器模式">第 7 章 迭代器模式</h3>
+<p>迭代器模式是指提供一种方法顺序访问一个聚合对象中的各种元素，而又不需要暴露该对象的内部表示</p>
 <pre><code class="hljs js"><span class="hljs-keyword">var</span> getActiveUploadObj = <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) &#123;
   <span class="hljs-comment">//...</span>
 &#125;;
@@ -610,8 +611,8 @@ miniConsole = &#123;
   getFlashUploadObj,
   getFormUploadObj
 );</code></pre>
-
-<h3 id="第-8-章-发布订阅模式"><a href="#第-8-章-发布订阅模式" class="headerlink" title="第 8 章 发布订阅模式"></a>第 8 章 发布订阅模式</h3><p>发布—订阅模式又叫观察者模式，它定义对象间的一种一对多的依赖关系，当一个对象的状 态发生改变时，所有依赖于它的对象都将得到通知。在 JavaScript 开发中，我们一般用事件模型 来替代传统的发布—订阅模式。</p>
+<h3 id="第-8-章-发布订阅模式">第 8 章 发布订阅模式</h3>
+<p>发布—订阅模式又叫观察者模式，它定义对象间的一种一对多的依赖关系，当一个对象的状 态发生改变时，所有依赖于它的对象都将得到通知。在 JavaScript 开发中，我们一般用事件模型 来替代传统的发布—订阅模式。</p>
 <pre><code class="hljs js"><span class="hljs-keyword">var</span> <span class="hljs-title class_">Event</span> = (<span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) &#123;
   <span class="hljs-keyword">var</span> clientList = &#123;&#125;,
     listen,
@@ -662,8 +663,8 @@ miniConsole = &#123;
 &#125;);
 
 <span class="hljs-title class_">Event</span>.<span class="hljs-title function_">trigger</span>(<span class="hljs-string">&quot;squareMeter88&quot;</span>, <span class="hljs-number">2000000</span>); <span class="hljs-comment">// 售楼处发布消息</span></code></pre>
-
-<h3 id="第-9-章-命令模式"><a href="#第-9-章-命令模式" class="headerlink" title="第 9 章 命令模式"></a>第 9 章 命令模式</h3><p>在面向对象设计中，命令模式的接收者被当成 command 对象的属性保存起来，同时约定执行命令的操作调用 command.execute 方法。在使用闭包的命令模式实现中，接收者被封闭在闭包产生的环境中，执行命令的操作可以更加简单，仅仅执行回调函数即可。无论接收者被保存为对象的属性，还是被封闭在闭包产生的环境中，在将来执行命令的时候，接收者都能被顺利访问。用闭包实现的命令模式如下代码所示:</p>
+<h3 id="第-9-章-命令模式">第 9 章 命令模式</h3>
+<p>在面向对象设计中，命令模式的接收者被当成 command 对象的属性保存起来，同时约定执行命令的操作调用 command.execute 方法。在使用闭包的命令模式实现中，接收者被封闭在闭包产生的环境中，执行命令的操作可以更加简单，仅仅执行回调函数即可。无论接收者被保存为对象的属性，还是被封闭在闭包产生的环境中，在将来执行命令的时候，接收者都能被顺利访问。用闭包实现的命令模式如下代码所示:</p>
 <pre><code class="hljs js"><span class="hljs-keyword">var</span> <span class="hljs-title class_">RefreshMenuBarCommand</span> = <span class="hljs-keyword">function</span> (<span class="hljs-params">receiver</span>) &#123;
   <span class="hljs-keyword">return</span> &#123;
     <span class="hljs-attr">execute</span>: <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) &#123;
@@ -678,8 +679,9 @@ miniConsole = &#123;
 &#125;;
 <span class="hljs-keyword">var</span> refreshMenuBarCommand = <span class="hljs-title class_">RefreshMenuBarCommand</span>(<span class="hljs-title class_">MenuBar</span>);
 <span class="hljs-title function_">setCommand</span>(button1, refreshMenuBarCommand);</code></pre>
-
-<h3 id="第-10-章-组合模式"><a href="#第-10-章-组合模式" class="headerlink" title="第 10 章 组合模式"></a>第 10 章 组合模式</h3><h4 id="10-7-组合模式的例子——扫描文件夹"><a href="#10-7-组合模式的例子——扫描文件夹" class="headerlink" title="10.7 组合模式的例子——扫描文件夹"></a>10.7 组合模式的例子——扫描文件夹</h4><pre><code class="hljs js"><span class="hljs-keyword">var</span> <span class="hljs-title class_">Folder</span> = <span class="hljs-keyword">function</span> (<span class="hljs-params">name</span>) &#123;
+<h3 id="第-10-章-组合模式">第 10 章 组合模式</h3>
+<h4 id="10-7-组合模式的例子——扫描文件夹">10.7 组合模式的例子——扫描文件夹</h4>
+<pre><code class="hljs js"><span class="hljs-keyword">var</span> <span class="hljs-title class_">Folder</span> = <span class="hljs-keyword">function</span> (<span class="hljs-params">name</span>) &#123;
   <span class="hljs-variable language_">this</span>.<span class="hljs-property">name</span> = name;
   <span class="hljs-variable language_">this</span>.<span class="hljs-property">files</span> = [];
 &#125;;
@@ -724,13 +726,14 @@ folder.<span class="hljs-title function_">add</span>(folder3);
 folder.<span class="hljs-title function_">add</span>(file5);
 
 folder.<span class="hljs-title function_">scan</span>();</code></pre>
-
-<h4 id="10-8-一些值得注意的地方"><a href="#10-8-一些值得注意的地方" class="headerlink" title="10.8 一些值得注意的地方"></a>10.8 一些值得注意的地方</h4><ol>
+<h4 id="10-8-一些值得注意的地方">10.8 一些值得注意的地方</h4>
+<ol>
 <li>组合模式不是父子关系 组合对象把请求委托给它所包含的所有叶对象，它们能够合作的关键是拥有相同的接口。</li>
 <li>对叶对象操作的一致性</li>
 <li>双向映射关系</li>
 </ol>
-<h3 id="第-11-章-模板方法模式"><a href="#第-11-章-模板方法模式" class="headerlink" title="第 11 章 模板方法模式"></a>第 11 章 模板方法模式</h3><pre><code class="hljs js"><span class="hljs-keyword">var</span> <span class="hljs-title class_">Beverage</span> = <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) &#123;&#125;;
+<h3 id="第-11-章-模板方法模式">第 11 章 模板方法模式</h3>
+<pre><code class="hljs js"><span class="hljs-keyword">var</span> <span class="hljs-title class_">Beverage</span> = <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) &#123;&#125;;
 <span class="hljs-title class_">Beverage</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">boilWater</span> = <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) &#123;
   <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;把水煮沸&quot;</span>);
 &#125;;
@@ -772,9 +775,10 @@ folder.<span class="hljs-title function_">scan</span>();</code></pre>
 &#125;;
 <span class="hljs-keyword">var</span> coffeeWithHook = <span class="hljs-keyword">new</span> <span class="hljs-title class_">CoffeeWithHook</span>();
 coffeeWithHook.<span class="hljs-title function_">init</span>();</code></pre>
-
-<p>模板方法模式是基于继承的一种设计模式，父类封装了子类的算法框架和方法的执行顺序，<br>子类继承父类之后，父类通知子类执行这些方法</p>
-<h3 id="第-12-章-享元模式"><a href="#第-12-章-享元模式" class="headerlink" title="第 12 章 享元模式"></a>第 12 章 享元模式</h3><pre><code class="hljs js"><span class="hljs-keyword">var</span> <span class="hljs-title class_">Upload</span> = <span class="hljs-keyword">function</span> (<span class="hljs-params">uploadType</span>) &#123;
+<p>模板方法模式是基于继承的一种设计模式，父类封装了子类的算法框架和方法的执行顺序，<br>
+子类继承父类之后，父类通知子类执行这些方法</p>
+<h3 id="第-12-章-享元模式">第 12 章 享元模式</h3>
+<pre><code class="hljs js"><span class="hljs-keyword">var</span> <span class="hljs-title class_">Upload</span> = <span class="hljs-keyword">function</span> (<span class="hljs-params">uploadType</span>) &#123;
   <span class="hljs-variable language_">this</span>.<span class="hljs-property">uploadType</span> = uploadType;
 &#125;;
 
@@ -876,7 +880,6 @@ coffeeWithHook.<span class="hljs-title function_">init</span>();</code></pre>
     <span class="hljs-attr">fileSize</span>: <span class="hljs-number">5000</span>,
   &#125;,
 ]);</code></pre>
-
 <p>享元模式带来的好处很大程度上取决于如何使用以及何时使用，一般来说，以下情况发生时 便可以使用享元模式。</p>
 <ol>
 <li>一个程序中使用了大量的相似对象。</li>
@@ -884,7 +887,8 @@ coffeeWithHook.<span class="hljs-title function_">init</span>();</code></pre>
 <li>对象的大多数状态都可以变为外部状态。</li>
 <li>剥离出对象的外部状态之后，可以用相对较少的共享对象取代大量对象。</li>
 </ol>
-<h3 id="第-13-章-职责链模式"><a href="#第-13-章-职责链模式" class="headerlink" title="第 13 章 职责链模式"></a>第 13 章 职责链模式</h3><p>职责链模式的最大优点就是解耦了请求发送者和 N 个接收者之间的复杂关 系，由于不知道链中的哪个节点可以处理你发出的请求，所以你只需把请求传递给第一个节点即 可</p>
+<h3 id="第-13-章-职责链模式">第 13 章 职责链模式</h3>
+<p>职责链模式的最大优点就是解耦了请求发送者和 N 个接收者之间的复杂关 系，由于不知道链中的哪个节点可以处理你发出的请求，所以你只需把请求传递给第一个节点即 可</p>
 <pre><code class="hljs js"><span class="hljs-keyword">var</span> order500 = <span class="hljs-keyword">function</span>(<span class="hljs-params"> orderType, pay, stock </span>)&#123;
     <span class="hljs-keyword">if</span> ( orderType === <span class="hljs-number">1</span> &amp;&amp; pay === <span class="hljs-literal">true</span> )&#123;
         <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>( <span class="hljs-string">&#x27;500 元定金预购，得到100 优惠券&#x27;</span> );
@@ -955,8 +959,8 @@ chainOrder500.<span class="hljs-title function_">passRequest</span>( <span class
 <span class="hljs-title function_">order</span>( <span class="hljs-number">1</span>, <span class="hljs-literal">true</span>, <span class="hljs-number">500</span> ); <span class="hljs-comment">// 输出：500 元定金预购，得到100 优惠券</span>
 <span class="hljs-title function_">order</span>( <span class="hljs-number">2</span>, <span class="hljs-literal">true</span>, <span class="hljs-number">500</span> ); <span class="hljs-comment">// 输出：200 元定金预购，得到50 优惠券</span>
 <span class="hljs-title function_">order</span>( <span class="hljs-number">1</span>, <span class="hljs-literal">false</span>, <span class="hljs-number">500</span> ); <span class="hljs-comment">// 输出：普通购买，无优惠券</span></code></pre>
-
-<h3 id="第-14-章-中介者模式"><a href="#第-14-章-中介者模式" class="headerlink" title="第 14 章 中介者模式"></a>第 14 章 中介者模式</h3><p>中介者模式的作用就是解除对象与对象之间的紧耦合关系。增加一个中介者对象后，所有的相关对象都通过中介者对象来通信，而不是互相引用，所以当一个对象发生改变时，只需要通知中介者对象即可。中介者使各对象之间耦合松散，而且可以独立地改变它们之间的交互。</p>
+<h3 id="第-14-章-中介者模式">第 14 章 中介者模式</h3>
+<p>中介者模式的作用就是解除对象与对象之间的紧耦合关系。增加一个中介者对象后，所有的相关对象都通过中介者对象来通信，而不是互相引用，所以当一个对象发生改变时，只需要通知中介者对象即可。中介者使各对象之间耦合松散，而且可以独立地改变它们之间的交互。</p>
 <pre><code class="hljs js"><span class="hljs-keyword">var</span> goods = &#123;
   <span class="hljs-comment">// 手机库存</span>
   <span class="hljs-string">&quot;red|32G&quot;</span>: <span class="hljs-number">3</span>,
@@ -1017,8 +1021,8 @@ memorySelect.<span class="hljs-property">onchange</span> = <span class="hljs-key
 numberInput.<span class="hljs-property">oninput</span> = <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) &#123;
   mediator.<span class="hljs-title function_">changed</span>(<span class="hljs-variable language_">this</span>);
 &#125;;</code></pre>
-
-<h3 id="第-15-章-装饰者模式"><a href="#第-15-章-装饰者模式" class="headerlink" title="第 15 章 装饰者模式"></a>第 15 章 装饰者模式</h3><p>因为装饰者对象和它所装饰的对象拥有一致的接口,所以它们对使用该对象的客户来说是透 明的，被装饰的对象也并不需要了解它曾经被装饰过，这种透明性使得我们可以递归地嵌套任意 多个装饰者对象</p>
+<h3 id="第-15-章-装饰者模式">第 15 章 装饰者模式</h3>
+<p>因为装饰者对象和它所装饰的对象拥有一致的接口,所以它们对使用该对象的客户来说是透 明的，被装饰的对象也并不需要了解它曾经被装饰过，这种透明性使得我们可以递归地嵌套任意 多个装饰者对象</p>
 <pre><code class="hljs js"><span class="hljs-keyword">var</span> plane = &#123;
   <span class="hljs-attr">fire</span>: <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) &#123;
     <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;发射普通子弹&quot;</span>);
@@ -1042,8 +1046,8 @@ plane.<span class="hljs-property">fire</span> = <span class="hljs-keyword">funct
 &#125;;
 plane.<span class="hljs-title function_">fire</span>();
 <span class="hljs-comment">// 分别输出： 发射普通子弹、发射导弹、发射原子弹</span></code></pre>
-
-<h4 id="用-AOP-装饰函数"><a href="#用-AOP-装饰函数" class="headerlink" title="用 AOP 装饰函数"></a>用 AOP 装饰函数</h4><pre><code class="hljs js"><span class="hljs-title class_">Function</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">before</span> = <span class="hljs-keyword">function</span> (<span class="hljs-params">beforefn</span>) &#123;
+<h4 id="用-AOP-装饰函数">用 AOP 装饰函数</h4>
+<pre><code class="hljs js"><span class="hljs-title class_">Function</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">before</span> = <span class="hljs-keyword">function</span> (<span class="hljs-params">beforefn</span>) &#123;
   <span class="hljs-keyword">var</span> __self = <span class="hljs-variable language_">this</span>; <span class="hljs-comment">// 保存原函数的引用</span>
   <span class="hljs-keyword">return</span> <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) &#123;
     <span class="hljs-comment">// 返回包含了原函数和新函数的&quot;代理&quot;函数</span>
@@ -1063,7 +1067,6 @@ plane.<span class="hljs-title function_">fire</span>();
   <span class="hljs-title function_">alert</span>(<span class="hljs-number">1</span>);
 &#125;);
 <span class="hljs-keyword">var</span> button = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(<span class="hljs-string">&quot;button&quot;</span>);</code></pre>
-
 <p>不喜欢这种污染原型的方式，那么我们可以做一些变通</p>
 <pre><code class="hljs js"><span class="hljs-keyword">var</span> before = <span class="hljs-keyword">function</span> (<span class="hljs-params">fn, beforefn</span>) &#123;
   <span class="hljs-keyword">return</span> <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) &#123;
@@ -1083,9 +1086,10 @@ a = <span class="hljs-title function_">before</span>(a, <span class="hljs-keywor
   <span class="hljs-title function_">alert</span>(<span class="hljs-number">1</span>);
 &#125;);
 <span class="hljs-title function_">a</span>();</code></pre>
-
-<h3 id="第-16-章-状态模式"><a href="#第-16-章-状态模式" class="headerlink" title="第 16 章 状态模式"></a>第 16 章 状态模式</h3><p>状态模式的关键是把事物的每种状态都封装成单独的类，跟此种状态有关的行为都被封装在这个类的内部</p>
-<h4 id="javascript-版的状态机"><a href="#javascript-版的状态机" class="headerlink" title="javascript 版的状态机"></a>javascript 版的状态机</h4><pre><code class="hljs js"><span class="hljs-keyword">var</span> <span class="hljs-title class_">Light</span> = <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) &#123;
+<h3 id="第-16-章-状态模式">第 16 章 状态模式</h3>
+<p>状态模式的关键是把事物的每种状态都封装成单独的类，跟此种状态有关的行为都被封装在这个类的内部</p>
+<h4 id="javascript-版的状态机">javascript 版的状态机</h4>
+<pre><code class="hljs js"><span class="hljs-keyword">var</span> <span class="hljs-title class_">Light</span> = <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) &#123;
   <span class="hljs-variable language_">this</span>.<span class="hljs-property">currState</span> = <span class="hljs-variable constant_">FSM</span>.<span class="hljs-property">off</span>; <span class="hljs-comment">// 设置当前状态</span>
   <span class="hljs-variable language_">this</span>.<span class="hljs-property">button</span> = <span class="hljs-literal">null</span>;
 &#125;;
@@ -1117,8 +1121,8 @@ a = <span class="hljs-title function_">before</span>(a, <span class="hljs-keywor
 &#125;;
 <span class="hljs-keyword">var</span> light = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Light</span>();
 light.<span class="hljs-title function_">init</span>();</code></pre>
-
-<h3 id="第-17-章-适配器模式"><a href="#第-17-章-适配器模式" class="headerlink" title="第 17 章 适配器模式"></a>第 17 章 适配器模式</h3><p>适配器模式的作用是解决两个软件实体间的接口不兼容的问题。使用适配器模式之后，原本由于接口不兼容而不能工作的两个软件实体可以一起工作。</p>
+<h3 id="第-17-章-适配器模式">第 17 章 适配器模式</h3>
+<p>适配器模式的作用是解决两个软件实体间的接口不兼容的问题。使用适配器模式之后，原本由于接口不兼容而不能工作的两个软件实体可以一起工作。</p>
 <pre><code class="hljs js"><span class="hljs-keyword">var</span> guangdongCity = &#123;
   <span class="hljs-attr">shenzhen</span>: <span class="hljs-number">11</span>,
   <span class="hljs-attr">guangzhou</span>: <span class="hljs-number">12</span>,
@@ -1152,16 +1156,20 @@ light.<span class="hljs-title function_">init</span>();</code></pre>
   &#125;;
 &#125;;
 <span class="hljs-title function_">render</span>(<span class="hljs-title function_">addressAdapter</span>(getGuangdongCity));</code></pre>
-
 <ol>
 <li>适配器模式主要用来解决两个已有接口之间不匹配的问题，它不考虑这些接口是怎样实现的，也不考虑它们将来可能会如何演化。适配器模式不需要改变已有的接口，就能够使它们协同作用。</li>
 <li>装饰者模式和代理模式也不会改变原有对象的接口，但装饰者模式的作用是为了给对象增加功能。装饰者模式常常形成一条长的装饰链，而适配器模式通常只包装一次。代理模式是为了控制对对象的访问，通常也只包装一次。</li>
 <li>外观模式的作用倒是和适配器比较相似，有人把外观模式看成一组对象的适配器，但外观模式最显著的特点是定义了一个新的接口。</li>
 </ol>
-<h3 id="第-18-章-单一职责原则"><a href="#第-18-章-单一职责原则" class="headerlink" title="第 18 章 单一职责原则"></a>第 18 章 单一职责原则</h3><p>SRP 原则体现为:一个对象(方法)只做一件事情</p>
-<h3 id="第-19-章-最少知识原则"><a href="#第-19-章-最少知识原则" class="headerlink" title="第 19 章 最少知识原则"></a>第 19 章 最少知识原则</h3><p>最少知识原则要求我们在设计程序时，应当尽量减少对象之间的交互。如果两个对象之间不必彼此直接通信，那么这两个对象就不要发生直接的相互联系。常见的做法是引入一个第三者对象，来承担这些对象之间的通信作用。如果一些对象需要向另一些对象发起请求，可以通过第三 者对象来转发这些请求。</p>
-<h3 id="第-20-章-开放封闭原则"><a href="#第-20-章-开放封闭原则" class="headerlink" title="第 20 章 开放封闭原则"></a>第 20 章 开放封闭原则</h3><p>当需要改变一个程序的功能或者给这个程序增加新功能的时候，可以使用增加代码的方式，但是不允许改动程序的源代码<br>通过封装变化的方式，可以把系统中稳定不变的部分和容易变化的部分隔离开来。在系统的 演变过程中，我们只需要替换那些容易变化的部分</p>
-<h3 id="第-22-章-代码重构"><a href="#第-22-章-代码重构" class="headerlink" title="第 22 章 代码重构"></a>第 22 章 代码重构</h3><ol>
+<h3 id="第-18-章-单一职责原则">第 18 章 单一职责原则</h3>
+<p>SRP 原则体现为:一个对象(方法)只做一件事情</p>
+<h3 id="第-19-章-最少知识原则">第 19 章 最少知识原则</h3>
+<p>最少知识原则要求我们在设计程序时，应当尽量减少对象之间的交互。如果两个对象之间不必彼此直接通信，那么这两个对象就不要发生直接的相互联系。常见的做法是引入一个第三者对象，来承担这些对象之间的通信作用。如果一些对象需要向另一些对象发起请求，可以通过第三 者对象来转发这些请求。</p>
+<h3 id="第-20-章-开放封闭原则">第 20 章 开放封闭原则</h3>
+<p>当需要改变一个程序的功能或者给这个程序增加新功能的时候，可以使用增加代码的方式，但是不允许改动程序的源代码<br>
+通过封装变化的方式，可以把系统中稳定不变的部分和容易变化的部分隔离开来。在系统的 演变过程中，我们只需要替换那些容易变化的部分</p>
+<h3 id="第-22-章-代码重构">第 22 章 代码重构</h3>
+<ol>
 <li>提炼函数</li>
 <li>合并重复的条件判断</li>
 <li>把条件分支语句提炼成函数</li>

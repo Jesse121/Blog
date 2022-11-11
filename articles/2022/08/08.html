@@ -271,29 +271,35 @@
 
     </div>
     <div class="e-content article-entry" itemprop="articleBody">
-       <p>electron 应用在增量更新时会从服务器下载更新包一般是 app.asar 或者 app.zip，然后解压更新包替换本地 app 文件夹。这里的服务器上下载文件如果是下载到 C 盘就会报错<br><code>Error: EPERM: operation not permitted</code></p>
+       <p>electron 应用在增量更新时会从服务器下载更新包一般是 app.asar 或者 app.zip，然后解压更新包替换本地 app 文件夹。这里的服务器上下载文件如果是下载到 C 盘就会报错<br>
+<code>Error: EPERM: operation not permitted</code></p>
 <span id="more"></span>
-
-<p><img src="https://raw.githubusercontent.com/Jesse121/publicPic/master/blog/pictures/20220805173352.png" alt="20220805173352"><br>说明没有权限。<br>这里一般有两种方法解决：</p>
+<p><img src="https://raw.githubusercontents.com/Jesse121/publicPic/master/blog/pictures/20220805173352.png" alt="20220805173352" referrerPolicy="no-referrer"><br>
+说明没有权限。<br>
+这里一般有两种方法解决：</p>
 <ol>
 <li>提升权限，直接用管理员权限运行 electron 应用</li>
 <li>不安装在 C 盘，直接避开这个问题（没有解决根本问题）</li>
 </ol>
-<h3 id="提升权限，用管理员权限运行"><a href="#提升权限，用管理员权限运行" class="headerlink" title="提升权限，用管理员权限运行"></a>提升权限，用管理员权限运行</h3><p>为了默认用管理员权限运行需要添加下配置</p>
+<h3 id="提升权限，用管理员权限运行">提升权限，用管理员权限运行</h3>
+<p>为了默认用管理员权限运行需要添加下配置</p>
 <pre><code class="hljs json"><span class="hljs-comment">// electron-builder.json</span>
 <span class="hljs-attr">&quot;win&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-punctuation">&#123;</span>
   <span class="hljs-comment">// ...</span>
   <span class="hljs-attr">&quot;requestedExecutionLevel&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;requireAdministrator&quot;</span><span class="hljs-punctuation">,</span>
   <span class="hljs-comment">// ...</span>
 <span class="hljs-punctuation">&#125;</span></code></pre>
-
-<p>配置用管理员权限运行后发现在运行时会出现授权弹窗<br><img src="https://raw.githubusercontent.com/Jesse121/publicPic/master/blog/pictures/IMG_2897.jpg" alt="IMG_2897"><br>只要点击是就可以正常运行，也能正常下载更新包到 C 盘。<br>运行后发现<strong>无法使用拖拽事件</strong>，这是因为 windows 规定：<a target="_blank" rel="noopener" href="https://social.technet.microsoft.com/forums/windows/zh-cn/cba0e9b1-25f8-40e5-a888-1435d604f68d/quotrun-as-administratorquot-prevents-drag-and-drop-working">当拖放源与目标运行的安全级别(隔离级别)不一致时，是禁止拖放的</a>。即，我们的 windows 资源管理器是以普通用户的身份运行的，而此时我们的应用程序是以管理员身份运行的，两个安全级别不一样，所以不能拖放了。<br>查询资料找了下解决办法都说不要用管理员权限运行，问题又回到了原点。</p>
-<h3 id="修改默认安装路径"><a href="#修改默认安装路径" class="headerlink" title="修改默认安装路径"></a>修改默认安装路径</h3><p>在 electron-builder.json 中添加 nsis 脚本</p>
+<p>配置用管理员权限运行后发现在运行时会出现授权弹窗<br>
+<img src="https://raw.githubusercontents.com/Jesse121/publicPic/master/blog/pictures/IMG_2897.jpg" alt="IMG_2897" referrerPolicy="no-referrer"><br>
+只要点击是就可以正常运行，也能正常下载更新包到 C 盘。<br>
+运行后发现<strong>无法使用拖拽事件</strong>，这是因为 windows 规定：<a target="_blank" rel="noopener" href="https://social.technet.microsoft.com/forums/windows/zh-cn/cba0e9b1-25f8-40e5-a888-1435d604f68d/quotrun-as-administratorquot-prevents-drag-and-drop-working">当拖放源与目标运行的安全级别(隔离级别)不一致时，是禁止拖放的</a>。即，我们的 windows 资源管理器是以普通用户的身份运行的，而此时我们的应用程序是以管理员身份运行的，两个安全级别不一样，所以不能拖放了。<br>
+查询资料找了下解决办法都说不要用管理员权限运行，问题又回到了原点。</p>
+<h3 id="修改默认安装路径">修改默认安装路径</h3>
+<p>在 electron-builder.json 中添加 nsis 脚本</p>
 <pre><code class="hljs json"><span class="hljs-attr">&quot;nsis&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-punctuation">&#123;</span>
   <span class="hljs-comment">// ...</span>
   <span class="hljs-attr">&quot;inlcude&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;./installer.nsh&quot;</span>
 <span class="hljs-punctuation">&#125;</span></code></pre>
-
 <p>在当前目录下新增 installer.nsh 文件</p>
 <pre><code class="hljs plaintext">/**
 * 设置默认安装路径在D:\Program Files\electronApp
@@ -306,9 +312,9 @@
   WriteRegExpandStr HKLM &quot;$&#123;INSTALL_REGISTRY_KEY&#125;&quot; InstallLocation &quot;D:\Program Files\electronApp&quot;
   WriteRegExpandStr HkCU &quot;$&#123;INSTALL_REGISTRY_KEY&#125;&quot; InstallLocation &quot;D:\Program Files\electronApp&quot;
 !macroend</code></pre>
-
 <p>采用这种办法可以暂时避免无法下载更新包的问题，但是如果用户强制安装在 C 盘还是会出现没有权限的问题，故还需要想办法彻底解决这个问题。</p>
-<h3 id="终极解决办法"><a href="#终极解决办法" class="headerlink" title="终极解决办法"></a>终极解决办法</h3><p>没有权限就提升权限这个思路是没问题的，但是不应该在开始运行的时候就直接用管理员权限，其实只要在下载更新包到 C 盘的时候有管理员权限就行。想到 linux 系统在没有权限时用 sudo 提升权限，windows 应该也有类似的解决办法。直到查询资料发现<a target="_blank" rel="noopener" href="https://github.com/jorangreef/sudo-prompt">sudo-prompt</a>，这个库就是为了解决这个问题的。啊，真香。</p>
+<h3 id="终极解决办法">终极解决办法</h3>
+<p>没有权限就提升权限这个思路是没问题的，但是不应该在开始运行的时候就直接用管理员权限，其实只要在下载更新包到 C 盘的时候有管理员权限就行。想到 linux 系统在没有权限时用 sudo 提升权限，windows 应该也有类似的解决办法。直到查询资料发现<a target="_blank" rel="noopener" href="https://github.com/jorangreef/sudo-prompt">sudo-prompt</a>，这个库就是为了解决这个问题的。啊，真香。</p>
 <p>为了在项目中使用我们需要改下思路，先将更新包下载到当前用户的主目录文件夹下，这采用 electron 提供的 app.getPath(“userData”)路径，因为下载到这个文件夹是无需权限的。下载完解压得到 app 文件夹后替换安装路径下正在运行的 app 文件夹（我的安装路径是 C:\Program Files\electronApp）,此时需要管理员权限了</p>
 <pre><code class="hljs ts"><span class="hljs-keyword">import</span> sudo <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;sudo-prompt&quot;</span>;
 <span class="hljs-comment">// ...</span>
@@ -328,8 +334,8 @@ sudo.<span class="hljs-title function_">exec</span>(
     log.<span class="hljs-title function_">info</span>(<span class="hljs-string">&quot;stderr&quot;</span>, stderr);
   &#125;
 );</code></pre>
-
-<p>我们发现在解压完准备替换的时候有权限提升弹窗，我们选择是就可以替换了。<br>替换完 app 文件夹然后重启 electronApp 就可以达到更新的目的了。这样重启后不是用管理员权限运行也就不影响拖拽事件了。</p>
+<p>我们发现在解压完准备替换的时候有权限提升弹窗，我们选择是就可以替换了。<br>
+替换完 app 文件夹然后重启 electronApp 就可以达到更新的目的了。这样重启后不是用管理员权限运行也就不影响拖拽事件了。</p>
 <p>参考文章：</p>
 <ol>
 <li><a target="_blank" rel="noopener" href="https://blog.csdn.net/m0_38102288/article/details/108767929">Electron-builder NSIS 修改默认安装路径</a></li>

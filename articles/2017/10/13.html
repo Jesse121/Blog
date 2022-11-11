@@ -273,27 +273,76 @@
     <div class="e-content article-entry" itemprop="articleBody">
        <p>最近工作中需要到linux服务器上更改文件，苦于对vim的各种命令不熟悉，今天特此总结并熟悉一下各种vim命令，好提高工作效率。后期持续更新</p>
 <span id="more"></span>
-<h4 id="vim编辑器个人设置"><a href="#vim编辑器个人设置" class="headerlink" title="vim编辑器个人设置"></a>vim编辑器个人设置</h4><ol>
-<li>先复制一份vim配置模板到个人目录下<br> <code>cp /usr/share/vim/vimrc ~/.vimrc</code></li>
-<li>编辑个人目录下的.vimrc<br> <code>vi ~/.vimrc</code></li>
-<li>进入vim编辑模式编写以下配置信息  <pre><code class="hljs plaintext">syntax on           &#x27;开启语法高亮&#x27;
+<h4 id="vim编辑器个人设置">vim编辑器个人设置</h4>
+<ol>
+<li>先复制一份vim配置模板到个人目录下<br>
+<code>cp /usr/share/vim/vimrc ~/.vimrc</code></li>
+<li>编辑个人目录下的.vimrc<br>
+<code>vi ~/.vimrc</code></li>
+<li>进入vim编辑模式编写以下配置信息</li>
+</ol>
+<pre><code class="hljs plaintext">syntax on           &#x27;开启语法高亮&#x27;
 set nu!             &#x27;设置行号&#x27;
 set autoindent      &#x27;自动缩进&#x27;
 set tabstop=4       &#x27;设置tab键为4个空格&#x27;   
-set showmatch       &#x27;设置匹配模式，类似当输入一个左括号时会匹配相应的右括号&#x27;</code></pre></li>
-</ol>
-<h4 id="命令模式（command-mode）—执行命令"><a href="#命令模式（command-mode）—执行命令" class="headerlink" title="命令模式（command mode）—执行命令"></a>命令模式（command mode）—执行命令</h4><p>　　在该模式中，可以输入命令来执行许多种功能。控制屏幕光标的移动，字符、字或行的删除，移动复制某区段及进入Insert mode下，或者到 last line mode。</p>
-<h4 id="输入模式（Insert-mode）—输入文本"><a href="#输入模式（Insert-mode）—输入文本" class="headerlink" title="输入模式（Insert mode）—输入文本"></a>输入模式（Insert mode）—输入文本</h4><p>　　vi被运行时，通常处在命令模式下，键入以下命令 可以使vi退出命令模式，进入输入模式：I（i）、A（a）、O（o）。</p>
-<h4 id="末行模式（last-line-mode）—执行待定命令"><a href="#末行模式（last-line-mode）—执行待定命令" class="headerlink" title="末行模式（last line mode）—执行待定命令"></a>末行模式（last line mode）—执行待定命令</h4><p>　　将文件保存或退出vi，也可以设置编辑环境，如寻找字符串、列出行号……等。不过一般我们在使用时把vi简化成两个模式，就是将末行模式（last line mode）也算入命令行模式command mode）。</p>
-<h4 id="命令模式下常用命令"><a href="#命令模式下常用命令" class="headerlink" title="命令模式下常用命令"></a>命令模式下常用命令</h4><h5 id="移动命令"><a href="#移动命令" class="headerlink" title="移动命令"></a>移动命令</h5><p>^   移动到当前行的开头处<br>$   移动到当前行的结尾处<br>w   移动到下一个单词的开始位置<br>gg  移动到文件头<br>shift+g  移动到文件尾<br>h    光标左移<br>j    光标下移<br>k    光标上移<br>l    光标右移<br>Ctrl+b(back)    屏幕往后移动一页<br>Ctrl+f(forward) 屏幕往前移动一页<br>Ctrl+u(up)      屏幕往上移动半页<br>Ctrl+d(down)    屏幕往下移动半页  </p>
-<h5 id="撤销命令"><a href="#撤销命令" class="headerlink" title="撤销命令"></a>撤销命令</h5><p>u   倒退一步<br>Ctrl+r 重做</p>
-<h5 id="删除命令"><a href="#删除命令" class="headerlink" title="删除命令"></a>删除命令</h5><p>x   删除当前字符<br>dd  删除光标所在行<br>dgg 删除光标所在行到文件头的所有字符<br>dG  删除光标所在行到文件尾的所有字符</p>
-<h5 id="拷贝剪切和粘贴"><a href="#拷贝剪切和粘贴" class="headerlink" title="拷贝剪切和粘贴"></a>拷贝剪切和粘贴</h5><p>yy  复制光标所在行<br>p   将已复制的数据在光标下一行粘贴<br>P   将已复制的数据在光标上一行粘贴<br>.   重复前一个动作  </p>
-<h5 id="退出命令"><a href="#退出命令" class="headerlink" title="退出命令"></a>退出命令</h5><p>:w  filename(存入指定文件) 另存为<br>:q  退出<br>:q! 强行退出vi，使被更新的内容不写回文件中。<br>:wq 保存并退出,即将上面的两步操作可以合成一步来完成。<br>:x  保存并退出  </p>
-<h5 id="搜索命令"><a href="#搜索命令" class="headerlink" title="搜索命令"></a>搜索命令</h5><p>&#x2F;text　　从光标开始向后查找text，按n查找下一个，按N查找前一个。<br>?text   从光标开始向前查找text，按n查找前一个，按N查找下一个。<br>搜索特殊符号<code>.*[]^%/?~$</code>需要转义<br>:n      将光标快速定位到n行<br>vim +&#x2F;text a.php 打开a.php并将光标定位到第一个text<br>%       快速定位到另一半符号<code>&#123;&#125;[]()</code></p>
-<h5 id="替换命令"><a href="#替换命令" class="headerlink" title="替换命令"></a>替换命令</h5><p>r  替换光标所在字符(按下r后输入新字符)<br>%s&#x2F;t&#x2F;o&#x2F;g 将所有的t替换为o</p>
-<h5 id="修改命令-c-数字-motion"><a href="#修改命令-c-数字-motion" class="headerlink" title="修改命令 c [数字] motion"></a>修改命令 c [数字] motion</h5><p>c^ 删除光标从当前位置到当前行的开头处所有字符，并进入插入模式<br>c$ 删除光标从当前位置到当前行的结尾处所有字符，并进入插入模式 </p>
-<h5 id="插入命令"><a href="#插入命令" class="headerlink" title="插入命令"></a>插入命令</h5><p>i 在当前位置前插入并切换到输入模式<br>a 在当前位置后插入并切换到输入模式<br>o 在当前行下方插入一行并切换到输入模式  </p>
+set showmatch       &#x27;设置匹配模式，类似当输入一个左括号时会匹配相应的右括号&#x27;</code></pre>
+<h4 id="命令模式（command-mode）—执行命令">命令模式（command mode）—执行命令</h4>
+<p>在该模式中，可以输入命令来执行许多种功能。控制屏幕光标的移动，字符、字或行的删除，移动复制某区段及进入Insert mode下，或者到 last line mode。</p>
+<h4 id="输入模式（Insert-mode）—输入文本">输入模式（Insert mode）—输入文本</h4>
+<p>vi被运行时，通常处在命令模式下，键入以下命令 可以使vi退出命令模式，进入输入模式：I（i）、A（a）、O（o）。</p>
+<h4 id="末行模式（last-line-mode）—执行待定命令">末行模式（last line mode）—执行待定命令</h4>
+<p>将文件保存或退出vi，也可以设置编辑环境，如寻找字符串、列出行号……等。不过一般我们在使用时把vi简化成两个模式，就是将末行模式（last line mode）也算入命令行模式command mode）。</p>
+<h4 id="命令模式下常用命令">命令模式下常用命令</h4>
+<h5 id="移动命令">移动命令</h5>
+<p>^   移动到当前行的开头处<br>
+$   移动到当前行的结尾处<br>
+w   移动到下一个单词的开始位置<br>
+gg  移动到文件头<br>
+shift+g  移动到文件尾<br>
+h    光标左移<br>
+j    光标下移<br>
+k    光标上移<br>
+l    光标右移<br>
+Ctrl+b(back)    屏幕往后移动一页<br>
+Ctrl+f(forward) 屏幕往前移动一页<br>
+Ctrl+u(up)      屏幕往上移动半页<br>
+Ctrl+d(down)    屏幕往下移动半页</p>
+<h5 id="撤销命令">撤销命令</h5>
+<p>u   倒退一步<br>
+Ctrl+r 重做</p>
+<h5 id="删除命令">删除命令</h5>
+<p>x   删除当前字符<br>
+dd  删除光标所在行<br>
+dgg 删除光标所在行到文件头的所有字符<br>
+dG  删除光标所在行到文件尾的所有字符</p>
+<h5 id="拷贝剪切和粘贴">拷贝剪切和粘贴</h5>
+<p>yy  复制光标所在行<br>
+p   将已复制的数据在光标下一行粘贴<br>
+P   将已复制的数据在光标上一行粘贴<br>
+.   重复前一个动作</p>
+<h5 id="退出命令">退出命令</h5>
+<p>:w  filename(存入指定文件) 另存为<br>
+:q  退出<br>
+:q! 强行退出vi，使被更新的内容不写回文件中。<br>
+:wq 保存并退出,即将上面的两步操作可以合成一步来完成。<br>
+:x  保存并退出</p>
+<h5 id="搜索命令">搜索命令</h5>
+<p>/text　　从光标开始向后查找text，按n查找下一个，按N查找前一个。<br>
+?text   从光标开始向前查找text，按n查找前一个，按N查找下一个。<br>
+搜索特殊符号<code>.*[]^%/?~$</code>需要转义<br>
+:n      将光标快速定位到n行<br>
+vim +/text a.php 打开a.php并将光标定位到第一个text<br>
+%       快速定位到另一半符号<code>&#123;&#125;[]()</code></p>
+<h5 id="替换命令">替换命令</h5>
+<p>r  替换光标所在字符(按下r后输入新字符)<br>
+%s/t/o/g 将所有的t替换为o</p>
+<h5 id="修改命令-c-数字-motion">修改命令 c [数字] motion</h5>
+<p>c^ 删除光标从当前位置到当前行的开头处所有字符，并进入插入模式<br>
+c$ 删除光标从当前位置到当前行的结尾处所有字符，并进入插入模式</p>
+<h5 id="插入命令">插入命令</h5>
+<p>i 在当前位置前插入并切换到输入模式<br>
+a 在当前位置后插入并切换到输入模式<br>
+o 在当前行下方插入一行并切换到输入模式</p>
 <p>按下插入命令可进入文本输入模式</p>
 <p>:!可以执行其他shell命令</p>
  

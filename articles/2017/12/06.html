@@ -271,12 +271,14 @@
 
     </div>
     <div class="e-content article-entry" itemprop="articleBody">
-       <p>作为前端工程师javascript可谓是基本功，那么如何写出高性能的js代码呢？这就需要我们平时在编码的时候注意各种写法，本文就简单介绍了几种策略，希望对大家的工作起到帮助^_^</p>
+       <p>作为前端工程师javascript可谓是基本功，那么如何写出高性能的js代码呢？这就需要我们平时在编码的时候注意各种写法，本文就简单介绍了几种策略，希望对大家的工作起到帮助<sup>_</sup></p>
 <span id="more"></span>
-
-<h4 id="1-减少全局变量的使用，避免冲突"><a href="#1-减少全局变量的使用，避免冲突" class="headerlink" title="1.减少全局变量的使用，避免冲突"></a>1.减少全局变量的使用，避免冲突</h4><p>全局变量的问题在于,你的JavaScript应用程序和web页面上的所有代码都共享了这些全局变量,他们住在同一个全局命名空间,所以当程序的两个不同部分定义同名但不同作用的全局变量的时候,命名冲突在所难免。并且全局变量在js运行完后并不会被垃圾回收机制回收，因此这块内存一直被占用着  </p>
+<h4 id="1-减少全局变量的使用，避免冲突">1.减少全局变量的使用，避免冲突</h4>
+<p>全局变量的问题在于,你的JavaScript应用程序和web页面上的所有代码都共享了这些全局变量,他们住在同一个全局命名空间,所以当程序的两个不同部分定义同名但不同作用的全局变量的时候,命名冲突在所难免。并且全局变量在js运行完后并不会被垃圾回收机制回收，因此这块内存一直被占用着</p>
 <ul>
-<li>使用匿名函数<pre><code class="hljs js"><span class="hljs-comment">//合理的利用命名空间达到匿名函数之间的通信</span>
+<li>使用匿名函数</li>
+</ul>
+<pre><code class="hljs js"><span class="hljs-comment">//合理的利用命名空间达到匿名函数之间的通信</span>
 <span class="hljs-keyword">var</span> <span class="hljs-variable constant_">GLOBAL</span> = &#123;&#125;;
 (<span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)&#123;
     <span class="hljs-keyword">var</span> test = <span class="hljs-string">&quot;123&quot;</span>;
@@ -287,14 +289,19 @@
 (<span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)&#123;
     <span class="hljs-comment">//B code  </span>
     <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-variable constant_">GLOBAL</span>.<span class="hljs-property">a</span>)
-&#125;())</code></pre></li>
-<li>注意隐式全局变量<br>以下是反例，请勿模仿<pre><code class="hljs js"><span class="hljs-keyword">function</span> <span class="hljs-title function_">foo</span>(<span class="hljs-params"></span>) &#123; 
+&#125;())</code></pre>
+<ul>
+<li>注意隐式全局变量<br>
+以下是反例，请勿模仿</li>
+</ul>
+<pre><code class="hljs js"><span class="hljs-keyword">function</span> <span class="hljs-title function_">foo</span>(<span class="hljs-params"></span>) &#123; 
     <span class="hljs-keyword">var</span> a = b = <span class="hljs-number">0</span>;<span class="hljs-comment">//b是全局变量</span>
     <span class="hljs-comment">// ... </span>
-&#125;</code></pre></li>
-</ul>
-<h4 id="2-使用高性能的变量或属性值读取方式"><a href="#2-使用高性能的变量或属性值读取方式" class="headerlink" title="2.使用高性能的变量或属性值读取方式"></a>2.使用高性能的变量或属性值读取方式</h4><p>若函数在运行过程中遇到一个变量，就会判定从哪里取的数据值，在这个过程中会顺着作用域链查找此名称的标识符，该搜索会从最近的作用域开始，如果找到了就使用这个变量值，如果没找到就会进入外层作用域中，直至最外层的全局作用域。一个变量在作用域链上查找的层级越多则读取速度就越慢，因此函数中局部变量访问速度最快，全部变量访问速度最慢。  </p>
-<p>最好的做法是将变量定义为本作用域的局部变量，如果需要频繁的访问一个外部作用域的变量，最好是用一个局部变量保存外部变量。<br>例1：jQuery插件开发中传入的window和document就是将全局变量保存为本作用域中的局部变量</p>
+&#125;</code></pre>
+<h4 id="2-使用高性能的变量或属性值读取方式">2.使用高性能的变量或属性值读取方式</h4>
+<p>若函数在运行过程中遇到一个变量，就会判定从哪里取的数据值，在这个过程中会顺着作用域链查找此名称的标识符，该搜索会从最近的作用域开始，如果找到了就使用这个变量值，如果没找到就会进入外层作用域中，直至最外层的全局作用域。一个变量在作用域链上查找的层级越多则读取速度就越慢，因此函数中局部变量访问速度最快，全部变量访问速度最慢。</p>
+<p>最好的做法是将变量定义为本作用域的局部变量，如果需要频繁的访问一个外部作用域的变量，最好是用一个局部变量保存外部变量。<br>
+例1：jQuery插件开发中传入的window和document就是将全局变量保存为本作用域中的局部变量</p>
 <pre><code class="hljs js">;(<span class="hljs-keyword">function</span>(<span class="hljs-params">$, <span class="hljs-variable language_">window</span>, <span class="hljs-variable language_">document</span>, <span class="hljs-literal">undefined</span></span>)&#123;
     $.fn.<span class="hljs-title function_">extend</span>(&#123;
         pluginName : <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)&#123;
@@ -309,53 +316,71 @@
     arr[i] *= <span class="hljs-number">2</span>;
 &#125;</code></pre>
 <p>意义：在js代码中需要访问到变量时，需要注意到是否存在这种问题，特别是需要频繁访问的变量，尽量将外部作用域中的变量或对象上的属性值缓存在局部变量中，以提高读取性能。</p>
-<h4 id="3-避免使用with-eval"><a href="#3-避免使用with-eval" class="headerlink" title="3.避免使用with(),eval()"></a>3.避免使用with(),eval()</h4><p>当代码流执行到一个with()表达式时，运行期上下文的作用域链被临时改变了。一个新的可变对象将被创建，它包含指定对象的所有属性。此对象被插入到作用域链的前端，意味着现在函数的所有局部变量都被推入第二个作用域链对象中，所以访问代价更高了。<br>eval()接受任意的字符串，并当作JavaScript代码来处理<br>当你在 JavaScript 代码中执行(另一段)JavaScript 代码时,你付出二次评估的代价。此代码首先被评估 为正常代码,然后在执行过程中,运行字符串中的代码时发生另一次评估。二次评估是一项昂贵的操作,<br>与直接包含相应代码相比将占用更长时间。</p>
+<h4 id="3-避免使用with-eval">3.避免使用with(),eval()</h4>
+<p>当代码流执行到一个with()表达式时，运行期上下文的作用域链被临时改变了。一个新的可变对象将被创建，它包含指定对象的所有属性。此对象被插入到作用域链的前端，意味着现在函数的所有局部变量都被推入第二个作用域链对象中，所以访问代价更高了。<br>
+eval()接受任意的字符串，并当作JavaScript代码来处理<br>
+当你在 JavaScript 代码中执行(另一段)JavaScript 代码时,你付出二次评估的代价。此代码首先被评估 为正常代码,然后在执行过程中,运行字符串中的代码时发生另一次评估。二次评估是一项昂贵的操作,<br>
+与直接包含相应代码相比将占用更长时间。</p>
 <pre><code class="hljs js"><span class="hljs-keyword">var</span> num1 = <span class="hljs-number">5</span>,num2 = <span class="hljs-number">6</span>;
 result = <span class="hljs-built_in">eval</span>(<span class="hljs-string">&quot;num1 + num2&quot;</span>)<span class="hljs-comment">//字符串内的代码会进行第二次评估</span></code></pre>
 <p>同样重要的是要记住，给setInterval(), setTimeout()和Function()构造函数传递字符串，大部分情况下，与使用eval()是类似的，因此要避免。</p>
-<h4 id="4-高效的DOM操作"><a href="#4-高效的DOM操作" class="headerlink" title="4.高效的DOM操作"></a>4.高效的DOM操作</h4><ul>
-<li>合并多次DOM操作为单次操作<pre><code class="hljs js"><span class="hljs-comment">//优化方案1</span>
+<h4 id="4-高效的DOM操作">4.高效的DOM操作</h4>
+<ul>
+<li>合并多次DOM操作为单次操作</li>
+</ul>
+<pre><code class="hljs js"><span class="hljs-comment">//优化方案1</span>
 element.<span class="hljs-property">style</span>.<span class="hljs-property">cssText</span> += <span class="hljs-string">&quot;border: 1px solid #ccc;&quot;</span>
 <span class="hljs-comment">//优化方案2</span>
 element.<span class="hljs-property">className</span> += <span class="hljs-string">&#x27;empty&#x27;</span>;
-element.<span class="hljs-property">classList</span>.<span class="hljs-title function_">add</span>(<span class="hljs-string">&#x27;empty&#x27;</span>);<span class="hljs-comment">//IE兼容性不太好</span></code></pre></li>
-<li>把DOM元素离线或隐藏后修改<ul>
+element.<span class="hljs-property">classList</span>.<span class="hljs-title function_">add</span>(<span class="hljs-string">&#x27;empty&#x27;</span>);<span class="hljs-comment">//IE兼容性不太好</span></code></pre>
+<ul>
+<li>把DOM元素离线或隐藏后修改
+<ul>
 <li>使用文档片段</li>
 <li>设置display:none;来隐藏元素</li>
 <li>克隆DOM元素到内存中，操作完后再替换</li>
 </ul>
 </li>
-<li>设置具有动画效果的DOM元素脱离文档流<ul>
+<li>设置具有动画效果的DOM元素脱离文档流
+<ul>
 <li>设置DOM元素的position属性为fixed或position</li>
 </ul>
 </li>
-<li>谨慎获取DOM元素的布局信息<ul>
+<li>谨慎获取DOM元素的布局信息
+<ul>
 <li>offsetTop, offsetLeft, offsetWidth, offsetHeight</li>
 <li>scrollTop, scrollLeft, scrollWidth, scrollHeight</li>
 <li>clientTop, clientLeft, clientWidth, clientHeight</li>
-<li>getComputedStyle() (currentStyle in IE)<br>当你查询布局信息如偏移量、滚动条位置，或风格属性时，浏览器刷新队列并执行所有修改操作，以返回最新的数值。最好是尽量减少对布局信息的查询次数，查询时将它赋给局部变量，并用局部变量参与计算。</li>
+<li>getComputedStyle() (currentStyle in IE)<br>
+当你查询布局信息如偏移量、滚动条位置，或风格属性时，浏览器刷新队列并执行所有修改操作，以返回最新的数值。最好是尽量减少对布局信息的查询次数，查询时将它赋给局部变量，并用局部变量参与计算。</li>
 </ul>
 </li>
-<li>利用事件委托方式绑定事件<br>页面中元素绑定的事件越多，占用的处理时间和内存就越大，性能也就越差</li>
+<li>利用事件委托方式绑定事件<br>
+页面中元素绑定的事件越多，占用的处理时间和内存就越大，性能也就越差</li>
 </ul>
-<h4 id="5-if-else与switch-比较"><a href="#5-if-else与switch-比较" class="headerlink" title="5.if-else与switch 比较"></a>5.if-else与switch 比较</h4><p>大多数情况下switch 表达式比if-else 更快，但只有当条件体数量很大时才明显更快。两者间<br>的主要性能区别在于：当条件体增加时，if-else 性能负担增加的程度比switch更多。因此，我们的自然倾向认为条件体较少时应使用if-else 而条件体较多时应使用switch 表达式，如果从性能方面考虑也是正确的。</p>
-<p>优化if-else<br>优化if-else的目标总是最小化找到正确分支之前所判断条件体的数量。最简单的优化方法是将最常见的条件体放在首位</p>
-<h4 id="6-释放内存"><a href="#6-释放内存" class="headerlink" title="6.释放内存"></a>6.释放内存</h4><p>尽量减少使用全局变量，全局变量在整个页面生命周期中不会被回收<br>确保解除不需要的事件监听<br>不要再闭包中返回外界不需要的对象，会造成内存泄漏，无法回收</p>
-<h4 id="7-函数有递归时使用尾递归优化"><a href="#7-函数有递归时使用尾递归优化" class="headerlink" title="7.函数有递归时使用尾递归优化"></a>7.函数有递归时使用尾递归优化</h4><p>递归非常耗费内存，因为需要同时保存成千上百个调用帧，很容易发生“栈溢出”错误（stack overflow）。但对于尾递归来说，由于只存在一个调用帧，所以永远不会发生“栈溢出”错误。</p>
+<h4 id="5-if-else与switch-比较">5.if-else与switch 比较</h4>
+<p>大多数情况下switch 表达式比if-else 更快，但只有当条件体数量很大时才明显更快。两者间<br>
+的主要性能区别在于：当条件体增加时，if-else 性能负担增加的程度比switch更多。因此，我们的自然倾向认为条件体较少时应使用if-else 而条件体较多时应使用switch 表达式，如果从性能方面考虑也是正确的。</p>
+<p>优化if-else<br>
+优化if-else的目标总是最小化找到正确分支之前所判断条件体的数量。最简单的优化方法是将最常见的条件体放在首位</p>
+<h4 id="6-释放内存">6.释放内存</h4>
+<p>尽量减少使用全局变量，全局变量在整个页面生命周期中不会被回收<br>
+确保解除不需要的事件监听<br>
+不要再闭包中返回外界不需要的对象，会造成内存泄漏，无法回收</p>
+<h4 id="7-函数有递归时使用尾递归优化">7.函数有递归时使用尾递归优化</h4>
+<p>递归非常耗费内存，因为需要同时保存成千上百个调用帧，很容易发生“栈溢出”错误（stack overflow）。但对于尾递归来说，由于只存在一个调用帧，所以永远不会发生“栈溢出”错误。</p>
 <pre><code class="hljs js"><span class="hljs-keyword">function</span> <span class="hljs-title function_">factorial</span>(<span class="hljs-params">n</span>) &#123;
   <span class="hljs-keyword">if</span> (n === <span class="hljs-number">1</span>) <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;
   <span class="hljs-keyword">return</span> n * <span class="hljs-title function_">factorial</span>(n - <span class="hljs-number">1</span>);
 &#125;
 <span class="hljs-title function_">factorial</span>(<span class="hljs-number">5</span>) <span class="hljs-comment">// 120</span></code></pre>
-<p>上面代码是一个阶乘函数，计算n的阶乘，最多需要保存n个调用记录，复杂度 O(n) 。<br>如果改写成尾递归，只保留一个调用记录，复杂度 O(1) 。</p>
+<p>上面代码是一个阶乘函数，计算n的阶乘，最多需要保存n个调用记录，复杂度 O(n) 。<br>
+如果改写成尾递归，只保留一个调用记录，复杂度 O(1) 。</p>
 <pre><code class="hljs js"><span class="hljs-keyword">function</span> <span class="hljs-title function_">factorial</span>(<span class="hljs-params">n, total</span>) &#123;
   <span class="hljs-keyword">if</span> (n === <span class="hljs-number">1</span>) <span class="hljs-keyword">return</span> total;
   <span class="hljs-keyword">return</span> <span class="hljs-title function_">factorial</span>(n - <span class="hljs-number">1</span>, n * total);
 &#125;
 <span class="hljs-title function_">factorial</span>(<span class="hljs-number">5</span>, <span class="hljs-number">1</span>) <span class="hljs-comment">// 120</span></code></pre>
-
-
-
 <p>参考文献：</p>
 <ol>
 <li>高性能的javascript</li>

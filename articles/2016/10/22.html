@@ -273,7 +273,8 @@
     <div class="e-content article-entry" itemprop="articleBody">
        <p>本节主要介绍核心CSS，从整体架构中的7个Less文件对应的源码分别进行分析</p>
 <span id="more"></span>
-<h3 id="scaffolding-less"><a href="#scaffolding-less" class="headerlink" title="scaffolding.less"></a>scaffolding.less</h3><p>这个文件编译后的css文件(886~989行)其作用就像定义全局样式。  </p>
+<h3 id="scaffolding-less">scaffolding.less</h3>
+<p>这个文件编译后的css文件(886~989行)其作用就像定义全局样式。</p>
 <pre><code class="hljs css">//调整css盒模型为<span class="hljs-attribute">border</span>-box,这样修改使得添加<span class="hljs-attribute">padding</span>不至于元素宽度超出边界 
 * &#123; -webkit-<span class="hljs-attribute">box-sizing</span>: border-box; -moz-<span class="hljs-attribute">box-sizing</span>: border-box; <span class="hljs-attribute">box-sizing</span>: border-box; &#125;
 *<span class="hljs-selector-pseudo">:before</span>,
@@ -308,7 +309,8 @@ hr &#123; <span class="hljs-attribute">margin-top</span>: <span class="hljs-numb
 <span class="hljs-selector-class">.sr-only</span> &#123; <span class="hljs-attribute">position</span>: absolute; <span class="hljs-attribute">width</span>: <span class="hljs-number">1px</span>; <span class="hljs-attribute">height</span>: <span class="hljs-number">1px</span>; <span class="hljs-attribute">padding</span>: <span class="hljs-number">0</span>; <span class="hljs-attribute">margin</span>: -<span class="hljs-number">1px</span>; <span class="hljs-attribute">overflow</span>: hidden; <span class="hljs-attribute">clip</span>: <span class="hljs-built_in">rect</span>(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>); <span class="hljs-attribute">border</span>: <span class="hljs-number">0</span>; &#125;
 <span class="hljs-selector-class">.sr-only-focusable</span><span class="hljs-selector-pseudo">:active</span>,
 <span class="hljs-selector-class">.sr-only-focusable</span><span class="hljs-selector-pseudo">:focus</span> &#123; <span class="hljs-attribute">position</span>: static; <span class="hljs-attribute">width</span>: auto; <span class="hljs-attribute">height</span>: auto; <span class="hljs-attribute">margin</span>: <span class="hljs-number">0</span>; <span class="hljs-attribute">overflow</span>: visible; <span class="hljs-attribute">clip</span>: auto; &#125;</code></pre>
-<h3 id="type-less"><a href="#type-less" class="headerlink" title="type.less"></a>type.less</h3><p>排版样式，编译后对应源码为990~1335行</p>
+<h3 id="type-less">type.less</h3>
+<p>排版样式，编译后对应源码为990~1335行</p>
 <pre><code class="hljs css"><span class="hljs-selector-tag">h1</span>,
 <span class="hljs-selector-tag">h2</span>,
 <span class="hljs-selector-tag">h3</span>,
@@ -477,7 +479,8 @@ small,
 //引用样式
 <span class="hljs-selector-tag">address</span> &#123; <span class="hljs-attribute">margin-bottom</span>: <span class="hljs-number">20px</span>; <span class="hljs-attribute">font-style</span>: normal; <span class="hljs-attribute">line-height</span>: <span class="hljs-number">1.42857143</span>; &#125;
 //地址或联系方式样式</code></pre>
-<h3 id="code-less"><a href="#code-less" class="headerlink" title="code.less"></a>code.less</h3><p>代码样式，编译后对应源码为1336~1389行</p>
+<h3 id="code-less">code.less</h3>
+<p>代码样式，编译后对应源码为1336~1389行</p>
 <pre><code class="hljs css"><span class="hljs-selector-tag">code</span>,<span class="hljs-selector-tag">kbd</span>,pre,<span class="hljs-selector-tag">samp</span> &#123; <span class="hljs-attribute">font-family</span>: Menlo, Monaco, Consolas, <span class="hljs-string">&quot;Courier New&quot;</span>, monospace; &#125;
 <span class="hljs-selector-tag">code</span> &#123; <span class="hljs-attribute">padding</span>: <span class="hljs-number">2px</span> <span class="hljs-number">4px</span>; <span class="hljs-attribute">font-size</span>: <span class="hljs-number">90%</span>; <span class="hljs-attribute">color</span>: <span class="hljs-number">#c7254e</span>; <span class="hljs-attribute">background-color</span>: <span class="hljs-number">#f9f2f4</span>; <span class="hljs-attribute">border-radius</span>: <span class="hljs-number">4px</span>; &#125;
 <span class="hljs-selector-tag">kbd</span> &#123; <span class="hljs-attribute">padding</span>: <span class="hljs-number">2px</span> <span class="hljs-number">4px</span>; <span class="hljs-attribute">font-size</span>: <span class="hljs-number">90%</span>; <span class="hljs-attribute">color</span>: <span class="hljs-number">#fff</span>; <span class="hljs-attribute">background-color</span>: <span class="hljs-number">#333</span>; <span class="hljs-attribute">border-radius</span>: <span class="hljs-number">3px</span>; -webkit-<span class="hljs-attribute">box-shadow</span>: inset <span class="hljs-number">0</span> -<span class="hljs-number">1px</span> <span class="hljs-number">0</span> <span class="hljs-built_in">rgba</span>(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, .<span class="hljs-number">25</span>); <span class="hljs-attribute">box-shadow</span>: inset <span class="hljs-number">0</span> -<span class="hljs-number">1px</span> <span class="hljs-number">0</span> <span class="hljs-built_in">rgba</span>(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, .<span class="hljs-number">25</span>); &#125;
@@ -485,7 +488,10 @@ small,
 pre &#123; <span class="hljs-attribute">display</span>: block; <span class="hljs-attribute">padding</span>: <span class="hljs-number">9.5px</span>; <span class="hljs-attribute">margin</span>: <span class="hljs-number">0</span> <span class="hljs-number">0</span> <span class="hljs-number">10px</span>; <span class="hljs-attribute">font-size</span>: <span class="hljs-number">13px</span>; <span class="hljs-attribute">line-height</span>: <span class="hljs-number">1.42857143</span>; <span class="hljs-attribute">color</span>: <span class="hljs-number">#333</span>; <span class="hljs-attribute">word-break</span>: break-all; <span class="hljs-attribute">word-wrap</span>: break-word; <span class="hljs-attribute">background-color</span>: <span class="hljs-number">#f5f5f5</span>; <span class="hljs-attribute">border</span>: <span class="hljs-number">1px</span> solid <span class="hljs-number">#ccc</span>; <span class="hljs-attribute">border-radius</span>: <span class="hljs-number">4px</span>; &#125;
 pre <span class="hljs-selector-tag">code</span> &#123; <span class="hljs-attribute">padding</span>: <span class="hljs-number">0</span>; <span class="hljs-attribute">font-size</span>: inherit; <span class="hljs-attribute">color</span>: inherit; <span class="hljs-attribute">white-space</span>: pre-wrap; <span class="hljs-attribute">background-color</span>: transparent; <span class="hljs-attribute">border-radius</span>: <span class="hljs-number">0</span>; &#125;
 <span class="hljs-selector-class">.pre-scrollable</span> &#123; <span class="hljs-attribute">max-height</span>: <span class="hljs-number">340px</span>; <span class="hljs-attribute">overflow-y</span>: scroll; &#125;</code></pre>
-<h3 id="grid-less"><a href="#grid-less" class="headerlink" title="grid.less"></a>grid.less</h3><p>栅格系统，编译后对应源码为1390~2056行<br>关于栅格系统，新手会觉得它很难理解。其实你只要记住的总是把一个容器分成12列(colspan)，根据屏幕的大小(通过媒体查询@media)分为超小屏幕xs(x-small),小屏幕sm(small),中等屏幕md(middle)，大屏幕lg(large)<br>在响应式布局中可以针对不同的屏幕大小给某一列添加多个类</p>
+<h3 id="grid-less">grid.less</h3>
+<p>栅格系统，编译后对应源码为1390~2056行<br>
+关于栅格系统，新手会觉得它很难理解。其实你只要记住的总是把一个容器分成12列(colspan)，根据屏幕的大小(通过媒体查询@media)分为超小屏幕xs(x-small),小屏幕sm(small),中等屏幕md(middle)，大屏幕lg(large)<br>
+在响应式布局中可以针对不同的屏幕大小给某一列添加多个类</p>
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;row&quot;</span>&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;col-xs-12 col-sm-6 col-md-8&quot;</span>&gt;</span>.col-xs-12 .col-sm-6 .col-md-8<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;col-xs-6 col-md-4&quot;</span>&gt;</span>.col-xs-6 .col-md-4<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
@@ -509,7 +515,9 @@ pre <span class="hljs-selector-tag">code</span> &#123; <span class="hljs-attribu
   &lt;div class=&quot;col-md-9 col-md-push-3&quot;&gt;.col-md-9 .col-md-push-3&lt;/div&gt;
   &lt;div class=&quot;col-md-3 col-md-pull-9&quot;&gt;.col-md-3 .col-md-pull-9&lt;/div&gt;
 &lt;/div&gt;</code></pre>
-<h3 id="tables-less"><a href="#tables-less" class="headerlink" title="tables.less"></a>tables.less</h3><p>表格样式，编译后对应源码为2057~2296行<br>table样式非常适合从框架中分离出来单独使用</p>
+<h3 id="tables-less">tables.less</h3>
+<p>表格样式，编译后对应源码为2057~2296行<br>
+table样式非常适合从框架中分离出来单独使用</p>
 <pre><code class="hljs css"><span class="hljs-selector-tag">table</span> &#123; <span class="hljs-attribute">background-color</span>: transparent; &#125;
 <span class="hljs-selector-tag">caption</span> &#123; <span class="hljs-attribute">padding-top</span>: <span class="hljs-number">8px</span>; <span class="hljs-attribute">padding-bottom</span>: <span class="hljs-number">8px</span>; <span class="hljs-attribute">color</span>: <span class="hljs-number">#777</span>; <span class="hljs-attribute">text-align</span>: left; &#125;
 <span class="hljs-selector-tag">th</span> &#123; <span class="hljs-attribute">text-align</span>: left; &#125;
@@ -692,7 +700,8 @@ pre <span class="hljs-selector-tag">code</span> &#123; <span class="hljs-attribu
   &#125;
 &#125;
 //响应式中的表格</code></pre>
-<h3 id="forms-less"><a href="#forms-less" class="headerlink" title="forms.less"></a>forms.less</h3><p>表单样式，编译后对应源码为2297~2781行  </p>
+<h3 id="forms-less">forms.less</h3>
+<p>表单样式，编译后对应源码为2297~2781行</p>
 <pre><code class="hljs CSS"><span class="hljs-selector-tag">fieldset</span> &#123; <span class="hljs-attribute">min-width</span>: <span class="hljs-number">0</span>; <span class="hljs-attribute">padding</span>: <span class="hljs-number">0</span>; <span class="hljs-attribute">margin</span>: <span class="hljs-number">0</span>; <span class="hljs-attribute">border</span>: <span class="hljs-number">0</span>; &#125;
 //<span class="hljs-attribute">min-width</span>: <span class="hljs-number">0</span>;是的更像一个块状元素
 <span class="hljs-selector-tag">legend</span> &#123; <span class="hljs-attribute">display</span>: block; <span class="hljs-attribute">width</span>: <span class="hljs-number">100%</span>; <span class="hljs-attribute">padding</span>: <span class="hljs-number">0</span>; <span class="hljs-attribute">margin-bottom</span>: <span class="hljs-number">20px</span>; <span class="hljs-attribute">font-size</span>: <span class="hljs-number">21px</span>; <span class="hljs-attribute">line-height</span>: inherit; <span class="hljs-attribute">color</span>: <span class="hljs-number">#333</span>; <span class="hljs-attribute">border</span>: <span class="hljs-number">0</span>; <span class="hljs-attribute">border-bottom</span>: <span class="hljs-number">1px</span> solid <span class="hljs-number">#e5e5e5</span>; &#125;
@@ -886,7 +895,8 @@ select<span class="hljs-selector-attr">[multiple]</span><span class="hljs-select
     <span class="hljs-attribute">padding-top</span>: <span class="hljs-number">6px</span>;
   &#125;
 &#125;</code></pre>
-<h3 id="buttons-less"><a href="#buttons-less" class="headerlink" title="buttons.less"></a>buttons.less</h3><p>按钮样式，编译后对应源码为2782~3171行</p>
+<h3 id="buttons-less">buttons.less</h3>
+<p>按钮样式，编译后对应源码为2782~3171行</p>
 <pre><code class="hljs css"><span class="hljs-selector-class">.btn</span> &#123; <span class="hljs-attribute">display</span>: inline-block; <span class="hljs-attribute">padding</span>: <span class="hljs-number">6px</span> <span class="hljs-number">12px</span>; <span class="hljs-attribute">margin-bottom</span>: <span class="hljs-number">0</span>; <span class="hljs-attribute">font-size</span>: <span class="hljs-number">14px</span>; <span class="hljs-attribute">font-weight</span>: normal; <span class="hljs-attribute">line-height</span>: <span class="hljs-number">1.42857143</span>; <span class="hljs-attribute">text-align</span>: center; <span class="hljs-attribute">white-space</span>: nowrap; <span class="hljs-attribute">vertical-align</span>: middle; -ms-touch-action: manipulation; touch-action: manipulation; <span class="hljs-attribute">cursor</span>: pointer; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; <span class="hljs-attribute">background-image</span>: none; <span class="hljs-attribute">border</span>: <span class="hljs-number">1px</span> solid transparent; <span class="hljs-attribute">border-radius</span>: <span class="hljs-number">4px</span>; &#125;
 <span class="hljs-selector-class">.btn</span><span class="hljs-selector-pseudo">:focus</span>,
 <span class="hljs-selector-class">.btn</span><span class="hljs-selector-pseudo">:active</span><span class="hljs-selector-pseudo">:focus</span>,

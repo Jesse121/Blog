@@ -271,46 +271,70 @@
 
     </div>
     <div class="e-content article-entry" itemprop="articleBody">
-       <h3 id="第一章、HTML5概述"><a href="#第一章、HTML5概述" class="headerlink" title="第一章、HTML5概述"></a>第一章、HTML5概述</h3><h4 id="1-6-HTML5的新功能"><a href="#1-6-HTML5的新功能" class="headerlink" title="1.6 HTML5的新功能"></a>1.6 HTML5的新功能</h4><h5 id="1-6-1-新的DOCTYPE和字符集"><a href="#1-6-1-新的DOCTYPE和字符集" class="headerlink" title="1.6.1 新的DOCTYPE和字符集"></a>1.6.1 新的DOCTYPE和字符集</h5><pre><code class="hljs html"><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-keyword">html</span>&gt;</span>
+       <h3 id="第一章、HTML5概述">第一章、HTML5概述</h3>
+<h4 id="1-6-HTML5的新功能">1.6 HTML5的新功能</h4>
+<h5 id="1-6-1-新的DOCTYPE和字符集">1.6.1 新的DOCTYPE和字符集</h5>
+<pre><code class="hljs html"><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-keyword">html</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">&quot;utf-8&quot;</span>&gt;</span></code></pre>
-<p>使用HTML5的DOCTYPE会触发浏览器以标准模式渲染显示页面<br>web页面有多种渲染模式，怪异模式(Quriks)、近标准模式(Almost Standards)以及标准模式(Standards)。浏览器会根据DOCTYPE识别该用哪种模式渲染页面。</p>
+<p>使用HTML5的DOCTYPE会触发浏览器以标准模式渲染显示页面<br>
+web页面有多种渲染模式，怪异模式(Quriks)、近标准模式(Almost Standards)以及标准模式(Standards)。浏览器会根据DOCTYPE识别该用哪种模式渲染页面。</p>
 <span id="more"></span>
-<h5 id="1-6-2-新元素和旧元素"><a href="#1-6-2-新元素和旧元素" class="headerlink" title="1.6.2 新元素和旧元素"></a>1.6.2 新元素和旧元素</h5><p><code>&lt;article&gt;</code>标签定义外部的内容。<br>比如来自一个外部的新闻提供者的一篇新的文章，或者来自 blog的文本，或者是来自论坛的文本。亦或是来自其他外部源内容,内容独立于文档的其余部分</p>
-<p><code>&lt;address&gt;</code>标签定义文档作者或拥有者的联系信息。<br>通常的做法是将 address 元素添加到网页的头部或底部。</p>
-<p><code>&lt;aside&gt;</code>标签定义主内容之外的内容。<br>aside 标签的内容应该与附近的内容相关。</p>
+<h5 id="1-6-2-新元素和旧元素">1.6.2 新元素和旧元素</h5>
+<p><code>&lt;article&gt;</code>标签定义外部的内容。<br>
+比如来自一个外部的新闻提供者的一篇新的文章，或者来自 blog的文本，或者是来自论坛的文本。亦或是来自其他外部源内容,内容独立于文档的其余部分</p>
+<p><code>&lt;address&gt;</code>标签定义文档作者或拥有者的联系信息。<br>
+通常的做法是将 address 元素添加到网页的头部或底部。</p>
+<p><code>&lt;aside&gt;</code>标签定义主内容之外的内容。<br>
+aside 标签的内容应该与附近的内容相关。</p>
 <p><code>&lt;embed&gt;</code>标签定义嵌入的内容，比如插件。</p>
 <p><code>&lt;fieldset&gt;</code>标签会在相关表单元素周围绘制边框</p>
 <p><code>&lt;legend&gt;</code>fieldset 元素定义标题（caption）。</p>
-<p><code>&lt;figure&gt;</code> 标签规定独立的流内容（图像、图表、照片、代码等等），用于对元素进行组合。<br>使用 figcaption元素为元素组添加标题。</p>
-<p><code>&lt;figcaption&gt;</code> 标签定义 figure 元素的标题。<br>figcaption元素应该被置于figure元素的第一个或最后一个子元素的位置。</p>
-<p><code>&lt;footer&gt;</code> 标签定义 section 或 document 的页脚。<br>它包含创作者的姓名、文档的创作日期以及联系信息。</p>
+<p><code>&lt;figure&gt;</code> 标签规定独立的流内容（图像、图表、照片、代码等等），用于对元素进行组合。<br>
+使用 figcaption元素为元素组添加标题。</p>
+<p><code>&lt;figcaption&gt;</code> 标签定义 figure 元素的标题。<br>
+figcaption元素应该被置于figure元素的第一个或最后一个子元素的位置。</p>
+<p><code>&lt;footer&gt;</code> 标签定义 section 或 document 的页脚。<br>
+它包含创作者的姓名、文档的创作日期以及联系信息。</p>
 <p><code>&lt;header&gt;</code> 标签定义 section 或 document 的页眉。</p>
 <p><code>&lt;hgroup&gt;</code> 标签用于对网页或区段（section）的标题进行组合。</p>
-<p><code>&lt;main&gt;</code> 元素中的内容对于文档来说应当是唯一的。<br>它不应包含在文档中重复出现的内容，比如侧栏、导航栏、版权信息、站点标志或搜索表单。IE不支持<br><strong>PS</strong>：在一个文档中，不能出现一个以上的 <code>&lt;main&gt;</code> 元素。<code>&lt;main&gt; </code>元素不能是以下元素的后代：<code>&lt;article&gt;、&lt;aside&gt;、&lt;footer&gt;、&lt;header&gt;</code> 或 <code>&lt;nav&gt;</code>。</p>
-<p><code>&lt;mark&gt;</code>主要用来在视觉上向用户呈现那些需要突出的文字。<br>比较典型的应用就是在搜索结果中向用户高亮显示搜索关键词。</p>
+<p><code>&lt;main&gt;</code> 元素中的内容对于文档来说应当是唯一的。<br>
+它不应包含在文档中重复出现的内容，比如侧栏、导航栏、版权信息、站点标志或搜索表单。IE不支持<br>
+<strong>PS</strong>：在一个文档中，不能出现一个以上的 <code>&lt;main&gt;</code> 元素。<code>&lt;main&gt; </code>元素不能是以下元素的后代：<code>&lt;article&gt;、&lt;aside&gt;、&lt;footer&gt;、&lt;header&gt;</code> 或 <code>&lt;nav&gt;</code>。</p>
+<p><code>&lt;mark&gt;</code>主要用来在视觉上向用户呈现那些需要突出的文字。<br>
+比较典型的应用就是在搜索结果中向用户高亮显示搜索关键词。</p>
 <p><code>&lt;nav&gt;</code> 标签定义导航链接的部分。</p>
-<p><code>&lt;details&gt;</code>标签定义元素的细节，用户可进行查看，或通过点击进行隐藏。与 legend 一起使用，来制作 detail 的标题。该标题对用户是可见的，当在其上点击时可打开或关闭 detail。<br>目前只有 Chrome 支持 details 标签。</p>
-<p><code>&lt;datalist&gt;</code>标签定义可选数据的列表。<br>与 input 元素配合使用，就可以制作出输入值的下拉列表。</p>
-<p><code>&lt;section&gt;</code>标签定义文档中的节（section、区段）。<br>比如章节、页眉、页脚或文档中的其他部分。</p>
-<p><code>&lt;summary&gt;</code> 标签包含 details 元素的标题，details 元素用于描述有关文档或文档片段的详细信息。<br>summary 元素应该是 details 元素的第一个子元素。</p>
+<p><code>&lt;details&gt;</code>标签定义元素的细节，用户可进行查看，或通过点击进行隐藏。与 legend 一起使用，来制作 detail 的标题。该标题对用户是可见的，当在其上点击时可打开或关闭 detail。<br>
+目前只有 Chrome 支持 details 标签。</p>
+<p><code>&lt;datalist&gt;</code>标签定义可选数据的列表。<br>
+与 input 元素配合使用，就可以制作出输入值的下拉列表。</p>
+<p><code>&lt;section&gt;</code>标签定义文档中的节（section、区段）。<br>
+比如章节、页眉、页脚或文档中的其他部分。</p>
+<p><code>&lt;summary&gt;</code> 标签包含 details 元素的标题，details 元素用于描述有关文档或文档片段的详细信息。<br>
+summary 元素应该是 details 元素的第一个子元素。</p>
 <p><code>&lt;time&gt;</code> 标签定义日期或时间，或者两者。</p>
 <p><code>&lt;audio&gt;</code>标签象网页中插入声音，比如音乐或其他音频流。</p>
 <p><code>&lt;video&gt;</code> 标签定义视频，比如电影片段或其他视频流</p>
-<p><code>&lt;canvas&gt;</code> 标签定义图形，比如图表和其他图像。<br>这个 HTML元素是为了客户端矢量图形而设计的。它自己没有行为，但却把一个绘图 API 展现给客户端 JavaScript以使脚本能够把想绘制的东西都绘制到一块画布上。</p>
+<p><code>&lt;canvas&gt;</code> 标签定义图形，比如图表和其他图像。<br>
+这个 HTML元素是为了客户端矢量图形而设计的。它自己没有行为，但却把一个绘图 API 展现给客户端 JavaScript以使脚本能够把想绘制的东西都绘制到一块画布上。</p>
 <p><code>&lt;command&gt;</code> 标签定义命令按钮，比如单选按钮、复选框或按钮</p>
 <p><code>&lt;keygen&gt;</code> 标签定义生成密钥。</p>
-<p><code>&lt;meter&gt;</code> 标签定义度量衡。仅用于已知最大和最小值的度量。<br>必须定义度量的范围，既可以在元素的文本中，也可以在 min&#x2F;max 属性中定义。</p>
+<p><code>&lt;meter&gt;</code> 标签定义度量衡。仅用于已知最大和最小值的度量。<br>
+必须定义度量的范围，既可以在元素的文本中，也可以在 min/max 属性中定义。</p>
 <p><code>&lt;output&gt;</code> 标签定义不同类型的输出，比如脚本的输出。</p>
-<p><code>&lt;progress&gt;</code> 标签运行中的进程。<br>可以使用progress标签来显示 JavaScript 中耗费时间的函数的进程。</p>
+<p><code>&lt;progress&gt;</code> 标签运行中的进程。<br>
+可以使用progress标签来显示 JavaScript 中耗费时间的函数的进程。</p>
 <p>HTML中所有自闭合的标签：</p>
 <pre><code class="hljs js">&lt;br&gt; &lt;img&gt; &lt;input&gt; &lt;area&gt; &lt;base&gt; &lt;br&gt; &lt;col&gt; &lt;command&gt; &lt;embed&gt; &lt;hr&gt; &lt;keygen&gt; &lt;link&gt;
 &lt;meta&gt; &lt;param&gt; &lt;source&gt; &lt;track&gt; &lt;wbr&gt;</code></pre>
-
 <p>被移除的旧元素<code>basefont</code>、<code>big</code>、<code>center</code>、<code>font</code>、<code>strike</code>、<code>tt</code>,推荐用css处理更好</p>
-<h5 id="1-6-4-使用Selectors-API简化选取操作"><a href="#1-6-4-使用Selectors-API简化选取操作" class="headerlink" title="1.6.4 使用Selectors API简化选取操作"></a>1.6.4 使用Selectors API简化选取操作</h5><pre><code class="hljs js"><span class="hljs-variable language_">document</span>.<span class="hljs-title function_">querySelector</span>(<span class="hljs-string">&quot;.error&quot;</span>);   <span class="hljs-comment">//返回第一个.error</span>
+<h5 id="1-6-4-使用Selectors-API简化选取操作">1.6.4 使用Selectors API简化选取操作</h5>
+<pre><code class="hljs js"><span class="hljs-variable language_">document</span>.<span class="hljs-title function_">querySelector</span>(<span class="hljs-string">&quot;.error&quot;</span>);   <span class="hljs-comment">//返回第一个.error</span>
 <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">querySelectorAll</span>(<span class="hljs-string">&quot;.error&quot;</span>) <span class="hljs-comment">//返回所有的.error</span></code></pre>
 <p>IE8及以上支持</p>
-<h3 id="第二章、Canvas-API"><a href="#第二章、Canvas-API" class="headerlink" title="第二章、Canvas API"></a>第二章、Canvas API</h3><h4 id="2-2-使用HTML5-Canvas-API"><a href="#2-2-使用HTML5-Canvas-API" class="headerlink" title="2.2 使用HTML5 Canvas API"></a>2.2 使用HTML5 Canvas API</h4><h5 id="2-2-1-检测浏览器支持情况"><a href="#2-2-1-检测浏览器支持情况" class="headerlink" title="2.2.1 检测浏览器支持情况"></a>2.2.1 检测浏览器支持情况</h5><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">canvas</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;drawing&quot;</span>&gt;</span>Update your browser to enjoy canvas!<span class="hljs-tag">&lt;/<span class="hljs-name">canvas</span>&gt;</span>
+<h3 id="第二章、Canvas-API">第二章、Canvas API</h3>
+<h4 id="2-2-使用HTML5-Canvas-API">2.2 使用HTML5 Canvas API</h4>
+<h5 id="2-2-1-检测浏览器支持情况">2.2.1 检测浏览器支持情况</h5>
+<pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">canvas</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;drawing&quot;</span>&gt;</span>Update your browser to enjoy canvas!<span class="hljs-tag">&lt;/<span class="hljs-name">canvas</span>&gt;</span>
 
 <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;text/javascript&quot;</span>&gt;</span><span class="language-javascript"></span>
 <span class="language-javascript">    <span class="hljs-keyword">var</span> drawing = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(<span class="hljs-string">&#x27;drawing&#x27;</span>);</span>
@@ -319,7 +343,8 @@
 <span class="language-javascript">        <span class="hljs-comment">//code</span></span>
 <span class="language-javascript">    &#125;</span>
 <span class="language-javascript"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre>
-<h5 id="2-2-2-在页面中加入canvas"><a href="#2-2-2-在页面中加入canvas" class="headerlink" title="2.2.2 在页面中加入canvas"></a>2.2.2 在页面中加入canvas</h5><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">canvas</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;diagonal&quot;</span> <span class="hljs-attr">style</span>=<span class="hljs-string">&quot;border: 1px solid;&quot;</span> <span class="hljs-attr">width</span>=<span class="hljs-string">&quot;200&quot;</span> <span class="hljs-attr">height</span>=<span class="hljs-string">&quot;200&quot;</span>&gt;</span> <span class="hljs-tag">&lt;/<span class="hljs-name">canvas</span>&gt;</span>
+<h5 id="2-2-2-在页面中加入canvas">2.2.2 在页面中加入canvas</h5>
+<pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">canvas</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;diagonal&quot;</span> <span class="hljs-attr">style</span>=<span class="hljs-string">&quot;border: 1px solid;&quot;</span> <span class="hljs-attr">width</span>=<span class="hljs-string">&quot;200&quot;</span> <span class="hljs-attr">height</span>=<span class="hljs-string">&quot;200&quot;</span>&gt;</span> <span class="hljs-tag">&lt;/<span class="hljs-name">canvas</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="language-javascript"></span>
 <span class="language-javascript">    <span class="hljs-keyword">function</span> <span class="hljs-title function_">drawDiagonal</span>(<span class="hljs-params"></span>) &#123;</span>
 <span class="language-javascript">        <span class="hljs-comment">// Get the canvas element and its drawing context</span></span>
@@ -338,8 +363,11 @@
 <span class="language-javascript"></span>
 <span class="language-javascript">    <span class="hljs-variable language_">window</span>.<span class="hljs-title function_">addEventListener</span>(<span class="hljs-string">&quot;load&quot;</span>, drawDiagonal, <span class="hljs-literal">true</span>);</span>
 <span class="language-javascript"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre>
-<p><strong>注意：</strong>使用canvas元素，必须先设置其width、height属性，其效果与在style中设置并不相同<br>Canvas 是一个画板和一张画纸，画板相当于一个容器，画图是在画纸上进行的，画板和画纸的默认宽高是<code>300*150px</code>，当画纸与画板宽高相等时，图像不会被拉伸，当画纸与画板宽高不一样时，图像就会被拉伸（变形）。<br>style样式里设定的是仅<strong>画板</strong>的宽高，画纸的宽高还是为默认值<code>300*150px</code>， 画纸不会让画板就这么空出一片，于是画纸连同图像就要一起拉伸到跟画板大小一样。所以就得到了变形之后的图片。</p>
-<h5 id="2-2-3-偏移"><a href="#2-2-3-偏移" class="headerlink" title="2.2.3 偏移"></a>2.2.3 偏移</h5><pre><code class="hljs js"><span class="hljs-keyword">function</span> <span class="hljs-title function_">drawDiagonal</span>(<span class="hljs-params"></span>) &#123;
+<p><strong>注意：<strong>使用canvas元素，必须先设置其width、height属性，其效果与在style中设置并不相同<br>
+Canvas 是一个画板和一张画纸，画板相当于一个容器，画图是在画纸上进行的，画板和画纸的默认宽高是<code>300*150px</code>，当画纸与画板宽高相等时，图像不会被拉伸，当画纸与画板宽高不一样时，图像就会被拉伸（变形）。<br>
+style样式里设定的是仅</strong>画板</strong>的宽高，画纸的宽高还是为默认值<code>300*150px</code>， 画纸不会让画板就这么空出一片，于是画纸连同图像就要一起拉伸到跟画板大小一样。所以就得到了变形之后的图片。</p>
+<h5 id="2-2-3-偏移">2.2.3 偏移</h5>
+<pre><code class="hljs js"><span class="hljs-keyword">function</span> <span class="hljs-title function_">drawDiagonal</span>(<span class="hljs-params"></span>) &#123;
     <span class="hljs-keyword">var</span> canvas = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(<span class="hljs-string">&#x27;diagonal&#x27;</span>);
     <span class="hljs-keyword">var</span> context = canvas.<span class="hljs-title function_">getContext</span>(<span class="hljs-string">&#x27;2d&#x27;</span>);
 
@@ -358,18 +386,35 @@
     <span class="hljs-comment">// 恢复context至原始状态</span>
     context.<span class="hljs-title function_">restore</span>();
 &#125;</code></pre>
-<h5 id="2-2-4-路径"><a href="#2-2-4-路径" class="headerlink" title="2.2.4 路径"></a>2.2.4 路径</h5><pre><code class="hljs js"><span class="hljs-title function_">beginPath</span>() <span class="hljs-comment">//开始绘制</span>
+<h5 id="2-2-4-路径">2.2.4 路径</h5>
+<pre><code class="hljs js"><span class="hljs-title function_">beginPath</span>() <span class="hljs-comment">//开始绘制</span>
 <span class="hljs-title function_">moveTo</span>(x,y) <span class="hljs-comment">//将当前位置移动到新目标位置</span>
 <span class="hljs-title function_">lineTo</span>(x,y) <span class="hljs-comment">//从上一位置划线到新位置</span>
 <span class="hljs-title function_">closePath</span>() <span class="hljs-comment">//闭合路径</span></code></pre>
-<h5 id="2-2-5-描边样式"><a href="#2-2-5-描边样式" class="headerlink" title="2.2.5 描边样式"></a>2.2.5 描边样式</h5><p>lineWidth &#x3D; value 设置线条宽度。<br>value<br>描述线段宽度的数字。 0、 负数、 Infinity 和 NaN 会被忽略。</p>
-<p>lineCap &#x3D; type 设置线条末端样式。<br>butt 线段末端以方形结束。<br>round 线段末端以圆形结束。<br>square 线段末端以方形结束，但是增加了一个宽度和线段相同，高度是线段厚度一半的矩形区域。  </p>
-<p>lineJoin &#x3D; type 设定线条与线条间接合处的样式。<br>round<br>通过填充一个额外的，圆心在相连部分末端的扇形，绘制拐角的形状。 圆角的半径是线段的宽度。<br>bevel<br>在相连部分的末端填充一个额外的以三角形为底的区域， 每个部分都有各自独立的矩形拐角。<br>miter<br>通过延伸相连部分的外边缘，使其相交于一点，形成一个额外的菱形区域。这个设置可以通过 miterLimit 属性看到效果。  </p>
-<p>miterLimit &#x3D; value<br>限制当两条线相交时交接处最大长度；所谓交接处长度（斜接长度）是指线条交接处内角顶点到外角顶点的长度。<br>value 斜接面限制比例的的数字。 0、负数、Infinity 和 NaN 都会被忽略。  </p>
-<p>getLineDash()返回一个包含当前虚线样式，长度为非负偶数的数组。  </p>
-<p>setLineDash(segments) 设置当前虚线样式。  </p>
-<p>lineDashOffset &#x3D; value 设置虚线样式的起始偏移量。</p>
-<h5 id="2-2-6-填充样式"><a href="#2-2-6-填充样式" class="headerlink" title="2.2.6 填充样式"></a>2.2.6 填充样式</h5><p>fillStyle &#x3D; color 设置图形的填充颜色。<br>strokeStyle &#x3D; color 设置图形轮廓的颜色。</p>
+<h5 id="2-2-5-描边样式">2.2.5 描边样式</h5>
+<p>lineWidth = value 设置线条宽度。<br>
+value<br>
+描述线段宽度的数字。 0、 负数、 Infinity 和 NaN 会被忽略。</p>
+<p>lineCap = type 设置线条末端样式。<br>
+butt 线段末端以方形结束。<br>
+round 线段末端以圆形结束。<br>
+square 线段末端以方形结束，但是增加了一个宽度和线段相同，高度是线段厚度一半的矩形区域。</p>
+<p>lineJoin = type 设定线条与线条间接合处的样式。<br>
+round<br>
+通过填充一个额外的，圆心在相连部分末端的扇形，绘制拐角的形状。 圆角的半径是线段的宽度。<br>
+bevel<br>
+在相连部分的末端填充一个额外的以三角形为底的区域， 每个部分都有各自独立的矩形拐角。<br>
+miter<br>
+通过延伸相连部分的外边缘，使其相交于一点，形成一个额外的菱形区域。这个设置可以通过 miterLimit 属性看到效果。</p>
+<p>miterLimit = value<br>
+限制当两条线相交时交接处最大长度；所谓交接处长度（斜接长度）是指线条交接处内角顶点到外角顶点的长度。<br>
+value 斜接面限制比例的的数字。 0、负数、Infinity 和 NaN 都会被忽略。</p>
+<p>getLineDash()返回一个包含当前虚线样式，长度为非负偶数的数组。</p>
+<p>setLineDash(segments) 设置当前虚线样式。</p>
+<p>lineDashOffset = value 设置虚线样式的起始偏移量。</p>
+<h5 id="2-2-6-填充样式">2.2.6 填充样式</h5>
+<p>fillStyle = color 设置图形的填充颜色。<br>
+strokeStyle = color 设置图形轮廓的颜色。</p>
 <pre><code class="hljs js">context.<span class="hljs-property">strokeStyle</span> = <span class="hljs-string">&#x27;#663300&#x27;</span>;
 context.<span class="hljs-title function_">stroke</span>(); <span class="hljs-comment">//填充路径</span>
 
@@ -378,11 +423,17 @@ context.<span class="hljs-title function_">fill</span>(); <span class="hljs-comm
 
 context.<span class="hljs-property">fillStyle</span> = <span class="hljs-string">&#x27;#663300&#x27;</span>;
 context.<span class="hljs-title function_">fillRect</span>(-<span class="hljs-number">5</span>, -<span class="hljs-number">50</span>, <span class="hljs-number">10</span>, <span class="hljs-number">50</span>); <span class="hljs-comment">//填充矩形区域</span></code></pre>
-<h5 id="2-2-7-绘制曲线"><a href="#2-2-7-绘制曲线" class="headerlink" title="2.2.7 绘制曲线"></a>2.2.7 绘制曲线</h5><p>arc(x, y, radius, startAngle, endAngle, anticlockwise)<br>画一个以（x,y）为圆心的以radius为半径的圆弧（圆），从startAngle开始到endAngle结束，按照anticlockwise给定的方向（默认为顺时针）来生成。</p>
-<p>arcTo(x1, y1, x2, y2, radius)<br>根据给定的控制点和半径画一段圆弧，再以直线连接两个控制点。</p>
-<p>quadraticCurveTo(cp1x, cp1y, x, y)<br>绘制二次贝塞尔曲线，cp1x,cp1y为一个控制点，x,y为结束点。</p>
-<p>bezierCurveTo(cp1x, cp1y, cp2x, cp2y, x, y)<br>绘制三次贝塞尔曲线，cp1x,cp1y为控制点一，cp2x,cp2y为控制点二，x,y为结束点。</p>
-<h5 id="2-2-9-在canvas中插入图片"><a href="#2-2-9-在canvas中插入图片" class="headerlink" title="2.2.9 在canvas中插入图片"></a>2.2.9 在canvas中插入图片</h5><pre><code class="hljs js"><span class="hljs-keyword">var</span> bark = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Image</span>();
+<h5 id="2-2-7-绘制曲线">2.2.7 绘制曲线</h5>
+<p>arc(x, y, radius, startAngle, endAngle, anticlockwise)<br>
+画一个以（x,y）为圆心的以radius为半径的圆弧（圆），从startAngle开始到endAngle结束，按照anticlockwise给定的方向（默认为顺时针）来生成。</p>
+<p>arcTo(x1, y1, x2, y2, radius)<br>
+根据给定的控制点和半径画一段圆弧，再以直线连接两个控制点。</p>
+<p>quadraticCurveTo(cp1x, cp1y, x, y)<br>
+绘制二次贝塞尔曲线，cp1x,cp1y为一个控制点，x,y为结束点。</p>
+<p>bezierCurveTo(cp1x, cp1y, cp2x, cp2y, x, y)<br>
+绘制三次贝塞尔曲线，cp1x,cp1y为控制点一，cp2x,cp2y为控制点二，x,y为结束点。</p>
+<h5 id="2-2-9-在canvas中插入图片">2.2.9 在canvas中插入图片</h5>
+<pre><code class="hljs js"><span class="hljs-keyword">var</span> bark = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Image</span>();
 bark.<span class="hljs-property">src</span> = <span class="hljs-string">&quot;bark.jpg&quot;</span>;
 
 <span class="hljs-comment">// 必须等到图片完全加载后才能对其操作</span>
@@ -391,9 +442,13 @@ bark.<span class="hljs-property">onload</span> = <span class="hljs-keyword">func
     context.<span class="hljs-title function_">drawImage</span>(bark, -<span class="hljs-number">5</span>, -<span class="hljs-number">50</span>, <span class="hljs-number">10</span>, <span class="hljs-number">50</span>);
     ...
 &#125;</code></pre>
-<h5 id="2-2-10-渐变"><a href="#2-2-10-渐变" class="headerlink" title="2.2.10 渐变"></a>2.2.10 渐变</h5><p>createLinearGradient(x1, y1, x2, y2)<br>createLinearGradient 方法接受 4 个参数，表示渐变的起点 (x1,y1) 与终点 (x2,y2)。</p>
-<p>createRadialGradient(x1, y1, r1, x2, y2, r2)<br>createRadialGradient 方法接受 6 个参数，前三个定义一个以 (x1,y1) 为原点，半径为 r1 的圆，后三个参数则定义另一个以 (x2,y2) 为原点，半径为 r2 的圆。  </p>
-<p>gradient.addColorStop(position, color)<br>addColorStop 方法接受 2 个参数，position 参数必须是一个 0.0 与 1.0 之间的数值，表示渐变中颜色所在的相对位置。例如，0.5 表示颜色会出现在正中间。color 参数必须是一个有效的 CSS 颜色值（如 #FFF， rgba(0,0,0,1)，等等）。</p>
+<h5 id="2-2-10-渐变">2.2.10 渐变</h5>
+<p>createLinearGradient(x1, y1, x2, y2)<br>
+createLinearGradient 方法接受 4 个参数，表示渐变的起点 (x1,y1) 与终点 (x2,y2)。</p>
+<p>createRadialGradient(x1, y1, r1, x2, y2, r2)<br>
+createRadialGradient 方法接受 6 个参数，前三个定义一个以 (x1,y1) 为原点，半径为 r1 的圆，后三个参数则定义另一个以 (x2,y2) 为原点，半径为 r2 的圆。</p>
+<p>gradient.addColorStop(position, color)<br>
+addColorStop 方法接受 2 个参数，position 参数必须是一个 0.0 与 1.0 之间的数值，表示渐变中颜色所在的相对位置。例如，0.5 表示颜色会出现在正中间。color 参数必须是一个有效的 CSS 颜色值（如 #FFF， rgba(0,0,0,1)，等等）。</p>
 <pre><code class="hljs js"><span class="hljs-comment">// Create a 3 stop gradient horizontally across the trunk</span>
 <span class="hljs-keyword">var</span> trunkGradient = context.<span class="hljs-title function_">createLinearGradient</span>(-<span class="hljs-number">5</span>, -<span class="hljs-number">50</span>, <span class="hljs-number">5</span>, -<span class="hljs-number">50</span>);
 <span class="hljs-comment">// The beginning of the trunk is medium brown</span>
@@ -405,7 +460,9 @@ trunkGradient.<span class="hljs-title function_">addColorStop</span>(<span class
 <span class="hljs-comment">// Apply the gradient as the fill style, and draw the trunk</span>
 context.<span class="hljs-property">fillStyle</span> = trunkGradient;
 context.<span class="hljs-title function_">fillRect</span>(-<span class="hljs-number">5</span>, -<span class="hljs-number">50</span>, <span class="hljs-number">10</span>, <span class="hljs-number">50</span>);</code></pre>
-<h5 id="2-2-11-使用图案样式"><a href="#2-2-11-使用图案样式" class="headerlink" title="2.2.11 使用图案样式"></a>2.2.11 使用图案样式</h5><p>createPattern(image, type)<br>该方法接受两个参数。Image 可以是一个 Image 对象的引用，或者另一个 canvas 对象。Type 必须是下面的字符串值之一：repeat，repeat-x，repeat-y 和 no-repeat。  </p>
+<h5 id="2-2-11-使用图案样式">2.2.11 使用图案样式</h5>
+<p>createPattern(image, type)<br>
+该方法接受两个参数。Image 可以是一个 Image 对象的引用，或者另一个 canvas 对象。Type 必须是下面的字符串值之一：repeat，repeat-x，repeat-y 和 no-repeat。</p>
 <pre><code class="hljs js"><span class="hljs-keyword">var</span> gravel = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Image</span>();
 gravel.<span class="hljs-property">src</span> = <span class="hljs-string">&quot;gravel.jpg&quot;</span>;
 gravel.<span class="hljs-property">onload</span> = <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) &#123;
@@ -415,24 +472,41 @@ gravel.<span class="hljs-property">onload</span> = <span class="hljs-keyword">fu
     context.<span class="hljs-title function_">stroke</span>();
     ...
 &#125;</code></pre>
-<h5 id="2-2-12-缩放"><a href="#2-2-12-缩放" class="headerlink" title="2.2.12 缩放"></a>2.2.12 缩放</h5><p>scale(x, y)<br>scale 方法接受两个参数。x,y 分别是横轴和纵轴的缩放因子，它们都必须是正值。值比 1.0 小表示缩小，比 1.0 大则表示放大，值为 1.0 时什么效果都没有。  </p>
+<h5 id="2-2-12-缩放">2.2.12 缩放</h5>
+<p>scale(x, y)<br>
+scale 方法接受两个参数。x,y 分别是横轴和纵轴的缩放因子，它们都必须是正值。值比 1.0 小表示缩小，比 1.0 大则表示放大，值为 1.0 时什么效果都没有。</p>
 <pre><code class="hljs js">context.<span class="hljs-title function_">scale</span>(<span class="hljs-number">2</span>, <span class="hljs-number">2</span>);</code></pre>
-<h5 id="2-2-13-旋转"><a href="#2-2-13-旋转" class="headerlink" title="2.2.13 旋转"></a>2.2.13 旋转</h5><p>rotate(angle)<br>这个方法只接受一个参数：旋转的角度(angle)，它是顺时针方向的，以弧度为单位的值。</p>
+<h5 id="2-2-13-旋转">2.2.13 旋转</h5>
+<p>rotate(angle)<br>
+这个方法只接受一个参数：旋转的角度(angle)，它是顺时针方向的，以弧度为单位的值。</p>
 <pre><code class="hljs js">context.<span class="hljs-title function_">rotate</span>(<span class="hljs-title class_">Math</span>*<span class="hljs-variable constant_">PI</span>/<span class="hljs-number">2</span>);</code></pre>
-<h5 id="2-2-14-文本"><a href="#2-2-14-文本" class="headerlink" title="2.2.14 文本"></a>2.2.14 文本</h5><p>fillText(text, x, y [, maxWidth])<br>在指定的(x,y)位置填充指定的文本，绘制的最大宽度是可选的.  </p>
-<p>strokeText(text, x, y [, maxWidth])<br>在指定的(x,y)位置绘制文本边框，绘制的最大宽度是可选的.    </p>
+<h5 id="2-2-14-文本">2.2.14 文本</h5>
+<p>fillText(text, x, y [, maxWidth])<br>
+在指定的(x,y)位置填充指定的文本，绘制的最大宽度是可选的.</p>
+<p>strokeText(text, x, y [, maxWidth])<br>
+在指定的(x,y)位置绘制文本边框，绘制的最大宽度是可选的.</p>
 <pre><code class="hljs js">context.<span class="hljs-property">textAlign</span> = <span class="hljs-string">&#x27;center&#x27;</span>;
 context.<span class="hljs-title function_">fillText</span>(<span class="hljs-string">&#x27;Happy Trails!&#x27;</span>, <span class="hljs-number">200</span>, <span class="hljs-number">60</span>, <span class="hljs-number">400</span>);</code></pre>
-<h5 id="2-2-15-阴影"><a href="#2-2-15-阴影" class="headerlink" title="2.2.15 阴影"></a>2.2.15 阴影</h5><p>shadowOffsetX &#x3D; float<br>shadowOffsetX 和 shadowOffsetY 用来设定阴影在 X 和 Y 轴的延伸距离，它们是不受变换矩阵所影响的。负值表示阴影会往上或左延伸，正值则表示会往下或右延伸，它们默认都为 0。</p>
-<p>shadowOffsetY &#x3D; float<br>shadowOffsetX 和 shadowOffsetY 用来设定阴影在 X 和 Y 轴的延伸距离，它们是不受变换矩阵所影响的。负值表示阴影会往上或左延伸，正值则表示会往下或右延伸，它们默认都为 0。</p>
-<p>shadowBlur &#x3D; float<br>shadowBlur 用于设定阴影的模糊程度，其数值并不跟像素数量挂钩，也不受变换矩阵的影响，默认为 0。</p>
-<p>shadowColor &#x3D; color<br>shadowColor 是标准的 CSS 颜色值，用于设定阴影颜色效果，默认是全透明的黑色。</p>
+<h5 id="2-2-15-阴影">2.2.15 阴影</h5>
+<p>shadowOffsetX = float<br>
+shadowOffsetX 和 shadowOffsetY 用来设定阴影在 X 和 Y 轴的延伸距离，它们是不受变换矩阵所影响的。负值表示阴影会往上或左延伸，正值则表示会往下或右延伸，它们默认都为 0。</p>
+<p>shadowOffsetY = float<br>
+shadowOffsetX 和 shadowOffsetY 用来设定阴影在 X 和 Y 轴的延伸距离，它们是不受变换矩阵所影响的。负值表示阴影会往上或左延伸，正值则表示会往下或右延伸，它们默认都为 0。</p>
+<p>shadowBlur = float<br>
+shadowBlur 用于设定阴影的模糊程度，其数值并不跟像素数量挂钩，也不受变换矩阵的影响，默认为 0。</p>
+<p>shadowColor = color<br>
+shadowColor 是标准的 CSS 颜色值，用于设定阴影颜色效果，默认是全透明的黑色。</p>
 <pre><code class="hljs js">context.<span class="hljs-property">shadowOffsetX</span> = <span class="hljs-number">15</span>;
 context.<span class="hljs-property">shadowOffsetY</span> = -<span class="hljs-number">10</span>;
 context.<span class="hljs-property">shadowBlur</span> = <span class="hljs-number">2</span>;</code></pre>
-<h3 id="第三章、SVG"><a href="#第三章、SVG" class="headerlink" title="第三章、SVG"></a>第三章、SVG</h3><h4 id="3-1-5-在页面中添加SVG"><a href="#3-1-5-在页面中添加SVG" class="headerlink" title="3.1.5 在页面中添加SVG"></a>3.1.5 在页面中添加SVG</h4><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">svg</span> <span class="hljs-attr">width</span>=<span class="hljs-string">&quot;400&quot;</span> <span class="hljs-attr">height</span>=<span class="hljs-string">&quot;600&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">svg</span>&gt;</span></code></pre>
-<h4 id="3-1-7-变换SVG元素"><a href="#3-1-7-变换SVG元素" class="headerlink" title="3.1.7 变换SVG元素"></a>3.1.7 变换SVG元素</h4><p><code>&lt;g&gt;</code>元素代表“组”,可以用来结合多个相关元素 </p>
-<h4 id="3-1-8-复用内容"><a href="#3-1-8-复用内容" class="headerlink" title="3.1.8 复用内容"></a>3.1.8 复用内容</h4><p><code>&lt;defs&gt;</code>元素定义留待将来使用的内容<br><code>&lt;use&gt;</code>元素用于连接到<code>&lt;defs&gt;</code>定义的内容  </p>
+<h3 id="第三章、SVG">第三章、SVG</h3>
+<h4 id="3-1-5-在页面中添加SVG">3.1.5 在页面中添加SVG</h4>
+<pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">svg</span> <span class="hljs-attr">width</span>=<span class="hljs-string">&quot;400&quot;</span> <span class="hljs-attr">height</span>=<span class="hljs-string">&quot;600&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">svg</span>&gt;</span></code></pre>
+<h4 id="3-1-7-变换SVG元素">3.1.7 变换SVG元素</h4>
+<p><code>&lt;g&gt;</code>元素代表“组”,可以用来结合多个相关元素</p>
+<h4 id="3-1-8-复用内容">3.1.8 复用内容</h4>
+<p><code>&lt;defs&gt;</code>元素定义留待将来使用的内容<br>
+<code>&lt;use&gt;</code>元素用于连接到<code>&lt;defs&gt;</code>定义的内容</p>
 <pre><code class="hljs plaintext">&lt;svg width=&quot;200&quot; height=&quot;200&quot;&gt;
     &lt;defs&gt;
       &lt;g id=&quot;ShapeGroup&quot;&gt;
@@ -443,15 +517,22 @@ context.<span class="hljs-property">shadowBlur</span> = <span class="hljs-number
     &lt;use xlink:href=&quot;#ShapeGroup&quot; transform=&quot;translate(60,0) scale(0.5)&quot; /&gt;
     &lt;use xlink:href=&quot;#ShapeGroup&quot; transform=&quot;translate(120,80) scale(0.4)&quot; /&gt;
 &lt;/svg&gt;</code></pre>
-<h4 id="3-1-9-图案和渐变"><a href="#3-1-9-图案和渐变" class="headerlink" title="3.1.9 图案和渐变"></a>3.1.9 图案和渐变</h4><h4 id="3-1-10-SVG路径"><a href="#3-1-10-SVG路径" class="headerlink" title="3.1.10 SVG路径"></a>3.1.10 SVG路径</h4><h4 id="3-1-11-使用SVG文本"><a href="#3-1-11-使用SVG文本" class="headerlink" title="3.1.11 使用SVG文本"></a>3.1.11 使用SVG文本</h4><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">svg</span> <span class="hljs-attr">width</span>=<span class="hljs-string">&quot;200&quot;</span> <span class="hljs-attr">height</span>=<span class="hljs-string">&quot;200&quot;</span>&gt;</span>
+<h4 id="3-1-9-图案和渐变">3.1.9 图案和渐变</h4>
+<h4 id="3-1-10-SVG路径">3.1.10 SVG路径</h4>
+<h4 id="3-1-11-使用SVG文本">3.1.11 使用SVG文本</h4>
+<pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">svg</span> <span class="hljs-attr">width</span>=<span class="hljs-string">&quot;200&quot;</span> <span class="hljs-attr">height</span>=<span class="hljs-string">&quot;200&quot;</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">text</span> <span class="hljs-attr">y</span>=<span class="hljs-string">&quot;60&quot;</span> <span class="hljs-attr">x</span>=<span class="hljs-string">&quot;200&quot;</span> <span class="hljs-attr">font-family</span>=<span class="hljs-string">&quot;impact&quot;</span> <span class="hljs-attr">font-size</span>=<span class="hljs-string">&quot;60px&quot;</span> <span class="hljs-attr">fill</span>=<span class="hljs-string">&quot;#996600&quot;</span> <span class="hljs-attr">text-anchor</span>=<span class="hljs-string">&quot;middle&quot;</span>&gt;</span>
     Happy Trails!
   <span class="hljs-tag">&lt;/<span class="hljs-name">text</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">svg</span>&gt;</span></code></pre>
-<h3 id="第四章、Audio-and-Video"><a href="#第四章、Audio-and-Video" class="headerlink" title="第四章、Audio and Video"></a>第四章、Audio and Video</h3><h4 id="4-2-1-浏览器支持性检测"><a href="#4-2-1-浏览器支持性检测" class="headerlink" title="4.2.1 浏览器支持性检测"></a>4.2.1 浏览器支持性检测</h4><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">video</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;vide.webm&quot;</span> <span class="hljs-attr">controls</span>&gt;</span>
+<h3 id="第四章、Audio-and-Video">第四章、Audio and Video</h3>
+<h4 id="4-2-1-浏览器支持性检测">4.2.1 浏览器支持性检测</h4>
+<pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">video</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;vide.webm&quot;</span> <span class="hljs-attr">controls</span>&gt;</span>
   Your browser does not suport HTML5 video.
 <span class="hljs-tag">&lt;/<span class="hljs-name">video</span>&gt;</span></code></pre>
-<h4 id="4-2-3-理解媒体元素"><a href="#4-2-3-理解媒体元素" class="headerlink" title="4.2.3 理解媒体元素"></a>4.2.3 理解媒体元素</h4><h5 id="4-2-3-3-媒体的控制"><a href="#4-2-3-3-媒体的控制" class="headerlink" title="4.2.3.3 媒体的控制"></a>4.2.3.3 媒体的控制</h5><p>如果内置的空间不适用用户界面的布局，那么可以借助javascript函数和特性</p>
+<h4 id="4-2-3-理解媒体元素">4.2.3 理解媒体元素</h4>
+<h5 id="4-2-3-3-媒体的控制">4.2.3.3 媒体的控制</h5>
+<p>如果内置的空间不适用用户界面的布局，那么可以借助javascript函数和特性</p>
 <table>
 <thead>
 <tr>
@@ -459,7 +540,8 @@ context.<span class="hljs-property">shadowBlur</span> = <span class="hljs-number
 <th>动作</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>load()</td>
 <td>加载为播放做准备</td>
 </tr>
@@ -475,13 +557,22 @@ context.<span class="hljs-property">shadowBlur</span> = <span class="hljs-number
 <td>canPlayType(type)</td>
 <td>测试video元素是否支持给定的MIME类型的文件</td>
 </tr>
-</tbody></table>
-<h3 id="第五章、Geolocation-API"><a href="#第五章、Geolocation-API" class="headerlink" title="第五章、Geolocation API"></a>第五章、Geolocation API</h3><h4 id="5-1-位置信息"><a href="#5-1-位置信息" class="headerlink" title="5.1 位置信息"></a>5.1 位置信息</h4><p>HTML5 Geolocation API不指定设备使用哪种底层技术来定位应用程序的用户，只是用于检索位置信息的API</p>
-<h5 id="5-1-3-IP地址地理定位数据"><a href="#5-1-3-IP地址地理定位数据" class="headerlink" title="5.1.3 IP地址地理定位数据"></a>5.1.3 IP地址地理定位数据</h5><p>基于IP地址的地理定位的实现方式是：自动查找用户IP地址，然后检索其注册的物理地址</p>
-<h5 id="5-1-4-GPS地理定位数据"><a href="#5-1-4-GPS地理定位数据" class="headerlink" title="5.1.4 GPS地理定位数据"></a>5.1.4 GPS地理定位数据</h5><p>GPS利用多个GPS卫星的信号实现，定位时间较长，不适合快速响应的应用程序</p>
-<h5 id="5-1-5-WI-FI地理定位数据"><a href="#5-1-5-WI-FI地理定位数据" class="headerlink" title="5.1.5 WI-FI地理定位数据"></a>5.1.5 WI-FI地理定位数据</h5><p>基于WI-FI的地理定位信息是通过三角距离计算得出的，这个三角距离指的是用户当前位置到已知的多个wi-fi接入点的距离</p>
-<h5 id="5-1-6-手机地理定位数据"><a href="#5-1-6-手机地理定位数据" class="headerlink" title="5.1.6 手机地理定位数据"></a>5.1.6 手机地理定位数据</h5><p>通过用户嗲一些基站的三角距离确定的，可提供相当准确的位置信息</p>
-<h5 id="5-1-7-用户自定义的地理定位数据"><a href="#5-1-7-用户自定义的地理定位数据" class="headerlink" title="5.1.7 用户自定义的地理定位数据"></a>5.1.7 用户自定义的地理定位数据</h5><h4 id="5-4-使用HTML5-Geolocation-API"><a href="#5-4-使用HTML5-Geolocation-API" class="headerlink" title="5.4 使用HTML5 Geolocation API"></a>5.4 使用HTML5 Geolocation API</h4><p>执行HTML5 Geolocation的方式有很多，例如调用navigator.geolocation.getCurrentPosition()</p>
+</tbody>
+</table>
+<h3 id="第五章、Geolocation-API">第五章、Geolocation API</h3>
+<h4 id="5-1-位置信息">5.1 位置信息</h4>
+<p>HTML5 Geolocation API不指定设备使用哪种底层技术来定位应用程序的用户，只是用于检索位置信息的API</p>
+<h5 id="5-1-3-IP地址地理定位数据">5.1.3 IP地址地理定位数据</h5>
+<p>基于IP地址的地理定位的实现方式是：自动查找用户IP地址，然后检索其注册的物理地址</p>
+<h5 id="5-1-4-GPS地理定位数据">5.1.4 GPS地理定位数据</h5>
+<p>GPS利用多个GPS卫星的信号实现，定位时间较长，不适合快速响应的应用程序</p>
+<h5 id="5-1-5-WI-FI地理定位数据">5.1.5 WI-FI地理定位数据</h5>
+<p>基于WI-FI的地理定位信息是通过三角距离计算得出的，这个三角距离指的是用户当前位置到已知的多个wi-fi接入点的距离</p>
+<h5 id="5-1-6-手机地理定位数据">5.1.6 手机地理定位数据</h5>
+<p>通过用户嗲一些基站的三角距离确定的，可提供相当准确的位置信息</p>
+<h5 id="5-1-7-用户自定义的地理定位数据">5.1.7 用户自定义的地理定位数据</h5>
+<h4 id="5-4-使用HTML5-Geolocation-API">5.4 使用HTML5 Geolocation API</h4>
+<p>执行HTML5 Geolocation的方式有很多，例如调用navigator.geolocation.getCurrentPosition()</p>
 <pre><code class="hljs js"><span class="hljs-keyword">function</span> <span class="hljs-title function_">loadDemo</span>(<span class="hljs-params"></span>) &#123;
   <span class="hljs-keyword">if</span>(navigator.<span class="hljs-property">geolocation</span>) &#123;
       <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(<span class="hljs-string">&quot;status&quot;</span>).<span class="hljs-property">innerHTML</span> = <span class="hljs-string">&quot;HTML5 Geolocation is supported in your browser.&quot;</span>;
@@ -527,25 +618,35 @@ context.<span class="hljs-property">shadowBlur</span> = <span class="hljs-number
 <span class="hljs-keyword">function</span> <span class="hljs-title function_">updateStatus</span>(<span class="hljs-params">message</span>) &#123;
   <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(<span class="hljs-string">&quot;status&quot;</span>).<span class="hljs-property">innerHTML</span> = <span class="hljs-string">&quot;&lt;strong&gt;Error&lt;/strong&gt;: &quot;</span> + message;
 &#125;</code></pre>
-<h3 id="第六章、Communication-API"><a href="#第六章、Communication-API" class="headerlink" title="第六章、Communication API"></a>第六章、Communication API</h3><h4 id="6-1-跨文档消息通信"><a href="#6-1-跨文档消息通信" class="headerlink" title="6.1 跨文档消息通信"></a>6.1 跨文档消息通信</h4><p>跨文档消息通信可以确保iframe、标签页、窗口间安全的进行跨源通信  </p>
+<h3 id="第六章、Communication-API">第六章、Communication API</h3>
+<h4 id="6-1-跨文档消息通信">6.1 跨文档消息通信</h4>
+<p>跨文档消息通信可以确保iframe、标签页、窗口间安全的进行跨源通信</p>
 <pre><code class="hljs js">chatFrame.<span class="hljs-property">contentWindow</span>.<span class="hljs-title function_">postMessage</span>(<span class="hljs-string">&quot;hello world&quot;</span>,<span class="hljs-string">&quot;http://www.example.com/&quot;</span>);</code></pre>
-<h5 id="6-1-3-使用postMessage-API"><a href="#6-1-3-使用postMessage-API" class="headerlink" title="6.1.3 使用postMessage API"></a>6.1.3 使用postMessage API</h5><ol>
-<li>浏览器支持情况检测<pre>
-if(typeof window.postMessage === "undefined"){
- //不支持postMessage
-  }
-</pre></li>
-<li>发送消息<pre>
-window.postMessage("hello world","portal.example.com");
-</pre></li>
-<li>监听消息事件<pre>
-window.onmessage = function(e){
- if(e.origin === ""){ //接收方可以接收特定源的消息
-     console.log(e.data) //打印接收数据
- }
-}
-</pre></li>
+<h5 id="6-1-3-使用postMessage-API">6.1.3 使用postMessage API</h5>
+<ol>
+<li>浏览器支持情况检测</li>
 </ol>
+<pre>
+if(typeof window.postMessage === "undefined"){
+    //不支持postMessage
+  }
+</pre>
+<ol start="2">
+<li>发送消息</li>
+</ol>
+<pre>
+window.postMessage("hello world","portal.example.com");
+</pre>
+<ol start="3">
+<li>监听消息事件</li>
+</ol>
+<pre>
+window.onmessage = function(e){
+    if(e.origin === ""){ //接收方可以接收特定源的消息
+        console.log(e.data) //打印接收数据
+    }
+}
+</pre>
 <pre><code class="hljs html"><span class="hljs-comment">&lt;!-- http:localhost/test/index.html --&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">iframe</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;iframe&quot;</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;http://127.0.0.1/test/a.html&quot;</span> <span class="hljs-attr">style</span>=<span class="hljs-string">&quot;display:none;&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">iframe</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;text/javascript&quot;</span>&gt;</span><span class="language-javascript"></span>
@@ -571,81 +672,106 @@ window.onmessage = function(e){
 <span class="language-javascript">    &#125;</span>
 <span class="language-javascript">  &#125;</span>
 <span class="language-javascript"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre>
-<h4 id="6-2-XMLHttpRequsest-Level-2"><a href="#6-2-XMLHttpRequsest-Level-2" class="headerlink" title="6.2 XMLHttpRequsest Level 2"></a>6.2 XMLHttpRequsest Level 2</h4><p>XMLHttpRequsest Level 2的功能改进主要体现在：</p>
+<h4 id="6-2-XMLHttpRequsest-Level-2">6.2 XMLHttpRequsest Level 2</h4>
+<p>XMLHttpRequsest Level 2的功能改进主要体现在：</p>
 <ul>
 <li>跨源XMLHttpRequest;</li>
 <li>进度事件(progress events)</li>
 </ul>
-<h5 id="6-2-1-跨源XMLHttpRequest"><a href="#6-2-1-跨源XMLHttpRequest" class="headerlink" title="6.2.1 跨源XMLHttpRequest"></a>6.2.1 跨源XMLHttpRequest</h5><p>XMLHttpRequsest Level 2通过CORS实现了跨源XMLHttpRequest<br>跨源XMLHttpRequest请求包括一个origin头部<br>服务器端需要为请求的内容添加”Access-Control-Allow-Origin:”头部</p>
-<h5 id="6-2-2-进度事件"><a href="#6-2-2-进度事件" class="headerlink" title="6.2.2 进度事件"></a>6.2.2 进度事件</h5><p>利用进度事件实现文件上传率</p>
+<h5 id="6-2-1-跨源XMLHttpRequest">6.2.1 跨源XMLHttpRequest</h5>
+<p>XMLHttpRequsest Level 2通过CORS实现了跨源XMLHttpRequest<br>
+跨源XMLHttpRequest请求包括一个origin头部<br>
+服务器端需要为请求的内容添加&quot;Access-Control-Allow-Origin:&quot;头部</p>
+<h5 id="6-2-2-进度事件">6.2.2 进度事件</h5>
+<p>利用进度事件实现文件上传率</p>
 <pre><code class="hljs js">xhr.<span class="hljs-property">onprogress</span> = <span class="hljs-keyword">function</span>(<span class="hljs-params">e</span>)&#123;
     <span class="hljs-keyword">var</span> total = e.<span class="hljs-property">total</span>;
     <span class="hljs-keyword">var</span> loaded = e.<span class="hljs-property">loaded</span>;
     <span class="hljs-title function_">setProgress</span>(radio + <span class="hljs-string">&quot;% uploaded&quot;</span>);
 &#125;</code></pre>
-<h3 id="第七章、WebSockets-API"><a href="#第七章、WebSockets-API" class="headerlink" title="第七章、WebSockets API"></a>第七章、WebSockets API</h3><p>WebSockets定义了双全工通信，大幅度减少了网络流量，并降低网络延迟 IE10+支持</p>
-<h4 id="7-3-使用-Web-Sockets-API"><a href="#7-3-使用-Web-Sockets-API" class="headerlink" title="7.3 使用 Web Sockets API"></a>7.3 使用 Web Sockets API</h4><h5 id="7-3-2-基本用法"><a href="#7-3-2-基本用法" class="headerlink" title="7.3.2 基本用法"></a>7.3.2 基本用法</h5><p>为接受ws:&#x2F;&#x2F;loclahost:8080&#x2F;echo上的链接，需要启动Python WebSocket服务器。<br>打开命令行窗口执行以下命令：<code>python websocket.py</code></p>
+<h3 id="第七章、WebSockets-API">第七章、WebSockets API</h3>
+<p>WebSockets定义了双全工通信，大幅度减少了网络流量，并降低网络延迟 IE10+支持</p>
+<h4 id="7-3-使用-Web-Sockets-API">7.3 使用 Web Sockets API</h4>
+<h5 id="7-3-2-基本用法">7.3.2 基本用法</h5>
+<p>为接受ws://loclahost:8080/echo上的链接，需要启动Python WebSocket服务器。<br>
+打开命令行窗口执行以下命令：<code>python websocket.py</code></p>
 <ol>
-<li>Web Socket对象的创建及其与Web Socket服务器的连接<pre>
+<li>Web Socket对象的创建及其与Web Socket服务器的连接</li>
+</ol>
+<pre>
 url = "ws://localhost:8080/echo";
 w = new WebSocket(url);    
-</pre></li>
-<li>添加事件监听器<pre>
+</pre>
+<ol start="2">
+<li>添加事件监听器</li>
+</ol>
+<pre>
 w.onopen = function() { //建立连接触发open
- log("open");
- w.send("thank you for accepting this Web Socket request");
+    log("open");
+    w.send("thank you for accepting this Web Socket request");
 }
 w.onmessage = function(e) { //收到消息触发message
- log(e.data.toString());
+    log(e.data.toString());
 }
 w.onclose = function(e) { //链接关闭触发close
- log("closed");
+    log("closed");
 }
 w.onerror = function(e) { //错误事件
- log("error");
+    log("error");
 }
-</pre></li>
-<li>发送消息<pre>
-document.getElementById("sendButton").onclick = function() {
- w.send(document.getElementById("inputMessage").value);
-}
-</pre></li>
+</pre>
+<ol start="3">
+<li>发送消息</li>
 </ol>
-<h3 id="第八章、Froms-API"><a href="#第八章、Froms-API" class="headerlink" title="第八章、Froms API"></a>第八章、Froms API</h3><h4 id="8-1-Froms-API概述"><a href="#8-1-Froms-API概述" class="headerlink" title="8.1 Froms API概述"></a>8.1 Froms API概述</h4><p>HTML5表单包含了大量的新的API和元素类型</p>
+<pre>
+document.getElementById("sendButton").onclick = function() {
+    w.send(document.getElementById("inputMessage").value);
+}
+</pre>
+<h3 id="第八章、Froms-API">第八章、Froms API</h3>
+<h4 id="8-1-Froms-API概述">8.1 Froms API概述</h4>
+<p>HTML5表单包含了大量的新的API和元素类型</p>
 <ul>
 <li>新的输入型控件</li>
 <li>新的函数和特性</li>
 </ul>
-<h5 id="8-1-4-输入型控件"><a href="#8-1-4-输入型控件" class="headerlink" title="8.1.4 输入型控件"></a>8.1.4 输入型控件</h5><p><strong>email</strong>  </p>
+<h5 id="8-1-4-输入型控件">8.1.4 输入型控件</h5>
+<p><strong>email</strong></p>
 <pre><code class="hljs js">&lt;input type=<span class="hljs-string">&quot;email&quot;</span> name=<span class="hljs-string">&quot;email&quot;</span>&gt;</code></pre>
-<p>type&#x3D;”email”的input输入类型用于表示语义上的e-mail地址输入域，在提交表单时，会自动验证 email 域的值。<br>[注意] IE9-浏览器及safari浏览器不支持</p>
-<p><strong>tel</strong>  </p>
+<p>type=&quot;email&quot;的input输入类型用于表示语义上的e-mail地址输入域，在提交表单时，会自动验证 email 域的值。<br>
+[注意] IE9-浏览器及safari浏览器不支持</p>
+<p><strong>tel</strong></p>
 <pre><code class="hljs js">&lt;input type=<span class="hljs-string">&quot;tel&quot;</span> placeholder=<span class="hljs-string">&quot;请输入11位手机号码&quot;</span> pattern=<span class="hljs-string">&quot;\d&#123;11&#125;&quot;</span>&gt;</code></pre>
-<p>type&#x3D;”tel”的input输入类型用于表示语义上的电话输入域</p>
-<p><strong>search</strong> </p>
+<p>type=&quot;tel&quot;的input输入类型用于表示语义上的电话输入域</p>
+<p><strong>search</strong></p>
 <pre><code class="hljs js">&lt;input type=<span class="hljs-string">&quot;search&quot;</span>&gt;</code></pre>
-
-<p><strong>url</strong>  </p>
+<p><strong>url</strong></p>
 <pre><code class="hljs js">&lt;input type=<span class="hljs-string">&quot;url&quot;</span> /&gt;</code></pre>
-<p>type&#x3D;”url”的input输入类型用于表示语义上的url地址的输入域,在提交表单时，会自动验证 url 域的值。<br>[注意]IE9-浏览器及safari浏览器不支持</p>
-<p><strong>number</strong>  </p>
+<p>type=&quot;url&quot;的input输入类型用于表示语义上的url地址的输入域,在提交表单时，会自动验证 url 域的值。<br>
+[注意]IE9-浏览器及safari浏览器不支持</p>
+<p><strong>number</strong></p>
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;number&quot;</span> <span class="hljs-attr">min</span>=<span class="hljs-string">&quot;0&quot;</span> <span class="hljs-attr">max</span>=<span class="hljs-string">&quot;10&quot;</span> <span class="hljs-attr">step</span>=<span class="hljs-string">&quot;0.5&quot;</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;6&quot;</span>/&gt;</span></code></pre>
-<p>type&#x3D;”number”的input输入类型用于处理数字输入,step 规定合法的数字间隔<br>[注意]IE不支持该类型</p>
-<p><strong>range</strong>  </p>
+<p>type=&quot;number&quot;的input输入类型用于处理数字输入,step 规定合法的数字间隔<br>
+[注意]IE不支持该类型</p>
+<p><strong>range</strong></p>
 <pre><code class="hljs js">&lt;input type=<span class="hljs-string">&quot;range&quot;</span> min=<span class="hljs-string">&quot;0&quot;</span> max=<span class="hljs-string">&quot;10&quot;</span> step=<span class="hljs-string">&quot;0.5&quot;</span> value=<span class="hljs-string">&quot;6&quot;</span>/&gt;</code></pre>
 <input type="range" min="0" max="10" step="0.5" value="6"/>  
 type="range"的input输入类型用于处理包含在一定范围内的数字输入  
 [注意]IE9-不支持该类型
-
-<p><strong>color</strong> </p>
+<p><strong>color</strong></p>
 <pre><code class="hljs js">&lt;input type=<span class="hljs-string">&quot;color&quot;</span>&gt;</code></pre>
-<p>type&#x3D;”color”的input输入类型会创建一个调色板用来选择颜色，颜色值以URL编码后的十六进制数值提交。<br>如黑色会以%23000000发送，其中%23是#的URL编码<br>[注意]safari和IE不支持该类型</p>
-<p><strong>Date pickers</strong>  </p>
+<p>type=&quot;color&quot;的input输入类型会创建一个调色板用来选择颜色，颜色值以URL编码后的十六进制数值提交。<br>
+如黑色会以%23000000发送，其中%23是#的URL编码<br>
+[注意]safari和IE不支持该类型</p>
+<p><strong>Date pickers</strong></p>
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;time&quot;</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;hh:mm:ss&quot;</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;month&quot;</span>&gt;</span></code></pre>
-<p><input type="time" value="hh:mm:ss.s"><input type="month"><br>[注意]IE和firefox这种日期类型都不支持，chrome不支持datetime类型</p>
-<h5 id="8-2-1-新的表单特性和函数"><a href="#8-2-1-新的表单特性和函数" class="headerlink" title="8.2.1 新的表单特性和函数"></a>8.2.1 新的表单特性和函数</h5><p><strong>placeholder</strong></p>
+<p><input type="time" value="hh:mm:ss.s"><input type="month"><br>
+[注意]IE和firefox这种日期类型都不支持，chrome不支持datetime类型</p>
+<h5 id="8-2-1-新的表单特性和函数">8.2.1 新的表单特性和函数</h5>
+<p><strong>placeholder</strong></p>
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;tel&quot;</span> <span class="hljs-attr">placeholder</span>=<span class="hljs-string">&quot;请输入11位手机号码&quot;</span>&gt;</span></code></pre>
-<p>placeholder 属性提供可描述输入字段预期值的提示信息（hint）。该提示会在输入字段为空时显示，并会在字段获得焦点时消失。<br>[注意]placeholder 属性适用于以下的 <code>&lt;input&gt; </code>类型：text, search, url, tel, email 以及 password。</p>
+<p>placeholder 属性提供可描述输入字段预期值的提示信息（hint）。该提示会在输入字段为空时显示，并会在字段获得焦点时消失。<br>
+[注意]placeholder 属性适用于以下的 <code>&lt;input&gt; </code>类型：text, search, url, tel, email 以及 password。</p>
 <p><strong>autocomplete</strong></p>
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">form</span> <span class="hljs-attr">action</span>=<span class="hljs-string">&quot;demo_form.asp&quot;</span> <span class="hljs-attr">method</span>=<span class="hljs-string">&quot;get&quot;</span> <span class="hljs-attr">autocomplete</span>=<span class="hljs-string">&quot;on&quot;</span>&gt;</span>
     Name:<span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;text&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;fname&quot;</span> /&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">br</span> /&gt;</span>
@@ -661,10 +787,10 @@ autocomplete 属性规定表单是否应该启用自动完成功能。
 自动完成允许浏览器预测对字段的输入。当用户在字段开始键入时，浏览器基于之前键入过的值，应该显示出在字段中填写的选项。
 [注意]autocomplete 属性适用于 `<form>`，以及下面的 `<input>` 类型：  
 text, search, url, tel, email, password, datepickers, range 以及 color。
-
 <p><strong>autofocus</strong></p>
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;text&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;usr_name&quot;</span> <span class="hljs-attr">autofocus</span>=<span class="hljs-string">&quot;autofocus&quot;</span> /&gt;</span></code></pre>
-<p>每个页面上只允许出现一个autofocus特性<br>非type&#x3D;”hidden”的input、select、textarea、button可使用autofocus元素来制定自动获得焦点的元素</p>
+<p>每个页面上只允许出现一个autofocus特性<br>
+非type=&quot;hidden&quot;的input、select、textarea、button可使用autofocus元素来制定自动获得焦点的元素</p>
 <p><strong>list、datalist</strong></p>
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">form</span> <span class="hljs-attr">action</span>=<span class="hljs-string">&quot;demo_form.asp&quot;</span>&gt;</span>
     Webpage: <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;url&quot;</span> <span class="hljs-attr">list</span>=<span class="hljs-string">&quot;url_list&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;link&quot;</span> /&gt;</span>
@@ -685,22 +811,27 @@ text, search, url, tel, email, password, datepickers, range 以及 color。
     <input type="submit"/>
 </form>
 list 属性引用数据列表，其中包含输入字段的预定义选项。
-
 <p><strong>min、max</strong></p>
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;number&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;points&quot;</span> <span class="hljs-attr">min</span>=<span class="hljs-string">&quot;0&quot;</span> <span class="hljs-attr">max</span>=<span class="hljs-string">&quot;10&quot;</span> /&gt;</span></code></pre>
-<p>max 属性规定输入字段所允许的最大值 max 属性与 min 属性配合使用，可创建合法值范围<br>[注意]max 和 min 属性适用于以下 <code>&lt;input&gt; </code>类型：number, range, date, datetime, datetime-local, month, time 以及 week。</p>
+<p>max 属性规定输入字段所允许的最大值 max 属性与 min 属性配合使用，可创建合法值范围<br>
+[注意]max 和 min 属性适用于以下 <code>&lt;input&gt; </code>类型：number, range, date, datetime, datetime-local, month, time 以及 week。</p>
 <p><strong>required</strong></p>
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;text&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;usr_name&quot;</span> <span class="hljs-attr">required</span>=<span class="hljs-string">&quot;required&quot;</span> /&gt;</span></code></pre>
-<p>required 属性规定必需在提交之前填写输入字段。如果使用该属性，则字段是必填（或必选）的。<br>[注意]required 属性适用于以下 <code>&lt;input&gt; </code>类型：<br>text, search, url, tel, email, password, datepickers, number, checkbox, radio 以及 file。</p>
+<p>required 属性规定必需在提交之前填写输入字段。如果使用该属性，则字段是必填（或必选）的。<br>
+[注意]required 属性适用于以下 <code>&lt;input&gt; </code>类型：<br>
+text, search, url, tel, email, password, datepickers, number, checkbox, radio 以及 file。</p>
 <p><strong>step</strong></p>
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;number&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;points&quot;</span> <span class="hljs-attr">step</span>=<span class="hljs-string">&quot;3&quot;</span> /&gt;</span></code></pre>
-<p>step 属性规定输入字段的合法数字间隔（假如 step&#x3D;”3”，则合法数字应该是 -3、0、3、6，以此类推）。<br>[注意]step、max 以及 min 属性适用于以下 <code>&lt;input&gt;</code> 类型：number, range, date, datetime, datetime-local, month, time 以及 week。</p>
+<p>step 属性规定输入字段的合法数字间隔（假如 step=“3”，则合法数字应该是 -3、0、3、6，以此类推）。<br>
+[注意]step、max 以及 min 属性适用于以下 <code>&lt;input&gt;</code> 类型：number, range, date, datetime, datetime-local, month, time 以及 week。</p>
 <p><strong>multiple</strong></p>
 <pre><code class="hljs html">Select images: <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;file&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;img&quot;</span> <span class="hljs-attr">multiple</span>=<span class="hljs-string">&quot;multiple&quot;</span> /&gt;</span></code></pre>
-<p>multiple 属性规定输入域中可选择多个值。<br>multiple 属性适用于以下类型的 <code>input</code> 标签：email 和 file。</p>
+<p>multiple 属性规定输入域中可选择多个值。<br>
+multiple 属性适用于以下类型的 <code>input</code> 标签：email 和 file。</p>
 <p><strong>pattern</strong></p>
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;text&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;country_code&quot;</span> <span class="hljs-attr">pattern</span>=<span class="hljs-string">&quot;[a-z]&#123;3&#125;&quot;</span> <span class="hljs-attr">title</span>=<span class="hljs-string">&quot;Three letter country code&quot;</span> /&gt;</span></code></pre>
-<p>pattern 属性规定用于验证输入字段的正则表达式模式。<br>[注意]pattern 属性适用于以下 <code>&lt;input&gt; </code>类型：text, search, url, tel, email 以及 password 。</p>
+<p>pattern 属性规定用于验证输入字段的正则表达式模式。<br>
+[注意]pattern 属性适用于以下 <code>&lt;input&gt; </code>类型：text, search, url, tel, email 以及 password 。</p>
 <p><strong>novalidate</strong></p>
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">form</span> <span class="hljs-attr">action</span>=<span class="hljs-string">&quot;demo_form.asp&quot;</span> <span class="hljs-attr">novalidate</span>=<span class="hljs-string">&quot;novalidate&quot;</span>&gt;</span>
     E-mail: <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;email&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;user_email&quot;</span> /&gt;</span>
@@ -713,9 +844,11 @@ list 属性引用数据列表，其中包含输入字段的预定义选项。
 novalidate 属性规定当提交表单时不对其进行验证。如果使用该属性，则表单不会验证表单的输入。  
 [注意]novalidate 属性适用于：`<form>`以及以下类型的 `<input>` 标签：  
 text, search, url, tel, email, password, datepickers, range 以及 color。
-
-<h3 id="第九章、Drag-and-drop"><a href="#第九章、Drag-and-drop" class="headerlink" title="第九章、Drag and drop"></a>第九章、Drag and drop</h3><h5 id="9-2-2-拖放事件流"><a href="#9-2-2-拖放事件流" class="headerlink" title="9.2.2 拖放事件流"></a>9.2.2 拖放事件流</h5><ul>
-<li>dragstart 开始拖动页面中某元素时触发的事件<br>他是唯一一个支持datatransfer通过setData调用来设置数据的事件</li>
+<h3 id="第九章、Drag-and-drop">第九章、Drag and drop</h3>
+<h5 id="9-2-2-拖放事件流">9.2.2 拖放事件流</h5>
+<ul>
+<li>dragstart 开始拖动页面中某元素时触发的事件<br>
+他是唯一一个支持datatransfer通过setData调用来设置数据的事件</li>
 <li>drag 拖动操作中持续发生的事件</li>
 <li>dragenter 拖动跨入了页面中的新元素时</li>
 <li>dragleave 用户鼠标移出之前调用dragenter的元素时触发的事件</li>
@@ -723,9 +856,13 @@ text, search, url, tel, email, password, datepickers, range 以及 color。
 <li>drop 用户释放鼠标时，drop事件会在当前鼠标停留的目标上调用</li>
 <li>dragend 拖动完成时在拖动源上出发，指示拖动完成</li>
 </ul>
-<h5 id="9-2-3-设置元素可拖动"><a href="#9-2-3-设置元素可拖动" class="headerlink" title="9.2.3 设置元素可拖动"></a>9.2.3 设置元素可拖动</h5><p>为了标记特定元素为可拖动，要为其添加一个属性draggable</p>
-<h3 id="第十章、Web-Workers-API"><a href="#第十章、Web-Workers-API" class="headerlink" title="第十章、Web Workers API"></a>第十章、Web Workers API</h3><p>web worker可以让web应用程序具备后台处理能力，可以充分利用多核cpu带来的优势。将耗时长的任务分配给web worker 可以避免弹出脚本运行缓慢的警告<br>web worker执行的脚本不能访问该页面的window对象</p>
-<h5 id="10-2-2-创建web-worker"><a href="#10-2-2-创建web-worker" class="headerlink" title="10.2.2 创建web worker"></a>10.2.2 创建web worker</h5><pre><code class="hljs js"><span class="hljs-comment">/* index.js */</span>
+<h5 id="9-2-3-设置元素可拖动">9.2.3 设置元素可拖动</h5>
+<p>为了标记特定元素为可拖动，要为其添加一个属性draggable</p>
+<h3 id="第十章、Web-Workers-API">第十章、Web Workers API</h3>
+<p>web worker可以让web应用程序具备后台处理能力，可以充分利用多核cpu带来的优势。将耗时长的任务分配给web worker 可以避免弹出脚本运行缓慢的警告<br>
+web worker执行的脚本不能访问该页面的window对象</p>
+<h5 id="10-2-2-创建web-worker">10.2.2 创建web worker</h5>
+<pre><code class="hljs js"><span class="hljs-comment">/* index.js */</span>
 <span class="hljs-keyword">var</span> worker = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Worker</span>(<span class="hljs-string">&quot;worker.js&quot;</span>);
 worker.<span class="hljs-title function_">postMessage</span>(<span class="hljs-string">&quot;hello world!&quot;</span>);
 
@@ -743,13 +880,15 @@ self.<span class="hljs-property">onmessage</span> = <span class="hljs-keyword">f
     self.<span class="hljs-title function_">postMessage</span>(<span class="hljs-string">&#x27;You said: &#x27;</span> + e.<span class="hljs-property">data</span>);
 &#125;;
 </code></pre>
-<h3 id="第十一章、Web-Storage-API"><a href="#第十一章、Web-Storage-API" class="headerlink" title="第十一章、Web Storage API"></a>第十一章、Web Storage API</h3><p>cookie的缺点：</p>
+<h3 id="第十一章、Web-Storage-API">第十一章、Web Storage API</h3>
+<p>cookie的缺点：</p>
 <ul>
 <li>cookie大小受限</li>
 <li>在网络上来回传送不安全，消耗带宽</li>
 </ul>
 <p>web storage适用于存储超出cookie大小限制的文档和文件数据</p>
-<h5 id="11-3-2-设置和获取数据"><a href="#11-3-2-设置和获取数据" class="headerlink" title="11.3.2 设置和获取数据"></a>11.3.2 设置和获取数据</h5><pre><code class="hljs js"><span class="hljs-comment">//设置数据</span>
+<h5 id="11-3-2-设置和获取数据">11.3.2 设置和获取数据</h5>
+<pre><code class="hljs js"><span class="hljs-comment">//设置数据</span>
 sesstionStorage.<span class="hljs-title function_">setItem</span>(<span class="hljs-string">&quot;firstKey&quot;</span>,<span class="hljs-string">&quot;firstValue&quot;</span>);
 sesstionStorage.<span class="hljs-property">firstKey</span> = <span class="hljs-string">&quot;firstValue&quot;</span>;
 <span class="hljs-comment">//保存对象</span>
@@ -762,14 +901,16 @@ sesstionStorage.<span class="hljs-property">firstKey</span>;
 <span class="hljs-title function_">removeItem</span>(key)
 <span class="hljs-comment">//清除所有数据</span>
 <span class="hljs-title function_">clear</span>()</code></pre>
-<h5 id="11-3-4-sessionStorage和localStorage"><a href="#11-3-4-sessionStorage和localStorage" class="headerlink" title="11.3.4 sessionStorage和localStorage"></a>11.3.4 sessionStorage和localStorage</h5><table>
+<h5 id="11-3-4-sessionStorage和localStorage">11.3.4 sessionStorage和localStorage</h5>
+<table>
 <thead>
 <tr>
 <th>sesstionStorage</th>
 <th>localStorage</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>浏览器窗口或标签页关闭时，数据被清除</td>
 <td>数据永久保存，除非用户强制清除</td>
 </tr>
@@ -777,19 +918,25 @@ sesstionStorage.<span class="hljs-property">firstKey</span>;
 <td>数据只在构建他们的窗口或标签页内可见</td>
 <td>数据可被同源的每个窗口或标签页共享</td>
 </tr>
-</tbody></table>
-<h3 id="第十二章、构建离线web应用"><a href="#第十二章、构建离线web应用" class="headerlink" title="第十二章、构建离线web应用"></a>第十二章、构建离线web应用</h3><p>缓存清单文件中表示的资源构成了应用缓存(application cache),他是浏览器持久性存储资源的地方，通常在硬盘上  </p>
-<h5 id="12-2-2-搭建简单的离线应用程序"><a href="#12-2-2-搭建简单的离线应用程序" class="headerlink" title="12.2.2 搭建简单的离线应用程序"></a>12.2.2 搭建简单的离线应用程序</h5><p>在html元素中加入manifest特性</p>
+</tbody>
+</table>
+<h3 id="第十二章、构建离线web应用">第十二章、构建离线web应用</h3>
+<p>缓存清单文件中表示的资源构成了应用缓存(application cache),他是浏览器持久性存储资源的地方，通常在硬盘上</p>
+<h5 id="12-2-2-搭建简单的离线应用程序">12.2.2 搭建简单的离线应用程序</h5>
+<p>在html元素中加入manifest特性</p>
 <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">html</span> <span class="hljs-attr">manifest</span>=<span class="hljs-string">&quot;application.appcache&quot;</span>&gt;</span>
     //……
 <span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span></code></pre>
-<h5 id="12-2-3-支持离线行为"><a href="#12-2-3-支持离线行为" class="headerlink" title="12.2.3 支持离线行为"></a>12.2.3 支持离线行为</h5><p>navigator.onLine标明浏览器是否处于在线状态</p>
+<h5 id="12-2-3-支持离线行为">12.2.3 支持离线行为</h5>
+<p>navigator.onLine标明浏览器是否处于在线状态</p>
 <pre><code class="hljs js"><span class="hljs-keyword">if</span>(navigator.<span class="hljs-property">onLine</span>)&#123;
     <span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;online&quot;</span>)
 &#125;<span class="hljs-keyword">else</span>&#123;
     <span class="hljs-title function_">log</span>(offline)
 &#125;</code></pre>
-<h5 id="12-2-4-manifest文件"><a href="#12-2-4-manifest文件" class="headerlink" title="12.2.4 manifest文件"></a>12.2.4 manifest文件</h5><p>离线应用程序包含一个manifest文件，此文件列出了浏览器为离线应用缓存的所有资源。manifest文件的MIME类型是text&#x2F;cache-manifest<br>要配置Apache Http服务器，开发人员需要将下面一行代码添加到conf文件夹中的mime.types文件中</p>
+<h5 id="12-2-4-manifest文件">12.2.4 manifest文件</h5>
+<p>离线应用程序包含一个manifest文件，此文件列出了浏览器为离线应用缓存的所有资源。manifest文件的MIME类型是text/cache-manifest<br>
+要配置Apache Http服务器，开发人员需要将下面一行代码添加到conf文件夹中的mime.types文件中</p>
 <pre><code class="hljs plaintext">text/cache-manifest appcache</code></pre>
 <p>manifest文件示例</p>
 <pre><code class="hljs plaintext">CACHE MANIFEST
@@ -811,8 +958,8 @@ signup.html
 FALLBACK
 # 获取不到缓存资源时的备选资源路径
 signup.html  offline.html</code></pre>
-
-<h5 id="12-2-6-运行中的应用缓存"><a href="#12-2-6-运行中的应用缓存" class="headerlink" title="12.2.6 运行中的应用缓存"></a>12.2.6 运行中的应用缓存</h5><p>浏览器在应用缓存中成功的缓存了应用资源后，他总会优先从缓存汇总获取资源，之后在检查服务器上的manifest文件后被修改过</p>
+<h5 id="12-2-6-运行中的应用缓存">12.2.6 运行中的应用缓存</h5>
+<p>浏览器在应用缓存中成功的缓存了应用资源后，他总会优先从缓存汇总获取资源，之后在检查服务器上的manifest文件后被修改过</p>
  
       <div id="toc-article">
   <div class="widget-wrap" id="toc-wrap">

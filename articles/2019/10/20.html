@@ -273,7 +273,6 @@
     <div class="e-content article-entry" itemprop="articleBody">
        <p>最近在看《Node.js 调试指南》的时候遇到有意思的几道题，是关于 setTimeout, promise.then, process.nextTick, setImmediate 的执行顺序。今天抽空记录下这道题的分析过程及背后的原理与知识点。</p>
 <span id="more"></span>
-
 <p>题目如下：</p>
 <pre><code class="hljs js"><span class="hljs-comment">// 题目一：</span>
 <span class="hljs-built_in">setTimeout</span>(<span class="hljs-function">() =&gt;</span> &#123;
@@ -311,41 +310,47 @@ process.<span class="hljs-title function_">nextTick</span>(<span class="hljs-fun
 process.<span class="hljs-title function_">nextTick</span>(<span class="hljs-keyword">function</span> <span class="hljs-title function_">tick</span>(<span class="hljs-params"></span>) &#123;
   process.<span class="hljs-title function_">nextTick</span>(tick);
 &#125;);</code></pre>
-
 <p>在分析这几道题之前先有必要了解下 node.js 的事件循环</p>
-<h3 id="事件循环-Event-Loop"><a href="#事件循环-Event-Loop" class="headerlink" title="事件循环 Event Loop"></a>事件循环 Event Loop</h3><p>我们可以简单理解 Event Loop 如下：</p>
+<h3 id="事件循环-Event-Loop">事件循环 Event Loop</h3>
+<p>我们可以简单理解 Event Loop 如下：</p>
 <ol>
 <li>所有任务都在主线程上执行，形成一个执行栈(Execution Context Stack)</li>
 <li>在主线程之外还存在一个任务队列(Task Queen),系统把异步任务放到任务队列中，然后主线程继续执行后续的任务</li>
 <li>一旦执行栈中所有的任务执行完毕，系统就会读取任务队列。如果这时异步任务已结束等待状态，就会从任务队列进入执行栈，恢复执行</li>
 <li>主线程不断重复上面的第三步</li>
 </ol>
-<p>上面第三步中的读取任务队列包括以下 6 个阶段<br><img src="https://raw.githubusercontent.com/Jesse121/publicPic/master/blog/pictures/801336-20191020172427935-416926087.png" alt="801336-20191020172427935-416926087"></p>
+<p>上面第三步中的读取任务队列包括以下 6 个阶段<br>
+<img src="https://raw.githubusercontents.com/Jesse121/publicPic/master/blog/pictures/801336-20191020172427935-416926087.png" alt="801336-20191020172427935-416926087" referrerPolicy="no-referrer"></p>
 <ul>
 <li>timers:执行 setTimeout()和 setInterval()中到期的 callback</li>
-<li>I&#x2F;O callbacks:上一轮循环中有少数的 I&#x2F;O callback 会被延迟到这一轮的这一阶段</li>
+<li>I/O callbacks:上一轮循环中有少数的 I/O callback 会被延迟到这一轮的这一阶段</li>
 <li>idle,prepare:仅内部调用</li>
-<li>poll:最重要的阶段，执行 I&#x2F;O callback,在某些条件下 node 会阻塞在这个阶段</li>
+<li>poll:最重要的阶段，执行 I/O callback,在某些条件下 node 会阻塞在这个阶段</li>
 <li>check:执行 setImmediate()的 callback</li>
 <li>close callbacks:执行 close 事件的 callback,例如 socket.on(‘close’,func)</li>
 </ul>
 <p>每个阶段都有一个 FIFO 的回调队列，当 Event Loop 执行到这个阶段时，就会从当前阶段的队列里拿出一个任务放到执行栈中执行，在队列任务清空或者执行的回调数量达到上限后，Event Loop 就会进入下一个阶段</p>
-<h4 id="poll-阶段"><a href="#poll-阶段" class="headerlink" title="poll 阶段"></a>poll 阶段</h4><p>poll 阶段主要有两个功能，如下所述：</p>
+<h4 id="poll-阶段">poll 阶段</h4>
+<p>poll 阶段主要有两个功能，如下所述：</p>
 <ol>
 <li>当 timers 的定时器到期后，执行定时器(setTimeout 和 setInterval)的 callback</li>
-<li>执行 poll 队列里面的 I&#x2F;O callback<br>如果 Event Loop 进入了 poll 阶段，且代码未设定 timer,则可能发生以下的情况：</li>
+<li>执行 poll 队列里面的 I/O callback<br>
+如果 Event Loop 进入了 poll 阶段，且代码未设定 timer,则可能发生以下的情况：</li>
 </ol>
 <ul>
 <li>如果 poll queue 不为空，则 Event Loop 将同步执行 queue 里的 callback,直至 queue 为空，或者执行的 callback 达到系统上限</li>
-<li>如果 poll queue 为空，则可能发生以下情况：<ul>
+<li>如果 poll queue 为空，则可能发生以下情况：
+<ul>
 <li>如果代码中使用了 setImmediate(),则 Event Loop 将结束 poll 阶段并进入 check 阶段，执行 check 阶段的代码</li>
 <li>如果代码中没有使用 setImmediate(),则 Event Loop 将阻塞在该阶段，等待 callback 加入 poll queue，如果有 callback 进来则立即执行</li>
 </ul>
 </li>
 </ul>
 <p>一旦 poll queue 为空，则 Event Loop 将检查 timers,如果有 timer 的时间到期，则 Event Loop 将回到 timers 阶段，然后执行 timer queue</p>
-<h3 id="事件循环原理"><a href="#事件循环原理" class="headerlink" title="事件循环原理"></a>事件循环原理</h3><ol>
-<li><p>node 的初始化</p>
+<h3 id="事件循环原理">事件循环原理</h3>
+<ol>
+<li>
+<p>node 的初始化</p>
 <ol>
 <li>初始化 node 环境。</li>
 <li>执行输入代码。</li>
@@ -353,9 +358,11 @@ process.<span class="hljs-title function_">nextTick</span>(<span class="hljs-key
 <li>执行 microtasks。</li>
 </ol>
 </li>
-<li><p>进入 event-loop</p>
+<li>
+<p>进入 event-loop</p>
 <ol>
-<li><p>进入 timers 阶段</p>
+<li>
+<p>进入 timers 阶段</p>
 <ul>
 <li>检查 timer 队列是否有到期的 timer 回调，如果有，将到期的 timer 回调按照 timerId 升序执行。</li>
 <li>检查是否有 process.nextTick 任务，如果有，全部执行。</li>
@@ -363,30 +370,36 @@ process.<span class="hljs-title function_">nextTick</span>(<span class="hljs-key
 <li>退出该阶段。</li>
 </ul>
 </li>
-<li><p>进入 IO callbacks 阶段。</p>
+<li>
+<p>进入 IO callbacks 阶段。</p>
 <ul>
-<li>检查是否有 pending 的 I&#x2F;O 回调。如果有，执行回调。如果没有，退出该阶段。</li>
+<li>检查是否有 pending 的 I/O 回调。如果有，执行回调。如果没有，退出该阶段。</li>
 <li>检查是否有 process.nextTick 任务，如果有，全部执行。</li>
 <li>检查是否有 microtask，如果有，全部执行。</li>
 <li>退出该阶段。</li>
 </ul>
 </li>
-<li><p>进入 idle，prepare 阶段：</p>
+<li>
+<p>进入 idle，prepare 阶段：</p>
 <ul>
 <li>这两个阶段与我们编程关系不大，暂且按下不表。</li>
 </ul>
 </li>
-<li><p>进入 poll 阶段</p>
+<li>
+<p>进入 poll 阶段</p>
 <ul>
-<li>首先检查是否存在尚未完成的回调，如果存在，那么分两种情况。<ul>
-<li>第一种情况：<ul>
+<li>首先检查是否存在尚未完成的回调，如果存在，那么分两种情况。
+<ul>
+<li>第一种情况：
+<ul>
 <li>如果有可用回调（可用回调包含到期的定时器还有一些 IO 事件等），执行所有可用回调。</li>
 <li>检查是否有 process.nextTick 回调，如果有，全部执行。</li>
 <li>检查是否有 microtaks，如果有，全部执行。</li>
 <li>退出该阶段。</li>
 </ul>
 </li>
-<li>第二种情况：<ul>
+<li>第二种情况：
+<ul>
 <li>如果没有可用回调。</li>
 <li>检查是否有 immediate 回调，如果有，退出 poll 阶段。如果没有，阻塞在此阶段，等待新的事件通知。</li>
 </ul>
@@ -396,7 +409,8 @@ process.<span class="hljs-title function_">nextTick</span>(<span class="hljs-key
 <li>如果不存在尚未完成的回调，退出 poll 阶段。</li>
 </ul>
 </li>
-<li><p>进入 check 阶段。</p>
+<li>
+<p>进入 check 阶段。</p>
 <ul>
 <li>如果有 immediate 回调，则执行所有 immediate 回调。</li>
 <li>检查是否有 process.nextTick 回调，如果有，全部执行。</li>
@@ -404,7 +418,8 @@ process.<span class="hljs-title function_">nextTick</span>(<span class="hljs-key
 <li>退出 check 阶段</li>
 </ul>
 </li>
-<li><p>进入 closing 阶段。</p>
+<li>
+<p>进入 closing 阶段。</p>
 <ul>
 <li>如果有 immediate 回调，则执行所有 immediate 回调。</li>
 <li>检查是否有 process.nextTick 回调，如果有，全部执行。</li>
@@ -412,7 +427,8 @@ process.<span class="hljs-title function_">nextTick</span>(<span class="hljs-key
 <li>退出 closing 阶段</li>
 </ul>
 </li>
-<li><p>检查是否有活跃的 handles（定时器、IO 等事件句柄）。</p>
+<li>
+<p>检查是否有活跃的 handles（定时器、IO 等事件句柄）。</p>
 <ul>
 <li>如果有，继续下一轮循环。</li>
 <li>如果没有，结束事件循环，退出程序。</li>
@@ -422,17 +438,22 @@ process.<span class="hljs-title function_">nextTick</span>(<span class="hljs-key
 </li>
 </ol>
 <p>通过上面的事件循环的介绍我们已经知道 setTimeout setImmediate 的执行机制，但是并没有介绍 process.nextTick()和 promise.then()。这里我们还需要知道宏任务与微任务的概念</p>
-<h3 id="宏任务-Macrotask"><a href="#宏任务-Macrotask" class="headerlink" title="宏任务 Macrotask"></a>宏任务 Macrotask</h3><p>宏任务是指 Event Loop 在每个阶段执行的任务<br><strong>宏任务包括 script (整体代码)，setTimeout, setInterval, setImmediate, I&#x2F;O, UI renderin</strong></p>
-<h3 id="微任务-Microtask"><a href="#微任务-Microtask" class="headerlink" title="微任务 Microtask"></a>微任务 Microtask</h3><p>微任务是指 Event Loop 在每个阶段之间执行的任务<br><strong>微任务包括 process.nextTick, Promise.then，Object.observe，MutationObserver</strong></p>
-<p>宏任务与微任务执行顺序图<br><img src="https://raw.githubusercontent.com/Jesse121/publicPic/master/blog/pictures/801336-20191020172507873-569608539.png" alt="801336-20191020172507873-569608539"></p>
+<h3 id="宏任务-Macrotask">宏任务 Macrotask</h3>
+<p>宏任务是指 Event Loop 在每个阶段执行的任务<br>
+<strong>宏任务包括 script (整体代码)，setTimeout, setInterval, setImmediate, I/O, UI renderin</strong></p>
+<h3 id="微任务-Microtask">微任务 Microtask</h3>
+<p>微任务是指 Event Loop 在每个阶段之间执行的任务<br>
+<strong>微任务包括 process.nextTick, Promise.then，Object.observe，MutationObserver</strong></p>
+<p>宏任务与微任务执行顺序图<br>
+<img src="https://raw.githubusercontents.com/Jesse121/publicPic/master/blog/pictures/801336-20191020172507873-569608539.png" alt="801336-20191020172507873-569608539" referrerPolicy="no-referrer"></p>
 <p>图中绿色小块表示 Event Loop 的各个阶段，执行的是宏任务，粉色箭头表示执行的是微任务</p>
-<p>了解到这里我们再来分析上面的几道题<br>题目一的执行结果是：</p>
+<p>了解到这里我们再来分析上面的几道题<br>
+题目一的执行结果是：</p>
 <pre><code class="hljs plaintext">setTimeout
 setImmediate
 //或者
 setImmediate
 setTimeout</code></pre>
-
 <p>为什么结果不确定呢？我们知道 setTimeout 的回调函数在 timer 阶段执行，setImmediate 的回调函数在 check 阶段执行。但是从事件循环开始到 timer 阶段会消耗一定的时间，所以会出现两种情况：</p>
 <ol>
 <li>若 timer 前的准备时间超过 1ms，则执行 timer 阶段（setTimeout）的回调函数</li>
@@ -441,17 +462,19 @@ setTimeout</code></pre>
 <p>题目二的执行结果是</p>
 <pre><code class="hljs plaintext">nextTick
 promise</code></pre>
-
-<p>这里虽然和 process.nextTick 一样，promise.then 也将回调函数注册到 microtask,<strong>但 process.nextTick 的 microtask queue 总是优先于 promise 的 microtask queue 执行的</strong><br>题目三的执行结果是</p>
+<p>这里虽然和 process.nextTick 一样，promise.then 也将回调函数注册到 microtask,<strong>但 process.nextTick 的 microtask queue 总是优先于 promise 的 microtask queue 执行的</strong><br>
+题目三的执行结果是</p>
 <pre><code class="hljs plaintext">2
 3
 5
 4
 1</code></pre>
-
 <p>Promise 构造函数是同步执行的，所以先打印 2，3，在打印 5，接下来事件循环执行微任务执行 promise.then 的回调，打印 4，然后进入下一个事件循环执行 timer 阶段的回调打印 1</p>
-<p>题目四的执行结果是<br>永远不会打印 setInterval</p>
-<p>process.nextTick 会无限循环，将 event loop 阻塞在 microtask 阶段，导致 event loop 上其他 macrotask 阶段的回调函数没有机会执行<br>解决方法通常是用 setImmediate 代替 process.nextTick.<br>在 setImmediate 内执行 setImmedaite 时会将 immediate 注册到下一次 event loop 的 check 阶段，这样其他 macrotask 就有机会执行</p>
+<p>题目四的执行结果是<br>
+永远不会打印 setInterval</p>
+<p>process.nextTick 会无限循环，将 event loop 阻塞在 microtask 阶段，导致 event loop 上其他 macrotask 阶段的回调函数没有机会执行<br>
+解决方法通常是用 setImmediate 代替 process.nextTick.<br>
+在 setImmediate 内执行 setImmedaite 时会将 immediate 注册到下一次 event loop 的 check 阶段，这样其他 macrotask 就有机会执行</p>
 <p>至此终于将 node.js 事件循环宏任务与微任务分析清楚了</p>
  
       <div id="toc-article">

@@ -273,8 +273,10 @@
     <div class="e-content article-entry" itemprop="articleBody">
        <p>在前端开发中总少不了列表项，对于列表项序号，射鸡师一般会列出个1，2，3…序号。在不了解css计数器属性之前，我一般会用精灵图，用类名来区分序列号图片。这样做尽管可以达到目的，但是很不方便，开发过程耗时较长而且维护修改起来较困难。用css counter配合伪类的content完美的解决了这个问题，这里详细介绍下css counter属性</p>
 <span id="more"></span>
-<h3 id="计数器属性介绍"><a href="#计数器属性介绍" class="headerlink" title="计数器属性介绍"></a>计数器属性介绍</h3><p>计数器的值通过使用counter-reset 和 counter-increment 操作，在 content 上应用 counter() 或 counters()函数来显示在页面上。</p>
-<h4 id="counter-reset"><a href="#counter-reset" class="headerlink" title="counter-reset"></a>counter-reset</h4><p>设置计数器的名称和起始值</p>
+<h3 id="计数器属性介绍">计数器属性介绍</h3>
+<p>计数器的值通过使用counter-reset 和 counter-increment 操作，在 content 上应用 counter() 或 counters()函数来显示在页面上。</p>
+<h4 id="counter-reset">counter-reset</h4>
+<p>设置计数器的名称和起始值</p>
 <pre><code class="hljs plaintext">Name:counter-reset
 Value:  [ &lt;custom-ident&gt; &lt;integer&gt;? ]+ | none
 Initial:  none
@@ -284,14 +286,16 @@ Percentages:  n/a
 Computed value:  the keyword none or a list, each item an identifier paired with an integer
 Canonical order:  per grammar
 Animation type:  by computed value type</code></pre>
-<p>custom-indent 计数器名字   可以同时命名多个计数器<br>integer 初始值 默认是0 也可以是负数</p>
+<p>custom-indent 计数器名字   可以同时命名多个计数器<br>
+integer 初始值 默认是0 也可以是负数</p>
 <pre><code class="hljs css"><span class="hljs-selector-class">.counter</span>&#123;
     <span class="hljs-attribute">counter-reset</span>:sequence; <span class="hljs-comment">/* 计数器名称是sequence */</span>
 &#125;
 <span class="hljs-selector-class">.counter</span>&#123;
     <span class="hljs-attribute">counter-reset</span>:sequence <span class="hljs-number">2</span>; <span class="hljs-comment">/* 计数器名称是sequence 且起始值是2*/</span>
 &#125;</code></pre>
-<h4 id="counter-increment"><a href="#counter-increment" class="headerlink" title="counter-increment"></a>counter-increment</h4><p>设置某个计数器每次计数的变化值。如果缺省，则使用默认变化值1</p>
+<h4 id="counter-increment">counter-increment</h4>
+<p>设置某个计数器每次计数的变化值。如果缺省，则使用默认变化值1</p>
 <pre><code class="hljs plaintext">Name:  counter-increment
 Value:  [ &lt;custom-ident&gt; &lt;integer&gt;? ]+ | none
 Initial:  none
@@ -301,24 +305,37 @@ Percentages:  n/a
 Computed value:  the keyword none or a list, each item an identifier paired with an integer
 Canonical order:  per grammar
 Animation type:  by computed value type</code></pre>
-<p>custom-indent 计数器名字   可以同时命名多个计数器<br>integer 初始值 默认是1</p>
-<h4 id="counter"><a href="#counter" class="headerlink" title="counter()"></a>counter()</h4><p>这是个方法，不是属性，作用是用字符串或图片将计数器显示出来。这两个计算方法要和伪元素的 content 属性搭配使用。<br>用法一</p>
+<p>custom-indent 计数器名字   可以同时命名多个计数器<br>
+integer 初始值 默认是1</p>
+<h4 id="counter">counter()</h4>
+<p>这是个方法，不是属性，作用是用字符串或图片将计数器显示出来。这两个计算方法要和伪元素的 content 属性搭配使用。<br>
+用法一</p>
 <pre><code class="hljs plaintext">content: counter(name)</code></pre>
-<p>counter 计算符前后可以随意加字符串来对最后的效果做拼接。<a href="../../../demo/css-counter.html">可点击查看demo</a><br>用法二</p>
+<p>counter 计算符前后可以随意加字符串来对最后的效果做拼接。<a href="../../../demo/css-counter.html">可点击查看demo</a><br>
+用法二</p>
 <pre><code class="hljs plaintext">content: counter(name,style)</code></pre>
 <p>这里的style参数支持的关键字值就是list-style-type支持的那些值。作用是，我们递增递减可以不一定是数字，还可以是英文字母，或者罗马文等。</p>
 <blockquote>
 <p>list-style-type：disc | circle | square | decimal | lower-roman | upper-roman | lower-alpha | upper-alpha | none | armenian | cjk-ideographic | georgian | lower-greek | hebrew | hiragana | hiragana-iroha | katakana | katakana-iroha | lower-latin | upper-latin</p>
 </blockquote>
-<p><a href="../../../demo/css-counter.1.html">可点击查看demo</a><br><a href="../../../demo/css-counter.2.html">counter()实现多层嵌套demo</a></p>
-<h4 id="counters"><a href="#counters" class="headerlink" title="counters()"></a>counters()</h4><p>作用和counter()一样，差别是counters只用于多层嵌套</p>
+<p><a href="../../../demo/css-counter.1.html">可点击查看demo</a><br>
+<a href="../../../demo/css-counter.2.html">counter()实现多层嵌套demo</a></p>
+<h4 id="counters">counters()</h4>
+<p>作用和counter()一样，差别是counters只用于多层嵌套</p>
 <pre><code class="hljs plaintext">counters(name,string)        
 counters(name,string,style)  /*style参数与counter相同*/</code></pre>
-<p>其中，string参数为字符串（需要引号包围的）（必须参数），表示子序号的连接字符串。例如1.1的string就是’.’, 1-1就是’-‘.<br><a href="../../../demo/css-counter.3.html">counters()实现多层嵌套demo</a></p>
-<p>对比counter()和counters()实现的多层嵌套<br>counter()实现多层嵌套时，他的层级序号是手动拼起来的<br>counters()的多层嵌套则是嵌套层会自动带上其父层的嵌套序号</p>
-<p><strong>注意点</strong><br>一个元素，如果设置了counter-increment, 但是其display的属性值是none或者含有hidden属性（针对支持浏览器），则此计数值是不会增加的。而visibility:hidden以及其他声明不会有此现象。</p>
-<h3 id="兼容性"><a href="#兼容性" class="headerlink" title="兼容性"></a>兼容性</h3><p>IE8以上都兼容，所以在列表项排序的时候可以放心大胆地使用，<br><a target="_blank" rel="noopener" href="https://caniuse.com/#search=CSS%20Counters">可点击查看caniuse结果</a></p>
-<h4 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h4><p><a target="_blank" rel="noopener" href="https://www.zhangxinxu.com/wordpress/2014/08/css-counters-automatic-number-content/">CSS counter计数器(content目录序号自动递增)详解</a></p>
+<p>其中，string参数为字符串（需要引号包围的）（必须参数），表示子序号的连接字符串。例如1.1的string就是’.‘, 1-1就是’-'.<br>
+<a href="../../../demo/css-counter.3.html">counters()实现多层嵌套demo</a></p>
+<p>对比counter()和counters()实现的多层嵌套<br>
+counter()实现多层嵌套时，他的层级序号是手动拼起来的<br>
+counters()的多层嵌套则是嵌套层会自动带上其父层的嵌套序号</p>
+<p><strong>注意点</strong><br>
+一个元素，如果设置了counter-increment, 但是其display的属性值是none或者含有hidden属性（针对支持浏览器），则此计数值是不会增加的。而visibility:hidden以及其他声明不会有此现象。</p>
+<h3 id="兼容性">兼容性</h3>
+<p>IE8以上都兼容，所以在列表项排序的时候可以放心大胆地使用，<br>
+<a target="_blank" rel="noopener" href="https://caniuse.com/#search=CSS%20Counters">可点击查看caniuse结果</a></p>
+<h4 id="参考资料">参考资料</h4>
+<p><a target="_blank" rel="noopener" href="https://www.zhangxinxu.com/wordpress/2014/08/css-counters-automatic-number-content/">CSS counter计数器(content目录序号自动递增)详解</a></p>
  
       <div id="toc-article">
   <div class="widget-wrap" id="toc-wrap">

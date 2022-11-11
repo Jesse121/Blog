@@ -271,11 +271,17 @@
 
     </div>
     <div class="e-content article-entry" itemprop="articleBody">
-       <p>链表不需要一块连续的内存空间来存储，它通过“指针”将一组零散的内存块串联起来使用<br>三种最常见的链表结构：单链表、双向链表和循环链表</p>
+       <p>链表不需要一块连续的内存空间来存储，它通过“指针”将一组零散的内存块串联起来使用<br>
+三种最常见的链表结构：单链表、双向链表和循环链表</p>
 <span id="more"></span>
-
-<h3 id="单链表"><a href="#单链表" class="headerlink" title="单链表"></a>单链表</h3><p>为了将所有的结点串起来，每个链表的结点除了存储数据之外，还需要记录链上的下一个结点的地址<br><img src="https://raw.githubusercontent.com/Jesse121/publicPic/master/blog/pictures/801336-20200419161045810-2041686313.jpg" alt="801336-20200419161045810-2041686313"><br>从图中我们可以看出，针对链表的插入和删除操作，我们只需要考虑相邻结点的指针改变，所以对应的时间复杂度是 O(1)<br><img src="https://raw.githubusercontent.com/Jesse121/publicPic/master/blog/pictures/801336-20200419161414896-1780354389.jpg" alt="801336-20200419161414896-1780354389"><br>链表要想随机访问第 k 个元素，就没有数组那么高效了。因为链表中的数据并非连续存储的，所以无法像数组那样，根据首地址和下标，通过寻址公式就能直接计算出对应的内存地址，而是需要根据指针一个结点一个结点地依次遍历，直到找到相应的结点。链表随机访问的性能没有数组好，需要 O(n) 的时间复杂度。</p>
-<h3 id="设计一个基于对象的单链表"><a href="#设计一个基于对象的单链表" class="headerlink" title="设计一个基于对象的单链表"></a>设计一个基于对象的单链表</h3><pre><code class="hljs js"><span class="hljs-comment">//Node 类用来表示节点</span>
+<h3 id="单链表">单链表</h3>
+<p>为了将所有的结点串起来，每个链表的结点除了存储数据之外，还需要记录链上的下一个结点的地址<br>
+<img src="https://raw.githubusercontents.com/Jesse121/publicPic/master/blog/pictures/801336-20200419161045810-2041686313.jpg" alt="801336-20200419161045810-2041686313" referrerPolicy="no-referrer"><br>
+从图中我们可以看出，针对链表的插入和删除操作，我们只需要考虑相邻结点的指针改变，所以对应的时间复杂度是 O(1)<br>
+<img src="https://raw.githubusercontents.com/Jesse121/publicPic/master/blog/pictures/801336-20200419161414896-1780354389.jpg" alt="801336-20200419161414896-1780354389" referrerPolicy="no-referrer"><br>
+链表要想随机访问第 k 个元素，就没有数组那么高效了。因为链表中的数据并非连续存储的，所以无法像数组那样，根据首地址和下标，通过寻址公式就能直接计算出对应的内存地址，而是需要根据指针一个结点一个结点地依次遍历，直到找到相应的结点。链表随机访问的性能没有数组好，需要 O(n) 的时间复杂度。</p>
+<h3 id="设计一个基于对象的单链表">设计一个基于对象的单链表</h3>
+<pre><code class="hljs js"><span class="hljs-comment">//Node 类用来表示节点</span>
 <span class="hljs-keyword">function</span> <span class="hljs-title function_">Node</span>(<span class="hljs-params">element</span>) &#123;
   <span class="hljs-variable language_">this</span>.<span class="hljs-property">element</span> = element;
   <span class="hljs-variable language_">this</span>.<span class="hljs-property">next</span> = <span class="hljs-literal">null</span>;
@@ -336,22 +342,30 @@ cities.<span class="hljs-title function_">insert</span>(<span class="hljs-string
 cities.<span class="hljs-title function_">display</span>();
 cities.<span class="hljs-title function_">remove</span>(<span class="hljs-string">&quot;Carlisle&quot;</span>);
 cities.<span class="hljs-title function_">display</span>();</code></pre>
-
-<h3 id="循环链表"><a href="#循环链表" class="headerlink" title="循环链表"></a>循环链表</h3><p>循环链表的尾结点指针是指向链表的头结点<br><img src="https://raw.githubusercontent.com/Jesse121/publicPic/master/blog/pictures/801336-20200419161712465-1518149387.jpg" alt="801336-20200419161712465-1518149387"></p>
-<h3 id="双向链表"><a href="#双向链表" class="headerlink" title="双向链表"></a>双向链表</h3><p><img src="https://raw.githubusercontent.com/Jesse121/publicPic/master/blog/pictures/801336-20200419161922172-1176250872.jpg" alt="801336-20200419161922172-1176250872"><br>双向链表需要额外的两个空间来存储后继结点和前驱结点的地址。所以，如果存储同样多的数据，双向链表要比单链表占用更多的内存空间。虽然两个指针比较浪费存储空间，但可以支持双向遍历</p>
+<h3 id="循环链表">循环链表</h3>
+<p>循环链表的尾结点指针是指向链表的头结点<br>
+<img src="https://raw.githubusercontents.com/Jesse121/publicPic/master/blog/pictures/801336-20200419161712465-1518149387.jpg" alt="801336-20200419161712465-1518149387" referrerPolicy="no-referrer"></p>
+<h3 id="双向链表">双向链表</h3>
+<p><img src="https://raw.githubusercontents.com/Jesse121/publicPic/master/blog/pictures/801336-20200419161922172-1176250872.jpg" alt="801336-20200419161922172-1176250872" referrerPolicy="no-referrer"><br>
+双向链表需要额外的两个空间来存储后继结点和前驱结点的地址。所以，如果存储同样多的数据，双向链表要比单链表占用更多的内存空间。虽然两个指针比较浪费存储空间，但可以支持双向遍历</p>
 <pre><code class="hljs js"></code></pre>
-
-<h3 id="链表-VS-数组性能大比拼"><a href="#链表-VS-数组性能大比拼" class="headerlink" title="链表 VS 数组性能大比拼"></a>链表 VS 数组性能大比拼</h3><p><img src="https://raw.githubusercontent.com/Jesse121/publicPic/master/blog/pictures/801336-20200419162344175-472578080.jpg" alt="801336-20200419162344175-472578080"><br>和数组相比，链表更适合插入、删除操作频繁的场景，查询的时间复杂度较高。</p>
-<p>将某个变量赋值给指针，实际上就是将这个变量的地址赋值给指针，或者反过来说，指针中存储了这个变量的内存地址，指向了这个变量，通过指针就能找到这个变量。<br>针对链表的插入、删除操作，需要对插入第一个结点和删除最后一个结点的情况进行特殊处理。</p>
+<h3 id="链表-VS-数组性能大比拼">链表 VS 数组性能大比拼</h3>
+<p><img src="https://raw.githubusercontents.com/Jesse121/publicPic/master/blog/pictures/801336-20200419162344175-472578080.jpg" alt="801336-20200419162344175-472578080" referrerPolicy="no-referrer"><br>
+和数组相比，链表更适合插入、删除操作频繁的场景，查询的时间复杂度较高。</p>
+<p>将某个变量赋值给指针，实际上就是将这个变量的地址赋值给指针，或者反过来说，指针中存储了这个变量的内存地址，指向了这个变量，通过指针就能找到这个变量。<br>
+针对链表的插入、删除操作，需要对插入第一个结点和删除最后一个结点的情况进行特殊处理。</p>
 <pre><code class="hljs plaintext">if (head == null) &#123; head = new_node;&#125; //插入头结点
 if (head-&gt;next == null) &#123; head = null;&#125; // 插入尾节点</code></pre>
-
-<h3 id="重点留意边界条件处理"><a href="#重点留意边界条件处理" class="headerlink" title="重点留意边界条件处理"></a>重点留意边界条件处理</h3><p>我经常用来检查链表代码是否正确的边界条件有这样几个：</p>
+<h3 id="重点留意边界条件处理">重点留意边界条件处理</h3>
+<p>我经常用来检查链表代码是否正确的边界条件有这样几个：</p>
 <ol>
 <li>如果链表为空时，代码是否能正常工作？ 2.如果链表只包含一个结点时，代码是否能正常工作？ 3.如果链表只包含两个结点时，代码是否能正常工作？ 4.代码逻辑在处理头结点和尾结点的时候，是否能正常工作？</li>
 </ol>
-<h3 id="5-个常见的链表操作"><a href="#5-个常见的链表操作" class="headerlink" title="5 个常见的链表操作"></a>5 个常见的链表操作</h3><ol>
-<li>单链表反转<br>输入: 1-&gt;2-&gt;3-&gt;4-&gt;5-&gt;NULL<br>输出: 5-&gt;4-&gt;3-&gt;2-&gt;1-&gt;NULL</li>
+<h3 id="5-个常见的链表操作">5 个常见的链表操作</h3>
+<ol>
+<li>单链表反转<br>
+输入: 1-&gt;2-&gt;3-&gt;4-&gt;5-&gt;NULL<br>
+输出: 5-&gt;4-&gt;3-&gt;2-&gt;1-&gt;NULL</li>
 </ol>
 <pre><code class="hljs javascript"><span class="hljs-comment">/**</span>
 <span class="hljs-comment"> * <span class="hljs-doctag">@param</span> &#123;<span class="hljs-type">ListNode</span>&#125; <span class="hljs-variable">head</span></span>
@@ -374,11 +388,13 @@ if (head-&gt;next == null) &#123; head = null;&#125; // 插入尾节点</code></
   <span class="hljs-comment">//每层递归返回当前的节点，也就是最后一个节点。（因为head.next.next改变了，所以下一层current变4，head变3）</span>
   <span class="hljs-keyword">return</span> current;
 &#125;;</code></pre>
-
 <ol start="2">
 <li>链表中环的检测</li>
 <li>两个有序的链表合并删除</li>
-<li>链表倒数第 n 个结点<br>给定一个链表: 1-&gt;2-&gt;3-&gt;4-&gt;5, 和 k &#x3D; 2.<br>返回链表 4-&gt;5.<br>解题思路：用两个指针，让第一个先走 k 步，然后两个指针一起移动，当第一个指针到最后一个节点处，第二个指针就在倒数第 K 个节点</li>
+<li>链表倒数第 n 个结点<br>
+给定一个链表: 1-&gt;2-&gt;3-&gt;4-&gt;5, 和 k = 2.<br>
+返回链表 4-&gt;5.<br>
+解题思路：用两个指针，让第一个先走 k 步，然后两个指针一起移动，当第一个指针到最后一个节点处，第二个指针就在倒数第 K 个节点</li>
 </ol>
 <pre><code class="hljs javascript"><span class="hljs-keyword">var</span> getKthFromEnd = <span class="hljs-keyword">function</span> (<span class="hljs-params">head, k</span>) &#123;
   <span class="hljs-keyword">let</span> first = head,
@@ -393,7 +409,6 @@ if (head-&gt;next == null) &#123; head = null;&#125; // 插入尾节点</code></
   &#125;
   <span class="hljs-keyword">return</span> second;
 &#125;;</code></pre>
-
 <ol start="5">
 <li>求链表的中间结点</li>
 </ol>

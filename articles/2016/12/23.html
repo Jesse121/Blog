@@ -271,31 +271,37 @@
 
     </div>
     <div class="e-content article-entry" itemprop="articleBody">
-       <p>在前端开发中我们常常需要考虑首屏加载时间，为了尽可能减少首屏加载时间我们需要弄清楚从输入网址到页面最终呈现的过程中都发生了哪些事情，然后才能具体问题具体分析，最终达到提升网页性能的目的。从输入网址到页面呈现过程中都发生了什么？据说这是一个非常经典的面试题，考察的问题面也很广，今天我就从一个前端开发工程师的角度来解答一下这个问题，文中难免有些知识点介绍的不够深，还望见谅！  </p>
+       <p>在前端开发中我们常常需要考虑首屏加载时间，为了尽可能减少首屏加载时间我们需要弄清楚从输入网址到页面最终呈现的过程中都发生了哪些事情，然后才能具体问题具体分析，最终达到提升网页性能的目的。从输入网址到页面呈现过程中都发生了什么？据说这是一个非常经典的面试题，考察的问题面也很广，今天我就从一个前端开发工程师的角度来解答一下这个问题，文中难免有些知识点介绍的不够深，还望见谅！</p>
 <span id="more"></span>
 <p>从输入网址到页面呈现这个过程大致可分为以下这几个部分：</p>
 <ol>
 <li>网络通信</li>
 <li>页面渲染</li>
 </ol>
-<h2 id="网络通信"><a href="#网络通信" class="headerlink" title="网络通信"></a>网络通信</h2><h3 id="输入网址"><a href="#输入网址" class="headerlink" title="输入网址"></a>输入网址</h3><p>当我们在浏览器的地址栏输入网址例如(<code>http://www.baidu.com</code>)，<code>http://</code>代表使用超文本传输协议，<code>www.baidu.com</code>代表服务器地址，<code>baidu.com</code>代表域名。一个完整的URL包括协议、服务器地址(主机)、端口、路径</p>
-<h3 id="负责域名查询与解析的DNS服务"><a href="#负责域名查询与解析的DNS服务" class="headerlink" title="负责域名查询与解析的DNS服务"></a>负责域名查询与解析的DNS服务</h3><p>用户通常使用主机名或域名来访问某网站，而不是直接通过IP来访问，因为字母数字配合的表示形式更符合人类的记忆习惯，可计算机却不理解这些名称，因此DNS服务应运而生，DNS协议提供通过域名查找IP地址，或逆向从IP地址反查域名的服务。<br>DNS查询过程如下：</p>
+<h2 id="网络通信">网络通信</h2>
+<h3 id="输入网址">输入网址</h3>
+<p>当我们在浏览器的地址栏输入网址例如(<code>http://www.baidu.com</code>)，<code>http://</code>代表使用超文本传输协议，<code>www.baidu.com</code>代表服务器地址，<code>baidu.com</code>代表域名。一个完整的 URL 包括协议、服务器地址(主机)、端口、路径</p>
+<h3 id="负责域名查询与解析的-DNS-服务">负责域名查询与解析的 DNS 服务</h3>
+<p>用户通常使用主机名或域名来访问某网站，而不是直接通过 IP 来访问，因为字母数字配合的表示形式更符合人类的记忆习惯，可计算机却不理解这些名称，因此 DNS 服务应运而生，DNS 协议提供通过域名查找 IP 地址，或逆向从 IP 地址反查域名的服务。<br>
+DNS 查询过程如下：</p>
 <ol>
-<li>操作系统会先检查本地的hosts文件是否有这个网址映射关系，如果有，就先调用这个IP地址映射，完成域名解析。 </li>
-<li>如果hosts里没有这个域名的映射，则查找本地DNS解析器缓存，是否有这个网址映射关系，如果有，直接返回，完成域名解析。 </li>
-<li>如果hosts与本地DNS解析器缓存都没有相应的网址映射关系，首先会找TCP&#x2F;IP参数中设置的首选DNS服务器，在此我们叫它本地DNS服务器，此服务器收到查询时，如果要查询的域名，包含在本地配置区域资源中，则返回解析结果给客户机，完成域名解析，此解析具有权威性。 </li>
-<li>如果要查询的域名，不由本地DNS服务器区域解析，但该服务器已缓存了此网址映射关系，则调用这个IP地址映射，完成域名解析，此解析不具有权威性。</li>
-<li>如果本地DNS服务器本地区域文件与缓存解析都失效，则根据本地DNS服务器的设置（是否设置转发器）进行查询，如果未用转发模式，本地DNS就把请求发至13台根DNS，根DNS服务器收到请求后会判断这个域名(.com)是谁来授权管理，并会返回一个负责该顶级域名服务器的一个IP。本地DNS服务器收到IP信息后，将会联系负责.com域的这台服务器。这台负责.com域的服务器收到请求后，如果自己无法解析，它就会找一个管理.com域的下一级DNS服务器地址(baidu.com)给本地DNS服务器。当本地DNS服务器收到这个地址后，就会找baidu.com域服务器，重复上面的动作，进行查询，直至找到<a target="_blank" rel="noopener" href="http://www.baidu.com主机./">www.baidu.com主机。</a> </li>
-<li>如果用的是转发模式，此DNS服务器就会把请求转发至上一级DNS服务器，由上一级服务器进行解析，上一级服务器如果不能解析，或找根DNS或把转请求转至上上级，以此循环。不管是本地DNS服务器用是是转发，还是根提示，最后都是把结果返回给本地DNS服务器，由此DNS服务器再返回给客户机。</li>
+<li>操作系统会先检查本地的 hosts 文件是否有这个网址映射关系，如果有，就先调用这个 IP 地址映射，完成域名解析。</li>
+<li>如果 hosts 里没有这个域名的映射，则查找本地 DNS 解析器缓存，是否有这个网址映射关系，如果有，直接返回，完成域名解析。</li>
+<li>如果 hosts 与本地 DNS 解析器缓存都没有相应的网址映射关系，首先会找 TCP/IP 参数中设置的首选 DNS 服务器，在此我们叫它本地 DNS 服务器，此服务器收到查询时，如果要查询的域名，包含在本地配置区域资源中，则返回解析结果给客户机，完成域名解析，此解析具有权威性。</li>
+<li>如果要查询的域名，不由本地 DNS 服务器区域解析，但该服务器已缓存了此网址映射关系，则调用这个 IP 地址映射，完成域名解析，此解析不具有权威性。</li>
+<li>如果本地 DNS 服务器本地区域文件与缓存解析都失效，则根据本地 DNS 服务器的设置（是否设置转发器）进行查询，如果未用转发模式，本地 DNS 就把请求发至 13 台根 DNS，根 DNS 服务器收到请求后会判断这个域名(.com)是谁来授权管理，并会返回一个负责该顶级域名服务器的一个 IP。本地 DNS 服务器收到 IP 信息后，<a target="_blank" rel="noopener" href="http://xn--6oqv82ahxz61c51uya.com">将会联系负责.com</a> 域的这台服务器。<a target="_blank" rel="noopener" href="http://xn--kprs44kma78y.com">这台负责.com</a> 域的服务器收到请求后，如果自己无法解析，<a target="_blank" rel="noopener" href="http://xn--4gqvdo6ac77a4yat0zx14a9ym.com">它就会找一个管理.com</a> 域的下一级 DNS 服务器地址(<a target="_blank" rel="noopener" href="http://baidu.com">baidu.com</a>)给本地 DNS 服务器。当本地 DNS 服务器收到这个地址后，就会找 <a target="_blank" rel="noopener" href="http://baidu.com">baidu.com</a> 域服务器，重复上面的动作，进行查询，直至找到www.baidu.com主机。</li>
+<li>如果用的是转发模式，此 DNS 服务器就会把请求转发至上一级 DNS 服务器，由上一级服务器进行解析，上一级服务器如果不能解析，或找根 DNS 或把转请求转至上上级，以此循环。不管是本地 DNS 服务器用是是转发，还是根提示，最后都是把结果返回给本地 DNS 服务器，由此 DNS 服务器再返回给客户机。</li>
 </ol>
-<p>从客户端到本地DNS服务器是属于递归查询，而DNS服务器之间就是的交互查询就是迭代查询。</p>
-<h3 id="应用层-客户端发送HTTP请求报文"><a href="#应用层-客户端发送HTTP请求报文" class="headerlink" title="应用层 客户端发送HTTP请求报文"></a>应用层 客户端发送HTTP请求报文</h3><p>HTTP报文包括：</p>
+<p>从客户端到本地 DNS 服务器是属于递归查询，而 DNS 服务器之间就是的交互查询就是迭代查询。</p>
+<h3 id="应用层-客户端发送-HTTP-请求报文">应用层 客户端发送 HTTP 请求报文</h3>
+<p>HTTP 报文包括：</p>
 <ul>
 <li>报文首部 （请求行+各种首部字段+其他）</li>
 <li>空行</li>
 <li>报文主体 （应被发送的数据）通常并不一定要有报文主体</li>
 </ul>
-<p>下面对百度首页请求报文首部进行分析：<br><strong>请求行</strong></p>
+<p>下面对百度首页请求报文首部进行分析：<br>
+<strong>请求行</strong></p>
 <pre><code class="hljs plaintext">请求方法GET 请求URI /   HTTP协议版本 1.1
 GET / HTTP/1.1</code></pre>
 <p><strong>首部字段</strong></p>
@@ -317,12 +323,21 @@ Accept-Encoding: gzip, deflate, sdch
 Accept-Language: zh-CN,zh;q=0.8
 相关信息或标记
 Cookie: BAIDUID=3C67AA3EF6B3347D3AA986CE489268C4:FG=1; BIDUPSID=3C67AA3EF6B3347D3AA986CE489268C4;</code></pre>
-
-<h3 id="传输层-确保传输报文可靠性的TCP协议"><a href="#传输层-确保传输报文可靠性的TCP协议" class="headerlink" title="传输层 确保传输报文可靠性的TCP协议"></a>传输层 确保传输报文可靠性的TCP协议</h3><p>位于传输层的TCP协议为传输报文提供可靠的字节流服务。为了方便传输，将大块的数据分割成以报文段为单位的数据包进行管理，并为它们编号，方便服务器接收时能准确地还原报文信息。TCP协议通过“三次握手”等方法保证传输的安全可靠。<br>“三次握手”的过程是，发送端先发送一个带有SYN（synchronize）标志的数据包给接收端，在一定的延迟时间内等待接收的回复。接收端收到数据包后，传回一个带有SYN&#x2F;ACK标志的数据包以示传达确认信息。接收方收到后再发送一个带有ACK标志的数据包给接收端以示握手成功。在这个过程中，如果发送端在规定延迟时间内没有收到回复则默认接收方没有收到请求，而再次发送，直到收到回复为止。<br>详细过程如下图<br><img src="http://o8l2fza1x.bkt.clouddn.com/%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B.png" alt="三次握手"></p>
-<h3 id="网络层-负责传输的IP协议"><a href="#网络层-负责传输的IP协议" class="headerlink" title="网络层 负责传输的IP协议"></a>网络层 负责传输的IP协议</h3><p>IP协议的作用是把TCP分割好的各种数据包传送给接收方。而要保证确实能传到接收方还需要接收方的MAC地址，也就是物理地址。IP地址和MAC地址是一一对应的关系，一个网络设备的IP地址可以更换，但是MAC地址一般是固定不变的。ARP协议可以将IP地址解析成对应的MAC地址。当通信的双方不在同一个局域网时，需要多次中转才能到达最终的目标，在中转的过程中需要通过下一个中转站的MAC地址来搜索下一个中转目标。具体过程如下图：<br><img src="http://o8l2fza1x.bkt.clouddn.com/IP%E5%8D%8F%E8%AE%AE.png" alt="IP协议"></p>
-<h3 id="链路层-传输数据的硬件部分"><a href="#链路层-传输数据的硬件部分" class="headerlink" title="链路层 传输数据的硬件部分"></a>链路层 传输数据的硬件部分</h3><p>在网络层找到对方的MAC地址后，就将数据发送到数据链路层传输。至此请求报文已发出，客户端发送请求的阶段结束</p>
-<h3 id="服务器接收报文"><a href="#服务器接收报文" class="headerlink" title="服务器接收报文"></a>服务器接收报文</h3><p>接收端服务器在链路层接收到数据后，删除该层的首部信息并向网络层传递，网络层将接收的数据向传输层传递，在传输层会将传输的数据按序号从组请求报文并传送给应用层。当数据传输到应用层才能算真正接收到由客户端发送过来的HTTP请求</p>
-<h3 id="应用层-服务器发送HTTP响应报文"><a href="#应用层-服务器发送HTTP响应报文" class="headerlink" title="应用层 服务器发送HTTP响应报文"></a>应用层 服务器发送HTTP响应报文</h3><p>下面对百度首页响应报文首部进行分析：<br><strong>状态行</strong></p>
+<h3 id="传输层-确保传输报文可靠性的-TCP-协议">传输层 确保传输报文可靠性的 TCP 协议</h3>
+<p>位于传输层的 TCP 协议为传输报文提供可靠的字节流服务。为了方便传输，将大块的数据分割成以报文段为单位的数据包进行管理，并为它们编号，方便服务器接收时能准确地还原报文信息。TCP 协议通过“三次握手”等方法保证传输的安全可靠。<br>
+“三次握手”的过程是，发送端先发送一个带有 SYN（synchronize）标志的数据包给接收端，在一定的延迟时间内等待接收的回复。接收端收到数据包后，传回一个带有 SYN/ACK 标志的数据包以示传达确认信息。接收方收到后再发送一个带有 ACK 标志的数据包给接收端以示握手成功。在这个过程中，如果发送端在规定延迟时间内没有收到回复则默认接收方没有收到请求，而再次发送，直到收到回复为止。<br>
+详细过程如下图<br>
+<img src="http://o8l2fza1x.bkt.clouddn.com/%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B.png" alt="三次握手" referrerPolicy="no-referrer"></p>
+<h3 id="网络层-负责传输的-IP-协议">网络层 负责传输的 IP 协议</h3>
+<p>IP 协议的作用是把 TCP 分割好的各种数据包传送给接收方。而要保证确实能传到接收方还需要接收方的 MAC 地址，也就是物理地址。IP 地址和 MAC 地址是一一对应的关系，一个网络设备的 IP 地址可以更换，但是 MAC 地址一般是固定不变的。ARP 协议可以将 IP 地址解析成对应的 MAC 地址。当通信的双方不在同一个局域网时，需要多次中转才能到达最终的目标，在中转的过程中需要通过下一个中转站的 MAC 地址来搜索下一个中转目标。具体过程如下图：<br>
+<img src="http://o8l2fza1x.bkt.clouddn.com/IP%E5%8D%8F%E8%AE%AE.png" alt="IP协议" referrerPolicy="no-referrer"></p>
+<h3 id="链路层-传输数据的硬件部分">链路层 传输数据的硬件部分</h3>
+<p>在网络层找到对方的 MAC 地址后，就将数据发送到数据链路层传输。至此请求报文已发出，客户端发送请求的阶段结束</p>
+<h3 id="服务器接收报文">服务器接收报文</h3>
+<p>接收端服务器在链路层接收到数据后，删除该层的首部信息并向网络层传递，网络层将接收的数据向传输层传递，在传输层会将传输的数据按序号从组请求报文并传送给应用层。当数据传输到应用层才能算真正接收到由客户端发送过来的 HTTP 请求</p>
+<h3 id="应用层-服务器发送-HTTP-响应报文">应用层 服务器发送 HTTP 响应报文</h3>
+<p>下面对百度首页响应报文首部进行分析：<br>
+<strong>状态行</strong></p>
 <pre><code class="hljs plaintext">协议版本 状态码 状态码原因短语
 HTTP/1.1 200 OK</code></pre>
 <p><strong>首部字段</strong></p>
@@ -352,23 +367,31 @@ BDQID: 0xc9d964a600018bb8
 BDUSERID: 0
 设置cookie
 Set-Cookie: H_PS_PSSID=1451_21116_17001_21408_21417_21554_20929; path=/;</code></pre>
-<p>响应报文的传输方式与请求报文相同，简单点说就是原路返回<br>在响应报文中我们通过Chrome DevTool的Network面板可以看到输入的<a target="_blank" rel="noopener" href="http://www.baidu.com会被重定向到https//www.baidu.com/,%E7%82%B9%E5%87%BB%E9%87%8D%E5%AE%9A%E5%90%91%E5%90%8E%E7%9A%84www.baidu.com,%E5%9C%A8%E5%8F%B3%E8%BE%B9%E7%9A%84Response%E9%9D%A2%E6%9D%BF%E4%B8%AD%E5%8F%AF%E4%BB%A5%E7%9C%8B%E5%88%B0%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%8E%A5%E6%94%B6%E5%88%B0%E7%9A%84%E6%8A%A5%E6%96%87%E5%AE%9E%E4%BD%93%E5%8D%B3%E8%BF%94%E5%9B%9E%E7%9A%84HTML%E9%A1%B5%E9%9D%A2%E4%BB%A3%E7%A0%81">www.baidu.com会被重定向到https://www.baidu.com/,点击重定向后的www.baidu.com,在右边的Response面板中可以看到客户端接收到的报文实体即返回的HTML页面代码</a></p>
-<p><strong>网络通信流程图</strong><br><img src="http://o8l2fza1x.bkt.clouddn.com/360%E5%8F%8D%E9%A6%88%E6%84%8F%E8%A7%81%E6%88%AA%E5%9B%BE16380515263720.png" alt="网络通信流程图"></p>
-<h3 id="在网络通信阶段对前端优化建议："><a href="#在网络通信阶段对前端优化建议：" class="headerlink" title="在网络通信阶段对前端优化建议："></a>在网络通信阶段对前端优化建议：</h3><ol>
-<li>减少HTTP请求数<ol>
+<p>响应报文的传输方式与请求报文相同，简单点说就是原路返回<br>
+在响应报文中我们通过 Chrome DevTool 的 Network 面板可以看到输入的www.baidu.com会被重定向到https://www.baidu.com/,<a target="_blank" rel="noopener" href="http://xn--www-5d2ex8gra616k394bq5kvp0e.baidu.com">点击重定向后的www.baidu.com</a>,在右边的Response面板中可以看到客户端接收到的报文实体即返回的HTML页面代码</p>
+<p><strong>网络通信流程图</strong><br>
+<img src="http://o8l2fza1x.bkt.clouddn.com/360%E5%8F%8D%E9%A6%88%E6%84%8F%E8%A7%81%E6%88%AA%E5%9B%BE16380515263720.png" alt="网络通信流程图" referrerPolicy="no-referrer"></p>
+<h3 id="在网络通信阶段对前端优化建议：">在网络通信阶段对前端优化建议：</h3>
+<ol>
+<li>减少 HTTP 请求数
+<ol>
 <li>合并资源，如合并 JavaScript 文件、CSS 文件，利用 CSS Sprite 合并图片等</li>
-<li>内联图片,data url节省了HTTP请求,但是如果这个图像在网页多个地方显示会加大网页的内容，延长下载时间。</li>
+<li>内联图片,data url 节省了 HTTP 请求,但是如果这个图像在网页多个地方显示会加大网页的内容，延长下载时间。</li>
 </ol>
 </li>
 <li>域名提前解析，在页面中不同域名的链接需指定预取域名：<code>&lt;link rel=&quot;dns-prefetch&quot; href=&quot;http://this-is-a.com&quot;&gt;</code>，IE9+支持</li>
-<li>避免重定向（重定向会增加http请求的次数）</li>
-<li>cookie优化，cookie越多会导致请求头越大</li>
-<li>启用GZIP压缩（Accept-Encoding：g-zip）</li>
-<li>使用 CDN加速，减小服务器压力</li>
-<li>合理利用HTTP缓存，通过设置Expires</li>
+<li>避免重定向（重定向会增加 http 请求的次数）</li>
+<li>cookie 优化，cookie 越多会导致请求头越大</li>
+<li>启用 GZIP 压缩（Accept-Encoding：g-zip）</li>
+<li>使用 CDN 加速，减小服务器压力</li>
+<li>合理利用 HTTP 缓存，通过设置 Expires</li>
 </ol>
-<h2 id="页面渲染"><a href="#页面渲染" class="headerlink" title="页面渲染"></a>页面渲染</h2><p>客户端在接收到html代码之后，接下来的流程如下：</p>
-<h3 id="解析html以构建DOM树"><a href="#解析html以构建DOM树" class="headerlink" title="解析html以构建DOM树"></a>解析html以构建DOM树</h3><p>解析一个文档即将其转换为具有一定意义的结构(编码可以理解和使用的东西)。解析的结果通常是表达文档结构的节点树，称为解析树或语法树。<br>解析是以文档所遵循的语法规则（编写文档所用的语言或格式）为基础的。所有可以解析的格式都必须对应确定的语法（由词汇和语法规则构成）。这称为与上下文无关的语法。<br>解析的过程可以分成两个子过程：词法分析和语法分析。</p>
+<h2 id="页面渲染">页面渲染</h2>
+<p>客户端在接收到 html 代码之后，接下来的流程如下：</p>
+<h3 id="解析-html-以构建-DOM-树">解析 html 以构建 DOM 树</h3>
+<p>解析一个文档即将其转换为具有一定意义的结构(编码可以理解和使用的东西)。解析的结果通常是表达文档结构的节点树，称为解析树或语法树。<br>
+解析是以文档所遵循的语法规则（编写文档所用的语言或格式）为基础的。所有可以解析的格式都必须对应确定的语法（由词汇和语法规则构成）。这称为与上下文无关的语法。<br>
+解析的过程可以分成两个子过程：词法分析和语法分析。</p>
 <ul>
 <li>词法分析是将输入内容分割成大量标记的过程。标记是语言中的词汇，即构成内容的单位。在人类语言中，它相当于语言字典中的单词。</li>
 <li>语法分析是应用语言的语法规则的过程。</li>
@@ -378,14 +401,21 @@ Set-Cookie: H_PS_PSSID=1451_21116_17001_21408_21417_21554_20929; path=/;</code><
 <li>词法分析器（有时也称为标记生成器），负责将输入内容分解成一个个有效标记；</li>
 <li>而解析器负责根据语言的语法规则分析文档的结构，从而构建解析树。</li>
 </ul>
-<p>由于不能使用常规的解析技术，浏览器就创建了自定义的解析器来解析 HTML。此解析算法由两个阶段组成：标记化和树构建。<br>具体的解析过程可参考<a target="_blank" rel="noopener" href="https://www.html5rocks.com/zh/tutorials/internals/howbrowserswork/">浏览器的工作原理</a>中的标记化算法和构建树算法</p>
-<p>解析器的输出“解析树”是由 DOM 元素和属性节点构成的树结构。DOM 是文档对象模型 (Document Object Model) 的缩写。它是 HTML 文档的对象表示，同时也是外部内容（例如 JavaScript）与 HTML 元素之间的接口。解析树的根节点是“Document”对象。  </p>
-<p>当解析到link标签时会请求相应的CSS文件，并将其CSS规则解析为StyleSheet对象，CSS文件中的其他外链资源如背景图片等只有等到其规则与DOM树某节点相匹配时才会加载<br>当解析遇到img标签时会根据路径向服务器相应的资源文件夹中请求图片资源，但并不会等待图片资源下载完再去解析接下来的html，而是并发执行即图片资源仍在下载，html解析也在进行。如果没有定义图片的height和width属性，那么浏览器为了能够显示每一个加载的图像，它需要先下载图像，然后解析出图像的高度和宽度，并在显示窗口留出相应的屏幕空间，这样就会导致浏览器不断地重新计算&#x2F;调整页面的布局，这可能会延迟文档的显示，并导致页面重绘。<br>当解析遇到script标签时，将启动 JavaScript 引擎，这时将阻塞 DOM 树的构建。因为 JavaScript 执行过程中， JavaScript 很可能会对 DOM 树进行读写操作。直到 JavaScript 执行完毕（此时执行的是全局对象初始创建和全局上下文中代码的执行），DOM树才会恢复构建。</p>
-<h3 id="构建render树"><a href="#构建render树" class="headerlink" title="构建render树"></a>构建render树</h3><p>为了更好地用户体验效果，浏览器会在构建DOM树的同时，也在构建render树。呈现树的每一个节点即为与其相对应的DOM节点的CSS框，框的类型与DOM节点的display属性有关，block元素生成block框，inline元素生成inline框。每一个呈现树节点都有与之相对应的DOM节点，但DOM节点不一定有与之相对应的呈现树节点，比如display属性为none的DOM节点，而且呈现树节点在呈现树中的位置与他们在DOM树中的位置不一定相同，比如float与绝对定位元素。在构建render树的时候需要为DOM树匹配CSS规则，在这个阶段因为匹配规则是从右往左匹配的，所以css的编写规则很重要。不好的CSS选择器写法会影响到页面渲染的效率，具体是如何编写高效的CSS规则的可参考这篇文章<a target="_blank" rel="noopener" href="http://www.cnblogs.com/jesse131/p/6135773.html">CSS选择器性能分析</a></p>
-<h3 id="布局render树"><a href="#布局render树" class="headerlink" title="布局render树"></a>布局render树</h3><p>在创建render树时，并不包含位置和大小信息。计算这些值的过程称为布局或重排。布局是一个递归的过程，它从根元素开始，然后递归遍历部分或所有的框架层次结构，为每一个需要计算的呈现器计算几何信息。<br>布局通常具有以下模式：</p>
+<p>由于不能使用常规的解析技术，浏览器就创建了自定义的解析器来解析 HTML。此解析算法由两个阶段组成：标记化和树构建。<br>
+具体的解析过程可参考<a target="_blank" rel="noopener" href="https://www.html5rocks.com/zh/tutorials/internals/howbrowserswork/">浏览器的工作原理</a>中的标记化算法和构建树算法</p>
+<p>解析器的输出“解析树”是由 DOM 元素和属性节点构成的树结构。DOM 是文档对象模型 (Document Object Model) 的缩写。它是 HTML 文档的对象表示，同时也是外部内容（例如 JavaScript）与 HTML 元素之间的接口。解析树的根节点是“Document”对象。</p>
+<p>当解析到 link 标签时会请求相应的 CSS 文件，并将其 CSS 规则解析为 StyleSheet 对象，CSS 文件中的其他外链资源如背景图片等只有等到其规则与 DOM 树某节点相匹配时才会加载<br>
+当解析遇到 img 标签时会根据路径向服务器相应的资源文件夹中请求图片资源，但并不会等待图片资源下载完再去解析接下来的 html，而是并发执行即图片资源仍在下载，html 解析也在进行。如果没有定义图片的 height 和 width 属性，那么浏览器为了能够显示每一个加载的图像，它需要先下载图像，然后解析出图像的高度和宽度，并在显示窗口留出相应的屏幕空间，这样就会导致浏览器不断地重新计算/调整页面的布局，这可能会延迟文档的显示，并导致页面重绘。<br>
+当解析遇到 script 标签时，将启动 JavaScript 引擎，这时将阻塞 DOM 树的构建。因为 JavaScript 执行过程中， JavaScript 很可能会对 DOM 树进行读写操作。直到 JavaScript 执行完毕（此时执行的是全局对象初始创建和全局上下文中代码的执行），DOM 树才会恢复构建。</p>
+<h3 id="构建-render-树">构建 render 树</h3>
+<p>为了更好地用户体验效果，浏览器会在构建 DOM 树的同时，也在构建 render 树。呈现树的每一个节点即为与其相对应的 DOM 节点的 CSS 框，框的类型与 DOM 节点的 display 属性有关，block 元素生成 block 框，inline 元素生成 inline 框。每一个呈现树节点都有与之相对应的 DOM 节点，但 DOM 节点不一定有与之相对应的呈现树节点，比如 display 属性为 none 的 DOM 节点，而且呈现树节点在呈现树中的位置与他们在 DOM 树中的位置不一定相同，比如 float 与绝对定位元素。在构建 render 树的时候需要为 DOM 树匹配 CSS 规则，在这个阶段因为匹配规则是从右往左匹配的，所以 css 的编写规则很重要。不好的 CSS 选择器写法会影响到页面渲染的效率，具体是如何编写高效的 CSS 规则的可参考这篇文章<a target="_blank" rel="noopener" href="http://www.cnblogs.com/jesse131/p/6135773.html">CSS 选择器性能分析</a></p>
+<h3 id="布局-render-树">布局 render 树</h3>
+<p>在创建 render 树时，并不包含位置和大小信息。计算这些值的过程称为布局或重排。布局是一个递归的过程，它从根元素开始，然后递归遍历部分或所有的框架层次结构，为每一个需要计算的呈现器计算几何信息。<br>
+布局通常具有以下模式：</p>
 <ol>
 <li>父呈现器确定自己的宽度。</li>
-<li>父呈现器依次处理子呈现器，并且：<ol>
+<li>父呈现器依次处理子呈现器，并且：
+<ol>
 <li>放置子呈现器（设置 x,y 坐标）。</li>
 <li>如果有必要，调用子呈现器的布局，这会计算子呈现器的高度。</li>
 </ol>
@@ -393,7 +423,9 @@ Set-Cookie: H_PS_PSSID=1451_21116_17001_21408_21417_21554_20929; path=/;</code><
 <li>父呈现器根据子呈现器的累加高度以及边距和补白的高度来设置自身高度，此值也可供父呈现器的父呈现器使用。</li>
 <li>将其 dirty 位设置为 false</li>
 </ol>
-<h3 id="绘制render树"><a href="#绘制render树" class="headerlink" title="绘制render树"></a>绘制render树</h3><p>在绘制阶段，系统会遍历render树，并调用呈现器的“paint”方法，将呈现器的内容显示在屏幕上。绘制工作是使用用户界面基础组件完成的。和布局一样，绘制也分为全局（绘制整个呈现树）和增量两种。在增量绘制中，部分呈现器发生了更改，但是不会影响整个树。更改后的呈现器将其在屏幕上对应的矩形区域设为无效，这导致 OS 将其视为一块“dirty 区域”，并生成“paint”事件。<br>绘制顺序:</p>
+<h3 id="绘制-render-树">绘制 render 树</h3>
+<p>在绘制阶段，系统会遍历 render 树，并调用呈现器的“paint”方法，将呈现器的内容显示在屏幕上。绘制工作是使用用户界面基础组件完成的。和布局一样，绘制也分为全局（绘制整个呈现树）和增量两种。在增量绘制中，部分呈现器发生了更改，但是不会影响整个树。更改后的呈现器将其在屏幕上对应的矩形区域设为无效，这导致 OS 将其视为一块“dirty 区域”，并生成“paint”事件。<br>
+绘制顺序:</p>
 <ol>
 <li>背景颜色</li>
 <li>背景图片</li>
@@ -401,16 +433,18 @@ Set-Cookie: H_PS_PSSID=1451_21116_17001_21408_21417_21554_20929; path=/;</code><
 <li>子代</li>
 <li>轮廓</li>
 </ol>
-<h3 id="页面变化造成的影响"><a href="#页面变化造成的影响" class="headerlink" title="页面变化造成的影响"></a>页面变化造成的影响</h3><p>在发生变化时，浏览器会尽可能做出最小的响应。因此，元素的颜色改变后，只会对该元素进行重绘。元素的位置改变后，只会对该元素及其子元素（可能还有同级元素）进行布局和重绘。添加 DOM 节点后，会对该节点进行布局和重绘。一些重大变化（例如增大“html”元素的字体）会导致缓存无效，使得整个呈现树都会进行重新布局和绘制。</p>
-<h3 id="在页面渲染阶段对前端优化建议："><a href="#在页面渲染阶段对前端优化建议：" class="headerlink" title="在页面渲染阶段对前端优化建议："></a>在页面渲染阶段对前端优化建议：</h3><ul>
+<h3 id="页面变化造成的影响">页面变化造成的影响</h3>
+<p>在发生变化时，浏览器会尽可能做出最小的响应。因此，元素的颜色改变后，只会对该元素进行重绘。元素的位置改变后，只会对该元素及其子元素（可能还有同级元素）进行布局和重绘。添加 DOM 节点后，会对该节点进行布局和重绘。一些重大变化（例如增大“html”元素的字体）会导致缓存无效，使得整个呈现树都会进行重新布局和绘制。</p>
+<h3 id="在页面渲染阶段对前端优化建议：">在页面渲染阶段对前端优化建议：</h3>
+<ul>
 <li>建议将 CSS 文件放在页首，以便构建 DOM 树；而将 JavaScript 文件尽量放在页面下方，防止阻塞构建 DOM 树；而 JavaScript 的 onload 事件里，不要写太多影响首屏渲染的、操作 DOM 树的 JavaScript 代码。</li>
-<li>精简 JavaScript 和 CSS 代码，并进行代码压缩，使得css和js资源更快的下载</li>
-<li>编写高效的CSS代码</li>
-<li>重要的图片或者想让用户优先看到的图片使用img标签，次要的图片使用background引入</li>
+<li>精简 JavaScript 和 CSS 代码，并进行代码压缩，使得 css 和 js 资源更快的下载</li>
+<li>编写高效的 CSS 代码</li>
+<li>重要的图片或者想让用户优先看到的图片使用 img 标签，次要的图片使用 background 引入</li>
 </ul>
 <p>参考文献：</p>
 <ol>
-<li><a target="_blank" rel="noopener" href="https://book.douban.com/subject/25863515/">《图解HTTP》</a></li>
+<li><a target="_blank" rel="noopener" href="https://book.douban.com/subject/25863515/">《图解 HTTP》</a></li>
 <li><a target="_blank" rel="noopener" href="https://www.html5rocks.com/zh/tutorials/internals/howbrowserswork/">浏览器的工作原理</a></li>
 <li><a target="_blank" rel="noopener" href="https://book.douban.com/subject/3132277/">《高性能网站建设指南》</a></li>
 </ol>
@@ -420,7 +454,7 @@ Set-Cookie: H_PS_PSSID=1451_21116_17001_21408_21417_21554_20929; path=/;</code><
   <div class="widget-wrap" id="toc-wrap">
     <h3 class="widget-title"><i class="fa fa-toc"></i> 文章目录</h3>
     <div class="widget">
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BD%91%E7%BB%9C%E9%80%9A%E4%BF%A1"><span class="toc-text">网络通信</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BE%93%E5%85%A5%E7%BD%91%E5%9D%80"><span class="toc-text">输入网址</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B4%9F%E8%B4%A3%E5%9F%9F%E5%90%8D%E6%9F%A5%E8%AF%A2%E4%B8%8E%E8%A7%A3%E6%9E%90%E7%9A%84DNS%E6%9C%8D%E5%8A%A1"><span class="toc-text">负责域名查询与解析的DNS服务</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BA%94%E7%94%A8%E5%B1%82-%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%8F%91%E9%80%81HTTP%E8%AF%B7%E6%B1%82%E6%8A%A5%E6%96%87"><span class="toc-text">应用层 客户端发送HTTP请求报文</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BC%A0%E8%BE%93%E5%B1%82-%E7%A1%AE%E4%BF%9D%E4%BC%A0%E8%BE%93%E6%8A%A5%E6%96%87%E5%8F%AF%E9%9D%A0%E6%80%A7%E7%9A%84TCP%E5%8D%8F%E8%AE%AE"><span class="toc-text">传输层 确保传输报文可靠性的TCP协议</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BD%91%E7%BB%9C%E5%B1%82-%E8%B4%9F%E8%B4%A3%E4%BC%A0%E8%BE%93%E7%9A%84IP%E5%8D%8F%E8%AE%AE"><span class="toc-text">网络层 负责传输的IP协议</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%93%BE%E8%B7%AF%E5%B1%82-%E4%BC%A0%E8%BE%93%E6%95%B0%E6%8D%AE%E7%9A%84%E7%A1%AC%E4%BB%B6%E9%83%A8%E5%88%86"><span class="toc-text">链路层 传输数据的硬件部分</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%8E%A5%E6%94%B6%E6%8A%A5%E6%96%87"><span class="toc-text">服务器接收报文</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BA%94%E7%94%A8%E5%B1%82-%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%8F%91%E9%80%81HTTP%E5%93%8D%E5%BA%94%E6%8A%A5%E6%96%87"><span class="toc-text">应用层 服务器发送HTTP响应报文</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%A8%E7%BD%91%E7%BB%9C%E9%80%9A%E4%BF%A1%E9%98%B6%E6%AE%B5%E5%AF%B9%E5%89%8D%E7%AB%AF%E4%BC%98%E5%8C%96%E5%BB%BA%E8%AE%AE%EF%BC%9A"><span class="toc-text">在网络通信阶段对前端优化建议：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A1%B5%E9%9D%A2%E6%B8%B2%E6%9F%93"><span class="toc-text">页面渲染</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A7%A3%E6%9E%90html%E4%BB%A5%E6%9E%84%E5%BB%BADOM%E6%A0%91"><span class="toc-text">解析html以构建DOM树</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9E%84%E5%BB%BArender%E6%A0%91"><span class="toc-text">构建render树</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B8%83%E5%B1%80render%E6%A0%91"><span class="toc-text">布局render树</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%98%E5%88%B6render%E6%A0%91"><span class="toc-text">绘制render树</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A1%B5%E9%9D%A2%E5%8F%98%E5%8C%96%E9%80%A0%E6%88%90%E7%9A%84%E5%BD%B1%E5%93%8D"><span class="toc-text">页面变化造成的影响</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%A8%E9%A1%B5%E9%9D%A2%E6%B8%B2%E6%9F%93%E9%98%B6%E6%AE%B5%E5%AF%B9%E5%89%8D%E7%AB%AF%E4%BC%98%E5%8C%96%E5%BB%BA%E8%AE%AE%EF%BC%9A"><span class="toc-text">在页面渲染阶段对前端优化建议：</span></a></li></ol></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BD%91%E7%BB%9C%E9%80%9A%E4%BF%A1"><span class="toc-text">网络通信</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BE%93%E5%85%A5%E7%BD%91%E5%9D%80"><span class="toc-text">输入网址</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B4%9F%E8%B4%A3%E5%9F%9F%E5%90%8D%E6%9F%A5%E8%AF%A2%E4%B8%8E%E8%A7%A3%E6%9E%90%E7%9A%84-DNS-%E6%9C%8D%E5%8A%A1"><span class="toc-text">负责域名查询与解析的 DNS 服务</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BA%94%E7%94%A8%E5%B1%82-%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%8F%91%E9%80%81-HTTP-%E8%AF%B7%E6%B1%82%E6%8A%A5%E6%96%87"><span class="toc-text">应用层 客户端发送 HTTP 请求报文</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BC%A0%E8%BE%93%E5%B1%82-%E7%A1%AE%E4%BF%9D%E4%BC%A0%E8%BE%93%E6%8A%A5%E6%96%87%E5%8F%AF%E9%9D%A0%E6%80%A7%E7%9A%84-TCP-%E5%8D%8F%E8%AE%AE"><span class="toc-text">传输层 确保传输报文可靠性的 TCP 协议</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BD%91%E7%BB%9C%E5%B1%82-%E8%B4%9F%E8%B4%A3%E4%BC%A0%E8%BE%93%E7%9A%84-IP-%E5%8D%8F%E8%AE%AE"><span class="toc-text">网络层 负责传输的 IP 协议</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%93%BE%E8%B7%AF%E5%B1%82-%E4%BC%A0%E8%BE%93%E6%95%B0%E6%8D%AE%E7%9A%84%E7%A1%AC%E4%BB%B6%E9%83%A8%E5%88%86"><span class="toc-text">链路层 传输数据的硬件部分</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%8E%A5%E6%94%B6%E6%8A%A5%E6%96%87"><span class="toc-text">服务器接收报文</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BA%94%E7%94%A8%E5%B1%82-%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%8F%91%E9%80%81-HTTP-%E5%93%8D%E5%BA%94%E6%8A%A5%E6%96%87"><span class="toc-text">应用层 服务器发送 HTTP 响应报文</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%A8%E7%BD%91%E7%BB%9C%E9%80%9A%E4%BF%A1%E9%98%B6%E6%AE%B5%E5%AF%B9%E5%89%8D%E7%AB%AF%E4%BC%98%E5%8C%96%E5%BB%BA%E8%AE%AE%EF%BC%9A"><span class="toc-text">在网络通信阶段对前端优化建议：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A1%B5%E9%9D%A2%E6%B8%B2%E6%9F%93"><span class="toc-text">页面渲染</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A7%A3%E6%9E%90-html-%E4%BB%A5%E6%9E%84%E5%BB%BA-DOM-%E6%A0%91"><span class="toc-text">解析 html 以构建 DOM 树</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9E%84%E5%BB%BA-render-%E6%A0%91"><span class="toc-text">构建 render 树</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B8%83%E5%B1%80-render-%E6%A0%91"><span class="toc-text">布局 render 树</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%98%E5%88%B6-render-%E6%A0%91"><span class="toc-text">绘制 render 树</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A1%B5%E9%9D%A2%E5%8F%98%E5%8C%96%E9%80%A0%E6%88%90%E7%9A%84%E5%BD%B1%E5%93%8D"><span class="toc-text">页面变化造成的影响</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%A8%E9%A1%B5%E9%9D%A2%E6%B8%B2%E6%9F%93%E9%98%B6%E6%AE%B5%E5%AF%B9%E5%89%8D%E7%AB%AF%E4%BC%98%E5%8C%96%E5%BB%BA%E8%AE%AE%EF%BC%9A"><span class="toc-text">在页面渲染阶段对前端优化建议：</span></a></li></ol></li></ol>
     </div>
   </div>
 

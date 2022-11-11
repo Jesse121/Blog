@@ -273,120 +273,232 @@
     <div class="e-content article-entry" itemprop="articleBody">
        <p>之前一直忙于项目苦于没有时间总结，今天刚好有时间特来总结一下在工作中常用到的代码版本管理器 Git。至于为什么要用 Git？Git 相比 SVN 有哪些好处？我就不多说了,前人已经总结的很好。今天主要介绍的是常用的 Git 命令。</p>
 <span id="more"></span>
-
-<h4 id="Git-工作流"><a href="#Git-工作流" class="headerlink" title="Git 工作流"></a>Git 工作流</h4><p>一般来说，日常使用只要记住下图 6 个命令，就可以了。<br><img src="/blog/static/images/git/1.png" alt="Git工作流"></p>
-<p>Remote：远程仓库<br>Repository：本地仓库<br>Index&#x2F;Stage：暂存区<br>Workspace：工作区</p>
-<h4 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h4><p>Git 的设置文件为.gitconfig，它可以在用户主目录下（全局配置），也可以在项目目录下（项目配置）。</p>
-<p>显示当前的 Git 配置<br>$ git config –list</p>
-<p>编辑 Git 配置文件<br>$ git config -e [–global]</p>
-<p>设置提交代码时的用户信息<br>$ git config [–global] user.name “[name]”<br>$ git config [–global] user.email “[email address]”</p>
-<h4 id="新建代码库"><a href="#新建代码库" class="headerlink" title="新建代码库"></a>新建代码库</h4><p>在当前目录新建一个 Git 代码库<br>$ git init</p>
-<p>新建一个目录，将其初始化为 Git 代码库<br>$ git init [project-name]</p>
-<p>下载一个项目和它的整个代码历史<br>$ git clone [url]</p>
-<h4 id="增加-x2F-删除文件"><a href="#增加-x2F-删除文件" class="headerlink" title="增加&#x2F;删除文件"></a>增加&#x2F;删除文件</h4><p>添加指定文件到暂存区<br>$ git add [file1] [file2] …</p>
-<p>添加指定目录到暂存区，包括子目录<br>$ git add [dir]</p>
-<p>添加当前目录的所有文件到暂存区<br>$ git add .</p>
-<p>删除工作区文件，并且将这次删除放入暂存区<br>$ git rm [file1] [file2] …</p>
-<p>停止追踪指定文件，但该文件会保留在工作区<br>$ git rm -r -–cached [file]</p>
-<p>改名文件，并且将这个改名放入暂存区<br>$ git mv [file-original] [file-renamed]</p>
-<h4 id="代码提交"><a href="#代码提交" class="headerlink" title="代码提交"></a>代码提交</h4><p>提交暂存区到仓库区<br>$ git commit -m [message]</p>
-<p>提交暂存区的指定文件到仓库区<br>$ git commit [file1] [file2] … -m [message]</p>
-<p>提交工作区自上次 commit 之后的变化，直接到仓库区<br>$ git commit -a</p>
-<p>提交时显示所有 diff 信息<br>$ git commit -v</p>
-<p>使用一次新的 commit，替代上一次提交，如果代码没有任何新变化，则用来改写上一次 commit 的提交信息<br>$ git commit –amend -m [message]</p>
-<p>重做上一次 commit，并包括指定文件的新变化<br>$ git commit –amend [file1] [file2] …</p>
-<h4 id="分支"><a href="#分支" class="headerlink" title="分支"></a>分支</h4><p>列出所有本地分支<br>$ git branch</p>
-<p>列出所有远程分支<br>$ git branch -r</p>
-<p>列出所有本地分支和远程分支<br>$ git branch -a</p>
-<p>新建一个分支，但依然停留在当前分支<br>$ git branch [branch-name]</p>
-<p>切换分支<br>$ git checkout [branch]</p>
-<p>新建一个分支，并切换到该分支<br>$ git checkout -b [branch]</p>
-<p>新建一个无根分支，并切换到该分支<br>$ git checkout –orphan [branch]</p>
-<p>新建一个分支，指向指定 commit<br>$ git branch [branch] [commit]</p>
-<p>新建一个分支，与指定的远程分支建立追踪关系<br>$ git branch –track [branch] [remote-branch]</p>
-<p>切换到指定分支，并更新工作区<br>$ git checkout [branch-name]</p>
-<p>建立追踪关系，在现有分支与指定的远程分支之间<br>$ git branch –set-upstream [branch] [remote-branch]</p>
-<p>合并指定分支到当前分支<br>$ git merge [branch]</p>
-<p>选择一个 commit，合并进当前分支<br>$ git cherry-pick [commit]</p>
-<p>删除分支<br>$ git branch -d [branch-name]</p>
-<p>删除远程跟踪分支<br>$ git branch -dr [remote&#x2F;branch]</p>
-<p>删除远程分支<br>$ git push origin –delete <branchName></p>
-<p>追加远程分支<br>$ git remote add &lt;主机名&gt; &lt;网址&gt;</p>
-<p>删除远程分支<br>$ git remote rm &lt;主机名&gt;</p>
-<h4 id="标签"><a href="#标签" class="headerlink" title="标签"></a>标签</h4><p>列出所有 tag<br>$ git tag</p>
-<p>新建一个 tag 在当前 commit<br>$ git tag [tag]</p>
-<p>新建一个 tag 在指定 commit<br>$ git tag [tag] [commit]</p>
-<p>删除本地 tag<br>$ git tag -d [tag]</p>
-<p>删除远程 tag<br>$ git push origin :refs&#x2F;tags&#x2F;[tagName]</p>
-<p>查看 tag 信息<br>$ git show [tag]</p>
-<p>提交指定 tag<br>$ git push [remote] [tag]</p>
-<p>提交所有 tag<br>$ git push [remote] –tags</p>
-<p>新建一个分支，指向某个 tag<br>$ git checkout -b [branch] [tag]</p>
-<h4 id="查看信息"><a href="#查看信息" class="headerlink" title="查看信息"></a>查看信息</h4><p>显示有变更的文件<br>$ git status</p>
-<p>显示当前分支的版本历史<br>$ git log</p>
-<p>显示 commit 历史，以及每次 commit 发生变更的文件<br>$ git log –stat</p>
-<p>显示某个文件的版本历史，包括文件改名<br>$ git log –follow [file]</p>
-<p>显示指定文件相关的每一次 diff<br>$ git log -p [file]</p>
-<p>显示指定文件是什么人在什么时间修改过<br>$ git blame [file]</p>
-<p>显示暂存区和工作区的差异<br>$ git diff</p>
-<p>显示暂存区和上一个 commit 的差异<br>$ git diff –cached [file]</p>
-<p>显示工作区与当前分支最新 commit 之间的差异<br>$ git diff HEAD</p>
-<p>显示两次提交之间的差异<br>$ git diff [first-branch]…[second-branch]</p>
-<p>显示某次提交的元数据和内容变化<br>$ git show [commit]</p>
-<p>显示某次提交发生变化的文件<br>$ git show –name-only [commit]</p>
-<p>显示某次提交时，某个文件的内容<br>$ git show [commit]:[filename]</p>
-<p>显示当前分支的最近几次提交<br>$ git reflog</p>
-<h4 id="远程同步"><a href="#远程同步" class="headerlink" title="远程同步"></a>远程同步</h4><p>下载远程仓库的所有变动<br>$ git fetch [remote]</p>
-<p>显示所有远程仓库<br>$ git remote -v</p>
-<p>显示某个远程仓库的信息<br>$ git remote show [remote]</p>
-<p>将本地仓库提交到远程仓库<br>$git remote add origin [url]</p>
-<p>取回远程仓库的变化，并与本地分支合并<br>$ git pull [remote] [branch]</p>
-<p>上传本地指定分支到远程仓库<br>$ git push [remote] [branch]</p>
-<p>强行推送当前分支到远程仓库，即使有冲突<br>$ git push [remote] –force</p>
-<p>推送所有分支到远程仓库<br>$ git push [remote] –all</p>
-<h4 id="撤销"><a href="#撤销" class="headerlink" title="撤销"></a>撤销</h4><p>恢复暂存区的指定文件到工作区<br>$ git checkout [file]</p>
-<p>恢复某个 commit 的指定文件到工作区<br>$ git checkout [commit] [file]</p>
-<p>恢复上一个 commit 的所有文件到工作区<br>$ git checkout .</p>
-<p>重置暂存区的指定文件，与上一次 commit 保持一致，但工作区不变<br>$ git reset [file]</p>
-<p>重置暂存区与工作区，与上一次 commit 保持一致<br>$ git reset –hard</p>
-<p>重置当前分支的指针为指定 commit，同时重置暂存区，但工作区不变<br>$ git reset [commit]</p>
-<p>重置当前分支的 HEAD 为指定 commit，同时重置暂存区和工作区，与指定 commit 一致<br>$ git reset –hard [commit]</p>
-<p>重置当前 HEAD 为指定 commit，但保持暂存区和工作区不变<br>$ git reset –keep [commit]</p>
-<p>新建一个 commit，用来撤销指定 commit，后者的所有变化都将被前者抵消，并且应用到当前分支<br>$ git revert [commit]</p>
-<h4 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h4><p>创建 git 忽略文件.gitignore<br>$ vim .gitignore<br>文件.gitignore 的格式规范如下：</p>
+<h4 id="Git-工作流">Git 工作流</h4>
+<p>一般来说，日常使用只要记住下图 6 个命令，就可以了。<br>
+<img src="/static/images/git/1.png" alt="Git工作流" referrerPolicy="no-referrer"></p>
+<p>Remote：远程仓库<br>
+Repository：本地仓库<br>
+Index/Stage：暂存区<br>
+Workspace：工作区</p>
+<h4 id="配置">配置</h4>
+<p>Git 的设置文件为.gitconfig，它可以在用户主目录下（全局配置），也可以在项目目录下（项目配置）。</p>
+<p>显示当前的 Git 配置<br>
+$ git config --list</p>
+<p>编辑 Git 配置文件<br>
+$ git config -e [–global]</p>
+<p>设置提交代码时的用户信息<br>
+$ git config [–global] <a target="_blank" rel="noopener" href="http://user.name">user.name</a> “[name]”<br>
+$ git config [–global] user.email “[email address]”</p>
+<h4 id="新建代码库">新建代码库</h4>
+<p>在当前目录新建一个 Git 代码库<br>
+$ git init</p>
+<p>新建一个目录，将其初始化为 Git 代码库<br>
+$ git init [project-name]</p>
+<p>下载一个项目和它的整个代码历史<br>
+$ git clone [url]</p>
+<h4 id="增加-删除文件">增加/删除文件</h4>
+<p>添加指定文件到暂存区<br>
+$ git add [file1] [file2] …</p>
+<p>添加指定目录到暂存区，包括子目录<br>
+$ git add [dir]</p>
+<p>添加当前目录的所有文件到暂存区<br>
+$ git add .</p>
+<p>删除工作区文件，并且将这次删除放入暂存区<br>
+$ git rm [file1] [file2] …</p>
+<p>停止追踪指定文件，但该文件会保留在工作区<br>
+$ git rm -r -–cached [file]</p>
+<p>改名文件，并且将这个改名放入暂存区<br>
+$ git mv [file-original] [file-renamed]</p>
+<h4 id="代码提交">代码提交</h4>
+<p>提交暂存区到仓库区<br>
+$ git commit -m [message]</p>
+<p>提交暂存区的指定文件到仓库区<br>
+$ git commit [file1] [file2] … -m [message]</p>
+<p>提交工作区自上次 commit 之后的变化，直接到仓库区<br>
+$ git commit -a</p>
+<p>提交时显示所有 diff 信息<br>
+$ git commit -v</p>
+<p>使用一次新的 commit，替代上一次提交，如果代码没有任何新变化，则用来改写上一次 commit 的提交信息<br>
+$ git commit --amend -m [message]</p>
+<p>重做上一次 commit，并包括指定文件的新变化<br>
+$ git commit --amend [file1] [file2] …</p>
+<h4 id="分支">分支</h4>
+<p>列出所有本地分支<br>
+$ git branch</p>
+<p>列出所有远程分支<br>
+$ git branch -r</p>
+<p>列出所有本地分支和远程分支<br>
+$ git branch -a</p>
+<p>新建一个分支，但依然停留在当前分支<br>
+$ git branch [branch-name]</p>
+<p>切换分支<br>
+$ git checkout [branch]</p>
+<p>新建一个分支，并切换到该分支<br>
+$ git checkout -b [branch]</p>
+<p>新建一个无根分支，并切换到该分支<br>
+$ git checkout --orphan [branch]</p>
+<p>新建一个分支，指向指定 commit<br>
+$ git branch [branch] [commit]</p>
+<p>新建一个分支，与指定的远程分支建立追踪关系<br>
+$ git branch --track [branch] [remote-branch]</p>
+<p>切换到指定分支，并更新工作区<br>
+$ git checkout [branch-name]</p>
+<p>建立追踪关系，在现有分支与指定的远程分支之间<br>
+$ git branch --set-upstream [branch] [remote-branch]</p>
+<p>合并指定分支到当前分支<br>
+$ git merge [branch]</p>
+<p>选择一个 commit，合并进当前分支<br>
+$ git cherry-pick [commit]</p>
+<p>删除分支<br>
+$ git branch -d [branch-name]</p>
+<p>删除远程跟踪分支<br>
+$ git branch -dr [remote/branch]</p>
+<p>删除远程分支<br>
+$ git push origin --delete <branchName></p>
+<p>追加远程分支<br>
+$ git remote add &lt;主机名&gt; &lt;网址&gt;</p>
+<p>删除远程分支<br>
+$ git remote rm &lt;主机名&gt;</p>
+<h4 id="标签">标签</h4>
+<p>列出所有 tag<br>
+$ git tag</p>
+<p>新建一个 tag 在当前 commit<br>
+$ git tag [tag]</p>
+<p>新建一个 tag 在指定 commit<br>
+$ git tag [tag] [commit]</p>
+<p>删除本地 tag<br>
+$ git tag -d [tag]</p>
+<p>删除远程 tag<br>
+$ git push origin :refs/tags/[tagName]</p>
+<p>查看 tag 信息<br>
+$ git show [tag]</p>
+<p>提交指定 tag<br>
+$ git push [remote] [tag]</p>
+<p>提交所有 tag<br>
+$ git push [remote] --tags</p>
+<p>新建一个分支，指向某个 tag<br>
+$ git checkout -b [branch] [tag]</p>
+<h4 id="查看信息">查看信息</h4>
+<p>显示有变更的文件<br>
+$ git status</p>
+<p>显示当前分支的版本历史<br>
+$ git log</p>
+<p>显示 commit 历史，以及每次 commit 发生变更的文件<br>
+$ git log --stat</p>
+<p>显示某个文件的版本历史，包括文件改名<br>
+$ git log --follow [file]</p>
+<p>显示指定文件相关的每一次 diff<br>
+$ git log -p [file]</p>
+<p>显示指定文件是什么人在什么时间修改过<br>
+$ git blame [file]</p>
+<p>显示暂存区和工作区的差异<br>
+$ git diff</p>
+<p>显示暂存区和上一个 commit 的差异<br>
+$ git diff --cached [file]</p>
+<p>显示工作区与当前分支最新 commit 之间的差异<br>
+$ git diff HEAD</p>
+<p>显示两次提交之间的差异<br>
+$ git diff [first-branch]…[second-branch]</p>
+<p>显示某次提交的元数据和内容变化<br>
+$ git show [commit]</p>
+<p>显示某次提交发生变化的文件<br>
+$ git show --name-only [commit]</p>
+<p>显示某次提交时，某个文件的内容<br>
+$ git show [commit]:[filename]</p>
+<p>显示当前分支的最近几次提交<br>
+$ git reflog</p>
+<h4 id="远程同步">远程同步</h4>
+<p>下载远程仓库的所有变动<br>
+$ git fetch [remote]</p>
+<p>显示所有远程仓库<br>
+$ git remote -v</p>
+<p>显示某个远程仓库的信息<br>
+$ git remote show [remote]</p>
+<p>将本地仓库提交到远程仓库<br>
+$git remote add origin [url]</p>
+<p>取回远程仓库的变化，并与本地分支合并<br>
+$ git pull [remote] [branch]</p>
+<p>上传本地指定分支到远程仓库<br>
+$ git push [remote] [branch]</p>
+<p>强行推送当前分支到远程仓库，即使有冲突<br>
+$ git push [remote] --force</p>
+<p>推送所有分支到远程仓库<br>
+$ git push [remote] --all</p>
+<h4 id="撤销">撤销</h4>
+<p>恢复暂存区的指定文件到工作区<br>
+$ git checkout [file]</p>
+<p>恢复某个 commit 的指定文件到工作区<br>
+$ git checkout [commit] [file]</p>
+<p>恢复上一个 commit 的所有文件到工作区<br>
+$ git checkout .</p>
+<p>重置暂存区的指定文件，与上一次 commit 保持一致，但工作区不变<br>
+$ git reset [file]</p>
+<p>重置暂存区与工作区，与上一次 commit 保持一致<br>
+$ git reset --hard</p>
+<p>重置当前分支的指针为指定 commit，同时重置暂存区，但工作区不变<br>
+$ git reset [commit]</p>
+<p>重置当前分支的 HEAD 为指定 commit，同时重置暂存区和工作区，与指定 commit 一致<br>
+$ git reset --hard [commit]</p>
+<p>重置当前 HEAD 为指定 commit，但保持暂存区和工作区不变<br>
+$ git reset --keep [commit]</p>
+<p>新建一个 commit，用来撤销指定 commit，后者的所有变化都将被前者抵消，并且应用到当前分支<br>
+$ git revert [commit]</p>
+<h4 id="其他">其他</h4>
+<p>创建 git 忽略文件.gitignore<br>
+$ vim .gitignore<br>
+文件.gitignore 的格式规范如下：</p>
 <ul>
 <li>所有空行或者以注释符号＃ 开头的行都会被 Git 忽略。</li>
 <li>可以使用正则表达式模式匹配。</li>
-<li>匹配模式最后跟反斜杠（&#x2F;）说明要忽略的是目录。</li>
+<li>匹配模式最后跟反斜杠（/）说明要忽略的是目录。</li>
 <li>要忽略指定模式以外的文件或目录，可以在模式前加上惊叹号（!）取反。</li>
 </ul>
-<p>生成一个可供发布的压缩包<br>$ git archive</p>
+<p>生成一个可供发布的压缩包<br>
+$ git archive</p>
 <p>在 windows 下面将已经 push 到远端的文件，改变其文件名的大小写时，git 默认会认为文件没有发生任何改动，从而拒绝提交和推送，原因是其默认配置为大小写不敏感，故须在 bash 下修改配置：</p>
 <p>$ git config core.ignorecase false</p>
-<h4 id="git-clean"><a href="#git-clean" class="headerlink" title="git clean"></a>git clean</h4><p>git clean 经常和 git reset –hard 一起结合使用. 记住 reset 只影响被 track 过的文件, 所以需要 clean 来删除没有 track 过的文件. 结合使用这两个命令能让你的工作目录完全回到一个指定的<commit>的状态</p>
-<p>告诉你哪些文件会被删除. 记住他不会真正的删除文件, 只是一个提醒<br>$ git clean -n</p>
-<p>删除当前目录下所有没有 track 过的文件. 他不会删除.gitignore 文件里面指定的文件夹和文件, 不管这些文件有没有被 track 过<br>$ git clean -f</p>
-<p>删除指定路径下的没有被 track 过的文件<br>$ git clean -f <path></p>
-<p>删除当前目录下没有被 track 过的文件和文件夹，这个经常使用<br>$ git clean -df</p>
-<p>删除当前目录下所有没有 track 过的文件. 不管他是否是.gitignore 文件里面指定的文件夹和文件<br>$ git clean -xf</p>
-<h4 id="git-设置-alias"><a href="#git-设置-alias" class="headerlink" title="git 设置 alias"></a>git 设置 alias</h4><p>$ git config –global alias.st status<br>$ git config –global alias.co checkout<br>$ git config –global alias.ci commit<br>$ git config –global alias.br branch</p>
-<h4 id="git-重命名分支"><a href="#git-重命名分支" class="headerlink" title="git 重命名分支"></a>git 重命名分支</h4><ol>
-<li>本地分支重命名(还没有推送到远程)<br>$ git branch -m oldName newName</li>
+<h4 id="git-clean">git clean</h4>
+<p>git clean 经常和 git reset --hard 一起结合使用. 记住 reset 只影响被 track 过的文件, 所以需要 clean 来删除没有 track 过的文件. 结合使用这两个命令能让你的工作目录完全回到一个指定的<commit>的状态</p>
+<p>告诉你哪些文件会被删除. 记住他不会真正的删除文件, 只是一个提醒<br>
+$ git clean -n</p>
+<p>删除当前目录下所有没有 track 过的文件. 他不会删除.gitignore 文件里面指定的文件夹和文件, 不管这些文件有没有被 track 过<br>
+$ git clean -f</p>
+<p>删除指定路径下的没有被 track 过的文件<br>
+$ git clean -f <path></p>
+<p>删除当前目录下没有被 track 过的文件和文件夹，这个经常使用<br>
+$ git clean -df</p>
+<p>删除当前目录下所有没有 track 过的文件. 不管他是否是.gitignore 文件里面指定的文件夹和文件<br>
+$ git clean -xf</p>
+<h4 id="git-设置-alias">git 设置 alias</h4>
+<p>$ git config --global <a target="_blank" rel="noopener" href="http://alias.st">alias.st</a> status<br>
+$ git config --global <a target="_blank" rel="noopener" href="http://alias.co">alias.co</a> checkout<br>
+$ git config --global <a target="_blank" rel="noopener" href="http://alias.ci">alias.ci</a> commit<br>
+$ git config --global <a target="_blank" rel="noopener" href="http://alias.br">alias.br</a> branch</p>
+<h4 id="git-重命名分支">git 重命名分支</h4>
+<ol>
+<li>本地分支重命名(还没有推送到远程)<br>
+$ git branch -m oldName newName</li>
 <li>远程分支重命名 (已经推送远程-假设本地分支和远程对应分支名称相同)</li>
 </ol>
-<p>a. 重命名远程分支对应的本地分支<br>$ git branch -m oldName newName</p>
-<p>b. 删除远程分支<br>$ git push –delete origin oldName</p>
-<p>c. 上传新命名的本地分支<br>$ git push origin newName</p>
-<p>d.把修改后的本地分支与远程分支关联<br>$ git branch –set-upstream-to origin&#x2F;newName</p>
-<h4 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h4><blockquote>
-<p><a target="_blank" rel="noopener" href="http://blog.csdn.net/jackjia2015/article/details/50607408">SVN 和 Git 介绍,区别,优缺点,适用范围总结</a><br><a target="_blank" rel="noopener" href="http://www.ruanyifeng.com/blog/2015/12/git-cheat-sheet.html">常用 Git 命令清单</a></p>
+<p>a. 重命名远程分支对应的本地分支<br>
+$ git branch -m oldName newName</p>
+<p>b. 删除远程分支<br>
+$ git push --delete origin oldName</p>
+<p>c. 上传新命名的本地分支<br>
+$ git push origin newName</p>
+<p>d.把修改后的本地分支与远程分支关联<br>
+$ git branch --set-upstream-to origin/newName</p>
+<h4 id="参考文章">参考文章</h4>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="http://blog.csdn.net/jackjia2015/article/details/50607408">SVN 和 Git 介绍,区别,优缺点,适用范围总结</a><br>
+<a target="_blank" rel="noopener" href="http://www.ruanyifeng.com/blog/2015/12/git-cheat-sheet.html">常用 Git 命令清单</a></p>
 </blockquote>
  
       <div id="toc-article">
   <div class="widget-wrap" id="toc-wrap">
     <h3 class="widget-title"><i class="fa fa-toc"></i> 文章目录</h3>
     <div class="widget">
-      <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#Git-%E5%B7%A5%E4%BD%9C%E6%B5%81"><span class="toc-text">Git 工作流</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE"><span class="toc-text">配置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%96%B0%E5%BB%BA%E4%BB%A3%E7%A0%81%E5%BA%93"><span class="toc-text">新建代码库</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A2%9E%E5%8A%A0-x2F-%E5%88%A0%E9%99%A4%E6%96%87%E4%BB%B6"><span class="toc-text">增加&#x2F;删除文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E6%8F%90%E4%BA%A4"><span class="toc-text">代码提交</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%86%E6%94%AF"><span class="toc-text">分支</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A0%87%E7%AD%BE"><span class="toc-text">标签</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E4%BF%A1%E6%81%AF"><span class="toc-text">查看信息</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BF%9C%E7%A8%8B%E5%90%8C%E6%AD%A5"><span class="toc-text">远程同步</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%92%A4%E9%94%80"><span class="toc-text">撤销</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%B6%E4%BB%96"><span class="toc-text">其他</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#git-clean"><span class="toc-text">git clean</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#git-%E8%AE%BE%E7%BD%AE-alias"><span class="toc-text">git 设置 alias</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#git-%E9%87%8D%E5%91%BD%E5%90%8D%E5%88%86%E6%94%AF"><span class="toc-text">git 重命名分支</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E7%AB%A0"><span class="toc-text">参考文章</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#Git-%E5%B7%A5%E4%BD%9C%E6%B5%81"><span class="toc-text">Git 工作流</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE"><span class="toc-text">配置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%96%B0%E5%BB%BA%E4%BB%A3%E7%A0%81%E5%BA%93"><span class="toc-text">新建代码库</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A2%9E%E5%8A%A0-%E5%88%A0%E9%99%A4%E6%96%87%E4%BB%B6"><span class="toc-text">增加&#x2F;删除文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E6%8F%90%E4%BA%A4"><span class="toc-text">代码提交</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%86%E6%94%AF"><span class="toc-text">分支</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A0%87%E7%AD%BE"><span class="toc-text">标签</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E4%BF%A1%E6%81%AF"><span class="toc-text">查看信息</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BF%9C%E7%A8%8B%E5%90%8C%E6%AD%A5"><span class="toc-text">远程同步</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%92%A4%E9%94%80"><span class="toc-text">撤销</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%B6%E4%BB%96"><span class="toc-text">其他</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#git-clean"><span class="toc-text">git clean</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#git-%E8%AE%BE%E7%BD%AE-alias"><span class="toc-text">git 设置 alias</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#git-%E9%87%8D%E5%91%BD%E5%90%8D%E5%88%86%E6%94%AF"><span class="toc-text">git 重命名分支</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E7%AB%A0"><span class="toc-text">参考文章</span></a></li></ol>
     </div>
   </div>
 

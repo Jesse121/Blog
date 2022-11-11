@@ -271,101 +271,111 @@
 
     </div>
     <div class="e-content article-entry" itemprop="articleBody">
-       <p>作为一名合格的前端工程师，你肯定听说过Bootstarp框架。确实可以说Bootstrap框架是最流行的前端框架之一。可是也有人说Bootstrap是给后端和前端小白用的，我认为只要学习它能给我们前端技能带来提升，那么我们就有必要研究一下它。Bootstrap框架虽然也提供了javascript插件，但总感觉不够用。Bootrtrap更多的则是被用作css框架。之前我也用过几次Bootstrap，感觉确实很快，很方便，用的次数多了就越想弄清楚它到底是怎么回事？它好在哪里？  </p>
+       <p>作为一名合格的前端工程师，你肯定听说过 Bootstarp 框架。确实可以说 Bootstrap 框架是最流行的前端框架之一。可是也有人说 Bootstrap 是给后端和前端小白用的，我认为只要学习它能给我们前端技能带来提升，那么我们就有必要研究一下它。Bootstrap 框架虽然也提供了 javascript 插件，但总感觉不够用。Bootrtrap 更多的则是被用作 css 框架。之前我也用过几次 Bootstrap，感觉确实很快，很方便，用的次数多了就越想弄清楚它到底是怎么回事？它好在哪里？</p>
 <span id="more"></span>
-
-<p>这篇博文不适合Bootstrap新手</p>
-<p>在<a target="_blank" rel="noopener" href="http://v3.bootcss.com/getting-started/#download">Bootstrap官网</a>点击下载我们可以看到有用于生产环境中的Bootstrap和Bootstrap源码以及Sass，我们知道Bootstrap 的源码是基于最流行的 CSS 预处理脚本 - Less 和 Sass 开发的。今天我们就来学习一下以Less开发的Bootstrap。如果不熟悉Less语法的朋友可以先在<a target="_blank" rel="noopener" href="http://lesscss.cn/">Less官网</a>学习下，在下载的bootstrap-3.3.0\less文件夹中打开bootstrap.less，我们可以看到源码的整体架构</p>
+<p>这篇博文不适合 Bootstrap 新手</p>
+<p>在<a target="_blank" rel="noopener" href="http://v3.bootcss.com/getting-started/#download">Bootstrap 官网</a>点击下载我们可以看到有用于生产环境中的 Bootstrap 和 Bootstrap 源码以及 Sass，我们知道 Bootstrap 的源码是基于最流行的 CSS 预处理脚本 - Less 和 Sass 开发的。今天我们就来学习一下以 Less 开发的 Bootstrap。如果不熟悉 Less 语法的朋友可以先在<a target="_blank" rel="noopener" href="http://lesscss.cn/">Less 官网</a>学习下，在下载的 bootstrap-3.3.0\less 文件夹中打开 bootstrap.less，我们可以看到源码的整体架构</p>
 <pre><code class="hljs plaintext">// Core variables and mixins
 //定义变量，方便后面调用
-@import &quot;variables.less&quot;;               
+@import &quot;variables.less&quot;;
 //定义混合 这类似定义函数或者宏，在mixins文件夹中可看到所定义的函数
-@import &quot;mixins.less&quot;;                  
+@import &quot;mixins.less&quot;;
 
 // Reset and dependencies  初始化和依赖项
 //标准化css，这是一个专门将不同浏览器的默认css特性设置为统一效果的css库，编译后对应源码为8~190行
-@import &quot;normalize.less&quot;;               
+@import &quot;normalize.less&quot;;
 //打印样式，编译后对应源码为192~266行
-@import &quot;print.less&quot;;                   
+@import &quot;print.less&quot;;
 //图标样式，编译后对应源码为267~885行
-@import &quot;glyphicons.less&quot;;              
+@import &quot;glyphicons.less&quot;;
 
 // Core CSS  核心CSS
 //脚手架，相当于全局样式，编译后对应源码为886~989行
-@import &quot;scaffolding.less&quot;;             
+@import &quot;scaffolding.less&quot;;
 //排版样式，编译后对应源码为990~1335行
-@import &quot;type.less&quot;;                    
+@import &quot;type.less&quot;;
 //代码样式，编译后对应源码为1336~1389行
-@import &quot;code.less&quot;;                    
+@import &quot;code.less&quot;;
 //栅格系统，编译后对应源码为1390~2056行
-@import &quot;grid.less&quot;;                    
+@import &quot;grid.less&quot;;
 //表格样式，编译后对应源码为2057~2296行
-@import &quot;tables.less&quot;;                  
+@import &quot;tables.less&quot;;
 //表单样式，编译后对应源码为2297~2781行
-@import &quot;forms.less&quot;;                   
+@import &quot;forms.less&quot;;
 //按钮样式，编译后对应源码为2782~3171行
-@import &quot;buttons.less&quot;;                 
+@import &quot;buttons.less&quot;;
 
 // Components  组件
 //组件中折叠和隐藏动画，编译后对应源码为2782~3171行
-@import &quot;component-animations.less&quot;;    
+@import &quot;component-animations.less&quot;;
 //下拉菜单及下三角符号，编译后对应源码为3209~3348行
-@import &quot;dropdowns.less&quot;;               
+@import &quot;dropdowns.less&quot;;
 //按钮组，编译后对应源码为3349~3520行
-@import &quot;button-groups.less&quot;;           
+@import &quot;button-groups.less&quot;;
 //输入框组，编译后对应源码为3521~3674行
-@import &quot;input-groups.less&quot;;            
+@import &quot;input-groups.less&quot;;
 //导航，编译后对应源码为3675~3868行
-@import &quot;navs.less&quot;;                    
+@import &quot;navs.less&quot;;
 //导航条，编译后对应源码为3869~4393行
-@import &quot;navbar.less&quot;;                  
+@import &quot;navbar.less&quot;;
 //面包屑，编译后对应源码为4394~4411行
-@import &quot;breadcrumbs.less&quot;;             
+@import &quot;breadcrumbs.less&quot;;
 //默认分页，编译后对应源码为4412~4504行
-@import &quot;pagination.less&quot;;              
+@import &quot;pagination.less&quot;;
 //翻页，编译后对应源码为4505~4542行
-@import &quot;pager.less&quot;;                   
+@import &quot;pager.less&quot;;
 //标签，编译后对应源码为4543~4609行
-@import &quot;labels.less&quot;;                  
+@import &quot;labels.less&quot;;
 //徽章，编译后对应源码为4610~4648行
-@import &quot;badges.less&quot;;                  
+@import &quot;badges.less&quot;;
 //巨幕，编译后对应源码为4649~4686行
-@import &quot;jumbotron.less&quot;;               
+@import &quot;jumbotron.less&quot;;
 //缩略图，编译后对应源码为4687~4712行
-@import &quot;thumbnails.less&quot;;              
+@import &quot;thumbnails.less&quot;;
 //警告框，编译后对应源码为4713~4787行
-@import &quot;alerts.less&quot;;                  
+@import &quot;alerts.less&quot;;
 //进度条，编译后对应源码为4788~4881行
-@import &quot;progress-bars.less&quot;;           
+@import &quot;progress-bars.less&quot;;
 //媒体对象，编译后对应源码为4882~4915行
-@import &quot;media.less&quot;;                   
+@import &quot;media.less&quot;;
 //列表组，编译后对应源码为4916~5091行
-@import &quot;list-group.less&quot;;              
+@import &quot;list-group.less&quot;;
 //面板，编译后对应源码为5092~5426行
-@import &quot;panels.less&quot;;                  
+@import &quot;panels.less&quot;;
 //具有响应式特性的嵌入内容，编译后对应源码为5427~5452行
-@import &quot;responsive-embed.less&quot;;        
+@import &quot;responsive-embed.less&quot;;
 //well效果，编译后对应源码为5453~5474行
-@import &quot;wells.less&quot;;                   
+@import &quot;wells.less&quot;;
 //关闭按钮图标，编译后对应源码为5475~5499行
-@import &quot;close.less&quot;;                   
+@import &quot;close.less&quot;;
 
 // Components w/ JavaScript
 //模态框，编译后对应源码为5500~5622行
-@import &quot;modals.less&quot;;                  
+@import &quot;modals.less&quot;;
 //工具提示，编译后对应源码为5623~5720行
-@import &quot;tooltip.less&quot;;                 
+@import &quot;tooltip.less&quot;;
 //弹出框，编译后对应源码为5721~5841行
-@import &quot;popovers.less&quot;;                
+@import &quot;popovers.less&quot;;
 //轮播，编译后对应源码为5842~6063行
-@import &quot;carousel.less&quot;;                
+@import &quot;carousel.less&quot;;
 
 // Utility classes 工具类
 //实用工具类，编译后对应源码为6064~6147行
-@import &quot;utilities.less&quot;;               
+@import &quot;utilities.less&quot;;
 //响应式工具类，编译后对应源码为6148~6357行
 @import &quot;responsive-utilities.less&quot;;</code></pre>
-<p>这些Less文件进过编译后形成了完整的Bootstrap框架。在Bootstrap官网最后我们可以定制自己的Bootstrap，可根据项目的需要自行选择不同的Less文件。<br>在《深入理解Bootstrap》一书中以图表的形式概括了Bootstrap整体架构，图片如下：<br><img src="http://o8l2fza1x.bkt.clouddn.com/594946-20160105095231746-1295822530.png" alt="Bootstrap源码分析系列之整体架构"><br>在接下来的文章中，将对Bootstrap框架中一些常用的样式及组件进行分析，经过自己梳理使得对Bootstrap更加了解了。<br>整个Bootstrap源码可分为4个部分：<br>第一部分是定义的变量及混合，方便后面的css属性使用，这也使得后期的修改和维护将更加的容易。<br>第二部分是css初始化和依赖项，这部分也是为后面的css做准备，这部分包括normalize标准化css样式库和打印样式及字体。<br>第三部分是核心CSS，这里包括许多常用的表格、表单及按钮等样式，最重要的是引入了栅格系统，这正是Bootstrap支持响应式的根本。<br>第四部分是常用的CSS组件，这里将介绍网页中常用的各种样式组件，如果还有其他组件这里还可以继续扩充，这使得Bootstrap能都不断完善。<br>第五部分是javascript组件库所需的样式。<br>第六部分是常用的工具类，包括响应式工具类和打印类<br>在Bootstrap框架的实际使用中，我们不仅要知道各种样式的成因，还需要熟练使用他们的类名与HTML的完美配合才能体现书Bootstrap框架的魅力。</p>
+<p>这些 Less 文件进过编译后形成了完整的 Bootstrap 框架。在 Bootstrap 官网最后我们可以定制自己的 Bootstrap，可根据项目的需要自行选择不同的 Less 文件。<br>
+在《深入理解 Bootstrap》一书中以图表的形式概括了 Bootstrap 整体架构，图片如下：<br>
+<img src="http://o8l2fza1x.bkt.clouddn.com/594946-20160105095231746-1295822530.png" alt="Bootstrap源码分析系列之整体架构" referrerPolicy="no-referrer"><br>
+在接下来的文章中，将对 Bootstrap 框架中一些常用的样式及组件进行分析，经过自己梳理使得对 Bootstrap 更加了解了。<br>
+整个 Bootstrap 源码可分为 4 个部分：<br>
+第一部分是定义的变量及混合，方便后面的 css 属性使用，这也使得后期的修改和维护将更加的容易。<br>
+第二部分是 css 初始化和依赖项，这部分也是为后面的 css 做准备，这部分包括 normalize 标准化 css 样式库和打印样式及字体。<br>
+第三部分是核心 CSS，这里包括许多常用的表格、表单及按钮等样式，最重要的是引入了栅格系统，这正是 Bootstrap 支持响应式的根本。<br>
+第四部分是常用的 CSS 组件，这里将介绍网页中常用的各种样式组件，如果还有其他组件这里还可以继续扩充，这使得 Bootstrap 能都不断完善。<br>
+第五部分是 javascript 组件库所需的样式。<br>
+第六部分是常用的工具类，包括响应式工具类和打印类<br>
+在 Bootstrap 框架的实际使用中，我们不仅要知道各种样式的成因，还需要熟练使用他们的类名与 HTML 的完美配合才能体现书 Bootstrap 框架的魅力。</p>
  
       <div id="toc-article">
   <div class="widget-wrap" id="toc-wrap">

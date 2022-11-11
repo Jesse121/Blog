@@ -271,7 +271,8 @@
 
     </div>
     <div class="e-content article-entry" itemprop="articleBody">
-       <h4 id="冒泡排序法"><a href="#冒泡排序法" class="headerlink" title="冒泡排序法"></a>冒泡排序法</h4><pre><code class="hljs php"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">bubbleSort</span>(<span class="hljs-params"><span class="hljs-variable">$array</span></span>)</span>&#123;
+       <h4 id="冒泡排序法">冒泡排序法</h4>
+<pre><code class="hljs php"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">bubbleSort</span>(<span class="hljs-params"><span class="hljs-variable">$array</span></span>)</span>&#123;
     <span class="hljs-variable">$temp</span> = <span class="hljs-number">0</span>;
     <span class="hljs-keyword">for</span>(<span class="hljs-variable">$i</span> = <span class="hljs-number">0</span>;<span class="hljs-variable">$i</span> &lt; <span class="hljs-title function_ invoke__">count</span>(<span class="hljs-variable">$array</span>) -<span class="hljs-number">1</span>;<span class="hljs-variable">$i</span>++)&#123;
         <span class="hljs-keyword">for</span>(<span class="hljs-variable">$j</span> = <span class="hljs-number">0</span>;<span class="hljs-variable">$j</span> &lt; <span class="hljs-title function_ invoke__">count</span>(<span class="hljs-variable">$array</span>) - <span class="hljs-number">1</span> -<span class="hljs-variable">$i</span>;<span class="hljs-variable">$j</span>++)&#123;
@@ -284,7 +285,8 @@
     &#125;
 &#125;</code></pre>
 <span id="more"></span>
-<h4 id="选择排序法"><a href="#选择排序法" class="headerlink" title="选择排序法"></a>选择排序法</h4><pre><code class="hljs php"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">selectSort</span>(<span class="hljs-params"><span class="hljs-variable">$array</span></span>)</span>&#123;
+<h4 id="选择排序法">选择排序法</h4>
+<pre><code class="hljs php"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">selectSort</span>(<span class="hljs-params"><span class="hljs-variable">$array</span></span>)</span>&#123;
     <span class="hljs-variable">$temp</span> = <span class="hljs-number">0</span>;
     <span class="hljs-keyword">for</span>(<span class="hljs-variable">$i</span> = <span class="hljs-number">0</span>;<span class="hljs-variable">$i</span> &lt; <span class="hljs-title function_ invoke__">count</span>(<span class="hljs-variable">$array</span>) - <span class="hljs-number">1</span>;<span class="hljs-variable">$i</span>++)&#123;
         <span class="hljs-variable">$minVal</span> = <span class="hljs-variable">$array</span>[<span class="hljs-variable">$i</span>];  <span class="hljs-comment">//假设$i就是最小值</span>
@@ -300,7 +302,8 @@
         <span class="hljs-variable">$array</span>[<span class="hljs-variable">$minValIndex</span>] = <span class="hljs-variable">$temp</span>;
     &#125;
 &#125;</code></pre>
-<h4 id="插入排序法"><a href="#插入排序法" class="headerlink" title="插入排序法"></a>插入排序法</h4><pre><code class="hljs php"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">insertSort</span>(<span class="hljs-params"><span class="hljs-variable">$array</span></span>)</span>&#123;  <span class="hljs-comment">//从小到大排列</span>
+<h4 id="插入排序法">插入排序法</h4>
+<pre><code class="hljs php"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">insertSort</span>(<span class="hljs-params"><span class="hljs-variable">$array</span></span>)</span>&#123;  <span class="hljs-comment">//从小到大排列</span>
     <span class="hljs-comment">//先默认$array[0]，已经有序，是有序表  </span>
     <span class="hljs-keyword">for</span>(<span class="hljs-variable">$i</span> = <span class="hljs-number">1</span>;<span class="hljs-variable">$i</span> &lt; <span class="hljs-title function_ invoke__">count</span>(<span class="hljs-variable">$array</span>);<span class="hljs-variable">$i</span>++)&#123;
         <span class="hljs-variable">$insertVal</span> = <span class="hljs-variable">$array</span>[<span class="hljs-variable">$i</span>]; <span class="hljs-comment">//$insertVal是准备插入的数</span>
@@ -314,7 +317,8 @@
         &#125;
     &#125;
 &#125;</code></pre>
-<h4 id="快速排序法"><a href="#快速排序法" class="headerlink" title="快速排序法"></a>快速排序法</h4><pre><code class="hljs php"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">quickSort</span>(<span class="hljs-params"><span class="hljs-variable">$array</span></span>)</span>&#123;
+<h4 id="快速排序法">快速排序法</h4>
+<pre><code class="hljs php"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">quickSort</span>(<span class="hljs-params"><span class="hljs-variable">$array</span></span>)</span>&#123;
     <span class="hljs-keyword">if</span>(!<span class="hljs-keyword">isset</span>(<span class="hljs-variable">$array</span>[<span class="hljs-number">1</span>]))
         <span class="hljs-keyword">return</span> <span class="hljs-variable">$array</span>;
     <span class="hljs-variable">$mid</span> = <span class="hljs-variable">$array</span>[<span class="hljs-number">0</span>]; <span class="hljs-comment">//获取一个用于分割的关键字，一般是首个元素</span>
@@ -331,7 +335,8 @@
     <span class="hljs-variable">$rightArray</span> = <span class="hljs-title function_ invoke__">quickSort</span>(<span class="hljs-variable">$rightArray</span>);  <span class="hljs-comment">//把比较大的数组再一次进行分割</span>
     <span class="hljs-keyword">return</span> <span class="hljs-title function_ invoke__">array_merge</span>(<span class="hljs-variable">$leftArray</span>,<span class="hljs-variable">$rightArray</span>);  <span class="hljs-comment">//组合两个结果</span>
 &#125;</code></pre>
-<h5 id="进行比较"><a href="#进行比较" class="headerlink" title="进行比较"></a>进行比较</h5><pre><code class="hljs php"><span class="hljs-variable">$a</span> = <span class="hljs-title function_ invoke__">array_rand</span>(<span class="hljs-title function_ invoke__">range</span>(<span class="hljs-number">1</span>,<span class="hljs-number">3000</span>), <span class="hljs-number">1600</span>);  <span class="hljs-comment">//生成1600个元素的随机数组</span>
+<h5 id="进行比较">进行比较</h5>
+<pre><code class="hljs php"><span class="hljs-variable">$a</span> = <span class="hljs-title function_ invoke__">array_rand</span>(<span class="hljs-title function_ invoke__">range</span>(<span class="hljs-number">1</span>,<span class="hljs-number">3000</span>), <span class="hljs-number">1600</span>);  <span class="hljs-comment">//生成1600个元素的随机数组</span>
 <span class="hljs-title function_ invoke__">shuffle</span>(<span class="hljs-variable">$a</span>);  <span class="hljs-comment">//打乱数组的顺序</span>
 
 <span class="hljs-variable">$t1</span> = <span class="hljs-title function_ invoke__">microtime</span>(<span class="hljs-literal">true</span>);

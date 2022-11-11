@@ -279,16 +279,23 @@
 </ol>
 <p>至于为什么选择 vite，官网上介绍的很详细，可点击查看<a target="_blank" rel="noopener" href="https://cn.vitejs.dev/guide/why.html">为什么选择 vite</a>，这里主要介绍一下如何用 vite 搭建一个包含前端开发常用配置的前端项目</p>
 <span id="more"></span>
-
-<h3 id="初始化项目"><a href="#初始化项目" class="headerlink" title="初始化项目"></a>初始化项目</h3><p>查看<a target="_blank" rel="noopener" href="https://cn.vitejs.dev/guide/#scaffolding-your-first-vite-project">vite 官网</a>可知<br><code>yarn create @vitejs/app </code><br>这里选择 vue 框架，再选择 vue-ts 模板，然后根据提示操作即可</p>
-<p>初始化项目也可以采用快捷方式，在命令中写好项目名称和模板<br><code>yarn create @vitejs/app project-name --template vue-ts</code></p>
-<h3 id="安装-eslint-及相关-plugin"><a href="#安装-eslint-及相关-plugin" class="headerlink" title="安装 eslint 及相关 plugin"></a>安装 eslint 及相关 plugin</h3><pre><code class="hljs plaintext">yarn add eslint eslint-plugin-vue @typescript-eslint/parser @typescript-eslint/eslint-plugin eslint-plugin-simple-import-sort -D</code></pre>
-
+<h3 id="初始化项目">初始化项目</h3>
+<p>查看<a target="_blank" rel="noopener" href="https://cn.vitejs.dev/guide/#scaffolding-your-first-vite-project">vite 官网</a>可知<br>
+<code>yarn create @vitejs/app </code><br>
+这里选择 vue 框架，再选择 vue-ts 模板，然后根据提示操作即可</p>
+<p>初始化项目也可以采用快捷方式，在命令中写好项目名称和模板<br>
+<code>yarn create @vitejs/app project-name --template vue-ts</code></p>
+<h3 id="安装-eslint-及相关-plugin">安装 eslint 及相关 plugin</h3>
+<pre><code class="hljs plaintext">yarn add eslint eslint-plugin-vue @typescript-eslint/parser @typescript-eslint/eslint-plugin eslint-plugin-simple-import-sort -D</code></pre>
 <p>解释说明下相关 plugin:</p>
-<h4 id="eslint-plugin-vue"><a href="#eslint-plugin-vue" class="headerlink" title="eslint-plugin-vue"></a>eslint-plugin-vue</h4><p>Vue.js 的官方 ESLint 插件</p>
-<h4 id="typescript-eslint-x2F-parser"><a href="#typescript-eslint-x2F-parser" class="headerlink" title="@typescript-eslint&#x2F;parser"></a>@typescript-eslint&#x2F;parser</h4><p>ESLint 的解析器，用于解析 typescript，从而检查和规范 Typescript 代码</p>
-<h4 id="typescript-eslint-x2F-eslint-plugin"><a href="#typescript-eslint-x2F-eslint-plugin" class="headerlink" title="@typescript-eslint&#x2F;eslint-plugin"></a>@typescript-eslint&#x2F;eslint-plugin</h4><p>ESLint 插件，包含了各类定义好的检测 Typescript 代码的规范</p>
-<h4 id="eslint-plugin-simple-import-sort"><a href="#eslint-plugin-simple-import-sort" class="headerlink" title="eslint-plugin-simple-import-sort"></a>eslint-plugin-simple-import-sort</h4><p>自动排序 import 的插件</p>
+<h4 id="eslint-plugin-vue">eslint-plugin-vue</h4>
+<p>Vue.js 的官方 ESLint 插件</p>
+<h4 id="typescript-eslint-parser">@typescript-eslint/parser</h4>
+<p>ESLint 的解析器，用于解析 typescript，从而检查和规范 Typescript 代码</p>
+<h4 id="typescript-eslint-eslint-plugin">@typescript-eslint/eslint-plugin</h4>
+<p>ESLint 插件，包含了各类定义好的检测 Typescript 代码的规范</p>
+<h4 id="eslint-plugin-simple-import-sort">eslint-plugin-simple-import-sort</h4>
+<p>自动排序 import 的插件</p>
 <p>新建.eslintrc.js 文件</p>
 <pre><code class="hljs json">module.exports = <span class="hljs-punctuation">&#123;</span>
   root<span class="hljs-punctuation">:</span> <span class="hljs-literal"><span class="hljs-keyword">true</span></span><span class="hljs-punctuation">,</span>
@@ -347,11 +354,12 @@
     <span class="hljs-punctuation">&#125;</span>
   <span class="hljs-punctuation">]</span>
 <span class="hljs-punctuation">&#125;</span>;</code></pre>
-
-<h3 id="安装-prettier-用于代码格式化"><a href="#安装-prettier-用于代码格式化" class="headerlink" title="安装 prettier 用于代码格式化"></a>安装 prettier 用于代码格式化</h3><pre><code class="hljs plaintext">yarn add prettier eslint-config-prettier eslint-plugin-prettier -D</code></pre>
-
-<h4 id="eslint-config-prettier"><a href="#eslint-config-prettier" class="headerlink" title="eslint-config-prettier"></a>eslint-config-prettier</h4><p>解决 ESLint 中的样式规范和 prettier 中样式规范的冲突，以 prettier 的样式规范为准，使 ESLint 中的样式规范自动失效</p>
-<h4 id="eslint-plugin-prettier"><a href="#eslint-plugin-prettier" class="headerlink" title="eslint-plugin-prettier"></a>eslint-plugin-prettier</h4><p>将 prettier 作为 ESLint 规范来使用</p>
+<h3 id="安装-prettier-用于代码格式化">安装 prettier 用于代码格式化</h3>
+<pre><code class="hljs plaintext">yarn add prettier eslint-config-prettier eslint-plugin-prettier -D</code></pre>
+<h4 id="eslint-config-prettier">eslint-config-prettier</h4>
+<p>解决 ESLint 中的样式规范和 prettier 中样式规范的冲突，以 prettier 的样式规范为准，使 ESLint 中的样式规范自动失效</p>
+<h4 id="eslint-plugin-prettier">eslint-plugin-prettier</h4>
+<p>将 prettier 作为 ESLint 规范来使用</p>
 <p>新建.prettierrc 文件</p>
 <pre><code class="hljs json"><span class="hljs-punctuation">&#123;</span>
   <span class="hljs-attr">&quot;printWidth&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">120</span><span class="hljs-punctuation">,</span>
@@ -369,10 +377,10 @@
   <span class="hljs-attr">&quot;requirePragma&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-literal"><span class="hljs-keyword">false</span></span><span class="hljs-punctuation">,</span>
   <span class="hljs-attr">&quot;useTabs&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-literal"><span class="hljs-keyword">true</span></span>
 <span class="hljs-punctuation">&#125;</span></code></pre>
-
-<p>如果想在保存时编辑器自动规范代码还需要在 vscode 的配置文件中添加<br><code>&quot;editor.formatOnSave&quot;: true</code></p>
-<h3 id="安装-stylelint-规范-style"><a href="#安装-stylelint-规范-style" class="headerlink" title="安装 stylelint 规范 style"></a>安装 stylelint 规范 style</h3><pre><code class="hljs plaintext">yarn add stylelint stylelint-prettier stylelint-config-prettier stylelint-config-recess-order -D</code></pre>
-
+<p>如果想在保存时编辑器自动规范代码还需要在 vscode 的配置文件中添加<br>
+<code>&quot;editor.formatOnSave&quot;: true</code></p>
+<h3 id="安装-stylelint-规范-style">安装 stylelint 规范 style</h3>
+<pre><code class="hljs plaintext">yarn add stylelint stylelint-prettier stylelint-config-prettier stylelint-config-recess-order -D</code></pre>
 <p>新建.stylelintrc.js</p>
 <pre><code class="hljs json">module.exports = <span class="hljs-punctuation">&#123;</span>
   defaultSeverity<span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;error&quot;</span><span class="hljs-punctuation">,</span>
@@ -380,8 +388,9 @@
   extends<span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-string">&quot;stylelint-prettier/recommended&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-string">&quot;stylelint-config-recess-order&quot;</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
   rules<span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><span class="hljs-punctuation">&#125;</span>
 <span class="hljs-punctuation">&#125;</span>;</code></pre>
-
-<h3 id="安装-commit-message-用于规范-git-message"><a href="#安装-commit-message-用于规范-git-message" class="headerlink" title="安装 commit-message 用于规范 git message"></a>安装 commit-message 用于规范 git message</h3><p><code>yarn add @commitlint/cli @commitlint/config-conventional -D</code><br>新建.commitlintrc.js 文件</p>
+<h3 id="安装-commit-message-用于规范-git-message">安装 commit-message 用于规范 git message</h3>
+<p><code>yarn add @commitlint/cli @commitlint/config-conventional -D</code><br>
+新建.commitlintrc.js 文件</p>
 <pre><code class="hljs json">module.exports = <span class="hljs-punctuation">&#123;</span>
   extends<span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-string">&quot;@commitlint/config-conventional&quot;</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
   rules<span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span>
@@ -406,8 +415,9 @@
     <span class="hljs-punctuation">]</span>
   <span class="hljs-punctuation">&#125;</span>
 <span class="hljs-punctuation">&#125;</span>;</code></pre>
-
-<h3 id="安装-ls-lint-用于规范文件夹命名"><a href="#安装-ls-lint-用于规范文件夹命名" class="headerlink" title="安装 ls-lint 用于规范文件夹命名"></a>安装 ls-lint 用于规范文件夹命名</h3><p><code>yarn add @ls-lint/ls-lint -D</code><br>新建.ls-lint.yml 文件</p>
+<h3 id="安装-ls-lint-用于规范文件夹命名">安装 ls-lint 用于规范文件夹命名</h3>
+<p><code>yarn add @ls-lint/ls-lint -D</code><br>
+新建.ls-lint.yml 文件</p>
 <pre><code class="hljs yml"><span class="hljs-comment"># 文件名及文件夹名命名规则</span>
 <span class="hljs-attr">ls:</span>
   <span class="hljs-string">src/components/*:</span>
@@ -424,8 +434,10 @@
 <span class="hljs-attr">ignore:</span>
   <span class="hljs-string">-</span> <span class="hljs-string">.git</span>
   <span class="hljs-string">-</span> <span class="hljs-string">node_modules</span></code></pre>
-
-<h3 id="安装-husky-和-lint-staged"><a href="#安装-husky-和-lint-staged" class="headerlink" title="安装 husky 和 lint-staged"></a>安装 husky 和 lint-staged</h3><p>用于对要提交的文件代码检查及格式化<br><code>yarn add husky lint-staged -D</code><br>修改 package.json</p>
+<h3 id="安装-husky-和-lint-staged">安装 husky 和 lint-staged</h3>
+<p>用于对要提交的文件代码检查及格式化<br>
+<code>yarn add husky lint-staged -D</code><br>
+修改 package.json</p>
 <pre><code class="hljs json">  <span class="hljs-attr">&quot;husky&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span>
     <span class="hljs-attr">&quot;hooks&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span>
       <span class="hljs-attr">&quot;pre-commit&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;lint-staged&quot;</span><span class="hljs-punctuation">,</span>
@@ -438,8 +450,8 @@
       <span class="hljs-string">&quot;git add&quot;</span>
     <span class="hljs-punctuation">]</span>
   <span class="hljs-punctuation">&#125;</span></code></pre>
-
-<h3 id="配置项目运行任务"><a href="#配置项目运行任务" class="headerlink" title="配置项目运行任务"></a>配置项目运行任务</h3><p>在 vscode 中选择终端-&gt;配置默认生成任务即可在.vscode 文件夹下生成 tasks.json 文件，内容如下：</p>
+<h3 id="配置项目运行任务">配置项目运行任务</h3>
+<p>在 vscode 中选择终端-&gt;配置默认生成任务即可在.vscode 文件夹下生成 tasks.json 文件，内容如下：</p>
 <pre><code class="hljs json"><span class="hljs-punctuation">&#123;</span>
   <span class="hljs-attr">&quot;version&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;2.0.0&quot;</span><span class="hljs-punctuation">,</span>
   <span class="hljs-attr">&quot;tasks&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>
@@ -456,9 +468,10 @@
     <span class="hljs-punctuation">&#125;</span>
   <span class="hljs-punctuation">]</span>
 <span class="hljs-punctuation">&#125;</span></code></pre>
-
 <p>运行默认任务的快捷键是 ctrl+shift+b，这样每次开发时不用在命令行输入命令 yarn dev，直接按快捷键就行</p>
-<h3 id="配置项目中需要的-vscode-扩展"><a href="#配置项目中需要的-vscode-扩展" class="headerlink" title="配置项目中需要的 vscode 扩展"></a>配置项目中需要的 vscode 扩展</h3><p>在项目根目录中的.vscode 文件夹下新建 extensions.json 文件<br>将下面内容填写到 extensions.json 文件中</p>
+<h3 id="配置项目中需要的-vscode-扩展">配置项目中需要的 vscode 扩展</h3>
+<p>在项目根目录中的.vscode 文件夹下新建 extensions.json 文件<br>
+将下面内容填写到 extensions.json 文件中</p>
 <pre><code class="hljs json"><span class="hljs-punctuation">&#123;</span>
   <span class="hljs-attr">&quot;recommendations&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>
     <span class="hljs-string">&quot;shenjiaolong.vue-helper&quot;</span><span class="hljs-punctuation">,</span>
@@ -468,14 +481,13 @@
     <span class="hljs-string">&quot;stylelint.vscode-stylelint&quot;</span>
   <span class="hljs-punctuation">]</span>
 <span class="hljs-punctuation">&#125;</span></code></pre>
-
 <p>如果参与该项目的开发者 vscode 中没有安装所列插件，则会在右下角提示是否安装</p>
  
       <div id="toc-article">
   <div class="widget-wrap" id="toc-wrap">
     <h3 class="widget-title"><i class="fa fa-toc"></i> 文章目录</h3>
     <div class="widget">
-      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9D%E5%A7%8B%E5%8C%96%E9%A1%B9%E7%9B%AE"><span class="toc-text">初始化项目</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85-eslint-%E5%8F%8A%E7%9B%B8%E5%85%B3-plugin"><span class="toc-text">安装 eslint 及相关 plugin</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#eslint-plugin-vue"><span class="toc-text">eslint-plugin-vue</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#typescript-eslint-x2F-parser"><span class="toc-text">@typescript-eslint&#x2F;parser</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#typescript-eslint-x2F-eslint-plugin"><span class="toc-text">@typescript-eslint&#x2F;eslint-plugin</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#eslint-plugin-simple-import-sort"><span class="toc-text">eslint-plugin-simple-import-sort</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85-prettier-%E7%94%A8%E4%BA%8E%E4%BB%A3%E7%A0%81%E6%A0%BC%E5%BC%8F%E5%8C%96"><span class="toc-text">安装 prettier 用于代码格式化</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#eslint-config-prettier"><span class="toc-text">eslint-config-prettier</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#eslint-plugin-prettier"><span class="toc-text">eslint-plugin-prettier</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85-stylelint-%E8%A7%84%E8%8C%83-style"><span class="toc-text">安装 stylelint 规范 style</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85-commit-message-%E7%94%A8%E4%BA%8E%E8%A7%84%E8%8C%83-git-message"><span class="toc-text">安装 commit-message 用于规范 git message</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85-ls-lint-%E7%94%A8%E4%BA%8E%E8%A7%84%E8%8C%83%E6%96%87%E4%BB%B6%E5%A4%B9%E5%91%BD%E5%90%8D"><span class="toc-text">安装 ls-lint 用于规范文件夹命名</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85-husky-%E5%92%8C-lint-staged"><span class="toc-text">安装 husky 和 lint-staged</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E9%A1%B9%E7%9B%AE%E8%BF%90%E8%A1%8C%E4%BB%BB%E5%8A%A1"><span class="toc-text">配置项目运行任务</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E9%A1%B9%E7%9B%AE%E4%B8%AD%E9%9C%80%E8%A6%81%E7%9A%84-vscode-%E6%89%A9%E5%B1%95"><span class="toc-text">配置项目中需要的 vscode 扩展</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9D%E5%A7%8B%E5%8C%96%E9%A1%B9%E7%9B%AE"><span class="toc-text">初始化项目</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85-eslint-%E5%8F%8A%E7%9B%B8%E5%85%B3-plugin"><span class="toc-text">安装 eslint 及相关 plugin</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#eslint-plugin-vue"><span class="toc-text">eslint-plugin-vue</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#typescript-eslint-parser"><span class="toc-text">@typescript-eslint&#x2F;parser</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#typescript-eslint-eslint-plugin"><span class="toc-text">@typescript-eslint&#x2F;eslint-plugin</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#eslint-plugin-simple-import-sort"><span class="toc-text">eslint-plugin-simple-import-sort</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85-prettier-%E7%94%A8%E4%BA%8E%E4%BB%A3%E7%A0%81%E6%A0%BC%E5%BC%8F%E5%8C%96"><span class="toc-text">安装 prettier 用于代码格式化</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#eslint-config-prettier"><span class="toc-text">eslint-config-prettier</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#eslint-plugin-prettier"><span class="toc-text">eslint-plugin-prettier</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85-stylelint-%E8%A7%84%E8%8C%83-style"><span class="toc-text">安装 stylelint 规范 style</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85-commit-message-%E7%94%A8%E4%BA%8E%E8%A7%84%E8%8C%83-git-message"><span class="toc-text">安装 commit-message 用于规范 git message</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85-ls-lint-%E7%94%A8%E4%BA%8E%E8%A7%84%E8%8C%83%E6%96%87%E4%BB%B6%E5%A4%B9%E5%91%BD%E5%90%8D"><span class="toc-text">安装 ls-lint 用于规范文件夹命名</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85-husky-%E5%92%8C-lint-staged"><span class="toc-text">安装 husky 和 lint-staged</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E9%A1%B9%E7%9B%AE%E8%BF%90%E8%A1%8C%E4%BB%BB%E5%8A%A1"><span class="toc-text">配置项目运行任务</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E9%A1%B9%E7%9B%AE%E4%B8%AD%E9%9C%80%E8%A6%81%E7%9A%84-vscode-%E6%89%A9%E5%B1%95"><span class="toc-text">配置项目中需要的 vscode 扩展</span></a></li></ol>
     </div>
   </div>
 

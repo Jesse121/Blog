@@ -271,26 +271,32 @@
 
     </div>
     <div class="e-content article-entry" itemprop="articleBody">
-       <h3 id="栈"><a href="#栈" class="headerlink" title="栈"></a>栈</h3><p>一个后进先出的数据结构<br>javascript 中没有栈 可以用 Array 实践栈的所有功能</p>
+       <h3 id="栈">栈</h3>
+<p>一个后进先出的数据结构<br>
+javascript 中没有栈 可以用 Array 实践栈的所有功能</p>
 <pre><code class="hljs js"><span class="hljs-keyword">const</span> stack = [];
 stack.<span class="hljs-title function_">push</span>(<span class="hljs-number">1</span>);
 stack.<span class="hljs-title function_">push</span>(<span class="hljs-number">2</span>);
 <span class="hljs-keyword">const</span> item1 = stack.<span class="hljs-title function_">pop</span>();
 <span class="hljs-keyword">const</span> item2 = stack.<span class="hljs-title function_">pop</span>();</code></pre>
-
-<p>使用场景： 所有后进先出的场景 函数调用堆栈<br>leetcode 练习题：20</p>
+<p>使用场景： 所有后进先出的场景 函数调用堆栈<br>
+leetcode 练习题：20</p>
 <span id="more"></span>
-
-<h3 id="队列"><a href="#队列" class="headerlink" title="队列"></a>队列</h3><p>一个先进先出的数据结构<br>javascript 中没有队列 可以用 Array 实践队列的所有功能</p>
+<h3 id="队列">队列</h3>
+<p>一个先进先出的数据结构<br>
+javascript 中没有队列 可以用 Array 实践队列的所有功能</p>
 <pre><code class="hljs js"><span class="hljs-keyword">const</span> queue = [];
 queue.<span class="hljs-title function_">push</span>(<span class="hljs-number">1</span>);
 queue.<span class="hljs-title function_">push</span>(<span class="hljs-number">2</span>);
 <span class="hljs-keyword">const</span> item1 = queue.<span class="hljs-title function_">shift</span>();
 <span class="hljs-keyword">const</span> item2 = queue.<span class="hljs-title function_">shift</span>();</code></pre>
-
-<p>使用场景：需要先进先出的场景 js 中异步任务队列<br>leetcode 练习题：933</p>
-<h3 id="链表"><a href="#链表" class="headerlink" title="链表"></a>链表</h3><p>对个元素组成的列表<br>元素存储不连续 用 next 指针连在一起</p>
-<p>数组：增删非首尾元素时需要移动元素<br>链表：增删非首尾元素 不需要移动元素 只需要改 next 指向即可</p>
+<p>使用场景：需要先进先出的场景 js 中异步任务队列<br>
+leetcode 练习题：933</p>
+<h3 id="链表">链表</h3>
+<p>对个元素组成的列表<br>
+元素存储不连续 用 next 指针连在一起</p>
+<p>数组：增删非首尾元素时需要移动元素<br>
+链表：增删非首尾元素 不需要移动元素 只需要改 next 指向即可</p>
 <p>链表常用操作：修改 next 遍历链表</p>
 <p>js 中无链表结构 可用 Object 模拟链表</p>
 <pre><code class="hljs js"><span class="hljs-keyword">const</span> a = &#123; <span class="hljs-attr">val</span>: <span class="hljs-string">&quot;a&quot;</span> &#125;;
@@ -312,9 +318,12 @@ c.<span class="hljs-property">next</span> = e;
 e.<span class="hljs-property">next</span> = d;
 <span class="hljs-comment">// 删除</span>
 c.<span class="hljs-property">next</span> = d;</code></pre>
-
-<p>leetcode 练习题：237 206 2 83 141<br>141 环形链表的判断 用一快一慢两个指针遍历链表 如果指针能够相逢 那么链表就有圈</p>
-<h3 id="集合"><a href="#集合" class="headerlink" title="集合"></a>集合</h3><p>一种无序且唯一的数据结构<br>ES6 中有集合 Set<br>集合常用操作 去重 求交集 判断元素是否在集合中</p>
+<p>leetcode 练习题：237 206 2 83 141<br>
+141 环形链表的判断 用一快一慢两个指针遍历链表 如果指针能够相逢 那么链表就有圈</p>
+<h3 id="集合">集合</h3>
+<p>一种无序且唯一的数据结构<br>
+ES6 中有集合 Set<br>
+集合常用操作 去重 求交集 判断元素是否在集合中</p>
 <pre><code class="hljs js"><span class="hljs-comment">// 去重</span>
 <span class="hljs-keyword">const</span> arr = [<span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">2</span>];
 <span class="hljs-keyword">const</span> arr2 = [...<span class="hljs-keyword">new</span> <span class="hljs-title class_">Set</span>(arr)];
@@ -326,9 +335,11 @@ c.<span class="hljs-property">next</span> = d;</code></pre>
 <span class="hljs-keyword">const</span> set3 = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Set</span>([...set].<span class="hljs-title function_">filter</span>(<span class="hljs-function">(<span class="hljs-params">item</span>) =&gt;</span> set2.<span class="hljs-title function_">has</span>(item)));
 <span class="hljs-comment">// 求差集</span>
 <span class="hljs-keyword">const</span> difference = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Set</span>([...set].<span class="hljs-title function_">filter</span>(<span class="hljs-function">(<span class="hljs-params">x</span>) =&gt;</span> !set2.<span class="hljs-title function_">has</span>(x)));</code></pre>
-
 <p>leetcode 练习题：349</p>
-<h3 id="字典"><a href="#字典" class="headerlink" title="字典"></a>字典</h3><p>一种存储唯一值的数据结构 但它是以键值对的形式来存储<br>ES6 中有字典 Map<br>常用操作 键值对的增删改查</p>
+<h3 id="字典">字典</h3>
+<p>一种存储唯一值的数据结构 但它是以键值对的形式来存储<br>
+ES6 中有字典 Map<br>
+常用操作 键值对的增删改查</p>
 <pre><code class="hljs js"><span class="hljs-keyword">const</span> m = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Map</span>();
 <span class="hljs-comment">// 增</span>
 m.<span class="hljs-title function_">set</span>(<span class="hljs-string">&quot;a&quot;</span>, <span class="hljs-string">&quot;aa&quot;</span>);
@@ -338,10 +349,12 @@ m.<span class="hljs-title function_">delete</span>(<span class="hljs-string">&qu
 <span class="hljs-comment">// m.clear();</span>
 <span class="hljs-comment">// 改</span>
 m.<span class="hljs-title function_">set</span>(<span class="hljs-string">&quot;a&quot;</span>, <span class="hljs-string">&quot;aaa&quot;</span>);</code></pre>
-
 <p>leetcode 练习题：349 20 1 3 76</p>
-<h3 id="树"><a href="#树" class="headerlink" title="树"></a>树</h3><p>一种分层数据的抽象模型<br>DOM 树 级联选择 树形控件<br>js 中没有树 但可以用 Object 和 Array 构建树</p>
-<p>树的常用操作： 深度&#x2F;广度优先遍历 先中后序遍历</p>
+<h3 id="树">树</h3>
+<p>一种分层数据的抽象模型<br>
+DOM 树 级联选择 树形控件<br>
+js 中没有树 但可以用 Object 和 Array 构建树</p>
+<p>树的常用操作： 深度/广度优先遍历 先中后序遍历</p>
 <pre><code class="hljs js"><span class="hljs-keyword">const</span> tree = &#123;
   <span class="hljs-attr">val</span>: <span class="hljs-string">&quot;a&quot;</span>,
   <span class="hljs-attr">children</span>: [
@@ -373,8 +386,8 @@ m.<span class="hljs-title function_">set</span>(<span class="hljs-string">&quot;
     &#125;,
   ],
 &#125;;</code></pre>
-
-<h4 id="深度优先遍历"><a href="#深度优先遍历" class="headerlink" title="深度优先遍历"></a>深度优先遍历</h4><pre><code class="hljs js"><span class="hljs-keyword">const</span> <span class="hljs-title function_">dfs</span> = (<span class="hljs-params">root</span>) =&gt; &#123;
+<h4 id="深度优先遍历">深度优先遍历</h4>
+<pre><code class="hljs js"><span class="hljs-keyword">const</span> <span class="hljs-title function_">dfs</span> = (<span class="hljs-params">root</span>) =&gt; &#123;
   <span class="hljs-comment">// console.log(root.val); //root.children.forEach(dfs);</span>
   <span class="hljs-comment">// if (root.left) dfs(root.left);</span>
   <span class="hljs-comment">// if (root.right) dfs(root.right);</span>
@@ -388,8 +401,8 @@ m.<span class="hljs-title function_">set</span>(<span class="hljs-string">&quot;
   &#125;
 &#125;;
 <span class="hljs-title function_">dfs</span>(tree);</code></pre>
-
-<h4 id="广度优先遍历"><a href="#广度优先遍历" class="headerlink" title="广度优先遍历"></a>广度优先遍历</h4><pre><code class="hljs js"><span class="hljs-keyword">const</span> <span class="hljs-title function_">bfs</span> = (<span class="hljs-params">root</span>) =&gt; &#123;
+<h4 id="广度优先遍历">广度优先遍历</h4>
+<pre><code class="hljs js"><span class="hljs-keyword">const</span> <span class="hljs-title function_">bfs</span> = (<span class="hljs-params">root</span>) =&gt; &#123;
   <span class="hljs-keyword">const</span> q = [root];
   <span class="hljs-keyword">while</span> (q.<span class="hljs-property">length</span> &gt; <span class="hljs-number">0</span>) &#123;
     <span class="hljs-keyword">const</span> n = q.<span class="hljs-title function_">shift</span>();
@@ -400,8 +413,9 @@ m.<span class="hljs-title function_">set</span>(<span class="hljs-string">&quot;
   &#125;
 &#125;;
 <span class="hljs-title function_">bfs</span>(tree);</code></pre>
-
-<h4 id="二叉树"><a href="#二叉树" class="headerlink" title="二叉树"></a>二叉树</h4><p>树中每个节点最多只能有两个子节点<br>js 中通常用 object 模拟二叉树</p>
+<h4 id="二叉树">二叉树</h4>
+<p>树中每个节点最多只能有两个子节点<br>
+js 中通常用 object 模拟二叉树</p>
 <pre><code class="hljs js"><span class="hljs-keyword">const</span> binaryTree = &#123;
   <span class="hljs-attr">val</span>: <span class="hljs-number">1</span>,
   <span class="hljs-attr">left</span>: &#123;
@@ -431,8 +445,8 @@ m.<span class="hljs-title function_">set</span>(<span class="hljs-string">&quot;
     &#125;,
   &#125;,
 &#125;;</code></pre>
-
-<h4 id="先序遍历"><a href="#先序遍历" class="headerlink" title="先序遍历"></a>先序遍历</h4><p>访问顺序：根左右</p>
+<h4 id="先序遍历">先序遍历</h4>
+<p>访问顺序：根左右</p>
 <pre><code class="hljs js"><span class="hljs-keyword">const</span> <span class="hljs-title function_">preorder</span> = (<span class="hljs-params">root</span>) =&gt; &#123;
   <span class="hljs-keyword">if</span> (!root) &#123;
     <span class="hljs-keyword">return</span>;
@@ -453,8 +467,8 @@ m.<span class="hljs-title function_">set</span>(<span class="hljs-string">&quot;
 <span class="hljs-comment">//     &#125;</span>
 <span class="hljs-comment">// &#125;;</span>
 <span class="hljs-title function_">preorder</span>(bt);</code></pre>
-
-<h4 id="中序遍历"><a href="#中序遍历" class="headerlink" title="中序遍历"></a>中序遍历</h4><p>访问顺序：左根右</p>
+<h4 id="中序遍历">中序遍历</h4>
+<p>访问顺序：左根右</p>
 <pre><code class="hljs js"><span class="hljs-keyword">const</span> <span class="hljs-title function_">inorder</span> = (<span class="hljs-params">root</span>) =&gt; &#123;
   <span class="hljs-keyword">if</span> (!root) &#123;
     <span class="hljs-keyword">return</span>;
@@ -479,8 +493,8 @@ m.<span class="hljs-title function_">set</span>(<span class="hljs-string">&quot;
 <span class="hljs-comment">//     &#125;</span>
 <span class="hljs-comment">// &#125;;</span>
 <span class="hljs-title function_">inorder</span>(bt);</code></pre>
-
-<h4 id="后序遍历"><a href="#后序遍历" class="headerlink" title="后序遍历"></a>后序遍历</h4><p>访问顺序：左右根</p>
+<h4 id="后序遍历">后序遍历</h4>
+<p>访问顺序：左右根</p>
 <pre><code class="hljs js"><span class="hljs-keyword">const</span> <span class="hljs-title function_">postorder</span> = (<span class="hljs-params">root</span>) =&gt; &#123;
   <span class="hljs-keyword">if</span> (!root) &#123;
     <span class="hljs-keyword">return</span>;
@@ -506,11 +520,16 @@ m.<span class="hljs-title function_">set</span>(<span class="hljs-string">&quot;
 <span class="hljs-comment">//     &#125;</span>
 <span class="hljs-comment">// &#125;;</span>
 <span class="hljs-title function_">postorder</span>(bt);</code></pre>
-
 <p>leetcode 练习题：104 111 102 94 112</p>
-<h3 id="堆"><a href="#堆" class="headerlink" title="堆"></a>堆</h3><p>是一种特殊的完全二叉树<br>所有的节点都大于等于(最大堆)或小于等于(小于等于)它的子节点</p>
-<p>js 中通常用数组表示堆<br>左侧子节点的位置是<code>2* index+1</code><br>右侧子节点的位置是<code>2*index+2</code><br>父节点位置是<code>(index-1)/2</code></p>
-<p>堆能高效 快速的找出最大值最小值 时间复杂度 O(1)<br>找出第 K 个最大(小)元素</p>
+<h3 id="堆">堆</h3>
+<p>是一种特殊的完全二叉树<br>
+所有的节点都大于等于(最大堆)或小于等于(小于等于)它的子节点</p>
+<p>js 中通常用数组表示堆<br>
+左侧子节点的位置是<code>2* index+1</code><br>
+右侧子节点的位置是<code>2*index+2</code><br>
+父节点位置是<code>(index-1)/2</code></p>
+<p>堆能高效 快速的找出最大值最小值 时间复杂度 O(1)<br>
+找出第 K 个最大(小)元素</p>
 <pre><code class="hljs js"><span class="hljs-keyword">class</span> <span class="hljs-title class_">MinHeap</span> &#123;
   <span class="hljs-title function_">constructor</span>(<span class="hljs-params"></span>) &#123;
     <span class="hljs-variable language_">this</span>.<span class="hljs-property">heap</span> = [];
@@ -566,18 +585,19 @@ m.<span class="hljs-title function_">set</span>(<span class="hljs-string">&quot;
     <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">heap</span>.<span class="hljs-property">length</span>;
   &#125;
 &#125;</code></pre>
-
 <p>leetcode 练习题：215 347 23</p>
-<h3 id="图"><a href="#图" class="headerlink" title="图"></a>图</h3><p>是网络结构的抽象模型 是一组由边连接的节点 可表示任何二元关系<br>js 中没有图 但可以用 object 和 array 构建图 邻接矩阵 领接表</p>
+<h3 id="图">图</h3>
+<p>是网络结构的抽象模型 是一组由边连接的节点 可表示任何二元关系<br>
+js 中没有图 但可以用 object 和 array 构建图 邻接矩阵 领接表</p>
 <pre><code class="hljs js"><span class="hljs-keyword">const</span> graph = &#123;
   <span class="hljs-number">0</span>: [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>],
   <span class="hljs-number">1</span>: [<span class="hljs-number">2</span>],
   <span class="hljs-number">2</span>: [<span class="hljs-number">0</span>, <span class="hljs-number">3</span>],
   <span class="hljs-number">3</span>: [<span class="hljs-number">3</span>],
 &#125;;</code></pre>
-
 <p>常用操作 深度优先遍历 广度优先遍历</p>
-<h4 id="深度优先遍历-1"><a href="#深度优先遍历-1" class="headerlink" title="深度优先遍历"></a>深度优先遍历</h4><ol>
+<h4 id="深度优先遍历-2">深度优先遍历</h4>
+<ol>
 <li>访问根节点</li>
 <li>对根节点的没有访问过的相邻节点挨个进行深度优先遍历</li>
 </ol>
@@ -592,8 +612,8 @@ m.<span class="hljs-title function_">set</span>(<span class="hljs-string">&quot;
   &#125;);
 &#125;;
 <span class="hljs-title function_">dfs</span>(<span class="hljs-number">2</span>);</code></pre>
-
-<h4 id="广度优先遍历-1"><a href="#广度优先遍历-1" class="headerlink" title="广度优先遍历"></a>广度优先遍历</h4><ol>
+<h4 id="广度优先遍历-2">广度优先遍历</h4>
+<ol>
 <li>新建一个队列 根节点入队</li>
 <li>对头出队并访问</li>
 <li>把队头的没有访问过的相邻节点入队</li>
@@ -610,10 +630,12 @@ m.<span class="hljs-title function_">set</span>(<span class="hljs-string">&quot;
     &#125;
   &#125;);
 &#125;</code></pre>
-
 <p>leetcode 练习题： 417 133</p>
-<h3 id="排序和搜索算法"><a href="#排序和搜索算法" class="headerlink" title="排序和搜索算法"></a>排序和搜索算法</h3><h4 id="冒泡排序"><a href="#冒泡排序" class="headerlink" title="冒泡排序"></a>冒泡排序</h4><p>比较所有相邻元素 如果第一个比第二个大 则交换位置 一轮下来可以保证最后一个数是最大的<br>时间复杂度 O(n^2)</p>
-<p><img src="https://raw.githubusercontent.com/Jesse121/publicPic/master/blog/pictures/849589-20171015223238449-2146169197.gif"></p>
+<h3 id="排序和搜索算法">排序和搜索算法</h3>
+<h4 id="冒泡排序">冒泡排序</h4>
+<p>比较所有相邻元素 如果第一个比第二个大 则交换位置 一轮下来可以保证最后一个数是最大的<br>
+时间复杂度 O(n^2)</p>
+<p><img src="https://raw.githubusercontents.com/Jesse121/publicPic/master/blog/pictures/849589-20171015223238449-2146169197.gif" alt="" referrerPolicy="no-referrer"></p>
 <pre><code class="hljs js"><span class="hljs-keyword">function</span> <span class="hljs-title function_">bubbleSort</span>(<span class="hljs-params">arr</span>) &#123;
   <span class="hljs-keyword">const</span> len = arr.<span class="hljs-property">length</span>;
   <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &lt; len - <span class="hljs-number">1</span>; i++) &#123;
@@ -628,9 +650,10 @@ m.<span class="hljs-title function_">set</span>(<span class="hljs-string">&quot;
   &#125;
   <span class="hljs-keyword">return</span> arr;
 &#125;</code></pre>
-
-<h4 id="选择排序"><a href="#选择排序" class="headerlink" title="选择排序"></a>选择排序</h4><p>首先在未排序序列中找到最小（大）元素，存放到排序序列的起始位置，然后，再从剩余未排序元素中继续寻找最小（大）元素，然后放到已排序序列的末尾。以此类推，直到所有元素均排序完毕。 <br>时间复杂度 O(n^2)</p>
-<p><img src="https://raw.githubusercontent.com/Jesse121/publicPic/master/blog/pictures/2.gif"></p>
+<h4 id="选择排序">选择排序</h4>
+<p>首先在未排序序列中找到最小（大）元素，存放到排序序列的起始位置，然后，再从剩余未排序元素中继续寻找最小（大）元素，然后放到已排序序列的末尾。以此类推，直到所有元素均排序完毕。 <br>
+时间复杂度 O(n^2)</p>
+<p><img src="https://raw.githubusercontents.com/Jesse121/publicPic/master/blog/pictures/2.gif" alt="" referrerPolicy="no-referrer"></p>
 <pre><code class="hljs js"><span class="hljs-keyword">function</span> <span class="hljs-title function_">selectionSort</span>(<span class="hljs-params">arr</span>) &#123;
   <span class="hljs-keyword">var</span> len = arr.<span class="hljs-property">length</span>;
   <span class="hljs-keyword">var</span> minIndex, temp;
@@ -650,8 +673,9 @@ m.<span class="hljs-title function_">set</span>(<span class="hljs-string">&quot;
   &#125;
   <span class="hljs-keyword">return</span> arr;
 &#125;</code></pre>
-
-<h4 id="插入排序"><a href="#插入排序" class="headerlink" title="插入排序"></a>插入排序</h4><p>时间复杂度 O(n^2)<br>原理：</p>
+<h4 id="插入排序">插入排序</h4>
+<p>时间复杂度 O(n^2)<br>
+原理：</p>
 <ol>
 <li>从第一个元素开始，该元素可以认为已经被排序；</li>
 <li>取出下一个元素，在已经排序的元素序列中从后向前扫描；</li>
@@ -660,7 +684,7 @@ m.<span class="hljs-title function_">set</span>(<span class="hljs-string">&quot;
 <li>将新元素插入到该位置后；</li>
 <li>重复步骤 2~5。</li>
 </ol>
-<p><img src="https://raw.githubusercontent.com/Jesse121/publicPic/master/blog/pictures/3.gif"></p>
+<p><img src="https://raw.githubusercontents.com/Jesse121/publicPic/master/blog/pictures/3.gif" alt="" referrerPolicy="no-referrer"></p>
 <pre><code class="hljs js"><span class="hljs-keyword">function</span> <span class="hljs-title function_">insertionSort</span>(<span class="hljs-params">arr</span>) &#123;
   <span class="hljs-keyword">var</span> len = arr.<span class="hljs-property">length</span>;
   <span class="hljs-keyword">var</span> preIndex, current;
@@ -675,9 +699,13 @@ m.<span class="hljs-title function_">set</span>(<span class="hljs-string">&quot;
   &#125;
   <span class="hljs-keyword">return</span> arr;
 &#125;</code></pre>
-
-<h4 id="归并排序"><a href="#归并排序" class="headerlink" title="归并排序"></a>归并排序</h4><p>时间复杂度 O(nlogn)<br>算法描述：<br>把长度为 n 的输入序列分成两个长度为 n&#x2F;2 的子序列；<br>对这两个子序列分别采用归并排序；<br>将两个排序好的子序列合并成一个最终的排序序列。</p>
-<p><img src="https://raw.githubusercontent.com/Jesse121/publicPic/master/blog/pictures/4.gif"></p>
+<h4 id="归并排序">归并排序</h4>
+<p>时间复杂度 O(nlogn)<br>
+算法描述：<br>
+把长度为 n 的输入序列分成两个长度为 n/2 的子序列；<br>
+对这两个子序列分别采用归并排序；<br>
+将两个排序好的子序列合并成一个最终的排序序列。</p>
+<p><img src="https://raw.githubusercontents.com/Jesse121/publicPic/master/blog/pictures/4.gif" alt="" referrerPolicy="no-referrer"></p>
 <pre><code class="hljs js"><span class="hljs-keyword">function</span> <span class="hljs-title function_">mergeSort</span>(<span class="hljs-params">arr</span>) &#123;
   <span class="hljs-keyword">if</span> (arr.<span class="hljs-property">length</span> === <span class="hljs-number">1</span>) <span class="hljs-keyword">return</span> arr;
   <span class="hljs-keyword">const</span> mid = <span class="hljs-title class_">Math</span>.<span class="hljs-title function_">floor</span>(arr.<span class="hljs-property">length</span> / <span class="hljs-number">2</span>);
@@ -699,9 +727,12 @@ m.<span class="hljs-title function_">set</span>(<span class="hljs-string">&quot;
   &#125;
   <span class="hljs-keyword">return</span> res;
 &#125;</code></pre>
-
-<h4 id="快速排序"><a href="#快速排序" class="headerlink" title="快速排序"></a>快速排序</h4><p>算法描述：<br>从数列中挑出一个元素，称为 “基准”（pivot）；<br>重新排序数列，所有元素比基准值小的摆放在基准前面，所有元素比基准值大的摆在基准的后面（相同的数可以到任一边）。在这个分区退出之后，该基准就处于数列的中间位置。这个称为分区（partition）操作；<br>递归地（recursive）把小于基准值元素的子数列和大于基准值元素的子数列排序。</p>
-<p><img src="https://raw.githubusercontent.com/Jesse121/publicPic/master/blog/pictures/5.gif"></p>
+<h4 id="快速排序">快速排序</h4>
+<p>算法描述：<br>
+从数列中挑出一个元素，称为 “基准”（pivot）；<br>
+重新排序数列，所有元素比基准值小的摆放在基准前面，所有元素比基准值大的摆在基准的后面（相同的数可以到任一边）。在这个分区退出之后，该基准就处于数列的中间位置。这个称为分区（partition）操作；<br>
+递归地（recursive）把小于基准值元素的子数列和大于基准值元素的子数列排序。</p>
+<p><img src="https://raw.githubusercontents.com/Jesse121/publicPic/master/blog/pictures/5.gif" alt="" referrerPolicy="no-referrer"></p>
 <pre><code class="hljs js"><span class="hljs-keyword">function</span> <span class="hljs-title function_">quickSort</span>(<span class="hljs-params">arr</span>) &#123;
   <span class="hljs-keyword">const</span> left = [];
   <span class="hljs-keyword">const</span> right = [];
@@ -721,8 +752,9 @@ m.<span class="hljs-title function_">set</span>(<span class="hljs-string">&quot;
     <span class="hljs-keyword">return</span> [...<span class="hljs-title function_">quickSort</span>(left), mid];
   &#125;
 &#125;</code></pre>
-
-<h4 id="二分搜索"><a href="#二分搜索" class="headerlink" title="二分搜索"></a>二分搜索</h4><p>从数组中间元素开始 如果中间元素正好是目标值，则搜索结束<br>如果目标值大于或者小于中间元素，则在大于或小于中间元素的那一半数组中搜索</p>
+<h4 id="二分搜索">二分搜索</h4>
+<p>从数组中间元素开始 如果中间元素正好是目标值，则搜索结束<br>
+如果目标值大于或者小于中间元素，则在大于或小于中间元素的那一半数组中搜索</p>
 <p>时间复杂度 O(logN)</p>
 <pre><code class="hljs js"><span class="hljs-keyword">function</span> <span class="hljs-title function_">binarySearch</span>(<span class="hljs-params">arr, item</span>) &#123;
   <span class="hljs-keyword">const</span> orderArr = arr.<span class="hljs-title function_">sort</span>();
@@ -741,17 +773,21 @@ m.<span class="hljs-title function_">set</span>(<span class="hljs-string">&quot;
   &#125;
   <span class="hljs-keyword">return</span> -<span class="hljs-number">1</span>;
 &#125;</code></pre>
-
-<h3 id="分而治之"><a href="#分而治之" class="headerlink" title="分而治之"></a>分而治之</h3><p>是一种算法思想<br>将一个问题分成多个和原问题相似的小问题 递归解决小问题 再将结果合并以解决原来的问题</p>
-<p>归并排序 快速排序<br>leetcode 练习题：374 226 10 101</p>
-<h3 id="寻找最长递增序列"><a href="#寻找最长递增序列" class="headerlink" title="寻找最长递增序列"></a>寻找最长递增序列</h3><p>leetcode 练习题：300<br>给你一个整数数组 nums ，找到其中最长严格递增子序列的长度。</p>
+<h3 id="分而治之">分而治之</h3>
+<p>是一种算法思想<br>
+将一个问题分成多个和原问题相似的小问题 递归解决小问题 再将结果合并以解决原来的问题</p>
+<p>归并排序 快速排序<br>
+leetcode 练习题：374 226 10 101</p>
+<h3 id="寻找最长递增序列">寻找最长递增序列</h3>
+<p>leetcode 练习题：300<br>
+给你一个整数数组 nums ，找到其中最长严格递增子序列的长度。</p>
 <p>子序列是由数组派生而来的序列，删除（或不删除）数组中的元素而不改变其余元素的顺序。例如，[3,6,2,7] 是数组 [0,3,1,6,2,2,7] 的子序列。</p>
  
       <div id="toc-article">
   <div class="widget-wrap" id="toc-wrap">
     <h3 class="widget-title"><i class="fa fa-toc"></i> 文章目录</h3>
     <div class="widget">
-      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%88"><span class="toc-text">栈</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%98%9F%E5%88%97"><span class="toc-text">队列</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%93%BE%E8%A1%A8"><span class="toc-text">链表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9B%86%E5%90%88"><span class="toc-text">集合</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AD%97%E5%85%B8"><span class="toc-text">字典</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%91"><span class="toc-text">树</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B7%B1%E5%BA%A6%E4%BC%98%E5%85%88%E9%81%8D%E5%8E%86"><span class="toc-text">深度优先遍历</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B9%BF%E5%BA%A6%E4%BC%98%E5%85%88%E9%81%8D%E5%8E%86"><span class="toc-text">广度优先遍历</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BA%8C%E5%8F%89%E6%A0%91"><span class="toc-text">二叉树</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%88%E5%BA%8F%E9%81%8D%E5%8E%86"><span class="toc-text">先序遍历</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%AD%E5%BA%8F%E9%81%8D%E5%8E%86"><span class="toc-text">中序遍历</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%90%8E%E5%BA%8F%E9%81%8D%E5%8E%86"><span class="toc-text">后序遍历</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A0%86"><span class="toc-text">堆</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9B%BE"><span class="toc-text">图</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B7%B1%E5%BA%A6%E4%BC%98%E5%85%88%E9%81%8D%E5%8E%86-1"><span class="toc-text">深度优先遍历</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B9%BF%E5%BA%A6%E4%BC%98%E5%85%88%E9%81%8D%E5%8E%86-1"><span class="toc-text">广度优先遍历</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8E%92%E5%BA%8F%E5%92%8C%E6%90%9C%E7%B4%A2%E7%AE%97%E6%B3%95"><span class="toc-text">排序和搜索算法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%86%92%E6%B3%A1%E6%8E%92%E5%BA%8F"><span class="toc-text">冒泡排序</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%80%89%E6%8B%A9%E6%8E%92%E5%BA%8F"><span class="toc-text">选择排序</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F"><span class="toc-text">插入排序</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F"><span class="toc-text">归并排序</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F"><span class="toc-text">快速排序</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BA%8C%E5%88%86%E6%90%9C%E7%B4%A2"><span class="toc-text">二分搜索</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%86%E8%80%8C%E6%B2%BB%E4%B9%8B"><span class="toc-text">分而治之</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AF%BB%E6%89%BE%E6%9C%80%E9%95%BF%E9%80%92%E5%A2%9E%E5%BA%8F%E5%88%97"><span class="toc-text">寻找最长递增序列</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%88"><span class="toc-text">栈</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%98%9F%E5%88%97"><span class="toc-text">队列</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%93%BE%E8%A1%A8"><span class="toc-text">链表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9B%86%E5%90%88"><span class="toc-text">集合</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AD%97%E5%85%B8"><span class="toc-text">字典</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%91"><span class="toc-text">树</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B7%B1%E5%BA%A6%E4%BC%98%E5%85%88%E9%81%8D%E5%8E%86"><span class="toc-text">深度优先遍历</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B9%BF%E5%BA%A6%E4%BC%98%E5%85%88%E9%81%8D%E5%8E%86"><span class="toc-text">广度优先遍历</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BA%8C%E5%8F%89%E6%A0%91"><span class="toc-text">二叉树</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%88%E5%BA%8F%E9%81%8D%E5%8E%86"><span class="toc-text">先序遍历</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%AD%E5%BA%8F%E9%81%8D%E5%8E%86"><span class="toc-text">中序遍历</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%90%8E%E5%BA%8F%E9%81%8D%E5%8E%86"><span class="toc-text">后序遍历</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A0%86"><span class="toc-text">堆</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9B%BE"><span class="toc-text">图</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B7%B1%E5%BA%A6%E4%BC%98%E5%85%88%E9%81%8D%E5%8E%86-2"><span class="toc-text">深度优先遍历</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B9%BF%E5%BA%A6%E4%BC%98%E5%85%88%E9%81%8D%E5%8E%86-2"><span class="toc-text">广度优先遍历</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8E%92%E5%BA%8F%E5%92%8C%E6%90%9C%E7%B4%A2%E7%AE%97%E6%B3%95"><span class="toc-text">排序和搜索算法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%86%92%E6%B3%A1%E6%8E%92%E5%BA%8F"><span class="toc-text">冒泡排序</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%80%89%E6%8B%A9%E6%8E%92%E5%BA%8F"><span class="toc-text">选择排序</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F"><span class="toc-text">插入排序</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F"><span class="toc-text">归并排序</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F"><span class="toc-text">快速排序</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BA%8C%E5%88%86%E6%90%9C%E7%B4%A2"><span class="toc-text">二分搜索</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%86%E8%80%8C%E6%B2%BB%E4%B9%8B"><span class="toc-text">分而治之</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AF%BB%E6%89%BE%E6%9C%80%E9%95%BF%E9%80%92%E5%A2%9E%E5%BA%8F%E5%88%97"><span class="toc-text">寻找最长递增序列</span></a></li></ol>
     </div>
   </div>
 

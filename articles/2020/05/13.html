@@ -271,16 +271,19 @@
 
     </div>
     <div class="e-content article-entry" itemprop="articleBody">
-       <h3 id="问题缘由"><a href="#问题缘由" class="headerlink" title="问题缘由"></a>问题缘由</h3><p>在 html 模板页面中我们有时候要直接插入图片 img。如果直接写绝对路径例如<code>&lt;img src=&quot;https://static.yidongtimes.com/dist/mobile/v2/img/notice/fishingTips/waiting.png&quot; alt=&quot;&quot;&gt;</code>，页面可以访问到图片但是图片不经过 webpack 处理（压缩，添加哈希后缀等）。这样操作图片也不能作为资源一起编译处理到 dist 文件夹中。因此需要找到更好的解决办法</p>
+       <h3 id="问题缘由">问题缘由</h3>
+<p>在 html 模板页面中我们有时候要直接插入图片 img。如果直接写绝对路径例如<code>&lt;img src=&quot;https://static.yidongtimes.com/dist/mobile/v2/img/notice/fishingTips/waiting.png&quot; alt=&quot;&quot;&gt;</code>，页面可以访问到图片但是图片不经过 webpack 处理（压缩，添加哈希后缀等）。这样操作图片也不能作为资源一起编译处理到 dist 文件夹中。因此需要找到更好的解决办法</p>
 <span id="more"></span>
-
-<h3 id="提出问题"><a href="#提出问题" class="headerlink" title="提出问题"></a>提出问题</h3><p>html 中如何正确的引入图片供 webpack 编译？</p>
-<h3 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h3><p>方法一：<br>采用以下方式引入图片</p>
+<h3 id="提出问题">提出问题</h3>
+<p>html 中如何正确的引入图片供 webpack 编译？</p>
+<h3 id="解决办法">解决办法</h3>
+<p>方法一：<br>
+采用以下方式引入图片</p>
 <pre><code class="hljs plaintext">&lt;img src=&quot;$&#123;require(&#x27;../../../../../../static_audio/src/mobile/v2/img/notice/fishingTips/waiting.png&#x27;)&#125;&quot; alt=&quot;&quot;&gt;</code></pre>
-
-<p>这样引入的图片可经过 file-loader 处理<br>方法二：<br>采用以下方式引入图片</p>
+<p>这样引入的图片可经过 file-loader 处理<br>
+方法二：<br>
+采用以下方式引入图片</p>
 <pre><code class="hljs plaintext">&lt;img src=&quot;../../../../../../static_audio/src/mobile/v2/img/notice/fishingTips/waiting.png&quot; alt=&quot;&quot;&gt;</code></pre>
-
 <p>使用 html-loader 和 file-loader 处理</p>
 <pre><code class="hljs plaintext">rules: [&#123;
         test: /\.(html)$/,
@@ -303,13 +306,14 @@
         &#125;]
     &#125;
 ]</code></pre>
-
 <p>这里由于我们在项目中用的是 ejs 模板，我们采取第一种方法</p>
-<h3 id="发现问题"><a href="#发现问题" class="headerlink" title="发现问题"></a>发现问题</h3><p>按照上面的写法引入图片之后发现图片变成了<code>&lt;img src=&quot;[object Module]&quot; alt=&quot;&quot;&gt;</code>,在 stackoverflow 中查找资料发现原来是 file-loader 版本过高导致的，esModule 选项已在 4.3.0 版本的文件加载器中引入，而在 5.0.0 版本中，默认情况下已将其设置为 true。问题地址<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/59114479/when-i-using-file-loader-and-html-loader-in-webpack-the-src-attr-of-image-gonna/59115624#59115624">When i using file-loader and html-loader in webpack. The src attr of image gonna be like ‘[object Module]’</a></p>
-<h3 id="解决方法一"><a href="#解决方法一" class="headerlink" title="解决方法一"></a>解决方法一</h3><p>安装 4.3.0 以下版本的 file-loader,这里我安装的是 4.2.0</p>
+<h3 id="发现问题">发现问题</h3>
+<p>按照上面的写法引入图片之后发现图片变成了<code>&lt;img src=&quot;[object Module]&quot; alt=&quot;&quot;&gt;</code>,在 stackoverflow 中查找资料发现原来是 file-loader 版本过高导致的，esModule 选项已在 4.3.0 版本的文件加载器中引入，而在 5.0.0 版本中，默认情况下已将其设置为 true。问题地址<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/59114479/when-i-using-file-loader-and-html-loader-in-webpack-the-src-attr-of-image-gonna/59115624#59115624">When i using file-loader and html-loader in webpack. The src attr of image gonna be like ‘[object Module]’</a></p>
+<h3 id="解决方法一">解决方法一</h3>
+<p>安装 4.3.0 以下版本的 file-loader,这里我安装的是 4.2.0</p>
 <pre><code class="hljs plaintext">yarn add file-loader@4.2.0 --dev</code></pre>
-
-<h3 id="解决方法二"><a href="#解决方法二" class="headerlink" title="解决方法二"></a>解决方法二</h3><p>使用 4.3.0 以上版本的 file-loader,需设置 esModule: false</p>
+<h3 id="解决方法二">解决方法二</h3>
+<p>使用 4.3.0 以上版本的 file-loader,需设置 esModule: false</p>
 <pre><code class="hljs plaintext">&#123;
     test: /\.(jpeg|jpg|png)$/,
     use: [
@@ -319,8 +323,9 @@
       &#125;
     ]
 &#125;</code></pre>
-
-<p><strong>参考资料</strong><br><a target="_blank" rel="noopener" href="https://juejin.im/post/5de1dd566fb9a07164727a75">webpack 踩坑记录</a><br><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/59114479/when-i-using-file-loader-and-html-loader-in-webpack-the-src-attr-of-image-gonna/59115624#59115624">When i using file-loader and html-loader in webpack. The src attr of image gonna be like ‘[object Module]’</a></p>
+<p><strong>参考资料</strong><br>
+<a target="_blank" rel="noopener" href="https://juejin.im/post/5de1dd566fb9a07164727a75">webpack 踩坑记录</a><br>
+<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/59114479/when-i-using-file-loader-and-html-loader-in-webpack-the-src-attr-of-image-gonna/59115624#59115624">When i using file-loader and html-loader in webpack. The src attr of image gonna be like ‘[object Module]’</a></p>
  
       <div id="toc-article">
   <div class="widget-wrap" id="toc-wrap">

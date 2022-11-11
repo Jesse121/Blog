@@ -273,9 +273,10 @@
     <div class="e-content article-entry" itemprop="articleBody">
        <p>最近在做一个H5上传图片并压缩的项目，其过程主要是先将图片上传通过readAsDataURL获取上传图片base64编码，然后根据高宽比将图片画到canvas上实现压缩，在通过toDataURL获取压缩后的图片。<a href="/blog/demo/h5compress.html">点击可查看demo</a>在该过程中用到base64编码，于是就想弄清楚base64编码原理，才有了这篇博客。</p>
 <span id="more"></span>
-
-<h3 id="Base64编码的来历"><a href="#Base64编码的来历" class="headerlink" title="Base64编码的来历"></a>Base64编码的来历</h3><p>为什么会有Base64编码呢？因为有些网络传送渠道并不支持所有的字节，例如传统的邮件只支持可见字符的传送，像ASCII码的控制字符就不能通过邮件传送。这样用途就受到了很大的限制，比如图片二进制流的每个字节不可能全部是可见字符，所以就传送不了。最好的方法就是在不改变传统协议的情况下，做一种扩展方案来支持二进制文件的传送。把不可打印的字符也能用可打印字符来表示，问题就解决了。Base64编码应运而生，Base64编码就是一种基于64个可打印字符来表示二进制数据的表示方法。</p>
-<h3 id="Base64编码过程"><a href="#Base64编码过程" class="headerlink" title="Base64编码过程"></a>Base64编码过程</h3><ol>
+<h3 id="Base64编码的来历">Base64编码的来历</h3>
+<p>为什么会有Base64编码呢？因为有些网络传送渠道并不支持所有的字节，例如传统的邮件只支持可见字符的传送，像ASCII码的控制字符就不能通过邮件传送。这样用途就受到了很大的限制，比如图片二进制流的每个字节不可能全部是可见字符，所以就传送不了。最好的方法就是在不改变传统协议的情况下，做一种扩展方案来支持二进制文件的传送。把不可打印的字符也能用可打印字符来表示，问题就解决了。Base64编码应运而生，Base64编码就是一种基于64个可打印字符来表示二进制数据的表示方法。</p>
+<h3 id="Base64编码过程">Base64编码过程</h3>
+<ol>
 <li>将每三个字节作为一组，一共是24个二进制位。</li>
 <li>将这24个二进制位分为四组，每个组有6个二进制位。</li>
 <li>在每组前面加两个00，扩展成32个二进制位，即四个字节。</li>
@@ -295,7 +296,8 @@
 <th>char</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>0</td>
 <td>A</td>
 <td>17</td>
@@ -423,7 +425,7 @@
 <td>46</td>
 <td>u</td>
 <td>63</td>
-<td>&#x2F;</td>
+<td>/</td>
 </tr>
 <tr>
 <td>13</td>
@@ -465,7 +467,8 @@
 <td></td>
 <td></td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
 <p>字符长度为能被3整除时，比如Man</p>
 <pre><code class="hljs plaintext">            M           a           n
 ASCII:      77          97          110
@@ -473,9 +476,8 @@ ASCII:      77          97          110
 6bit字节:      010011      010110      000101      101110
 十进制:      19          22          5            46
 对应编码:     T           W           F            u</code></pre>
-
 <ol>
-<li>“M”、”a”、”n”的ASCII值分别是77、97、110，对应的二进制值是01001101、01100001、01101110，将它们连成一个24位的二进制字符串010011010110000101101110。</li>
+<li>“M”、“a”、&quot;n&quot;的ASCII值分别是77、97、110，对应的二进制值是01001101、01100001、01101110，将它们连成一个24位的二进制字符串010011010110000101101110。</li>
 <li>将这个24位的二进制字符串分成4组，每组6个二进制位：010011、010110、000101、101110。</li>
 <li>在每组前面加两个00，扩展成32个二进制位，即四个字节：00010011、00010110、00000101、00101110。它们的十进制值分别是19、22、5、46。</li>
 <li>根据上表，得到每个值对应Base64编码，即T、W、F、u。</li>
@@ -488,10 +490,16 @@ ASCII:      76          117         99          121
 十进制:      19          7           21          35            30          16             (补0) (补0)      
 对应编码:     T           H           V           j             e           Q            =       =
 </code></pre>
-<p>如果要编码的字节数不能被3整除，最后会多出1个或2个字节，那么可以使用下面的方法进行处理：<br>先使用0字节值在末尾补足，使其能够被3整除，然后再进行Base64的编码。在编码后的Base64文本后加上一个或两个&#x3D;号，代表补足的字节数。也就是说，当最后剩余一个八位字节（1个byte）时，最后一个6位的Base64字节块有四位是0值，最后附加上两个等号；如果最后剩余两个八位字节（2个byte）时，最后一个6位的base字节块有两位是0值，最后附加一个等号。</p>
+<p>如果要编码的字节数不能被3整除，最后会多出1个或2个字节，那么可以使用下面的方法进行处理：<br>
+先使用0字节值在末尾补足，使其能够被3整除，然后再进行Base64的编码。在编码后的Base64文本后加上一个或两个=号，代表补足的字节数。也就是说，当最后剩余一个八位字节（1个byte）时，最后一个6位的Base64字节块有四位是0值，最后附加上两个等号；如果最后剩余两个八位字节（2个byte）时，最后一个6位的base字节块有两位是0值，最后附加一个等号。</p>
 <p>因为，Base64将三个字节转化成四个字节，因此Base64编码后的文本，会比原文本大出三分之一左右。</p>
-<p><strong>注意</strong><br>Base64编码主要用在传输、存储、表示二进制领域，不能算得上加密，只是无法直接看到明文，不建议用base64编码用于加密。<br>中文有多种编码（比如：utf-8、gb2312、gbk等），不同编码对应Base64编码结果都不一样。</p>
-<h3 id="base64实现"><a href="#base64实现" class="headerlink" title="base64实现"></a>base64实现</h3><p>在PHP中，有一对专门的函数用于Base64转换：base64_encode()用于编码、base64_decode()用于解码。<br>在Javascript中可使用window.btoa()用于编码，window.atob()用于解码。  <a target="_blank" rel="noopener" href="https://caniuse.com/#search=btoa">兼容性可点击查看</a>IE10及以上全部兼容<br>对于IE10以下可采用以下兼容方法</p>
+<p><strong>注意</strong><br>
+Base64编码主要用在传输、存储、表示二进制领域，不能算得上加密，只是无法直接看到明文，不建议用base64编码用于加密。<br>
+中文有多种编码（比如：utf-8、gb2312、gbk等），不同编码对应Base64编码结果都不一样。</p>
+<h3 id="base64实现">base64实现</h3>
+<p>在PHP中，有一对专门的函数用于Base64转换：base64_encode()用于编码、base64_decode()用于解码。<br>
+在Javascript中可使用window.btoa()用于编码，window.atob()用于解码。  <a target="_blank" rel="noopener" href="https://caniuse.com/#search=btoa">兼容性可点击查看</a>IE10及以上全部兼容<br>
+对于IE10以下可采用以下兼容方法</p>
 <pre><code class="hljs js"><span class="hljs-comment">/**</span>
 <span class="hljs-comment"> * base64 encoding &amp; decoding</span>
 <span class="hljs-comment"> * for fixing browsers which don&#x27;t support Base64 | btoa |atob</span>
@@ -600,11 +608,13 @@ ASCII:      76          117         99          121
     <span class="hljs-keyword">if</span> (!win.<span class="hljs-property">atob</span>) &#123; win.<span class="hljs-property">atob</span> = <span class="hljs-title class_">Base64</span>.<span class="hljs-property">atob</span> &#125;
 
 &#125;)(<span class="hljs-variable language_">window</span>)</code></pre>
-<h3 id="Base64实际运用"><a href="#Base64实际运用" class="headerlink" title="Base64实际运用"></a>Base64实际运用</h3><ol>
+<h3 id="Base64实际运用">Base64实际运用</h3>
+<ol>
 <li>用base64引入图片，当图片大小较小时可直接将其用base64编码，这样可以减少请求，目前webpack中可使用url-loader处理图片</li>
 <li>在邮件中使用base64编码</li>
 </ol>
-<h5 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h5><ol>
+<h5 id="参考文章">参考文章</h5>
+<ol>
 <li><a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/Base64">Base64</a></li>
 <li><a target="_blank" rel="noopener" href="http://www.ruanyifeng.com/blog/2008/06/base64.html">Base64笔记</a></li>
 <li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/hongru/archive/2012/01/14/2321397.html">关于base64编码的原理及实现</a></li>

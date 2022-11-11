@@ -273,8 +273,8 @@
     <div class="e-content article-entry" itemprop="articleBody">
        <p>在开发工作中难免会出现 bug,一般项目都是测试检查通过后就可以发线上，可是在线上仍旧会出现各种意料之外或者未测试到的问题，这个时候有的用户会向客服反馈说哪里哪里有问题，这是一种被动的错误上报方式，毕竟不是所有的用户都会上报问题，更多的则是出现问题后直接离开我们的 APP。所以异常监控这块就显得越来越重要。</p>
 <span id="more"></span>
-
-<h3 id="页面异常分类"><a href="#页面异常分类" class="headerlink" title="页面异常分类"></a>页面异常分类</h3><p>在我们的项目中我将页面异常分为以下几种情况：</p>
+<h3 id="页面异常分类">页面异常分类</h3>
+<p>在我们的项目中我将页面异常分为以下几种情况：</p>
 <ol>
 <li>javascript 异常（语法错误，运行时错误，跨域脚本）</li>
 <li>资源加载异常（img js css）</li>
@@ -283,7 +283,9 @@
 <li>vue 项目中全局异常捕获</li>
 </ol>
 <p>接下来介绍如何捕获这些异常</p>
-<h3 id="前端页面异常捕获方式"><a href="#前端页面异常捕获方式" class="headerlink" title="前端页面异常捕获方式"></a>前端页面异常捕获方式</h3><h4 id="window-onerror-捕获-javascript-异常"><a href="#window-onerror-捕获-javascript-异常" class="headerlink" title="window.onerror 捕获 javascript 异常"></a>window.onerror 捕获 javascript 异常</h4><pre><code class="hljs js"><span class="hljs-comment">/**</span>
+<h3 id="前端页面异常捕获方式">前端页面异常捕获方式</h3>
+<h4 id="window-onerror-捕获-javascript-异常">window.onerror 捕获 javascript 异常</h4>
+<pre><code class="hljs js"><span class="hljs-comment">/**</span>
 <span class="hljs-comment"> * 捕获javascript异常</span>
 <span class="hljs-comment"> * <span class="hljs-doctag">@param</span> &#123;<span class="hljs-type">String</span>&#125;  message    错误信息</span>
 <span class="hljs-comment"> * <span class="hljs-doctag">@param</span> &#123;<span class="hljs-type">String</span>&#125;  source     出错文件</span>
@@ -294,9 +296,12 @@
 <span class="hljs-variable language_">window</span>.<span class="hljs-property">onerror</span> = <span class="hljs-keyword">function</span> (<span class="hljs-params">message, source, lineno, colno, error</span>) &#123;
   <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;捕获到异常：&quot;</span>, &#123; message, source, lineno, colno, error &#125;);
 &#125;;</code></pre>
-
-<h4 id="跨域脚本异常捕获"><a href="#跨域脚本异常捕获" class="headerlink" title="跨域脚本异常捕获"></a>跨域脚本异常捕获</h4><p>一般涉及跨域的 js 运行错误时会抛出错误提示 script error.，但没有具体信息（如出错文件，行列号提示等）, 可利用资源共享策略来捕获跨域 js 错误<br>客户端：在 script 标签增加 crossorigin&#x3D;”anonymous”属性<br>服务端：静态资源响应头 Access-Control-Allow-Origin: *</p>
-<h4 id="window-addEventListener-‘error’-cb-true-捕获资源加载异常"><a href="#window-addEventListener-‘error’-cb-true-捕获资源加载异常" class="headerlink" title="window.addEventListener(‘error’,cb,true)捕获资源加载异常"></a>window.addEventListener(‘error’,cb,true)捕获资源加载异常</h4><p>img 加载异常时会触发 img.onerror 函数</p>
+<h4 id="跨域脚本异常捕获">跨域脚本异常捕获</h4>
+<p>一般涉及跨域的 js 运行错误时会抛出错误提示 script error.，但没有具体信息（如出错文件，行列号提示等）, 可利用资源共享策略来捕获跨域 js 错误<br>
+客户端：在 script 标签增加 crossorigin=&quot;anonymous&quot;属性<br>
+服务端：静态资源响应头 Access-Control-Allow-Origin: *</p>
+<h4 id="window-addEventListener-‘error’-cb-true-捕获资源加载异常">window.addEventListener(‘error’,cb,true)捕获资源加载异常</h4>
+<p>img 加载异常时会触发 img.onerror 函数</p>
 <pre><code class="hljs js"><span class="hljs-comment">// 捕获资源加载异常</span>
 <span class="hljs-variable language_">window</span>.<span class="hljs-title function_">addEventListener</span>(
   <span class="hljs-string">&quot;error&quot;</span>,
@@ -308,8 +313,8 @@
   &#125;,
   <span class="hljs-literal">true</span>
 );</code></pre>
-
-<h4 id="ajax-接口请求异常捕获"><a href="#ajax-接口请求异常捕获" class="headerlink" title="ajax 接口请求异常捕获"></a>ajax 接口请求异常捕获</h4><pre><code class="hljs js"><span class="hljs-comment">// 统一拦截ajax请求</span>
+<h4 id="ajax-接口请求异常捕获">ajax 接口请求异常捕获</h4>
+<pre><code class="hljs js"><span class="hljs-comment">// 统一拦截ajax请求</span>
 <span class="hljs-keyword">function</span> <span class="hljs-title function_">ajaxEventTrigger</span>(<span class="hljs-params">event</span>) &#123;
   <span class="hljs-keyword">var</span> ajaxEvent = <span class="hljs-keyword">new</span> <span class="hljs-title class_">CustomEvent</span>(event, &#123; <span class="hljs-attr">detail</span>: <span class="hljs-variable language_">this</span> &#125;);
   <span class="hljs-variable language_">window</span>.<span class="hljs-title function_">dispatchEvent</span>(ajaxEvent);
@@ -356,8 +361,10 @@
     &#125;
   &#125;
 &#125;);</code></pre>
-
-<h4 id="promise-异常捕获"><a href="#promise-异常捕获" class="headerlink" title="promise 异常捕获"></a>promise 异常捕获</h4><p>promise 中的报错顺序是：<br>如果有 catch 等捕获函数，则走 catch 捕获函数。catch 捕获函数如果没有抛出新的异常，则下一个 then 将会认为没有什么报错，会继续执行。<br>如果没有 catch 等捕获函数，我们需要注册 window.addEventListener(‘unhandledrejection’) 来处理</p>
+<h4 id="promise-异常捕获">promise 异常捕获</h4>
+<p>promise 中的报错顺序是：<br>
+如果有 catch 等捕获函数，则走 catch 捕获函数。catch 捕获函数如果没有抛出新的异常，则下一个 then 将会认为没有什么报错，会继续执行。<br>
+如果没有 catch 等捕获函数，我们需要注册 window.addEventListener(‘unhandledrejection’) 来处理</p>
 <pre><code class="hljs js"><span class="hljs-comment">/**</span>
 <span class="hljs-comment"> * Promise catch错误上报，需要在使用promise的地方显示调用.catch()，否则不会捕获错误</span>
 <span class="hljs-comment"> */</span>
@@ -381,16 +388,16 @@
 <span class="hljs-variable language_">window</span>.<span class="hljs-title function_">addEventListener</span>(<span class="hljs-string">&quot;unhandledrejection&quot;</span>, <span class="hljs-function">(<span class="hljs-params">event</span>) =&gt;</span> &#123;
   <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;捕获到未处理的promise异常&quot;</span>, event.<span class="hljs-property">reson</span>);
 &#125;);</code></pre>
-
-<h4 id="vue-项目全局异常捕获"><a href="#vue-项目全局异常捕获" class="headerlink" title="vue 项目全局异常捕获"></a>vue 项目全局异常捕获</h4><pre><code class="hljs js"><span class="hljs-title class_">Vue</span>.<span class="hljs-property">config</span>.<span class="hljs-property">errorHandler</span> = <span class="hljs-keyword">function</span> (<span class="hljs-params">err, vm, info</span>) &#123;
+<h4 id="vue-项目全局异常捕获">vue 项目全局异常捕获</h4>
+<pre><code class="hljs js"><span class="hljs-title class_">Vue</span>.<span class="hljs-property">config</span>.<span class="hljs-property">errorHandler</span> = <span class="hljs-keyword">function</span> (<span class="hljs-params">err, vm, info</span>) &#123;
   <span class="hljs-comment">// `info` 是 Vue 特定的错误信息，比如错误所在的生命周期钩子</span>
   <span class="hljs-comment">// 只在 2.2.0+ 可用</span>
   <span class="hljs-keyword">let</span> msg = <span class="hljs-string">`错误发生在：<span class="hljs-subst">$&#123;info&#125;</span>中，具体信息：<span class="hljs-subst">$&#123;err.stack&#125;</span>`</span>;
   <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(msg);
 &#125;;</code></pre>
-
 <p>捕获到这些异常后我们需要将这些异常上报给服务器，我们直接以请求图片的形式发送上报内容</p>
-<h3 id="异常上报"><a href="#异常上报" class="headerlink" title="异常上报"></a>异常上报</h3><pre><code class="hljs js"><span class="hljs-keyword">function</span> <span class="hljs-title function_">report</span>(<span class="hljs-params">msg</span>) &#123;
+<h3 id="异常上报">异常上报</h3>
+<pre><code class="hljs js"><span class="hljs-keyword">function</span> <span class="hljs-title function_">report</span>(<span class="hljs-params">msg</span>) &#123;
   <span class="hljs-keyword">var</span> reportUrl = <span class="hljs-string">&quot;http://xxxx/report&quot;</span>;
   <span class="hljs-keyword">new</span> <span class="hljs-title class_">Image</span>().<span class="hljs-property">src</span> = reportUrl + <span class="hljs-built_in">encodeURIComponent</span>(<span class="hljs-title class_">JSON</span>.<span class="hljs-title function_">stringify</span>(msg));
 &#125;</code></pre>

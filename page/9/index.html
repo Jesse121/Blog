@@ -220,7 +220,11 @@
 
     </div>
     <div class="e-content article-entry" itemprop="articleBody">
-       <h3 id="第-3-章-类型、值和变量"><a href="#第-3-章-类型、值和变量" class="headerlink" title="第 3 章 类型、值和变量"></a>第 3 章 类型、值和变量</h3><h4 id="3-1-数字"><a href="#3-1-数字" class="headerlink" title="3.1 数字"></a>3.1 数字</h4><h5 id="3-1-3-javascript-中算术运算符"><a href="#3-1-3-javascript-中算术运算符" class="headerlink" title="3.1.3 javascript 中算术运算符"></a>3.1.3 javascript 中算术运算符</h5><p>isNaN()参数是 NaN 或一个非数字值返回 true<br>isFinite() 参数是 NaN,Infinity,-Infinity 的时候返回 false</p>
+       <h3 id="第-3-章-类型、值和变量">第 3 章 类型、值和变量</h3>
+<h4 id="3-1-数字">3.1 数字</h4>
+<h5 id="3-1-3-javascript-中算术运算符">3.1.3 javascript 中算术运算符</h5>
+<p>isNaN()参数是 NaN 或一个非数字值返回 true<br>
+isFinite() 参数是 NaN,Infinity,-Infinity 的时候返回 false</p>
 <pre><code class="hljs js"><span class="hljs-built_in">isNaN</span>(<span class="hljs-title class_">NaN</span>); <span class="hljs-comment">//true</span>
 <span class="hljs-built_in">isFinite</span>(<span class="hljs-title class_">NaN</span>); <span class="hljs-comment">//false</span></code></pre> 
     </div>
@@ -326,7 +330,7 @@
 
     </div>
     <div class="e-content article-entry" itemprop="articleBody">
-       <p>在上一节中我们介绍了Bootstrap整体架构，本节我们将介绍Bootstrap框架第二部分初始化及依赖项，这部分内容位于源码的第8~885行，打开源码这部分内容似乎也不是很难理解。但是请站在一个开发者的角度来面对这段源码。为什么要这样写？如果没有Bootstrap框架我能写出类似这样的框架吗？  </p> 
+       <p>在上一节中我们介绍了Bootstrap整体架构，本节我们将介绍Bootstrap框架第二部分初始化及依赖项，这部分内容位于源码的第8~885行，打开源码这部分内容似乎也不是很难理解。但是请站在一个开发者的角度来面对这段源码。为什么要这样写？如果没有Bootstrap框架我能写出类似这样的框架吗？</p> 
     </div>
     <footer class="article-footer">
        
@@ -378,7 +382,7 @@
 
     </div>
     <div class="e-content article-entry" itemprop="articleBody">
-       <p>作为一名合格的前端工程师，你肯定听说过Bootstarp框架。确实可以说Bootstrap框架是最流行的前端框架之一。可是也有人说Bootstrap是给后端和前端小白用的，我认为只要学习它能给我们前端技能带来提升，那么我们就有必要研究一下它。Bootstrap框架虽然也提供了javascript插件，但总感觉不够用。Bootrtrap更多的则是被用作css框架。之前我也用过几次Bootstrap，感觉确实很快，很方便，用的次数多了就越想弄清楚它到底是怎么回事？它好在哪里？  </p> 
+       <p>作为一名合格的前端工程师，你肯定听说过 Bootstarp 框架。确实可以说 Bootstrap 框架是最流行的前端框架之一。可是也有人说 Bootstrap 是给后端和前端小白用的，我认为只要学习它能给我们前端技能带来提升，那么我们就有必要研究一下它。Bootstrap 框架虽然也提供了 javascript 插件，但总感觉不够用。Bootrtrap 更多的则是被用作 css 框架。之前我也用过几次 Bootstrap，感觉确实很快，很方便，用的次数多了就越想弄清楚它到底是怎么回事？它好在哪里？</p> 
     </div>
     <footer class="article-footer">
        
@@ -482,7 +486,9 @@
 
     </div>
     <div class="e-content article-entry" itemprop="articleBody">
-       <h3 id="第二章、语法"><a href="#第二章、语法" class="headerlink" title="第二章、语法"></a>第二章、语法</h3><h4 id="语句"><a href="#语句" class="headerlink" title="语句"></a>语句</h4><p>下面列出的值被当做false，其他为true：</p>
+       <h3 id="第二章、语法">第二章、语法</h3>
+<h4 id="语句">语句</h4>
+<p>下面列出的值被当做false，其他为true：</p>
 <ul>
 <li>false(boolean)</li>
 <li>0和NaN(number)</li>
@@ -541,11 +547,13 @@
 
     </div>
     <div class="e-content article-entry" itemprop="articleBody">
-       <h3 id="37-整型细节说明"><a href="#37-整型细节说明" class="headerlink" title="37 整型细节说明"></a>37 整型细节说明</h3><pre><code class="hljs php"><span class="hljs-variable">$a</span>;
+       <h3 id="37-整型细节说明">37 整型细节说明</h3>
+<pre><code class="hljs php"><span class="hljs-variable">$a</span>;
 <span class="hljs-keyword">echo</span> <span class="hljs-variable">$a</span>;
 <span class="hljs-title function_ invoke__">var_dump</span>(<span class="hljs-variable">$a</span>) <span class="hljs-comment">//NULL</span></code></pre>
-
-<p>一个数总是要占用内存空间(字节)，在 php 中一个整数一般占用四个字节(与平台相关)，一个字节占用 8bit<br>php 的整数的二进制的最高位表示符号 0 表示正数 1 表示负数<br>通过 PHP_INT_SIZE 可以显示我们自己的电脑上一个整数用几个字节表示</p> 
+<p>一个数总是要占用内存空间(字节)，在 php 中一个整数一般占用四个字节(与平台相关)，一个字节占用 8bit<br>
+php 的整数的二进制的最高位表示符号 0 表示正数 1 表示负数<br>
+通过 PHP_INT_SIZE 可以显示我们自己的电脑上一个整数用几个字节表示</p> 
     </div>
     <footer class="article-footer">
        
@@ -597,7 +605,9 @@
 
     </div>
     <div class="e-content article-entry" itemprop="articleBody">
-       <h3 id="第五章-PHP的基本语法"><a href="#第五章-PHP的基本语法" class="headerlink" title="第五章 PHP的基本语法"></a>第五章 PHP的基本语法</h3><h4 id="5-2-4-在程序中使用空白的处理"><a href="#5-2-4-在程序中使用空白的处理" class="headerlink" title="5.2.4 在程序中使用空白的处理"></a>5.2.4 在程序中使用空白的处理</h4><p><img src="http://o8l2fza1x.bkt.clouddn.com/talk-about-PHP/images/PHP%E7%A9%BA%E8%A1%8C%E8%A7%84%E5%88%99.png" alt="php空行处理"></p> 
+       <h3 id="第五章-PHP-的基本语法">第五章 PHP 的基本语法</h3>
+<h4 id="5-2-4-在程序中使用空白的处理">5.2.4 在程序中使用空白的处理</h4>
+<p><img src="http://o8l2fza1x.bkt.clouddn.com/talk-about-PHP/images/PHP%E7%A9%BA%E8%A1%8C%E8%A7%84%E5%88%99.png" alt="php空行处理" referrerPolicy="no-referrer"></p> 
     </div>
     <footer class="article-footer">
        
@@ -649,7 +659,8 @@
 
     </div>
     <div class="e-content article-entry" itemprop="articleBody">
-       <h4 id="冒泡排序法"><a href="#冒泡排序法" class="headerlink" title="冒泡排序法"></a>冒泡排序法</h4><pre><code class="hljs php"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">bubbleSort</span>(<span class="hljs-params"><span class="hljs-variable">$array</span></span>)</span>&#123;
+       <h4 id="冒泡排序法">冒泡排序法</h4>
+<pre><code class="hljs php"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">bubbleSort</span>(<span class="hljs-params"><span class="hljs-variable">$array</span></span>)</span>&#123;
     <span class="hljs-variable">$temp</span> = <span class="hljs-number">0</span>;
     <span class="hljs-keyword">for</span>(<span class="hljs-variable">$i</span> = <span class="hljs-number">0</span>;<span class="hljs-variable">$i</span> &lt; <span class="hljs-title function_ invoke__">count</span>(<span class="hljs-variable">$array</span>) -<span class="hljs-number">1</span>;<span class="hljs-variable">$i</span>++)&#123;
         <span class="hljs-keyword">for</span>(<span class="hljs-variable">$j</span> = <span class="hljs-number">0</span>;<span class="hljs-variable">$j</span> &lt; <span class="hljs-title function_ invoke__">count</span>(<span class="hljs-variable">$array</span>) - <span class="hljs-number">1</span> -<span class="hljs-variable">$i</span>;<span class="hljs-variable">$j</span>++)&#123;
@@ -712,8 +723,11 @@
 
     </div>
     <div class="e-content article-entry" itemprop="articleBody">
-       <h4 id="什么是Web-Worker？"><a href="#什么是Web-Worker？" class="headerlink" title="什么是Web Worker？"></a>什么是Web Worker？</h4><p>web worker 是运行在后台的 JavaScript，不会影响页面的性能。</p>
-<h4 id="Web-Worker有什么用？"><a href="#Web-Worker有什么用？" class="headerlink" title="Web Worker有什么用？"></a>Web Worker有什么用？</h4><p>JavaScript语言采用的是单线程模型，也就是说，所有任务排成一个队列，一次只能做一件事。随着电脑计算能力的增强，尤其是多核CPU的出现，这一点带来很大的不便，无法充分发挥JavaScript的潜力。<br>Web Worker的目的，就是为JavaScript创造多线程环境，允许主线程将一些任务分配给子线程。在主线程运行的同时，子线程在后台运行，两者互不干扰。等到子线程完成计算任务，再把结果返回给主线程。因此，每一个子线程就好像一个“工人”（worker），默默地完成自己的工作。这样做的好处是，一些高计算量或高延迟的工作，被worker线程负担了，所以主进程（通常是UI进程）就会很流畅，不会被阻塞或拖慢，可以提高应用的总体性能，并且提升用户体验。</p> 
+       <h4 id="什么是Web-Worker？">什么是Web Worker？</h4>
+<p>web worker 是运行在后台的 JavaScript，不会影响页面的性能。</p>
+<h4 id="Web-Worker有什么用？">Web Worker有什么用？</h4>
+<p>JavaScript语言采用的是单线程模型，也就是说，所有任务排成一个队列，一次只能做一件事。随着电脑计算能力的增强，尤其是多核CPU的出现，这一点带来很大的不便，无法充分发挥JavaScript的潜力。<br>
+Web Worker的目的，就是为JavaScript创造多线程环境，允许主线程将一些任务分配给子线程。在主线程运行的同时，子线程在后台运行，两者互不干扰。等到子线程完成计算任务，再把结果返回给主线程。因此，每一个子线程就好像一个“工人”（worker），默默地完成自己的工作。这样做的好处是，一些高计算量或高延迟的工作，被worker线程负担了，所以主进程（通常是UI进程）就会很流畅，不会被阻塞或拖慢，可以提高应用的总体性能，并且提升用户体验。</p> 
     </div>
     <footer class="article-footer">
        

@@ -289,17 +289,17 @@ Uppercase&lt;StringType&gt;
 Lowercase&lt;StringType&gt;
 Capitalize&lt;StringType&gt;
 Uncapitalize&lt;StringType&gt;</code></pre>
-
 <span id="more"></span>
-
-<h3 id="内置工具类型-Utility-Types"><a href="#内置工具类型-Utility-Types" class="headerlink" title="内置工具类型 Utility Types"></a>内置工具类型 Utility Types</h3><h4 id="Partial（部分的）"><a href="#Partial（部分的）" class="headerlink" title="Partial（部分的）"></a>Partial（部分的）</h4><p>作用是将传入的属性变为可选项<br>实现原理</p>
+<h3 id="内置工具类型-Utility-Types">内置工具类型 Utility Types</h3>
+<h4 id="Partial（部分的）">Partial（部分的）</h4>
+<p>作用是将传入的属性变为可选项<br>
+实现原理</p>
 <pre><code class="hljs ts"><span class="hljs-comment">/**</span>
 <span class="hljs-comment"> * Make all properties in T optional</span>
 <span class="hljs-comment"> */</span>
 <span class="hljs-keyword">type</span> <span class="hljs-title class_">Partial</span>&lt;T&gt; = &#123;
   [P <span class="hljs-keyword">in</span> keyof T]?: T[P];
 &#125;;</code></pre>
-
 <p>Example</p>
 <pre><code class="hljs ts"><span class="hljs-keyword">interface</span> <span class="hljs-title class_">Foo</span> &#123;
   <span class="hljs-attr">name</span>: <span class="hljs-built_in">string</span>;
@@ -307,15 +307,15 @@ Uncapitalize&lt;StringType&gt;</code></pre>
 &#125;
 <span class="hljs-keyword">type</span> B = <span class="hljs-title class_">Partial</span>&lt;<span class="hljs-title class_">Foo</span>&gt;;
 <span class="hljs-comment">//type B = &#123;name?: string; age?: number;&#125;</span></code></pre>
-
-<h4 id="Required（必须的）"><a href="#Required（必须的）" class="headerlink" title="Required（必须的）"></a>Required（必须的）</h4><p>作用是将传入的属性变为必选项<br>实现原理</p>
+<h4 id="Required（必须的）">Required（必须的）</h4>
+<p>作用是将传入的属性变为必选项<br>
+实现原理</p>
 <pre><code class="hljs ts"><span class="hljs-comment">/**</span>
 <span class="hljs-comment"> * Make all properties in T required</span>
 <span class="hljs-comment"> */</span>
 <span class="hljs-keyword">type</span> <span class="hljs-title class_">Required</span>&lt;T&gt; = &#123;
   [P <span class="hljs-keyword">in</span> keyof T]-?: T[P];
 &#125;;</code></pre>
-
 <p>Example</p>
 <pre><code class="hljs ts"><span class="hljs-keyword">interface</span> <span class="hljs-title class_">Foo</span> &#123;
   name?: <span class="hljs-built_in">string</span>;
@@ -323,15 +323,15 @@ Uncapitalize&lt;StringType&gt;</code></pre>
 &#125;
 <span class="hljs-keyword">type</span> A = <span class="hljs-title class_">Required</span>&lt;<span class="hljs-title class_">Foo</span>&gt;;
 <span class="hljs-comment">// type A = &#123;name: string; age: number;&#125;</span></code></pre>
-
-<h4 id="Readonly（只读的）"><a href="#Readonly（只读的）" class="headerlink" title="Readonly（只读的）"></a>Readonly（只读的）</h4><p>作用是让传入类型中的所有属性变成都是只读的（不能修改属性）<br>实现原理</p>
+<h4 id="Readonly（只读的）">Readonly（只读的）</h4>
+<p>作用是让传入类型中的所有属性变成都是只读的（不能修改属性）<br>
+实现原理</p>
 <pre><code class="hljs ts"><span class="hljs-comment">/**</span>
 <span class="hljs-comment"> * Make all properties in T readonly</span>
 <span class="hljs-comment"> */</span>
 <span class="hljs-keyword">type</span> <span class="hljs-title class_">Readonly</span>&lt;T&gt; = &#123;
   <span class="hljs-keyword">readonly</span> [P <span class="hljs-keyword">in</span> keyof T]: T[P];
 &#125;;</code></pre>
-
 <p>Example</p>
 <pre><code class="hljs ts"><span class="hljs-keyword">interface</span> <span class="hljs-title class_">Todo</span> &#123;
   <span class="hljs-attr">title</span>: <span class="hljs-built_in">string</span>;
@@ -342,29 +342,29 @@ Uncapitalize&lt;StringType&gt;</code></pre>
 &#125;;
 
 todo.<span class="hljs-property">title</span> = <span class="hljs-string">&quot;Hello&quot;</span>; <span class="hljs-comment">//Cannot assign to &#x27;title&#x27; because it is a read-only property.</span></code></pre>
-
-<h4 id="Record（记录）"><a href="#Record（记录）" class="headerlink" title="Record（记录）"></a>Record（记录）</h4><p>作用是构建一个类型，这个类型用来描述一个对象，这个对象的属性都具有相同的类型<br>实现原理</p>
+<h4 id="Record（记录）">Record（记录）</h4>
+<p>作用是构建一个类型，这个类型用来描述一个对象，这个对象的属性都具有相同的类型<br>
+实现原理</p>
 <pre><code class="hljs ts"><span class="hljs-comment">/**</span>
 <span class="hljs-comment"> * Construct a type with a set of properties K of type T</span>
 <span class="hljs-comment"> */</span>
 <span class="hljs-keyword">type</span> <span class="hljs-title class_">Record</span>&lt;K <span class="hljs-keyword">extends</span> keyof <span class="hljs-built_in">any</span>, T&gt; = &#123;
   [P <span class="hljs-keyword">in</span> K]: T;
 &#125;;</code></pre>
-
 <p>Example</p>
 <pre><code class="hljs ts"><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> <span class="hljs-attr">student1</span>: <span class="hljs-title class_">Record</span>&lt;<span class="hljs-built_in">string</span>, <span class="hljs-built_in">any</span>&gt; = &#123;
   <span class="hljs-attr">name</span>: <span class="hljs-string">&quot;张三&quot;</span>,
   <span class="hljs-attr">age</span>: <span class="hljs-number">20</span>,
 &#125;;</code></pre>
-
-<h4 id="Pick（摘取）"><a href="#Pick（摘取）" class="headerlink" title="Pick（摘取）"></a>Pick（摘取）</h4><p>作用是选择传入类型中的部分属性组成新类型<br>实现原理</p>
+<h4 id="Pick（摘取）">Pick（摘取）</h4>
+<p>作用是选择传入类型中的部分属性组成新类型<br>
+实现原理</p>
 <pre><code class="hljs ts"><span class="hljs-comment">/**</span>
 <span class="hljs-comment"> * From T, pick a set of properties whose keys are in the union K</span>
 <span class="hljs-comment"> */</span>
 <span class="hljs-keyword">type</span> <span class="hljs-title class_">Pick</span>&lt;T, K <span class="hljs-keyword">extends</span> keyof T&gt; = &#123;
   [P <span class="hljs-keyword">in</span> K]: T[P];
 &#125;;</code></pre>
-
 <p>Example</p>
 <pre><code class="hljs ts"><span class="hljs-keyword">interface</span> <span class="hljs-title class_">User</span> &#123;
   <span class="hljs-attr">age</span>: <span class="hljs-built_in">number</span>;
@@ -373,13 +373,13 @@ todo.<span class="hljs-property">title</span> = <span class="hljs-string">&quot;
 &#125;
 <span class="hljs-keyword">type</span> <span class="hljs-title class_">PickUser</span> = <span class="hljs-title class_">Pick</span>&lt;<span class="hljs-title class_">User</span>, <span class="hljs-string">&quot;age&quot;</span> | <span class="hljs-string">&quot;name&quot;</span>&gt;;
 <span class="hljs-comment">//type PickUser = &#123; age: number; name: string; &#125;</span></code></pre>
-
-<h4 id="Omit（省略）"><a href="#Omit（省略）" class="headerlink" title="Omit（省略）"></a>Omit（省略）</h4><p>传入一个类型，和这个类型的几个属性，把传入的属性省略掉，组成一个新类型<br>实现原理</p>
+<h4 id="Omit（省略）">Omit（省略）</h4>
+<p>传入一个类型，和这个类型的几个属性，把传入的属性省略掉，组成一个新类型<br>
+实现原理</p>
 <pre><code class="hljs ts"><span class="hljs-comment">/**</span>
 <span class="hljs-comment"> * Construct a type with the properties of T except for those in type K.</span>
 <span class="hljs-comment"> */</span>
 <span class="hljs-keyword">type</span> <span class="hljs-title class_">Omit</span>&lt;T, K <span class="hljs-keyword">extends</span> keyof <span class="hljs-built_in">any</span>&gt; = <span class="hljs-title class_">Pick</span>&lt;T, <span class="hljs-title class_">Exclude</span>&lt;keyof T, K&gt;&gt;;</code></pre>
-
 <p>Example</p>
 <pre><code class="hljs ts"><span class="hljs-keyword">interface</span> <span class="hljs-title class_">User</span> &#123;
   <span class="hljs-attr">id</span>: <span class="hljs-built_in">number</span>;
@@ -388,35 +388,34 @@ todo.<span class="hljs-property">title</span> = <span class="hljs-string">&quot;
 &#125;
 <span class="hljs-keyword">type</span> <span class="hljs-title class_">OmitUser</span> = <span class="hljs-title class_">Omit</span>&lt;<span class="hljs-title class_">User</span>, <span class="hljs-string">&quot;id&quot;</span>&gt;;
 <span class="hljs-comment">// type OmitUser = &#123; age: number; name: string; &#125;</span></code></pre>
-
-<h4 id="Exclude（排除）"><a href="#Exclude（排除）" class="headerlink" title="Exclude（排除）"></a>Exclude（排除）</h4><p>就是将前面类型的与后面类型对比，过滤出前面独有的属性<br>实现原理</p>
+<h4 id="Exclude（排除）">Exclude（排除）</h4>
+<p>就是将前面类型的与后面类型对比，过滤出前面独有的属性<br>
+实现原理</p>
 <pre><code class="hljs ts"><span class="hljs-comment">/**</span>
 <span class="hljs-comment"> * Exclude from T those types that are assignable to U</span>
 <span class="hljs-comment"> */</span>
 <span class="hljs-keyword">type</span> <span class="hljs-title class_">Exclude</span>&lt;T, U&gt; = T <span class="hljs-keyword">extends</span> U ? <span class="hljs-built_in">never</span> : T;</code></pre>
-
 <p>Example</p>
 <pre><code class="hljs ts"><span class="hljs-keyword">const</span> <span class="hljs-attr">str</span>: <span class="hljs-title class_">Exclude</span>&lt;<span class="hljs-string">&quot;a&quot;</span> | <span class="hljs-string">&quot;1&quot;</span> | <span class="hljs-string">&quot;2&quot;</span>, <span class="hljs-string">&quot;a&quot;</span> | <span class="hljs-string">&quot;y&quot;</span> | <span class="hljs-string">&quot;z&quot;</span>&gt; = <span class="hljs-string">&quot;1&quot;</span>;
 <span class="hljs-comment">//const str: &#x27;1&#x27;|&#x27;2&#x27; = &#x27;1&#x27;;</span></code></pre>
-
-<h4 id="Extract（取出）"><a href="#Extract（取出）" class="headerlink" title="Extract（取出）"></a>Extract（取出）</h4><p>与 Exclude 相反，针对联合类型，排除不同的的，取出相同的<br>实现原理</p>
+<h4 id="Extract（取出）">Extract（取出）</h4>
+<p>与 Exclude 相反，针对联合类型，排除不同的的，取出相同的<br>
+实现原理</p>
 <pre><code class="hljs ts"><span class="hljs-comment">/**</span>
 <span class="hljs-comment"> * Extract from T those types that are assignable to U</span>
 <span class="hljs-comment"> */</span>
 <span class="hljs-keyword">type</span> <span class="hljs-title class_">Extract</span>&lt;T, U&gt; = T <span class="hljs-keyword">extends</span> U ? T : <span class="hljs-built_in">never</span>;</code></pre>
-
 <p>Example</p>
 <pre><code class="hljs ts"><span class="hljs-keyword">export</span> <span class="hljs-keyword">type</span> <span class="hljs-title class_">PersonAttr</span> = <span class="hljs-string">&quot;name&quot;</span> | <span class="hljs-string">&quot;age&quot;</span>;
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">type</span> <span class="hljs-title class_">StudentAttr</span> = <span class="hljs-string">&quot;name&quot;</span> | <span class="hljs-string">&quot;age&quot;</span> | <span class="hljs-string">&quot;class&quot;</span> | <span class="hljs-string">&quot;school&quot;</span>;
 <span class="hljs-keyword">const</span> <span class="hljs-attr">student1</span>: <span class="hljs-title class_">Extract</span>&lt;<span class="hljs-title class_">StudentAttr</span>, <span class="hljs-title class_">PersonAttr</span>&gt; = <span class="hljs-string">&quot;name&quot;</span>;
 <span class="hljs-comment">// const student1: &quot;name&quot; | &quot;age&quot; = &quot;name&quot;;</span></code></pre>
-
-<h4 id="NonNullable（不能为-null）"><a href="#NonNullable（不能为-null）" class="headerlink" title="NonNullable（不能为 null）"></a>NonNullable（不能为 null）</h4><p>实现原理</p>
+<h4 id="NonNullable（不能为-null）">NonNullable（不能为 null）</h4>
+<p>实现原理</p>
 <pre><code class="hljs ts"><span class="hljs-comment">/**</span>
 <span class="hljs-comment"> * Exclude null and undefined from T</span>
 <span class="hljs-comment"> */</span>
 <span class="hljs-keyword">type</span> <span class="hljs-title class_">NonNullable</span>&lt;T&gt; = T <span class="hljs-keyword">extends</span> <span class="hljs-literal">null</span> | <span class="hljs-literal">undefined</span> ? <span class="hljs-built_in">never</span> : T;</code></pre>
-
 <p>Example</p>
 <pre><code class="hljs ts"><span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> <span class="hljs-title class_">Student</span> &#123;
   <span class="hljs-attr">name</span>: <span class="hljs-built_in">string</span>;
@@ -425,8 +424,9 @@ todo.<span class="hljs-property">title</span> = <span class="hljs-string">&quot;
 
 <span class="hljs-keyword">const</span> <span class="hljs-attr">student1</span>: <span class="hljs-title class_">NonNullable</span>&lt;<span class="hljs-title class_">Student</span> | <span class="hljs-literal">undefined</span> | <span class="hljs-literal">null</span>&gt; = <span class="hljs-literal">null</span>;
 <span class="hljs-comment">// 不能将类型“null”分配给类型“Student”。</span></code></pre>
-
-<h4 id="Parameters（参数）"><a href="#Parameters（参数）" class="headerlink" title="Parameters（参数）"></a>Parameters（参数）</h4><p>获取传入函数的参数组成的类型<br>实现原理</p>
+<h4 id="Parameters（参数）">Parameters（参数）</h4>
+<p>获取传入函数的参数组成的类型<br>
+实现原理</p>
 <pre><code class="hljs ts"><span class="hljs-comment">/**</span>
 <span class="hljs-comment"> * Obtain the parameters of a function type in a tuple</span>
 <span class="hljs-comment"> */</span>
@@ -435,7 +435,6 @@ todo.<span class="hljs-property">title</span> = <span class="hljs-string">&quot;
 ) =&gt; <span class="hljs-built_in">any</span>
   ? P
   : <span class="hljs-built_in">never</span>;</code></pre>
-
 <p>Example</p>
 <pre><code class="hljs ts"><span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> <span class="hljs-title class_">Student</span> &#123;
   <span class="hljs-attr">name</span>: <span class="hljs-built_in">string</span>;
@@ -448,14 +447,14 @@ todo.<span class="hljs-property">title</span> = <span class="hljs-string">&quot;
 
 <span class="hljs-keyword">const</span> <span class="hljs-attr">student1</span>: <span class="hljs-title class_">Parameters</span>&lt;<span class="hljs-title class_">StudentFunc</span>&gt;;
 <span class="hljs-comment">// const student1: [name: string, age: number]</span></code></pre>
-
-<h4 id="ConstructorParameters（构造参数）"><a href="#ConstructorParameters（构造参数）" class="headerlink" title="ConstructorParameters（构造参数）"></a>ConstructorParameters（构造参数）</h4><p>获取传入构造函数的参数组成的类型<br>实现原理</p>
+<h4 id="ConstructorParameters（构造参数）">ConstructorParameters（构造参数）</h4>
+<p>获取传入构造函数的参数组成的类型<br>
+实现原理</p>
 <pre><code class="hljs ts"><span class="hljs-comment">/**</span>
 <span class="hljs-comment"> * Obtain the parameters of a constructor function type in a tuple</span>
 <span class="hljs-comment"> */</span>
 <span class="hljs-keyword">type</span> <span class="hljs-title class_">ConstructorParameters</span>&lt;T <span class="hljs-keyword">extends</span> <span class="hljs-keyword">abstract</span> <span class="hljs-keyword">new</span> (...<span class="hljs-attr">args</span>: <span class="hljs-built_in">any</span>) =&gt; <span class="hljs-built_in">any</span>&gt; =
   T <span class="hljs-keyword">extends</span> <span class="hljs-keyword">abstract</span> <span class="hljs-keyword">new</span> (...<span class="hljs-attr">args</span>: infer P) =&gt; <span class="hljs-built_in">any</span> ? P : <span class="hljs-built_in">never</span>;</code></pre>
-
 <p>Example</p>
 <pre><code class="hljs ts"><span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> <span class="hljs-title class_">Student</span> &#123;
   <span class="hljs-attr">name</span>: <span class="hljs-built_in">string</span>;
@@ -468,8 +467,9 @@ todo.<span class="hljs-property">title</span> = <span class="hljs-string">&quot;
 
 <span class="hljs-keyword">const</span> <span class="hljs-attr">student1</span>: <span class="hljs-title class_">ConstructorParameters</span>&lt;<span class="hljs-title class_">StudentConstructor</span>&gt;;
 <span class="hljs-comment">// const student1: [name: string, age: number]</span></code></pre>
-
-<h4 id="ReturnType（返回类型）"><a href="#ReturnType（返回类型）" class="headerlink" title="ReturnType（返回类型）"></a>ReturnType（返回类型）</h4><p>获取传入函数的返回类型<br>实现原理</p>
+<h4 id="ReturnType（返回类型）">ReturnType（返回类型）</h4>
+<p>获取传入函数的返回类型<br>
+实现原理</p>
 <pre><code class="hljs ts"><span class="hljs-comment">/**</span>
 <span class="hljs-comment"> * Obtain the return type of a function type</span>
 <span class="hljs-comment"> */</span>
@@ -478,7 +478,6 @@ todo.<span class="hljs-property">title</span> = <span class="hljs-string">&quot;
 ) =&gt; infer R
   ? R
   : <span class="hljs-built_in">any</span>;</code></pre>
-
 <p>Example</p>
 <pre><code class="hljs ts"><span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> <span class="hljs-title class_">Student</span> &#123;
   <span class="hljs-attr">name</span>: <span class="hljs-built_in">string</span>;
@@ -491,14 +490,14 @@ todo.<span class="hljs-property">title</span> = <span class="hljs-string">&quot;
 
 <span class="hljs-keyword">const</span> <span class="hljs-attr">student1</span>: <span class="hljs-title class_">ReturnType</span>&lt;<span class="hljs-title class_">StudentFunc</span>&gt; = &#123;&#125;;
 <span class="hljs-comment">// const student1: Student</span></code></pre>
-
-<h4 id="InstanceType（构造返回类型、实例类型）"><a href="#InstanceType（构造返回类型、实例类型）" class="headerlink" title="InstanceType（构造返回类型、实例类型）"></a>InstanceType（构造返回类型、实例类型）</h4><p>获取传入构造函数的返回类型<br>实现原理</p>
+<h4 id="InstanceType（构造返回类型、实例类型）">InstanceType（构造返回类型、实例类型）</h4>
+<p>获取传入构造函数的返回类型<br>
+实现原理</p>
 <pre><code class="hljs ts"><span class="hljs-comment">/**</span>
 <span class="hljs-comment"> * Obtain the return type of a constructor function type</span>
 <span class="hljs-comment"> */</span>
 <span class="hljs-keyword">type</span> <span class="hljs-title class_">InstanceType</span>&lt;T <span class="hljs-keyword">extends</span> <span class="hljs-keyword">abstract</span> <span class="hljs-keyword">new</span> (...<span class="hljs-attr">args</span>: <span class="hljs-built_in">any</span>) =&gt; <span class="hljs-built_in">any</span>&gt; =
   T <span class="hljs-keyword">extends</span> <span class="hljs-keyword">abstract</span> <span class="hljs-keyword">new</span> (...<span class="hljs-attr">args</span>: <span class="hljs-built_in">any</span>) =&gt; infer R ? R : <span class="hljs-built_in">any</span>;</code></pre>
-
 <p>Example</p>
 <pre><code class="hljs ts"><span class="hljs-keyword">const</span> <span class="hljs-title class_">Student</span> = <span class="hljs-keyword">class</span> &#123;
   <span class="hljs-attr">name</span>: <span class="hljs-built_in">string</span>;
@@ -514,95 +513,94 @@ todo.<span class="hljs-property">title</span> = <span class="hljs-string">&quot;
 
 <span class="hljs-keyword">const</span> <span class="hljs-attr">student1</span>: <span class="hljs-title class_">InstanceType</span>&lt;<span class="hljs-keyword">typeof</span> <span class="hljs-title class_">Student</span>&gt; = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Student</span>(<span class="hljs-string">&quot;张三&quot;</span>, <span class="hljs-number">20</span>);
 <span class="hljs-comment">// const student1: Student</span></code></pre>
-
-<h4 id="Uppercase（大写）"><a href="#Uppercase（大写）" class="headerlink" title="Uppercase（大写）"></a>Uppercase（大写）</h4><p>实现原理</p>
+<h4 id="Uppercase（大写）">Uppercase（大写）</h4>
+<p>实现原理</p>
 <pre><code class="hljs ts"><span class="hljs-comment">/**</span>
 <span class="hljs-comment"> * Convert string literal type to uppercase</span>
 <span class="hljs-comment"> */</span>
 <span class="hljs-keyword">type</span> <span class="hljs-title class_">Uppercase</span>&lt;S <span class="hljs-keyword">extends</span> <span class="hljs-built_in">string</span>&gt; = intrinsic;</code></pre>
-
 <p>Example</p>
 <pre><code class="hljs ts"><span class="hljs-keyword">export</span> <span class="hljs-keyword">type</span> <span class="hljs-title class_">StudentSexType</span> = <span class="hljs-string">&quot;male&quot;</span> | <span class="hljs-string">&quot;female&quot;</span>;
 
 <span class="hljs-keyword">const</span> <span class="hljs-attr">studentSex</span>: <span class="hljs-title class_">Uppercase</span>&lt;<span class="hljs-title class_">StudentSexType</span>&gt; = <span class="hljs-string">&quot;MALE&quot;</span>;</code></pre>
-
-<h4 id="Lowercase（小写）"><a href="#Lowercase（小写）" class="headerlink" title="Lowercase（小写）"></a>Lowercase（小写）</h4><p>实现原理</p>
+<h4 id="Lowercase（小写）">Lowercase（小写）</h4>
+<p>实现原理</p>
 <pre><code class="hljs ts"><span class="hljs-comment">/**</span>
 <span class="hljs-comment"> * Convert string literal type to lowercase</span>
 <span class="hljs-comment"> */</span>
 <span class="hljs-keyword">type</span> <span class="hljs-title class_">Lowercase</span>&lt;S <span class="hljs-keyword">extends</span> <span class="hljs-built_in">string</span>&gt; = intrinsic;</code></pre>
-
 <p>Example</p>
 <pre><code class="hljs ts"><span class="hljs-keyword">export</span> <span class="hljs-keyword">type</span> <span class="hljs-title class_">StudentSexType</span> = <span class="hljs-string">&quot;MALE&quot;</span> | <span class="hljs-string">&quot;FEMALE&quot;</span>;
 
 <span class="hljs-keyword">const</span> <span class="hljs-attr">studentSex</span>: <span class="hljs-title class_">Lowercase</span>&lt;<span class="hljs-title class_">StudentSexType</span>&gt; = <span class="hljs-string">&quot;male&quot;</span>;</code></pre>
-
-<h4 id="Capitalize（首字母大写）"><a href="#Capitalize（首字母大写）" class="headerlink" title="Capitalize（首字母大写）"></a>Capitalize（首字母大写）</h4><p>实现原理</p>
+<h4 id="Capitalize（首字母大写）">Capitalize（首字母大写）</h4>
+<p>实现原理</p>
 <pre><code class="hljs ts"><span class="hljs-comment">/**</span>
 <span class="hljs-comment"> * Convert first character of string literal type to uppercase</span>
 <span class="hljs-comment"> */</span>
 <span class="hljs-keyword">type</span> <span class="hljs-title class_">Capitalize</span>&lt;S <span class="hljs-keyword">extends</span> <span class="hljs-built_in">string</span>&gt; = intrinsic;</code></pre>
-
 <p>Example</p>
 <pre><code class="hljs ts"><span class="hljs-keyword">export</span> <span class="hljs-keyword">type</span> <span class="hljs-title class_">StudentSexType</span> = <span class="hljs-string">&quot;male&quot;</span> | <span class="hljs-string">&quot;female&quot;</span>;
 
 <span class="hljs-keyword">const</span> <span class="hljs-attr">studentSex</span>: <span class="hljs-title class_">Capitalize</span>&lt;<span class="hljs-title class_">StudentSexType</span>&gt; = <span class="hljs-string">&quot;Male&quot;</span>;</code></pre>
-
-<h4 id="Uncapitalize（首字母小写）"><a href="#Uncapitalize（首字母小写）" class="headerlink" title="Uncapitalize（首字母小写）"></a>Uncapitalize（首字母小写）</h4><p>实现原理</p>
+<h4 id="Uncapitalize（首字母小写）">Uncapitalize（首字母小写）</h4>
+<p>实现原理</p>
 <pre><code class="hljs ts"><span class="hljs-comment">/**</span>
 <span class="hljs-comment"> * Convert first character of string literal type to lowercase</span>
 <span class="hljs-comment"> */</span>
 <span class="hljs-keyword">type</span> <span class="hljs-title class_">Uncapitalize</span>&lt;S <span class="hljs-keyword">extends</span> <span class="hljs-built_in">string</span>&gt; = intrinsic;</code></pre>
-
 <p>Example</p>
 <pre><code class="hljs ts"><span class="hljs-keyword">export</span> <span class="hljs-keyword">type</span> <span class="hljs-title class_">StudentSexType</span> = <span class="hljs-string">&quot;MALE&quot;</span> | <span class="hljs-string">&quot;FEMALE&quot;</span>;
 
 <span class="hljs-keyword">const</span> <span class="hljs-attr">studentSex</span>: <span class="hljs-title class_">Uncapitalize</span>&lt;<span class="hljs-title class_">StudentSexType</span>&gt; = <span class="hljs-string">&quot;mALE&quot;</span>;</code></pre>
-
-<h3 id="操作符"><a href="#操作符" class="headerlink" title="操作符"></a>操作符</h3><h4 id="keyof-键值获取"><a href="#keyof-键值获取" class="headerlink" title="keyof 键值获取"></a>keyof 键值获取</h4><p>keyof 可以用来取得一个对象接口的所有 key 值.<br>keyof 产生联合类型</p>
+<h3 id="操作符">操作符</h3>
+<h4 id="keyof-键值获取">keyof 键值获取</h4>
+<p>keyof 可以用来取得一个对象接口的所有 key 值.<br>
+keyof 产生联合类型</p>
 <pre><code class="hljs ts"><span class="hljs-keyword">interface</span> <span class="hljs-title class_">Foo</span> &#123;
   <span class="hljs-attr">name</span>: <span class="hljs-built_in">string</span>;
   <span class="hljs-attr">age</span>: <span class="hljs-built_in">number</span>;
 &#125;
 <span class="hljs-keyword">type</span> T = keyof <span class="hljs-title class_">Foo</span>;
 <span class="hljs-comment">// T -&gt; &quot;name&quot; | &quot;age&quot;</span></code></pre>
-
-<h4 id="in-遍历属性"><a href="#in-遍历属性" class="headerlink" title="in 遍历属性"></a>in 遍历属性</h4><p>in 只能用在类型的定义中，可以对枚举类型进行遍历</p>
+<h4 id="in-遍历属性">in 遍历属性</h4>
+<p>in 只能用在类型的定义中，可以对枚举类型进行遍历</p>
 <pre><code class="hljs ts"><span class="hljs-keyword">type</span> <span class="hljs-title class_">Obj</span> = &#123;
   [p <span class="hljs-keyword">in</span> T]: <span class="hljs-built_in">any</span>;
 &#125;;
 <span class="hljs-comment">// Obj -&gt; &#123; a: any, b: any &#125;</span></code></pre>
-
-<h4 id="typeof-代表取某个值的-type"><a href="#typeof-代表取某个值的-type" class="headerlink" title="typeof 代表取某个值的 type"></a>typeof 代表取某个值的 type</h4><pre><code class="hljs ts"><span class="hljs-keyword">const</span> <span class="hljs-attr">a</span>: <span class="hljs-built_in">number</span> = <span class="hljs-number">3</span>;
+<h4 id="typeof-代表取某个值的-type">typeof 代表取某个值的 type</h4>
+<pre><code class="hljs ts"><span class="hljs-keyword">const</span> <span class="hljs-attr">a</span>: <span class="hljs-built_in">number</span> = <span class="hljs-number">3</span>;
 
 <span class="hljs-comment">// 相当于: const b: number = 4</span>
 <span class="hljs-keyword">const</span> <span class="hljs-attr">b</span>: <span class="hljs-keyword">typeof</span> a = <span class="hljs-number">4</span>;</code></pre>
-
-<h4 id="instanceof-用于检测是否在原型链上"><a href="#instanceof-用于检测是否在原型链上" class="headerlink" title="instanceof 用于检测是否在原型链上"></a>instanceof 用于检测是否在原型链上</h4><pre><code class="hljs ts"><span class="hljs-keyword">function</span> <span class="hljs-title function_">logValue</span>(<span class="hljs-params">x: <span class="hljs-built_in">Date</span> | <span class="hljs-built_in">string</span></span>) &#123;
+<h4 id="instanceof-用于检测是否在原型链上">instanceof 用于检测是否在原型链上</h4>
+<pre><code class="hljs ts"><span class="hljs-keyword">function</span> <span class="hljs-title function_">logValue</span>(<span class="hljs-params">x: <span class="hljs-built_in">Date</span> | <span class="hljs-built_in">string</span></span>) &#123;
   <span class="hljs-keyword">if</span> (x <span class="hljs-keyword">instanceof</span> <span class="hljs-title class_">Date</span>) &#123;
     <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(x.<span class="hljs-title function_">toUTCString</span>());
   &#125; <span class="hljs-keyword">else</span> &#123;
     <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(x.<span class="hljs-title function_">toUpperCase</span>());
   &#125;
 &#125;</code></pre>
-
-<h3 id="几个特殊操作符"><a href="#几个特殊操作符" class="headerlink" title="几个特殊操作符"></a>几个特殊操作符</h3><h4 id="空值合并运算符"><a href="#空值合并运算符" class="headerlink" title="空值合并运算符 ??"></a>空值合并运算符 ??</h4><p>空值合并运算符（??）是一个逻辑运算符。当左侧操作数为 null 或 undefined 时，其返回右侧的操作数。否则返回左侧的操作数。</p>
+<h3 id="几个特殊操作符">几个特殊操作符</h3>
+<h4 id="空值合并运算符">空值合并运算符 ??</h4>
+<p>空值合并运算符（??）是一个逻辑运算符。当左侧操作数为 null 或 undefined 时，其返回右侧的操作数。否则返回左侧的操作数。</p>
 <pre><code class="hljs ts"><span class="hljs-keyword">let</span> x = foo ?? <span class="hljs-title function_">bar</span>();
 <span class="hljs-comment">// 等价于</span>
 <span class="hljs-keyword">let</span> x = foo !== <span class="hljs-literal">null</span> &amp;&amp; foo !== <span class="hljs-literal">undefined</span> ? foo : <span class="hljs-title function_">bar</span>();</code></pre>
-
 <p>与逻辑或（||）操作符不同，逻辑或会在左操作数为 falsy 值时返回右侧操作数。也就是说，如果你使用 || 来为某些变量设置默认的值时，你可能会遇到意料之外的行为。比如为 falsy 值（’’、NaN 或 0）时。</p>
-<h4 id="可选链操作符"><a href="#可选链操作符" class="headerlink" title="可选链操作符 ?."></a>可选链操作符 ?.</h4><p>可选链的核心是允许我们写下如果碰到  null  或者  undefined，TypeScript 能立即停止运行的代码返回 undefined。<br>可选链耀眼的部分是使用  ?.  运算符来访问一个可选属性。</p>
+<h4 id="可选链操作符">可选链操作符 ?.</h4>
+<p>可选链的核心是允许我们写下如果碰到  null  或者  undefined，TypeScript 能立即停止运行的代码返回 undefined。<br>
+可选链耀眼的部分是使用  ?.  运算符来访问一个可选属性。</p>
 <pre><code class="hljs ts"><span class="hljs-keyword">let</span> x = foo?.<span class="hljs-property">bar</span>.<span class="hljs-title function_">baz</span>();
 <span class="hljs-comment">//等价于</span>
 <span class="hljs-keyword">let</span> x = foo === <span class="hljs-literal">null</span> || foo === <span class="hljs-literal">undefined</span> ? <span class="hljs-literal">undefined</span> : foo.<span class="hljs-property">bar</span>.<span class="hljs-title function_">baz</span>();</code></pre>
-
 <p>注意：?.  与  &amp;&amp;  运算符行为略有不同，因为  &amp;&amp;  专用于 “falsy” 的值（如：空字符串、0、NaN、和  false），但是  ?.  是一个仅作用于结构上的操作符，?.  在验证有效数据如  0  或者空字符串时，它并没有使用短路验证的方式。</p>
-<h4 id="非空断言运算符"><a href="#非空断言运算符" class="headerlink" title="非空断言运算符 !"></a>非空断言运算符 !</h4><p>这个运算符可以用在变量名或者函数名之后，用来强调对应的元素是非 null|undefined 的</p>
+<h4 id="非空断言运算符">非空断言运算符 !</h4>
+<p>这个运算符可以用在变量名或者函数名之后，用来强调对应的元素是非 null|undefined 的</p>
 <pre><code class="hljs ts"><span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> key <span class="hljs-keyword">in</span> defaults) &#123;
   options[key] = key <span class="hljs-keyword">in</span> partialOptions ? partialOptions[key]! : defaults[key];
 &#125;</code></pre>
-
 <p>参考文章：</p>
 <ol>
 <li><a target="_blank" rel="noopener" href="https://www.typescriptlang.org/docs/handbook/utility-types.html">Utility Types</a></li>

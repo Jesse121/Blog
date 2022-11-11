@@ -273,15 +273,18 @@
     <div class="e-content article-entry" itemprop="articleBody">
        <p>前端开发过程中总是会发现有些JS片段需要被经常使用，今天就来总结一下工作中常用到的一些JS片段，如果你经常使用jQuery库有可能很多片段用不到，但是我还是提倡大家使用原生JS，毕竟这才是根本，很多库文件的源码也是这么写的</p>
 <span id="more"></span>
-<h3 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h3><ul>
-<li>常用兼容方法(IE8+)<ul>
+<h3 id="目录">目录</h3>
+<ul>
+<li>常用兼容方法(IE8+)
+<ul>
 <li><a href="#t1.1">insertAfter()</a> 紧挨着某元素后面插入DOM元素</li>
 <li><a href="#t1.2">getElementByClassName()</a> 根据类名获取DOM元素，IE9+已实现</li>
 <li><a href="#t1.3">trim()</a> 除去字符串左右空格</li>
 <li><a href="#t1.4">EventUtil</a> 跨浏览器的事件处理程序，属于一个名为EventUtil的对象</li>
 </ul>
 </li>
-<li>常用工具类<ul>
+<li>常用工具类
+<ul>
 <li><a href="#t2.1">移动端和PC端网址自动切换</a></li>
 <li><a href="#t2.2">常用正则表达式</a></li>
 <li><a href="#t2.3">获取DOM元素的实际样式</a></li>
@@ -292,12 +295,14 @@
 <li><a href="#t2.8">浏览器类型及IE浏览器版本检测</a></li>
 </ul>
 </li>
-<li>简单特效类<ul>
+<li>简单特效类
+<ul>
 <li><a href="#t3.1">返回页面顶部</a></li>
 </ul>
 </li>
 </ul>
-<h3 id="常用兼容方法-IE8"><a href="#常用兼容方法-IE8" class="headerlink" title="常用兼容方法(IE8+)"></a>常用兼容方法(IE8+)</h3><h4 id="t1.1">insertAfter()</h4>
+<h3 id="常用兼容方法-IE8">常用兼容方法(IE8+)</h3>
+<h4 id="t1.1">insertAfter()</h4>
 <pre><code class="hljs javascript"><span class="hljs-keyword">function</span> <span class="hljs-title function_">insertAfter</span>(<span class="hljs-params">newElement, targetElement</span>) &#123;
     <span class="hljs-keyword">var</span> parent = targetElement.<span class="hljs-property">parentNode</span>;
     <span class="hljs-keyword">if</span> (parent.<span class="hljs-property">lastChild</span> == targetElement) &#123;
@@ -436,18 +441,8 @@
         &#125;
     &#125;
 &#125;;</code></pre>
-
-
-
-
-
-
-
-
-
-
-
-<h3 id="常用工具类"><a href="#常用工具类" class="headerlink" title="常用工具类"></a>常用工具类</h3><h4 id="t2.1">移动端和PC端网址自动切换</h4>
+<h3 id="常用工具类">常用工具类</h3>
+<h4 id="t2.1">移动端和PC端网址自动切换</h4>
 <pre><code class="hljs javascript"><span class="hljs-keyword">var</span> system = &#123; 
     <span class="hljs-attr">win</span>: <span class="hljs-literal">false</span>, 
     <span class="hljs-attr">mac</span>: <span class="hljs-literal">false</span>, 
@@ -640,18 +635,8 @@ system.<span class="hljs-property">ipad</span> = (navigator.<span class="hljs-pr
         <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
     &#125;
 &#125;</code></pre>
-
-
-
-
-
-
-
-
-
-
-
-<h3 id="简单特效类"><a href="#简单特效类" class="headerlink" title="简单特效类"></a>简单特效类</h3><h4 id="t3.1">返回页面顶部</h4>
+<h3 id="简单特效类">简单特效类</h3>
+<h4 id="t3.1">返回页面顶部</h4>
 <pre><code class="hljs javascript">$(<span class="hljs-variable language_">window</span>).<span class="hljs-title function_">scroll</span>(<span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) &#123;
     <span class="hljs-keyword">if</span>($(<span class="hljs-variable language_">window</span>).<span class="hljs-title function_">scrollTop</span>() &gt; $(<span class="hljs-variable language_">window</span>).<span class="hljs-title function_">height</span>() / <span class="hljs-number">2</span>) &#123;
         $(<span class="hljs-string">&quot;#toTop&quot;</span>).<span class="hljs-title function_">show</span>(<span class="hljs-number">500</span>);
@@ -664,16 +649,6 @@ $(<span class="hljs-string">&quot;#toTop&quot;</span>).<span class="hljs-title f
         <span class="hljs-attr">scrollTop</span>: <span class="hljs-number">0</span>
     &#125;, <span class="hljs-number">500</span>);
 &#125;);</code></pre>
-
-
-
-
-
-
-
-
-
-
  
       <div id="toc-article">
   <div class="widget-wrap" id="toc-wrap">

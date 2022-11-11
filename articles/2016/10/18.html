@@ -271,7 +271,7 @@
 
     </div>
     <div class="e-content article-entry" itemprop="articleBody">
-       <p>在上一节中我们介绍了Bootstrap整体架构，本节我们将介绍Bootstrap框架第二部分初始化及依赖项，这部分内容位于源码的第8~885行，打开源码这部分内容似乎也不是很难理解。但是请站在一个开发者的角度来面对这段源码。为什么要这样写？如果没有Bootstrap框架我能写出类似这样的框架吗？  </p>
+       <p>在上一节中我们介绍了Bootstrap整体架构，本节我们将介绍Bootstrap框架第二部分初始化及依赖项，这部分内容位于源码的第8~885行，打开源码这部分内容似乎也不是很难理解。但是请站在一个开发者的角度来面对这段源码。为什么要这样写？如果没有Bootstrap框架我能写出类似这样的框架吗？</p>
 <span id="more"></span>
 <p>我们先来分析normalize.less编译后的源码,我们知道normalize.css是一个专门将不同浏览器的默认css特性设置为统一效果的css库,它和reset.css还是有区别的，normalize.css并不是简单的重置了所有的样式，而是有针对的修改，同时也保留了标签的语义化。</p>
 <pre><code class="hljs css"><span class="hljs-selector-tag">html</span> &#123;
@@ -457,7 +457,9 @@ optgroup &#123;//用于把相关的选项组合在一起。
 <span class="hljs-selector-tag">th</span> &#123;
   <span class="hljs-attribute">padding</span>: <span class="hljs-number">0</span>;
 &#125;</code></pre>
-<p>print.less主要是网页的打印样式，在此就不做分析了<br>glyphicons.less是Bootstrap引入的字体图标样式，个人觉得提供的字体图标样式太少，而且不太适合国内的网页特点，所以在定制自己的Bootstrap框架时完全可以将其去掉，或者用其他的字体替换。我个人喜欢使用淘宝的iconfont字体，其使用方式与Bootstrap相同，都是在需要使用图标的地方加上相应的类名即可。<br>来分析下部分glyphicons源码</p>
+<p>print.less主要是网页的打印样式，在此就不做分析了<br>
+glyphicons.less是Bootstrap引入的字体图标样式，个人觉得提供的字体图标样式太少，而且不太适合国内的网页特点，所以在定制自己的Bootstrap框架时完全可以将其去掉，或者用其他的字体替换。我个人喜欢使用淘宝的iconfont字体，其使用方式与Bootstrap相同，都是在需要使用图标的地方加上相应的类名即可。<br>
+来分析下部分glyphicons源码</p>
 <pre><code class="hljs css"><span class="hljs-selector-class">.glyphicon</span> &#123;
   <span class="hljs-attribute">position</span>: relative;
   <span class="hljs-attribute">top</span>: <span class="hljs-number">1px</span>;

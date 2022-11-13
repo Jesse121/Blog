@@ -221,8 +221,10 @@
     </div>
     <div class="e-content article-entry" itemprop="articleBody">
        <h3 id="队列">队列</h3>
-<p>队列最大的特点就是先进先出，主要的两个操作是入队和出队。跟栈一样，它既可以用数组来实现，也可以用链表来实现。用数组实现的叫顺序队列，用链表实现的叫链式队列。特别是长得像一个环的循环队列。在数组实现队列的时候，会有数据搬移操作，要想解决数据搬移的问题，我们就需要像环一样的循环队列。<br>
+<p>队列最大的特点就是先进先出，主要的两个操作是入队和出队。跟栈一样，它既可以用数组来实现，也可以用链表来实现。用数组实现的叫顺序队列，用链表实现的叫链式队列。</p>
+<p>特别是长得像一个环的循环队列。在数组实现队列的时候，会有数据搬移操作，要想解决数据搬移的问题，我们就需要像环一样的循环队列。<br>
 <img src="https://raw.githubusercontents.com/Jesse121/publicPic/master/blog/pictures/801336-20200502092159003-1561337601.jpg" alt="801336-20200502092159003-1561337601" referrerPolicy="no-referrer"></p>
+<p>队列需要两个指针：一个是 head 指针，指向队头；一个是 tail 指针，指向队尾。</p>
 <h4 id="用数组实现队列">用数组实现队列</h4>
 <pre><code class="hljs js"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Queue</span> &#123;
   <span class="hljs-title function_">constructor</span>(<span class="hljs-params"></span>) &#123;
@@ -249,6 +251,56 @@ queue.<span class="hljs-title function_">enqueue</span>(<span class="hljs-string
 queue.<span class="hljs-title function_">print</span>(); <span class="hljs-comment">// Jack,Mike,Candy</span>
 queue.<span class="hljs-title function_">dequeue</span>();
 queue.<span class="hljs-title function_">print</span>(); <span class="hljs-comment">// Mike,Candy</span></code></pre>
+<h3 id="基于链表实现的队列">基于链表实现的队列</h3>
+<pre><code class="hljs js"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Node</span> &#123;
+  <span class="hljs-title function_">constructor</span>(<span class="hljs-params">element</span>) &#123;
+    <span class="hljs-variable language_">this</span>.<span class="hljs-property">element</span> = element;
+    <span class="hljs-variable language_">this</span>.<span class="hljs-property">next</span> = <span class="hljs-literal">null</span>;
+  &#125;
+&#125;
+
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">QueueBasedOnLinkedList</span> &#123;
+  <span class="hljs-title function_">constructor</span>(<span class="hljs-params"></span>) &#123;
+    <span class="hljs-variable language_">this</span>.<span class="hljs-property">head</span> = <span class="hljs-literal">null</span>;
+    <span class="hljs-variable language_">this</span>.<span class="hljs-property">tail</span> = <span class="hljs-literal">null</span>;
+  &#125;
+
+  <span class="hljs-title function_">enqueue</span>(<span class="hljs-params">value</span>) &#123;
+    <span class="hljs-keyword">if</span> (<span class="hljs-variable language_">this</span>.<span class="hljs-property">head</span> === <span class="hljs-literal">null</span>) &#123;
+      <span class="hljs-variable language_">this</span>.<span class="hljs-property">head</span> = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Node</span>(value);
+      <span class="hljs-variable language_">this</span>.<span class="hljs-property">tail</span> = <span class="hljs-variable language_">this</span>.<span class="hljs-property">head</span>;
+    &#125; <span class="hljs-keyword">else</span> &#123;
+      <span class="hljs-variable language_">this</span>.<span class="hljs-property">tail</span>.<span class="hljs-property">next</span> = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Node</span>(value);
+      <span class="hljs-variable language_">this</span>.<span class="hljs-property">tail</span> = <span class="hljs-variable language_">this</span>.<span class="hljs-property">tail</span>.<span class="hljs-property">next</span>;
+    &#125;
+  &#125;
+
+  <span class="hljs-title function_">dequeue</span>(<span class="hljs-params"></span>) &#123;
+    <span class="hljs-keyword">if</span> (<span class="hljs-variable language_">this</span>.<span class="hljs-property">head</span> !== <span class="hljs-literal">null</span>) &#123;
+      <span class="hljs-keyword">const</span> value = <span class="hljs-variable language_">this</span>.<span class="hljs-property">head</span>.<span class="hljs-property">element</span>;
+      <span class="hljs-variable language_">this</span>.<span class="hljs-property">head</span> = <span class="hljs-variable language_">this</span>.<span class="hljs-property">head</span>.<span class="hljs-property">next</span>;
+      <span class="hljs-keyword">return</span> value;
+    &#125; <span class="hljs-keyword">else</span> &#123;
+      <span class="hljs-keyword">return</span> -<span class="hljs-number">1</span>;
+    &#125;
+  &#125;
+&#125;
+<span class="hljs-comment">// Test</span>
+<span class="hljs-keyword">const</span> newQueue = <span class="hljs-keyword">new</span> <span class="hljs-title class_">QueueBasedOnLinkedList</span>();
+<span class="hljs-comment">// 插入元素</span>
+newQueue.<span class="hljs-title function_">enqueue</span>(<span class="hljs-number">1</span>);
+newQueue.<span class="hljs-title function_">enqueue</span>(<span class="hljs-number">2</span>);
+newQueue.<span class="hljs-title function_">enqueue</span>(<span class="hljs-number">3</span>);
+<span class="hljs-comment">// 获取元素</span>
+<span class="hljs-keyword">let</span> res = <span class="hljs-number">0</span>;
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;-------获取dequeue元素------&quot;</span>);
+<span class="hljs-keyword">while</span> (res !== -<span class="hljs-number">1</span>) &#123;
+  res = newQueue.<span class="hljs-title function_">dequeue</span>();
+  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(res);
+&#125;</code></pre>
+<h3 id="阻塞队列和并发队列">阻塞队列和并发队列</h3>
+<p>线程安全的队列我们叫作并发队列。最简单直接的实现方式是直接在 enqueue()、dequeue() 方法上加锁，但是锁粒度大并发度会比较低，同一时刻仅允许一个存或者取操作。实际上，基于数组的循环队列，利用 CAS 原子操作，可以实现非常高效的并发队列。这也是循环队列比链式队列应用更加广泛的原因。</p>
+<p>实际上，对于大部分资源有限的场景，当没有空闲资源时，基本上都可以通过“队列”这种数据结构来实现请求排队</p>
   
       <blockquote id="copyright">
         <p>
@@ -315,9 +367,9 @@ queue.<span class="hljs-title function_">print</span>(); <span class="hljs-comme
     </div>
     <div class="e-content article-entry" itemprop="articleBody">
        <h3 id="栈">栈</h3>
-<p>栈是一种“操作受限”的线性表，只允许在一端插入和删除数据。 后进者先出，先进者后出，这就是典型的“栈”结构。<br>
-当某个数据集合只涉及在一端插入和删除数据，并且满足后进先出、先进后出的特性，我们就应该首选“栈”这种数据结构。<br>
-实际上，栈既可以用数组来实现，也可以用链表来实现。用数组实现的栈，我们叫作顺序栈，用链表实现的栈，我们叫作链式栈。</p> 
+<p>栈是一种“操作受限”的线性表，只允许在一端插入和删除数据。 后进者先出，先进者后出，这就是典型的“栈”结构。</p>
+<p>当某个数据集合只涉及在一端插入和删除数据，并且满足后进先出、先进后出的特性，我们就应该首选“栈”这种数据结构。</p>
+<p>实际上，栈既可以用数组来实现，也可以用链表来实现。用数组实现的栈，我们叫作顺序栈，用链表实现的栈，我们叫作链式栈。</p> 
     </div>
     <footer class="article-footer">
        

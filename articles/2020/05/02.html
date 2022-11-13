@@ -272,9 +272,9 @@
     </div>
     <div class="e-content article-entry" itemprop="articleBody">
        <h3 id="栈">栈</h3>
-<p>栈是一种“操作受限”的线性表，只允许在一端插入和删除数据。 后进者先出，先进者后出，这就是典型的“栈”结构。<br>
-当某个数据集合只涉及在一端插入和删除数据，并且满足后进先出、先进后出的特性，我们就应该首选“栈”这种数据结构。<br>
-实际上，栈既可以用数组来实现，也可以用链表来实现。用数组实现的栈，我们叫作顺序栈，用链表实现的栈，我们叫作链式栈。</p>
+<p>栈是一种“操作受限”的线性表，只允许在一端插入和删除数据。 后进者先出，先进者后出，这就是典型的“栈”结构。</p>
+<p>当某个数据集合只涉及在一端插入和删除数据，并且满足后进先出、先进后出的特性，我们就应该首选“栈”这种数据结构。</p>
+<p>实际上，栈既可以用数组来实现，也可以用链表来实现。用数组实现的栈，我们叫作顺序栈，用链表实现的栈，我们叫作链式栈。</p>
 <span id="more"></span>
 <h3 id="用数组实现的栈">用数组实现的栈</h3>
 <pre><code class="hljs js"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Stack</span> &#123;
@@ -294,8 +294,24 @@
     <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">items</span>.<span class="hljs-title function_">pop</span>();
   &#125;
 
-  <span class="hljs-title function_">print</span>(<span class="hljs-params"></span>) &#123;
-    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">items</span>.<span class="hljs-title function_">toString</span>());
+  <span class="hljs-title function_">size</span>(<span class="hljs-params"></span>) &#123;
+    <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">items</span>.<span class="hljs-property">length</span>;
+  &#125;
+
+  <span class="hljs-title function_">isEmpty</span>(<span class="hljs-params"></span>) &#123;
+    <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">items</span>.<span class="hljs-property">length</span> === <span class="hljs-number">0</span>;
+  &#125;
+
+  <span class="hljs-title function_">peek</span>(<span class="hljs-params"></span>) &#123;
+    <span class="hljs-comment">//返回栈顶的元素</span>
+    <span class="hljs-keyword">if</span> (<span class="hljs-variable language_">this</span>.<span class="hljs-title function_">isEmpty</span>()) &#123;
+      <span class="hljs-keyword">return</span> <span class="hljs-literal">undefined</span>;
+    &#125;
+    <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">items</span>[<span class="hljs-variable language_">this</span>.<span class="hljs-property">count</span> - <span class="hljs-number">1</span>];
+  &#125;
+
+  <span class="hljs-title function_">clear</span>(<span class="hljs-params"></span>) &#123;
+    <span class="hljs-variable language_">this</span>.<span class="hljs-property">items</span>.<span class="hljs-property">length</span> = <span class="hljs-number">0</span>;
   &#125;
 &#125;
 <span class="hljs-keyword">var</span> stack = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Stack</span>();
@@ -303,17 +319,124 @@ stack.<span class="hljs-title function_">push</span>(<span class="hljs-string">&
 stack.<span class="hljs-title function_">push</span>(<span class="hljs-string">&quot;Mike&quot;</span>);
 stack.<span class="hljs-title function_">push</span>(<span class="hljs-string">&quot;Candy&quot;</span>);
 stack.<span class="hljs-title function_">print</span>(); <span class="hljs-comment">// Jack,Mike,Candy</span>
-stack.<span class="hljs-title function_">pop</span>();
-stack.<span class="hljs-title function_">print</span>(); <span class="hljs-comment">// Jack,Mike</span></code></pre>
-<h3 id="用链表实现的栈">用链表实现的栈</h3>
+stack.<span class="hljs-title function_">pop</span>();</code></pre>
 <h3 id="用-js-对象实现的栈">用 js 对象实现的栈</h3>
+<pre><code class="hljs js"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Stack</span> &#123;
+  <span class="hljs-title function_">constructor</span>(<span class="hljs-params"></span>) &#123;
+    <span class="hljs-variable language_">this</span>.<span class="hljs-property">count</span> = <span class="hljs-number">0</span>;
+    <span class="hljs-variable language_">this</span>.<span class="hljs-property">items</span> = &#123;&#125;; <span class="hljs-comment">// 选择对象来保存栈中元素</span>
+  &#125;
+
+  <span class="hljs-comment">// 入栈</span>
+  <span class="hljs-title function_">push</span>(<span class="hljs-params">element</span>) &#123;
+    <span class="hljs-variable language_">this</span>.<span class="hljs-property">items</span>[<span class="hljs-variable language_">this</span>.<span class="hljs-property">count</span>] = element;
+    <span class="hljs-variable language_">this</span>.<span class="hljs-property">count</span>++;
+  &#125;
+
+  <span class="hljs-title function_">size</span>(<span class="hljs-params"></span>) &#123;
+    <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">count</span>;
+  &#125;
+
+  <span class="hljs-title function_">isEmpty</span>(<span class="hljs-params"></span>) &#123;
+    <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">count</span> === <span class="hljs-number">0</span>;
+  &#125;
+
+  <span class="hljs-comment">// 出栈</span>
+  <span class="hljs-title function_">pop</span>(<span class="hljs-params"></span>) &#123;
+    <span class="hljs-keyword">if</span> (<span class="hljs-variable language_">this</span>.<span class="hljs-title function_">isEmpty</span>()) &#123;
+      <span class="hljs-keyword">return</span> <span class="hljs-literal">undefined</span>;
+    &#125;
+    <span class="hljs-variable language_">this</span>.<span class="hljs-property">count</span>--;
+    <span class="hljs-keyword">const</span> result = <span class="hljs-variable language_">this</span>.<span class="hljs-property">items</span>[<span class="hljs-variable language_">this</span>.<span class="hljs-property">count</span>];
+    <span class="hljs-keyword">delete</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">items</span>[<span class="hljs-variable language_">this</span>.<span class="hljs-property">count</span>];
+    <span class="hljs-keyword">return</span> result;
+  &#125;
+
+  <span class="hljs-title function_">peek</span>(<span class="hljs-params"></span>) &#123;
+    <span class="hljs-comment">//返回栈顶的元素</span>
+    <span class="hljs-keyword">if</span> (<span class="hljs-variable language_">this</span>.<span class="hljs-title function_">isEmpty</span>()) &#123;
+      <span class="hljs-keyword">return</span> <span class="hljs-literal">undefined</span>;
+    &#125;
+    <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">items</span>[<span class="hljs-variable language_">this</span>.<span class="hljs-property">count</span> - <span class="hljs-number">1</span>];
+  &#125;
+
+  <span class="hljs-title function_">clear</span>(<span class="hljs-params"></span>) &#123;
+    <span class="hljs-variable language_">this</span>.<span class="hljs-property">items</span> = &#123;&#125;;
+    <span class="hljs-variable language_">this</span>.<span class="hljs-property">count</span> = <span class="hljs-number">0</span>;
+  &#125;
+&#125;</code></pre>
+<p>这里为什么使用对象来保存栈中元素？</p>
+<p>因为在使用数组时，大部分方法的时间复杂度是 O(n)。<br>
+并且数组是元素的一个有序集合，为了保证元素排列有序，它会占用更多的内存空间。</p>
+<h3 id="用链表实现的栈">用链表实现的栈</h3>
+<pre><code class="hljs js"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Node</span> &#123;
+  <span class="hljs-title function_">constructor</span>(<span class="hljs-params">element</span>) &#123;
+    <span class="hljs-variable language_">this</span>.<span class="hljs-property">element</span> = element;
+    <span class="hljs-variable language_">this</span>.<span class="hljs-property">next</span> = <span class="hljs-literal">null</span>;
+  &#125;
+&#125;
+
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">StackBasedLinkedList</span> &#123;
+  <span class="hljs-title function_">constructor</span>(<span class="hljs-params"></span>) &#123;
+    <span class="hljs-variable language_">this</span>.<span class="hljs-property">top</span> = <span class="hljs-literal">null</span>;
+  &#125;
+  <span class="hljs-title function_">push</span>(<span class="hljs-params">value</span>) &#123;
+    <span class="hljs-keyword">const</span> node = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Node</span>(value);
+    <span class="hljs-keyword">if</span> (<span class="hljs-variable language_">this</span>.<span class="hljs-property">top</span> === <span class="hljs-literal">null</span>) &#123;
+      <span class="hljs-variable language_">this</span>.<span class="hljs-property">top</span> = node;
+    &#125; <span class="hljs-keyword">else</span> &#123;
+      node.<span class="hljs-property">next</span> = <span class="hljs-variable language_">this</span>.<span class="hljs-property">top</span>;
+      <span class="hljs-variable language_">this</span>.<span class="hljs-property">top</span> = node;
+    &#125;
+  &#125;
+  <span class="hljs-title function_">pop</span>(<span class="hljs-params"></span>) &#123;
+    <span class="hljs-keyword">if</span> (<span class="hljs-variable language_">this</span>.<span class="hljs-property">top</span> === <span class="hljs-literal">null</span>) &#123;
+      <span class="hljs-keyword">return</span> -<span class="hljs-number">1</span>;
+    &#125;
+    <span class="hljs-keyword">const</span> value = <span class="hljs-variable language_">this</span>.<span class="hljs-property">top</span>.<span class="hljs-property">element</span>;
+    <span class="hljs-variable language_">this</span>.<span class="hljs-property">top</span> = <span class="hljs-variable language_">this</span>.<span class="hljs-property">top</span>.<span class="hljs-property">next</span>;
+    <span class="hljs-keyword">return</span> value;
+  &#125;
+  <span class="hljs-comment">// 为了实现浏览器前进后退</span>
+  <span class="hljs-title function_">clear</span>(<span class="hljs-params"></span>) &#123;
+    <span class="hljs-variable language_">this</span>.<span class="hljs-property">top</span> = <span class="hljs-literal">null</span>;
+  &#125;
+  <span class="hljs-title function_">display</span>(<span class="hljs-params"></span>) &#123;
+    <span class="hljs-keyword">if</span> (<span class="hljs-variable language_">this</span>.<span class="hljs-property">top</span> !== <span class="hljs-literal">null</span>) &#123;
+      <span class="hljs-keyword">let</span> temp = <span class="hljs-variable language_">this</span>.<span class="hljs-property">top</span>;
+      <span class="hljs-keyword">while</span> (temp !== <span class="hljs-literal">null</span>) &#123;
+        <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(temp.<span class="hljs-property">element</span>);
+        temp = temp.<span class="hljs-property">next</span>;
+      &#125;
+    &#125;
+  &#125;
+&#125;
+<span class="hljs-comment">// Test</span>
+<span class="hljs-keyword">const</span> newStack = <span class="hljs-keyword">new</span> <span class="hljs-title class_">StackBasedLinkedList</span>();
+newStack.<span class="hljs-title function_">push</span>(<span class="hljs-number">1</span>);
+newStack.<span class="hljs-title function_">push</span>(<span class="hljs-number">2</span>);
+newStack.<span class="hljs-title function_">push</span>(<span class="hljs-number">3</span>);
+<span class="hljs-comment">// 获取元素</span>
+<span class="hljs-keyword">let</span> res = <span class="hljs-number">0</span>;
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;-------获取pop元素------&quot;</span>);
+<span class="hljs-keyword">while</span> (res !== -<span class="hljs-number">1</span>) &#123;
+  res = newStack.<span class="hljs-title function_">pop</span>();
+  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(res);
+&#125;</code></pre>
 <p>不管基于数组还是链表，入栈、出栈的时间复杂度都为 O(1)</p>
+<h3 id="栈在函数调用中的应用">栈在函数调用中的应用</h3>
+<p>操作系统给每个线程分配了一块独立的内存空间，这块内存被组织成“栈”这种结构, 用来存储函数调用时的临时变量。每进入一个函数，就会将临时变量作为一个栈帧入栈，当被调用函数执行完成，返回之后，将这个函数对应的栈帧出栈。</p>
+<h3 id="栈在表达式求值中的应用">栈在表达式求值中的应用</h3>
+<p>编译器就是通过两个栈来实现的。其中一个保存操作数的栈，另一个是保存运算符的栈。<br>
+我们从左向右遍历表达式，当遇到数字，我们就直接压入操作数栈；当遇到运算符，就与运算符栈的栈顶元素进行比较。如果比运算符栈顶元素的优先级高，就将当前运算符压入栈；如果比运算符栈顶元素的优先级低或者相同，从运算符栈中取栈顶运算符，从操作数栈的栈顶取 2 个操作数，然后进行计算，再把计算完的结果压入操作数栈，继续比较。</p>
+<h3 id="栈在括号匹配中的应用">栈在括号匹配中的应用</h3>
+<p>当扫描到左括号时，则将其压入栈中；当扫描到右括号时，从栈顶取出一个左括号。如果能够匹配，比如“(”跟“)”匹配，“[”跟“]”匹配，“{”跟“}”匹配，则继续扫描剩下的字符串。如果扫描的过程中，遇到不能配对的右括号，或者栈中没有数据，则说明为非法格式。</p>
  
       <div id="toc-article">
   <div class="widget-wrap" id="toc-wrap">
     <h3 class="widget-title"><i class="fa fa-toc"></i> 文章目录</h3>
     <div class="widget">
-      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%88"><span class="toc-text">栈</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%94%A8%E6%95%B0%E7%BB%84%E5%AE%9E%E7%8E%B0%E7%9A%84%E6%A0%88"><span class="toc-text">用数组实现的栈</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%94%A8%E9%93%BE%E8%A1%A8%E5%AE%9E%E7%8E%B0%E7%9A%84%E6%A0%88"><span class="toc-text">用链表实现的栈</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%94%A8-js-%E5%AF%B9%E8%B1%A1%E5%AE%9E%E7%8E%B0%E7%9A%84%E6%A0%88"><span class="toc-text">用 js 对象实现的栈</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%88"><span class="toc-text">栈</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%94%A8%E6%95%B0%E7%BB%84%E5%AE%9E%E7%8E%B0%E7%9A%84%E6%A0%88"><span class="toc-text">用数组实现的栈</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%94%A8-js-%E5%AF%B9%E8%B1%A1%E5%AE%9E%E7%8E%B0%E7%9A%84%E6%A0%88"><span class="toc-text">用 js 对象实现的栈</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%94%A8%E9%93%BE%E8%A1%A8%E5%AE%9E%E7%8E%B0%E7%9A%84%E6%A0%88"><span class="toc-text">用链表实现的栈</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%88%E5%9C%A8%E5%87%BD%E6%95%B0%E8%B0%83%E7%94%A8%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8"><span class="toc-text">栈在函数调用中的应用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%88%E5%9C%A8%E8%A1%A8%E8%BE%BE%E5%BC%8F%E6%B1%82%E5%80%BC%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8"><span class="toc-text">栈在表达式求值中的应用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%88%E5%9C%A8%E6%8B%AC%E5%8F%B7%E5%8C%B9%E9%85%8D%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8"><span class="toc-text">栈在括号匹配中的应用</span></a></li></ol>
     </div>
   </div>
 

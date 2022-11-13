@@ -271,105 +271,290 @@
 
     </div>
     <div class="e-content article-entry" itemprop="articleBody">
-       <p>链表不需要一块连续的内存空间来存储，它通过“指针”将一组零散的内存块串联起来使用<br>
+       <p>数组需要一块连续的内存空间来存储，对内存的要求比较高。<br>
+链表不需要一块连续的内存空间来存储，它通过“指针”将一组零散的内存块串联起来使用<br>
 三种最常见的链表结构：单链表、双向链表和循环链表</p>
 <span id="more"></span>
 <h3 id="单链表">单链表</h3>
-<p>为了将所有的结点串起来，每个链表的结点除了存储数据之外，还需要记录链上的下一个结点的地址<br>
-<img src="https://raw.githubusercontents.com/Jesse121/publicPic/master/blog/pictures/801336-20200419161045810-2041686313.jpg" alt="801336-20200419161045810-2041686313" referrerPolicy="no-referrer"><br>
-从图中我们可以看出，针对链表的插入和删除操作，我们只需要考虑相邻结点的指针改变，所以对应的时间复杂度是 O(1)<br>
+<p>链表通过指针将一组零散的内存块串联在一起。其中，我们把内存块称为链表的“结点”。为了将所有的结点串起来，每个链表的结点除了存储数据之外，还需要记录链上的下一个结点的地址。如图所示，我们把这个记录下个结点地址的指针叫作后继指针 next。<br>
+<img src="https://raw.githubusercontents.com/Jesse121/publicPic/master/blog/pictures/801336-20200419161045810-2041686313.jpg" alt="801336-20200419161045810-2041686313" referrerPolicy="no-referrer"></p>
+<p>与数组一样，链表也支持数据的查找、插入和删除操作。<br>
+在进行数组的插入、删除操作时，为了保持内存数据的连续性，需要做大量的数据搬移，所以时间复杂度是 O(n)。而在链表中插入或者删除一个数据，我们并不需要为了保持内存的连续性而搬移结点，因为链表的存储空间本身就不是连续的。</p>
+<p>从图中我们可以看出，针对链表的插入和删除操作，我们只需要考虑相邻结点的指针改变，所以对应的时间复杂度是 O(1)<br>
 <img src="https://raw.githubusercontents.com/Jesse121/publicPic/master/blog/pictures/801336-20200419161414896-1780354389.jpg" alt="801336-20200419161414896-1780354389" referrerPolicy="no-referrer"><br>
-链表要想随机访问第 k 个元素，就没有数组那么高效了。因为链表中的数据并非连续存储的，所以无法像数组那样，根据首地址和下标，通过寻址公式就能直接计算出对应的内存地址，而是需要根据指针一个结点一个结点地依次遍历，直到找到相应的结点。链表随机访问的性能没有数组好，需要 O(n) 的时间复杂度。</p>
-<h3 id="设计一个基于对象的单链表">设计一个基于对象的单链表</h3>
-<pre><code class="hljs js"><span class="hljs-comment">//Node 类用来表示节点</span>
-<span class="hljs-keyword">function</span> <span class="hljs-title function_">Node</span>(<span class="hljs-params">element</span>) &#123;
-  <span class="hljs-variable language_">this</span>.<span class="hljs-property">element</span> = element;
-  <span class="hljs-variable language_">this</span>.<span class="hljs-property">next</span> = <span class="hljs-literal">null</span>;
-&#125;
-<span class="hljs-comment">// 链表类</span>
-<span class="hljs-keyword">function</span> <span class="hljs-title function_">LinkedList</span>(<span class="hljs-params"></span>) &#123;
-  <span class="hljs-variable language_">this</span>.<span class="hljs-property">head</span> = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Node</span>(<span class="hljs-string">&quot;head&quot;</span>);
-  <span class="hljs-variable language_">this</span>.<span class="hljs-property">find</span> = find;
-  <span class="hljs-variable language_">this</span>.<span class="hljs-property">insert</span> = insert;
-  <span class="hljs-variable language_">this</span>.<span class="hljs-property">remove</span> = remove;
-  <span class="hljs-variable language_">this</span>.<span class="hljs-property">display</span> = display;
-  <span class="hljs-variable language_">this</span>.<span class="hljs-property">findPrevious</span> = findPrevious;
-  <span class="hljs-variable language_">this</span>.<span class="hljs-property">remove</span> = remove;
-&#125;
-<span class="hljs-comment">//该方法遍历链表，查找给定数据</span>
-<span class="hljs-keyword">function</span> <span class="hljs-title function_">find</span>(<span class="hljs-params">item</span>) &#123;
-  <span class="hljs-keyword">var</span> currNode = <span class="hljs-variable language_">this</span>.<span class="hljs-property">head</span>;
-  <span class="hljs-keyword">while</span> (currNode.<span class="hljs-property">element</span> != item) &#123;
-    currNode = currNode.<span class="hljs-property">next</span>;
-  &#125;
-  <span class="hljs-keyword">return</span> currNode;
-&#125;
-<span class="hljs-comment">//将新节点插入链表</span>
-<span class="hljs-keyword">function</span> <span class="hljs-title function_">insert</span>(<span class="hljs-params">newElement, item</span>) &#123;
-  <span class="hljs-keyword">var</span> newNode = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Node</span>(newElement);
-  <span class="hljs-keyword">var</span> current = <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">find</span>(item);
-  newNode.<span class="hljs-property">next</span> = current.<span class="hljs-property">next</span>;
-  current.<span class="hljs-property">next</span> = newNode;
-&#125;
-<span class="hljs-comment">// 输出当前链表</span>
-<span class="hljs-keyword">function</span> <span class="hljs-title function_">display</span>(<span class="hljs-params"></span>) &#123;
-  <span class="hljs-keyword">var</span> currNode = <span class="hljs-variable language_">this</span>.<span class="hljs-property">head</span>;
-  <span class="hljs-keyword">while</span> (!(currNode.<span class="hljs-property">next</span> == <span class="hljs-literal">null</span>)) &#123;
-    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(currNode.<span class="hljs-property">next</span>.<span class="hljs-property">element</span>);
-    currNode = currNode.<span class="hljs-property">next</span>;
+链表要想随机访问第 k 个元素，就没有数组那么高效了。**因为链表中的数据并非连续存储的，所以无法像数组那样，根据首地址和下标，通过寻址公式就能直接计算出对应的内存地址，而是需要根据指针一个结点一个结点地依次遍历，直到找到相应的结点。**链表随机访问的性能没有数组好，需要 O(n) 的时间复杂度。</p>
+<h3 id="js-实现单链表">js 实现单链表</h3>
+<pre><code class="hljs js"><span class="hljs-comment">/**</span>
+<span class="hljs-comment"> * 1）单链表的插入、删除、查找操作；</span>
+<span class="hljs-comment"> * 2）链表中存储的是int类型的数据；</span>
+<span class="hljs-comment"> */</span>
+
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">Node</span> &#123;
+  <span class="hljs-title function_">constructor</span>(<span class="hljs-params">element</span>) &#123;
+    <span class="hljs-variable language_">this</span>.<span class="hljs-property">element</span> = element;
+    <span class="hljs-variable language_">this</span>.<span class="hljs-property">next</span> = <span class="hljs-literal">null</span>;
   &#125;
 &#125;
-<span class="hljs-comment">// 查找待删除节点前面的节点</span>
-<span class="hljs-keyword">function</span> <span class="hljs-title function_">findPrevious</span>(<span class="hljs-params">item</span>) &#123;
-  <span class="hljs-keyword">var</span> currNode = <span class="hljs-variable language_">this</span>.<span class="hljs-property">head</span>;
-  <span class="hljs-keyword">while</span> (!(currNode.<span class="hljs-property">next</span> == <span class="hljs-literal">null</span>) &amp;&amp; currNode.<span class="hljs-property">next</span>.<span class="hljs-property">element</span> != item) &#123;
-    currNode = currNode.<span class="hljs-property">next</span>;
+
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">SingleLinkedList</span> &#123;
+  <span class="hljs-title function_">constructor</span>(<span class="hljs-params"></span>) &#123;
+    <span class="hljs-variable language_">this</span>.<span class="hljs-property">head</span> = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Node</span>(<span class="hljs-string">&quot;head&quot;</span>);
   &#125;
-  <span class="hljs-keyword">return</span> currNode;
-&#125;
-<span class="hljs-comment">// 删除节点</span>
-<span class="hljs-keyword">function</span> <span class="hljs-title function_">remove</span>(<span class="hljs-params">item</span>) &#123;
-  <span class="hljs-keyword">var</span> prevNode = <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">findPrevious</span>(item);
-  <span class="hljs-keyword">if</span> (!(prevNode.<span class="hljs-property">next</span> == <span class="hljs-literal">null</span>)) &#123;
+  <span class="hljs-comment">// 根据value查找节点</span>
+  <span class="hljs-title function_">findByValue</span>(<span class="hljs-params">val</span>) &#123;
+    <span class="hljs-keyword">let</span> currentNode = <span class="hljs-variable language_">this</span>.<span class="hljs-property">head</span>.<span class="hljs-property">next</span>;
+    <span class="hljs-keyword">while</span> (currentNode !== <span class="hljs-literal">null</span> &amp;&amp; currentNode.<span class="hljs-property">element</span> !== val) &#123;
+      currentNode = currentNode.<span class="hljs-property">next</span>;
+    &#125;
+    <span class="hljs-keyword">return</span> currentNode === <span class="hljs-literal">null</span> ? -<span class="hljs-number">1</span> : currentNode;
+  &#125;
+  <span class="hljs-comment">// 根据index查找节点，下标从0开始</span>
+  <span class="hljs-title function_">findByIndex</span>(<span class="hljs-params">index</span>) &#123;
+    <span class="hljs-keyword">let</span> currentNode = <span class="hljs-variable language_">this</span>.<span class="hljs-property">head</span>.<span class="hljs-property">next</span>;
+    <span class="hljs-keyword">let</span> pos = <span class="hljs-number">0</span>;
+    <span class="hljs-keyword">while</span> (currentNode !== <span class="hljs-literal">null</span> &amp;&amp; pos !== index) &#123;
+      currentNode = currentNode.<span class="hljs-property">next</span>;
+      pos++;
+    &#125;
+    <span class="hljs-keyword">return</span> currentNode === <span class="hljs-literal">null</span> ? -<span class="hljs-number">1</span> : currentNode;
+  &#125;
+  <span class="hljs-comment">// 查找前一个</span>
+  <span class="hljs-title function_">findPrev</span>(<span class="hljs-params">value</span>) &#123;
+    <span class="hljs-keyword">let</span> currentNode = <span class="hljs-variable language_">this</span>.<span class="hljs-property">head</span>;
+    <span class="hljs-keyword">while</span> (currentNode.<span class="hljs-property">next</span> !== <span class="hljs-literal">null</span> &amp;&amp; currentNode.<span class="hljs-property">next</span>.<span class="hljs-property">element</span> !== value) &#123;
+      currentNode = currentNode.<span class="hljs-property">next</span>;
+    &#125;
+    <span class="hljs-keyword">if</span> (currentNode.<span class="hljs-property">next</span> === <span class="hljs-literal">null</span>) &#123;
+      <span class="hljs-keyword">return</span> -<span class="hljs-number">1</span>;
+    &#125;
+    <span class="hljs-keyword">return</span> currentNode;
+  &#125;
+  <span class="hljs-comment">// 向链表末尾追加节点</span>
+  <span class="hljs-title function_">append</span>(<span class="hljs-params">newElement</span>) &#123;
+    <span class="hljs-keyword">const</span> newNode = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Node</span>(newElement);
+    <span class="hljs-keyword">let</span> currentNode = <span class="hljs-variable language_">this</span>.<span class="hljs-property">head</span>;
+    <span class="hljs-keyword">while</span> (currentNode.<span class="hljs-property">next</span>) &#123;
+      currentNode = currentNode.<span class="hljs-property">next</span>;
+    &#125;
+    currentNode.<span class="hljs-property">next</span> = newNode;
+  &#125;
+  <span class="hljs-comment">// 指定元素向后插入</span>
+  <span class="hljs-title function_">insert</span>(<span class="hljs-params">newElement, element</span>) &#123;
+    <span class="hljs-keyword">const</span> currentNode = <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">findByValue</span>(element);
+    <span class="hljs-keyword">if</span> (currentNode === -<span class="hljs-number">1</span>) &#123;
+      <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;未找到插入位置&quot;</span>);
+      <span class="hljs-keyword">return</span>;
+    &#125;
+    <span class="hljs-keyword">const</span> newNode = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Node</span>(newElement);
+    newNode.<span class="hljs-property">next</span> = currentNode.<span class="hljs-property">next</span>;
+    currentNode.<span class="hljs-property">next</span> = newNode;
+  &#125;
+  <span class="hljs-comment">// 根据值删除</span>
+  <span class="hljs-title function_">remove</span>(<span class="hljs-params">value</span>) &#123;
+    <span class="hljs-keyword">const</span> prevNode = <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">findPrev</span>(value);
+    <span class="hljs-keyword">if</span> (prevNode === -<span class="hljs-number">1</span>) &#123;
+      <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;未找到元素&quot;</span>);
+      <span class="hljs-keyword">return</span>;
+    &#125;
     prevNode.<span class="hljs-property">next</span> = prevNode.<span class="hljs-property">next</span>.<span class="hljs-property">next</span>;
   &#125;
+  <span class="hljs-comment">// 遍历显示所有节点</span>
+  <span class="hljs-title function_">display</span>(<span class="hljs-params"></span>) &#123;
+    <span class="hljs-keyword">let</span> currentNode = <span class="hljs-variable language_">this</span>.<span class="hljs-property">head</span>.<span class="hljs-property">next</span>; <span class="hljs-comment">// 忽略头指针的值</span>
+    <span class="hljs-keyword">while</span> (currentNode !== <span class="hljs-literal">null</span>) &#123;
+      <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(currentNode.<span class="hljs-property">element</span>);
+      currentNode = currentNode.<span class="hljs-property">next</span>;
+    &#125;
+  &#125;
 &#125;
-<span class="hljs-keyword">var</span> cities = <span class="hljs-keyword">new</span> <span class="hljs-title class_">LinkedList</span>();
-cities.<span class="hljs-title function_">insert</span>(<span class="hljs-string">&quot;Conway&quot;</span>, <span class="hljs-string">&quot;head&quot;</span>);
-cities.<span class="hljs-title function_">insert</span>(<span class="hljs-string">&quot;Russellville&quot;</span>, <span class="hljs-string">&quot;Conway&quot;</span>);
-cities.<span class="hljs-title function_">insert</span>(<span class="hljs-string">&quot;Carlisle&quot;</span>, <span class="hljs-string">&quot;Russellville&quot;</span>);
-cities.<span class="hljs-title function_">insert</span>(<span class="hljs-string">&quot;Alma&quot;</span>, <span class="hljs-string">&quot;Carlisle&quot;</span>);
-cities.<span class="hljs-title function_">display</span>();
-cities.<span class="hljs-title function_">remove</span>(<span class="hljs-string">&quot;Carlisle&quot;</span>);
-cities.<span class="hljs-title function_">display</span>();</code></pre>
+
+<span class="hljs-comment">// Test</span>
+<span class="hljs-keyword">const</span> <span class="hljs-title class_">LList</span> = <span class="hljs-keyword">new</span> <span class="hljs-title class_">SingleLinkedList</span>();
+<span class="hljs-title class_">LList</span>.<span class="hljs-title function_">append</span>(<span class="hljs-string">&quot;chen&quot;</span>);
+<span class="hljs-title class_">LList</span>.<span class="hljs-title function_">append</span>(<span class="hljs-string">&quot;curry&quot;</span>);
+<span class="hljs-title class_">LList</span>.<span class="hljs-title function_">append</span>(<span class="hljs-string">&quot;sang&quot;</span>);
+<span class="hljs-title class_">LList</span>.<span class="hljs-title function_">append</span>(<span class="hljs-string">&quot;zhao&quot;</span>); <span class="hljs-comment">// chen -&gt; curry -&gt; sang -&gt; zhao</span>
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;-------------insert item------------&quot;</span>);
+<span class="hljs-title class_">LList</span>.<span class="hljs-title function_">insert</span>(<span class="hljs-string">&quot;qian&quot;</span>, <span class="hljs-string">&quot;chen&quot;</span>); <span class="hljs-comment">// 首元素后插入</span>
+<span class="hljs-title class_">LList</span>.<span class="hljs-title function_">insert</span>(<span class="hljs-string">&quot;zhou&quot;</span>, <span class="hljs-string">&quot;zhao&quot;</span>); <span class="hljs-comment">// 尾元素后插入</span>
+<span class="hljs-title class_">LList</span>.<span class="hljs-title function_">display</span>(); <span class="hljs-comment">// chen -&gt; qian -&gt; curry -&gt; sang -&gt; zhao -&gt; zhou</span>
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;-------------remove item------------&quot;</span>);
+<span class="hljs-title class_">LList</span>.<span class="hljs-title function_">remove</span>(<span class="hljs-string">&quot;curry&quot;</span>);
+<span class="hljs-title class_">LList</span>.<span class="hljs-title function_">display</span>(); <span class="hljs-comment">// chen -&gt; qian -&gt; sang -&gt; zhao -&gt; zhou</span>
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;-------------find by item------------&quot;</span>);
+<span class="hljs-title class_">LList</span>.<span class="hljs-title function_">findByValue</span>(<span class="hljs-string">&quot;chen&quot;</span>);
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;-------------find by index------------&quot;</span>);
+<span class="hljs-title class_">LList</span>.<span class="hljs-title function_">findByIndex</span>(<span class="hljs-number">2</span>);
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;-------------与头结点同值元素测试------------&quot;</span>);
+<span class="hljs-title class_">LList</span>.<span class="hljs-title function_">insert</span>(<span class="hljs-string">&quot;head&quot;</span>, <span class="hljs-string">&quot;sang&quot;</span>);
+<span class="hljs-title class_">LList</span>.<span class="hljs-title function_">display</span>(); <span class="hljs-comment">// chen -&gt; qian -&gt; sang -&gt; head -&gt; zhao -&gt; zhou</span>
+<span class="hljs-title class_">LList</span>.<span class="hljs-title function_">findPrev</span>(<span class="hljs-string">&quot;head&quot;</span>); <span class="hljs-comment">// sang</span>
+<span class="hljs-title class_">LList</span>.<span class="hljs-title function_">remove</span>(<span class="hljs-string">&quot;head&quot;</span>);
+<span class="hljs-title class_">LList</span>.<span class="hljs-title function_">display</span>(); <span class="hljs-comment">// chen -&gt; qian -&gt; sang -&gt; zhao -&gt; zhou</span></code></pre>
 <h3 id="循环链表">循环链表</h3>
-<p>循环链表的尾结点指针是指向链表的头结点<br>
+<p><strong>循环链表是一种特殊的单链表</strong><br>
+它跟单链表唯一的区别就在尾结点。我们知道，单链表的尾结点指针指向空地址，表示这就是最后的结点了。而循环链表的尾结点指针是指向链表的头结点。<br>
 <img src="https://raw.githubusercontents.com/Jesse121/publicPic/master/blog/pictures/801336-20200419161712465-1518149387.jpg" alt="801336-20200419161712465-1518149387" referrerPolicy="no-referrer"></p>
+<p>循环链表的优点是从链尾到链头比较方便。当要处理的数据具有环型结构特点时，就特别适合采用循环链表</p>
 <h3 id="双向链表">双向链表</h3>
-<p><img src="https://raw.githubusercontents.com/Jesse121/publicPic/master/blog/pictures/801336-20200419161922172-1176250872.jpg" alt="801336-20200419161922172-1176250872" referrerPolicy="no-referrer"><br>
+<p>双向链表，顾名思义，它支持两个方向，每个结点不止有一个后继指针 next 指向后面的结点，还有一个前驱指针 prev 指向前面的结点。<br>
+<img src="https://raw.githubusercontents.com/Jesse121/publicPic/master/blog/pictures/801336-20200419161922172-1176250872.jpg" alt="801336-20200419161922172-1176250872" referrerPolicy="no-referrer"><br>
 双向链表需要额外的两个空间来存储后继结点和前驱结点的地址。所以，如果存储同样多的数据，双向链表要比单链表占用更多的内存空间。虽然两个指针比较浪费存储空间，但可以支持双向遍历</p>
-<pre><code class="hljs js"></code></pre>
+<p>双向链表要比单链表更加高效是因为采用空间换时间的设计思想</p>
+<h3 id="js-实现双向链表">js 实现双向链表</h3>
+<pre><code class="hljs js"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Node</span> &#123;
+  <span class="hljs-title function_">constructor</span>(<span class="hljs-params">element</span>) &#123;
+    <span class="hljs-variable language_">this</span>.<span class="hljs-property">element</span> = element;
+    <span class="hljs-variable language_">this</span>.<span class="hljs-property">next</span> = <span class="hljs-literal">null</span>;
+    <span class="hljs-variable language_">this</span>.<span class="hljs-property">previous</span> = <span class="hljs-literal">null</span>;
+  &#125;
+&#125;
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">DoubleLinkedList</span> &#123;
+  <span class="hljs-title function_">constructor</span>(<span class="hljs-params"></span>) &#123;
+    <span class="hljs-variable language_">this</span>.<span class="hljs-property">head</span> = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Node</span>(<span class="hljs-string">&quot;head&quot;</span>);
+  &#125;
+  <span class="hljs-title function_">find</span>(<span class="hljs-params">val</span>) &#123;
+    <span class="hljs-keyword">let</span> currentNode = <span class="hljs-variable language_">this</span>.<span class="hljs-property">head</span>;
+    <span class="hljs-keyword">while</span> (currentNode !== <span class="hljs-literal">null</span> &amp;&amp; currentNode.<span class="hljs-property">element</span> !== val) &#123;
+      currentNode = currentNode.<span class="hljs-property">next</span>;
+    &#125;
+    <span class="hljs-keyword">return</span> currentNode === <span class="hljs-literal">null</span> ? -<span class="hljs-number">1</span> : currentNode;
+  &#125;
+  <span class="hljs-title function_">append</span>(<span class="hljs-params">element</span>) &#123;
+    <span class="hljs-keyword">const</span> newNode = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Node</span>(element);
+
+    <span class="hljs-keyword">let</span> currentNode = <span class="hljs-variable language_">this</span>.<span class="hljs-property">head</span>;
+    <span class="hljs-keyword">while</span> (currentNode.<span class="hljs-property">next</span>) &#123;
+      currentNode = currentNode.<span class="hljs-property">next</span>;
+    &#125;
+    currentNode.<span class="hljs-property">next</span> = newNode;
+    newNode.<span class="hljs-property">previous</span> = currentNode;
+  &#125;
+  <span class="hljs-title function_">insert</span>(<span class="hljs-params">newElement, element</span>) &#123;
+    <span class="hljs-keyword">const</span> currentNode = <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">find</span>(element);
+    <span class="hljs-keyword">if</span> (currentNode === -<span class="hljs-number">1</span>) &#123;
+      <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;未找到插入位置&quot;</span>);
+      <span class="hljs-keyword">return</span>;
+    &#125;
+    <span class="hljs-keyword">const</span> newNode = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Node</span>(newElement);
+    <span class="hljs-keyword">if</span> (currentNode.<span class="hljs-property">next</span> !== <span class="hljs-literal">null</span>) &#123;
+      newNode.<span class="hljs-property">next</span> = currentNode.<span class="hljs-property">next</span>;
+      currentNode.<span class="hljs-property">next</span> = newNode;
+      newNode.<span class="hljs-property">previous</span> = currentNode;
+      newNode.<span class="hljs-property">next</span>.<span class="hljs-property">previous</span> = newNode;
+    &#125; <span class="hljs-keyword">else</span> &#123;
+      currentNode.<span class="hljs-property">next</span> = newNode;
+      newNode.<span class="hljs-property">previous</span> = currentNode;
+    &#125;
+  &#125;
+  <span class="hljs-title function_">remove</span>(<span class="hljs-params">element</span>) &#123;
+    <span class="hljs-keyword">const</span> currentNode = <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">find</span>(element);
+    <span class="hljs-keyword">if</span> (currentNode === -<span class="hljs-number">1</span>) &#123;
+      <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;要移除节点不存在&quot;</span>);
+      <span class="hljs-keyword">return</span>;
+    &#125;
+    <span class="hljs-keyword">if</span> (currentNode.<span class="hljs-property">next</span> !== <span class="hljs-literal">null</span> &amp;&amp; currentNode.<span class="hljs-property">previous</span> !== <span class="hljs-literal">null</span>) &#123;
+      <span class="hljs-comment">/*首先是不是头尾节点的情况*/</span>
+      currentNode.<span class="hljs-property">previous</span>.<span class="hljs-property">next</span> = currentNode.<span class="hljs-property">next</span>;
+      currentNode.<span class="hljs-property">next</span>.<span class="hljs-property">previous</span> = currentNode.<span class="hljs-property">previous</span>;
+      currentNode.<span class="hljs-property">next</span> = <span class="hljs-literal">null</span>;
+      currentNode.<span class="hljs-property">previous</span> = <span class="hljs-literal">null</span>;
+    &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (currentNode.<span class="hljs-property">previous</span> === <span class="hljs-literal">null</span>) &#123;
+      <span class="hljs-comment">/*当是头节点的时候*/</span>
+      <span class="hljs-variable language_">this</span>.<span class="hljs-property">head</span> = currentNode.<span class="hljs-property">next</span>;
+      currentNode.<span class="hljs-property">next</span>.<span class="hljs-property">previous</span> = <span class="hljs-literal">null</span>;
+      currentNode.<span class="hljs-property">next</span> = <span class="hljs-literal">null</span>;
+    &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (currentNode.<span class="hljs-property">next</span> == <span class="hljs-literal">null</span>) &#123;
+      <span class="hljs-comment">/*当是尾节点的时候 */</span>
+      currentNode.<span class="hljs-property">previous</span>.<span class="hljs-property">next</span> = <span class="hljs-literal">null</span>;
+      currentNode.<span class="hljs-property">previous</span> = <span class="hljs-literal">null</span>;
+    &#125;
+  &#125;
+  <span class="hljs-title function_">display</span>(<span class="hljs-params"></span>) &#123;
+    <span class="hljs-keyword">let</span> currentNode = <span class="hljs-variable language_">this</span>.<span class="hljs-property">head</span>.<span class="hljs-property">next</span>; <span class="hljs-comment">// 忽略头指针的值</span>
+    <span class="hljs-keyword">while</span> (currentNode !== <span class="hljs-literal">null</span>) &#123;
+      <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(currentNode.<span class="hljs-property">element</span>);
+      currentNode = currentNode.<span class="hljs-property">next</span>;
+    &#125;
+  &#125;
+&#125;
+
+<span class="hljs-keyword">var</span> list = <span class="hljs-keyword">new</span> <span class="hljs-title class_">DoubleLinkedList</span>();
+list.<span class="hljs-title function_">append</span>(<span class="hljs-string">&quot;one&quot;</span>);
+list.<span class="hljs-title function_">insert</span>(<span class="hljs-string">&quot;two&quot;</span>, <span class="hljs-string">&quot;one&quot;</span>);
+list.<span class="hljs-title function_">insert</span>(<span class="hljs-string">&quot;three&quot;</span>, <span class="hljs-string">&quot;two&quot;</span>);
+list.<span class="hljs-title function_">insert</span>(<span class="hljs-string">&quot;four&quot;</span>, <span class="hljs-string">&quot;three&quot;</span>);
+<span class="hljs-comment">// list.display();</span>
+
+list.<span class="hljs-title function_">append</span>(<span class="hljs-string">&quot;A&quot;</span>);
+list.<span class="hljs-title function_">append</span>(<span class="hljs-string">&quot;B&quot;</span>);
+list.<span class="hljs-title function_">insert</span>(<span class="hljs-string">&quot;B2&quot;</span>, <span class="hljs-string">&quot;B&quot;</span>);
+<span class="hljs-comment">// list.display();</span>
+list.<span class="hljs-title function_">remove</span>(<span class="hljs-string">&quot;one&quot;</span>);
+<span class="hljs-comment">// list.display();</span>
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(list.<span class="hljs-title function_">find</span>(<span class="hljs-string">&quot;A&quot;</span>).<span class="hljs-property">previous</span>);
+<span class="hljs-comment">// console.log(list.find(&#x27;four&#x27;).previous)</span>
+<span class="hljs-comment">// console.log(list.head.element)</span></code></pre>
 <h3 id="链表-VS-数组性能大比拼">链表 VS 数组性能大比拼</h3>
 <p><img src="https://raw.githubusercontents.com/Jesse121/publicPic/master/blog/pictures/801336-20200419162344175-472578080.jpg" alt="801336-20200419162344175-472578080" referrerPolicy="no-referrer"><br>
-和数组相比，链表更适合插入、删除操作频繁的场景，查询的时间复杂度较高。</p>
-<p>将某个变量赋值给指针，实际上就是将这个变量的地址赋值给指针，或者反过来说，指针中存储了这个变量的内存地址，指向了这个变量，通过指针就能找到这个变量。<br>
-针对链表的插入、删除操作，需要对插入第一个结点和删除最后一个结点的情况进行特殊处理。</p>
-<pre><code class="hljs plaintext">if (head == null) &#123; head = new_node;&#125; //插入头结点
-if (head-&gt;next == null) &#123; head = null;&#125; // 插入尾节点</code></pre>
-<h3 id="重点留意边界条件处理">重点留意边界条件处理</h3>
+数组简单易用，在实现上使用的是连续的内存空间，可以借助 CPU 的缓存机制，预读数组中的数据，所以访问效率更高。而链表在内存中并不是连续存储，所以对 CPU 缓存不友好，没办法有效预读。<br>
+数组的缺点是大小固定，一经声明就要占用整块连续内存空间。如果声明的数组过大，系统可能没有足够的连续内存空间分配给它，导致“内存不足（out of memory）”。如果声明的数组过小，则可能出现不够用的情况。这时只能再申请一个更大的内存空间，把原数组拷贝进去，非常费时。链表本身没有大小的限制，天然地支持动态扩容，我觉得这也是它与数组最大的区别</p>
+<p>和数组相比，链表更适合插入、删除操作频繁的场景，查询的时间复杂度较高。</p>
+<h3 id="几个写链表代码技巧">几个写链表代码技巧</h3>
+<h4 id="技巧一：理解指针或引用的含义">技巧一：理解指针或引用的含义</h4>
+<p><strong>将某个变量赋值给指针，实际上就是将这个变量的地址赋值给指针，或者反过来说，指针中存储了这个变量的内存地址，指向了这个变量，通过指针就能找到这个变量。</strong></p>
+<h4 id="技巧二：警惕指针丢失和内存泄漏">技巧二：警惕指针丢失和内存泄漏</h4>
+<p>删除链表结点时，也一定要记得手动释放内存空间</p>
+<h4 id="技巧三：利用哨兵简化实现难度">技巧三：利用哨兵简化实现难度</h4>
+<p>单链表的插入操作</p>
+<pre><code class="hljs plaintext">if (head == null) &#123;
+  head = new_node; //插入头结点
+&#125;
+new_node-&gt;next = p-&gt;next;
+p-&gt;next = new_node;</code></pre>
+<p>单链表的删除操作</p>
+<pre><code class="hljs plaintext">p-&gt;next = p-&gt;next-&gt;next;
+
+if (head-&gt;next == null) &#123;
+   head = null; // 删除尾节点
+&#125;</code></pre>
+<p>针对链表的插入、删除操作，需要对插入第一个结点和删除最后一个结点的情况进行特殊处理。</p>
+<p>如果我们引入哨兵结点，在任何时候，不管链表是不是空，head 指针都会一直指向这个哨兵结点。我们也把这种有哨兵结点的链表叫带头链表。相反，没有哨兵结点的链表就叫作不带头链表。</p>
+<h4 id="技巧四：重点留意边界条件处理">技巧四：重点留意边界条件处理</h4>
 <p>我经常用来检查链表代码是否正确的边界条件有这样几个：</p>
 <ol>
-<li>如果链表为空时，代码是否能正常工作？ 2.如果链表只包含一个结点时，代码是否能正常工作？ 3.如果链表只包含两个结点时，代码是否能正常工作？ 4.代码逻辑在处理头结点和尾结点的时候，是否能正常工作？</li>
+<li>如果链表为空时，代码是否能正常工作？</li>
+<li>如果链表只包含一个结点时，代码是否能正常工作？</li>
+<li>如果链表只包含两个结点时，代码是否能正常工作？</li>
+<li>代码逻辑在处理头结点和尾结点的时候，是否能正常工作？</li>
 </ol>
-<h3 id="5-个常见的链表操作">5 个常见的链表操作</h3>
+<h4 id="技巧五：举例画图，辅助思考">技巧五：举例画图，辅助思考</h4>
+<h4 id="技巧六：多写多练，没有捷径">技巧六：多写多练，没有捷径</h4>
+<h3 id="6-个常见的链表操作">6 个常见的链表操作</h3>
 <ol>
-<li>单链表反转<br>
-输入: 1-&gt;2-&gt;3-&gt;4-&gt;5-&gt;NULL<br>
-输出: 5-&gt;4-&gt;3-&gt;2-&gt;1-&gt;NULL</li>
+<li><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/reverse-linked-list/">链表反转</a></li>
 </ol>
-<pre><code class="hljs javascript"><span class="hljs-comment">/**</span>
-<span class="hljs-comment"> * <span class="hljs-doctag">@param</span> &#123;<span class="hljs-type">ListNode</span>&#125; <span class="hljs-variable">head</span></span>
-<span class="hljs-comment"> * <span class="hljs-doctag">@return</span> &#123;<span class="hljs-type">ListNode</span>&#125;</span>
+<pre><code class="hljs javascript"><span class="hljs-comment">/* </span>
+<span class="hljs-comment">双指针解法</span>
+<span class="hljs-comment">我们可以申请两个指针，第一个指针叫 pre，最初是指向 null 的。</span>
+<span class="hljs-comment">第二个指针 cur 指向 head，然后不断遍历 cur。</span>
+<span class="hljs-comment">每次迭代到 cur，都将 cur 的 next 指向 pre，然后 pre 和 cur 前进一位。</span>
+<span class="hljs-comment">都迭代完了(cur 变成 null 了)，pre 就是最后一个节点了。</span>
+<span class="hljs-comment">*/</span>
+
+<span class="hljs-keyword">var</span> reverseList = <span class="hljs-keyword">function</span> (<span class="hljs-params">head</span>) &#123;
+  <span class="hljs-keyword">let</span> pre = <span class="hljs-literal">null</span>;
+  <span class="hljs-keyword">let</span> cur = head;
+  <span class="hljs-keyword">while</span> (cur) &#123;
+    <span class="hljs-keyword">const</span> next = cur.<span class="hljs-property">next</span>;
+    cur.<span class="hljs-property">next</span> = pre;
+    pre = cur; <span class="hljs-comment">// pre前进一位</span>
+    cur = next; <span class="hljs-comment">// cur前进一位</span>
+  &#125;
+  <span class="hljs-keyword">return</span> pre;
+&#125;;
+<span class="hljs-comment">/**</span>
+<span class="hljs-comment"> * 递归解法</span>
 <span class="hljs-comment"> */</span>
 <span class="hljs-keyword">var</span> reverseList = <span class="hljs-keyword">function</span> (<span class="hljs-params">head</span>) &#123;
   <span class="hljs-keyword">if</span> (head == <span class="hljs-literal">null</span> || head.<span class="hljs-property">next</span> == <span class="hljs-literal">null</span>) &#123;
@@ -388,36 +573,177 @@ if (head-&gt;next == null) &#123; head = null;&#125; // 插入尾节点</code></
   <span class="hljs-comment">//每层递归返回当前的节点，也就是最后一个节点。（因为head.next.next改变了，所以下一层current变4，head变3）</span>
   <span class="hljs-keyword">return</span> current;
 &#125;;</code></pre>
+<p>动态图<br>
+<img src="https://raw.githubusercontent.com/Jesse121/publicPic/master/blog/pictures/1632933523-sAjkwG-1624782858-oyJziv-008eGmZEly1gnrf1oboupg30gy0c44qp.gif" alt="1632933523"></p>
 <ol start="2">
-<li>链表中环的检测</li>
-<li>两个有序的链表合并删除</li>
-<li>链表倒数第 n 个结点<br>
-给定一个链表: 1-&gt;2-&gt;3-&gt;4-&gt;5, 和 k = 2.<br>
-返回链表 4-&gt;5.<br>
-解题思路：用两个指针，让第一个先走 k 步，然后两个指针一起移动，当第一个指针到最后一个节点处，第二个指针就在倒数第 K 个节点</li>
+<li><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/palindrome-linked-list/">回文链表</a></li>
 </ol>
-<pre><code class="hljs javascript"><span class="hljs-keyword">var</span> getKthFromEnd = <span class="hljs-keyword">function</span> (<span class="hljs-params">head, k</span>) &#123;
-  <span class="hljs-keyword">let</span> first = head,
-    second = head;
-  <span class="hljs-keyword">while</span> (k !== <span class="hljs-number">0</span>) &#123;
-    first = first.<span class="hljs-property">next</span>;
-    k--;
+<pre><code class="hljs js"><span class="hljs-comment">/**</span>
+<span class="hljs-comment"> * 栈</span>
+<span class="hljs-comment"> * 定义一个数组，循环遍历链表，将链表中的每个节点都放入栈中，再一一比较。</span>
+<span class="hljs-comment"> */</span>
+<span class="hljs-keyword">var</span> isPalindrome = <span class="hljs-keyword">function</span> (<span class="hljs-params">head</span>) &#123;
+  <span class="hljs-keyword">const</span> stack = [];
+  <span class="hljs-keyword">let</span> temp = head;
+  <span class="hljs-keyword">while</span> (temp) &#123;
+    stack.<span class="hljs-title function_">push</span>(temp);
+    temp = temp.<span class="hljs-property">next</span>;
   &#125;
-  <span class="hljs-keyword">while</span> (first !== <span class="hljs-literal">null</span>) &#123;
-    first = first.<span class="hljs-property">next</span>;
-    second = second.<span class="hljs-property">next</span>;
+  <span class="hljs-keyword">while</span> (head) &#123;
+    <span class="hljs-keyword">if</span> (head.<span class="hljs-property">val</span> !== stack.<span class="hljs-title function_">pop</span>().<span class="hljs-property">val</span>) &#123;
+      <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+    &#125;
+    head = head.<span class="hljs-property">next</span>;
   &#125;
-  <span class="hljs-keyword">return</span> second;
+  <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+&#125;;
+
+<span class="hljs-comment">/**</span>
+<span class="hljs-comment"> * 快慢指针</span>
+<span class="hljs-comment">定义两个指针slow和fast初始分别指向head和head.next。</span>
+<span class="hljs-comment">我们可以思考一下：slow每次向后走一格，fast每次向后走两格，当fast或fast.next到链表末尾时，slow指针正好走到链表的中心位置（如果是奇数个节点，正好是中心；如果是偶数个节点，则是中心前一个节点）。</span>
+<span class="hljs-comment">所以，当slow走到中心后，我们只需要，将slow.next也就是中心之后的链表段进行翻转。</span>
+<span class="hljs-comment">再将原来的head和翻转后的slow.next进行一一比对即可。</span>
+<span class="hljs-comment"> */</span>
+<span class="hljs-keyword">var</span> isPalindrome = <span class="hljs-keyword">function</span> (<span class="hljs-params">head</span>) &#123;
+  <span class="hljs-keyword">let</span> slow = head,
+    fast = head.<span class="hljs-property">next</span>;
+  <span class="hljs-keyword">while</span> (fast &amp;&amp; fast.<span class="hljs-property">next</span>) &#123;
+    slow = slow.<span class="hljs-property">next</span>;
+    fast = fast.<span class="hljs-property">next</span>.<span class="hljs-property">next</span>;
+  &#125;
+  <span class="hljs-keyword">let</span> back = <span class="hljs-title function_">reverseList</span>(slow.<span class="hljs-property">next</span>);
+  <span class="hljs-keyword">while</span> (back) &#123;
+    <span class="hljs-keyword">if</span> (head.<span class="hljs-property">val</span> !== back.<span class="hljs-property">val</span>) &#123;
+      <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+    &#125;
+    head = head.<span class="hljs-property">next</span>;
+    back = back.<span class="hljs-property">next</span>;
+  &#125;
+  <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+&#125;;
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">reverseList</span>(<span class="hljs-params">head</span>) &#123;
+  <span class="hljs-keyword">if</span> (!head || !head.<span class="hljs-property">next</span>) <span class="hljs-keyword">return</span> head;
+  <span class="hljs-keyword">const</span> r = <span class="hljs-title function_">reverseList</span>(head.<span class="hljs-property">next</span>);
+  head.<span class="hljs-property">next</span>.<span class="hljs-property">next</span> = head;
+  head.<span class="hljs-property">next</span> = <span class="hljs-literal">null</span>;
+  <span class="hljs-keyword">return</span> r;
+&#125;</code></pre>
+<ol start="3">
+<li><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/linked-list-cycle/">链表中环的检测</a></li>
+</ol>
+<pre><code class="hljs js"><span class="hljs-comment">/**</span>
+<span class="hljs-comment"> * 利用Map结构 判断是否有重复 时间复杂度为O(N)</span>
+<span class="hljs-comment">通过遍历链表方式把每一个节点都通过set方式到Map对象中；</span>
+<span class="hljs-comment">set之前先通过has方式判断Map对象中是否存在该结点，如果存在，则为有环；</span>
+<span class="hljs-comment">当遍历完成也就是 next 指针指向null的话，则为无环。</span>
+<span class="hljs-comment"> */</span>
+<span class="hljs-keyword">var</span> hasCycle = <span class="hljs-keyword">function</span> (<span class="hljs-params">head</span>) &#123;
+  <span class="hljs-keyword">let</span> map = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Map</span>();
+  <span class="hljs-keyword">while</span> (head) &#123;
+    <span class="hljs-keyword">if</span> (map.<span class="hljs-title function_">has</span>(head)) &#123;
+      <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+    &#125; <span class="hljs-keyword">else</span> &#123;
+      map.<span class="hljs-title function_">set</span>(head);
+      head = head.<span class="hljs-property">next</span>;
+    &#125;
+  &#125;
+  <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+&#125;;
+
+<span class="hljs-comment">/**</span>
+<span class="hljs-comment"> * 快慢指针 时间复杂度O(1)</span>
+<span class="hljs-comment">当快指针的下一位仍有数值时，通过while继续移动快慢指针；</span>
+<span class="hljs-comment">如果快指针和慢指针相遇（重合），说明该链表是有环链表，返回True；</span>
+<span class="hljs-comment">如果快指针走到链表尾仍没有遇到慢指针，说明是无环链表，返回False。</span>
+<span class="hljs-comment"> */</span>
+<span class="hljs-keyword">var</span> hasCycle = <span class="hljs-keyword">function</span> (<span class="hljs-params">head</span>) &#123;
+  <span class="hljs-keyword">let</span> p1 = head;
+  <span class="hljs-keyword">let</span> p2 = head;
+  <span class="hljs-keyword">while</span> (p1 &amp;&amp; p2 &amp;&amp; p2.<span class="hljs-property">next</span>) &#123;
+    p1 = p1.<span class="hljs-property">next</span>;
+    p2 = p2.<span class="hljs-property">next</span>.<span class="hljs-property">next</span>;
+    <span class="hljs-keyword">if</span> (p1 === p2) &#123;
+      <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+    &#125;
+  &#125;
+  <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+&#125;;</code></pre>
+<ol start="4">
+<li><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/merge-two-sorted-lists/">合并两个有序链表</a></li>
+</ol>
+<pre><code class="hljs js"><span class="hljs-comment">/**</span>
+<span class="hljs-comment"> 首先，我们设定一个哨兵节点 prehead ，这可以在最后让我们比较容易地返回合并后的链表。</span>
+<span class="hljs-comment"> 我们维护一个 prev 指针，我们需要做的是调整它的 next 指针。</span>
+<span class="hljs-comment"> 然后，我们重复以下过程，直到 l1 或者 l2 指向了 null ：</span>
+<span class="hljs-comment"> 如果 l1 当前节点的值小于等于 l2 ，我们就把 l1 当前的节点接在 prev 节点的后面同时将 l1 指针往后移一位。</span>
+<span class="hljs-comment"> 否则，我们对 l2 做同样的操作。</span>
+<span class="hljs-comment"> 不管我们将哪一个元素接在了后面，我们都需要把 prev 向后移一位。</span>
+<span class="hljs-comment"></span>
+<span class="hljs-comment">在循环终止的时候， l1 和 l2 至多有一个是非空的。由于输入的两个链表都是有序的，所以不管哪个链表是非空的，它包含的所有元素都比前面已经合并链表中的所有元</span>
+<span class="hljs-comment"></span>
+<span class="hljs-comment"> */</span>
+<span class="hljs-keyword">var</span> mergeTwoLists = <span class="hljs-keyword">function</span> (<span class="hljs-params">list1, list2</span>) &#123;
+  <span class="hljs-keyword">const</span> prehead = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ListNode</span>(-<span class="hljs-number">1</span>);
+
+  <span class="hljs-keyword">let</span> prev = prehead;
+  <span class="hljs-keyword">while</span> (list1 != <span class="hljs-literal">null</span> &amp;&amp; list2 != <span class="hljs-literal">null</span>) &#123;
+    <span class="hljs-keyword">if</span> (list1.<span class="hljs-property">val</span> &lt;= list2.<span class="hljs-property">val</span>) &#123;
+      prev.<span class="hljs-property">next</span> = list1;
+      list1 = list1.<span class="hljs-property">next</span>;
+    &#125; <span class="hljs-keyword">else</span> &#123;
+      prev.<span class="hljs-property">next</span> = list2;
+      list2 = list2.<span class="hljs-property">next</span>;
+    &#125;
+    prev = prev.<span class="hljs-property">next</span>;
+  &#125;
+
+  <span class="hljs-comment">// 合并后 list1 和 list2 最多只有一个还未被合并完，我们直接将链表末尾指向未合并完的链表即可</span>
+  prev.<span class="hljs-property">next</span> = list1 === <span class="hljs-literal">null</span> ? list2 : list1;
+
+  <span class="hljs-keyword">return</span> prehead.<span class="hljs-property">next</span>;
 &#125;;</code></pre>
 <ol start="5">
-<li>求链表的中间结点</li>
+<li><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/remove-nth-node-from-end-of-list/">删除链表倒数第 n 个结点</a></li>
 </ol>
+<pre><code class="hljs javascript"><span class="hljs-comment">/**</span>
+<span class="hljs-comment"> * 双指针</span>
+<span class="hljs-comment"> */</span>
+<span class="hljs-keyword">var</span> getKthFromEnd = <span class="hljs-keyword">function</span> (<span class="hljs-params">head, n</span>) &#123;
+  <span class="hljs-keyword">let</span> ret = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ListNode</span>(<span class="hljs-number">0</span>, head),
+    slow = (fast = ret);
+  <span class="hljs-comment">// fast向后移动n个位置</span>
+  <span class="hljs-keyword">while</span> (n--) fast = fast.<span class="hljs-property">next</span>;
+  <span class="hljs-comment">// fast走到最后，slow此时是倒数第n个元素的前一个</span>
+  <span class="hljs-keyword">while</span> (fast.<span class="hljs-property">next</span> !== <span class="hljs-literal">null</span>) &#123;
+    fast = fast.<span class="hljs-property">next</span>;
+    slow = slow.<span class="hljs-property">next</span>;
+  &#125;
+  slow.<span class="hljs-property">next</span> = slow.<span class="hljs-property">next</span>.<span class="hljs-property">next</span>;
+  <span class="hljs-keyword">return</span> ret.<span class="hljs-property">next</span>;
+&#125;;</code></pre>
+<ol start="6">
+<li><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/middle-of-the-linked-list/">求链表的中间结点</a></li>
+</ol>
+<pre><code class="hljs js"><span class="hljs-comment">/**</span>
+<span class="hljs-comment"> * 双指针</span>
+<span class="hljs-comment"> */</span>
+<span class="hljs-keyword">var</span> middleNode = <span class="hljs-keyword">function</span> (<span class="hljs-params">head</span>) &#123;
+  <span class="hljs-keyword">let</span> slow = head;
+  <span class="hljs-keyword">let</span> fast = head;
+  <span class="hljs-keyword">while</span> (fast &amp;&amp; fast.<span class="hljs-property">next</span>) &#123;
+    slow = slow.<span class="hljs-property">next</span>;
+    fast = fast.<span class="hljs-property">next</span>.<span class="hljs-property">next</span>;
+    head = head.<span class="hljs-property">next</span>;
+  &#125;
+  <span class="hljs-keyword">return</span> slow;
+&#125;;</code></pre>
  
       <div id="toc-article">
   <div class="widget-wrap" id="toc-wrap">
     <h3 class="widget-title"><i class="fa fa-toc"></i> 文章目录</h3>
     <div class="widget">
-      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8D%95%E9%93%BE%E8%A1%A8"><span class="toc-text">单链表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AA%E5%9F%BA%E4%BA%8E%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%8D%95%E9%93%BE%E8%A1%A8"><span class="toc-text">设计一个基于对象的单链表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BE%AA%E7%8E%AF%E9%93%BE%E8%A1%A8"><span class="toc-text">循环链表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%8C%E5%90%91%E9%93%BE%E8%A1%A8"><span class="toc-text">双向链表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%93%BE%E8%A1%A8-VS-%E6%95%B0%E7%BB%84%E6%80%A7%E8%83%BD%E5%A4%A7%E6%AF%94%E6%8B%BC"><span class="toc-text">链表 VS 数组性能大比拼</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%87%8D%E7%82%B9%E7%95%99%E6%84%8F%E8%BE%B9%E7%95%8C%E6%9D%A1%E4%BB%B6%E5%A4%84%E7%90%86"><span class="toc-text">重点留意边界条件处理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E4%B8%AA%E5%B8%B8%E8%A7%81%E7%9A%84%E9%93%BE%E8%A1%A8%E6%93%8D%E4%BD%9C"><span class="toc-text">5 个常见的链表操作</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8D%95%E9%93%BE%E8%A1%A8"><span class="toc-text">单链表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#js-%E5%AE%9E%E7%8E%B0%E5%8D%95%E9%93%BE%E8%A1%A8"><span class="toc-text">js 实现单链表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BE%AA%E7%8E%AF%E9%93%BE%E8%A1%A8"><span class="toc-text">循环链表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%8C%E5%90%91%E9%93%BE%E8%A1%A8"><span class="toc-text">双向链表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#js-%E5%AE%9E%E7%8E%B0%E5%8F%8C%E5%90%91%E9%93%BE%E8%A1%A8"><span class="toc-text">js 实现双向链表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%93%BE%E8%A1%A8-VS-%E6%95%B0%E7%BB%84%E6%80%A7%E8%83%BD%E5%A4%A7%E6%AF%94%E6%8B%BC"><span class="toc-text">链表 VS 数组性能大比拼</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%87%A0%E4%B8%AA%E5%86%99%E9%93%BE%E8%A1%A8%E4%BB%A3%E7%A0%81%E6%8A%80%E5%B7%A7"><span class="toc-text">几个写链表代码技巧</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8A%80%E5%B7%A7%E4%B8%80%EF%BC%9A%E7%90%86%E8%A7%A3%E6%8C%87%E9%92%88%E6%88%96%E5%BC%95%E7%94%A8%E7%9A%84%E5%90%AB%E4%B9%89"><span class="toc-text">技巧一：理解指针或引用的含义</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8A%80%E5%B7%A7%E4%BA%8C%EF%BC%9A%E8%AD%A6%E6%83%95%E6%8C%87%E9%92%88%E4%B8%A2%E5%A4%B1%E5%92%8C%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F"><span class="toc-text">技巧二：警惕指针丢失和内存泄漏</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8A%80%E5%B7%A7%E4%B8%89%EF%BC%9A%E5%88%A9%E7%94%A8%E5%93%A8%E5%85%B5%E7%AE%80%E5%8C%96%E5%AE%9E%E7%8E%B0%E9%9A%BE%E5%BA%A6"><span class="toc-text">技巧三：利用哨兵简化实现难度</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8A%80%E5%B7%A7%E5%9B%9B%EF%BC%9A%E9%87%8D%E7%82%B9%E7%95%99%E6%84%8F%E8%BE%B9%E7%95%8C%E6%9D%A1%E4%BB%B6%E5%A4%84%E7%90%86"><span class="toc-text">技巧四：重点留意边界条件处理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8A%80%E5%B7%A7%E4%BA%94%EF%BC%9A%E4%B8%BE%E4%BE%8B%E7%94%BB%E5%9B%BE%EF%BC%8C%E8%BE%85%E5%8A%A9%E6%80%9D%E8%80%83"><span class="toc-text">技巧五：举例画图，辅助思考</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8A%80%E5%B7%A7%E5%85%AD%EF%BC%9A%E5%A4%9A%E5%86%99%E5%A4%9A%E7%BB%83%EF%BC%8C%E6%B2%A1%E6%9C%89%E6%8D%B7%E5%BE%84"><span class="toc-text">技巧六：多写多练，没有捷径</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-%E4%B8%AA%E5%B8%B8%E8%A7%81%E7%9A%84%E9%93%BE%E8%A1%A8%E6%93%8D%E4%BD%9C"><span class="toc-text">6 个常见的链表操作</span></a></li></ol>
     </div>
   </div>
 

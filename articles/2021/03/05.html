@@ -449,12 +449,109 @@ T(n) = 2*T(n/2) + n
 归并排序的处理过程是由下到上的，先处理子问题，然后再合并。而快排正好相反，它的处理过程是由上到下的，先分区，然后再处理子问题。</p>
 <p>快排在大部分情况下的时间复杂度都可以做到 O(nlogn)，只有在极端情况下，才会退化到 O(n2)</p>
 <p>归并排序算法是一种在任何情况下时间复杂度都比较稳定的排序算法，这也使它存在致命的缺点，即归并排序不是原地排序算法，空间复杂度比较高，是 O(n)。正因为此，它也没有快排应用广泛。快速排序算法虽然最坏情况下的时间复杂度是 O(n2)，但是平均情况下时间复杂度都是 O(nlogn)。不仅如此，快速排序算法时间复杂度退化到 O(n2) 的概率非常小，我们可以通过合理地选择 pivot 来避免这种情况。</p>
+<h3 id="桶排序（Bucket-sort）">桶排序（Bucket sort）</h3>
+<p>将要排序的数据分到几个有序的桶里，每个桶里的数据再单独进行排序。桶内排完序之后，再把每个桶里的数据按照顺序依次取出，组成的序列就是有序的了。</p>
+<p>桶排序的时间复杂度为什么是 O(n) 呢？<br>
+如果要排序的数据有 n 个，我们把它们均匀地划分到 m 个桶内，每个桶里就有 k=n/m 个元素。每个桶内部使用快速排序，时间复杂度为 O(k * logk)。m 个桶排序的时间复杂度就是 O(m * k * logk)，因为 k=n/m，所以整个桶排序的时间复杂度就是 O(n*log(n/m))。当桶的个数 m 接近数据个数 n 时，log(n/m) 就是一个非常小的常量，这个时候桶排序的时间复杂度接近 O(n)。</p>
+<p>桶排序对要排序数据的要求是非常苛刻的。<br>
+首先，要排序的数据需要很容易就能划分成 m 个桶<br>
+其次，数据在各个桶之间的分布是比较均匀的</p>
+<p>桶排序比较适合用在外部排序中。所谓的外部排序就是数据存储在外部磁盘中，数据量比较大，内存有限，无法将数据全部加载到内存中。</p>
+<pre><code class="hljs js"><span class="hljs-comment">// 思路：</span>
+<span class="hljs-comment">// 将数组中的数据，按桶进行划分，将相邻的数据划分在同一个桶中</span>
+<span class="hljs-comment">// 每个桶用插入排序算法（或者快速排序）进行排序</span>
+<span class="hljs-comment">// 最后整合每个桶中的数据</span>
+
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">bucketSort</span>(<span class="hljs-params">array, bucketSize = <span class="hljs-number">5</span></span>) &#123;
+  <span class="hljs-keyword">if</span> (array.<span class="hljs-property">length</span> &lt; <span class="hljs-number">2</span>) &#123;
+    <span class="hljs-keyword">return</span> array;
+  &#125;
+  <span class="hljs-keyword">const</span> buckets = <span class="hljs-title function_">createBuckets</span>(array, bucketSize);
+  <span class="hljs-keyword">return</span> <span class="hljs-title function_">sortBuckets</span>(buckets);
+&#125;
+
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">createBuckets</span>(<span class="hljs-params">array, bucketSize</span>) &#123;
+  <span class="hljs-keyword">let</span> minValue = array[<span class="hljs-number">0</span>];
+  <span class="hljs-keyword">let</span> maxValue = array[<span class="hljs-number">0</span>];
+  <span class="hljs-comment">// 遍历数组，找到数组最小值与数组最大值</span>
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">1</span>; i &lt; array.<span class="hljs-property">length</span>; i++) &#123;
+    <span class="hljs-keyword">if</span> (array[i] &lt; minValue) &#123;
+      minValue = array[i];
+    &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (array[i] &gt; maxValue) &#123;
+      maxValue = array[i];
+    &#125;
+  &#125;
+  <span class="hljs-comment">// 根据最小值、最大值、桶的大小，计算得到桶的个数</span>
+  <span class="hljs-keyword">const</span> bucketCount = <span class="hljs-title class_">Math</span>.<span class="hljs-title function_">floor</span>((maxValue - minValue) / bucketSize) + <span class="hljs-number">1</span>;
+  <span class="hljs-comment">// 建立一个二维数组，将桶放入buckets中</span>
+  <span class="hljs-keyword">const</span> buckets = [];
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &lt; bucketCount; i++) &#123;
+    buckets[i] = [];
+  &#125;
+  <span class="hljs-comment">// 计算每一个值应该放在哪一个桶中</span>
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &lt; array.<span class="hljs-property">length</span>; i++) &#123;
+    <span class="hljs-keyword">const</span> bucketIndex = <span class="hljs-title class_">Math</span>.<span class="hljs-title function_">floor</span>((array[i] - minValue) / bucketSize);
+    buckets[bucketIndex].<span class="hljs-title function_">push</span>(array[i]);
+  &#125;
+  <span class="hljs-keyword">return</span> buckets;
+&#125;
+
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">sortBuckets</span>(<span class="hljs-params">buckets</span>) &#123;
+  <span class="hljs-keyword">const</span> sortedArray = [];
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &lt; buckets.<span class="hljs-property">length</span>; i++) &#123;
+    <span class="hljs-keyword">if</span> (buckets[i] != <span class="hljs-literal">null</span>) &#123;
+      <span class="hljs-title function_">insertionSort</span>(buckets[i]);
+      sortedArray.<span class="hljs-title function_">push</span>(...buckets[i]);
+    &#125;
+  &#125;
+  <span class="hljs-keyword">return</span> sortedArray;
+&#125;
+
+<span class="hljs-comment">// 插入排序</span>
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">insertionSort</span>(<span class="hljs-params">array</span>) &#123;
+  <span class="hljs-keyword">const</span> &#123; length &#125; = array;
+  <span class="hljs-keyword">if</span> (length &lt;= <span class="hljs-number">1</span>) <span class="hljs-keyword">return</span>;
+
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">1</span>; i &lt; length; i++) &#123;
+    <span class="hljs-keyword">let</span> value = array[i];
+    <span class="hljs-keyword">let</span> j = i - <span class="hljs-number">1</span>;
+
+    <span class="hljs-keyword">while</span> (j &gt;= <span class="hljs-number">0</span>) &#123;
+      <span class="hljs-keyword">if</span> (array[j] &gt; value) &#123;
+        array[j + <span class="hljs-number">1</span>] = array[j]; <span class="hljs-comment">// 移动</span>
+        j--;
+      &#125; <span class="hljs-keyword">else</span> &#123;
+        <span class="hljs-keyword">break</span>;
+      &#125;
+    &#125;
+    array[j + <span class="hljs-number">1</span>] = value; <span class="hljs-comment">// 插入数据</span>
+  &#125;
+&#125;</code></pre>
+<p><img src="https://raw.githubusercontent.com/Jesse121/publicPic/master/blog/pictures/12585785-374f4e4a41b59bb6.gif" alt="12585785-374f4e4a41b59bb6"></p>
+<h3 id="计数排序（Counting-sort）">计数排序（Counting sort）</h3>
+<p>计数排序其实是桶排序的一种特殊情况。当要排序的 n 个数据，所处的范围并不大的时候，比如最大值是 k，我们就可以把数据划分成 k 个桶。每个桶内的数据值都是相同的，省掉了桶内排序的时间。</p>
+<p><img src="https://raw.githubusercontent.com/Jesse121/publicPic/master/blog/pictures/12585785-a4af4d4837bc5cb2.webp" alt="12585785-a4af4d4837bc5cb2"></p>
+<p>计数排序只能用在数据范围不大的场景中，如果数据范围 k 比要排序的数据 n 大很多，就不适合用计数排序了。而且，计数排序只能给非负整数排序，如果要排序的数据是其他类型的，要将其在不改变相对大小的情况下，转化为非负整数。</p>
+<h3 id="基数排序（Radix-sort）">基数排序（Radix sort）</h3>
+<p>借助稳定排序算法</p>
+<p><img src="https://raw.githubusercontent.com/Jesse121/publicPic/master/blog/pictures/12585785-ee41d9ba9d41c625.webp" alt="12585785-ee41d9ba9d41c625"></p>
+<p>基数排序对要排序的数据是有要求的，需要可以分割出独立的“位”来比较，而且位之间有递进的关系，如果 a 数据的高位比 b 数据大，那剩下的低位就不用比较了。除此之外，每一位的数据范围不能太大，要可以用线性排序算法来排序，否则，基数排序的时间复杂度就无法做到 O(n) 了。</p>
+<h3 id="如何选择合适的排序算法？">如何选择合适的排序算法？</h3>
+<p>如果对小规模数据进行排序，可以选择时间复杂度是 O(n<sup>2</sup>) 的算法；如果对大规模数据进行排序，时间复杂度是 O(nlogn) 的算法更加高效。所以，为了兼顾任意规模数据的排序，一般都会首选时间复杂度是 O(nlogn) 的排序算法来实现排序函数。<br>
+快速排序比较适合来实现排序函数，但是，我们也知道，快速排序在最坏情况下的时间复杂度是 O(n<sup>2</sup>)</p>
+<h3 id="如何优化快速排序？">如何优化快速排序？</h3>
+<ol>
+<li>三数取中法</li>
+<li>随机法</li>
+</ol>
+<p>O(n<sup>2</sup>) 时间复杂度的算法并不一定比 O(nlogn) 的算法执行时间长<br>
+我们前面讲过，在大 O 复杂度表示法中，我们会省略低阶、系数和常数，也就是说，O(nlogn) 在没有省略低阶、系数、常数之前可能是 O(knlogn + c)，而且 k 和 c 有可能还是一个比较大的数。</p>
  
       <div id="toc-article">
   <div class="widget-wrap" id="toc-wrap">
     <h3 class="widget-title"><i class="fa fa-toc"></i> 文章目录</h3>
     <div class="widget">
-      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E5%88%86%E6%9E%90%E4%B8%80%E4%B8%AA%E2%80%9C%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%E2%80%9D%EF%BC%9F"><span class="toc-text">如何分析一个“排序算法”？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%86%92%E6%B3%A1%E6%8E%92%E5%BA%8F%EF%BC%88Bubble-Sort%EF%BC%89"><span class="toc-text">冒泡排序（Bubble Sort）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F%EF%BC%88Insertion-Sort%EF%BC%89"><span class="toc-text">插入排序（Insertion Sort）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%89%E6%8B%A9%E6%8E%92%E5%BA%8F%EF%BC%88Selection-Sort%EF%BC%89"><span class="toc-text">选择排序（Selection Sort）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F%E8%A6%81%E6%AF%94%E5%86%92%E6%B3%A1%E6%8E%92%E5%BA%8F%E6%9B%B4%E5%8F%97%E6%AC%A2%E8%BF%8E%E5%91%A2%EF%BC%9F"><span class="toc-text">为什么插入排序要比冒泡排序更受欢迎呢？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F%EF%BC%88Merge-Sort%EF%BC%89"><span class="toc-text">归并排序（Merge Sort）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F%EF%BC%88Quicksort%EF%BC%89"><span class="toc-text">快速排序（Quicksort）</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E5%88%86%E6%9E%90%E4%B8%80%E4%B8%AA%E2%80%9C%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%E2%80%9D%EF%BC%9F"><span class="toc-text">如何分析一个“排序算法”？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%86%92%E6%B3%A1%E6%8E%92%E5%BA%8F%EF%BC%88Bubble-Sort%EF%BC%89"><span class="toc-text">冒泡排序（Bubble Sort）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F%EF%BC%88Insertion-Sort%EF%BC%89"><span class="toc-text">插入排序（Insertion Sort）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%89%E6%8B%A9%E6%8E%92%E5%BA%8F%EF%BC%88Selection-Sort%EF%BC%89"><span class="toc-text">选择排序（Selection Sort）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F%E8%A6%81%E6%AF%94%E5%86%92%E6%B3%A1%E6%8E%92%E5%BA%8F%E6%9B%B4%E5%8F%97%E6%AC%A2%E8%BF%8E%E5%91%A2%EF%BC%9F"><span class="toc-text">为什么插入排序要比冒泡排序更受欢迎呢？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F%EF%BC%88Merge-Sort%EF%BC%89"><span class="toc-text">归并排序（Merge Sort）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F%EF%BC%88Quicksort%EF%BC%89"><span class="toc-text">快速排序（Quicksort）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A1%B6%E6%8E%92%E5%BA%8F%EF%BC%88Bucket-sort%EF%BC%89"><span class="toc-text">桶排序（Bucket sort）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%A1%E6%95%B0%E6%8E%92%E5%BA%8F%EF%BC%88Counting-sort%EF%BC%89"><span class="toc-text">计数排序（Counting sort）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E6%95%B0%E6%8E%92%E5%BA%8F%EF%BC%88Radix-sort%EF%BC%89"><span class="toc-text">基数排序（Radix sort）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E9%80%89%E6%8B%A9%E5%90%88%E9%80%82%E7%9A%84%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%EF%BC%9F"><span class="toc-text">如何选择合适的排序算法？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E4%BC%98%E5%8C%96%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F%EF%BC%9F"><span class="toc-text">如何优化快速排序？</span></a></li></ol>
     </div>
   </div>
 

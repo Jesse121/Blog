@@ -1,0 +1,1035 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+   
+  <title>掘金小册-Electron+Vue3桌面应用开发学习记录 | 前端之路</title>
+  <link rel="manifest" href="/blog/manifest.json" />
+  <meta name="theme-color" content="#bccddd" />
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, shrink-to-fit=no"
+  />
+
+  
+  <meta name="description" content="专注前端开发，前端开发技术博客" />
+   
+  <meta name="keywords" content="Web前端开发，Javascript，前端开发博客" />
+  
+  <link rel="dns-prefetch" href="https://unpkg.com" />
+  <link rel="dns-prefetch" href="https://busuanzi.ibruce.info" />
+   <link rel="alternate" href="/blog/atom.xml" title="前端之路" type="application/atom+xml">   <link rel="shortcut icon" href="/blog/favicon.ico"> 
+  <link rel="bookmark" href="/blog/favicon.ico" />
+  <link rel="apple-touch-icon" href="/blog/apple-touch-icon.png" />
+  <link rel="apple-touch-icon-precomposed" href="/blog/apple-touch-icon.png" />
+   
+<link rel="stylesheet" href="https://unpkg.com/@highlightjs/cdn-assets@11.6.0/styles/xt256.min.css">
+  
+<link rel="stylesheet" href="/blog/css/style.css">
+  
+<link rel="stylesheet" href="https://unpkg.com/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
+    
+<link rel="stylesheet" href="https://unpkg.com/gitalk@1.7.2/dist/gitalk.css">
+  
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/blog/" id="logo">前端之路</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/blog/" id="subtitle">路漫漫其修远兮，吾将上下而求索</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        
+          <a class="main-nav-link" href="/blog/."><i class="fa fa-home"></i> 首页</a>
+        
+          <a class="main-nav-link" href="/blog/archives/"><i class="fa fa-archive"></i> 归档</a>
+        
+          <a class="main-nav-link" href="/blog/about/"><i class="fa fa-user"></i> 关于</a>
+        
+      </nav>
+    </div>
+    <div id="search-form">
+      <div id="result-mask" class="hide"></div>
+      <label><input id="search-key" type="text" autocomplete="off" placeholder="搜索"></label>
+      <div id="result-wrap" class="hide">
+        <div id="search-result"></div>
+      </div>
+      <div class="hide">
+        <template id="search-tpl">
+          <div class="item">
+            <a href="/{path}" title="{title}">
+              <div class="title">{title}</div>
+              <div class="time">{date}</div>
+              <div class="tags">{tags}</div>
+            </a>
+          </div>
+        </template>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><style>
+  code {
+    padding: 1px 5px;
+    font-family: Inconsolata, Monaco, Consolas, "Courier New", Courier,
+      monospace;
+    /* font-size: 0.91rem; */
+    color: #e96900;
+    background-color: #f8f8f8;
+    border-radius: 2px;
+  }
+
+  pre code {
+    padding: 0 !important;
+    color: #e8eaf6;
+    background-color: #272822;
+  }
+
+  pre[class*="language-"] {
+    padding: 1.2em;
+    margin: 0.5em 0;
+  }
+
+  code[class*="language-"],
+  pre[class*="language-"] {
+    color: #e8eaf6;
+    white-space: pre-wrap !important;
+  }
+  .line-numbers-rows {
+    border-right-width: 0px !important;
+  }
+
+  .line-numbers {
+    padding: 1.5rem 1.5rem 1.5rem 3.2rem !important;
+    margin: 1rem 0 !important;
+    background: #272822;
+    overflow: auto;
+    border-radius: 0.35rem;
+    tab-size: 4;
+  }
+
+  pre {
+    padding: 1.5rem !important;
+    margin: 1rem 0 !important;
+    background: #272822;
+    overflow: auto;
+    border-radius: 0.35rem;
+    tab-size: 4;
+  }
+
+  pre::before {
+    content: "";
+    height: 16px;
+    margin-bottom: 0;
+    display: block;
+  }
+
+  pre::after {
+    content: " ";
+    position: absolute;
+    border-radius: 50%;
+    background: #ff5f56;
+    width: 12px;
+    height: 12px;
+    top: 0;
+    left: 12px;
+    margin-top: 12px;
+    -webkit-box-shadow: 20px 0 #ffbd2e, 40px 0 #27c93f;
+    box-shadow: 20px 0 #ffbd2e, 40px 0 #27c93f;
+  }
+
+  code {
+    padding: 1px 5px;
+    font-family: Inconsolata, Monaco, Consolas, "Courier New", Courier,
+      monospace;
+    font-size: 0.91rem;
+    color: #e96900;
+    background-color: #f8f8f8;
+    border-radius: 2px;
+  }
+
+  .code_copy {
+    position: absolute;
+    top: 0.7rem;
+    right: 35px;
+    z-index: 1;
+    filter: invert(50%);
+    cursor: pointer;
+  }
+
+  .code_lang {
+    position: absolute;
+    top: 1.2rem;
+    right: 60px;
+    line-height: 0;
+    font-weight: bold;
+    font-family: normal;
+    z-index: 1;
+    filter: invert(50%);
+    cursor: pointer;
+  }
+
+  .code-expand {
+    position: absolute;
+    top: 4px;
+    right: 0px;
+    filter: invert(50%);
+    padding: 7px 10px;
+    z-index: 1;
+    cursor: pointer;
+    transition: all 0.3s;
+    transform: rotate(0deg);
+  }
+
+  .code-closed .code-expand {
+    transform: rotate(-180deg) !important;
+    transition: all 0.3s;
+  }
+
+  .code-closed pre::before {
+    height: 0px;
+  }
+
+  pre code {
+    padding: 0;
+    color: #e8eaf6;
+    background-color: #272822 !important;
+  }
+
+  pre[class*="language-"] {
+    padding: 1.2em;
+    margin: 0.5em 0;
+  }
+
+  code[class*="language-"],
+  pre[class*="language-"] {
+    color: #e8eaf6;
+    white-space: pre-wrap !important;
+  }
+</style>
+<article
+  id="post-electron/掘金小册-Electron+Vue3桌面应用开发学习记录"
+  class="h-entry article article-type-post"
+  itemprop="blogPost"
+  itemscope
+  itemtype="https://schema.org/BlogPosting"
+>
+  <div class="article-inner">
+     
+    <header class="article-header">
+      
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      掘金小册-Electron+Vue3桌面应用开发学习记录
+    </h1>
+  
+
+
+    </header>
+    
+    <div class="article-meta">
+       <span class="article-date">
+  <i class="fa fa-date"></i>
+  <time class="dt-published" datetime="2022-11-16T12:49:40.000Z" itemprop="datePublished">2022年11月16日</time>
+</span> 
+  <div class="article-category">
+    <i class="fa fa-classify"></i>
+    <a class="article-category-link" href="/blog/categories/electron/">Electron</a>
+  </div>
+  <span class="article-views">
+  <i class="fa fa-views"></i>
+  <i id="busuanzi_container_page_pv">
+      <i id="busuanzi_value_page_pv"></i>
+  </i>
+</span>
+  
+<a href="/blog/articles/2022/11/16.html#comments" class="article-comment-link">
+  
+    
+    
+    
+    
+    
+  
+  <i class="fa fa-commt"></i>
+  留言
+</a>
+
+
+    </div>
+    <div class="e-content article-entry" itemprop="articleBody">
+       <p>今年上半年主要是用 Electron 开发桌面应用，在开发过程中遇到各种问题也只能自己查资料，最近在掘金中看到刘晓伦大佬写的<a target="_blank" rel="noopener" href="https://s.juejin.cn/ds/r8et2JV/"> Electron + Vue 3 桌面应用开发</a>掘金小册，果断买下课程仔细学习下，这里主要记录下自己在 Electron 开发中遇到的知识盲区</p>
+<span id="more"></span>
+<p>Electron 是一个集成项目，它做了如下几个重要的工作。</p>
+<ol>
+<li>定制 Chromium，并把定制版本的 Chromium 集成在 Electron 内部。</li>
+<li>定制 Node.js，并把定制版本的 Node.js 集成在 Electron 内部。</li>
+<li>通过消息轮询机制打通 Node.js 和 Chromium 的消息循环。</li>
+<li>通过 Electron 的内置模块向开发者提供桌面应用开发必备的 API。</li>
+</ol>
+<h3 id="如何开发-Vite3-插件构建-Electron-开发环境？">如何开发 Vite3 插件构建 Electron 开发环境？</h3>
+<h4 id="创建项目">创建项目</h4>
+<pre><code class="hljs sh">npm create vite@latest electron-jue-jin -- --template vue-ts</code></pre>
+<p>接着安装 Electron 开发依赖：</p>
+<pre><code class="hljs sh">npm install electron -D</code></pre>
+<p>**注意：**这里我们把 vue 从 dependencies 配置节移至了 devDependencies 配置节。这是因为在 Vite 编译项目的时候，Vue 库会被编译到输出目录下，输出目录下的内容是完整的，没必要把 Vue 标记为生产依赖；而且在我们将来制作安装包的时候，还要用到这个 package.json 文件，它的生产依赖里不应该有没用的东西，所以我们在这里做了一些调整。有利于减小打包后产物大小</p>
+<p>到这里，我们就创建了一个基本的 Vue+TypeScript 的项目，接下来我们就为这个项目引入 Electron 模块。</p>
+<h3 id="创建主进程代码">创建主进程代码</h3>
+<pre><code class="hljs ts"><span class="hljs-comment">//src\main\mainEntry.ts</span>
+<span class="hljs-keyword">import</span> &#123; app, <span class="hljs-title class_">BrowserWindow</span> &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;electron&quot;</span>;
+
+<span class="hljs-keyword">let</span> <span class="hljs-attr">mainWindow</span>: <span class="hljs-title class_">BrowserWindow</span>;
+
+app.<span class="hljs-title function_">whenReady</span>().<span class="hljs-title function_">then</span>(<span class="hljs-function">() =&gt;</span> &#123;
+  mainWindow = <span class="hljs-keyword">new</span> <span class="hljs-title class_">BrowserWindow</span>(&#123;&#125;);
+  mainWindow.<span class="hljs-title function_">loadURL</span>(process.<span class="hljs-property">argv</span>[<span class="hljs-number">2</span>]);
+&#125;);</code></pre>
+<p>mainWindow 被设置成一个全局变量，这样可以避免主窗口被 JavaScript 的垃圾回收器回收掉。</p>
+<p>app 和 BrowserWindow 都是 Electron 的内置模块，这些内置模块是通过 ES Module 的形式导入进来的，我们知道 Electron 的内置模块都是通过 CJS Module 的形式导出的，这里之所以可以用 ES Module 导入，是因为我们接下来做的主进程编译工作帮我们完成了相关的转化工作。</p>
+<h3 id="开发环境-Vite-插件">开发环境 Vite 插件</h3>
+<p>主进程的代码写好之后，只有编译过之后才能被 Electron 加载，我们是通过 Vite 插件的形式来完成这个编译工作和加载工作的</p>
+<pre><code class="hljs ts"><span class="hljs-keyword">import</span> <span class="hljs-keyword">type</span> &#123; <span class="hljs-title class_">AddressInfo</span> &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;node:net&quot;</span>;
+<span class="hljs-keyword">import</span> &#123; <span class="hljs-title class_">ViteDevServer</span> &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;vite&quot;</span>;
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">let</span> <span class="hljs-title function_">devPlugin</span> = (<span class="hljs-params"></span>) =&gt; (&#123;
+  <span class="hljs-attr">name</span>: <span class="hljs-string">&quot;dev-plugin&quot;</span>,
+  <span class="hljs-title function_">configureServer</span>(<span class="hljs-params">server: ViteDevServer</span>) &#123;
+    <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;esbuild&quot;</span>).<span class="hljs-title function_">buildSync</span>(&#123;
+      <span class="hljs-attr">entryPoints</span>: [<span class="hljs-string">&quot;./src/main/mainEntry.ts&quot;</span>],
+      <span class="hljs-attr">bundle</span>: <span class="hljs-literal">true</span>,
+      <span class="hljs-attr">platform</span>: <span class="hljs-string">&quot;node&quot;</span>,
+      <span class="hljs-attr">outfile</span>: <span class="hljs-string">&quot;./dist/mainEntry.js&quot;</span>,
+      <span class="hljs-attr">external</span>: [<span class="hljs-string">&quot;electron&quot;</span>],
+    &#125;);
+    server.<span class="hljs-property">httpServer</span>?.<span class="hljs-title function_">once</span>(<span class="hljs-string">&quot;listening&quot;</span>, <span class="hljs-function">() =&gt;</span> &#123;
+      <span class="hljs-keyword">let</span> &#123; spawn &#125; = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;child_process&quot;</span>);
+      <span class="hljs-keyword">let</span> addressInfo = server.<span class="hljs-property">httpServer</span>?.<span class="hljs-title function_">address</span>() <span class="hljs-keyword">as</span> <span class="hljs-title class_">AddressInfo</span>;
+      <span class="hljs-keyword">let</span> httpAddress = <span class="hljs-string">`http://<span class="hljs-subst">$&#123;addressInfo.address&#125;</span>:<span class="hljs-subst">$&#123;addressInfo.port&#125;</span>`</span>;
+      <span class="hljs-keyword">let</span> electronProcess = <span class="hljs-title function_">spawn</span>(
+        <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;electron&quot;</span>).<span class="hljs-title function_">toString</span>(),
+        [<span class="hljs-string">&quot;./dist/mainEntry.js&quot;</span>, httpAddress],
+        &#123;
+          <span class="hljs-attr">cwd</span>: process.<span class="hljs-title function_">cwd</span>(),
+          <span class="hljs-attr">stdio</span>: <span class="hljs-string">&quot;inherit&quot;</span>,
+        &#125;
+      );
+      electronProcess.<span class="hljs-title function_">on</span>(<span class="hljs-string">&quot;close&quot;</span>, <span class="hljs-function">() =&gt;</span> &#123;
+        server.<span class="hljs-title function_">close</span>();
+        process.<span class="hljs-title function_">exit</span>();
+      &#125;);
+    &#125;);
+  &#125;,
+&#125;);</code></pre>
+<p>当 Vite 为我们启动 Http 服务的时候，configureServer 钩子会被执行。</p>
+<p>我们可以通过监听 server.httpServer 的 listening 事件来判断 httpServer 是否已经成功启动。如果已经成功启动了，那么就启动 Electron 应用，并给它传递两个命令行参数，第一个参数是主进程代码编译后的文件路径，第二个参数是 Vue 页面的 http 地址，这里就是 <a target="_blank" rel="noopener" href="http://127.0.0.1:5173/%E3%80%82">http://127.0.0.1:5173/。</a></p>
+<p>为什么这里传递了两个命令行参数，而主进程的代码接收第三个参数（process.argv[2]）当作 http 页面的地址呢？因为默认情况下 electron.exe 的文件路径将作为第一个参数。也就是我们通过 require(“electron”) 获得的字符串。</p>
+<p>我们是通过 Node.js child_process 模块的 spawn 方法启动 electron 子进程的，除了两个命令行参数外，还传递了一个配置对象。<br>
+这个对象的 cwd 属性用于设置当前的工作目录，process.cwd() 返回的值就是当前项目的根目录。stdio 用于设置 electron 进程的控制台输出，这里设置 inherit 可以让 electron 子进程的控制台输出数据同步到主进程的控制台。这样我们在主进程中 console.log 的内容就可以在 VSCode 的控制台上看到了。</p>
+<p>**编译平台 platform 设置为 node，排除的模块 external 设置为 electron，正是这两个设置使我们在主进程代码中可以通过 import 的方式导入 electron 内置的模块。**非但如此，Node 的内置模块也可以通过 import 的方式引入。</p>
+<p>我们在 vite 项目中也可以使用 vite-plugin-electron 插件来引入 electron 内置模块</p>
+<h4 id="渲染进程集成内置模块">渲染进程集成内置模块</h4>
+<pre><code class="hljs ts"><span class="hljs-comment">// src\main\mainEntry.ts</span>
+<span class="hljs-keyword">import</span> &#123; app, <span class="hljs-title class_">BrowserWindow</span> &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;electron&quot;</span>;
+process.<span class="hljs-property">env</span>.<span class="hljs-property">ELECTRON_DISABLE_SECURITY_WARNINGS</span> = <span class="hljs-string">&quot;true&quot;</span>;
+<span class="hljs-keyword">let</span> <span class="hljs-attr">mainWindow</span>: <span class="hljs-title class_">BrowserWindow</span>;
+
+app.<span class="hljs-title function_">whenReady</span>().<span class="hljs-title function_">then</span>(<span class="hljs-function">() =&gt;</span> &#123;
+  <span class="hljs-keyword">let</span> config = &#123;
+    <span class="hljs-attr">webPreferences</span>: &#123;
+      <span class="hljs-attr">nodeIntegration</span>: <span class="hljs-literal">true</span>,
+      <span class="hljs-attr">webSecurity</span>: <span class="hljs-literal">false</span>,
+      <span class="hljs-attr">allowRunningInsecureContent</span>: <span class="hljs-literal">true</span>,
+      <span class="hljs-attr">contextIsolation</span>: <span class="hljs-literal">false</span>,
+      <span class="hljs-attr">webviewTag</span>: <span class="hljs-literal">true</span>,
+      <span class="hljs-attr">spellcheck</span>: <span class="hljs-literal">false</span>,
+      <span class="hljs-attr">disableHtmlFullscreenWindowResize</span>: <span class="hljs-literal">true</span>,
+    &#125;,
+  &#125;;
+  mainWindow = <span class="hljs-keyword">new</span> <span class="hljs-title class_">BrowserWindow</span>(config);
+  mainWindow.<span class="hljs-property">webContents</span>.<span class="hljs-title function_">openDevTools</span>(&#123; <span class="hljs-attr">mode</span>: <span class="hljs-string">&quot;undocked&quot;</span> &#125;);
+  mainWindow.<span class="hljs-title function_">loadURL</span>(process.<span class="hljs-property">argv</span>[<span class="hljs-number">2</span>]);
+&#125;);</code></pre>
+<h4 id="设置-Vite-模块别名与模块解析钩子">设置 Vite 模块别名与模块解析钩子</h4>
+<p>虽然我们可以在开发者调试工具中使用 Node.js 和 Electron 的内置模块，但现在还不能在 Vue 的页面内使用这些模块。</p>
+<p>这是因为 Vite 主动屏蔽了这些内置的模块，如果开发者强行引入它们，那么大概率会得到如下报错：</p>
+<pre><code class="hljs plaintext">Module &quot;path&quot; has been externalized for browser compatibility. Cannot access &quot;path.join&quot; in client code.</code></pre>
+<p>首先我们为工程安装一个 Vite 组件：vite-plugin-optimizer。</p>
+<pre><code class="hljs sh">npm i vite-plugin-optimizer -D</code></pre>
+<p>然后修改 vite.config.ts 的代码，让 Vite 加载这个插件</p>
+<pre><code class="hljs ts"><span class="hljs-keyword">import</span> &#123; defineConfig &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;vite&quot;</span>;
+<span class="hljs-keyword">import</span> vue <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;@vitejs/plugin-vue&quot;</span>;
+<span class="hljs-keyword">import</span> &#123; devPlugin, getReplacer &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;./plugins/devPlugin&quot;</span>;
+<span class="hljs-keyword">import</span> optimizer <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;vite-plugin-optimizer&quot;</span>;
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-title function_">defineConfig</span>(&#123;
+  <span class="hljs-attr">plugins</span>: [<span class="hljs-title function_">optimizer</span>(<span class="hljs-title function_">getReplacer</span>()), <span class="hljs-title function_">devPlugin</span>(), <span class="hljs-title function_">vue</span>()],
+&#125;);</code></pre>
+<p>vite-plugin-optimizer 插件会为你创建一个临时目录：node_modules.vite-plugin-optimizer。</p>
+<p>然后把类似 const fs = require(‘fs’); export { fs as default } 这样的代码写入这个目录下的 fs.js 文件中。</p>
+<p>渲染进程执行到：import fs from “fs” 时，就会请求这个目录下的 fs.js 文件，这样就达到了在渲染进程中引入 Node 内置模块的目的。</p>
+<pre><code class="hljs ts"><span class="hljs-comment">// plugins\devPlugin.ts</span>
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">let</span> <span class="hljs-title function_">getReplacer</span> = (<span class="hljs-params"></span>) =&gt; &#123;
+  <span class="hljs-keyword">let</span> externalModels = [
+    <span class="hljs-string">&quot;os&quot;</span>,
+    <span class="hljs-string">&quot;fs&quot;</span>,
+    <span class="hljs-string">&quot;path&quot;</span>,
+    <span class="hljs-string">&quot;events&quot;</span>,
+    <span class="hljs-string">&quot;child_process&quot;</span>,
+    <span class="hljs-string">&quot;crypto&quot;</span>,
+    <span class="hljs-string">&quot;http&quot;</span>,
+    <span class="hljs-string">&quot;buffer&quot;</span>,
+    <span class="hljs-string">&quot;url&quot;</span>,
+    <span class="hljs-string">&quot;better-sqlite3&quot;</span>,
+    <span class="hljs-string">&quot;knex&quot;</span>,
+  ];
+  <span class="hljs-keyword">let</span> result = &#123;&#125;;
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> item <span class="hljs-keyword">of</span> externalModels) &#123;
+    result[item] = <span class="hljs-function">() =&gt;</span> (&#123;
+      <span class="hljs-attr">find</span>: <span class="hljs-keyword">new</span> <span class="hljs-title class_">RegExp</span>(<span class="hljs-string">`^<span class="hljs-subst">$&#123;item&#125;</span>$`</span>),
+      <span class="hljs-attr">code</span>: <span class="hljs-string">`const <span class="hljs-subst">$&#123;item&#125;</span> = require(&#x27;<span class="hljs-subst">$&#123;item&#125;</span>&#x27;);export &#123; <span class="hljs-subst">$&#123;item&#125;</span> as default &#125;`</span>,
+    &#125;);
+  &#125;
+  result[<span class="hljs-string">&quot;electron&quot;</span>] = <span class="hljs-function">() =&gt;</span> &#123;
+    <span class="hljs-keyword">let</span> electronModules = [
+      <span class="hljs-string">&quot;clipboard&quot;</span>,
+      <span class="hljs-string">&quot;ipcRenderer&quot;</span>,
+      <span class="hljs-string">&quot;nativeImage&quot;</span>,
+      <span class="hljs-string">&quot;shell&quot;</span>,
+      <span class="hljs-string">&quot;webFrame&quot;</span>,
+    ].<span class="hljs-title function_">join</span>(<span class="hljs-string">&quot;,&quot;</span>);
+    <span class="hljs-keyword">return</span> &#123;
+      <span class="hljs-attr">find</span>: <span class="hljs-keyword">new</span> <span class="hljs-title class_">RegExp</span>(<span class="hljs-string">`^electron$`</span>),
+      <span class="hljs-attr">code</span>: <span class="hljs-string">`const &#123;<span class="hljs-subst">$&#123;electronModules&#125;</span>&#125; = require(&#x27;electron&#x27;);export &#123;<span class="hljs-subst">$&#123;electronModules&#125;</span>&#125;`</span>,
+    &#125;;
+  &#125;;
+  <span class="hljs-keyword">return</span> result;
+&#125;;</code></pre>
+<p>再次运行你的应用，现在渲染进程可以正确加载内置模块了</p>
+<h3 id="如何开发-Vite-3-插件打包-Electron-应用？">如何开发 Vite 3 插件打包 Electron 应用？</h3>
+<h4 id="编译结束钩子函数">编译结束钩子函数</h4>
+<p>首先我们为 vite.config.ts 增加一个新的配置节</p>
+<pre><code class="hljs ts"><span class="hljs-attr">build</span>: &#123;
+    <span class="hljs-attr">rollupOptions</span>: &#123;
+        <span class="hljs-attr">plugins</span>: [<span class="hljs-title function_">buildPlugin</span>()],
+    &#125;,
+&#125;,</code></pre>
+<pre><code class="hljs ts"><span class="hljs-comment">//plugins\buildPlugin.ts</span>
+<span class="hljs-keyword">import</span> path <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;path&quot;</span>;
+<span class="hljs-keyword">import</span> fs <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;fs&quot;</span>;
+
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">BuildObj</span> &#123;
+  <span class="hljs-comment">//编译主进程代码</span>
+  <span class="hljs-title function_">buildMain</span>(<span class="hljs-params"></span>) &#123;
+    <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;esbuild&quot;</span>).<span class="hljs-title function_">buildSync</span>(&#123;
+      <span class="hljs-attr">entryPoints</span>: [<span class="hljs-string">&quot;./src/main/mainEntry.ts&quot;</span>],
+      <span class="hljs-attr">bundle</span>: <span class="hljs-literal">true</span>,
+      <span class="hljs-attr">platform</span>: <span class="hljs-string">&quot;node&quot;</span>,
+      <span class="hljs-attr">minify</span>: <span class="hljs-literal">true</span>,
+      <span class="hljs-attr">outfile</span>: <span class="hljs-string">&quot;./dist/mainEntry.js&quot;</span>,
+      <span class="hljs-attr">external</span>: [<span class="hljs-string">&quot;electron&quot;</span>],
+    &#125;);
+  &#125;
+  <span class="hljs-comment">//为生产环境准备package.json</span>
+  <span class="hljs-title function_">preparePackageJson</span>(<span class="hljs-params"></span>) &#123;
+    <span class="hljs-keyword">let</span> pkgJsonPath = path.<span class="hljs-title function_">join</span>(process.<span class="hljs-title function_">cwd</span>(), <span class="hljs-string">&quot;package.json&quot;</span>);
+    <span class="hljs-keyword">let</span> localPkgJson = <span class="hljs-title class_">JSON</span>.<span class="hljs-title function_">parse</span>(fs.<span class="hljs-title function_">readFileSync</span>(pkgJsonPath, <span class="hljs-string">&quot;utf-8&quot;</span>));
+    <span class="hljs-keyword">let</span> electronConfig = localPkgJson.<span class="hljs-property">devDependencies</span>.<span class="hljs-property">electron</span>.<span class="hljs-title function_">replace</span>(<span class="hljs-string">&quot;^&quot;</span>, <span class="hljs-string">&quot;&quot;</span>);
+    localPkgJson.<span class="hljs-property">main</span> = <span class="hljs-string">&quot;mainEntry.js&quot;</span>;
+    <span class="hljs-keyword">delete</span> localPkgJson.<span class="hljs-property">scripts</span>;
+    <span class="hljs-keyword">delete</span> localPkgJson.<span class="hljs-property">devDependencies</span>;
+    localPkgJson.<span class="hljs-property">devDependencies</span> = &#123; <span class="hljs-attr">electron</span>: electronConfig &#125;;
+    <span class="hljs-keyword">let</span> tarJsonPath = path.<span class="hljs-title function_">join</span>(process.<span class="hljs-title function_">cwd</span>(), <span class="hljs-string">&quot;dist&quot;</span>, <span class="hljs-string">&quot;package.json&quot;</span>);
+    fs.<span class="hljs-title function_">writeFileSync</span>(tarJsonPath, <span class="hljs-title class_">JSON</span>.<span class="hljs-title function_">stringify</span>(localPkgJson));
+    fs.<span class="hljs-title function_">mkdirSync</span>(path.<span class="hljs-title function_">join</span>(process.<span class="hljs-title function_">cwd</span>(), <span class="hljs-string">&quot;dist/node_modules&quot;</span>));
+  &#125;
+  <span class="hljs-comment">//使用electron-builder制成安装包</span>
+  <span class="hljs-title function_">buildInstaller</span>(<span class="hljs-params"></span>) &#123;
+    <span class="hljs-keyword">let</span> options = &#123;
+      <span class="hljs-attr">config</span>: &#123;
+        <span class="hljs-attr">directories</span>: &#123;
+          <span class="hljs-attr">output</span>: path.<span class="hljs-title function_">join</span>(process.<span class="hljs-title function_">cwd</span>(), <span class="hljs-string">&quot;release&quot;</span>),
+          <span class="hljs-attr">app</span>: path.<span class="hljs-title function_">join</span>(process.<span class="hljs-title function_">cwd</span>(), <span class="hljs-string">&quot;dist&quot;</span>),
+        &#125;,
+        <span class="hljs-attr">files</span>: [<span class="hljs-string">&quot;**&quot;</span>],
+        <span class="hljs-attr">extends</span>: <span class="hljs-literal">null</span>,
+        <span class="hljs-attr">productName</span>: <span class="hljs-string">&quot;JueJin&quot;</span>,
+        <span class="hljs-attr">appId</span>: <span class="hljs-string">&quot;com.juejin.desktop&quot;</span>,
+        <span class="hljs-attr">asar</span>: <span class="hljs-literal">true</span>,
+        <span class="hljs-attr">nsis</span>: &#123;
+          <span class="hljs-attr">oneClick</span>: <span class="hljs-literal">true</span>,
+          <span class="hljs-attr">perMachine</span>: <span class="hljs-literal">true</span>,
+          <span class="hljs-attr">allowToChangeInstallationDirectory</span>: <span class="hljs-literal">false</span>,
+          <span class="hljs-attr">createDesktopShortcut</span>: <span class="hljs-literal">true</span>,
+          <span class="hljs-attr">createStartMenuShortcut</span>: <span class="hljs-literal">true</span>,
+          <span class="hljs-attr">shortcutName</span>: <span class="hljs-string">&quot;juejinDesktop&quot;</span>,
+        &#125;,
+        <span class="hljs-attr">publish</span>: [&#123; <span class="hljs-attr">provider</span>: <span class="hljs-string">&quot;generic&quot;</span>, <span class="hljs-attr">url</span>: <span class="hljs-string">&quot;http://localhost:5500/&quot;</span> &#125;],
+      &#125;,
+      <span class="hljs-attr">project</span>: process.<span class="hljs-title function_">cwd</span>(),
+    &#125;;
+    <span class="hljs-keyword">return</span> <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;electron-builder&quot;</span>).<span class="hljs-title function_">build</span>(options);
+  &#125;
+&#125;
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">let</span> <span class="hljs-title function_">buildPlugin</span> = (<span class="hljs-params"></span>) =&gt; &#123;
+  <span class="hljs-keyword">return</span> &#123;
+    <span class="hljs-attr">name</span>: <span class="hljs-string">&quot;build-plugin&quot;</span>,
+    <span class="hljs-attr">closeBundle</span>: <span class="hljs-function">() =&gt;</span> &#123;
+      <span class="hljs-keyword">let</span> buildObj = <span class="hljs-keyword">new</span> <span class="hljs-title class_">BuildObj</span>();
+      buildObj.<span class="hljs-title function_">buildMain</span>();
+      buildObj.<span class="hljs-title function_">preparePackageJson</span>();
+      buildObj.<span class="hljs-title function_">buildInstaller</span>();
+    &#125;,
+  &#125;;
+&#125;;</code></pre>
+<h4 id="制作应用安装包">制作应用安装包</h4>
+<p>Vite 编译完成之后，将在项目 dist 目录内会生成一系列的文件（如下图所示），此时 closeBundle 钩子被调用，</p>
+<h4 id="electron-builder-原理">electron-builder 原理</h4>
+<p>首先 electron-builder 会收集应用程序的配置信息。比如应用图标、应用名称、应用 id、附加资源等信息。有些配置信息可能开发者并没有提供，这时 electron-builder 会使用默认的值，总之，这一步工作完成后，会生成一个全量的配置信息对象用于接下来的打包工作。</p>
+<p>接着 electron-builder 会检查我们在输出目录下准备的 package.json 文件，查看其内部是否存在 dependencies 依赖，如果存在，electron-builder 会帮我们在输出目录下安装这些依赖。</p>
+<p>然后 electron-builder 会根据用户配置信息：asar 的值为 true 或 false，来判断是否需要把输出目录下的文件合并成一个 asar 文件。</p>
+<p>然后 electron-builder 会把 Electron 可执行程序及其依赖的动态链接库及二进制资源拷贝到安装包生成目录下的 win-ia32-unpacked 子目录内。</p>
+<p>然后 electron-builder 还会检查用户是否在配置信息中指定了 extraResources 配置项，如果有，则把相应的文件按照配置的规则，拷贝到对应的目录中。</p>
+<p>然后 electron-builder 会根据配置信息使用一个二进制资源修改器修改 electron.exe 的文件名和属性信息（版本号、版权信息、应用程序的图标等）。</p>
+<p>如果开发者在配置信息中指定了签名信息，那么接下来 electron-builder 会使用一个应用程序签名工具来为可执行文件签名。</p>
+<p>接着 electron-builder 会使用 7z 压缩工具，把子目录 win-ia32-unpacked 下的内容压缩成一个名为 yourProductName-1.3.6-ia32.nsis.7z 的压缩包。</p>
+<p>接下来 electron-builder 会使用 NSIS 工具生成卸载程序的可执行文件，这个卸载程序记录了 win-ia32-unpacked 目录下所有文件的相对路径，当用户卸载我们的应用时，卸载程序会根据这些相对路径删除我们的文件，同时它也会记录一些安装时使用的注册表信息，在卸载时清除这些注册表信息。</p>
+<p>最后 electron-builder 会使用 NSIS 工具生成安装程序的可执行文件，然后把压缩包和卸载程序当作资源写入这个安装程序的可执行文件中。当用户执行安装程序时，这个可执行文件会读取自身的资源，并把这些资源释放到用户指定的安装目录下。</p>
+<p>至此，一个应用程序的安装包就制作完成了。这就是 electron-builder 在背后为我们做的工作。</p>
+<h4 id="主进程生产环境加载本地文件">主进程生产环境加载本地文件</h4>
+<pre><code class="hljs ts"><span class="hljs-keyword">import</span> &#123; protocol &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;electron&quot;</span>;
+<span class="hljs-keyword">import</span> fs <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;fs&quot;</span>;
+<span class="hljs-keyword">import</span> path <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;path&quot;</span>;
+
+<span class="hljs-comment">//为自定义的app协议提供特权</span>
+<span class="hljs-keyword">let</span> schemeConfig = &#123;
+  <span class="hljs-attr">standard</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">supportFetchAPI</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">bypassCSP</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">corsEnabled</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">stream</span>: <span class="hljs-literal">true</span>,
+&#125;;
+protocol.<span class="hljs-title function_">registerSchemesAsPrivileged</span>([
+  &#123; <span class="hljs-attr">scheme</span>: <span class="hljs-string">&quot;app&quot;</span>, <span class="hljs-attr">privileges</span>: schemeConfig &#125;,
+]);
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">CustomScheme</span> &#123;
+  <span class="hljs-comment">//根据文件扩展名获取mime-type</span>
+  <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-title function_">getMimeType</span>(<span class="hljs-params">extension: <span class="hljs-built_in">string</span></span>) &#123;
+    <span class="hljs-keyword">let</span> mimeType = <span class="hljs-string">&quot;&quot;</span>;
+    <span class="hljs-keyword">if</span> (extension === <span class="hljs-string">&quot;.js&quot;</span>) &#123;
+      mimeType = <span class="hljs-string">&quot;text/javascript&quot;</span>;
+    &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (extension === <span class="hljs-string">&quot;.html&quot;</span>) &#123;
+      mimeType = <span class="hljs-string">&quot;text/html&quot;</span>;
+    &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (extension === <span class="hljs-string">&quot;.css&quot;</span>) &#123;
+      mimeType = <span class="hljs-string">&quot;text/css&quot;</span>;
+    &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (extension === <span class="hljs-string">&quot;.svg&quot;</span>) &#123;
+      mimeType = <span class="hljs-string">&quot;image/svg+xml&quot;</span>;
+    &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (extension === <span class="hljs-string">&quot;.json&quot;</span>) &#123;
+      mimeType = <span class="hljs-string">&quot;application/json&quot;</span>;
+    &#125;
+    <span class="hljs-keyword">return</span> mimeType;
+  &#125;
+  <span class="hljs-comment">//注册自定义app协议</span>
+  <span class="hljs-keyword">static</span> <span class="hljs-title function_">registerScheme</span>(<span class="hljs-params"></span>) &#123;
+    protocol.<span class="hljs-title function_">registerStreamProtocol</span>(<span class="hljs-string">&quot;app&quot;</span>, <span class="hljs-function">(<span class="hljs-params">request, callback</span>) =&gt;</span> &#123;
+      <span class="hljs-keyword">let</span> pathName = <span class="hljs-keyword">new</span> <span class="hljs-title function_">URL</span>(request.<span class="hljs-property">url</span>).<span class="hljs-property">pathname</span>;
+      <span class="hljs-keyword">let</span> extension = path.<span class="hljs-title function_">extname</span>(pathName).<span class="hljs-title function_">toLowerCase</span>();
+      <span class="hljs-keyword">if</span> (extension == <span class="hljs-string">&quot;&quot;</span>) &#123;
+        pathName = <span class="hljs-string">&quot;index.html&quot;</span>;
+        extension = <span class="hljs-string">&quot;.html&quot;</span>;
+      &#125;
+      <span class="hljs-keyword">let</span> tarFile = path.<span class="hljs-title function_">join</span>(__dirname, pathName);
+      <span class="hljs-title function_">callback</span>(&#123;
+        <span class="hljs-attr">statusCode</span>: <span class="hljs-number">200</span>,
+        <span class="hljs-attr">headers</span>: &#123; <span class="hljs-string">&quot;content-type&quot;</span>: <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">getMimeType</span>(extension) &#125;,
+        <span class="hljs-attr">data</span>: fs.<span class="hljs-title function_">createReadStream</span>(tarFile),
+      &#125;);
+    &#125;);
+  &#125;
+&#125;</code></pre>
+<p>这段代码在主进程 app ready 前，通过 protocol 对象的 registerSchemesAsPrivileged 方法为名为 app 的 scheme 注册了特权（可以使用 FetchAPI、绕过内容安全策略等）。</p>
+<p>在 app ready 之后，通过 protocol 对象的 registerStreamProtocol 方法为名为 app 的 scheme 注册了一个回调函数。当我们加载类似 app://index.html 这样的路径时，这个回调函数将被执行。</p>
+<p>响应的 data 属性为目标文件的可读数据流。<strong>这也是为什么我们用 registerStreamProtocol 方法注册自定义协议的原因。当你的静态文件比较大时，不必读出整个文件再给出响应。</strong></p>
+<h3 id="如何引入-vue-router-及控制工程架构？">如何引入 vue-router 及控制工程架构？</h3>
+<pre><code class="hljs sh">npm install vue-router@4 -D</code></pre>
+<p>安装完成后，为 src/renderer/router.ts 添加路由</p>
+<pre><code class="hljs ts"><span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> <span class="hljs-title class_">VueRouter</span> <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;vue-router&quot;</span>;
+<span class="hljs-comment">//路由规则描述数组</span>
+<span class="hljs-keyword">const</span> routes = [
+  &#123; <span class="hljs-attr">path</span>: <span class="hljs-string">&quot;/&quot;</span>, <span class="hljs-attr">redirect</span>: <span class="hljs-string">&quot;/WindowMain/Chat&quot;</span> &#125;,
+  &#123;
+    <span class="hljs-attr">path</span>: <span class="hljs-string">&quot;/WindowMain&quot;</span>,
+    <span class="hljs-attr">component</span>: <span class="hljs-function">() =&gt;</span> <span class="hljs-title function_">import</span>(<span class="hljs-string">&quot;./Window/WindowMain.vue&quot;</span>),
+    <span class="hljs-attr">children</span>: [
+      &#123; <span class="hljs-attr">path</span>: <span class="hljs-string">&quot;Chat&quot;</span>, <span class="hljs-attr">component</span>: <span class="hljs-function">() =&gt;</span> <span class="hljs-title function_">import</span>(<span class="hljs-string">&quot;./Window/WindowMain/Chat.vue&quot;</span>) &#125;,
+      &#123;
+        <span class="hljs-attr">path</span>: <span class="hljs-string">&quot;Contact&quot;</span>,
+        <span class="hljs-attr">component</span>: <span class="hljs-function">() =&gt;</span> <span class="hljs-title function_">import</span>(<span class="hljs-string">&quot;./Window/WindowMain/Contact.vue&quot;</span>),
+      &#125;,
+      &#123;
+        <span class="hljs-attr">path</span>: <span class="hljs-string">&quot;Collection&quot;</span>,
+        <span class="hljs-attr">component</span>: <span class="hljs-function">() =&gt;</span> <span class="hljs-title function_">import</span>(<span class="hljs-string">&quot;./Window/WindowMain/Collection.vue&quot;</span>),
+      &#125;,
+    ],
+  &#125;,
+  &#123;
+    <span class="hljs-attr">path</span>: <span class="hljs-string">&quot;/WindowSetting&quot;</span>,
+    <span class="hljs-attr">component</span>: <span class="hljs-function">() =&gt;</span> <span class="hljs-title function_">import</span>(<span class="hljs-string">&quot;./Window/WindowSetting.vue&quot;</span>),
+    <span class="hljs-attr">children</span>: [
+      &#123;
+        <span class="hljs-attr">path</span>: <span class="hljs-string">&quot;AccountSetting&quot;</span>,
+        <span class="hljs-attr">component</span>: <span class="hljs-function">() =&gt;</span> <span class="hljs-title function_">import</span>(<span class="hljs-string">&quot;./Window/WindowSetting/AccountSetting.vue&quot;</span>),
+      &#125;,
+    ],
+  &#125;,
+  &#123;
+    <span class="hljs-attr">path</span>: <span class="hljs-string">&quot;/WindowUserInfo&quot;</span>,
+    <span class="hljs-attr">component</span>: <span class="hljs-function">() =&gt;</span> <span class="hljs-title function_">import</span>(<span class="hljs-string">&quot;./Window/WindowUserInfo.vue&quot;</span>),
+  &#125;,
+];
+<span class="hljs-comment">//导出路由对象</span>
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">let</span> router = <span class="hljs-title class_">VueRouter</span>.<span class="hljs-title function_">createRouter</span>(&#123;
+  <span class="hljs-attr">history</span>: <span class="hljs-title class_">VueRouter</span>.<span class="hljs-title function_">createWebHistory</span>(),
+  routes,
+&#125;);</code></pre>
+<h4 id="引入字体图标及避免小文件编译">引入字体图标及避免小文件编译</h4>
+<p>第一点，引入必要的字体图标文件。<br>
+iconfont 默认会为我们生成很多字体图标文件，但这些文件都是为了兼容不同的浏览器准备的，Electron 使用 Chromium 核心，所以没必要把所有这些文件都集成到应用中。一般情况下我只使用 iconfont.css 和 iconfont.ttf 这两个文件<br>
+第二点，关闭小文件编译的行为<br>
+没必要为了减少请求数量而增加单个文件的解析开销，开发者可以通过在 vite.config.ts 中增加</p>
+<pre><code class="hljs json"><span class="hljs-punctuation">&#123;</span>
+  <span class="hljs-attr">&quot;build&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span>
+    <span class="hljs-attr">&quot;assetsInlineLimit&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">0</span>
+  <span class="hljs-punctuation">&#125;</span>
+<span class="hljs-punctuation">&#125;</span></code></pre>
+<p>build.assetsInlineLimit 配置（值设置为 0 即可）来关闭 Vite 的这个行为。</p>
+<h3 id="如何管控应用的窗口（上）？">如何管控应用的窗口（上）？</h3>
+<h4 id="BrowserWindow-的问题">BrowserWindow 的问题</h4>
+<p>你就会发现 Electron 创建一个 BrowserWindow 对象，并让它成功渲染一个页面是非常耗时的，在一个普通配置的电脑上，这大概需要 2~5 秒左右的时间<br>
+而且不但 BrowserWindow 存在这个问题，<webview>和 BrowserView 都存在这个问题（它们背后都使用了相同的多进程渲染技术）</p>
+<p>解决这个问题最直接的方法是关闭 Windows 系统的病毒和威胁防护功能，或者为 Windows 系统的病毒和威胁防护功能添加例外</p>
+<p>添加例外的 shell 脚本</p>
+<pre><code class="hljs sh">Add-MpPreference -ExclusionProcess <span class="hljs-string">&quot;C:\Users\liuxiaolun\AppData\Roaming\Electron Fiddle\electron-bin\19.0.4\electron.exe&quot;</span></code></pre>
+<h4 id="窗口池解决方案">窗口池解决方案</h4>
+<p>提前准备 1 个或多个隐藏的窗口，让它们加载一个骨架屏页面，放到一个数组里，当应用程序需要打开一个新窗口时，就从这个数组里取出一个窗口，执行页内跳转，从骨架屏页面跳转到业务页面，然后再把这个窗口显示出来。这就消费掉了一个窗口。</p>
+<p>然而这个方案有以下三个缺点。</p>
+<ol>
+<li>无法优化整个应用的第一个窗口。</li>
+<li>系统内部始终会有 1 到 2 个隐藏窗口处于待命状态，这无形中增加了用户的内存消耗。</li>
+<li>虽然这个方案看上去逻辑比较简单，但要控制好所有的细节（比如，窗口间的通信、界面代码如何控制窗口的外观、如何实现模态子窗口等）还是非常繁琐的。</li>
+</ol>
+<h3 id="如何管控应用的窗口（下）？">如何管控应用的窗口（下）？</h3>
+<p>我们知道 Electron 是允许使用 window.open 的方式打开一个子窗口，通过这种方式打开的子窗口不会创建新的进程，效率非常高，可以在几百毫秒内就为用户呈现窗口内容。</p>
+<p>虽然这个方案可以应对一般的多窗口应用的需求，但对于一些复杂的需求却需要很多额外的处理才能满足需求，比如：系统设置子窗口，当用户完成某一项设置之后，要通知父窗口做出相应的改变。这是常见的父子窗口通信的需求。</p>
+<h4 id="window-open-解决方案">window.open 解决方案</h4>
+<p>Electron 允许渲染进程通过 window.open 打开一个新窗口，但这需要做一些额外的设置。</p>
+<p>首先需要为主窗口的 webContents 注册 setWindowOpenHandler 方法。</p>
+<pre><code class="hljs ts"><span class="hljs-comment">//src\main\CommonWindowEvent.ts</span>
+mainWindow.<span class="hljs-property">webContents</span>.<span class="hljs-title function_">setWindowOpenHandler</span>(<span class="hljs-function">(<span class="hljs-params">param</span>) =&gt;</span> &#123;
+  <span class="hljs-keyword">return</span> &#123; <span class="hljs-attr">action</span>: <span class="hljs-string">&quot;allow&quot;</span>, <span class="hljs-attr">overrideBrowserWindowOptions</span>: yourWindowConfig &#125;;
+&#125;);</code></pre>
+<p>在渲染进程中打开子窗口的代码如下所示:</p>
+<pre><code class="hljs ts"><span class="hljs-variable language_">window</span>.<span class="hljs-title function_">open</span>(<span class="hljs-string">`/WindowSetting/AccountSetting`</span>);</code></pre>
+<p>window.open 打开新窗口之所以速度非常快，是因为用这种方式创建的新窗口不会创建新的进程。这也就意味着一个窗口崩溃会拖累其他窗口跟着崩溃（主窗口不受影响）。</p>
+<p>使用 window.open 打开的新窗口还有一个问题，这类窗口在关闭之后虽然会释放掉大部分内存，但有一小部分内存无法释放（无论你打开多少个子窗口，全部关闭之后总会有那么固定的一小块内存无法释放），这与窗口池方案的内存损耗相当。<br>
+同样使用这个方案也无法优化应用的第一个窗口的创建速度。而且<webview>和 BrowserView 慢的问题无法使用这个方案解决（这类需求还是应该考虑“池”方案）。</p>
+<pre><code class="hljs ts"><span class="hljs-comment">// 父窗口 监听 window 对象的 message 事件</span>
+<span class="hljs-variable language_">window</span>.<span class="hljs-title function_">addEventListener</span>(<span class="hljs-string">&quot;message&quot;</span>, <span class="hljs-function">(<span class="hljs-params">e</span>) =&gt;</span> &#123;
+  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(e.<span class="hljs-property">data</span>);
+&#125;);
+<span class="hljs-comment">// 子窗口发送消息给父窗口</span>
+<span class="hljs-variable language_">window</span>.<span class="hljs-property">opener</span>.<span class="hljs-title function_">postMessage</span>(&#123; <span class="hljs-attr">msgName</span>: <span class="hljs-string">&quot;hello&quot;</span>, <span class="hljs-attr">value</span>: <span class="hljs-string">&quot;I am your son.&quot;</span> &#125;);</code></pre>
+<p>相对于使用 ipcRenderer 和 ipcMain 的方式完成窗口间通信来说，使用这种方式完成跨窗口通信有以下几项优势：</p>
+<p>消息传递与接收效率都非常高，均为毫秒级；<br>
+开发更加简单，代码逻辑清晰，无需跨进程中转消息。</p>
+<h3 id="如何引入客户端数据库及相关工具？">如何引入客户端数据库及相关工具？</h3>
+<p>对于简单的数据类型来说，开发者可以直接把它们存储在 localStorage 中，这些数据是持久化在用户磁盘上的，不会因为用户重启应用或者重装应用而丢失。</p>
+<p>对于稍微复杂的数据类型来说，开发者有两个选择，其一是把这类数据存储在 IndexedDB 中，与 localStorage 类似，这也是谷歌浏览器核心提供的数据持久化工具，它以 JSON 对象的方式存储数据，数据较多时，复杂的条件查询效率不佳。</p>
+<p>第二个选择就是把数据存储在 SQLite 中，这是一个关系型数据库，天生对复杂条件查询支持良好。接下来我们就介绍如何把 SQLite 引入到 Electron 应用中。</p>
+<h4 id="引入-SQLite">引入 SQLite</h4>
+<pre><code class="hljs sh">npm install better-sqlite3 -D</code></pre>
+<p>建议开发者使用 Electron 团队提供的 electron-rebuild 工具来完成此工作，因为 electron-rebuild 会帮我们确定 Electron 的版本号、Electron 内置的 Node.js 的版本号、以及 Node.js 使用的 ABI 的版本号，并根据这些版本号下载不同的头文件和类库。</p>
+<pre><code class="hljs sh">npm install electron-rebuild -D</code></pre>
+<p>然后，在你的工程的 package.json 中增加如下配置节（scripts 配置节）：</p>
+<pre><code class="hljs json"><span class="hljs-attr">&quot;rebuild&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;electron-rebuild -f -w better-sqlite3&quot;</span></code></pre>
+<p>接着，在工程根目录下执行如下指令：</p>
+<pre><code class="hljs sh">npm run rebuild</code></pre>
+<p>当你的工程下出现了这个文件 node_modules\better-sqlite3\build\Release\better_sqlite3.node，才证明 better_sqlite3 模块编译成功了，如果上述指令没有帮你完成这项工作，你可以把指令配置到 node_modules\better-sqlite3 模块内部再执行一次，一般就可以编译成功了。</p>
+<h4 id="压缩安装包体积">压缩安装包体积</h4>
+<p>better-sqlite3 不是一个原生模块吗，但这里我们仍然把它安装成了开发依赖，大家都知道原生模块是无法被 Vite 编译到 JavaScript 的，那我们为什么还要把它安装程开发依赖呢？</p>
+<p>把 better-sqlite3 安装成生产依赖，在功能上没有任何问题，electron-builder 在制作安装包时，会自动为安装包附加这个依赖（better-sqlite3 这个库自己的依赖也会被正确附加到安装包内）。</p>
+<p>但 electron-builder 会把很多无用的文件（很多编译原生模块时的中间产物）也附加到安装包内。无形中增加了安装包的体积（大概 10M）</p>
+<pre><code class="hljs ts"><span class="hljs-comment">//plugins\buildPlugin.ts</span>
+<span class="hljs-comment">//import fs from &quot;fs-extra&quot;;</span>
+<span class="hljs-keyword">async</span> <span class="hljs-title function_">prepareSqlite</span>(<span class="hljs-params"></span>) &#123;
+  <span class="hljs-comment">//拷贝better-sqlite3</span>
+  <span class="hljs-keyword">let</span> srcDir = path.<span class="hljs-title function_">join</span>(process.<span class="hljs-title function_">cwd</span>(), <span class="hljs-string">`node_modules/better-sqlite3`</span>);
+  <span class="hljs-keyword">let</span> destDir = path.<span class="hljs-title function_">join</span>(process.<span class="hljs-title function_">cwd</span>(), <span class="hljs-string">`dist/node_modules/better-sqlite3`</span>);
+  fs.<span class="hljs-title function_">ensureDirSync</span>(destDir);
+  fs.<span class="hljs-title function_">copySync</span>(srcDir, destDir, &#123;
+    <span class="hljs-attr">filter</span>: <span class="hljs-function">(<span class="hljs-params">src, dest</span>) =&gt;</span> &#123;
+      <span class="hljs-keyword">if</span> (src.<span class="hljs-title function_">endsWith</span>(<span class="hljs-string">&quot;better-sqlite3&quot;</span>) || src.<span class="hljs-title function_">endsWith</span>(<span class="hljs-string">&quot;build&quot;</span>) || src.<span class="hljs-title function_">endsWith</span>(<span class="hljs-string">&quot;Release&quot;</span>) || src.<span class="hljs-title function_">endsWith</span>(<span class="hljs-string">&quot;better_sqlite3.node&quot;</span>)) <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+      <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (src.<span class="hljs-title function_">includes</span>(<span class="hljs-string">&quot;node_modules\\better-sqlite3\\lib&quot;</span>)) <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+      <span class="hljs-keyword">else</span> <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+    &#125;,
+  &#125;);
+
+  <span class="hljs-keyword">let</span> pkgJson = <span class="hljs-string">`&#123;&quot;name&quot;: &quot;better-sqlite3&quot;,&quot;main&quot;: &quot;lib/index.js&quot;&#125;`</span>;
+  <span class="hljs-keyword">let</span> pkgJsonPath = path.<span class="hljs-title function_">join</span>(process.<span class="hljs-title function_">cwd</span>(), <span class="hljs-string">`dist/node_modules/better-sqlite3/package.json`</span>);
+  fs.<span class="hljs-title function_">writeFileSync</span>(pkgJsonPath, pkgJson);
+  <span class="hljs-comment">//制作bindings模块</span>
+  <span class="hljs-keyword">let</span> bindingPath = path.<span class="hljs-title function_">join</span>(process.<span class="hljs-title function_">cwd</span>(), <span class="hljs-string">`dist/node_modules/bindings/index.js`</span>);
+  fs.<span class="hljs-title function_">ensureFileSync</span>(bindingPath);
+  <span class="hljs-keyword">let</span> bindingsContent = <span class="hljs-string">`module.exports = () =&gt; &#123;</span>
+<span class="hljs-string">let addonPath = require(&quot;path&quot;).join(__dirname, &#x27;../better-sqlite3/build/Release/better_sqlite3.node&#x27;);</span>
+<span class="hljs-string">return require(addonPath);</span>
+<span class="hljs-string">&#125;;`</span>;
+  fs.<span class="hljs-title function_">writeFileSync</span>(bindingPath, bindingsContent);
+
+  pkgJson = <span class="hljs-string">`&#123;&quot;name&quot;: &quot;bindings&quot;,&quot;main&quot;: &quot;index.js&quot;&#125;`</span>;
+  pkgJsonPath = path.<span class="hljs-title function_">join</span>(process.<span class="hljs-title function_">cwd</span>(), <span class="hljs-string">`dist/node_modules/bindings/package.json`</span>);
+  fs.<span class="hljs-title function_">writeFileSync</span>(pkgJsonPath, pkgJson);
+&#125;</code></pre>
+<h4 id="引入-Knex-js">引入 Knex.js</h4>
+<p>Knex.js 允许我们使用 JavaScript 代码来操作数据库里的数据和表结构，它会帮我们把 JavaScript 代码转义成具体的 SQL 语句，再把 SQL 语句交给数据库处理。我们可以把它理解为一种 SQL Builder。</p>
+<pre><code class="hljs sh">npm install knex -D</code></pre>
+<p>打包之前编译这个库</p>
+<pre><code class="hljs ts"><span class="hljs-comment">//plugins\buildPlugin.ts</span>
+<span class="hljs-comment">//import fs from &quot;fs-extra&quot;;</span>
+<span class="hljs-title function_">prepareKnexjs</span>(<span class="hljs-params"></span>) &#123;
+  <span class="hljs-keyword">let</span> pkgJsonPath = path.<span class="hljs-title function_">join</span>(process.<span class="hljs-title function_">cwd</span>(), <span class="hljs-string">`dist/node_modules/knex`</span>);
+  fs.<span class="hljs-title function_">ensureDirSync</span>(pkgJsonPath);
+  <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;esbuild&quot;</span>).<span class="hljs-title function_">buildSync</span>(&#123;
+    <span class="hljs-attr">entryPoints</span>: [<span class="hljs-string">&quot;./node_modules/knex/knex.js&quot;</span>],
+    <span class="hljs-attr">bundle</span>: <span class="hljs-literal">true</span>,
+    <span class="hljs-attr">platform</span>: <span class="hljs-string">&quot;node&quot;</span>,
+    <span class="hljs-attr">format</span>: <span class="hljs-string">&quot;cjs&quot;</span>,
+    <span class="hljs-attr">minify</span>: <span class="hljs-literal">true</span>,
+    <span class="hljs-attr">outfile</span>: <span class="hljs-string">&quot;./dist/node_modules/knex/index.js&quot;</span>,
+    <span class="hljs-attr">external</span>: [<span class="hljs-string">&quot;oracledb&quot;</span>, <span class="hljs-string">&quot;pg-query-stream&quot;</span>, <span class="hljs-string">&quot;pg&quot;</span>, <span class="hljs-string">&quot;sqlite3&quot;</span>, <span class="hljs-string">&quot;tedious&quot;</span>, <span class="hljs-string">&quot;mysql&quot;</span>, <span class="hljs-string">&quot;mysql2&quot;</span>, <span class="hljs-string">&quot;better-sqlite3&quot;</span>],
+  &#125;);
+  <span class="hljs-keyword">let</span> pkgJson = <span class="hljs-string">`&#123;&quot;name&quot;: &quot;bindings&quot;,&quot;main&quot;: &quot;index.js&quot;&#125;`</span>;
+  pkgJsonPath = path.<span class="hljs-title function_">join</span>(process.<span class="hljs-title function_">cwd</span>(), <span class="hljs-string">`dist/node_modules/knex/package.json`</span>);
+  fs.<span class="hljs-title function_">writeFileSync</span>(pkgJsonPath, pkgJson);
+&#125;</code></pre>
+<h3 id="确保开发过程中-node-版本一致">确保开发过程中 node 版本一致</h3>
+<p>如果你的 Electron 应用使用到原生<br>
+Electron 中内置的 node 的版本和开发过程中本机环境</p>
+<p>如果你在 Electron 工程内使用原生模块时，碰到如下错误：</p>
+<pre><code class="hljs plaintext">Error: The module &#x27;/path/to/native/module.node&#x27;
+was compiled against a different Node.js version using
+NODE_MODULE_VERSION $XYZ. This version of Node.js requires
+NODE_MODULE_VERSION $ABC. Please try re-compiling or re-installing
+the module (for instance, using `npm rebuild` or `npm install`).</code></pre>
+<p>可通过 process.node.version 查看 electron 内置的 node 版本</p>
+<h3 id="如何调试-electron-应用？">如何调试 electron 应用？</h3>
+<h4 id="业务代码解析">业务代码解析</h4>
+<p>开发者可以通过如下命令全局安装 asar 工具（全局安装此工具是非常有必要的，以便你能随时分析生产环境下 Electron 应用的源码）：</p>
+<pre><code class="hljs sh">npm install asar -g</code></pre>
+<p>在 resources 子目录下找到 app.asar 文件，通过如下命令列出该文件内部包含的文件信息：</p>
+<pre><code class="hljs sh">asar list app.asar</code></pre>
+<p>如果你希望一次性把 app.asar 内的文件全部释放出来，可以使用如下指令：</p>
+<pre><code class="hljs sh">asar e app.asar</code></pre>
+<p>更多命令可参考<a target="_blank" rel="noopener" href="https://github.com/electron/asar#usage">@electron/asar</a></p>
+ 
+      <div id="toc-article">
+  <div class="widget-wrap" id="toc-wrap">
+    <h3 class="widget-title"><i class="fa fa-toc"></i> 文章目录</h3>
+    <div class="widget">
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E5%BC%80%E5%8F%91-Vite3-%E6%8F%92%E4%BB%B6%E6%9E%84%E5%BB%BA-Electron-%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%EF%BC%9F"><span class="toc-text">如何开发 Vite3 插件构建 Electron 开发环境？</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E9%A1%B9%E7%9B%AE"><span class="toc-text">创建项目</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E4%B8%BB%E8%BF%9B%E7%A8%8B%E4%BB%A3%E7%A0%81"><span class="toc-text">创建主进程代码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83-Vite-%E6%8F%92%E4%BB%B6"><span class="toc-text">开发环境 Vite 插件</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B8%B2%E6%9F%93%E8%BF%9B%E7%A8%8B%E9%9B%86%E6%88%90%E5%86%85%E7%BD%AE%E6%A8%A1%E5%9D%97"><span class="toc-text">渲染进程集成内置模块</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AE%BE%E7%BD%AE-Vite-%E6%A8%A1%E5%9D%97%E5%88%AB%E5%90%8D%E4%B8%8E%E6%A8%A1%E5%9D%97%E8%A7%A3%E6%9E%90%E9%92%A9%E5%AD%90"><span class="toc-text">设置 Vite 模块别名与模块解析钩子</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E5%BC%80%E5%8F%91-Vite-3-%E6%8F%92%E4%BB%B6%E6%89%93%E5%8C%85-Electron-%E5%BA%94%E7%94%A8%EF%BC%9F"><span class="toc-text">如何开发 Vite 3 插件打包 Electron 应用？</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BC%96%E8%AF%91%E7%BB%93%E6%9D%9F%E9%92%A9%E5%AD%90%E5%87%BD%E6%95%B0"><span class="toc-text">编译结束钩子函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%B6%E4%BD%9C%E5%BA%94%E7%94%A8%E5%AE%89%E8%A3%85%E5%8C%85"><span class="toc-text">制作应用安装包</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#electron-builder-%E5%8E%9F%E7%90%86"><span class="toc-text">electron-builder 原理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%BB%E8%BF%9B%E7%A8%8B%E7%94%9F%E4%BA%A7%E7%8E%AF%E5%A2%83%E5%8A%A0%E8%BD%BD%E6%9C%AC%E5%9C%B0%E6%96%87%E4%BB%B6"><span class="toc-text">主进程生产环境加载本地文件</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E5%BC%95%E5%85%A5-vue-router-%E5%8F%8A%E6%8E%A7%E5%88%B6%E5%B7%A5%E7%A8%8B%E6%9E%B6%E6%9E%84%EF%BC%9F"><span class="toc-text">如何引入 vue-router 及控制工程架构？</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%BC%95%E5%85%A5%E5%AD%97%E4%BD%93%E5%9B%BE%E6%A0%87%E5%8F%8A%E9%81%BF%E5%85%8D%E5%B0%8F%E6%96%87%E4%BB%B6%E7%BC%96%E8%AF%91"><span class="toc-text">引入字体图标及避免小文件编译</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E7%AE%A1%E6%8E%A7%E5%BA%94%E7%94%A8%E7%9A%84%E7%AA%97%E5%8F%A3%EF%BC%88%E4%B8%8A%EF%BC%89%EF%BC%9F"><span class="toc-text">如何管控应用的窗口（上）？</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#BrowserWindow-%E7%9A%84%E9%97%AE%E9%A2%98"><span class="toc-text">BrowserWindow 的问题</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AA%97%E5%8F%A3%E6%B1%A0%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88"><span class="toc-text">窗口池解决方案</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E7%AE%A1%E6%8E%A7%E5%BA%94%E7%94%A8%E7%9A%84%E7%AA%97%E5%8F%A3%EF%BC%88%E4%B8%8B%EF%BC%89%EF%BC%9F"><span class="toc-text">如何管控应用的窗口（下）？</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#window-open-%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88"><span class="toc-text">window.open 解决方案</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E5%BC%95%E5%85%A5%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%95%B0%E6%8D%AE%E5%BA%93%E5%8F%8A%E7%9B%B8%E5%85%B3%E5%B7%A5%E5%85%B7%EF%BC%9F"><span class="toc-text">如何引入客户端数据库及相关工具？</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%BC%95%E5%85%A5-SQLite"><span class="toc-text">引入 SQLite</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8E%8B%E7%BC%A9%E5%AE%89%E8%A3%85%E5%8C%85%E4%BD%93%E7%A7%AF"><span class="toc-text">压缩安装包体积</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%BC%95%E5%85%A5-Knex-js"><span class="toc-text">引入 Knex.js</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A1%AE%E4%BF%9D%E5%BC%80%E5%8F%91%E8%BF%87%E7%A8%8B%E4%B8%AD-node-%E7%89%88%E6%9C%AC%E4%B8%80%E8%87%B4"><span class="toc-text">确保开发过程中 node 版本一致</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E8%B0%83%E8%AF%95-electron-%E5%BA%94%E7%94%A8%EF%BC%9F"><span class="toc-text">如何调试 electron 应用？</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%9A%E5%8A%A1%E4%BB%A3%E7%A0%81%E8%A7%A3%E6%9E%90"><span class="toc-text">业务代码解析</span></a></li></ol></li></ol>
+    </div>
+  </div>
+
+</div>
+       
+      <blockquote id="copyright">
+        <p>
+           原文链接:
+          <a href="https://jesse121.github.io/blog/articles/2022/11/16.html"
+            >https://jesse121.github.io/blog/articles/2022/11/16.html</a
+          >
+        </p>
+        <p>版权声明: 转载请注明出处.</p>
+      </blockquote>
+       
+    </div>
+    <footer class="article-footer">
+      
+      <div class="article-tag-wrap">
+        
+ 
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/vue3/" rel="tag">Vue3</a></li></ul>
+ 
+
+
+      </div>
+        
+<nav id="article-nav">
+  
+    <a href="/blog/articles/2022/10/29.html" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">下一篇</strong>
+      <div class="article-nav-title">
+        
+          如何使用Monorepo实现跨项目共享组件和模块
+        
+      </div>
+    </a>
+  
+  
+</nav>
+   
+  <div id="comments"></div>
+
+
+
+
+
+
+
+
+ 
+    </footer>
+  </div>
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-posts"></i> 最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/blog/articles/2022/11/16.html">掘金小册-Electron+Vue3桌面应用开发学习记录</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2022/10/29.html">如何使用Monorepo实现跨项目共享组件和模块</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2022/09/20.html">【转载】JavaScript代码优化之道</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2022/08/08.html">如何解决Electron应用安装在C盘没有权限更新的问题</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2022/08/05.html">如何用Electron+vue+vite构建桌面端应用(三)</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2022/08/04.html">如何用Electron+vue+vite构建桌面端应用(二)</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2022/07/22.html">从源码分析为什么Electron+vue项目中router不能用history模式</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2022/07/20.html">如何用Electron+vue+vite构建桌面端应用(一)</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2022/06/15.html">如何在国产银河麒麟系统Mips架构上离线安装electron</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2021/10/27.html">极客时间-正则表达式</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-tag"></i> 标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/blog/tags/angularjs/" style="font-size: 10px;">AngularJs</a> <a href="/blog/tags/apache/" style="font-size: 12.5px;">Apache</a> <a href="/blog/tags/bootstrap/" style="font-size: 12.5px;">Bootstrap</a> <a href="/blog/tags/css/" style="font-size: 18.75px;">CSS</a> <a href="/blog/tags/centos/" style="font-size: 10px;">CentOS</a> <a href="/blog/tags/docker/" style="font-size: 12.5px;">Docker</a> <a href="/blog/tags/git/" style="font-size: 11.25px;">Git</a> <a href="/blog/tags/gitlab/" style="font-size: 10px;">Gitlab</a> <a href="/blog/tags/gulp/" style="font-size: 10px;">Gulp</a> <a href="/blog/tags/html/" style="font-size: 12.5px;">HTML</a> <a href="/blog/tags/html5/" style="font-size: 10px;">HTML5</a> <a href="/blog/tags/http/" style="font-size: 12.5px;">HTTP</a> <a href="/blog/tags/https/" style="font-size: 10px;">HTTPS</a> <a href="/blog/tags/husky/" style="font-size: 10px;">Husky</a> <a href="/blog/tags/javascript/" style="font-size: 20px;">JavaScript</a> <a href="/blog/tags/jenkins/" style="font-size: 10px;">Jenkins</a> <a href="/blog/tags/linux/" style="font-size: 11.25px;">Linux</a> <a href="/blog/tags/mac/" style="font-size: 10px;">Mac</a> <a href="/blog/tags/mysql/" style="font-size: 12.5px;">MySQL</a> <a href="/blog/tags/nginx/" style="font-size: 11.25px;">Nginx</a> <a href="/blog/tags/node-js/" style="font-size: 11.25px;">Node.js</a> <a href="/blog/tags/php/" style="font-size: 15px;">PHP</a> <a href="/blog/tags/photoshop/" style="font-size: 10px;">Photoshop</a> <a href="/blog/tags/react/" style="font-size: 10px;">React</a> <a href="/blog/tags/redux/" style="font-size: 10px;">Redux</a> <a href="/blog/tags/sse/" style="font-size: 10px;">SSE</a> <a href="/blog/tags/sublimetext3/" style="font-size: 10px;">SublimeText3</a> <a href="/blog/tags/typescript/" style="font-size: 13.75px;">Typescript</a> <a href="/blog/tags/vagrant/" style="font-size: 10px;">Vagrant</a> <a href="/blog/tags/vim/" style="font-size: 10px;">Vim</a> <a href="/blog/tags/vue/" style="font-size: 10px;">Vue</a> <a href="/blog/tags/vue3/" style="font-size: 10px;">Vue3</a> <a href="/blog/tags/web/" style="font-size: 15px;">WEB</a> <a href="/blog/tags/webpack/" style="font-size: 12.5px;">Webpack</a> <a href="/blog/tags/wireshark/" style="font-size: 11.25px;">Wireshark</a> <a href="/blog/tags/yii/" style="font-size: 10px;">Yii</a> <a href="/blog/tags/electron/" style="font-size: 16.25px;">electron</a> <a href="/blog/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/blog/tags/jquery/" style="font-size: 12.5px;">jQuery</a> <a href="/blog/tags/kylin/" style="font-size: 10px;">kylin</a> <a href="/blog/tags/monorepo/" style="font-size: 10px;">monorepo</a> <a href="/blog/tags/ssh/" style="font-size: 10px;">ssh</a> <a href="/blog/tags/vite/" style="font-size: 13.75px;">vite</a> <a href="/blog/tags/vscode/" style="font-size: 10px;">vscode</a> <a href="/blog/tags/vue/" style="font-size: 10px;">vue</a> <a href="/blog/tags/vue3/" style="font-size: 13.75px;">vue3</a> <a href="/blog/tags/%E5%89%8D%E7%AB%AF%E7%9B%91%E6%8E%A7/" style="font-size: 10px;">前端监控</a> <a href="/blog/tags/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F/" style="font-size: 10px;">微信小程序</a> <a href="/blog/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" style="font-size: 17.5px;">数据结构</a> <a href="/blog/tags/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" style="font-size: 10px;">正则表达式</a> <a href="/blog/tags/%E7%AE%97%E6%B3%95/" style="font-size: 17.5px;">算法</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-classify"></i> 分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/blog/categories/bootstrap/">Bootstrap</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/electron/">Electron</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/html-css/">HTML-CSS</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/html5/">HTML5</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/javascript/">JavaScript</a><span class="category-list-count">11</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/linux/">Linux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/mysql/">MySQL</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/node-js/">Node.js</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/php/">PHP</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/photoshop/">Photoshop</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/typescript/">Typescript</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/vue/">Vue</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/web/">WEB</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/jquery/">jQuery</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/%E5%85%B6%E4%BB%96/">其他</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/translation/">前端翻译</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/">开发工具</a><span class="category-list-count">16</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/%E5%BC%80%E5%8F%91%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/">开发问题记录</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/">正则表达式</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/%E7%AE%97%E6%B3%95/">算法</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/notes/">读书笔记</a><span class="category-list-count">17</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/%E8%BD%AC%E8%BD%BD/">转载</a><span class="category-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-archive"></i> 归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2022/">2022年</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2021/">2021年</a><span class="archive-list-count">11</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2020/">2020年</a><span class="archive-list-count">14</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2019/">2019年</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/">2018年</a><span class="archive-list-count">12</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2017/">2017年</a><span class="archive-list-count">26</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/">2016年</a><span class="archive-list-count">27</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-link"></i> 友情链接</h3>
+    <div class="widget">
+      <ul>
+      
+        <li>
+          <a target="_blank" rel="noopener" href="http://www.mahaixiang.cn/internet/300.html">深入理解互联网协议的原理</a>
+        </li>
+      
+        <li>
+          <a target="_blank" rel="noopener" href="http://javascript.ruanyifeng.com/">JavaScript 标准参考教程</a>
+        </li>
+      
+        <li>
+          <a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript">Mozilla Developer Network</a>
+        </li>
+      
+      </ul>
+    </div>
+  </div>
+
+
+  
+</aside>
+        
+      </div>
+      <a id="totop" href="#top"></a>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      <p>
+        <a href="/blog/sitemap.xml">网站地图</a>
+        <span> | </span
+        ><a href="/blog/atom.xml">订阅本站</a>
+        <span> | </span
+        ><a href="/blog/about/">联系博主</a>
+      </p>
+      
+      <p>
+        <i class="fa fa-visitors"></i>
+        <i id="busuanzi_container_site_uv"
+          ><i id="busuanzi_value_site_uv"></i
+        ></i>
+        ，
+        <i class="fa fa-views"></i>
+        <i id="busuanzi_container_site_pv"
+          ><i id="busuanzi_value_site_pv"></i
+        ></i>
+      </p>
+      
+      <p>
+        <span
+          >Copyright &copy; 2022 Jesse.</span
+        >
+        <span
+          >Powered by <a href="https://hexo.io/" target="_blank">Hexo.</a></span
+        >
+      </p>
+    </div>
+  </div>
+</footer>
+
+    </div>
+  </div>
+  
+<script src="https://unpkg.com/@highlightjs/cdn-assets@11.6.0/highlight.min.js"></script>
+
+<script>
+  hljs.highlightAll();
+</script>
+
+<script src="https://unpkg.com/jquery@3.4.1/dist/jquery.min.js"></script>
+ 
+<script src="/blog/js/search.json.js"></script>
+  
+<script src="https://unpkg.com/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+
+ 
+<script src="/blog/js/script.js"></script>
+ 
+ 
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?8e59984317ab1777a88e5b3e62c7c767";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+  
+<script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+ 
+      
+<script src="https://unpkg.com/gitalk@1.7.2/dist/gitalk.min.js"></script>
+ 
+<script src="//cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.js"></script>
+
+<script>
+  var gitalk = new Gitalk({
+    clientID: "3c3e422527fd3f9fa17a",
+    clientSecret: "f28d1808ec9ab69fb24dc3e9fad81e1c3ab8dd83",
+    repo: "blog",
+    owner: "jesse121",
+    admin: ["jesse121"],
+    id: md5(window.location.pathname),
+    proxy: "https://stormy-gorge-51623.herokuapp.com/https://github.com/login/oauth/access_token",
+    distractionFreeMode: false,
+    language: "zh-CN",
+    body: "欢迎在下方提出问题，您的疑问促进我们共同进步！",
+    pagerDirection: "last",
+  });
+  gitalk.render("comments");
+</script>
+         
+ 
+<script>
+  if (navigator.serviceWorker) {
+    navigator.serviceWorker
+      .register("/blog/sw.js")
+      .then(function (registration) {
+        console.log("Registered events at scope: ", registration.scope);
+      })
+      .catch(function (err) {
+        console.log("ServiceWorker registration failed: ", err);
+      });
+  }
+</script>
+<script
+  type="text/javascript"
+  src="https://unpkg.com/clipboard@2.0.4/dist/clipboard.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="/blog/js/codeBlock/codeBlockFunction.js"
+></script>
+<script type="text/javascript" src="/blog/js/codeBlock/codeLang.js"></script>
+<script type="text/javascript" src="/blog/js/codeBlock/codeCopy.js"></script>
+<script type="text/javascript" src="/blog/js/codeBlock/codeShrink.js"></script>
+
+</body>
+</html>

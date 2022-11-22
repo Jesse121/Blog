@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+   
+  <title>跳表 | 前端之路</title>
+  <link rel="manifest" href="/blog/manifest.json" />
+  <meta name="theme-color" content="#bccddd" />
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, shrink-to-fit=no"
+  />
+
+  
+  <meta name="description" content="专注前端开发，前端开发技术博客" />
+   
+  <meta name="keywords" content="Web前端开发，Javascript，前端开发博客" />
+  
+  <link rel="dns-prefetch" href="https://unpkg.com" />
+  <link rel="dns-prefetch" href="https://busuanzi.ibruce.info" />
+   <link rel="alternate" href="/blog/atom.xml" title="前端之路" type="application/atom+xml">   <link rel="shortcut icon" href="/blog/favicon.ico"> 
+  <link rel="bookmark" href="/blog/favicon.ico" />
+  <link rel="apple-touch-icon" href="/blog/apple-touch-icon.png" />
+  <link rel="apple-touch-icon-precomposed" href="/blog/apple-touch-icon.png" />
+   
+<link rel="stylesheet" href="https://unpkg.com/@highlightjs/cdn-assets@11.6.0/styles/xt256.min.css">
+  
+<link rel="stylesheet" href="/blog/css/style.css">
+  
+<link rel="stylesheet" href="https://unpkg.com/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
+    
+<link rel="stylesheet" href="https://unpkg.com/gitalk@1.7.2/dist/gitalk.css">
+  
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/blog/" id="logo">前端之路</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/blog/" id="subtitle">路漫漫其修远兮，吾将上下而求索</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        
+          <a class="main-nav-link" href="/blog/."><i class="fa fa-home"></i> 首页</a>
+        
+          <a class="main-nav-link" href="/blog/archives/"><i class="fa fa-archive"></i> 归档</a>
+        
+          <a class="main-nav-link" href="/blog/about/"><i class="fa fa-user"></i> 关于</a>
+        
+      </nav>
+    </div>
+    <div id="search-form">
+      <div id="result-mask" class="hide"></div>
+      <label><input id="search-key" type="text" autocomplete="off" placeholder="搜索"></label>
+      <div id="result-wrap" class="hide">
+        <div id="search-result"></div>
+      </div>
+      <div class="hide">
+        <template id="search-tpl">
+          <div class="item">
+            <a href="/{path}" title="{title}">
+              <div class="title">{title}</div>
+              <div class="time">{date}</div>
+              <div class="tags">{tags}</div>
+            </a>
+          </div>
+        </template>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><style>
+  code {
+    padding: 1px 5px;
+    font-family: Inconsolata, Monaco, Consolas, "Courier New", Courier,
+      monospace;
+    /* font-size: 0.91rem; */
+    color: #e96900;
+    background-color: #f8f8f8;
+    border-radius: 2px;
+  }
+
+  pre code {
+    padding: 0 !important;
+    color: #e8eaf6;
+    background-color: #272822;
+  }
+
+  pre[class*="language-"] {
+    padding: 1.2em;
+    margin: 0.5em 0;
+  }
+
+  code[class*="language-"],
+  pre[class*="language-"] {
+    color: #e8eaf6;
+    white-space: pre-wrap !important;
+  }
+  .line-numbers-rows {
+    border-right-width: 0px !important;
+  }
+
+  .line-numbers {
+    padding: 1.5rem 1.5rem 1.5rem 3.2rem !important;
+    margin: 1rem 0 !important;
+    background: #272822;
+    overflow: auto;
+    border-radius: 0.35rem;
+    tab-size: 4;
+  }
+
+  pre {
+    padding: 1.5rem !important;
+    margin: 1rem 0 !important;
+    background: #272822;
+    overflow: auto;
+    border-radius: 0.35rem;
+    tab-size: 4;
+  }
+
+  pre::before {
+    content: "";
+    height: 16px;
+    margin-bottom: 0;
+    display: block;
+  }
+
+  pre::after {
+    content: " ";
+    position: absolute;
+    border-radius: 50%;
+    background: #ff5f56;
+    width: 12px;
+    height: 12px;
+    top: 0;
+    left: 12px;
+    margin-top: 12px;
+    -webkit-box-shadow: 20px 0 #ffbd2e, 40px 0 #27c93f;
+    box-shadow: 20px 0 #ffbd2e, 40px 0 #27c93f;
+  }
+
+  code {
+    padding: 1px 5px;
+    font-family: Inconsolata, Monaco, Consolas, "Courier New", Courier,
+      monospace;
+    font-size: 0.91rem;
+    color: #e96900;
+    background-color: #f8f8f8;
+    border-radius: 2px;
+  }
+
+  .code_copy {
+    position: absolute;
+    top: 0.7rem;
+    right: 35px;
+    z-index: 1;
+    filter: invert(50%);
+    cursor: pointer;
+  }
+
+  .code_lang {
+    position: absolute;
+    top: 1.2rem;
+    right: 60px;
+    line-height: 0;
+    font-weight: bold;
+    font-family: normal;
+    z-index: 1;
+    filter: invert(50%);
+    cursor: pointer;
+  }
+
+  .code-expand {
+    position: absolute;
+    top: 4px;
+    right: 0px;
+    filter: invert(50%);
+    padding: 7px 10px;
+    z-index: 1;
+    cursor: pointer;
+    transition: all 0.3s;
+    transform: rotate(0deg);
+  }
+
+  .code-closed .code-expand {
+    transform: rotate(-180deg) !important;
+    transition: all 0.3s;
+  }
+
+  .code-closed pre::before {
+    height: 0px;
+  }
+
+  pre code {
+    padding: 0;
+    color: #e8eaf6;
+    background-color: #272822 !important;
+  }
+
+  pre[class*="language-"] {
+    padding: 1.2em;
+    margin: 0.5em 0;
+  }
+
+  code[class*="language-"],
+  pre[class*="language-"] {
+    color: #e8eaf6;
+    white-space: pre-wrap !important;
+  }
+</style>
+<article
+  id="post-algorithm/跳表"
+  class="h-entry article article-type-post"
+  itemprop="blogPost"
+  itemscope
+  itemtype="https://schema.org/BlogPosting"
+>
+  <div class="article-inner">
+     
+    <header class="article-header">
+      
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      跳表
+    </h1>
+  
+
+
+    </header>
+    
+    <div class="article-meta">
+       <span class="article-date">
+  <i class="fa fa-date"></i>
+  <time class="dt-published" datetime="2021-03-09T12:47:10.000Z" itemprop="datePublished">2021年03月09日</time>
+</span> 
+  <div class="article-category">
+    <i class="fa fa-classify"></i>
+    <a class="article-category-link" href="/blog/categories/%E7%AE%97%E6%B3%95/">算法</a>
+  </div>
+  <span class="article-views">
+  <i class="fa fa-views"></i>
+  <i id="busuanzi_container_page_pv">
+      <i id="busuanzi_value_page_pv"></i>
+  </i>
+</span>
+  
+<a href="/blog/articles/2021/03/09.html#comments" class="article-comment-link">
+  
+    
+    
+    
+    
+    
+  
+  <i class="fa fa-commt"></i>
+  留言
+</a>
+
+
+    </div>
+    <div class="e-content article-entry" itemprop="articleBody">
+       <p>跳表这种数据结构对你来说，可能会比较陌生，因为一般的数据结构和算法书籍里都不怎么会讲。但是它确实是一种各方面性能都比较优秀的动态数据结构，可以支持快速地插入、删除、查找操作，写起来也不复杂，甚至可以替代红黑树（Red-black tree）。</p>
+<span id="more"></span>
+<h3 id="如何理解“跳表”？">如何理解“跳表”？</h3>
+<p>对于一个单链表来讲，即便链表中存储的数据是有序的，如果我们要想在其中查找某个数据，也只能从头到尾遍历链表。这样查找效率就会很低，时间复杂度会很高，是 O(n)。</p>
+<p><img src="https://raw.githubusercontents.com/Jesse121/publicPic/master/blog/pictures/20221123072042.png" alt="" referrerPolicy="no-referrer"></p>
+<p>那怎么来提高查找效率呢？如果像图中那样，对链表建立一级“索引”，查找起来是不是就会更快一些呢？每两个结点提取一个结点到上一级，我们把抽出来的那一级叫做索引或索引层。加来一层索引之后，查找一个结点需要遍历的结点个数减少了，也就是说查找效率提高了。这种链表加多级索引的结构，就是跳表。</p>
+<h3 id="用跳表查询到底有多快？">用跳表查询到底有多快？</h3>
+<p>如果链表里有 n 个结点 按照我们刚才讲的，每两个结点会抽出一个结点作为上一级索引的结点，那第一级索引的结点个数大约就是 n/2，第二级索引的结点个数大约就是 n/4，第三级索引的结点个数大约就是 n/8，依次类推，也就是说，第 k 级索引的结点个数是第 k-1 级索引的结点个数的 1/2，那第 k 级索引结点的个数就是 n/(2<sup>k</sup>)。</p>
+<p>假设索引有 h 级，最高级的索引有 2 个结点。通过上面的公式，我们可以得到 n/(2<sup>h</sup>)=2，从而求得 h=log<sub>2</sub>n-1。如果包含原始链表这一层，整个跳表的高度就是 log<sub>2</sub>n。我们在跳表中查询某个数据的时候，如果每一层都要遍历 m 个结点，那在跳表中查询一个数据的时间复杂度就是 O(m*logn)。</p>
+<p>假设我们要查找的数据是 x，在第 k 级索引中，我们遍历到 y 结点之后，发现 x 大于 y，小于后面的结点 z，所以我们通过 y 的 down 指针，从第 k 级索引下降到第 k-1 级索引。在第 k-1 级索引中，y 和 z 之间只有 3 个结点（包含 y 和 z），所以，我们在 K-1 级索引中最多只需要遍历 3 个结点，依次类推，每一级索引都最多只需要遍历 3 个结点。<br>
+<img src="https://raw.githubusercontents.com/Jesse121/publicPic/master/blog/pictures/20221123072610.png" alt="" referrerPolicy="no-referrer"><br>
+通过上面的分析，我们得到 m=3，所以<strong>在跳表中查询任意数据的时间复杂度就是 O(logn)。</strong></p>
+<h3 id="跳表是不是很浪费内存？">跳表是不是很浪费内存？</h3>
+<p>比起单纯的单链表，跳表需要存储多级索引，肯定要消耗更多的存储空间。</p>
+<p>假设原始链表大小为 n，那第一级索引大约有 n/2 个结点，第二级索引大约有 n/4 个结点，以此类推，每上升一级就减少一半，直到剩下 2 个结点。如果我们把每层索引的结点数写出来，就是一个等比数列。<br>
+<img src="https://raw.githubusercontents.com/Jesse121/publicPic/master/blog/pictures/20221123072815.png" alt="" referrerPolicy="no-referrer"><br>
+这几级索引的结点总和就是 n/2+n/4+n/8…+8+4+2=n-2。所以，跳表的空间复杂度是 O(n)。</p>
+<h3 id="高效的动态插入和删除">高效的动态插入和删除</h3>
+<p>跳表这个动态数据结构，不仅支持查找操作，还支持动态的插入、删除操作，而且插入、删除操作的时间复杂度也是 O(logn)。</p>
+<p>对于纯粹的单链表，需要遍历每个结点，来找到插入的位置。但是，对于跳表来说，我们讲过查找某个结点的时间复杂度是 O(logn)，所以这里查找某个数据应该插入的位置，方法也是类似的，时间复杂度也是 O(logn)。</p>
+<h3 id="跳表索引动态更新">跳表索引动态更新</h3>
+<p>作为一种动态数据结构，我们需要某种手段来维护索引与原始链表大小之间的平衡，也就是说，如果链表中结点多了，索引结点就相应地增加一些，避免复杂度退化，以及查找、插入、删除操作性能下降。跳表是通过随机函数来维护前面提到的“平衡性”。</p>
+<h3 id="跳表的-js-实现">跳表的 js 实现</h3>
+<pre><code class="hljs js"><span class="hljs-keyword">const</span> <span class="hljs-variable constant_">MAX_LEVEL</span> = <span class="hljs-number">16</span>;
+
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">Node</span> &#123;
+  <span class="hljs-title function_">constructor</span>(<span class="hljs-params">&#123; data = -<span class="hljs-number">1</span>, maxLevel = <span class="hljs-number">0</span>, refer = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Array</span>(MAX_LEVEL) &#125; = &#123;&#125;</span>) &#123;
+    <span class="hljs-variable language_">this</span>.<span class="hljs-property">data</span> = data;
+    <span class="hljs-variable language_">this</span>.<span class="hljs-property">maxLevel</span> = maxLevel;
+    <span class="hljs-variable language_">this</span>.<span class="hljs-property">refer</span> = refer;
+  &#125;
+&#125;
+
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">SkipList</span> &#123;
+  <span class="hljs-title function_">constructor</span>(<span class="hljs-params"></span>) &#123;
+    <span class="hljs-variable language_">this</span>.<span class="hljs-property">head</span> = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Node</span>();
+    <span class="hljs-variable language_">this</span>.<span class="hljs-property">levelCount</span> = <span class="hljs-number">1</span>;
+  &#125;
+  <span class="hljs-title function_">randomLevel</span>(<span class="hljs-params"></span>) &#123;
+    <span class="hljs-keyword">let</span> level = <span class="hljs-number">1</span>;
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">1</span>; i &lt; <span class="hljs-variable constant_">MAX_LEVEL</span>; i++) &#123;
+      <span class="hljs-keyword">if</span> (<span class="hljs-title class_">Math</span>.<span class="hljs-title function_">random</span>() &lt; <span class="hljs-number">0.5</span>) &#123;
+        level++;
+      &#125;
+    &#125;
+    <span class="hljs-keyword">return</span> level;
+  &#125;
+  <span class="hljs-title function_">insert</span>(<span class="hljs-params">value</span>) &#123;
+    <span class="hljs-keyword">const</span> level = <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">randomLevel</span>();
+    <span class="hljs-keyword">const</span> newNode = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Node</span>();
+    newNode.<span class="hljs-property">data</span> = value;
+    newNode.<span class="hljs-property">maxLevel</span> = level;
+    <span class="hljs-keyword">const</span> update = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Array</span>(level).<span class="hljs-title function_">fill</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Node</span>());
+    <span class="hljs-keyword">let</span> p = <span class="hljs-variable language_">this</span>.<span class="hljs-property">head</span>;
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = level - <span class="hljs-number">1</span>; i &gt;= <span class="hljs-number">0</span>; i--) &#123;
+      <span class="hljs-keyword">while</span> (p.<span class="hljs-property">refer</span>[i] !== <span class="hljs-literal">undefined</span> &amp;&amp; p.<span class="hljs-property">refer</span>[i].<span class="hljs-property">data</span> &lt; value) &#123;
+        p = p.<span class="hljs-property">refer</span>[i];
+      &#125;
+      update[i] = p;
+    &#125;
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &lt; level; i++) &#123;
+      newNode.<span class="hljs-property">refer</span>[i] = update[i].<span class="hljs-property">refer</span>[i];
+      update[i].<span class="hljs-property">refer</span>[i] = newNode;
+    &#125;
+    <span class="hljs-keyword">if</span> (<span class="hljs-variable language_">this</span>.<span class="hljs-property">levelCount</span> &lt; level) &#123;
+      <span class="hljs-variable language_">this</span>.<span class="hljs-property">levelCount</span> = level;
+    &#125;
+  &#125;
+
+  <span class="hljs-title function_">find</span>(<span class="hljs-params">value</span>) &#123;
+    <span class="hljs-keyword">if</span> (!value) &#123;
+      <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>;
+    &#125;
+    <span class="hljs-keyword">let</span> p = <span class="hljs-variable language_">this</span>.<span class="hljs-property">head</span>;
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-variable language_">this</span>.<span class="hljs-property">levelCount</span> - <span class="hljs-number">1</span>; i &gt;= <span class="hljs-number">0</span>; i--) &#123;
+      <span class="hljs-keyword">while</span> (p.<span class="hljs-property">refer</span>[i] !== <span class="hljs-literal">undefined</span> &amp;&amp; p.<span class="hljs-property">refer</span>[i].<span class="hljs-property">data</span> &lt; value) &#123;
+        p = p.<span class="hljs-property">refer</span>[i];
+      &#125;
+    &#125;
+
+    <span class="hljs-keyword">if</span> (p.<span class="hljs-property">refer</span>[<span class="hljs-number">0</span>] !== <span class="hljs-literal">undefined</span> &amp;&amp; p.<span class="hljs-property">refer</span>[<span class="hljs-number">0</span>].<span class="hljs-property">data</span> === value) &#123;
+      <span class="hljs-keyword">return</span> p.<span class="hljs-property">refer</span>[<span class="hljs-number">0</span>];
+    &#125;
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>;
+  &#125;
+
+  <span class="hljs-title function_">remove</span>(<span class="hljs-params">value</span>) &#123;
+    <span class="hljs-keyword">let</span> _node;
+    <span class="hljs-keyword">let</span> p = <span class="hljs-variable language_">this</span>.<span class="hljs-property">head</span>;
+    <span class="hljs-keyword">const</span> update = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Array</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Node</span>());
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-variable language_">this</span>.<span class="hljs-property">levelCount</span> - <span class="hljs-number">1</span>; i &gt;= <span class="hljs-number">0</span>; i--) &#123;
+      <span class="hljs-keyword">while</span> (p.<span class="hljs-property">refer</span>[i] !== <span class="hljs-literal">undefined</span> &amp;&amp; p.<span class="hljs-property">refer</span>[i].<span class="hljs-property">data</span> &lt; value) &#123;
+        p = p.<span class="hljs-property">refer</span>[i];
+      &#125;
+      update[i] = p;
+    &#125;
+
+    <span class="hljs-keyword">if</span> (p.<span class="hljs-property">refer</span>[<span class="hljs-number">0</span>] !== <span class="hljs-literal">undefined</span> &amp;&amp; p.<span class="hljs-property">refer</span>[<span class="hljs-number">0</span>].<span class="hljs-property">data</span> === value) &#123;
+      _node = p.<span class="hljs-property">refer</span>[<span class="hljs-number">0</span>];
+      <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &lt;= <span class="hljs-variable language_">this</span>.<span class="hljs-property">levelCount</span> - <span class="hljs-number">1</span>; i++) &#123;
+        <span class="hljs-keyword">if</span> (
+          update[i].<span class="hljs-property">refer</span>[i] !== <span class="hljs-literal">undefined</span> &amp;&amp;
+          update[i].<span class="hljs-property">refer</span>[i].<span class="hljs-property">data</span> === value
+        ) &#123;
+          update[i].<span class="hljs-property">refer</span>[i] = update[i].<span class="hljs-property">refer</span>[i].<span class="hljs-property">refer</span>[i];
+        &#125;
+      &#125;
+      <span class="hljs-keyword">return</span> _node;
+    &#125;
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>;
+  &#125;
+
+  <span class="hljs-title function_">printAll</span>(<span class="hljs-params"></span>) &#123;
+    <span class="hljs-keyword">let</span> p = <span class="hljs-variable language_">this</span>.<span class="hljs-property">head</span>;
+    <span class="hljs-keyword">while</span> (p.<span class="hljs-property">refer</span>[<span class="hljs-number">0</span>] !== <span class="hljs-literal">undefined</span>) &#123;
+      <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(p.<span class="hljs-property">refer</span>[<span class="hljs-number">0</span>].<span class="hljs-property">data</span>);
+      p = p.<span class="hljs-property">refer</span>[<span class="hljs-number">0</span>];
+    &#125;
+  &#125;
+&#125;
+
+<span class="hljs-title function_">test</span>();
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">test</span>(<span class="hljs-params"></span>) &#123;
+  <span class="hljs-keyword">let</span> list = <span class="hljs-keyword">new</span> <span class="hljs-title class_">SkipList</span>();
+  <span class="hljs-keyword">let</span> length = <span class="hljs-number">20000</span>;
+  <span class="hljs-comment">//顺序插入</span>
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">1</span>; i &lt;= <span class="hljs-number">10</span>; i++) &#123;
+    list.<span class="hljs-title function_">insert</span>(i);
+  &#125;
+  <span class="hljs-comment">//输出一次</span>
+  list.<span class="hljs-title function_">printAll</span>();
+  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">time</span>(<span class="hljs-string">&quot;create length-10&quot;</span>);
+  <span class="hljs-comment">//插入剩下的</span>
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">11</span>; i &lt;= length - <span class="hljs-number">10</span>; i++) &#123;
+    list.<span class="hljs-title function_">insert</span>(i);
+  &#125;
+  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">timeEnd</span>(<span class="hljs-string">&quot;create length-10&quot;</span>);
+  <span class="hljs-comment">//搜索 10次</span>
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> j = <span class="hljs-number">0</span>; j &lt; <span class="hljs-number">10</span>; j++) &#123;
+    <span class="hljs-keyword">let</span> key = <span class="hljs-title class_">Math</span>.<span class="hljs-title function_">floor</span>(<span class="hljs-title class_">Math</span>.<span class="hljs-title function_">random</span>() * length + <span class="hljs-number">1</span>);
+    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(key, list.<span class="hljs-title function_">find</span>(key));
+  &#125;
+  <span class="hljs-comment">//搜索不存在的值</span>
+  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;null:&quot;</span>, list.<span class="hljs-title function_">find</span>(length + <span class="hljs-number">1</span>));
+  <span class="hljs-comment">//搜索5000次统计时间</span>
+  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">time</span>(<span class="hljs-string">&quot;search 5000&quot;</span>);
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> j = <span class="hljs-number">0</span>; j &lt; <span class="hljs-number">5000</span>; j++) &#123;
+    <span class="hljs-keyword">let</span> key = <span class="hljs-title class_">Math</span>.<span class="hljs-title function_">floor</span>(<span class="hljs-title class_">Math</span>.<span class="hljs-title function_">random</span>() * length + <span class="hljs-number">1</span>);
+  &#125;
+  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">timeEnd</span>(<span class="hljs-string">&quot;search 5000&quot;</span>);
+&#125;</code></pre>
+<h3 id="内容小结">内容小结</h3>
+<p>跳表使用空间换时间的设计思路，通过构建多级索引来提高查询的效率，实现了基于链表的“二分查找”。跳表是一种动态数据结构，支持快速地插入、删除、查找操作，时间复杂度都是 O(logn)。跳表的空间复杂度是 O(n)。</p>
+ 
+      <div id="toc-article">
+  <div class="widget-wrap" id="toc-wrap">
+    <h3 class="widget-title"><i class="fa fa-toc"></i> 文章目录</h3>
+    <div class="widget">
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E7%90%86%E8%A7%A3%E2%80%9C%E8%B7%B3%E8%A1%A8%E2%80%9D%EF%BC%9F"><span class="toc-text">如何理解“跳表”？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%94%A8%E8%B7%B3%E8%A1%A8%E6%9F%A5%E8%AF%A2%E5%88%B0%E5%BA%95%E6%9C%89%E5%A4%9A%E5%BF%AB%EF%BC%9F"><span class="toc-text">用跳表查询到底有多快？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B7%B3%E8%A1%A8%E6%98%AF%E4%B8%8D%E6%98%AF%E5%BE%88%E6%B5%AA%E8%B4%B9%E5%86%85%E5%AD%98%EF%BC%9F"><span class="toc-text">跳表是不是很浪费内存？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%AB%98%E6%95%88%E7%9A%84%E5%8A%A8%E6%80%81%E6%8F%92%E5%85%A5%E5%92%8C%E5%88%A0%E9%99%A4"><span class="toc-text">高效的动态插入和删除</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B7%B3%E8%A1%A8%E7%B4%A2%E5%BC%95%E5%8A%A8%E6%80%81%E6%9B%B4%E6%96%B0"><span class="toc-text">跳表索引动态更新</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B7%B3%E8%A1%A8%E7%9A%84-js-%E5%AE%9E%E7%8E%B0"><span class="toc-text">跳表的 js 实现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%86%85%E5%AE%B9%E5%B0%8F%E7%BB%93"><span class="toc-text">内容小结</span></a></li></ol>
+    </div>
+  </div>
+
+</div>
+       
+      <blockquote id="copyright">
+        <p>
+           原文链接:
+          <a href="https://jesse121.github.io/blog/articles/2021/03/09.html"
+            >https://jesse121.github.io/blog/articles/2021/03/09.html</a
+          >
+        </p>
+        <p>版权声明: 转载请注明出处.</p>
+      </blockquote>
+       
+    </div>
+    <footer class="article-footer">
+      
+      <div class="article-tag-wrap">
+        
+ 
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag">数据结构</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a></li></ul>
+ 
+
+
+      </div>
+        
+<nav id="article-nav">
+  
+    <a href="/blog/articles/2021/03/07.html" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">下一篇</strong>
+      <div class="article-nav-title">
+        
+          二分法查找
+        
+      </div>
+    </a>
+  
+  
+    <a href="/blog/articles/2021/04/02.html" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">上一篇</strong>
+      <div class="article-nav-title">
+        
+          Javascript 数据结构与算法
+        
+      </div>
+    </a>
+  
+</nav>
+   
+  <div id="comments"></div>
+
+
+
+
+
+
+
+
+ 
+    </footer>
+  </div>
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-posts"></i> 最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/blog/articles/2022/11/16.html">掘金小册-Electron+Vue3桌面应用开发学习记录</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2022/10/29.html">如何使用Monorepo实现跨项目共享组件和模块</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2022/09/20.html">【转载】JavaScript代码优化之道</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2022/08/08.html">如何解决Electron应用安装在C盘没有权限更新的问题</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2022/08/05.html">如何用Electron+vue+vite构建桌面端应用(三)</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2022/08/04.html">如何用Electron+vue+vite构建桌面端应用(二)</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2022/07/22.html">从源码分析为什么Electron+vue项目中router不能用history模式</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2022/07/20.html">如何用Electron+vue+vite构建桌面端应用(一)</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2022/06/15.html">如何在国产银河麒麟系统Mips架构上离线安装electron</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2021/10/27.html">极客时间-正则表达式</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-tag"></i> 标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/blog/tags/angularjs/" style="font-size: 10px;">AngularJs</a> <a href="/blog/tags/apache/" style="font-size: 12.5px;">Apache</a> <a href="/blog/tags/bootstrap/" style="font-size: 12.5px;">Bootstrap</a> <a href="/blog/tags/css/" style="font-size: 18.75px;">CSS</a> <a href="/blog/tags/centos/" style="font-size: 10px;">CentOS</a> <a href="/blog/tags/docker/" style="font-size: 12.5px;">Docker</a> <a href="/blog/tags/git/" style="font-size: 11.25px;">Git</a> <a href="/blog/tags/gitlab/" style="font-size: 10px;">Gitlab</a> <a href="/blog/tags/gulp/" style="font-size: 10px;">Gulp</a> <a href="/blog/tags/html/" style="font-size: 12.5px;">HTML</a> <a href="/blog/tags/html5/" style="font-size: 10px;">HTML5</a> <a href="/blog/tags/http/" style="font-size: 12.5px;">HTTP</a> <a href="/blog/tags/https/" style="font-size: 10px;">HTTPS</a> <a href="/blog/tags/husky/" style="font-size: 10px;">Husky</a> <a href="/blog/tags/javascript/" style="font-size: 20px;">JavaScript</a> <a href="/blog/tags/jenkins/" style="font-size: 10px;">Jenkins</a> <a href="/blog/tags/linux/" style="font-size: 11.25px;">Linux</a> <a href="/blog/tags/mac/" style="font-size: 10px;">Mac</a> <a href="/blog/tags/mysql/" style="font-size: 12.5px;">MySQL</a> <a href="/blog/tags/nginx/" style="font-size: 11.25px;">Nginx</a> <a href="/blog/tags/node-js/" style="font-size: 11.25px;">Node.js</a> <a href="/blog/tags/php/" style="font-size: 15px;">PHP</a> <a href="/blog/tags/photoshop/" style="font-size: 10px;">Photoshop</a> <a href="/blog/tags/react/" style="font-size: 10px;">React</a> <a href="/blog/tags/redux/" style="font-size: 10px;">Redux</a> <a href="/blog/tags/sse/" style="font-size: 10px;">SSE</a> <a href="/blog/tags/sublimetext3/" style="font-size: 10px;">SublimeText3</a> <a href="/blog/tags/typescript/" style="font-size: 13.75px;">Typescript</a> <a href="/blog/tags/vagrant/" style="font-size: 10px;">Vagrant</a> <a href="/blog/tags/vim/" style="font-size: 10px;">Vim</a> <a href="/blog/tags/vue/" style="font-size: 10px;">Vue</a> <a href="/blog/tags/vue3/" style="font-size: 10px;">Vue3</a> <a href="/blog/tags/web/" style="font-size: 15px;">WEB</a> <a href="/blog/tags/webpack/" style="font-size: 12.5px;">Webpack</a> <a href="/blog/tags/wireshark/" style="font-size: 11.25px;">Wireshark</a> <a href="/blog/tags/yii/" style="font-size: 10px;">Yii</a> <a href="/blog/tags/electron/" style="font-size: 16.25px;">electron</a> <a href="/blog/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/blog/tags/jquery/" style="font-size: 12.5px;">jQuery</a> <a href="/blog/tags/kylin/" style="font-size: 10px;">kylin</a> <a href="/blog/tags/monorepo/" style="font-size: 10px;">monorepo</a> <a href="/blog/tags/ssh/" style="font-size: 10px;">ssh</a> <a href="/blog/tags/vite/" style="font-size: 13.75px;">vite</a> <a href="/blog/tags/vscode/" style="font-size: 10px;">vscode</a> <a href="/blog/tags/vue/" style="font-size: 10px;">vue</a> <a href="/blog/tags/vue3/" style="font-size: 13.75px;">vue3</a> <a href="/blog/tags/%E5%89%8D%E7%AB%AF%E7%9B%91%E6%8E%A7/" style="font-size: 10px;">前端监控</a> <a href="/blog/tags/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F/" style="font-size: 10px;">微信小程序</a> <a href="/blog/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" style="font-size: 17.5px;">数据结构</a> <a href="/blog/tags/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" style="font-size: 10px;">正则表达式</a> <a href="/blog/tags/%E7%AE%97%E6%B3%95/" style="font-size: 17.5px;">算法</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-classify"></i> 分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/blog/categories/bootstrap/">Bootstrap</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/electron/">Electron</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/html-css/">HTML-CSS</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/html5/">HTML5</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/javascript/">JavaScript</a><span class="category-list-count">11</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/linux/">Linux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/mysql/">MySQL</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/node-js/">Node.js</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/php/">PHP</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/photoshop/">Photoshop</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/typescript/">Typescript</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/vue/">Vue</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/web/">WEB</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/jquery/">jQuery</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/%E5%85%B6%E4%BB%96/">其他</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/translation/">前端翻译</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/">开发工具</a><span class="category-list-count">16</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/%E5%BC%80%E5%8F%91%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/">开发问题记录</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/">正则表达式</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/%E7%AE%97%E6%B3%95/">算法</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/notes/">读书笔记</a><span class="category-list-count">17</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/%E8%BD%AC%E8%BD%BD/">转载</a><span class="category-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-archive"></i> 归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2022/">2022年</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2021/">2021年</a><span class="archive-list-count">11</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2020/">2020年</a><span class="archive-list-count">14</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2019/">2019年</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/">2018年</a><span class="archive-list-count">12</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2017/">2017年</a><span class="archive-list-count">26</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/">2016年</a><span class="archive-list-count">27</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-link"></i> 友情链接</h3>
+    <div class="widget">
+      <ul>
+      
+        <li>
+          <a target="_blank" rel="noopener" href="http://www.mahaixiang.cn/internet/300.html">深入理解互联网协议的原理</a>
+        </li>
+      
+        <li>
+          <a target="_blank" rel="noopener" href="http://javascript.ruanyifeng.com/">JavaScript 标准参考教程</a>
+        </li>
+      
+        <li>
+          <a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript">Mozilla Developer Network</a>
+        </li>
+      
+      </ul>
+    </div>
+  </div>
+
+
+  
+</aside>
+        
+      </div>
+      <a id="totop" href="#top"></a>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      <p>
+        <a href="/blog/sitemap.xml">网站地图</a>
+        <span> | </span
+        ><a href="/blog/atom.xml">订阅本站</a>
+        <span> | </span
+        ><a href="/blog/about/">联系博主</a>
+      </p>
+      
+      <p>
+        <i class="fa fa-visitors"></i>
+        <i id="busuanzi_container_site_uv"
+          ><i id="busuanzi_value_site_uv"></i
+        ></i>
+        ，
+        <i class="fa fa-views"></i>
+        <i id="busuanzi_container_site_pv"
+          ><i id="busuanzi_value_site_pv"></i
+        ></i>
+      </p>
+      
+      <p>
+        <span
+          >Copyright &copy; 2022 Jesse.</span
+        >
+        <span
+          >Powered by <a href="https://hexo.io/" target="_blank">Hexo.</a></span
+        >
+      </p>
+    </div>
+  </div>
+</footer>
+
+    </div>
+  </div>
+  
+<script src="https://unpkg.com/@highlightjs/cdn-assets@11.6.0/highlight.min.js"></script>
+
+<script>
+  hljs.highlightAll();
+</script>
+
+<script src="https://unpkg.com/jquery@3.4.1/dist/jquery.min.js"></script>
+ 
+<script src="/blog/js/search.json.js"></script>
+  
+<script src="https://unpkg.com/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+
+ 
+<script src="/blog/js/script.js"></script>
+ 
+ 
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?8e59984317ab1777a88e5b3e62c7c767";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+  
+<script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+ 
+      
+<script src="https://unpkg.com/gitalk@1.7.2/dist/gitalk.min.js"></script>
+ 
+<script src="//cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.js"></script>
+
+<script>
+  var gitalk = new Gitalk({
+    clientID: "3c3e422527fd3f9fa17a",
+    clientSecret: "f28d1808ec9ab69fb24dc3e9fad81e1c3ab8dd83",
+    repo: "blog",
+    owner: "jesse121",
+    admin: ["jesse121"],
+    id: md5(window.location.pathname),
+    proxy: "https://stormy-gorge-51623.herokuapp.com/https://github.com/login/oauth/access_token",
+    distractionFreeMode: false,
+    language: "zh-CN",
+    body: "欢迎在下方提出问题，您的疑问促进我们共同进步！",
+    pagerDirection: "last",
+  });
+  gitalk.render("comments");
+</script>
+         
+ 
+<script>
+  if (navigator.serviceWorker) {
+    navigator.serviceWorker
+      .register("/blog/sw.js")
+      .then(function (registration) {
+        console.log("Registered events at scope: ", registration.scope);
+      })
+      .catch(function (err) {
+        console.log("ServiceWorker registration failed: ", err);
+      });
+  }
+</script>
+<script
+  type="text/javascript"
+  src="https://unpkg.com/clipboard@2.0.4/dist/clipboard.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="/blog/js/codeBlock/codeBlockFunction.js"
+></script>
+<script type="text/javascript" src="/blog/js/codeBlock/codeLang.js"></script>
+<script type="text/javascript" src="/blog/js/codeBlock/codeCopy.js"></script>
+<script type="text/javascript" src="/blog/js/codeBlock/codeShrink.js"></script>
+
+</body>
+</html>

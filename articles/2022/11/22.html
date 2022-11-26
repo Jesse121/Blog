@@ -1,0 +1,1027 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+   
+  <title>基于ElementPlus封装的季度选择器组件 | 前端之路</title>
+  <link rel="manifest" href="/blog/manifest.json" />
+  <meta name="theme-color" content="#bccddd" />
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, shrink-to-fit=no"
+  />
+
+  
+  <meta name="description" content="专注前端开发，前端开发技术博客" />
+   
+  <meta name="keywords" content="Web前端开发，Javascript，前端开发博客" />
+  
+  <link rel="dns-prefetch" href="https://unpkg.com" />
+  <link rel="dns-prefetch" href="https://busuanzi.ibruce.info" />
+   <link rel="alternate" href="/blog/atom.xml" title="前端之路" type="application/atom+xml">   <link rel="shortcut icon" href="/blog/favicon.ico"> 
+  <link rel="bookmark" href="/blog/favicon.ico" />
+  <link rel="apple-touch-icon" href="/blog/apple-touch-icon.png" />
+  <link rel="apple-touch-icon-precomposed" href="/blog/apple-touch-icon.png" />
+   
+<link rel="stylesheet" href="https://unpkg.com/@highlightjs/cdn-assets@11.6.0/styles/xt256.min.css">
+  
+<link rel="stylesheet" href="/blog/css/style.css">
+  
+<link rel="stylesheet" href="https://unpkg.com/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
+    
+<link rel="stylesheet" href="https://unpkg.com/gitalk@1.7.2/dist/gitalk.css">
+  
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/blog/" id="logo">前端之路</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/blog/" id="subtitle">路漫漫其修远兮，吾将上下而求索</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        
+          <a class="main-nav-link" href="/blog/."><i class="fa fa-home"></i> 首页</a>
+        
+          <a class="main-nav-link" href="/blog/archives/"><i class="fa fa-archive"></i> 归档</a>
+        
+          <a class="main-nav-link" href="/blog/about/"><i class="fa fa-user"></i> 关于</a>
+        
+      </nav>
+    </div>
+    <div id="search-form">
+      <div id="result-mask" class="hide"></div>
+      <label><input id="search-key" type="text" autocomplete="off" placeholder="搜索"></label>
+      <div id="result-wrap" class="hide">
+        <div id="search-result"></div>
+      </div>
+      <div class="hide">
+        <template id="search-tpl">
+          <div class="item">
+            <a href="/{path}" title="{title}">
+              <div class="title">{title}</div>
+              <div class="time">{date}</div>
+              <div class="tags">{tags}</div>
+            </a>
+          </div>
+        </template>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><style>
+  code {
+    padding: 1px 5px;
+    font-family: Inconsolata, Monaco, Consolas, "Courier New", Courier,
+      monospace;
+    /* font-size: 0.91rem; */
+    color: #e96900;
+    background-color: #f8f8f8;
+    border-radius: 2px;
+  }
+
+  pre code {
+    padding: 0 !important;
+    color: #e8eaf6;
+    background-color: #272822;
+  }
+
+  pre[class*="language-"] {
+    padding: 1.2em;
+    margin: 0.5em 0;
+  }
+
+  code[class*="language-"],
+  pre[class*="language-"] {
+    color: #e8eaf6;
+    white-space: pre-wrap !important;
+  }
+  .line-numbers-rows {
+    border-right-width: 0px !important;
+  }
+
+  .line-numbers {
+    padding: 1.5rem 1.5rem 1.5rem 3.2rem !important;
+    margin: 1rem 0 !important;
+    background: #272822;
+    overflow: auto;
+    border-radius: 0.35rem;
+    tab-size: 4;
+  }
+
+  pre {
+    padding: 1.5rem !important;
+    margin: 1rem 0 !important;
+    background: #272822;
+    overflow: auto;
+    border-radius: 0.35rem;
+    tab-size: 4;
+  }
+
+  pre::before {
+    content: "";
+    height: 16px;
+    margin-bottom: 0;
+    display: block;
+  }
+
+  pre::after {
+    content: " ";
+    position: absolute;
+    border-radius: 50%;
+    background: #ff5f56;
+    width: 12px;
+    height: 12px;
+    top: 0;
+    left: 12px;
+    margin-top: 12px;
+    -webkit-box-shadow: 20px 0 #ffbd2e, 40px 0 #27c93f;
+    box-shadow: 20px 0 #ffbd2e, 40px 0 #27c93f;
+  }
+
+  code {
+    padding: 1px 5px;
+    font-family: Inconsolata, Monaco, Consolas, "Courier New", Courier,
+      monospace;
+    font-size: 0.91rem;
+    color: #e96900;
+    background-color: #f8f8f8;
+    border-radius: 2px;
+  }
+
+  .code_copy {
+    position: absolute;
+    top: 0.7rem;
+    right: 35px;
+    z-index: 1;
+    filter: invert(50%);
+    cursor: pointer;
+  }
+
+  .code_lang {
+    position: absolute;
+    top: 1.2rem;
+    right: 60px;
+    line-height: 0;
+    font-weight: bold;
+    font-family: normal;
+    z-index: 1;
+    filter: invert(50%);
+    cursor: pointer;
+  }
+
+  .code-expand {
+    position: absolute;
+    top: 4px;
+    right: 0px;
+    filter: invert(50%);
+    padding: 7px 10px;
+    z-index: 1;
+    cursor: pointer;
+    transition: all 0.3s;
+    transform: rotate(0deg);
+  }
+
+  .code-closed .code-expand {
+    transform: rotate(-180deg) !important;
+    transition: all 0.3s;
+  }
+
+  .code-closed pre::before {
+    height: 0px;
+  }
+
+  pre code {
+    padding: 0;
+    color: #e8eaf6;
+    background-color: #272822 !important;
+  }
+
+  pre[class*="language-"] {
+    padding: 1.2em;
+    margin: 0.5em 0;
+  }
+
+  code[class*="language-"],
+  pre[class*="language-"] {
+    color: #e8eaf6;
+    white-space: pre-wrap !important;
+  }
+</style>
+<article
+  id="post-vue/基于ElementPlus二次开发的季度选择器组件"
+  class="h-entry article article-type-post"
+  itemprop="blogPost"
+  itemscope
+  itemtype="https://schema.org/BlogPosting"
+>
+  <div class="article-inner">
+     
+    <header class="article-header">
+      
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      基于ElementPlus封装的季度选择器组件
+    </h1>
+  
+
+
+    </header>
+    
+    <div class="article-meta">
+       <span class="article-date">
+  <i class="fa fa-date"></i>
+  <time class="dt-published" datetime="2022-11-22T09:37:32.000Z" itemprop="datePublished">2022年11月22日</time>
+</span> 
+  <div class="article-category">
+    <i class="fa fa-classify"></i>
+    <a class="article-category-link" href="/blog/categories/vue3/">Vue3</a>
+  </div>
+  <span class="article-views">
+  <i class="fa fa-views"></i>
+  <i id="busuanzi_container_page_pv">
+      <i id="busuanzi_value_page_pv"></i>
+  </i>
+</span>
+  
+<a href="/blog/articles/2022/11/22.html#comments" class="article-comment-link">
+  
+    
+    
+    
+    
+    
+  
+  <i class="fa fa-commt"></i>
+  留言
+</a>
+
+
+    </div>
+    <div class="e-content article-entry" itemprop="articleBody">
+       <p>在工作中我们常会用 ElementPlus 作为项目的基础 UI 组件，这里面丰富的组件基本能覆盖到大多数场景。在 ElementPlus 文档中我们可以知道 Form 表单组件中 DatePicker 日期选择器可以通过 <a target="_blank" rel="noopener" href="https://element-plus.org/zh-CN/component/date-picker.html#%E5%85%B6%E4%BB%96%E6%97%A5%E6%9C%9F%E5%8D%95%E4%BD%8D">type</a> 传入不同的单位来选择不同日期单位的日期时间选择器组件。<br>
+<code>type= week | month | year | dates</code><br>
+但是如果要支持根据季度单位来选择，那该怎么办？<br>
+今天就来介绍下如何基于 ElementPlus 封装一个季度选择器组件</p>
+<span id="more"></span>
+<h3 id="封装组件思路">封装组件思路</h3>
+<p>通过查看 DatePicker 组件<a target="_blank" rel="noopener" href="https://github.com/element-plus/element-plus/blob/dev/packages/components/date-picker/src/date-picker.tsx">源码</a>可以了解到它是基于 el-tooltip 组件开发的，我们这里可以考虑使用 el-popover(底层也是 el-tooltip 组件)做弹出框，弹出内容自定义为季度选择，触发部分采用 el-input。点击 el-input 触发自定义弹出框。因此组件基础框架已经很明显了</p>
+<pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">ElPopover</span> <span class="hljs-attr">ref</span>=<span class="hljs-string">&quot;quarterPopover&quot;</span> <span class="hljs-attr">:visible</span>=<span class="hljs-string">&quot;pickerVisible&quot;</span> <span class="hljs-attr">trigger</span>=<span class="hljs-string">&quot;click&quot;</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">template</span> #<span class="hljs-attr">reference</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">ElInput</span></span>
+<span class="hljs-tag">      <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;el-date-editor&quot;</span></span>
+<span class="hljs-tag">      <span class="hljs-attr">:prefix-icon</span>=<span class="hljs-string">&quot;Calendar&quot;</span></span>
+<span class="hljs-tag">      <span class="hljs-attr">v-model</span>=<span class="hljs-string">&quot;displayValue&quot;</span></span>
+<span class="hljs-tag">      @<span class="hljs-attr">click</span>=<span class="hljs-string">&quot;pickerVisible = true&quot;</span></span>
+<span class="hljs-tag">    &gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">ElInput</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;el-date-picker&quot;</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;el-date-picker__header&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;el-picker-panel__content&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">ElPopover</span>&gt;</span></code></pre>
+<p>剩下的就是完善弹出框内容和交互，具体细节可查看源码及源码中注释</p>
+<h3 id="源码展示">源码展示</h3>
+<pre><code class="hljs vue">&lt;template&gt;
+  &lt;ElPopover
+    ref=&quot;quarterPopover&quot;
+    :visible=&quot;pickerVisible&quot;
+    trigger=&quot;click&quot;
+    popper-class=&quot;quarter-popover el-date-picker&quot;
+    transition=&quot;el-zoom-in-top&quot;
+    :width=&quot;width&quot;
+  &gt;
+    &lt;template #reference&gt;
+      &lt;ElInput
+        class=&quot;el-date-editor&quot;
+        :prefix-icon=&quot;Calendar&quot;
+        :clearable=&quot;clearable&quot;
+        v-model=&quot;displayValue&quot;
+        :placeholder=&quot;placeholder&quot;
+        @click=&quot;pickerVisible = true&quot;
+        @clear=&quot;clearModelValue&quot;
+      &gt;
+      &lt;/ElInput&gt;
+    &lt;/template&gt;
+    &lt;div v-click-outside=&quot;closePopover&quot; class=&quot;el-date-picker&quot;&gt;
+      &lt;div class=&quot;el-date-picker__header el-date-picker__header--bordered&quot;&gt;
+        &lt;span role=&quot;button&quot; class=&quot;el-date-picker__prev-btn&quot;&gt;
+          &lt;button
+            type=&quot;button&quot;
+            aria-label=&quot;前一年&quot;
+            class=&quot;el-picker-panel__icon-btn&quot;
+            @click=&quot;getPrevYear&quot;
+          &gt;
+            &lt;ElIcon&gt;&lt;DArrowLeft /&gt;&lt;/ElIcon&gt;
+          &lt;/button&gt;
+        &lt;/span&gt;
+        &lt;span role=&quot;button&quot; class=&quot;el-date-picker__header-label&quot;
+          &gt;&#123;&#123; year &#125;&#125;年&lt;/span
+        &gt;
+        &lt;span role=&quot;button&quot; class=&quot;el-date-picker__next-btn&quot;&gt;
+          &lt;button
+            type=&quot;button&quot;
+            aria-label=&quot;后一年&quot;
+            class=&quot;el-picker-panel__icon-btn&quot;
+            @click=&quot;getNextYear&quot;
+          &gt;
+            &lt;ElIcon&gt;&lt;DArrowRight /&gt;&lt;/ElIcon&gt;
+          &lt;/button&gt;
+        &lt;/span&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;el-picker-panel__content&quot; style=&quot;margin: 10px 15px&quot;&gt;
+        &lt;table class=&quot;quarter-table&quot; @click=&quot;handleTableClick&quot;&gt;
+          &lt;tbody&gt;
+            &lt;tr&gt;
+              &lt;td class=&quot;available&quot; :class=&quot;getCellStyle(0)&quot;&gt;
+                &lt;a class=&quot;cell&quot;&gt;第一季度&lt;/a&gt;
+              &lt;/td&gt;
+              &lt;td class=&quot;available&quot; :class=&quot;getCellStyle(1)&quot;&gt;
+                &lt;a class=&quot;cell&quot;&gt;第二季度&lt;/a&gt;
+              &lt;/td&gt;
+            &lt;/tr&gt;
+            &lt;tr&gt;
+              &lt;td class=&quot;available&quot; :class=&quot;getCellStyle(2)&quot;&gt;
+                &lt;a class=&quot;cell&quot;&gt;第三季度&lt;/a&gt;
+              &lt;/td&gt;
+              &lt;td class=&quot;available&quot; :class=&quot;getCellStyle(3)&quot;&gt;
+                &lt;a class=&quot;cell&quot;&gt;第四季度&lt;/a&gt;
+              &lt;/td&gt;
+            &lt;/tr&gt;
+          &lt;/tbody&gt;
+        &lt;/table&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/ElPopover&gt;
+&lt;/template&gt;
+
+&lt;script lang=&quot;ts&quot; setup&gt;
+import &#123;
+  ElPopover,
+  ElInput,
+  ElIcon,
+  dayjs,
+  ClickOutside as vClickOutside,
+&#125; from &quot;element-plus&quot;;
+import &#123; Calendar, DArrowLeft, DArrowRight &#125; from &quot;@element-plus/icons-vue&quot;;
+import &#123; computed, ref, watch &#125; from &quot;vue&quot;;
+import &#123; hasClass &#125; from &quot;element-plus/es/utils/dom/style&quot;;
+
+const getDayCountOfMonth = function (year: number, month: number) &#123;
+  if (isNaN(+month)) return 31;
+  return new Date(year, +month + 1, 0).getDate();
+&#125;;
+const modifyDate = function (date: Date, y: number, m: number, d: number) &#123;
+  return new Date(
+    y,
+    m,
+    d,
+    date.getHours(),
+    date.getMinutes(),
+    date.getSeconds(),
+    date.getMilliseconds()
+  );
+&#125;;
+const changeYearMonthAndClampDate = function (
+  date: Date,
+  year: number,
+  month: number
+) &#123;
+  const monthDate = Math.min(date.getDate(), getDayCountOfMonth(year, month));
+  return modifyDate(date, year, month, monthDate);
+&#125;;
+
+const formatDate = function (date: Date, format: string) &#123;
+  if (!date) return &quot;&quot;;
+  return dayjs(date).format(format);
+&#125;;
+
+const range = function (n: number) &#123;
+  return Array.from(&#123; length: n &#125;).map((_, n: number) =&gt; n);
+&#125;;
+
+const nextDate = function (date: Date, amount = 1) &#123;
+  return new Date(date.getFullYear(), date.getMonth(), date.getDate() + amount);
+&#125;;
+const prevYear = function (date: Date, amount = 1) &#123;
+  const year = date.getFullYear();
+  const month = date.getMonth();
+  return changeYearMonthAndClampDate(date, year - amount, month);
+&#125;;
+const nextYear = function (date: Date, amount = 1) &#123;
+  const year = date.getFullYear();
+  const month = date.getMonth();
+  return changeYearMonthAndClampDate(date, year + amount, month);
+&#125;;
+
+const props = withDefaults(
+  defineProps&lt;&#123;
+    format: string;
+    modelValue: string;
+    disabled?: boolean;
+    valueFormat?: string;
+    width?: string;
+    clearable?: boolean;
+    placeholder?: string;
+    disabledDate: (val: Date) =&gt; boolean;
+  &#125;&gt;(),
+  &#123;
+    /**
+     * 季度弹出框宽度
+     */
+    width: &quot;324px&quot;,
+    /**
+     * 显示在输入框中的格式，引入季度：Q（阿拉伯数字）、q（中文数字）
+     */
+    format: &quot;&quot;,
+    modelValue: &quot;&quot;,
+    /**
+     * 输出值的格式 这里采用dayjs来格式化
+     */
+    valueFormat: &quot;&quot;,
+    /**
+     * 是否可清除
+     */
+    clearable: true,
+    placeholder: &quot;请选择季度&quot;,
+    /**
+     * 禁用日期
+     */
+    disabledDate: (val: Date) =&gt; false,
+  &#125;
+);
+
+const pickerVisible = ref(false);
+const date = ref();
+const year = computed(() =&gt; date.value.getFullYear());
+const quarter = ref();
+const quarterText = [&quot;一&quot;, &quot;二&quot;, &quot;三&quot;, &quot;四&quot;];
+// 局部指令
+const closePopover = () =&gt; &#123;
+  pickerVisible.value = false;
+&#125;;
+const parsedValue = computed(() =&gt; &#123;
+  if (!props.modelValue) &#123;
+    return new Date();
+  &#125;
+
+  // 非时间格式且未设置valueFormat，再尝试转换时间
+  return new Date(props.modelValue);
+&#125;);
+
+const displayValue = computed(&#123;
+  get: () =&gt; &#123;
+    if (!props.modelValue) return null;
+    // 季度，从0开始
+    const quarter = ~~(parsedValue.value.getMonth() / 3);
+    let fDate = formatDate(parsedValue.value, props.format);
+    fDate = fDate
+      .replace(/Q/, quarter + 1 + &quot;&quot;)
+      .replace(/q/, quarterText[quarter]);
+    return fDate;
+  &#125;,
+  set: () =&gt; &#123;&#125;,
+&#125;);
+
+watch(
+  () =&gt; props.modelValue,
+  (val) =&gt; &#123;
+    date.value = val ? parsedValue.value : new Date();
+  &#125;,
+  &#123;
+    immediate: true,
+  &#125;
+);
+
+const clearModelValue = () =&gt; &#123;
+  emit(&quot;update:modelValue&quot;, &quot;&quot;);
+&#125;;
+
+const emit = defineEmits([&quot;update:modelValue&quot;]);
+const handleTableClick = (event: MouseEvent) =&gt; &#123;
+  let target = event.target as HTMLElement;
+  if (target.tagName === &quot;A&quot;) &#123;
+    target = target.parentNode as HTMLTableCellElement;
+  &#125;
+  if (target.tagName !== &quot;TD&quot;) return;
+  if (hasClass(target, &quot;disabled&quot;)) return;
+  const column = (target as HTMLTableCellElement).cellIndex;
+  const row = (target.parentNode as HTMLTableRowElement).rowIndex;
+  // 季度，从0开始
+  const currentQuarter = row * 2 + column;
+  // 季度开始月份，从0开始
+  const month = currentQuarter * 3;
+  let newDate: Date | string = new Date(year.value, month, 1);
+  if (props.valueFormat) &#123;
+    newDate = formatDate(newDate, props.valueFormat);
+  &#125;
+  quarter.value = currentQuarter + 1;
+  emit(&quot;update:modelValue&quot;, newDate.toString());
+  pickerVisible.value = false;
+&#125;;
+
+const getPrevYear = () =&gt; &#123;
+  date.value = prevYear(date.value);
+&#125;;
+const getNextYear = () =&gt; &#123;
+  date.value = nextYear(date.value);
+&#125;;
+
+/**
+ * 获取指定年份和季度总天数
+ * @param year
+ * @param quarter
+ */
+const getDayCountOfQuarter = (year: number, quarter: number) =&gt; &#123;
+  switch (quarter) &#123;
+    case 0: // 第一季度包含二月，需要对是否闰年进行判断处理
+      if ((year % 4 === 0 &amp;&amp; year % 100 !== 0) || year % 400 === 0) &#123;
+        return 91;
+      &#125; else &#123;
+        return 90;
+      &#125;
+    case 1:
+      return 91;
+    default:
+      return 92;
+  &#125;
+&#125;;
+/**
+ * 获取指定年份和季度的所有日期
+ * @param year
+ * @param quarter
+ */
+const datesInYearAndQuarter = (year: number, quarter: number) =&gt; &#123;
+  const numOfDays = getDayCountOfQuarter(year, quarter);
+  const firstDay = new Date(year, quarter * 3, 1);
+  return range(numOfDays).map((n: number) =&gt; nextDate(firstDay, n));
+&#125;;
+
+const getCellStyle = (quarter: number) =&gt; &#123;
+  const today = new Date();
+  const date = parsedValue.value;
+
+  return &#123;
+    disabled:
+      typeof props.disabledDate === &quot;function&quot;
+        ? datesInYearAndQuarter(year.value, quarter).every(props.disabledDate)
+        : false,
+    // 当前选中的季度样式
+    current:
+      date.getFullYear() === year.value &amp;&amp; ~~(date.getMonth() / 3) === quarter,
+    // 今日所在季度样式
+    quarter:
+      today.getFullYear() === year.value &amp;&amp;
+      ~~(today.getMonth() / 3) === quarter,
+  &#125;;
+&#125;;
+
+defineExpose(&#123;
+  year,
+  quarter,
+&#125;);
+&lt;/script&gt;
+
+&lt;style&gt;
+.quarter-popover &#123;
+  padding: 0 !important;
+&#125;
+.quarter-table &#123;
+  border-collapse: collapse;
+  width: 100%;
+  margin: -1px;
+  font-size: 12px;
+&#125;
+.quarter-table td &#123;
+  padding: 20px 3px;
+  text-align: center;
+  cursor: pointer;
+&#125;
+.quarter-table td .cell &#123;
+  display: block;
+  height: 32px;
+  margin: 0 auto;
+  color: #606266;
+  line-height: 32px;
+&#125;
+.quarter-table td .cell:hover &#123;
+  color: #1890ff;
+&#125;
+
+.quarter-table td.current:not(.disabled) .cell &#123;
+  color: #409eff;
+&#125;
+
+.quarter-table td.quarter .cell &#123;
+  color: #409eff;
+  font-weight: 700;
+&#125;
+
+.quarter-table td.disabled .cell &#123;
+  color: #c0c4cc;
+  background-color: #f5f7fa;
+  cursor: not-allowed;
+&#125;
+&lt;/style&gt;</code></pre>
+<h3 id="组件文档">组件文档</h3>
+<table>
+<thead>
+<tr>
+<th>属性名</th>
+<th>说明</th>
+<th>类型</th>
+<th>可选值</th>
+<th>默认值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>value/v-model</td>
+<td>绑定值</td>
+<td>string</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td>format</td>
+<td>显示在输入框中的格式，引入季度：q（阿拉伯数字）、Q（中文数字）</td>
+<td>string</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td>width</td>
+<td>可选，弹出框宽度</td>
+<td>string</td>
+<td>-</td>
+<td>324px</td>
+</tr>
+<tr>
+<td>placeholder</td>
+<td>可选，占位内容</td>
+<td>string</td>
+<td>-</td>
+<td>请选择季度</td>
+</tr>
+<tr>
+<td>value-format</td>
+<td>可选，绑定值的格式。不指定则绑定值为 Date 对象</td>
+<td>string</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td>disabled-date</td>
+<td>可选，禁用日期</td>
+<td>function</td>
+<td>-</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<div class="warning">
+<p><strong>注意</strong></p>
+<ol>
+<li>这个组件中日期格式化采用的是 dayjs(element-plus 已引入该组件)，所以 dayjs 支持的格式都能通过 value-format 传值。<br>
+例如 value-format=“YYYY-MM-DD” 此时组件的输出选中值格式为选季度的第一天日期 如 2022 年第三季度，其值为 2022-07-01</li>
+<li>如果需要获取具体的季度值可通过组件 defineExpose 出来的 quarter 获取到</li>
+<li>组件中用到 v-click-outside 指令，如果 element-plus 是按需引入则需要引入该自定义指令</li>
+</ol>
+</div>
+<h3 id="如何使用">如何使用</h3>
+<pre><code class="hljs vue">&lt;template&gt;
+  &lt;quarter-picker
+    ref=&quot;quarterPickerRef&quot;
+    v-model=&quot;quarterValue&quot;
+    format=&quot;YYYY年第q季度&quot;
+    :disabled-date=&quot;disabledQuarter&quot;
+  /&gt;
+&lt;/template&gt;
+
+&lt;script setup lang=&quot;ts&quot;&gt;
+import &#123; ref &#125; from &quot;vue&quot;;
+import QuarterPicker from &quot;./components/QuarterPicker.vue&quot;;
+
+const quarterValue = ref(&quot;&quot;);
+
+const disabledQuarter = (val: Date) =&gt; &#123;
+  if (val &lt;= new Date()) return false;
+  return true;
+&#125;;
+&lt;/script&gt;</code></pre>
+<h3 id="效果图">效果图</h3>
+<p><img src="https://raw.githubusercontents.com/Jesse121/publicPic/master/blog/pictures/20221125090039.png" alt="" referrerPolicy="no-referrer"></p>
+<p>功能点：</p>
+<ol>
+<li>支持切换年份</li>
+<li>支持输出选中的季度值</li>
+<li>效果和 DatePicker 组件大体相似</li>
+</ol>
+<p>目前该组件已在实际项目中使用，如有不合适的地方可以很方便的修改组件源码</p>
+<p>参考文章：</p>
+<ol>
+<li><a target="_blank" rel="noopener" href="https://www.lervor.com/archives/244/">ElementUI 季度选择器 QuarterPicker</a></li>
+</ol>
+ 
+      <div id="toc-article">
+  <div class="widget-wrap" id="toc-wrap">
+    <h3 class="widget-title"><i class="fa fa-toc"></i> 文章目录</h3>
+    <div class="widget">
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B0%81%E8%A3%85%E7%BB%84%E4%BB%B6%E6%80%9D%E8%B7%AF"><span class="toc-text">封装组件思路</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%BA%90%E7%A0%81%E5%B1%95%E7%A4%BA"><span class="toc-text">源码展示</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%84%E4%BB%B6%E6%96%87%E6%A1%A3"><span class="toc-text">组件文档</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8"><span class="toc-text">如何使用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%88%E6%9E%9C%E5%9B%BE"><span class="toc-text">效果图</span></a></li></ol>
+    </div>
+  </div>
+
+</div>
+       
+      <blockquote id="copyright">
+        <p>
+           原文链接:
+          <a href="https://jesse121.github.io/blog/articles/2022/11/22.html"
+            >https://jesse121.github.io/blog/articles/2022/11/22.html</a
+          >
+        </p>
+        <p>版权声明: 转载请注明出处.</p>
+      </blockquote>
+       
+    </div>
+    <footer class="article-footer">
+      
+      <div class="article-tag-wrap">
+        
+ 
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/elementplus/" rel="tag">ElementPlus</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/vue3/" rel="tag">Vue3</a></li></ul>
+ 
+
+
+      </div>
+        
+<nav id="article-nav">
+  
+    <a href="/blog/articles/2022/11/16.html" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">下一篇</strong>
+      <div class="article-nav-title">
+        
+          掘金小册-Electron+Vue3桌面应用开发学习记录
+        
+      </div>
+    </a>
+  
+  
+</nav>
+   
+  <div id="comments"></div>
+
+
+
+
+
+
+
+
+ 
+    </footer>
+  </div>
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-posts"></i> 最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/blog/articles/2022/11/22.html">基于ElementPlus封装的季度选择器组件</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2022/11/16.html">掘金小册-Electron+Vue3桌面应用开发学习记录</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2022/10/29.html">如何使用Monorepo实现跨项目共享组件和模块</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2022/09/20.html">【转载】JavaScript代码优化之道</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2022/08/08.html">如何解决Electron应用安装在C盘没有权限更新的问题</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2022/08/05.html">如何用Electron+vue+vite构建桌面端应用(三)</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2022/08/04.html">如何用Electron+vue+vite构建桌面端应用(二)</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2022/07/22.html">从源码分析为什么Electron+vue项目中router不能用history模式</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2022/07/20.html">如何用Electron+vue+vite构建桌面端应用(一)</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2022/06/15.html">如何在国产银河麒麟系统Mips架构上离线安装electron</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-tag"></i> 标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/blog/tags/angularjs/" style="font-size: 10px;">AngularJs</a> <a href="/blog/tags/apache/" style="font-size: 12.86px;">Apache</a> <a href="/blog/tags/bootstrap/" style="font-size: 12.86px;">Bootstrap</a> <a href="/blog/tags/css/" style="font-size: 18.57px;">CSS</a> <a href="/blog/tags/centos/" style="font-size: 10px;">CentOS</a> <a href="/blog/tags/docker/" style="font-size: 12.86px;">Docker</a> <a href="/blog/tags/elementplus/" style="font-size: 10px;">ElementPlus</a> <a href="/blog/tags/git/" style="font-size: 11.43px;">Git</a> <a href="/blog/tags/gitlab/" style="font-size: 10px;">Gitlab</a> <a href="/blog/tags/gulp/" style="font-size: 10px;">Gulp</a> <a href="/blog/tags/html/" style="font-size: 12.86px;">HTML</a> <a href="/blog/tags/html5/" style="font-size: 10px;">HTML5</a> <a href="/blog/tags/http/" style="font-size: 12.86px;">HTTP</a> <a href="/blog/tags/https/" style="font-size: 10px;">HTTPS</a> <a href="/blog/tags/husky/" style="font-size: 10px;">Husky</a> <a href="/blog/tags/javascript/" style="font-size: 20px;">JavaScript</a> <a href="/blog/tags/jenkins/" style="font-size: 10px;">Jenkins</a> <a href="/blog/tags/linux/" style="font-size: 11.43px;">Linux</a> <a href="/blog/tags/mac/" style="font-size: 10px;">Mac</a> <a href="/blog/tags/mysql/" style="font-size: 12.86px;">MySQL</a> <a href="/blog/tags/nginx/" style="font-size: 11.43px;">Nginx</a> <a href="/blog/tags/node-js/" style="font-size: 11.43px;">Node.js</a> <a href="/blog/tags/php/" style="font-size: 15.71px;">PHP</a> <a href="/blog/tags/photoshop/" style="font-size: 10px;">Photoshop</a> <a href="/blog/tags/react/" style="font-size: 10px;">React</a> <a href="/blog/tags/redux/" style="font-size: 10px;">Redux</a> <a href="/blog/tags/sse/" style="font-size: 10px;">SSE</a> <a href="/blog/tags/sublimetext3/" style="font-size: 10px;">SublimeText3</a> <a href="/blog/tags/typescript/" style="font-size: 14.29px;">Typescript</a> <a href="/blog/tags/vagrant/" style="font-size: 10px;">Vagrant</a> <a href="/blog/tags/vim/" style="font-size: 10px;">Vim</a> <a href="/blog/tags/vue/" style="font-size: 10px;">Vue</a> <a href="/blog/tags/vue3/" style="font-size: 11.43px;">Vue3</a> <a href="/blog/tags/web/" style="font-size: 15.71px;">WEB</a> <a href="/blog/tags/webpack/" style="font-size: 12.86px;">Webpack</a> <a href="/blog/tags/wireshark/" style="font-size: 11.43px;">Wireshark</a> <a href="/blog/tags/yii/" style="font-size: 10px;">Yii</a> <a href="/blog/tags/electron/" style="font-size: 17.14px;">electron</a> <a href="/blog/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/blog/tags/jquery/" style="font-size: 12.86px;">jQuery</a> <a href="/blog/tags/kylin/" style="font-size: 10px;">kylin</a> <a href="/blog/tags/monorepo/" style="font-size: 10px;">monorepo</a> <a href="/blog/tags/ssh/" style="font-size: 10px;">ssh</a> <a href="/blog/tags/vite/" style="font-size: 14.29px;">vite</a> <a href="/blog/tags/vscode/" style="font-size: 10px;">vscode</a> <a href="/blog/tags/vue/" style="font-size: 10px;">vue</a> <a href="/blog/tags/vue3/" style="font-size: 14.29px;">vue3</a> <a href="/blog/tags/%E5%89%8D%E7%AB%AF%E7%9B%91%E6%8E%A7/" style="font-size: 10px;">前端监控</a> <a href="/blog/tags/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F/" style="font-size: 10px;">微信小程序</a> <a href="/blog/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" style="font-size: 18.57px;">数据结构</a> <a href="/blog/tags/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" style="font-size: 10px;">正则表达式</a> <a href="/blog/tags/%E7%AE%97%E6%B3%95/" style="font-size: 18.57px;">算法</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-classify"></i> 分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/blog/categories/bootstrap/">Bootstrap</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/electron/">Electron</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/html-css/">HTML-CSS</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/html5/">HTML5</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/javascript/">JavaScript</a><span class="category-list-count">11</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/linux/">Linux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/mysql/">MySQL</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/node-js/">Node.js</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/php/">PHP</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/photoshop/">Photoshop</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/typescript/">Typescript</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/vue/">Vue</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/vue3/">Vue3</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/web/">WEB</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/jquery/">jQuery</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/%E5%85%B6%E4%BB%96/">其他</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/translation/">前端翻译</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/">开发工具</a><span class="category-list-count">16</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/%E5%BC%80%E5%8F%91%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/">开发问题记录</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/">正则表达式</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/%E7%AE%97%E6%B3%95/">算法</a><span class="category-list-count">12</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/notes/">读书笔记</a><span class="category-list-count">17</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/%E8%BD%AC%E8%BD%BD/">转载</a><span class="category-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-archive"></i> 归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2022/">2022年</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2021/">2021年</a><span class="archive-list-count">13</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2020/">2020年</a><span class="archive-list-count">14</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2019/">2019年</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/">2018年</a><span class="archive-list-count">12</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2017/">2017年</a><span class="archive-list-count">26</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/">2016年</a><span class="archive-list-count">27</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-link"></i> 友情链接</h3>
+    <div class="widget">
+      <ul>
+      
+        <li>
+          <a target="_blank" rel="noopener" href="http://www.mahaixiang.cn/internet/300.html">深入理解互联网协议的原理</a>
+        </li>
+      
+        <li>
+          <a target="_blank" rel="noopener" href="http://javascript.ruanyifeng.com/">JavaScript 标准参考教程</a>
+        </li>
+      
+        <li>
+          <a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript">Mozilla Developer Network</a>
+        </li>
+      
+      </ul>
+    </div>
+  </div>
+
+
+  
+</aside>
+        
+      </div>
+      <a id="totop" href="#top"></a>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      <p>
+        <a href="/blog/sitemap.xml">网站地图</a>
+        <span> | </span
+        ><a href="/blog/atom.xml">订阅本站</a>
+        <span> | </span
+        ><a href="/blog/about/">联系博主</a>
+      </p>
+      
+      <p>
+        <i class="fa fa-visitors"></i>
+        <i id="busuanzi_container_site_uv"
+          ><i id="busuanzi_value_site_uv"></i
+        ></i>
+        ，
+        <i class="fa fa-views"></i>
+        <i id="busuanzi_container_site_pv"
+          ><i id="busuanzi_value_site_pv"></i
+        ></i>
+      </p>
+      
+      <p>
+        <span
+          >Copyright &copy; 2022 Jesse.</span
+        >
+        <span
+          >Powered by <a href="https://hexo.io/" target="_blank">Hexo.</a></span
+        >
+      </p>
+    </div>
+  </div>
+</footer>
+
+    </div>
+  </div>
+  
+<script src="https://unpkg.com/@highlightjs/cdn-assets@11.6.0/highlight.min.js"></script>
+
+<script>
+  hljs.highlightAll();
+</script>
+
+<script src="https://unpkg.com/jquery@3.4.1/dist/jquery.min.js"></script>
+ 
+<script src="/blog/js/search.json.js"></script>
+  
+<script src="https://unpkg.com/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+
+ 
+<script src="/blog/js/script.js"></script>
+ 
+ 
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?8e59984317ab1777a88e5b3e62c7c767";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+  
+<script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+ 
+      
+<script src="https://unpkg.com/gitalk@1.7.2/dist/gitalk.min.js"></script>
+ 
+<script src="//cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.js"></script>
+
+<script>
+  var gitalk = new Gitalk({
+    clientID: "3c3e422527fd3f9fa17a",
+    clientSecret: "f28d1808ec9ab69fb24dc3e9fad81e1c3ab8dd83",
+    repo: "blog",
+    owner: "jesse121",
+    admin: ["jesse121"],
+    id: md5(window.location.pathname),
+    proxy: "https://stormy-gorge-51623.herokuapp.com/https://github.com/login/oauth/access_token",
+    distractionFreeMode: false,
+    language: "zh-CN",
+    body: "欢迎在下方提出问题，您的疑问促进我们共同进步！",
+    pagerDirection: "last",
+  });
+  gitalk.render("comments");
+</script>
+         
+ 
+<script>
+  if (navigator.serviceWorker) {
+    navigator.serviceWorker
+      .register("/blog/sw.js")
+      .then(function (registration) {
+        console.log("Registered events at scope: ", registration.scope);
+      })
+      .catch(function (err) {
+        console.log("ServiceWorker registration failed: ", err);
+      });
+  }
+</script>
+<script
+  type="text/javascript"
+  src="https://unpkg.com/clipboard@2.0.4/dist/clipboard.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="/blog/js/codeBlock/codeBlockFunction.js"
+></script>
+<script type="text/javascript" src="/blog/js/codeBlock/codeLang.js"></script>
+<script type="text/javascript" src="/blog/js/codeBlock/codeCopy.js"></script>
+<script type="text/javascript" src="/blog/js/codeBlock/codeShrink.js"></script>
+
+</body>
+</html>

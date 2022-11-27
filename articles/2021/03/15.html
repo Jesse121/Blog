@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+   
+  <title>二叉树 | 前端之路</title>
+  <link rel="manifest" href="/blog/manifest.json" />
+  <meta name="theme-color" content="#bccddd" />
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, shrink-to-fit=no"
+  />
+
+  
+  <meta name="description" content="专注前端开发，前端开发技术博客" />
+   
+  <meta name="keywords" content="Web前端开发，Javascript，前端开发博客" />
+  
+  <link rel="dns-prefetch" href="https://unpkg.com" />
+  <link rel="dns-prefetch" href="https://busuanzi.ibruce.info" />
+   <link rel="alternate" href="/blog/atom.xml" title="前端之路" type="application/atom+xml">   <link rel="shortcut icon" href="/blog/favicon.ico"> 
+  <link rel="bookmark" href="/blog/favicon.ico" />
+  <link rel="apple-touch-icon" href="/blog/apple-touch-icon.png" />
+  <link rel="apple-touch-icon-precomposed" href="/blog/apple-touch-icon.png" />
+   
+<link rel="stylesheet" href="https://unpkg.com/@highlightjs/cdn-assets@11.6.0/styles/xt256.min.css">
+  
+<link rel="stylesheet" href="/blog/css/style.css">
+  
+<link rel="stylesheet" href="https://unpkg.com/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
+    
+<link rel="stylesheet" href="https://unpkg.com/gitalk@1.7.2/dist/gitalk.css">
+  
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/blog/" id="logo">前端之路</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/blog/" id="subtitle">路漫漫其修远兮，吾将上下而求索</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        
+          <a class="main-nav-link" href="/blog/."><i class="fa fa-home"></i> 首页</a>
+        
+          <a class="main-nav-link" href="/blog/archives/"><i class="fa fa-archive"></i> 归档</a>
+        
+          <a class="main-nav-link" href="/blog/about/"><i class="fa fa-user"></i> 关于</a>
+        
+      </nav>
+    </div>
+    <div id="search-form">
+      <div id="result-mask" class="hide"></div>
+      <label><input id="search-key" type="text" autocomplete="off" placeholder="搜索"></label>
+      <div id="result-wrap" class="hide">
+        <div id="search-result"></div>
+      </div>
+      <div class="hide">
+        <template id="search-tpl">
+          <div class="item">
+            <a href="/{path}" title="{title}">
+              <div class="title">{title}</div>
+              <div class="time">{date}</div>
+              <div class="tags">{tags}</div>
+            </a>
+          </div>
+        </template>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><style>
+  code {
+    padding: 1px 5px;
+    font-family: Inconsolata, Monaco, Consolas, "Courier New", Courier,
+      monospace;
+    /* font-size: 0.91rem; */
+    color: #e96900;
+    background-color: #f8f8f8;
+    border-radius: 2px;
+  }
+
+  pre code {
+    padding: 0 !important;
+    color: #e8eaf6;
+    background-color: #272822;
+  }
+
+  pre[class*="language-"] {
+    padding: 1.2em;
+    margin: 0.5em 0;
+  }
+
+  code[class*="language-"],
+  pre[class*="language-"] {
+    color: #e8eaf6;
+    white-space: pre-wrap !important;
+  }
+  .line-numbers-rows {
+    border-right-width: 0px !important;
+  }
+
+  .line-numbers {
+    padding: 1.5rem 1.5rem 1.5rem 3.2rem !important;
+    margin: 1rem 0 !important;
+    background: #272822;
+    overflow: auto;
+    border-radius: 0.35rem;
+    tab-size: 4;
+  }
+
+  pre {
+    padding: 1.5rem !important;
+    margin: 1rem 0 !important;
+    background: #272822;
+    overflow: auto;
+    border-radius: 0.35rem;
+    tab-size: 4;
+  }
+
+  pre::before {
+    content: "";
+    height: 16px;
+    margin-bottom: 0;
+    display: block;
+  }
+
+  pre::after {
+    content: " ";
+    position: absolute;
+    border-radius: 50%;
+    background: #ff5f56;
+    width: 12px;
+    height: 12px;
+    top: 0;
+    left: 12px;
+    margin-top: 12px;
+    -webkit-box-shadow: 20px 0 #ffbd2e, 40px 0 #27c93f;
+    box-shadow: 20px 0 #ffbd2e, 40px 0 #27c93f;
+  }
+
+  code {
+    padding: 1px 5px;
+    font-family: Inconsolata, Monaco, Consolas, "Courier New", Courier,
+      monospace;
+    font-size: 0.91rem;
+    color: #e96900;
+    background-color: #f8f8f8;
+    border-radius: 2px;
+  }
+
+  .code_copy {
+    position: absolute;
+    top: 0.7rem;
+    right: 35px;
+    z-index: 1;
+    filter: invert(50%);
+    cursor: pointer;
+  }
+
+  .code_lang {
+    position: absolute;
+    top: 1.2rem;
+    right: 60px;
+    line-height: 0;
+    font-weight: bold;
+    font-family: normal;
+    z-index: 1;
+    filter: invert(50%);
+    cursor: pointer;
+  }
+
+  .code-expand {
+    position: absolute;
+    top: 4px;
+    right: 0px;
+    filter: invert(50%);
+    padding: 7px 10px;
+    z-index: 1;
+    cursor: pointer;
+    transition: all 0.3s;
+    transform: rotate(0deg);
+  }
+
+  .code-closed .code-expand {
+    transform: rotate(-180deg) !important;
+    transition: all 0.3s;
+  }
+
+  .code-closed pre::before {
+    height: 0px;
+  }
+
+  pre code {
+    padding: 0;
+    color: #e8eaf6;
+    background-color: #272822 !important;
+  }
+
+  pre[class*="language-"] {
+    padding: 1.2em;
+    margin: 0.5em 0;
+  }
+
+  code[class*="language-"],
+  pre[class*="language-"] {
+    color: #e8eaf6;
+    white-space: pre-wrap !important;
+  }
+</style>
+<article
+  id="post-algorithm/二叉树"
+  class="h-entry article article-type-post"
+  itemprop="blogPost"
+  itemscope
+  itemtype="https://schema.org/BlogPosting"
+>
+  <div class="article-inner">
+     
+    <header class="article-header">
+      
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      二叉树
+    </h1>
+  
+
+
+    </header>
+    
+    <div class="article-meta">
+       <span class="article-date">
+  <i class="fa fa-date"></i>
+  <time class="dt-published" datetime="2021-03-15T01:14:08.000Z" itemprop="datePublished">2021年03月15日</time>
+</span> 
+  <div class="article-category">
+    <i class="fa fa-classify"></i>
+    <a class="article-category-link" href="/blog/categories/%E7%AE%97%E6%B3%95/">算法</a>
+  </div>
+  <span class="article-views">
+  <i class="fa fa-views"></i>
+  <i id="busuanzi_container_page_pv">
+      <i id="busuanzi_value_page_pv"></i>
+  </i>
+</span>
+  
+<a href="/blog/articles/2021/03/15.html#comments" class="article-comment-link">
+  
+    
+    
+    
+    
+    
+  
+  <i class="fa fa-commt"></i>
+  留言
+</a>
+
+
+    </div>
+    <div class="e-content article-entry" itemprop="articleBody">
+       <p>前面我们讲的都是线性表结构，栈、队列等等。今天我们讲一种非线性表结构，树。树这种数据结构比线性表的数据结构要复杂得多</p>
+<span id="more"></span>
+<h3 id="树（Tree）">树（Tree）</h3>
+<p>A 节点就是 B 节点的父节点，B 节点是 A 节点的子节点。B、C、D 这三个节点的父节点是同一个节点，所以它们之间互称为兄弟节点。我们把没有父节点的节点叫做根节点，也就是图中的节点 E。<br>
+<img src="https://raw.githubusercontents.com/Jesse121/publicPic/master/blog/pictures/20221127092047.png" alt="" referrerPolicy="no-referrer"><br>
+关于“树”，还有三个比较相似的概念：高度（Height）、深度（Depth）、层（Level）。<br>
+<img src="https://raw.githubusercontents.com/Jesse121/publicPic/master/blog/pictures/20221127092123.png" alt="" referrerPolicy="no-referrer"><br>
+<img src="https://raw.githubusercontents.com/Jesse121/publicPic/master/blog/pictures/20221127092147.png" alt="" referrerPolicy="no-referrer"></p>
+<h3 id="二叉树（Binary-Tree）">二叉树（Binary Tree）</h3>
+<p>二叉树，顾名思义，每个节点<strong>最多</strong>有两个“叉”，也就是两个子节点，分别是左子节点和右子节点。<br>
+叶子节点全都在最底层，除了叶子节点之外，每个节点都有左右两个子节点，这种二叉树就叫做满二叉树。<br>
+叶子节点都在最底下两层，最后一层的叶子节点都靠左排列，并且除了最后一层，其他层的节点个数都要达到最大，这种二叉树叫做完全二叉树。</p>
+<p>要理解完全二叉树定义的由来，我们需要先了解，如何表示（或者存储）一棵二叉树？<br>
+一种是基于指针或者引用的二叉链式存储法，一种是基于数组的顺序存储法。</p>
+<h4 id="链式存储法">链式存储法</h4>
+<p>每个节点有三个字段，其中一个存储数据，另外两个是指向左右子节点的指针。我们只要拎住根节点，就可以通过左右子节点的指针，把整棵树都串起来。<br>
+<img src="https://raw.githubusercontents.com/Jesse121/publicPic/master/blog/pictures/20221127093046.png" alt="" referrerPolicy="no-referrer"></p>
+<h4 id="顺序存储法">顺序存储法</h4>
+<p>如果节点 X 存储在数组中下标为 i 的位置，下标为 2 _ i 的位置存储的就是左子节点，下标为 2 _ i + 1 的位置存储的就是右子节点。反过来，下标为 i/2 的位置存储就是它的父节点。通过这种方式，我们只要知道根节点存储的位置（一般情况下，为了方便计算子节点，根节点会存储在下标为 1 的位置），这样就可以通过下标计算，把整棵树都串起来。</p>
+<p><img src="https://raw.githubusercontents.com/Jesse121/publicPic/master/blog/pictures/20221127093830.png" alt="" referrerPolicy="no-referrer"></p>
+<p>如果某棵二叉树是一棵完全二叉树，那用数组存储无疑是最节省内存的一种方式。因为数组的存储方式并不需要像链式存储法那样，要存储额外的左右子节点的指针。这也是为什么完全二叉树会单独拎出来的原因，也是为什么完全二叉树要求最后一层的子节点都靠左的原因。</p>
+<h3 id="二叉树的遍历">二叉树的遍历</h3>
+<p>经典的方法有三种，前序遍历、中序遍历和后序遍历。其中，前、中、后序，表示的是节点与它的左右子树节点遍历打印的先后顺序。</p>
+<ul>
+<li>前序遍历是指，对于树中的任意节点来说，先打印这个节点，然后再打印它的左子树，最后打印它的右子树。</li>
+<li>中序遍历是指，对于树中的任意节点来说，先打印它的左子树，然后再打印它本身，最后打印它的右子树。</li>
+<li>后序遍历是指，对于树中的任意节点来说，先打印它的左子树，然后再打印它的右子树，最后打印这个节点本身。</li>
+</ul>
+<p><img src="https://raw.githubusercontents.com/Jesse121/publicPic/master/blog/pictures/20221127094350.png" alt="" referrerPolicy="no-referrer"></p>
+<pre><code class="hljs js"><span class="hljs-comment">// 先序遍历</span>
+<span class="hljs-keyword">const</span> <span class="hljs-title function_">preOrder</span> = (<span class="hljs-params">root</span>) =&gt; &#123;
+  <span class="hljs-keyword">if</span> (!root) &#123;
+    <span class="hljs-keyword">return</span>;
+  &#125;
+  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(root.<span class="hljs-property">val</span>);
+  <span class="hljs-title function_">preOrder</span>(root.<span class="hljs-property">left</span>);
+  <span class="hljs-title function_">preOrder</span>(root.<span class="hljs-property">right</span>);
+&#125;;
+<span class="hljs-comment">// 中序遍历</span>
+<span class="hljs-keyword">const</span> <span class="hljs-title function_">inOrder</span> = (<span class="hljs-params">root</span>) =&gt; &#123;
+  <span class="hljs-keyword">if</span> (!root) &#123;
+    <span class="hljs-keyword">return</span>;
+  &#125;
+  <span class="hljs-title function_">inOrder</span>(root.<span class="hljs-property">left</span>);
+  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(root.<span class="hljs-property">val</span>);
+  <span class="hljs-title function_">inOrder</span>(root.<span class="hljs-property">right</span>);
+&#125;;
+<span class="hljs-comment">// 后序遍历</span>
+<span class="hljs-keyword">const</span> <span class="hljs-title function_">postOrder</span> = (<span class="hljs-params">root</span>) =&gt; &#123;
+  <span class="hljs-keyword">if</span> (!root) &#123;
+    <span class="hljs-keyword">return</span>;
+  &#125;
+  <span class="hljs-title function_">postOrder</span>(root.<span class="hljs-property">left</span>);
+  <span class="hljs-title function_">postOrder</span>(root.<span class="hljs-property">right</span>);
+  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(root.<span class="hljs-property">val</span>);
+&#125;;</code></pre>
+<p>你知道二叉树遍历的时间复杂度是多少吗？我们一起来看看。<br>
+从我前面画的前、中、后序遍历的顺序图，可以看出来，每个节点最多会被访问两次，所以遍历操作的时间复杂度，跟节点的个数 n 成正比，也就是说二叉树遍历的时间复杂度是 O(n)。</p>
+<h3 id="二叉查找树（Binary-Search-Tree）">二叉查找树（Binary Search Tree）</h3>
+<p>二叉查找树是二叉树中最常用的一种类型，也叫二叉搜索树。顾名思义，二叉查找树是为了实现快速查找而生的。不过，它不仅仅支持快速查找一个数据，还支持快速插入、删除一个数据。</p>
+<p><strong>二叉查找树要求，在树中的任意一个节点，其左子树中的每个节点的值，都要小于这个节点的值，而右子树节点的值都大于这个节点的值。</strong></p>
+<p><img src="https://raw.githubusercontents.com/Jesse121/publicPic/master/blog/pictures/20221127095931.png" alt="" referrerPolicy="no-referrer"></p>
+<pre><code class="hljs js"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Node</span> &#123;
+  <span class="hljs-title function_">constructor</span>(<span class="hljs-params">data</span>) &#123;
+    <span class="hljs-variable language_">this</span>.<span class="hljs-property">data</span> = data;
+    <span class="hljs-variable language_">this</span>.<span class="hljs-property">left</span> = <span class="hljs-literal">null</span>;
+    <span class="hljs-variable language_">this</span>.<span class="hljs-property">right</span> = <span class="hljs-literal">null</span>;
+  &#125;
+&#125;
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">BinarySearchTree</span> &#123;
+  <span class="hljs-title function_">constructor</span>(<span class="hljs-params"></span>) &#123;
+    <span class="hljs-comment">// root of a binary search tree</span>
+    <span class="hljs-variable language_">this</span>.<span class="hljs-property">root</span> = <span class="hljs-literal">null</span>;
+  &#125;
+
+  <span class="hljs-comment">// helper method which creates a new node to</span>
+  <span class="hljs-comment">// be inserted and calls insertNode</span>
+  <span class="hljs-title function_">insert</span>(<span class="hljs-params">data</span>) &#123;
+    <span class="hljs-comment">// Creating a node and initialising</span>
+    <span class="hljs-comment">// with data</span>
+    <span class="hljs-keyword">var</span> newNode = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Node</span>(data);
+
+    <span class="hljs-comment">// root is null then node will</span>
+    <span class="hljs-comment">// be added to the tree and made root.</span>
+    <span class="hljs-keyword">if</span> (<span class="hljs-variable language_">this</span>.<span class="hljs-property">root</span> === <span class="hljs-literal">null</span>) <span class="hljs-variable language_">this</span>.<span class="hljs-property">root</span> = newNode;
+    <span class="hljs-comment">// find the correct position in the</span>
+    <span class="hljs-comment">// tree and add the node</span>
+    <span class="hljs-keyword">else</span> <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">insertNode</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">root</span>, newNode);
+  &#125;
+
+  <span class="hljs-comment">// Method to insert a node in a tree</span>
+  <span class="hljs-comment">// it moves over the tree to find the location</span>
+  <span class="hljs-comment">// to insert a node with a given data</span>
+  <span class="hljs-title function_">insertNode</span>(<span class="hljs-params">node, newNode</span>) &#123;
+    <span class="hljs-comment">// if the data is less than the node</span>
+    <span class="hljs-comment">// data move left of the tree</span>
+    <span class="hljs-keyword">if</span> (newNode.<span class="hljs-property">data</span> &lt; node.<span class="hljs-property">data</span>) &#123;
+      <span class="hljs-comment">// if left is null insert node here</span>
+      <span class="hljs-keyword">if</span> (node.<span class="hljs-property">left</span> === <span class="hljs-literal">null</span>) node.<span class="hljs-property">left</span> = newNode;
+      <span class="hljs-comment">// if left is not null recur until</span>
+      <span class="hljs-comment">// null is found</span>
+      <span class="hljs-keyword">else</span> <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">insertNode</span>(node.<span class="hljs-property">left</span>, newNode);
+    &#125;
+
+    <span class="hljs-comment">// if the data is more than the node</span>
+    <span class="hljs-comment">// data move right of the tree</span>
+    <span class="hljs-keyword">else</span> &#123;
+      <span class="hljs-comment">// if right is null insert node here</span>
+      <span class="hljs-keyword">if</span> (node.<span class="hljs-property">right</span> === <span class="hljs-literal">null</span>) node.<span class="hljs-property">right</span> = newNode;
+      <span class="hljs-comment">// if right is not null recur until</span>
+      <span class="hljs-comment">// null is found</span>
+      <span class="hljs-keyword">else</span> <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">insertNode</span>(node.<span class="hljs-property">right</span>, newNode);
+    &#125;
+  &#125;
+
+  <span class="hljs-comment">// helper method that calls the</span>
+  <span class="hljs-comment">// removeNode with a given data</span>
+  <span class="hljs-title function_">remove</span>(<span class="hljs-params">data</span>) &#123;
+    <span class="hljs-comment">// root is re-initialized with</span>
+    <span class="hljs-comment">// root of a modified tree.</span>
+    <span class="hljs-variable language_">this</span>.<span class="hljs-property">root</span> = <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">removeNode</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">root</span>, data);
+  &#125;
+
+  <span class="hljs-comment">// Method to remove node with a</span>
+  <span class="hljs-comment">// given data</span>
+  <span class="hljs-comment">// it recur over the tree to find the</span>
+  <span class="hljs-comment">// data and removes it</span>
+  <span class="hljs-title function_">removeNode</span>(<span class="hljs-params">node, key</span>) &#123;
+    <span class="hljs-comment">// if the root is null then tree is</span>
+    <span class="hljs-comment">// empty</span>
+    <span class="hljs-keyword">if</span> (node === <span class="hljs-literal">null</span>) <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>;
+    <span class="hljs-comment">// if data to be delete is less than</span>
+    <span class="hljs-comment">// roots data then move to left subtree</span>
+    <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (key &lt; node.<span class="hljs-property">data</span>) &#123;
+      node.<span class="hljs-property">left</span> = <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">removeNode</span>(node.<span class="hljs-property">left</span>, key);
+      <span class="hljs-keyword">return</span> node;
+    &#125;
+
+    <span class="hljs-comment">// if data to be delete is greater than</span>
+    <span class="hljs-comment">// roots data then move to right subtree</span>
+    <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (key &gt; node.<span class="hljs-property">data</span>) &#123;
+      node.<span class="hljs-property">right</span> = <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">removeNode</span>(node.<span class="hljs-property">right</span>, key);
+      <span class="hljs-keyword">return</span> node;
+    &#125;
+
+    <span class="hljs-comment">// if data is similar to the root&#x27;s data</span>
+    <span class="hljs-comment">// then delete this node</span>
+    <span class="hljs-keyword">else</span> &#123;
+      <span class="hljs-comment">// deleting node with no children</span>
+      <span class="hljs-keyword">if</span> (node.<span class="hljs-property">left</span> === <span class="hljs-literal">null</span> &amp;&amp; node.<span class="hljs-property">right</span> === <span class="hljs-literal">null</span>) &#123;
+        node = <span class="hljs-literal">null</span>;
+        <span class="hljs-keyword">return</span> node;
+      &#125;
+
+      <span class="hljs-comment">// deleting node with one children</span>
+      <span class="hljs-keyword">if</span> (node.<span class="hljs-property">left</span> === <span class="hljs-literal">null</span>) &#123;
+        node = node.<span class="hljs-property">right</span>;
+        <span class="hljs-keyword">return</span> node;
+      &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (node.<span class="hljs-property">right</span> === <span class="hljs-literal">null</span>) &#123;
+        node = node.<span class="hljs-property">left</span>;
+        <span class="hljs-keyword">return</span> node;
+      &#125;
+
+      <span class="hljs-comment">// Deleting node with two children</span>
+      <span class="hljs-comment">// minimum node of the right subtree</span>
+      <span class="hljs-comment">// is stored in aux</span>
+      <span class="hljs-keyword">var</span> aux = <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">findMinNode</span>(node.<span class="hljs-property">right</span>);
+      node.<span class="hljs-property">data</span> = aux.<span class="hljs-property">data</span>;
+
+      node.<span class="hljs-property">right</span> = <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">removeNode</span>(node.<span class="hljs-property">right</span>, aux.<span class="hljs-property">data</span>);
+      <span class="hljs-keyword">return</span> node;
+    &#125;
+  &#125;
+
+  <span class="hljs-comment">// Performs inorder traversal of a tree</span>
+  <span class="hljs-title function_">inorder</span>(<span class="hljs-params">node</span>) &#123;
+    <span class="hljs-keyword">if</span> (node !== <span class="hljs-literal">null</span>) &#123;
+      <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">inorder</span>(node.<span class="hljs-property">left</span>);
+      <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(node.<span class="hljs-property">data</span>);
+      <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">inorder</span>(node.<span class="hljs-property">right</span>);
+    &#125;
+  &#125;
+  <span class="hljs-comment">// Performs preorder traversal of a tree</span>
+  <span class="hljs-title function_">preorder</span>(<span class="hljs-params">node</span>) &#123;
+    <span class="hljs-keyword">if</span> (node !== <span class="hljs-literal">null</span>) &#123;
+      <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(node.<span class="hljs-property">data</span>);
+      <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">preorder</span>(node.<span class="hljs-property">left</span>);
+      <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">preorder</span>(node.<span class="hljs-property">right</span>);
+    &#125;
+  &#125;
+  <span class="hljs-comment">// Performs postorder traversal of a tree</span>
+  <span class="hljs-title function_">postorder</span>(<span class="hljs-params">node</span>) &#123;
+    <span class="hljs-keyword">if</span> (node !== <span class="hljs-literal">null</span>) &#123;
+      <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">postorder</span>(node.<span class="hljs-property">left</span>);
+      <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">postorder</span>(node.<span class="hljs-property">right</span>);
+      <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(node.<span class="hljs-property">data</span>);
+    &#125;
+  &#125;
+  <span class="hljs-comment">// finds the minimum node in tree</span>
+  <span class="hljs-comment">// searching starts from given node</span>
+  <span class="hljs-title function_">findMinNode</span>(<span class="hljs-params">node</span>) &#123;
+    <span class="hljs-comment">// if left of a node is null</span>
+    <span class="hljs-comment">// then it must be minimum node</span>
+    <span class="hljs-keyword">if</span> (node.<span class="hljs-property">left</span> === <span class="hljs-literal">null</span>) <span class="hljs-keyword">return</span> node;
+    <span class="hljs-keyword">else</span> <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">findMinNode</span>(node.<span class="hljs-property">left</span>);
+  &#125;
+  <span class="hljs-comment">// returns root of the tree</span>
+  <span class="hljs-title function_">getRootNode</span>(<span class="hljs-params"></span>) &#123;
+    <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">root</span>;
+  &#125;
+  <span class="hljs-comment">// search for a node with given data</span>
+  <span class="hljs-title function_">search</span>(<span class="hljs-params">node, data</span>) &#123;
+    <span class="hljs-comment">// if trees is empty return null</span>
+    <span class="hljs-keyword">if</span> (node === <span class="hljs-literal">null</span>) <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>;
+    <span class="hljs-comment">// if data is less than node&#x27;s data</span>
+    <span class="hljs-comment">// move left</span>
+    <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (data &lt; node.<span class="hljs-property">data</span>) <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">search</span>(node.<span class="hljs-property">left</span>, data);
+    <span class="hljs-comment">// if data is more than node&#x27;s data</span>
+    <span class="hljs-comment">// move right</span>
+    <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (data &gt; node.<span class="hljs-property">data</span>) <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">search</span>(node.<span class="hljs-property">right</span>, data);
+    <span class="hljs-comment">// if data is equal to the node data</span>
+    <span class="hljs-comment">// return node</span>
+    <span class="hljs-keyword">else</span> <span class="hljs-keyword">return</span> node;
+  &#125;
+&#125;</code></pre>
+<h3 id="二叉查找树的时间复杂度分析">二叉查找树的时间复杂度分析</h3>
+<p>平衡二叉查找树的高度接近 logn，所以插入、删除、查找操作的时间复杂度也比较稳定，是 O(logn)。</p>
+ 
+      <div id="toc-article">
+  <div class="widget-wrap" id="toc-wrap">
+    <h3 class="widget-title"><i class="fa fa-toc"></i> 文章目录</h3>
+    <div class="widget">
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%91%EF%BC%88Tree%EF%BC%89"><span class="toc-text">树（Tree）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8C%E5%8F%89%E6%A0%91%EF%BC%88Binary-Tree%EF%BC%89"><span class="toc-text">二叉树（Binary Tree）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%93%BE%E5%BC%8F%E5%AD%98%E5%82%A8%E6%B3%95"><span class="toc-text">链式存储法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%A1%BA%E5%BA%8F%E5%AD%98%E5%82%A8%E6%B3%95"><span class="toc-text">顺序存储法</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E9%81%8D%E5%8E%86"><span class="toc-text">二叉树的遍历</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8C%E5%8F%89%E6%9F%A5%E6%89%BE%E6%A0%91%EF%BC%88Binary-Search-Tree%EF%BC%89"><span class="toc-text">二叉查找树（Binary Search Tree）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8C%E5%8F%89%E6%9F%A5%E6%89%BE%E6%A0%91%E7%9A%84%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6%E5%88%86%E6%9E%90"><span class="toc-text">二叉查找树的时间复杂度分析</span></a></li></ol>
+    </div>
+  </div>
+
+</div>
+       
+      <blockquote id="copyright">
+        <p>
+           原文链接:
+          <a href="https://jesse121.github.io/blog/articles/2021/03/15.html"
+            >https://jesse121.github.io/blog/articles/2021/03/15.html</a
+          >
+        </p>
+        <p>版权声明: 转载请注明出处.</p>
+      </blockquote>
+       
+    </div>
+    <footer class="article-footer">
+      
+      <div class="article-tag-wrap">
+        
+ 
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag">数据结构</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a></li></ul>
+ 
+
+
+      </div>
+        
+<nav id="article-nav">
+  
+    <a href="/blog/articles/2021/03/13.html" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">下一篇</strong>
+      <div class="article-nav-title">
+        
+          哈希算法
+        
+      </div>
+    </a>
+  
+  
+    <a href="/blog/articles/2021/04/02.html" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">上一篇</strong>
+      <div class="article-nav-title">
+        
+          Javascript 数据结构与算法
+        
+      </div>
+    </a>
+  
+</nav>
+   
+  <div id="comments"></div>
+
+
+
+
+
+
+
+
+ 
+    </footer>
+  </div>
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-posts"></i> 最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/blog/articles/2022/11/22.html">基于ElementPlus封装的季度选择器组件</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2022/11/16.html">掘金小册-Electron+Vue3桌面应用开发学习记录</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2022/10/29.html">如何使用Monorepo实现跨项目共享组件和模块</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2022/09/20.html">【转载】JavaScript代码优化之道</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2022/08/08.html">如何解决Electron应用安装在C盘没有权限更新的问题</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2022/08/05.html">如何用Electron+vue+vite构建桌面端应用(三)</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2022/08/04.html">如何用Electron+vue+vite构建桌面端应用(二)</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2022/07/22.html">从源码分析为什么Electron+vue项目中router不能用history模式</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2022/07/20.html">如何用Electron+vue+vite构建桌面端应用(一)</a>
+          </li>
+        
+          <li>
+            <a href="/blog/articles/2022/06/15.html">如何在国产银河麒麟系统Mips架构上离线安装electron</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-tag"></i> 标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/blog/tags/angularjs/" style="font-size: 10px;">AngularJs</a> <a href="/blog/tags/apache/" style="font-size: 12.5px;">Apache</a> <a href="/blog/tags/bootstrap/" style="font-size: 12.5px;">Bootstrap</a> <a href="/blog/tags/css/" style="font-size: 17.5px;">CSS</a> <a href="/blog/tags/centos/" style="font-size: 10px;">CentOS</a> <a href="/blog/tags/docker/" style="font-size: 12.5px;">Docker</a> <a href="/blog/tags/elementplus/" style="font-size: 10px;">ElementPlus</a> <a href="/blog/tags/git/" style="font-size: 11.25px;">Git</a> <a href="/blog/tags/gitlab/" style="font-size: 10px;">Gitlab</a> <a href="/blog/tags/gulp/" style="font-size: 10px;">Gulp</a> <a href="/blog/tags/html/" style="font-size: 12.5px;">HTML</a> <a href="/blog/tags/html5/" style="font-size: 10px;">HTML5</a> <a href="/blog/tags/http/" style="font-size: 12.5px;">HTTP</a> <a href="/blog/tags/https/" style="font-size: 10px;">HTTPS</a> <a href="/blog/tags/husky/" style="font-size: 10px;">Husky</a> <a href="/blog/tags/javascript/" style="font-size: 20px;">JavaScript</a> <a href="/blog/tags/jenkins/" style="font-size: 10px;">Jenkins</a> <a href="/blog/tags/linux/" style="font-size: 11.25px;">Linux</a> <a href="/blog/tags/mac/" style="font-size: 10px;">Mac</a> <a href="/blog/tags/mysql/" style="font-size: 12.5px;">MySQL</a> <a href="/blog/tags/nginx/" style="font-size: 11.25px;">Nginx</a> <a href="/blog/tags/node-js/" style="font-size: 11.25px;">Node.js</a> <a href="/blog/tags/php/" style="font-size: 15px;">PHP</a> <a href="/blog/tags/photoshop/" style="font-size: 10px;">Photoshop</a> <a href="/blog/tags/react/" style="font-size: 10px;">React</a> <a href="/blog/tags/redux/" style="font-size: 10px;">Redux</a> <a href="/blog/tags/sse/" style="font-size: 10px;">SSE</a> <a href="/blog/tags/sublimetext3/" style="font-size: 10px;">SublimeText3</a> <a href="/blog/tags/typescript/" style="font-size: 13.75px;">Typescript</a> <a href="/blog/tags/vagrant/" style="font-size: 10px;">Vagrant</a> <a href="/blog/tags/vim/" style="font-size: 10px;">Vim</a> <a href="/blog/tags/vue/" style="font-size: 10px;">Vue</a> <a href="/blog/tags/vue3/" style="font-size: 11.25px;">Vue3</a> <a href="/blog/tags/web/" style="font-size: 15px;">WEB</a> <a href="/blog/tags/webpack/" style="font-size: 12.5px;">Webpack</a> <a href="/blog/tags/wireshark/" style="font-size: 11.25px;">Wireshark</a> <a href="/blog/tags/yii/" style="font-size: 10px;">Yii</a> <a href="/blog/tags/electron/" style="font-size: 16.25px;">electron</a> <a href="/blog/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/blog/tags/jquery/" style="font-size: 12.5px;">jQuery</a> <a href="/blog/tags/kylin/" style="font-size: 10px;">kylin</a> <a href="/blog/tags/monorepo/" style="font-size: 10px;">monorepo</a> <a href="/blog/tags/ssh/" style="font-size: 10px;">ssh</a> <a href="/blog/tags/vite/" style="font-size: 13.75px;">vite</a> <a href="/blog/tags/vscode/" style="font-size: 10px;">vscode</a> <a href="/blog/tags/vue/" style="font-size: 10px;">vue</a> <a href="/blog/tags/vue3/" style="font-size: 13.75px;">vue3</a> <a href="/blog/tags/%E5%89%8D%E7%AB%AF%E7%9B%91%E6%8E%A7/" style="font-size: 10px;">前端监控</a> <a href="/blog/tags/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F/" style="font-size: 10px;">微信小程序</a> <a href="/blog/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" style="font-size: 18.75px;">数据结构</a> <a href="/blog/tags/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" style="font-size: 10px;">正则表达式</a> <a href="/blog/tags/%E7%AE%97%E6%B3%95/" style="font-size: 18.75px;">算法</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-classify"></i> 分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/blog/categories/bootstrap/">Bootstrap</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/electron/">Electron</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/html-css/">HTML-CSS</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/html5/">HTML5</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/javascript/">JavaScript</a><span class="category-list-count">11</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/linux/">Linux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/mysql/">MySQL</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/node-js/">Node.js</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/php/">PHP</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/photoshop/">Photoshop</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/typescript/">Typescript</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/vue/">Vue</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/vue3/">Vue3</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/web/">WEB</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/jquery/">jQuery</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/%E5%85%B6%E4%BB%96/">其他</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/translation/">前端翻译</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/">开发工具</a><span class="category-list-count">16</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/%E5%BC%80%E5%8F%91%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/">开发问题记录</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/">正则表达式</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/%E7%AE%97%E6%B3%95/">算法</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/notes/">读书笔记</a><span class="category-list-count">17</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/%E8%BD%AC%E8%BD%BD/">转载</a><span class="category-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-archive"></i> 归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2022/">2022年</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2021/">2021年</a><span class="archive-list-count">14</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2020/">2020年</a><span class="archive-list-count">14</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2019/">2019年</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/">2018年</a><span class="archive-list-count">12</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2017/">2017年</a><span class="archive-list-count">26</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/">2016年</a><span class="archive-list-count">27</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-link"></i> 友情链接</h3>
+    <div class="widget">
+      <ul>
+      
+        <li>
+          <a target="_blank" rel="noopener" href="http://www.mahaixiang.cn/internet/300.html">深入理解互联网协议的原理</a>
+        </li>
+      
+        <li>
+          <a target="_blank" rel="noopener" href="http://javascript.ruanyifeng.com/">JavaScript 标准参考教程</a>
+        </li>
+      
+        <li>
+          <a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript">Mozilla Developer Network</a>
+        </li>
+      
+      </ul>
+    </div>
+  </div>
+
+
+  
+</aside>
+        
+      </div>
+      <a id="totop" href="#top"></a>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      <p>
+        <a href="/blog/sitemap.xml">网站地图</a>
+        <span> | </span
+        ><a href="/blog/atom.xml">订阅本站</a>
+        <span> | </span
+        ><a href="/blog/about/">联系博主</a>
+      </p>
+      
+      <p>
+        <i class="fa fa-visitors"></i>
+        <i id="busuanzi_container_site_uv"
+          ><i id="busuanzi_value_site_uv"></i
+        ></i>
+        ，
+        <i class="fa fa-views"></i>
+        <i id="busuanzi_container_site_pv"
+          ><i id="busuanzi_value_site_pv"></i
+        ></i>
+      </p>
+      
+      <p>
+        <span
+          >Copyright &copy; 2022 Jesse.</span
+        >
+        <span
+          >Powered by <a href="https://hexo.io/" target="_blank">Hexo.</a></span
+        >
+      </p>
+    </div>
+  </div>
+</footer>
+
+    </div>
+  </div>
+  
+<script src="https://unpkg.com/@highlightjs/cdn-assets@11.6.0/highlight.min.js"></script>
+
+<script>
+  hljs.highlightAll();
+</script>
+
+<script src="https://unpkg.com/jquery@3.4.1/dist/jquery.min.js"></script>
+ 
+<script src="/blog/js/search.json.js"></script>
+  
+<script src="https://unpkg.com/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+
+ 
+<script src="/blog/js/script.js"></script>
+ 
+ 
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?8e59984317ab1777a88e5b3e62c7c767";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+  
+<script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+ 
+      
+<script src="https://unpkg.com/gitalk@1.7.2/dist/gitalk.min.js"></script>
+ 
+<script src="//cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.js"></script>
+
+<script>
+  var gitalk = new Gitalk({
+    clientID: "3c3e422527fd3f9fa17a",
+    clientSecret: "f28d1808ec9ab69fb24dc3e9fad81e1c3ab8dd83",
+    repo: "blog",
+    owner: "jesse121",
+    admin: ["jesse121"],
+    id: md5(window.location.pathname),
+    proxy: "https://stormy-gorge-51623.herokuapp.com/https://github.com/login/oauth/access_token",
+    distractionFreeMode: false,
+    language: "zh-CN",
+    body: "欢迎在下方提出问题，您的疑问促进我们共同进步！",
+    pagerDirection: "last",
+  });
+  gitalk.render("comments");
+</script>
+         
+ 
+<script>
+  if (navigator.serviceWorker) {
+    navigator.serviceWorker
+      .register("/blog/sw.js")
+      .then(function (registration) {
+        console.log("Registered events at scope: ", registration.scope);
+      })
+      .catch(function (err) {
+        console.log("ServiceWorker registration failed: ", err);
+      });
+  }
+</script>
+<script
+  type="text/javascript"
+  src="https://unpkg.com/clipboard@2.0.4/dist/clipboard.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="/blog/js/codeBlock/codeBlockFunction.js"
+></script>
+<script type="text/javascript" src="/blog/js/codeBlock/codeLang.js"></script>
+<script type="text/javascript" src="/blog/js/codeBlock/codeCopy.js"></script>
+<script type="text/javascript" src="/blog/js/codeBlock/codeShrink.js"></script>
+
+</body>
+</html>

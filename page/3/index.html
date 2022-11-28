@@ -182,7 +182,7 @@
   }
 </style>
  <article
-  id="post-algorithm/散列表"
+  id="post-javascript/解读setTimeout, promise.then, process.nextTick, setImmediate的执行顺序"
   class="h-entry article article-type-post"
   itemprop="blogPost"
   itemscope
@@ -194,7 +194,7 @@
       
   
     <h1 itemprop="name">
-      <a class="p-name article-title" href="/blog/articles/2021/03/10.html">散列表</a>
+      <a class="p-name article-title" href="/blog/articles/2019/10/20.html">解读setTimeout, promise.then, process.nextTick, setImmediate的执行顺序</a>
     </h1>
   
 
@@ -204,14 +204,14 @@
     <div class="article-meta">
        <span class="article-date">
   <i class="fa fa-date"></i>
-  <time class="dt-published" datetime="2021-03-10T00:12:20.000Z" itemprop="datePublished">2021年03月10日</time>
+  <time class="dt-published" datetime="2019-10-20T09:25:23.000Z" itemprop="datePublished">2019年10月20日</time>
 </span> 
   <div class="article-category">
     <i class="fa fa-classify"></i>
-    <a class="article-category-link" href="/blog/categories/%E7%AE%97%E6%B3%95/">算法</a>
+    <a class="article-category-link" href="/blog/categories/javascript/">JavaScript</a>
   </div>
   
-<a href="/blog/articles/2021/03/10.html#comments" class="article-comment-link">
+<a href="/blog/articles/2019/10/20.html#comments" class="article-comment-link">
   
   <i class="fa fa-commt"></i>
   留言
@@ -220,23 +220,21 @@
 
     </div>
     <div class="e-content article-entry" itemprop="articleBody">
-       <p>散列表的英文叫“Hash Table”，我们平时也叫它“哈希表”或者“Hash 表”<br>
-散列表用的是数组支持按照下标随机访问数据的特性，所以散列表其实就是数组的一种扩展，由数组演化而来。可以说，如果没有数组，就没有散列表。</p>
-<p>散列表用的就是数组支持按照下标随机访问的时候，时间复杂度是 O(1) 的特性。我们通过散列函数把元素的键值映射为下标，然后将数据存储在数组中对应下标的位置。当我们按照键值查询元素时，我们用同样的散列函数，将键值转化数组下标，从对应的数组下标的位置取数据。</p> 
+       <p>最近在看《Node.js 调试指南》的时候遇到有意思的几道题，是关于 setTimeout, promise.then, process.nextTick, setImmediate 的执行顺序。今天抽空记录下这道题的分析过程及背后的原理与知识点。</p> 
     </div>
     <footer class="article-footer">
        
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag">数据结构</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/javascript/" rel="tag">JavaScript</a></li></ul>
 
       <p class="article-more-link">
-        <a href="/blog/articles/2021/03/10.html#more">更多</a>
+        <a href="/blog/articles/2019/10/20.html#more">更多</a>
       </p>
         
     </footer>
   </div>
 </article>
   <article
-  id="post-algorithm/跳表"
+  id="post-tool/规范git commit提交记录和版本发布记录"
   class="h-entry article article-type-post"
   itemprop="blogPost"
   itemscope
@@ -248,7 +246,7 @@
       
   
     <h1 itemprop="name">
-      <a class="p-name article-title" href="/blog/articles/2021/03/09.html">跳表</a>
+      <a class="p-name article-title" href="/blog/articles/2019/08/12.html">规范Git Commit提交记录和版本发布记录</a>
     </h1>
   
 
@@ -258,279 +256,14 @@
     <div class="article-meta">
        <span class="article-date">
   <i class="fa fa-date"></i>
-  <time class="dt-published" datetime="2021-03-09T12:47:10.000Z" itemprop="datePublished">2021年03月09日</time>
-</span> 
-  <div class="article-category">
-    <i class="fa fa-classify"></i>
-    <a class="article-category-link" href="/blog/categories/%E7%AE%97%E6%B3%95/">算法</a>
-  </div>
-  
-<a href="/blog/articles/2021/03/09.html#comments" class="article-comment-link">
-  
-  <i class="fa fa-commt"></i>
-  留言
-</a>
-
-
-    </div>
-    <div class="e-content article-entry" itemprop="articleBody">
-       <p>跳表这种数据结构对你来说，可能会比较陌生，因为一般的数据结构和算法书籍里都不怎么会讲。但是它确实是一种各方面性能都比较优秀的动态数据结构，可以支持快速地插入、删除、查找操作，写起来也不复杂，甚至可以替代红黑树（Red-black tree）。</p> 
-    </div>
-    <footer class="article-footer">
-       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag">数据结构</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a></li></ul>
-
-      <p class="article-more-link">
-        <a href="/blog/articles/2021/03/09.html#more">更多</a>
-      </p>
-        
-    </footer>
-  </div>
-</article>
-  <article
-  id="post-algorithm/二分法查找"
-  class="h-entry article article-type-post"
-  itemprop="blogPost"
-  itemscope
-  itemtype="https://schema.org/BlogPosting"
->
-  <div class="article-inner">
-     
-    <header class="article-header">
-      
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/blog/articles/2021/03/07.html">二分法查找</a>
-    </h1>
-  
-
-
-    </header>
-    
-    <div class="article-meta">
-       <span class="article-date">
-  <i class="fa fa-date"></i>
-  <time class="dt-published" datetime="2021-03-07T00:47:10.000Z" itemprop="datePublished">2021年03月07日</time>
-</span> 
-  <div class="article-category">
-    <i class="fa fa-classify"></i>
-    <a class="article-category-link" href="/blog/categories/%E7%AE%97%E6%B3%95/">算法</a>
-  </div>
-  
-<a href="/blog/articles/2021/03/07.html#comments" class="article-comment-link">
-  
-  <i class="fa fa-commt"></i>
-  留言
-</a>
-
-
-    </div>
-    <div class="e-content article-entry" itemprop="articleBody">
-       <p>二分查找针对的是一个有序的数据集合，查找思想有点类似分治思想。每次都通过跟区间的中间元素对比，将待查找的区间缩小为之前的一半，直到找到要查找的元素，或者区间被缩小为 0。</p> 
-    </div>
-    <footer class="article-footer">
-       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag">数据结构</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a></li></ul>
-
-      <p class="article-more-link">
-        <a href="/blog/articles/2021/03/07.html#more">更多</a>
-      </p>
-        
-    </footer>
-  </div>
-</article>
-  <article
-  id="post-algorithm/排序"
-  class="h-entry article article-type-post"
-  itemprop="blogPost"
-  itemscope
-  itemtype="https://schema.org/BlogPosting"
->
-  <div class="article-inner">
-     
-    <header class="article-header">
-      
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/blog/articles/2021/03/05.html">排序</a>
-    </h1>
-  
-
-
-    </header>
-    
-    <div class="article-meta">
-       <span class="article-date">
-  <i class="fa fa-date"></i>
-  <time class="dt-published" datetime="2021-03-04T23:47:10.000Z" itemprop="datePublished">2021年03月05日</time>
-</span> 
-  <div class="article-category">
-    <i class="fa fa-classify"></i>
-    <a class="article-category-link" href="/blog/categories/%E7%AE%97%E6%B3%95/">算法</a>
-  </div>
-  
-<a href="/blog/articles/2021/03/05.html#comments" class="article-comment-link">
-  
-  <i class="fa fa-commt"></i>
-  留言
-</a>
-
-
-    </div>
-    <div class="e-content article-entry" itemprop="articleBody">
-       <p>最经典的、最常用的：冒泡排序、插入排序、选择排序、归并排序、快速排序、计数排序、基数排序、桶排序。<br>
-<img src="https://raw.githubusercontents.com/Jesse121/publicPic/master/blog/pictures/20221114074447.png" alt="排序" referrerPolicy="no-referrer"></p> 
-    </div>
-    <footer class="article-footer">
-       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag">数据结构</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a></li></ul>
-
-      <p class="article-more-link">
-        <a href="/blog/articles/2021/03/05.html#more">更多</a>
-      </p>
-        
-    </footer>
-  </div>
-</article>
-  <article
-  id="post-algorithm/递归"
-  class="h-entry article article-type-post"
-  itemprop="blogPost"
-  itemscope
-  itemtype="https://schema.org/BlogPosting"
->
-  <div class="article-inner">
-     
-    <header class="article-header">
-      
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/blog/articles/2021/03/04.html">递归</a>
-    </h1>
-  
-
-
-    </header>
-    
-    <div class="article-meta">
-       <span class="article-date">
-  <i class="fa fa-date"></i>
-  <time class="dt-published" datetime="2021-03-04T00:47:10.000Z" itemprop="datePublished">2021年03月04日</time>
-</span> 
-  <div class="article-category">
-    <i class="fa fa-classify"></i>
-    <a class="article-category-link" href="/blog/categories/%E7%AE%97%E6%B3%95/">算法</a>
-  </div>
-  
-<a href="/blog/articles/2021/03/04.html#comments" class="article-comment-link">
-  
-  <i class="fa fa-commt"></i>
-  留言
-</a>
-
-
-    </div>
-    <div class="e-content article-entry" itemprop="articleBody">
-       <h3 id="如何理解“递归”？">如何理解“递归”？</h3>
-<p>递归是一种应用非常广泛的算法（或者编程技巧）。之后我们要讲的很多数据结构和算法的编码实现都要用到递归，比如 DFS 深度优先搜索、前中后序二叉树遍历等等</p>
-<p>所有的递归问题都可以用递推公式来表示</p>
-<pre><code class="hljs plaintext">f(n)=f(n-1)+1 其中，f(1)=1</code></pre> 
-    </div>
-    <footer class="article-footer">
-       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag">数据结构</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a></li></ul>
-
-      <p class="article-more-link">
-        <a href="/blog/articles/2021/03/04.html#more">更多</a>
-      </p>
-        
-    </footer>
-  </div>
-</article>
-  <article
-  id="post-question/如何快速生成tsconfig.json文件"
-  class="h-entry article article-type-post"
-  itemprop="blogPost"
-  itemscope
-  itemtype="https://schema.org/BlogPosting"
->
-  <div class="article-inner">
-     
-    <header class="article-header">
-      
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/blog/articles/2020/12/15.html">如何快速生成tsconfig.json文件</a>
-    </h1>
-  
-
-
-    </header>
-    
-    <div class="article-meta">
-       <span class="article-date">
-  <i class="fa fa-date"></i>
-  <time class="dt-published" datetime="2020-12-15T06:13:30.000Z" itemprop="datePublished">2020年12月15日</time>
-</span> 
-  <div class="article-category">
-    <i class="fa fa-classify"></i>
-    <a class="article-category-link" href="/blog/categories/%E5%BC%80%E5%8F%91%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/">开发问题记录</a>
-  </div>
-  
-<a href="/blog/articles/2020/12/15.html#comments" class="article-comment-link">
-  
-  <i class="fa fa-commt"></i>
-  留言
-</a>
-
-
-    </div>
-    <div class="e-content article-entry" itemprop="articleBody">
-       <h3 id="问题缘由">问题缘由</h3>
-<p>在 typescript 项目中我们都需要配置 tsconfig.json，在此之前的配置方法都是从网上模仿别人的然后修该或添加自己的配置项。随着项目的增多每次都要去复制感觉很麻烦，就想找一个更好的解决办法快速生成 tsconfig.json 文件。</p> 
-    </div>
-    <footer class="article-footer">
-       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/typescript/" rel="tag">Typescript</a></li></ul>
-
-      <p class="article-more-link">
-        <a href="/blog/articles/2020/12/15.html#more">更多</a>
-      </p>
-        
-    </footer>
-  </div>
-</article>
-  <article
-  id="post-tool/用ssh连接docker容器"
-  class="h-entry article article-type-post"
-  itemprop="blogPost"
-  itemscope
-  itemtype="https://schema.org/BlogPosting"
->
-  <div class="article-inner">
-     
-    <header class="article-header">
-      
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/blog/articles/2020/08/22.html">用Ssh连接docker容器</a>
-    </h1>
-  
-
-
-    </header>
-    
-    <div class="article-meta">
-       <span class="article-date">
-  <i class="fa fa-date"></i>
-  <time class="dt-published" datetime="2020-08-22T02:26:30.000Z" itemprop="datePublished">2020年08月22日</time>
+  <time class="dt-published" datetime="2019-08-11T16:00:00.000Z" itemprop="datePublished">2019年08月12日</time>
 </span> 
   <div class="article-category">
     <i class="fa fa-classify"></i>
     <a class="article-category-link" href="/blog/categories/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/">开发工具</a>
   </div>
   
-<a href="/blog/articles/2020/08/22.html#comments" class="article-comment-link">
+<a href="/blog/articles/2019/08/12.html#comments" class="article-comment-link">
   
   <i class="fa fa-commt"></i>
   留言
@@ -539,30 +272,21 @@
 
     </div>
     <div class="e-content article-entry" itemprop="articleBody">
-       <h3 id="用-docker-commit-的方式创建-ssh-直连-docker-容器镜像">用 docker commit 的方式创建 ssh 直连 docker 容器镜像</h3>
-<ol>
-<li>拉取镜像，这里采用 centos:7 作为基础镜像</li>
-</ol>
-<pre><code class="hljs plaintext">docker pull centos:7</code></pre>
-<ol start="2">
-<li>运行镜像，生成容器</li>
-</ol>
-<pre><code class="hljs plaintext">docker run -d --name ssh_box --privileged=true centos:7 /usr/sbin/init
-07228ec257564c4874ca24216d651bda65573d49e4149064a079cacca27de4e1 # 生成的容器ID</code></pre> 
+       <p>在开发过程中我们一般都会用到git管理代码，在git commit提交代码时我们一般对git commit message随便写点简单的描述，可是随着项目参与人数的增多，发现提交的commit记录越来越杂乱，不便查阅，在网上找了下解决方案，总结一下方便在公司项目中运用。</p> 
     </div>
     <footer class="article-footer">
        
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/docker/" rel="tag">Docker</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/ssh/" rel="tag">ssh</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/git/" rel="tag">Git</a></li></ul>
 
       <p class="article-more-link">
-        <a href="/blog/articles/2020/08/22.html#more">更多</a>
+        <a href="/blog/articles/2019/08/12.html#more">更多</a>
       </p>
         
     </footer>
   </div>
 </article>
   <article
-  id="post-typescript/如何在vscode上直接运行typescript？"
+  id="post-notes/《Javascript设计模式与开发实践》--读书笔记"
   class="h-entry article article-type-post"
   itemprop="blogPost"
   itemscope
@@ -574,7 +298,7 @@
       
   
     <h1 itemprop="name">
-      <a class="p-name article-title" href="/blog/articles/2020/07/04.html">如何在Vscode上直接运行typescript?</a>
+      <a class="p-name article-title" href="/blog/articles/2019/07/23.html">《Javascript设计模式与开发实践》--读书笔记</a>
     </h1>
   
 
@@ -584,14 +308,14 @@
     <div class="article-meta">
        <span class="article-date">
   <i class="fa fa-date"></i>
-  <time class="dt-published" datetime="2020-07-04T02:59:30.000Z" itemprop="datePublished">2020年07月04日</time>
+  <time class="dt-published" datetime="2019-07-23T15:00:00.000Z" itemprop="datePublished">2019年07月23日</time>
 </span> 
   <div class="article-category">
     <i class="fa fa-classify"></i>
-    <a class="article-category-link" href="/blog/categories/typescript/">Typescript</a>
+    <a class="article-category-link" href="/blog/categories/notes/">读书笔记</a>
   </div>
   
-<a href="/blog/articles/2020/07/04.html#comments" class="article-comment-link">
+<a href="/blog/articles/2019/07/23.html#comments" class="article-comment-link">
   
   <i class="fa fa-commt"></i>
   留言
@@ -600,21 +324,23 @@
 
     </div>
     <div class="e-content article-entry" itemprop="articleBody">
-       <p>在学习 typescript 的过程中发现在 vscode 上不能很好地的输出 typescript 的运行结果，需要先将 typescript 编译为 javascript，在通过 node 执行 js 文件得到结果，执行过程如下</p> 
+       <h3 id="第-2-章-this-call-apply">第 2 章 this call apply</h3>
+<p>bind()方法创建一个新的函数，在 bind()被调用时，这个新函数的 this 被 bind 的第一个参数指定，其余的参数将作为新函数的参数供调用时使用。<br>
+bind()方法底层实现</p> 
     </div>
     <footer class="article-footer">
        
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/typescript/" rel="tag">Typescript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/vscode/" rel="tag">vscode</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/javascript/" rel="tag">JavaScript</a></li></ul>
 
       <p class="article-more-link">
-        <a href="/blog/articles/2020/07/04.html#more">更多</a>
+        <a href="/blog/articles/2019/07/23.html#more">更多</a>
       </p>
         
     </footer>
   </div>
 </article>
   <article
-  id="post-tool/Wireshark过滤器使用介绍"
+  id="post-web/base64编码原理及应用"
   class="h-entry article article-type-post"
   itemprop="blogPost"
   itemscope
@@ -626,7 +352,7 @@
       
   
     <h1 itemprop="name">
-      <a class="p-name article-title" href="/blog/articles/2020/06/13.html">Wireshark过滤器使用介绍</a>
+      <a class="p-name article-title" href="/blog/articles/2019/06/30.html">Base64编码原理及应用</a>
     </h1>
   
 
@@ -636,14 +362,170 @@
     <div class="article-meta">
        <span class="article-date">
   <i class="fa fa-date"></i>
-  <time class="dt-published" datetime="2020-06-13T01:59:30.000Z" itemprop="datePublished">2020年06月13日</time>
+  <time class="dt-published" datetime="2019-06-29T16:00:00.000Z" itemprop="datePublished">2019年06月30日</time>
+</span> 
+  <div class="article-category">
+    <i class="fa fa-classify"></i>
+    <a class="article-category-link" href="/blog/categories/web/">WEB</a>
+  </div>
+  
+<a href="/blog/articles/2019/06/30.html#comments" class="article-comment-link">
+  
+  <i class="fa fa-commt"></i>
+  留言
+</a>
+
+
+    </div>
+    <div class="e-content article-entry" itemprop="articleBody">
+       <p>最近在做一个H5上传图片并压缩的项目，其过程主要是先将图片上传通过readAsDataURL获取上传图片base64编码，然后根据高宽比将图片画到canvas上实现压缩，在通过toDataURL获取压缩后的图片。<a href="/blog/demo/h5compress.html">点击可查看demo</a>在该过程中用到base64编码，于是就想弄清楚base64编码原理，才有了这篇博客。</p> 
+    </div>
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/web/" rel="tag">WEB</a></li></ul>
+
+      <p class="article-more-link">
+        <a href="/blog/articles/2019/06/30.html#more">更多</a>
+      </p>
+        
+    </footer>
+  </div>
+</article>
+  <article
+  id="post-html-css/CSS 计数器详解"
+  class="h-entry article article-type-post"
+  itemprop="blogPost"
+  itemscope
+  itemtype="https://schema.org/BlogPosting"
+>
+  <div class="article-inner">
+     
+    <header class="article-header">
+      
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/blog/articles/2019/06/15.html">CSS 计数器详解</a>
+    </h1>
+  
+
+
+    </header>
+    
+    <div class="article-meta">
+       <span class="article-date">
+  <i class="fa fa-date"></i>
+  <time class="dt-published" datetime="2019-06-14T16:00:00.000Z" itemprop="datePublished">2019年06月15日</time>
+</span> 
+  <div class="article-category">
+    <i class="fa fa-classify"></i>
+    <a class="article-category-link" href="/blog/categories/html-css/">HTML-CSS</a>
+  </div>
+  
+<a href="/blog/articles/2019/06/15.html#comments" class="article-comment-link">
+  
+  <i class="fa fa-commt"></i>
+  留言
+</a>
+
+
+    </div>
+    <div class="e-content article-entry" itemprop="articleBody">
+       <p>在前端开发中总少不了列表项，对于列表项序号，射鸡师一般会列出个1，2，3…序号。在不了解css计数器属性之前，我一般会用精灵图，用类名来区分序列号图片。这样做尽管可以达到目的，但是很不方便，开发过程耗时较长而且维护修改起来较困难。用css counter配合伪类的content完美的解决了这个问题，这里详细介绍下css counter属性</p> 
+    </div>
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/css/" rel="tag">CSS</a></li></ul>
+
+      <p class="article-more-link">
+        <a href="/blog/articles/2019/06/15.html#more">更多</a>
+      </p>
+        
+    </footer>
+  </div>
+</article>
+  <article
+  id="post-web/为什么使用HTTP2？"
+  class="h-entry article article-type-post"
+  itemprop="blogPost"
+  itemscope
+  itemtype="https://schema.org/BlogPosting"
+>
+  <div class="article-inner">
+     
+    <header class="article-header">
+      
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/blog/articles/2019/05/04.html">为什么使用HTTP2？</a>
+    </h1>
+  
+
+
+    </header>
+    
+    <div class="article-meta">
+       <span class="article-date">
+  <i class="fa fa-date"></i>
+  <time class="dt-published" datetime="2019-05-03T16:00:00.000Z" itemprop="datePublished">2019年05月04日</time>
+</span> 
+  <div class="article-category">
+    <i class="fa fa-classify"></i>
+    <a class="article-category-link" href="/blog/categories/web/">WEB</a>
+  </div>
+  
+<a href="/blog/articles/2019/05/04.html#comments" class="article-comment-link">
+  
+  <i class="fa fa-commt"></i>
+  留言
+</a>
+
+
+    </div>
+    <div class="e-content article-entry" itemprop="articleBody">
+       <p>最近我们公司的官网由原来的http1.1已升级到http2，而我们前端开发对http2还是一片懵懂，更不知道为何换成了这个，故此补充了下http2的相关知识。</p> 
+    </div>
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/http/" rel="tag">HTTP</a></li></ul>
+
+      <p class="article-more-link">
+        <a href="/blog/articles/2019/05/04.html#more">更多</a>
+      </p>
+        
+    </footer>
+  </div>
+</article>
+  <article
+  id="post-tool/Docker中nginx服务器相关配置"
+  class="h-entry article article-type-post"
+  itemprop="blogPost"
+  itemscope
+  itemtype="https://schema.org/BlogPosting"
+>
+  <div class="article-inner">
+     
+    <header class="article-header">
+      
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/blog/articles/2019/04/21.html">Docker中Nginx服务器相关配置</a>
+    </h1>
+  
+
+
+    </header>
+    
+    <div class="article-meta">
+       <span class="article-date">
+  <i class="fa fa-date"></i>
+  <time class="dt-published" datetime="2019-04-20T16:00:00.000Z" itemprop="datePublished">2019年04月21日</time>
 </span> 
   <div class="article-category">
     <i class="fa fa-classify"></i>
     <a class="article-category-link" href="/blog/categories/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/">开发工具</a>
   </div>
   
-<a href="/blog/articles/2020/06/13.html#comments" class="article-comment-link">
+<a href="/blog/articles/2019/04/21.html#comments" class="article-comment-link">
   
   <i class="fa fa-commt"></i>
   留言
@@ -652,22 +534,21 @@
 
     </div>
     <div class="e-content article-entry" itemprop="articleBody">
-       <p>在工作中我们常会用到 wireshark 抓取数据包进行分析，当使用 wireshark 默认设置时，会捕获到大量冗余的数据包，如果没有过滤器过滤，我们很难找到自己想要抓取的数据，这个时候就需要用到 wireshark 的过滤器来过滤，它们可以帮助我们在庞杂的结果中迅速找到我们需要的信息。<br>
-wireshark 提供的过滤器有捕捉过滤器和显示过滤器。</p> 
+       <p>工作中经常需要在服务器上来做一下实验，亲自动手看看效果是否与理论描述的相同。用docker可以很方便的配置所需要的环境，以下内容记录了如何用docker配置一个nginx服务器</p> 
     </div>
     <footer class="article-footer">
        
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/wireshark/" rel="tag">Wireshark</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/docker/" rel="tag">Docker</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/nginx/" rel="tag">Nginx</a></li></ul>
 
       <p class="article-more-link">
-        <a href="/blog/articles/2020/06/13.html#more">更多</a>
+        <a href="/blog/articles/2019/04/21.html#more">更多</a>
       </p>
         
     </footer>
   </div>
 </article>
   <article
-  id="post-question/webpack编译后的html中图片路径变为[object Module]的原因及解决办法"
+  id="post-tool/Docker的安装与使用介绍"
   class="h-entry article article-type-post"
   itemprop="blogPost"
   itemscope
@@ -679,7 +560,7 @@ wireshark 提供的过滤器有捕捉过滤器和显示过滤器。</p>
       
   
     <h1 itemprop="name">
-      <a class="p-name article-title" href="/blog/articles/2020/05/13.html">Webpack编译后的html中图片路径变为[object Module]的原因及解决办法</a>
+      <a class="p-name article-title" href="/blog/articles/2019/01/21.html">Docker的安装与使用介绍</a>
     </h1>
   
 
@@ -689,14 +570,14 @@ wireshark 提供的过滤器有捕捉过滤器和显示过滤器。</p>
     <div class="article-meta">
        <span class="article-date">
   <i class="fa fa-date"></i>
-  <time class="dt-published" datetime="2020-05-13T10:28:00.000Z" itemprop="datePublished">2020年05月13日</time>
+  <time class="dt-published" datetime="2019-01-20T22:39:30.000Z" itemprop="datePublished">2019年01月21日</time>
 </span> 
   <div class="article-category">
     <i class="fa fa-classify"></i>
-    <a class="article-category-link" href="/blog/categories/%E5%BC%80%E5%8F%91%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/">开发问题记录</a>
+    <a class="article-category-link" href="/blog/categories/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/">开发工具</a>
   </div>
   
-<a href="/blog/articles/2020/05/13.html#comments" class="article-comment-link">
+<a href="/blog/articles/2019/01/21.html#comments" class="article-comment-link">
   
   <i class="fa fa-commt"></i>
   留言
@@ -705,15 +586,668 @@ wireshark 提供的过滤器有捕捉过滤器和显示过滤器。</p>
 
     </div>
     <div class="e-content article-entry" itemprop="articleBody">
-       <h3 id="问题缘由">问题缘由</h3>
-<p>在 html 模板页面中我们有时候要直接插入图片 img。如果直接写绝对路径例如<code>&lt;img src=&quot;https://static.yidongtimes.com/dist/mobile/v2/img/notice/fishingTips/waiting.png&quot; alt=&quot;&quot;&gt;</code>，页面可以访问到图片但是图片不经过 webpack 处理（压缩，添加哈希后缀等）。这样操作图片也不能作为资源一起编译处理到 dist 文件夹中。因此需要找到更好的解决办法</p> 
+       <h3 id="docker-是什么？">docker 是什么？</h3>
+<p>Docker 是一个开源的应用容器引擎，基于 Go 语言 并遵从 Apache2.0 协议开源。<br>
+Docker 可以让开发者打包他们的应用以及依赖包到一个轻量级、可移植的容器中，然后发布到任何流行的 Linux 机器上，也可以实现虚拟化。<br>
+容器是完全使用沙箱机制，相互之间不会有任何接口,更重要的是容器性能开销极低。</p> 
     </div>
     <footer class="article-footer">
        
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/webpack/" rel="tag">Webpack</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/docker/" rel="tag">Docker</a></li></ul>
 
       <p class="article-more-link">
-        <a href="/blog/articles/2020/05/13.html#more">更多</a>
+        <a href="/blog/articles/2019/01/21.html#more">更多</a>
+      </p>
+        
+    </footer>
+  </div>
+</article>
+  <article
+  id="post-notes/《Node.js权威指南》--读书笔记"
+  class="h-entry article article-type-post"
+  itemprop="blogPost"
+  itemscope
+  itemtype="https://schema.org/BlogPosting"
+>
+  <div class="article-inner">
+     
+    <header class="article-header">
+      
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/blog/articles/2019/01/15.html">《Node.js权威指南》--读书笔记</a>
+    </h1>
+  
+
+
+    </header>
+    
+    <div class="article-meta">
+       <span class="article-date">
+  <i class="fa fa-date"></i>
+  <time class="dt-published" datetime="2019-01-14T16:00:00.000Z" itemprop="datePublished">2019年01月15日</time>
+</span> 
+  <div class="article-category">
+    <i class="fa fa-classify"></i>
+    <a class="article-category-link" href="/blog/categories/notes/">读书笔记</a>
+  </div>
+  
+<a href="/blog/articles/2019/01/15.html#comments" class="article-comment-link">
+  
+  <i class="fa fa-commt"></i>
+  留言
+</a>
+
+
+    </div>
+    <div class="e-content article-entry" itemprop="articleBody">
+       <h3 id="第一章-node-js-介绍">第一章 node.js 介绍</h3>
+<h4 id="非阻塞型-I-O-机制">非阻塞型 I/O 机制</h4>
+<p>当在访问数据库取得搜索结果的时候，在开始访问数据库之后，数据库返回结果之前，存在一段等待时间。<br>
+在传统的单线程处理机制中，在执行了访问数据库的代码之后，整个线程都将暂停下来，等待数据库返回查询结果之后才能继续执行后面的代码。这是 I/O 型阻塞<br>
+node.js 中在执行了访问数据库的代码之后将立即执行其后面的代码段，把数据库返回的结果的处理代码放在回调函数中。这是非阻塞型 I/O 机制</p> 
+    </div>
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/node-js/" rel="tag">Node.js</a></li></ul>
+
+      <p class="article-more-link">
+        <a href="/blog/articles/2019/01/15.html#more">更多</a>
+      </p>
+        
+    </footer>
+  </div>
+</article>
+  <article
+  id="post-javascript/exports与module.exports的区别,export与export.defult区别"
+  class="h-entry article article-type-post"
+  itemprop="blogPost"
+  itemscope
+  itemtype="https://schema.org/BlogPosting"
+>
+  <div class="article-inner">
+     
+    <header class="article-header">
+      
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/blog/articles/2018/12/23.html">exports与module.exports的区别,export与export.defult区别</a>
+    </h1>
+  
+
+
+    </header>
+    
+    <div class="article-meta">
+       <span class="article-date">
+  <i class="fa fa-date"></i>
+  <time class="dt-published" datetime="2018-12-23T15:00:00.000Z" itemprop="datePublished">2018年12月23日</time>
+</span> 
+  <div class="article-category">
+    <i class="fa fa-classify"></i>
+    <a class="article-category-link" href="/blog/categories/javascript/">JavaScript</a>
+  </div>
+  
+<a href="/blog/articles/2018/12/23.html#comments" class="article-comment-link">
+  
+  <i class="fa fa-commt"></i>
+  留言
+</a>
+
+
+    </div>
+    <div class="e-content article-entry" itemprop="articleBody">
+       <p>在 JS 模块化编程中，之前使用的是 require.js 或者 sea.js。随着前端工程化工具 webpack 的推出，使得前端 js 可以使用 CommonJS 模块标准或者使用 ES6 moduel 特性。<br>
+在 CommonJs 模块标准中我们载入模块使用的是 require()，输出模块用的是 exports 或者 module.exports<br>
+在 ES6 中载入模块我们用的是 import ，输出模块用的是 export</p> 
+    </div>
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/javascript/" rel="tag">JavaScript</a></li></ul>
+
+      <p class="article-more-link">
+        <a href="/blog/articles/2018/12/23.html#more">更多</a>
+      </p>
+        
+    </footer>
+  </div>
+</article>
+  <article
+  id="post-node/Node.js学习记录(一)--安装设置篇"
+  class="h-entry article article-type-post"
+  itemprop="blogPost"
+  itemscope
+  itemtype="https://schema.org/BlogPosting"
+>
+  <div class="article-inner">
+     
+    <header class="article-header">
+      
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/blog/articles/2018/10/13.html">Node.js学习记录(一)--安装设置篇</a>
+    </h1>
+  
+
+
+    </header>
+    
+    <div class="article-meta">
+       <span class="article-date">
+  <i class="fa fa-date"></i>
+  <time class="dt-published" datetime="2018-10-12T23:48:08.000Z" itemprop="datePublished">2018年10月13日</time>
+</span> 
+  <div class="article-category">
+    <i class="fa fa-classify"></i>
+    <a class="article-category-link" href="/blog/categories/node-js/">Node.js</a>
+  </div>
+  
+<a href="/blog/articles/2018/10/13.html#comments" class="article-comment-link">
+  
+  <i class="fa fa-commt"></i>
+  留言
+</a>
+
+
+    </div>
+    <div class="e-content article-entry" itemprop="articleBody">
+       <h3 id="安装-Node">安装 Node</h3>
+<p><strong>window</strong><br>
+window 上安装 node 可选择以下两种方式：<br>
+方式一：直接进入官网下载安装<br>
+进入<a target="_blank" rel="noopener" href="https://nodejs.org/en/download/">node.js 官网</a>点击 windows，选择.msi 后缀的，根据自己的电脑选择对应的 64 位或 32 位后，就会自动开始下载到本地。<br>
+安装过程也是直接下一步的简单式安装，这种安装优点是安装很便捷，缺点是只能装一个固定的 node 版本，对于需要在不同版本下开发的同学就不合适了。<br>
+方式二：通过 nvm 安装管理多个版本 node<br>
+1、下载 nvm 包 地址：<a target="_blank" rel="noopener" href="https://github.com/coreybutler/nvm-windows/releases">https://github.com/coreybutler/nvm-windows/releases</a>，我们选择第一个：nvm-noinstall.zip 下载完成后解压到一个地方，比如:D:\Program Files\nvm 里面的文件列表是这样的：elevate.cmd、elevate.vbs、install.cmd、LICENSE、nvm.exe</p> 
+    </div>
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/node-js/" rel="tag">Node.js</a></li></ul>
+
+      <p class="article-more-link">
+        <a href="/blog/articles/2018/10/13.html#more">更多</a>
+      </p>
+        
+    </footer>
+  </div>
+</article>
+  <article
+  id="post-notes/《React与Redux开发实例精解》--读书笔记"
+  class="h-entry article article-type-post"
+  itemprop="blogPost"
+  itemscope
+  itemtype="https://schema.org/BlogPosting"
+>
+  <div class="article-inner">
+     
+    <header class="article-header">
+      
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/blog/articles/2018/08/15.html">《React与Redux开发实例精解》--读书笔记</a>
+    </h1>
+  
+
+
+    </header>
+    
+    <div class="article-meta">
+       <span class="article-date">
+  <i class="fa fa-date"></i>
+  <time class="dt-published" datetime="2018-08-14T16:00:00.000Z" itemprop="datePublished">2018年08月15日</time>
+</span> 
+  <div class="article-category">
+    <i class="fa fa-classify"></i>
+    <a class="article-category-link" href="/blog/categories/notes/">读书笔记</a>
+  </div>
+  
+<a href="/blog/articles/2018/08/15.html#comments" class="article-comment-link">
+  
+  <i class="fa fa-commt"></i>
+  留言
+</a>
+
+
+    </div>
+    <div class="e-content article-entry" itemprop="articleBody">
+       <h3 id="第五章-JSX-语法">第五章 JSX 语法</h3>
+<ul>
+<li>class 属性改为 className for 属性改为 htmlFor</li>
+<li>jsx 中 javascript 表达式必须要有返回值，使用三元操作符</li>
+<li>所有的标签必须闭合 input img 等</li>
+<li>react 声明组件时，组件名称第一个字母必须大写</li>
+<li>解析 html 代码用双括号</li>
+<li>jsx 中内联样式通过 style 属性来定义，驼峰命名法</li>
+</ul> 
+    </div>
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/javascript/" rel="tag">JavaScript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/react/" rel="tag">React</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/redux/" rel="tag">Redux</a></li></ul>
+
+      <p class="article-more-link">
+        <a href="/blog/articles/2018/08/15.html#more">更多</a>
+      </p>
+        
+    </footer>
+  </div>
+</article>
+  <article
+  id="post-tool/前端开发实现自动化编译与部署"
+  class="h-entry article article-type-post"
+  itemprop="blogPost"
+  itemscope
+  itemtype="https://schema.org/BlogPosting"
+>
+  <div class="article-inner">
+     
+    <header class="article-header">
+      
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/blog/articles/2018/08/03.html">前端开发如何实现自动化编译与部署？</a>
+    </h1>
+  
+
+
+    </header>
+    
+    <div class="article-meta">
+       <span class="article-date">
+  <i class="fa fa-date"></i>
+  <time class="dt-published" datetime="2018-08-03T00:06:27.000Z" itemprop="datePublished">2018年08月03日</time>
+</span> 
+  <div class="article-category">
+    <i class="fa fa-classify"></i>
+    <a class="article-category-link" href="/blog/categories/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/">开发工具</a>
+  </div>
+  
+<a href="/blog/articles/2018/08/03.html#comments" class="article-comment-link">
+  
+  <i class="fa fa-commt"></i>
+  留言
+</a>
+
+
+    </div>
+    <div class="e-content article-entry" itemprop="articleBody">
+       <p>如今的前端开发早已不用之前的刀耕火种的方式写代码了，项目开始时会考虑各种前端框架 react vue angular 等，然后就是用 webpack 搭建项目开发架构。开发完后我们会将 webpack 编译后的文件通过 svn 发到服务器上，但是这样很容易存在文件漏发，且多人参与发开易冲突等。经过多次开发实践，目前我们的项目采用 jenkins+gitlab 实现自动化编译与部署，这样简化了项目部署等问题，极大的减少了因代码发布而引起的 bug 数量。</p> 
+    </div>
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/gitlab/" rel="tag">Gitlab</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/jenkins/" rel="tag">Jenkins</a></li></ul>
+
+      <p class="article-more-link">
+        <a href="/blog/articles/2018/08/03.html#more">更多</a>
+      </p>
+        
+    </footer>
+  </div>
+</article>
+  <article
+  id="post-html-css/工作中遇到的细节问题总结(二)"
+  class="h-entry article article-type-post"
+  itemprop="blogPost"
+  itemscope
+  itemtype="https://schema.org/BlogPosting"
+>
+  <div class="article-inner">
+     
+    <header class="article-header">
+      
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/blog/articles/2018/07/16.html">工作中遇到的细节问题总结(二)</a>
+    </h1>
+  
+
+
+    </header>
+    
+    <div class="article-meta">
+       <span class="article-date">
+  <i class="fa fa-date"></i>
+  <time class="dt-published" datetime="2018-07-16T10:13:05.000Z" itemprop="datePublished">2018年07月16日</time>
+</span> 
+  <div class="article-category">
+    <i class="fa fa-classify"></i>
+    <a class="article-category-link" href="/blog/categories/html-css/">HTML-CSS</a>
+  </div>
+  
+<a href="/blog/articles/2018/07/16.html#comments" class="article-comment-link">
+  
+  <i class="fa fa-commt"></i>
+  留言
+</a>
+
+
+    </div>
+    <div class="e-content article-entry" itemprop="articleBody">
+       <p>在前端开发工作中总会遇到各种各样的坑，今天这篇博文就是为了记录下踩过的坑，分析后发现容易掉坑里的地方一般是自己不熟悉的知识点或者是易忽略的知识点。故作此文，谨以自勉。</p> 
+    </div>
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/css/" rel="tag">CSS</a></li></ul>
+
+      <p class="article-more-link">
+        <a href="/blog/articles/2018/07/16.html#more">更多</a>
+      </p>
+        
+    </footer>
+  </div>
+</article>
+  <article
+  id="post-web/我是这样理解HTTP和HTTPS区别的"
+  class="h-entry article article-type-post"
+  itemprop="blogPost"
+  itemscope
+  itemtype="https://schema.org/BlogPosting"
+>
+  <div class="article-inner">
+     
+    <header class="article-header">
+      
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/blog/articles/2018/06/01.html">我是这样理解HTTP和HTTPS区别的</a>
+    </h1>
+  
+
+
+    </header>
+    
+    <div class="article-meta">
+       <span class="article-date">
+  <i class="fa fa-date"></i>
+  <time class="dt-published" datetime="2018-06-01T00:08:12.000Z" itemprop="datePublished">2018年06月01日</time>
+</span> 
+  <div class="article-category">
+    <i class="fa fa-classify"></i>
+    <a class="article-category-link" href="/blog/categories/web/">WEB</a>
+  </div>
+  
+<a href="/blog/articles/2018/06/01.html#comments" class="article-comment-link">
+  
+  <i class="fa fa-commt"></i>
+  留言
+</a>
+
+
+    </div>
+    <div class="e-content article-entry" itemprop="articleBody">
+       <h3 id="为何要用-https">为何要用 https?</h3>
+<h4 id="http-协议的缺点">http 协议的缺点</h4>
+<ul>
+<li>通信使用明文，内容可能被窃听(重要密码泄露)</li>
+<li>不验证通信方身份，有可能遭遇伪装(跨站点请求伪造)</li>
+<li>无法证明报文的完整性，有可能已遭篡改(运营商劫持)</li>
+</ul> 
+    </div>
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/http/" rel="tag">HTTP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/https/" rel="tag">HTTPS</a></li></ul>
+
+      <p class="article-more-link">
+        <a href="/blog/articles/2018/06/01.html#more">更多</a>
+      </p>
+        
+    </footer>
+  </div>
+</article>
+  <article
+  id="post-tool/如何利用Vagrant快速搭建相同配置的开发环境？"
+  class="h-entry article article-type-post"
+  itemprop="blogPost"
+  itemscope
+  itemtype="https://schema.org/BlogPosting"
+>
+  <div class="article-inner">
+     
+    <header class="article-header">
+      
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/blog/articles/2018/05/27.html">如何利用Vagrant快速搭建相同配置的开发环境？</a>
+    </h1>
+  
+
+
+    </header>
+    
+    <div class="article-meta">
+       <span class="article-date">
+  <i class="fa fa-date"></i>
+  <time class="dt-published" datetime="2018-05-27T00:06:27.000Z" itemprop="datePublished">2018年05月27日</time>
+</span> 
+  <div class="article-category">
+    <i class="fa fa-classify"></i>
+    <a class="article-category-link" href="/blog/categories/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/">开发工具</a>
+  </div>
+  
+<a href="/blog/articles/2018/05/27.html#comments" class="article-comment-link">
+  
+  <i class="fa fa-commt"></i>
+  留言
+</a>
+
+
+    </div>
+    <div class="e-content article-entry" itemprop="articleBody">
+       <p>作为一名程序猿,我们常常会遇到需要搭建开发环境的问题，特别是在新入职的时候，sublime, node, apache, mysql, php 等等以及各种框架的安装。如果入职的是大公司有可能这些必要的开发环境运维人员会为我们安装好，如果是中小型公司那就需要开发者自己来搭建开发环境，而且还要避免安装的版本不同等问题，这就需要用到我们今天介绍的这款工具了。Vagrant 目前是国内互联网公司应用最多的内部开发环境工具。Vagrant 是我们开发者的福音，使我们完全摆脱了重复配置环境的处境。</p> 
+    </div>
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/vagrant/" rel="tag">Vagrant</a></li></ul>
+
+      <p class="article-more-link">
+        <a href="/blog/articles/2018/05/27.html#more">更多</a>
+      </p>
+        
+    </footer>
+  </div>
+</article>
+  <article
+  id="post-html-css/工作中遇到的细节问题总结(一)"
+  class="h-entry article article-type-post"
+  itemprop="blogPost"
+  itemscope
+  itemtype="https://schema.org/BlogPosting"
+>
+  <div class="article-inner">
+     
+    <header class="article-header">
+      
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/blog/articles/2018/04/11.html">工作中遇到的细节问题总结(一)</a>
+    </h1>
+  
+
+
+    </header>
+    
+    <div class="article-meta">
+       <span class="article-date">
+  <i class="fa fa-date"></i>
+  <time class="dt-published" datetime="2018-04-11T10:13:05.000Z" itemprop="datePublished">2018年04月11日</time>
+</span> 
+  <div class="article-category">
+    <i class="fa fa-classify"></i>
+    <a class="article-category-link" href="/blog/categories/html-css/">HTML-CSS</a>
+  </div>
+  
+<a href="/blog/articles/2018/04/11.html#comments" class="article-comment-link">
+  
+  <i class="fa fa-commt"></i>
+  留言
+</a>
+
+
+    </div>
+    <div class="e-content article-entry" itemprop="articleBody">
+       <p>在前端开发工作中总会遇到各种各样的坑，今天这篇博文就是为了记录下踩过的坑，分析后发现容易掉坑里的地方一般是自己不熟悉的知识点或者是易忽略的知识点。故作此文，谨以自勉。</p> 
+    </div>
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/css/" rel="tag">CSS</a></li></ul>
+
+      <p class="article-more-link">
+        <a href="/blog/articles/2018/04/11.html#more">更多</a>
+      </p>
+        
+    </footer>
+  </div>
+</article>
+  <article
+  id="post-html-css/CSS3创建圆圈进度条"
+  class="h-entry article article-type-post"
+  itemprop="blogPost"
+  itemscope
+  itemtype="https://schema.org/BlogPosting"
+>
+  <div class="article-inner">
+     
+    <header class="article-header">
+      
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/blog/articles/2018/03/12.html">CSS3创建圆圈进度条</a>
+    </h1>
+  
+
+
+    </header>
+    
+    <div class="article-meta">
+       <span class="article-date">
+  <i class="fa fa-date"></i>
+  <time class="dt-published" datetime="2018-03-12T02:17:04.000Z" itemprop="datePublished">2018年03月12日</time>
+</span> 
+  <div class="article-category">
+    <i class="fa fa-classify"></i>
+    <a class="article-category-link" href="/blog/categories/html-css/">HTML-CSS</a>
+  </div>
+  
+<a href="/blog/articles/2018/03/12.html#comments" class="article-comment-link">
+  
+  <i class="fa fa-commt"></i>
+  留言
+</a>
+
+
+    </div>
+    <div class="e-content article-entry" itemprop="articleBody">
+       <p>最近在工作中需要做一个圆圈倒计时，刚开始的想法是做个纯数字的倒计时即可，可是需求觉得这个不太好看，想加个倒计时进度条。于是就有了接下来的分析过程…</p> 
+    </div>
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/css/" rel="tag">CSS</a></li></ul>
+
+      <p class="article-more-link">
+        <a href="/blog/articles/2018/03/12.html#more">更多</a>
+      </p>
+        
+    </footer>
+  </div>
+</article>
+  <article
+  id="post-notes/《ECMAScript6标准入门》第二版--读书笔记"
+  class="h-entry article article-type-post"
+  itemprop="blogPost"
+  itemscope
+  itemtype="https://schema.org/BlogPosting"
+>
+  <div class="article-inner">
+     
+    <header class="article-header">
+      
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/blog/articles/2018/03/10.html">《ECMAScript6标准入门》第三版--读书笔记</a>
+    </h1>
+  
+
+
+    </header>
+    
+    <div class="article-meta">
+       <span class="article-date">
+  <i class="fa fa-date"></i>
+  <time class="dt-published" datetime="2018-03-09T16:00:00.000Z" itemprop="datePublished">2018年03月10日</time>
+</span> 
+  <div class="article-category">
+    <i class="fa fa-classify"></i>
+    <a class="article-category-link" href="/blog/categories/notes/">读书笔记</a>
+  </div>
+  
+<a href="/blog/articles/2018/03/10.html#comments" class="article-comment-link">
+  
+  <i class="fa fa-commt"></i>
+  留言
+</a>
+
+
+    </div>
+    <div class="e-content article-entry" itemprop="articleBody">
+       <p>2015 年 6 月，ECMAScript 6 正式通过，成为国际标准。尽管在目前的工作中还没有使用 ES6，但是每项新技术出来总是忍不住想尝尝鲜，想知道 ES6 能为前端开发带来哪些变化？对自己的工作有哪些方面可以提升。刚好看到阮一峰的《ES6 标准入门》，便顺着这本书尝试着 ES6 的各种新特性。</p> 
+    </div>
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/javascript/" rel="tag">JavaScript</a></li></ul>
+
+      <p class="article-more-link">
+        <a href="/blog/articles/2018/03/10.html#more">更多</a>
+      </p>
+        
+    </footer>
+  </div>
+</article>
+  <article
+  id="post-web/LNMP + Apache 架构配置"
+  class="h-entry article article-type-post"
+  itemprop="blogPost"
+  itemscope
+  itemtype="https://schema.org/BlogPosting"
+>
+  <div class="article-inner">
+     
+    <header class="article-header">
+      
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/blog/articles/2018/02/11.html">LNMP + Apache 架构配置</a>
+    </h1>
+  
+
+
+    </header>
+    
+    <div class="article-meta">
+       <span class="article-date">
+  <i class="fa fa-date"></i>
+  <time class="dt-published" datetime="2018-02-11T00:08:12.000Z" itemprop="datePublished">2018年02月11日</time>
+</span> 
+  <div class="article-category">
+    <i class="fa fa-classify"></i>
+    <a class="article-category-link" href="/blog/categories/php/">PHP</a>
+  </div>
+  
+<a href="/blog/articles/2018/02/11.html#comments" class="article-comment-link">
+  
+  <i class="fa fa-commt"></i>
+  留言
+</a>
+
+
+    </div>
+    <div class="e-content article-entry" itemprop="articleBody">
+       <p>从事前端开发已3年有余，越来越发现前端开发要学习的知识已不仅仅是html+css+js那么简单了，2017年市场上就有了大前端的概念，可以说对前端工程师的要求也越来越高了，从招聘的要求中可以看到熟悉一门后端语言可以说是标配了。由于目前公司用的后台语言是PHP，借此机会充分锻炼了我的PHP技能。如今不仅要对PHP语言熟悉，还要熟悉公司整个架构，今天我通过在WIN7上安装的虚拟机上练习了下搭建LNMPA架构，顺便做下笔记。</p> 
+    </div>
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/apache/" rel="tag">Apache</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/centos/" rel="tag">CentOS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/linux/" rel="tag">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/mysql/" rel="tag">MySQL</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/nginx/" rel="tag">Nginx</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/php/" rel="tag">PHP</a></li></ul>
+
+      <p class="article-more-link">
+        <a href="/blog/articles/2018/02/11.html#more">更多</a>
       </p>
         
     </footer>
@@ -721,7 +1255,7 @@ wireshark 提供的过滤器有捕捉过滤器和显示过滤器。</p>
 </article>
    <nav id="page-nav">
 
-<a class="extend prev" rel="prev" href="/blog/page/2/">上一页</a><a class="page-number" href="/blog/">1</a><a class="page-number" href="/blog/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/blog/page/4/">4</a><a class="page-number" href="/blog/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/12/">12</a><a class="extend next" rel="next" href="/blog/page/4/">下一页</a>
+<a class="extend prev" rel="prev" href="/blog/page/2/">上一页</a><a class="page-number" href="/blog/">1</a><a class="page-number" href="/blog/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/blog/page/4/">4</a><a class="page-number" href="/blog/page/5/">5</a><a class="page-number" href="/blog/page/6/">6</a><a class="extend next" rel="next" href="/blog/page/4/">下一页</a>
 </nav>
  
 </section>

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
    
-  <title>category: 转载 | 前端之路</title>
+  <title>堆和堆排序 | 前端之路</title>
   <link rel="manifest" href="/blog/manifest.json" />
   <meta name="theme-color" content="#bccddd" />
   <meta
@@ -81,34 +81,354 @@
 </header>
 
       <div class="outer">
-        <section id="main">
+        <section id="main"><style>
+  code {
+    padding: 1px 5px;
+    font-family: Inconsolata, Monaco, Consolas, "Courier New", Courier,
+      monospace;
+    /* font-size: 0.91rem; */
+    color: #e96900;
+    background-color: #f8f8f8;
+    border-radius: 2px;
+  }
 
+  pre code {
+    padding: 0 !important;
+    color: #e8eaf6;
+    background-color: #272822;
+  }
+
+  pre[class*="language-"] {
+    padding: 1.2em;
+    margin: 0.5em 0;
+  }
+
+  code[class*="language-"],
+  pre[class*="language-"] {
+    color: #e8eaf6;
+    white-space: pre-wrap !important;
+  }
+  .line-numbers-rows {
+    border-right-width: 0px !important;
+  }
+
+  .line-numbers {
+    padding: 1.5rem 1.5rem 1.5rem 3.2rem !important;
+    margin: 1rem 0 !important;
+    background: #272822;
+    overflow: auto;
+    border-radius: 0.35rem;
+    tab-size: 4;
+  }
+
+  pre {
+    padding: 1.5rem !important;
+    margin: 1rem 0 !important;
+    background: #272822;
+    overflow: auto;
+    border-radius: 0.35rem;
+    tab-size: 4;
+  }
+
+  pre::before {
+    content: "";
+    height: 16px;
+    margin-bottom: 0;
+    display: block;
+  }
+
+  pre::after {
+    content: " ";
+    position: absolute;
+    border-radius: 50%;
+    background: #ff5f56;
+    width: 12px;
+    height: 12px;
+    top: 0;
+    left: 12px;
+    margin-top: 12px;
+    -webkit-box-shadow: 20px 0 #ffbd2e, 40px 0 #27c93f;
+    box-shadow: 20px 0 #ffbd2e, 40px 0 #27c93f;
+  }
+
+  code {
+    padding: 1px 5px;
+    font-family: Inconsolata, Monaco, Consolas, "Courier New", Courier,
+      monospace;
+    font-size: 0.91rem;
+    color: #e96900;
+    background-color: #f8f8f8;
+    border-radius: 2px;
+  }
+
+  .code_copy {
+    position: absolute;
+    top: 0.7rem;
+    right: 35px;
+    z-index: 1;
+    filter: invert(50%);
+    cursor: pointer;
+  }
+
+  .code_lang {
+    position: absolute;
+    top: 1.2rem;
+    right: 60px;
+    line-height: 0;
+    font-weight: bold;
+    font-family: normal;
+    z-index: 1;
+    filter: invert(50%);
+    cursor: pointer;
+  }
+
+  .code-expand {
+    position: absolute;
+    top: 4px;
+    right: 0px;
+    filter: invert(50%);
+    padding: 7px 10px;
+    z-index: 1;
+    cursor: pointer;
+    transition: all 0.3s;
+    transform: rotate(0deg);
+  }
+
+  .code-closed .code-expand {
+    transform: rotate(-180deg) !important;
+    transition: all 0.3s;
+  }
+
+  .code-closed pre::before {
+    height: 0px;
+  }
+
+  pre code {
+    padding: 0;
+    color: #e8eaf6;
+    background-color: #272822 !important;
+  }
+
+  pre[class*="language-"] {
+    padding: 1.2em;
+    margin: 0.5em 0;
+  }
+
+  code[class*="language-"],
+  pre[class*="language-"] {
+    color: #e8eaf6;
+    white-space: pre-wrap !important;
+  }
+</style>
+<article
+  id="post-algorithm/堆和堆排序"
+  class="h-entry article article-type-post"
+  itemprop="blogPost"
+  itemscope
+  itemtype="https://schema.org/BlogPosting"
+>
+  <div class="article-inner">
+     
+    <header class="article-header">
+      
   
+    <h1 class="p-name article-title" itemprop="headline name">
+      堆和堆排序
+    </h1>
+  
+
+
+    </header>
+    
+    <div class="article-meta">
+       <span class="article-date">
+  <i class="fa fa-date"></i>
+  <time class="dt-published" datetime="2021-03-15T23:45:44.000Z" itemprop="datePublished">2021年03月16日</time>
+</span> 
+  <div class="article-category">
+    <i class="fa fa-classify"></i>
+    <a class="article-category-link" href="/blog/categories/%E7%AE%97%E6%B3%95/">算法</a>
+  </div>
+  <span class="article-views">
+  <i class="fa fa-views"></i>
+  <i id="busuanzi_container_page_pv">
+      <i id="busuanzi_value_page_pv"></i>
+  </i>
+</span>
+  
+<a href="/blog/articles/2021/03/16.html#comments" class="article-comment-link">
   
     
     
-    <section class="archives-wrap">
-      <div class="archive-title">
+    
+    
+    
+  
+  <i class="fa fa-commt"></i>
+  留言
+</a>
+
+
+    </div>
+    <div class="e-content article-entry" itemprop="articleBody">
+       <p>堆这种数据结构的应用场景非常多，最经典的莫过于堆排序了。<br>
+堆排序是一种原地的、时间复杂度为 O(nlogn) 的排序算法。前面我们学过快速排序，平均情况下，它的时间复杂度为 O(nlogn)。尽管这两种排序算法的时间复杂度都是 O(nlogn)，甚至堆排序比快速排序的时间复杂度还要稳定，但是，在实际的软件开发中，快速排序的性能要比堆排序好，这是为什么呢？</p>
+<span id="more"></span>
+<h3 id="如何理解“堆”？">如何理解“堆”？</h3>
+<p>只要满足这两点，它就是一个堆。</p>
+<ul>
+<li>堆是一个完全二叉树；</li>
+<li>堆中每一个节点的值都必须大于等于（或小于等于）其子树中每个节点的值。</li>
+</ul>
+<p>完全二叉树要求，除了最后一层，其他层的节点个数都是满的，最后一层的节点都靠左排列<br>
+堆中的每个节点的值必须大于等于（或者小于等于）其子树中每个节点的值。实际上，我们还可以换一种说法，堆中每个节点的值都大于等于（或者小于等于）其左右子节点的值。这两种表述是等价的</p>
+<p>对于每个节点的值都大于等于子树中每个节点值的堆，我们叫做“大顶堆”。对于每个节点的值都小于等于子树中每个节点值的堆，我们叫做“小顶堆”。</p>
+<h3 id="如何实现一个堆？">如何实现一个堆？</h3>
+<p><img src="https://raw.githubusercontents.com/Jesse121/publicPic/master/blog/pictures/20221128075207.png" alt="" referrerPolicy="no-referrer"><br>
+从图中我们可以看到，数组中下标为 i 的节点的左子节点，就是下标为 i∗2 的节点，右子节点就是下标为 i∗2+1 的节点，父节点就是下标为 2i​ 的节点。</p>
+<h4 id="往堆中插入一个元素-堆化（heapify）">往堆中插入一个元素 堆化（heapify）</h4>
+<p>我们可以让新插入的节点与父节点对比大小。如果不满足子节点小于等于父节点的大小关系，我们就互换两个节点。一直重复这个过程，直到父子节点之间满足刚说的那种大小关系。</p>
+<h4 id="删除堆顶元素">删除堆顶元素</h4>
+<p>当我们删除堆顶元素之后，就需要把第二大的元素放到堆顶，那第二大元素肯定会出现在左右子节点中。然后我们再迭代地删除第二大节点，以此类推，直到叶子节点被删除</p>
+<pre><code class="hljs js"><span class="hljs-keyword">class</span> <span class="hljs-title class_">MinHeap</span> &#123;
+  <span class="hljs-title function_">constructor</span>(<span class="hljs-params"></span>) &#123;
+    <span class="hljs-variable language_">this</span>.<span class="hljs-property">heap</span> = [];
+  &#125;
+  <span class="hljs-title function_">getParentIndex</span>(<span class="hljs-params">i</span>) &#123;
+    <span class="hljs-comment">// return Math.floor((i-1)/2);</span>
+    <span class="hljs-keyword">return</span> (i - <span class="hljs-number">1</span>) &gt;&gt; <span class="hljs-number">1</span>; <span class="hljs-comment">// 右移一位 即除二取商操作</span>
+  &#125;
+  <span class="hljs-title function_">getLeftIndex</span>(<span class="hljs-params">i</span>) &#123;
+    <span class="hljs-keyword">return</span> i * <span class="hljs-number">2</span> + <span class="hljs-number">1</span>;
+  &#125;
+  <span class="hljs-title function_">getRightIndex</span>(<span class="hljs-params">i</span>) &#123;
+    <span class="hljs-keyword">return</span> i * <span class="hljs-number">2</span> + <span class="hljs-number">2</span>;
+  &#125;
+  <span class="hljs-title function_">swap</span>(<span class="hljs-params">i1, i2</span>) &#123;
+    <span class="hljs-keyword">const</span> temp = <span class="hljs-variable language_">this</span>.<span class="hljs-property">heap</span>[i1];
+    <span class="hljs-variable language_">this</span>.<span class="hljs-property">heap</span>[i1] = <span class="hljs-variable language_">this</span>.<span class="hljs-property">heap</span>[i2];
+    <span class="hljs-variable language_">this</span>.<span class="hljs-property">heap</span>[i2] = temp;
+  &#125;
+  <span class="hljs-comment">// 自下往上堆化</span>
+  <span class="hljs-title function_">shiftUp</span>(<span class="hljs-params">index</span>) &#123;
+    <span class="hljs-keyword">if</span> (index === <span class="hljs-number">0</span>) <span class="hljs-keyword">return</span>;
+    <span class="hljs-keyword">const</span> parentIndex = <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">getParentIndex</span>(index);
+    <span class="hljs-keyword">if</span> (<span class="hljs-variable language_">this</span>.<span class="hljs-property">heap</span>[parentIndex] &gt; <span class="hljs-variable language_">this</span>.<span class="hljs-property">heap</span>[index]) &#123;
+      <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">swap</span>(parentIndex, index);
+      <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">shiftUp</span>(parentIndex);
+    &#125;
+  &#125;
+  <span class="hljs-title function_">shiftDown</span>(<span class="hljs-params">index</span>) &#123;
+    <span class="hljs-keyword">const</span> leftIndex = <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">getLeftIndex</span>(index);
+    <span class="hljs-keyword">const</span> rightIndex = <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">getRightIndex</span>(index);
+    <span class="hljs-keyword">if</span> (<span class="hljs-variable language_">this</span>.<span class="hljs-property">heap</span>[leftIndex] &lt; <span class="hljs-variable language_">this</span>.<span class="hljs-property">heap</span>[index]) &#123;
+      <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">swap</span>(leftIndex, index);
+      <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">shiftDown</span>(leftIndex);
+    &#125;
+    <span class="hljs-keyword">if</span> (<span class="hljs-variable language_">this</span>.<span class="hljs-property">heap</span>[rightIndex] &lt; <span class="hljs-variable language_">this</span>.<span class="hljs-property">heap</span>[index]) &#123;
+      <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">swap</span>(rightIndex, index);
+      <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">shiftDown</span>(rightIndex);
+    &#125;
+  &#125;
+  <span class="hljs-title function_">insert</span>(<span class="hljs-params">value</span>) &#123;
+    <span class="hljs-variable language_">this</span>.<span class="hljs-property">heap</span>.<span class="hljs-title function_">push</span>(value);
+    <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">shiftUp</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">heap</span>.<span class="hljs-property">length</span> - <span class="hljs-number">1</span>);
+  &#125;
+  <span class="hljs-title function_">pop</span>(<span class="hljs-params"></span>) &#123;
+    <span class="hljs-keyword">if</span> (<span class="hljs-variable language_">this</span>.<span class="hljs-title function_">size</span>() === <span class="hljs-number">1</span>) <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">heap</span>.<span class="hljs-title function_">shift</span>();
+    <span class="hljs-variable language_">this</span>.<span class="hljs-property">heap</span>[<span class="hljs-number">0</span>] = <span class="hljs-variable language_">this</span>.<span class="hljs-property">heap</span>.<span class="hljs-title function_">pop</span>();
+    <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">shiftDown</span>(<span class="hljs-number">0</span>);
+  &#125;
+  <span class="hljs-title function_">peek</span>(<span class="hljs-params"></span>) &#123;
+    <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">heap</span>[<span class="hljs-number">0</span>];
+  &#125;
+  <span class="hljs-title function_">size</span>(<span class="hljs-params"></span>) &#123;
+    <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">heap</span>.<span class="hljs-property">length</span>;
+  &#125;
+&#125;</code></pre>
+<h3 id="如何基于堆实现排序？">如何基于堆实现排序？</h3>
+<p>前面我们讲过好几种排序算法，我们再来回忆一下，有时间复杂度是 O(n<sup>2</sup>) 的冒泡排序、插入排序、选择排序，有时间复杂度是 O(nlogn) 的归并排序、快速排序，还有线性排序。<br>
+这里我们借助于堆这种数据结构实现的排序算法，就叫做堆排序。这种排序方法的时间复杂度非常稳定，是 O(nlogn)，并且它还是原地排序算法。</p>
+<ol>
+<li>建堆</li>
+</ol>
+<p>第一种是借助我们前面讲的，在堆中插入一个元素的思路。尽管数组中包含 n 个数据，但是我们可以假设，起初堆中只包含一个数据，就是下标为 1 的数据。然后，我们调用前面讲的插入操作，将下标从 2 到 n 的数据依次插入到堆中。这样我们就将包含 n 个数据的数组，组织成了堆。</p>
+<p>第二种实现思路，跟第一种截然相反，也是我这里要详细讲的。第一种建堆思路的处理过程是从前往后处理数组数据，并且每个数据插入堆中时，都是从下往上堆化。而第二种实现思路，是从后往前处理数组，并且每个数据都是从上往下堆化</p>
+<ol start="2">
+<li>排序</li>
+</ol>
+<p>这个过程有点类似上面讲的“删除堆顶元素”的操作，当堆顶元素移除之后，我们把下标为 n 的元素放到堆顶，然后再通过堆化的方法，将剩下的 n−1 个元素重新构建成堆。堆化完成之后，我们再取堆顶的元素，放到下标是 n−1 的位置，一直重复这个过程，直到最后堆中只剩下标为 1 的一个元素，排序工作就完成了。<br>
+<img src="https://raw.githubusercontents.com/Jesse121/publicPic/master/blog/pictures/20221128212206.png" alt="" referrerPolicy="no-referrer"></p>
+<p>整个堆排序的过程，都只需要极个别临时存储空间，所以堆排序是原地排序算法。堆排序包括建堆和排序两个操作，建堆过程的时间复杂度是 O(n)，排序过程的时间复杂度是 O(nlogn)，所以，堆排序整体的时间复杂度是 O(nlogn)。</p>
+ 
+      <div id="toc-article">
+  <div class="widget-wrap" id="toc-wrap">
+    <h3 class="widget-title"><i class="fa fa-toc"></i> 文章目录</h3>
+    <div class="widget">
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E7%90%86%E8%A7%A3%E2%80%9C%E5%A0%86%E2%80%9D%EF%BC%9F"><span class="toc-text">如何理解“堆”？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E5%A0%86%EF%BC%9F"><span class="toc-text">如何实现一个堆？</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%BE%80%E5%A0%86%E4%B8%AD%E6%8F%92%E5%85%A5%E4%B8%80%E4%B8%AA%E5%85%83%E7%B4%A0-%E5%A0%86%E5%8C%96%EF%BC%88heapify%EF%BC%89"><span class="toc-text">往堆中插入一个元素 堆化（heapify）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%A0%E9%99%A4%E5%A0%86%E9%A1%B6%E5%85%83%E7%B4%A0"><span class="toc-text">删除堆顶元素</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E5%9F%BA%E4%BA%8E%E5%A0%86%E5%AE%9E%E7%8E%B0%E6%8E%92%E5%BA%8F%EF%BC%9F"><span class="toc-text">如何基于堆实现排序？</span></a></li></ol>
+    </div>
+  </div>
+
+</div>
+       
+      <blockquote id="copyright">
+        <p>
+           原文链接:
+          <a href="https://jesse121.github.io/blog/articles/2021/03/16.html"
+            >https://jesse121.github.io/blog/articles/2021/03/16.html</a
+          >
+        </p>
+        <p>版权声明: 转载请注明出处.</p>
+      </blockquote>
+       
+    </div>
+    <footer class="article-footer">
+      
+      <div class="article-tag-wrap">
         
-          <i class="fa fa-classify"></i>
-          转载
+ 
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag">数据结构</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a></li></ul>
+ 
+
+
+      </div>
+        
+<nav id="article-nav">
+  
+    <a href="/blog/articles/2021/03/15.html" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">下一篇</strong>
+      <div class="article-nav-title">
+        
+          二叉树
         
       </div>
-      <div class="archives">
-  
-  <ul class="archive-article archive-type-post">
-  <li class="archive-article-inner">
-    <a href="/blog/articles/2022/09/20.html">
-      <time class="dt-published" datetime="2022-09-20T03:18:02.000Z" itemprop="datePublished">2022年09月20日</time>
-      | <span class="archive-article-title">【转载】JavaScript代码优化之道</span>
     </a>
-  </li>
-</ul>
+  
+  
+    <a href="/blog/articles/2021/04/02.html" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">上一篇</strong>
+      <div class="article-nav-title">
+        
+          Javascript 数据结构与算法
+        
+      </div>
+    </a>
+  
+</nav>
+   
+  <div id="comments"></div>
 
 
 
-  </div></section>
 
+
+
+
+
+ 
+    </footer>
+  </div>
+</article>
 
 </section>
         
@@ -290,7 +610,7 @@ var _hmt = _hmt || [];
   
 <script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
  
-   
+      
 <script src="https://unpkg.com/gitalk@1.7.2/dist/gitalk.min.js"></script>
  
 <script src="//cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.js"></script>

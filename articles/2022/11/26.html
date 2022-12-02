@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
    
-  <title>tag: HTML | 前端之路</title>
+  <title>《基金投资好简单》--读书笔记 | 前端之路</title>
   <link rel="manifest" href="/blog/manifest.json" />
   <meta name="theme-color" content="#bccddd" />
   <meta
@@ -81,71 +81,341 @@
 </header>
 
       <div class="outer">
-        <section id="main">
+        <section id="main"><style>
+  code {
+    padding: 1px 5px;
+    font-family: Inconsolata, Monaco, Consolas, "Courier New", Courier,
+      monospace;
+    /* font-size: 0.91rem; */
+    color: #e96900;
+    background-color: #f8f8f8;
+    border-radius: 2px;
+  }
 
+  pre code {
+    padding: 0 !important;
+    color: #e8eaf6;
+    background-color: #272822;
+  }
+
+  pre[class*="language-"] {
+    padding: 1.2em;
+    margin: 0.5em 0;
+  }
+
+  code[class*="language-"],
+  pre[class*="language-"] {
+    color: #e8eaf6;
+    white-space: pre-wrap !important;
+  }
+  .line-numbers-rows {
+    border-right-width: 0px !important;
+  }
+
+  .line-numbers {
+    padding: 1.5rem 1.5rem 1.5rem 3.2rem !important;
+    margin: 1rem 0 !important;
+    background: #272822;
+    overflow: auto;
+    border-radius: 0.35rem;
+    tab-size: 4;
+  }
+
+  pre {
+    padding: 1.5rem !important;
+    margin: 1rem 0 !important;
+    background: #272822;
+    overflow: auto;
+    border-radius: 0.35rem;
+    tab-size: 4;
+  }
+
+  pre::before {
+    content: "";
+    height: 16px;
+    margin-bottom: 0;
+    display: block;
+  }
+
+  pre::after {
+    content: " ";
+    position: absolute;
+    border-radius: 50%;
+    background: #ff5f56;
+    width: 12px;
+    height: 12px;
+    top: 0;
+    left: 12px;
+    margin-top: 12px;
+    -webkit-box-shadow: 20px 0 #ffbd2e, 40px 0 #27c93f;
+    box-shadow: 20px 0 #ffbd2e, 40px 0 #27c93f;
+  }
+
+  code {
+    padding: 1px 5px;
+    font-family: Inconsolata, Monaco, Consolas, "Courier New", Courier,
+      monospace;
+    font-size: 0.91rem;
+    color: #e96900;
+    background-color: #f8f8f8;
+    border-radius: 2px;
+  }
+
+  .code_copy {
+    position: absolute;
+    top: 0.7rem;
+    right: 35px;
+    z-index: 1;
+    filter: invert(50%);
+    cursor: pointer;
+  }
+
+  .code_lang {
+    position: absolute;
+    top: 1.2rem;
+    right: 60px;
+    line-height: 0;
+    font-weight: bold;
+    font-family: normal;
+    z-index: 1;
+    filter: invert(50%);
+    cursor: pointer;
+  }
+
+  .code-expand {
+    position: absolute;
+    top: 4px;
+    right: 0px;
+    filter: invert(50%);
+    padding: 7px 10px;
+    z-index: 1;
+    cursor: pointer;
+    transition: all 0.3s;
+    transform: rotate(0deg);
+  }
+
+  .code-closed .code-expand {
+    transform: rotate(-180deg) !important;
+    transition: all 0.3s;
+  }
+
+  .code-closed pre::before {
+    height: 0px;
+  }
+
+  pre code {
+    padding: 0;
+    color: #e8eaf6;
+    background-color: #272822 !important;
+  }
+
+  pre[class*="language-"] {
+    padding: 1.2em;
+    margin: 0.5em 0;
+  }
+
+  code[class*="language-"],
+  pre[class*="language-"] {
+    color: #e8eaf6;
+    white-space: pre-wrap !important;
+  }
+</style>
+<article
+  id="post-other/《基金投资好简单》--读书笔记"
+  class="h-entry article article-type-post"
+  itemprop="blogPost"
+  itemscope
+  itemtype="https://schema.org/BlogPosting"
+>
+  <div class="article-inner">
+     
+    <header class="article-header">
+      
   
+    <h1 class="p-name article-title" itemprop="headline name">
+      《基金投资好简单》--读书笔记
+    </h1>
+  
+
+
+    </header>
+    
+    <div class="article-meta">
+       <span class="article-date">
+  <i class="fa fa-date"></i>
+  <time class="dt-published" datetime="2022-11-26T09:07:58.000Z" itemprop="datePublished">2022年11月26日</time>
+</span> 
+  <div class="article-category">
+    <i class="fa fa-classify"></i>
+    <a class="article-category-link" href="/blog/categories/%E5%85%B6%E4%BB%96/">其他</a>
+  </div>
+  <span class="article-views">
+  <i class="fa fa-views"></i>
+  <i id="busuanzi_container_page_pv">
+      <i id="busuanzi_value_page_pv"></i>
+  </i>
+</span>
+  
+<a href="/blog/articles/2022/11/26.html#comments" class="article-comment-link">
   
     
     
-    <section class="archives-wrap">
-      <div class="archive-title">
+    
+    
+    
+  
+  <i class="fa fa-commt"></i>
+  留言
+</a>
+
+
+    </div>
+    <div class="e-content article-entry" itemprop="articleBody">
+       <h3 id="第二章-如何根据自己的风险偏好选择基金">第二章 如何根据自己的风险偏好选择基金</h3>
+<p>债券基金：80%的基金资产都要投资于债券市场<br>
+剩下 20%的基金资产投资于债券市场 – 纯债基金<br>
+剩下 20%的基金资产投资于新股打新 – 一级债基 等同于纯债基金<br>
+剩下 20%的基金资产投资于股票市场（可转债） – 二级债基</p>
+<span id="more"></span>
+<p>股票基金： 基金资产最少 80%要投资于股票市场<br>
+混合型基金 既不满足债券基金也不满足股票基金</p>
+<p>公募基金风险高到低排列<br>
+货币基金&lt;纯债基金&lt;一级债基&lt;二级债基(可转债)&lt;偏债混合&lt;灵活配置&lt;偏股混合&lt;股票基金</p>
+<h4 id="货币基金投资技巧">货币基金投资技巧</h4>
+<ol>
+<li>选择规模大的基金产品，防止出现流动性风险</li>
+<li>想要在节假日继续有收益，务必在节假日的前两天下午 3 点之前提交申购</li>
+</ol>
+<h3 id="纯债基金投资技巧">纯债基金投资技巧</h3>
+<p>债券基金最大的风险是违约风险，发行方没办法还本付息，购买时需要参考信用评级</p>
+<p>债券分三大种类型</p>
+<ol>
+<li>利率债： 发债的主体信用极好 根本不存在违约风险，包括国债 地方政府债 政策性银行债及央行票据</li>
+<li>信用债：包含公司债和企业债，评级越低 利率越高 风险越高</li>
+<li>可转债：带有转股权的一类债券</li>
+</ol>
+<p>一定不要在市场加息周期里进行债券投资<br>
+如果货币基金的收益率在某一段时间不断上涨，一般债券基金表现一般<br>
+如果货币基金的收益率在某一段时间不断下降，一般债券基金表现不错</p>
+<h3 id="第三章-手把手教你如何买基金">第三章 手把手教你如何买基金</h3>
+<h4 id="挑选基金实战技巧">挑选基金实战技巧</h4>
+<p>选择一家靠谱的基金公司可以关注以下几个方面：</p>
+<ol>
+<li>这家公司旗下所有产品的业绩是否稳定，是否对处在比较优秀的区间</li>
+<li>基金公司整体资产规模越大 盈利情况越好</li>
+<li>近期没有出现高管人员变动</li>
+</ol>
+<h4 id="如何从基金排名挑选基金：5432-法则">如何从基金排名挑选基金：5432 法则</h4>
+<ol>
+<li>近五年在同类基金中排名要在前 1/5,</li>
+<li>近三年的同类排名应该排在前 1/4,</li>
+<li>近两年的同类排名应该在前 1/3</li>
+<li>近一年的同类排名应该在前 1/2</li>
+</ol>
+<p>该法则不适用于货币基金<br>
+适用于非行业主题类的宽赛道主动型基金</p>
+<p>5432 法则注意点</p>
+<ol>
+<li>五年中只有一年的业绩极其出色，其他 4 年表现与同期其他产品相比不是很好，应该排除</li>
+<li>如果更换过基金经理，那么我们应该只看现任基金经理管理这只产品之后的业绩情况</li>
+<li>针对成立时间不满 5 年的基金产品，我们可去看同一基金经理管理的其他已经满 5 年的产品业绩是否符合 5432 法则</li>
+<li>尽量选择有 5 年以上管理经验的基金经理</li>
+</ol>
+<h4 id="哪些基金评价机构是可以信赖的">哪些基金评价机构是可以信赖的</h4>
+<p>晨星资讯有限公司<br>
+天相投资顾问有限公司<br>
+北京济安金信科技有限公司</p>
+<p>中国银河证券股份有限公司<br>
+海通证券股份有限公司<br>
+招商证券股份有限公司<br>
+上海证券有限责任公司</p>
+<p>中国证券报社 – 中国基金业金牛奖<br>
+上海证券报社<br>
+深圳证券报社</p>
+<h4 id="关于基金经理">关于基金经理</h4>
+<p>尽量挑选只有一个基金经理管理的主动管理型基金，不选来两个或两个以上基金经理共同管理的产品</p>
+<h4 id="业绩比较基准线">业绩比较基准线</h4>
+<p>在基金季报中-- 基金净值表现 可看到和业绩比价基准走势</p>
+<h4 id="基金规模">基金规模</h4>
+<p>5 ～ 30 亿最佳<br>
+30 ～ 70 亿可接受<br>
+100 亿以上谨慎</p>
+<h4 id="基金季报中重点查看">基金季报中重点查看</h4>
+<ol>
+<li>基金净值表现(重要)</li>
+</ol>
+<p>季报将会披露报告期内基金份额净值增长率和同期业绩比较基准收益率的比较。是否跑赢了业绩基准是评价一个基金经理是否合格的底线</p>
+<p>净值增长率标准差反应基金净值波动情况，数值越大波动越大，数值越小波动越小</p>
+<ol start="2">
+<li>报告期内基金的投资策略和运作分析(最重要)</li>
+</ol>
+<p>这里我们将会看到基金经理对自己在基金管理过程中操作回顾，可以了解基金经理的投资逻辑和思路</p>
+<ol start="3">
+<li>投资组合报告(重要)</li>
+</ol>
+<p>这个部分中首先会披露基金在各种大类资产中的配置比例。这里最有价值的是可以看到基金的重仓</p>
+<p>公募基金双十限制 所持仓股票最高不能超过基金资产的 10%</p>
+<h4 id="止盈">止盈</h4>
+<p>指数基金 建议设置 10 ～ 20%的年化收益率作为止盈线，全额止盈 定投扣款</p>
+<p>宽基指数基金进行简单定投，达到止盈线全额赎回</p>
+ 
+      <div id="toc-article">
+  <div class="widget-wrap" id="toc-wrap">
+    <h3 class="widget-title"><i class="fa fa-toc"></i> 文章目录</h3>
+    <div class="widget">
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E4%BA%8C%E7%AB%A0-%E5%A6%82%E4%BD%95%E6%A0%B9%E6%8D%AE%E8%87%AA%E5%B7%B1%E7%9A%84%E9%A3%8E%E9%99%A9%E5%81%8F%E5%A5%BD%E9%80%89%E6%8B%A9%E5%9F%BA%E9%87%91"><span class="toc-text">第二章 如何根据自己的风险偏好选择基金</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%B4%A7%E5%B8%81%E5%9F%BA%E9%87%91%E6%8A%95%E8%B5%84%E6%8A%80%E5%B7%A7"><span class="toc-text">货币基金投资技巧</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BA%AF%E5%80%BA%E5%9F%BA%E9%87%91%E6%8A%95%E8%B5%84%E6%8A%80%E5%B7%A7"><span class="toc-text">纯债基金投资技巧</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E4%B8%89%E7%AB%A0-%E6%89%8B%E6%8A%8A%E6%89%8B%E6%95%99%E4%BD%A0%E5%A6%82%E4%BD%95%E4%B9%B0%E5%9F%BA%E9%87%91"><span class="toc-text">第三章 手把手教你如何买基金</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8C%91%E9%80%89%E5%9F%BA%E9%87%91%E5%AE%9E%E6%88%98%E6%8A%80%E5%B7%A7"><span class="toc-text">挑选基金实战技巧</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E4%BB%8E%E5%9F%BA%E9%87%91%E6%8E%92%E5%90%8D%E6%8C%91%E9%80%89%E5%9F%BA%E9%87%91%EF%BC%9A5432-%E6%B3%95%E5%88%99"><span class="toc-text">如何从基金排名挑选基金：5432 法则</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%93%AA%E4%BA%9B%E5%9F%BA%E9%87%91%E8%AF%84%E4%BB%B7%E6%9C%BA%E6%9E%84%E6%98%AF%E5%8F%AF%E4%BB%A5%E4%BF%A1%E8%B5%96%E7%9A%84"><span class="toc-text">哪些基金评价机构是可以信赖的</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%B3%E4%BA%8E%E5%9F%BA%E9%87%91%E7%BB%8F%E7%90%86"><span class="toc-text">关于基金经理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%9A%E7%BB%A9%E6%AF%94%E8%BE%83%E5%9F%BA%E5%87%86%E7%BA%BF"><span class="toc-text">业绩比较基准线</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9F%BA%E9%87%91%E8%A7%84%E6%A8%A1"><span class="toc-text">基金规模</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9F%BA%E9%87%91%E5%AD%A3%E6%8A%A5%E4%B8%AD%E9%87%8D%E7%82%B9%E6%9F%A5%E7%9C%8B"><span class="toc-text">基金季报中重点查看</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%AD%A2%E7%9B%88"><span class="toc-text">止盈</span></a></li></ol></li></ol>
+    </div>
+  </div>
+
+</div>
+       
+      <blockquote id="copyright">
+        <p>
+           原文链接:
+          <a href="https://jesse121.github.io/blog/articles/2022/11/26.html"
+            >https://jesse121.github.io/blog/articles/2022/11/26.html</a
+          >
+        </p>
+        <p>版权声明: 转载请注明出处.</p>
+      </blockquote>
+       
+    </div>
+    <footer class="article-footer">
+      
+      <div class="article-tag-wrap">
         
-          <i class="fa fa-tag"></i>
-          HTML
+  
+
+
+      </div>
+        
+<nav id="article-nav">
+  
+    <a href="/blog/articles/2022/11/22.html" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">下一篇</strong>
+      <div class="article-nav-title">
+        
+          基于ElementPlus封装的季度选择器组件
         
       </div>
-      <div class="archives">
-  
-  <ul class="archive-article archive-type-post">
-  <li class="archive-article-inner">
-    <a href="/blog/articles/2017/07/18.html">
-      <time class="dt-published" datetime="2017-07-18T13:07:06.000Z" itemprop="datePublished">2017年07月18日</time>
-      | <span class="archive-article-title">innerHTML,innerText,textContent的区别详解</span>
     </a>
-  </li>
-</ul>
-
-
   
   
-    
-      </div></section>
-    
-    
-    <section class="archives-wrap">
-      <div class="archive-title">
-        
-          <i class="fa fa-tag"></i>
-          HTML
-        
-      </div>
-      <div class="archives">
-  
-  <ul class="archive-article archive-type-post">
-  <li class="archive-article-inner">
-    <a href="/blog/articles/2016/07/31.html">
-      <time class="dt-published" datetime="2016-07-30T16:00:00.000Z" itemprop="datePublished">2016年07月31日</time>
-      | <span class="archive-article-title">Html5 Web Worker网页工人线程</span>
-    </a>
-  </li>
-</ul>
-
-
-  
-  
-  <ul class="archive-article archive-type-post">
-  <li class="archive-article-inner">
-    <a href="/blog/articles/2016/03/13.html">
-      <time class="dt-published" datetime="2016-03-13T14:16:52.000Z" itemprop="datePublished">2016年03月13日</time>
-      | <span class="archive-article-title">《HTML5程序设计第二版》--读书笔记</span>
-    </a>
-  </li>
-</ul>
+</nav>
+   
+  <div id="comments"></div>
 
 
 
-  </div></section>
 
+
+
+
+
+ 
+    </footer>
+  </div>
+</article>
 
 </section>
         
@@ -401,7 +671,7 @@ var _hmt = _hmt || [];
   
 <script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
  
-   
+      
 <script src="https://unpkg.com/gitalk@1.7.2/dist/gitalk.min.js"></script>
  
 <script src="//cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.js"></script>

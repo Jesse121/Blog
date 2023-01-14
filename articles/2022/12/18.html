@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+   
+  <title>《第一本Docker书》--读书笔记 | 前端之路</title>
+  <link rel="manifest" href="/blog/manifest.json" />
+  <meta name="theme-color" content="#bccddd" />
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, shrink-to-fit=no"
+  />
+
+  
+  <meta name="description" content="专注前端开发，前端开发技术博客" />
+   
+  <meta name="keywords" content="Web前端开发，Javascript，前端开发博客" />
+  
+  <link rel="dns-prefetch" href="https://unpkg.com" />
+  <link rel="dns-prefetch" href="https://busuanzi.ibruce.info" />
+   <link rel="alternate" href="/blog/atom.xml" title="前端之路" type="application/atom+xml">   <link rel="shortcut icon" href="/blog/favicon.ico"> 
+  <link rel="bookmark" href="/blog/favicon.ico" />
+  <link rel="apple-touch-icon" href="/blog/apple-touch-icon.png" />
+  <link rel="apple-touch-icon-precomposed" href="/blog/apple-touch-icon.png" />
+   
+<link rel="stylesheet" href="https://unpkg.com/@highlightjs/cdn-assets@11.6.0/styles/xt256.min.css">
+  
+<link rel="stylesheet" href="/blog/css/style.css">
+  
+<link rel="stylesheet" href="https://unpkg.com/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
+    
+<link rel="stylesheet" href="https://unpkg.com/gitalk@1.7.2/dist/gitalk.css">
+  
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/blog/" id="logo">前端之路</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/blog/" id="subtitle">路漫漫其修远兮，吾将上下而求索</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        
+          <a class="main-nav-link" href="/blog/."><i class="fa fa-home"></i> 首页</a>
+        
+          <a class="main-nav-link" href="/blog/archives/"><i class="fa fa-archive"></i> 归档</a>
+        
+          <a class="main-nav-link" href="/blog/about/"><i class="fa fa-user"></i> 关于</a>
+        
+      </nav>
+    </div>
+    <div id="search-form">
+      <div id="result-mask" class="hide"></div>
+      <label><input id="search-key" type="text" autocomplete="off" placeholder="搜索"></label>
+      <div id="result-wrap" class="hide">
+        <div id="search-result"></div>
+      </div>
+      <div class="hide">
+        <template id="search-tpl">
+          <div class="item">
+            <a href="/{path}" title="{title}">
+              <div class="title">{title}</div>
+              <div class="time">{date}</div>
+              <div class="tags">{tags}</div>
+            </a>
+          </div>
+        </template>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><style>
+  code {
+    padding: 1px 5px;
+    font-family: Inconsolata, Monaco, Consolas, "Courier New", Courier,
+      monospace;
+    /* font-size: 0.91rem; */
+    color: #e96900;
+    background-color: #f8f8f8;
+    border-radius: 2px;
+  }
+
+  pre code {
+    padding: 0 !important;
+    color: #e8eaf6;
+    background-color: #272822;
+  }
+
+  pre[class*="language-"] {
+    padding: 1.2em;
+    margin: 0.5em 0;
+  }
+
+  code[class*="language-"],
+  pre[class*="language-"] {
+    color: #e8eaf6;
+    white-space: pre-wrap !important;
+  }
+  .line-numbers-rows {
+    border-right-width: 0px !important;
+  }
+
+  .line-numbers {
+    padding: 1.5rem 1.5rem 1.5rem 3.2rem !important;
+    margin: 1rem 0 !important;
+    background: #272822;
+    overflow: auto;
+    border-radius: 0.35rem;
+    tab-size: 4;
+  }
+
+  pre {
+    padding: 1.5rem !important;
+    margin: 1rem 0 !important;
+    background: #272822;
+    overflow: auto;
+    border-radius: 0.35rem;
+    tab-size: 4;
+  }
+
+  pre::before {
+    content: "";
+    height: 16px;
+    margin-bottom: 0;
+    display: block;
+  }
+
+  pre::after {
+    content: " ";
+    position: absolute;
+    border-radius: 50%;
+    background: #ff5f56;
+    width: 12px;
+    height: 12px;
+    top: 0;
+    left: 12px;
+    margin-top: 12px;
+    -webkit-box-shadow: 20px 0 #ffbd2e, 40px 0 #27c93f;
+    box-shadow: 20px 0 #ffbd2e, 40px 0 #27c93f;
+  }
+
+  code {
+    padding: 1px 5px;
+    font-family: Inconsolata, Monaco, Consolas, "Courier New", Courier,
+      monospace;
+    font-size: 0.91rem;
+    color: #e96900;
+    background-color: #f8f8f8;
+    border-radius: 2px;
+  }
+
+  .code_copy {
+    position: absolute;
+    top: 0.7rem;
+    right: 35px;
+    z-index: 1;
+    filter: invert(50%);
+    cursor: pointer;
+  }
+
+  .code_lang {
+    position: absolute;
+    top: 1.2rem;
+    right: 60px;
+    line-height: 0;
+    font-weight: bold;
+    font-family: normal;
+    z-index: 1;
+    filter: invert(50%);
+    cursor: pointer;
+  }
+
+  .code-expand {
+    position: absolute;
+    top: 4px;
+    right: 0px;
+    filter: invert(50%);
+    padding: 7px 10px;
+    z-index: 1;
+    cursor: pointer;
+    transition: all 0.3s;
+    transform: rotate(0deg);
+  }
+
+  .code-closed .code-expand {
+    transform: rotate(-180deg) !important;
+    transition: all 0.3s;
+  }
+
+  .code-closed pre::before {
+    height: 0px;
+  }
+
+  pre code {
+    padding: 0;
+    color: #e8eaf6;
+    background-color: #272822 !important;
+  }
+
+  pre[class*="language-"] {
+    padding: 1.2em;
+    margin: 0.5em 0;
+  }
+
+  code[class*="language-"],
+  pre[class*="language-"] {
+    color: #e8eaf6;
+    white-space: pre-wrap !important;
+  }
+</style>
+<article
+  id="post-notes/《第一本docker书》"
+  class="h-entry article article-type-post"
+  itemprop="blogPost"
+  itemscope
+  itemtype="https://schema.org/BlogPosting"
+>
+  <div class="article-inner">
+     
+    <header class="article-header">
+      
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      《第一本Docker书》--读书笔记
+    </h1>
+  
+
+
+    </header>
+    
+    <div class="article-meta">
+       <span class="article-date">
+  <i class="fa fa-date"></i>
+  <time class="dt-published" datetime="2022-12-18T08:40:58.000Z" itemprop="datePublished">2022年12月18日</time>
+</span> 
+  <div class="article-category">
+    <i class="fa fa-classify"></i>
+    <a class="article-category-link" href="/blog/categories/notes/">notes</a>
+  </div>
+  <span class="article-views">
+  <i class="fa fa-views"></i>
+  <i id="busuanzi_container_page_pv">
+      <i id="busuanzi_value_page_pv"></i>
+  </i>
+</span>
+  
+<a href="/blog/articles/2022/12/18.html#comments" class="article-comment-link">
+  
+    
+    
+    
+    
+    
+  
+  <i class="fa fa-commt"></i>
+  留言
+</a>
+
+
+    </div>
+    <div class="e-content article-entry" itemprop="articleBody">
+       <p>无意中接触到 docker，知道 docker 可以在服务器上部署各种环境，从而解决无需在服务器上安装各种软件的问题，只需要在容器中安装即可，对搭建运行环境非常友好，于是自己就摸索着学习 docker</p>
+<span id="more"></span>
+<h3 id="第三章-Docker-入门">第三章 Docker 入门</h3>
+<h4 id="3-2-运行容器">3.2 运行容器</h4>
+<pre><code class="hljs sh">docker run -it ubuntu /bin/bash</code></pre>
+<p>docker ps 查看正在运行的容器<br>
+docker ps -a 查看当前系统中所有容器</p>
+<h4 id="3-4-容器命名">3.4 容器命名</h4>
+<pre><code class="hljs sh">docker run --name bob_the_container -it ubuntu /bin/bash</code></pre>
+<h4 id="3-5-重新启动已经停止的容器">3.5 重新启动已经停止的容器</h4>
+<pre><code class="hljs sh">docker restart &lt;container_name&gt;
+docker restart &lt;container_id&gt;
+</code></pre>
+<p>ctrl+p+q 退出不关闭容器<br>
+exit 退出关闭容器</p>
+<h4 id="3-6-重新附着到容器的会话上">3.6 重新附着到容器的会话上</h4>
+<pre><code class="hljs sh">docker attach &lt;container_name&gt;
+docker attach &lt;container_id&gt;</code></pre>
+<h4 id="3-7-创建守护式容器">3.7 创建守护式容器</h4>
+<p>守护式容器没有交互式会话，非常适合运行程序和服务</p>
+<pre><code class="hljs sh">docker run --name daemon_dave -d ubuntu</code></pre>
+<p>-d 参数 容器会在后台运行</p>
+<h4 id="3-8-容器内部都在干什么">3.8 容器内部都在干什么</h4>
+<p>用 docker logs 命令获取容器运行日志</p>
+<pre><code class="hljs sh">docker logs daemon_dave
+docker logs --<span class="hljs-built_in">tail</span>  10 daemon_dave <span class="hljs-comment"># 获取日志最后10条内容</span></code></pre>
+<h4 id="3-9-查看容器内的进程">3.9 查看容器内的进程</h4>
+<pre><code class="hljs sh">docker <span class="hljs-built_in">log</span> daemon_dave</code></pre>
+<h4 id="3-10-在容器内运行">3.10 在容器内运行</h4>
+<pre><code class="hljs sh">docker <span class="hljs-built_in">exec</span> -d daemon_dave <span class="hljs-built_in">touch</span> /etc/new_config_file</code></pre>
+<h4 id="3-11-停止守护式容器">3.11 停止守护式容器</h4>
+<pre><code class="hljs sh">docker stop daemon_dave</code></pre>
+<h4 id="3-12-自动重启容器">3.12 自动重启容器</h4>
+<p>设置开机自动重启容器</p>
+<pre><code class="hljs sh">docker run --restart=always --name daemon-dave -d ubuntu</code></pre>
+<p>–restart=on-failure:5 重启 5 次</p>
+<h4 id="3-13-深入容器">3.13 深入容器</h4>
+<pre><code class="hljs sh">docker inspect daemon-dave</code></pre>
+<h3 id="第四章-使用-docker-镜像和仓库">第四章 使用 docker 镜像和仓库</h3>
+<h4 id="4-2-列出镜像">4.2 列出镜像</h4>
+<pre><code class="hljs sh">docker images</code></pre>
+<p>Docker Hub 中有两种类型仓库 用户仓库和顶层仓库<br>
+用户仓库由用户名和仓库名两部分构成 如：jesse/monitor</p>
+<h4 id="4-4-查找镜像">4.4 查找镜像</h4>
+<pre><code class="hljs sh">docker search ubuntu</code></pre>
+<h4 id="4-5-构建镜像">4.5 构建镜像</h4>
+<p>构建镜像的两种方式</p>
+<ul>
+<li>使用 docker commit 命令</li>
+<li>使用 docker build 命令和 Dockerfile 文件</li>
+</ul>
+<h5 id="4-5-2-使用-docker-commit-命令创建镜像">4.5.2 使用 docker commit 命令创建镜像</h5>
+<p>先获取容器 id</p>
+<pre><code class="hljs sh">docker ps -lq <span class="hljs-comment">#8e1f4fcd97c6</span>
+docker commit -m=<span class="hljs-string">&quot;a new custom image&quot;</span> --author=<span class="hljs-string">&quot;jesse&quot;</span> 8e1f4fcd97c6 jesse/monitor:webserver</code></pre>
+<p>-m 新镜像的提交信息<br>
+-author 作者<br>
+webserver 镜像标签</p>
+<h5 id="4-5-4-基于-Dockerfile-构建新镜像">4.5.4 基于 Dockerfile 构建新镜像</h5>
+<p>新建 Dockerfile 文件</p>
+<pre><code class="hljs dockerfile"><span class="hljs-comment"># Version 0.1</span>
+
+<span class="hljs-comment"># 基础镜像</span>
+<span class="hljs-keyword">FROM</span> centos:<span class="hljs-number">7</span>
+<span class="hljs-comment"># 镜像操作命令</span>
+<span class="hljs-keyword">RUN</span><span class="language-bash"> yum update -y</span>
+<span class="hljs-keyword">RUN</span><span class="language-bash"> yum install epel-release -y</span>
+<span class="hljs-keyword">RUN</span><span class="language-bash"> yum install nginx -y</span>
+</code></pre>
+<p>编辑完成后</p>
+<pre><code class="hljs plaintext">docker build -t static_web .</code></pre>
+<p>-t 参数设置仓库和镜像<br>
+. 是指运行当前目录下的 Dockfile 文件<br>
+也可以使用-f path/to/file 指明 dockerfile 文件<br>
+也可以使用远程仓库的 dockerfile</p>
+<pre><code class="hljs plaintext">docker build -t &quot;miror-study/ubuntu&quot; git@github.com:jesse121/docker</code></pre>
+<h5 id="4-5-10-Dockerfile-指令">4.5.10 Dockerfile 指令</h5>
+<ol>
+<li>CMD<br>
+用于指定一个容器启动时要运行的命令</li>
+</ol>
+<pre><code class="hljs Dockerfile"><span class="hljs-keyword">CMD</span><span class="language-bash"> [<span class="hljs-string">&quot;bin/bash&quot;</span>,<span class="hljs-string">&quot;-l&quot;</span>]</span></code></pre>
+<p><strong>docker run 命令参数可以覆盖 CMD 指令</strong></p>
+<ol start="2">
+<li>
+<p>ENTRYPOINT<br>
+ENTRYPOINT 指令提供的命令不容易在启动时被容器覆盖<br>
+docker run 命令行中指定的任何参数都会被当作参数再次传递给 ENTRYPOINT 指令中的命令</p>
+</li>
+<li>
+<p>WORKDIR<br>
+用来在从镜像创建一个新容器时，在容器内部设置一个工作目录<br>
+可以通过-w 标志在运行时覆盖工作目录</p>
+</li>
+</ol>
+<pre><code class="hljs sh">docker run -it -w /var/log ubuntu <span class="hljs-built_in">pwd</span></code></pre>
+<ol start="4">
+<li>ENV<br>
+用来在镜像构建过程中设置环境变量，这个新的环境变量可以在后续的任何 RUN 指令中使用</li>
+</ol>
+<pre><code class="hljs dockerfile"><span class="hljs-keyword">ENV</span> TARGET_DIR /opt/app
+<span class="hljs-keyword">WORKDIR</span><span class="language-bash"> <span class="hljs-variable">$TARGET_DIR</span></span></code></pre>
+<p>也可以使用 docker run 命令行中的-e 标志来传递环境变量</p>
+<ol start="5">
+<li>
+<p>USER<br>
+USER 指令用来指定该镜像会以什么样的用户去运行，默认用户是 root<br>
+也可以在 docker run 命令中通过-u 选项来覆盖该指令指定的值</p>
+</li>
+<li>
+<p>VOLUME<br>
+用来向基于镜像创建的容器添加卷<br>
+卷功能让我们可以将数据，数据库或者其他内容添加到镜像中而不是将这些内容提交到镜像中，并且允许我们在多个容器间共享这些内容</p>
+</li>
+</ol>
+<pre><code class="hljs dockerfile"><span class="hljs-keyword">VOLUME</span><span class="language-bash"> [<span class="hljs-string">&quot;/opt/project&quot;</span>]</span></code></pre>
+<ol start="7">
+<li>ADD<br>
+用来将构建环境下的文件和目录复制到镜像中</li>
+</ol>
+<pre><code class="hljs dockerfile"><span class="hljs-keyword">ADD</span><span class="language-bash"> software.lic /opt/application/software.lic</span></code></pre>
+<p>ADD 指令会使得构建目录缓存变得无效，如果通过 ADD 指令向镜像中添加一个文件或者目录，那么这将使得 dockerfile 中的后续指令都不能继续使用之前的构建缓存</p>
+<ol start="8">
+<li>COPY<br>
+copy 指令非常类似于 ADD,他们根本不同的是 COPY 只关心在构建上下文中复制本地文件，而不去做文件提取和解压工作</li>
+</ol>
+<pre><code class="hljs dockerfile"><span class="hljs-keyword">COPY</span><span class="language-bash"> conf.d/ /etc/apache2/</span></code></pre>
+<ol start="9">
+<li>ONBUILD<br>
+ONBUILD 指令能为镜像添加触发器，当一个镜像被用作其他镜像的基础镜像时，该镜像中的触发器将会被执行</li>
+</ol>
+<h3 id="第-7-章-Docker-编配和服务发现">第 7 章 Docker 编配和服务发现</h3>
+<h4 id="安装-Docker-Compose">安装 Docker Compose</h4>
+<p>Mac 和 Windows 的 Docker 桌面版和 Docker Toolbox 已经包括 Compose 和其他 Docker 应用程序，因此 Mac 和 Windows 用户不需要单独安装 Compose。</p>
+<h4 id="docker-compose-yml-文件">docker-compose.yml 文件</h4>
+<pre><code class="hljs yml"><span class="hljs-attr">version:</span> <span class="hljs-string">&quot;3&quot;</span>
+
+<span class="hljs-attr">services:</span>
+  <span class="hljs-attr">app:</span>
+    <span class="hljs-attr">build:</span> <span class="hljs-string">.</span> <span class="hljs-comment"># 相当于 docker build .</span>
+    <span class="hljs-attr">container_name:</span> <span class="hljs-string">fed-monitor</span>
+    <span class="hljs-attr">ports:</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-string">&quot;3000:3000&quot;</span>
+    <span class="hljs-attr">depends_on:</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-string">mongo</span>
+  <span class="hljs-attr">mongo:</span>
+    <span class="hljs-attr">image:</span> <span class="hljs-string">&quot;mongo&quot;</span></code></pre>
+<h4 id="Docker-Compose-常用命令">Docker Compose 常用命令</h4>
+<p>启动所有服务</p>
+<pre><code class="hljs sh">docker-compose up [options] [--scale SERVICE=NUM...] [SERVICE...]</code></pre>
+<p>命令选项[options]</p>
+<ul>
+<li>-d 指定在后台以守护进程方式运行服务容器</li>
+<li>-no-color 设置不使用颜色来区分不同的服务器的控制输出</li>
+<li>-no-deps 设置不启动服务所链接的容器</li>
+<li>-force-recreate 设置强制重新创建容器，不能与–no-recreate 选项同时使用。</li>
+<li>–no-create 若容器已经存在则不再重新创建，不能与–force-recreate 选项同时使用。</li>
+<li>–no-build 设置不自动构建缺失的服务镜像</li>
+<li>–build 设置在启动容器前构建服务镜像</li>
+<li>–abort-on-container-exit 若任何一个容器被停止则停止所有容器，不能与选项-d 同时使用。</li>
+<li>-t, --timeout TIMEOUT 设置停止容器时的超时秒数，默认为 10 秒。</li>
+<li>–remove-orphans 设置删除服务中没有在 compose 文件中定义的容器</li>
+<li>–scale SERVICE=NUM 设置服务运行容器的个数，此选项将会负载在 compose 中通过 scale 指定的参数。</li>
+</ul>
+<p>列出项目中当前的所有容器</p>
+<pre><code class="hljs sh">docker-compose ps [options] [SERVICE...]</code></pre>
+<p>停止服务</p>
+<pre><code class="hljs sh">docker-compose stop [options] [SERVICE...]</code></pre>
+<p>重启项目中的服务</p>
+<pre><code class="hljs sh">docker-compose restart [options] [SERVICE...]</code></pre>
+ 
+      <div id="toc-article">
+  <div class="widget-wrap" id="toc-wrap">
+    <h3 class="widget-title"><i class="fa fa-toc"></i> 文章目录</h3>
+    <div class="widget">
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E4%B8%89%E7%AB%A0-Docker-%E5%85%A5%E9%97%A8"><span class="toc-text">第三章 Docker 入门</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-%E8%BF%90%E8%A1%8C%E5%AE%B9%E5%99%A8"><span class="toc-text">3.2 运行容器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-4-%E5%AE%B9%E5%99%A8%E5%91%BD%E5%90%8D"><span class="toc-text">3.4 容器命名</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-5-%E9%87%8D%E6%96%B0%E5%90%AF%E5%8A%A8%E5%B7%B2%E7%BB%8F%E5%81%9C%E6%AD%A2%E7%9A%84%E5%AE%B9%E5%99%A8"><span class="toc-text">3.5 重新启动已经停止的容器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-6-%E9%87%8D%E6%96%B0%E9%99%84%E7%9D%80%E5%88%B0%E5%AE%B9%E5%99%A8%E7%9A%84%E4%BC%9A%E8%AF%9D%E4%B8%8A"><span class="toc-text">3.6 重新附着到容器的会话上</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-7-%E5%88%9B%E5%BB%BA%E5%AE%88%E6%8A%A4%E5%BC%8F%E5%AE%B9%E5%99%A8"><span class="toc-text">3.7 创建守护式容器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-8-%E5%AE%B9%E5%99%A8%E5%86%85%E9%83%A8%E9%83%BD%E5%9C%A8%E5%B9%B2%E4%BB%80%E4%B9%88"><span class="toc-text">3.8 容器内部都在干什么</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-9-%E6%9F%A5%E7%9C%8B%E5%AE%B9%E5%99%A8%E5%86%85%E7%9A%84%E8%BF%9B%E7%A8%8B"><span class="toc-text">3.9 查看容器内的进程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-10-%E5%9C%A8%E5%AE%B9%E5%99%A8%E5%86%85%E8%BF%90%E8%A1%8C"><span class="toc-text">3.10 在容器内运行</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-11-%E5%81%9C%E6%AD%A2%E5%AE%88%E6%8A%A4%E5%BC%8F%E5%AE%B9%E5%99%A8"><span class="toc-text">3.11 停止守护式容器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-12-%E8%87%AA%E5%8A%A8%E9%87%8D%E5%90%AF%E5%AE%B9%E5%99%A8"><span class="toc-text">3.12 自动重启容器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-13-%E6%B7%B1%E5%85%A5%E5%AE%B9%E5%99%A8"><span class="toc-text">3.13 深入容器</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E5%9B%9B%E7%AB%A0-%E4%BD%BF%E7%94%A8-docker-%E9%95%9C%E5%83%8F%E5%92%8C%E4%BB%93%E5%BA%93"><span class="toc-text">第四章 使用 docker 镜像和仓库</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#4-2-%E5%88%97%E5%87%BA%E9%95%9C%E5%83%8F"><span class="toc-text">4.2 列出镜像</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-4-%E6%9F%A5%E6%89%BE%E9%95%9C%E5%83%8F"><span class="toc-text">4.4 查找镜像</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-5-%E6%9E%84%E5%BB%BA%E9%95%9C%E5%83%8F"><span class="toc-text">4.5 构建镜像</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#4-5-2-%E4%BD%BF%E7%94%A8-docker-commit-%E5%91%BD%E4%BB%A4%E5%88%9B%E5%BB%BA%E9%95%9C%E5%83%8F"><span class="toc-text">4.5.2 使用 docker commit 命令创建镜像</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#4-5-4-%E5%9F%BA%E4%BA%8E-Dockerfile-%E6%9E%84%E5%BB%BA%E6%96%B0%E9%95%9C%E5%83%8F"><span class="toc-text">4.5.4 基于 Dockerfile 构建新镜像</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#4-5-10-Dockerfile-%E6%8C%87%E4%BB%A4"><span class="toc-text">4.5.10 Dockerfile 指令</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC-7-%E7%AB%A0-Docker-%E7%BC%96%E9%85%8D%E5%92%8C%E6%9C%8D%E5%8A%A1%E5%8F%91%E7%8E%B0"><span class="toc-text">第 7 章 Docker 编配和服务发现</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%89%E8%A3%85-Docker-Compose"><span class="toc-text">安装 Docker Compose</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#docker-compose-yml-%E6%96%87%E4%BB%B6"><span class="toc-text">docker-compose.yml 文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Docker-Compose-%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4"><span class="toc-text">Docker Compose 常用命令</span></a></li></ol></li></ol>
+    </div>
+  </div>
+
+</div>
+       
+      <blockquote id="copyright">
+        <p>
+           原文链接:
+          <a href="https://jesse121.github.io/blog/articles/2022/12/18.html"
+            >https://jesse121.github.io/blog/articles/2022/12/18.html</a
+          >
+        </p>
+        <p>版权声明: 转载请注明出处.</p>
+      </blockquote>
+       
+    </div>
+    <footer class="article-footer">
+      
+      <div class="article-tag-wrap">
+        
+ 
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/docker/" rel="tag">Docker</a></li></ul>
+ 
+
+
+      </div>
+        
+<nav id="article-nav">
+  
+    <a href="/blog/articles/2022/11/26.html" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">下一篇</strong>
+      <div class="article-nav-title">
+        
+          《基金投资好简单》--读书笔记
+        
+      </div>
+    </a>
+  
+  
+</nav>
+   
+  <div id="comments"></div>
+
+
+
+
+
+
+
+
+ 
+    </footer>
+  </div>
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+<div class="widget-wrap">
+  <h3 class="widget-title"><i class="fa fa-posts"></i> 最新文章</h3>
+  <div class="widget">
+    <ul>
+       
+      <li>
+        <a href="/blog/articles/2022/12/18.html"
+          >《第一本Docker书》--读书笔记</a
+        >
+      </li>
+          
+      <li>
+        <a href="/blog/articles/2022/11/22.html"
+          >基于ElementPlus封装的季度选择器组件</a
+        >
+      </li>
+        
+      <li>
+        <a href="/blog/articles/2022/11/16.html"
+          >掘金小册-Electron+Vue3桌面应用开发学习记录</a
+        >
+      </li>
+        
+      <li>
+        <a href="/blog/articles/2022/10/29.html"
+          >如何使用Monorepo实现跨项目共享组件和模块</a
+        >
+      </li>
+        
+      <li>
+        <a href="/blog/articles/2022/09/20.html"
+          >【转载】JavaScript代码优化之道</a
+        >
+      </li>
+        
+      <li>
+        <a href="/blog/articles/2022/08/08.html"
+          >如何解决Electron应用安装在C盘没有权限更新的问题</a
+        >
+      </li>
+        
+      <li>
+        <a href="/blog/articles/2022/08/05.html"
+          >如何用Electron+vue+vite构建桌面端应用(三)</a
+        >
+      </li>
+        
+      <li>
+        <a href="/blog/articles/2022/08/04.html"
+          >如何用Electron+vue+vite构建桌面端应用(二)</a
+        >
+      </li>
+        
+      <li>
+        <a href="/blog/articles/2022/07/22.html"
+          >从源码分析为什么Electron+vue项目中router不能用history模式</a
+        >
+      </li>
+        
+      <li>
+        <a href="/blog/articles/2022/07/20.html"
+          >如何用Electron+vue+vite构建桌面端应用(一)</a
+        >
+      </li>
+        
+      <li>
+        <a href="/blog/articles/2022/06/15.html"
+          >如何在国产银河麒麟系统Mips架构上离线安装electron</a
+        >
+      </li>
+        
+      <li>
+        <a href="/blog/articles/2021/11/28.html"
+          >《学习Javascript数据结构和算法》--读书笔记</a
+        >
+      </li>
+        
+      <li>
+        <a href="/blog/articles/2021/10/27.html"
+          >极客时间-正则表达式</a
+        >
+      </li>
+        
+      <li>
+        <a href="/blog/articles/2021/09/04.html"
+          >Typescript内置工具类型和操作符介绍</a
+        >
+      </li>
+        
+      <li>
+        <a href="/blog/articles/2021/08/05.html"
+          >《深入理解Typescript》--读书笔记</a
+        >
+      </li>
+        
+      <li>
+        <a href="/blog/articles/2021/07/12.html"
+          >什么是SSE(Server-Sent Event)</a
+        >
+      </li>
+        
+      <li>
+        <a href="/blog/articles/2021/06/11.html"
+          >如何用Vite快速搭建一个vue3项目</a
+        >
+      </li>
+        
+      <li>
+        <a href="/blog/articles/2021/05/24.html"
+          >Husky配置文件没有执行权限</a
+        >
+      </li>
+        
+      <li>
+        <a href="/blog/articles/2021/04/02.html"
+          >Javascript 数据结构与算法</a
+        >
+      </li>
+       
+    </ul>
+  </div>
+</div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-tag"></i> 标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/blog/tags/angularjs/" style="font-size: 10px;">AngularJs</a> <a href="/blog/tags/apache/" style="font-size: 12.5px;">Apache</a> <a href="/blog/tags/bootstrap/" style="font-size: 12.5px;">Bootstrap</a> <a href="/blog/tags/css/" style="font-size: 17.5px;">CSS</a> <a href="/blog/tags/centos/" style="font-size: 10px;">CentOS</a> <a href="/blog/tags/docker/" style="font-size: 13.75px;">Docker</a> <a href="/blog/tags/elementplus/" style="font-size: 10px;">ElementPlus</a> <a href="/blog/tags/git/" style="font-size: 11.25px;">Git</a> <a href="/blog/tags/gitlab/" style="font-size: 10px;">Gitlab</a> <a href="/blog/tags/gulp/" style="font-size: 10px;">Gulp</a> <a href="/blog/tags/html/" style="font-size: 12.5px;">HTML</a> <a href="/blog/tags/html5/" style="font-size: 10px;">HTML5</a> <a href="/blog/tags/http/" style="font-size: 12.5px;">HTTP</a> <a href="/blog/tags/https/" style="font-size: 10px;">HTTPS</a> <a href="/blog/tags/husky/" style="font-size: 10px;">Husky</a> <a href="/blog/tags/javascript/" style="font-size: 20px;">JavaScript</a> <a href="/blog/tags/javascript/" style="font-size: 10px;">Javascript</a> <a href="/blog/tags/jenkins/" style="font-size: 10px;">Jenkins</a> <a href="/blog/tags/linux/" style="font-size: 11.25px;">Linux</a> <a href="/blog/tags/mac/" style="font-size: 10px;">Mac</a> <a href="/blog/tags/mysql/" style="font-size: 12.5px;">MySQL</a> <a href="/blog/tags/nginx/" style="font-size: 11.25px;">Nginx</a> <a href="/blog/tags/node-js/" style="font-size: 11.25px;">Node.js</a> <a href="/blog/tags/php/" style="font-size: 15px;">PHP</a> <a href="/blog/tags/photoshop/" style="font-size: 10px;">Photoshop</a> <a href="/blog/tags/react/" style="font-size: 10px;">React</a> <a href="/blog/tags/redux/" style="font-size: 10px;">Redux</a> <a href="/blog/tags/sse/" style="font-size: 10px;">SSE</a> <a href="/blog/tags/sublimetext3/" style="font-size: 10px;">SublimeText3</a> <a href="/blog/tags/typescript/" style="font-size: 13.75px;">Typescript</a> <a href="/blog/tags/vagrant/" style="font-size: 10px;">Vagrant</a> <a href="/blog/tags/vim/" style="font-size: 10px;">Vim</a> <a href="/blog/tags/vue/" style="font-size: 10px;">Vue</a> <a href="/blog/tags/vue3/" style="font-size: 12.5px;">Vue3</a> <a href="/blog/tags/web/" style="font-size: 15px;">WEB</a> <a href="/blog/tags/webpack/" style="font-size: 12.5px;">Webpack</a> <a href="/blog/tags/wireshark/" style="font-size: 11.25px;">Wireshark</a> <a href="/blog/tags/yii/" style="font-size: 10px;">Yii</a> <a href="/blog/tags/electron/" style="font-size: 16.25px;">electron</a> <a href="/blog/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/blog/tags/jquery/" style="font-size: 12.5px;">jQuery</a> <a href="/blog/tags/kylin/" style="font-size: 10px;">kylin</a> <a href="/blog/tags/monorepo/" style="font-size: 10px;">monorepo</a> <a href="/blog/tags/ssh/" style="font-size: 10px;">ssh</a> <a href="/blog/tags/vite/" style="font-size: 13.75px;">vite</a> <a href="/blog/tags/vscode/" style="font-size: 10px;">vscode</a> <a href="/blog/tags/vue3/" style="font-size: 13.75px;">vue3</a> <a href="/blog/tags/%E5%89%8D%E7%AB%AF%E7%9B%91%E6%8E%A7/" style="font-size: 10px;">前端监控</a> <a href="/blog/tags/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F/" style="font-size: 10px;">微信小程序</a> <a href="/blog/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" style="font-size: 18.75px;">数据结构</a> <a href="/blog/tags/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" style="font-size: 10px;">正则表达式</a> <a href="/blog/tags/%E7%AE%97%E6%B3%95/" style="font-size: 18.75px;">算法</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-classify"></i> 分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/blog/categories/bootstrap/">Bootstrap</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/electron/">Electron</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/html-css/">HTML-CSS</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/html5/">HTML5</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/javascript/">JavaScript</a><span class="category-list-count">11</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/linux/">Linux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/mysql/">MySQL</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/node-js/">Node.js</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/php/">PHP</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/photoshop/">Photoshop</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/typescript/">Typescript</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/vue3/">Vue3</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/web/">WEB</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/jquery/">jQuery</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/notes/">notes</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/%E5%85%B6%E4%BB%96/">其他</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/translation/">前端翻译</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/">开发工具</a><span class="category-list-count">16</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/%E5%BC%80%E5%8F%91%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/">开发问题记录</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/">正则表达式</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/%E7%AE%97%E6%B3%95/">算法</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/notes/">读书笔记</a><span class="category-list-count">18</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/%E8%BD%AC%E8%BD%BD/">转载</a><span class="category-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-archive"></i> 归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2022/">2022年</a><span class="archive-list-count">12</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2021/">2021年</a><span class="archive-list-count">16</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2020/">2020年</a><span class="archive-list-count">15</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2019/">2019年</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/">2018年</a><span class="archive-list-count">12</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2017/">2017年</a><span class="archive-list-count">26</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/">2016年</a><span class="archive-list-count">27</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-link"></i> 友情链接</h3>
+    <div class="widget">
+      <ul>
+      
+        <li>
+          <a target="_blank" rel="noopener" href="http://www.mahaixiang.cn/internet/300.html">深入理解互联网协议的原理</a>
+        </li>
+      
+        <li>
+          <a target="_blank" rel="noopener" href="http://javascript.ruanyifeng.com/">JavaScript 标准参考教程</a>
+        </li>
+      
+        <li>
+          <a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript">Mozilla Developer Network</a>
+        </li>
+      
+      </ul>
+    </div>
+  </div>
+
+
+  
+</aside>
+        
+      </div>
+      <a id="totop" href="#top"></a>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      <p>
+        <a href="/blog/sitemap.xml">网站地图</a>
+        <span> | </span
+        ><a href="/blog/atom.xml">订阅本站</a>
+        <span> | </span
+        ><a href="/blog/about/">联系博主</a>
+      </p>
+      
+      <p>
+        <i class="fa fa-visitors"></i>
+        <i id="busuanzi_container_site_uv"
+          ><i id="busuanzi_value_site_uv"></i
+        ></i>
+        ，
+        <i class="fa fa-views"></i>
+        <i id="busuanzi_container_site_pv"
+          ><i id="busuanzi_value_site_pv"></i
+        ></i>
+      </p>
+      
+      <p>
+        <span
+          >Copyright &copy; 2023 Jesse.</span
+        >
+        <span
+          >Powered by <a href="https://hexo.io/" target="_blank">Hexo.</a></span
+        >
+      </p>
+    </div>
+  </div>
+</footer>
+
+    </div>
+  </div>
+  
+<script src="https://unpkg.com/@highlightjs/cdn-assets@11.6.0/highlight.min.js"></script>
+
+<script>
+  hljs.highlightAll();
+</script>
+
+<script src="https://unpkg.com/jquery@3.4.1/dist/jquery.min.js"></script>
+ 
+<script src="/blog/js/search.json.js"></script>
+  
+<script src="https://unpkg.com/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+
+ 
+<script src="/blog/js/script.js"></script>
+ 
+ 
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?8e59984317ab1777a88e5b3e62c7c767";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+  
+<script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+ 
+      
+<script src="https://unpkg.com/gitalk@1.7.2/dist/gitalk.min.js"></script>
+ 
+<script src="//cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.js"></script>
+
+<script>
+  var gitalk = new Gitalk({
+    clientID: "3c3e422527fd3f9fa17a",
+    clientSecret: "f28d1808ec9ab69fb24dc3e9fad81e1c3ab8dd83",
+    repo: "blog",
+    owner: "jesse121",
+    admin: ["jesse121"],
+    id: md5(window.location.pathname),
+    proxy: "https://stormy-gorge-51623.herokuapp.com/https://github.com/login/oauth/access_token",
+    distractionFreeMode: false,
+    language: "zh-CN",
+    body: "欢迎在下方提出问题，您的疑问促进我们共同进步！",
+    pagerDirection: "last",
+  });
+  gitalk.render("comments");
+</script>
+         
+ 
+<script>
+  if (navigator.serviceWorker) {
+    navigator.serviceWorker
+      .register("/blog/sw.js")
+      .then(function (registration) {
+        console.log("Registered events at scope: ", registration.scope);
+      })
+      .catch(function (err) {
+        console.log("ServiceWorker registration failed: ", err);
+      });
+  }
+</script>
+<script
+  type="text/javascript"
+  src="https://unpkg.com/clipboard@2.0.4/dist/clipboard.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="/blog/js/codeBlock/codeBlockFunction.js"
+></script>
+<script type="text/javascript" src="/blog/js/codeBlock/codeLang.js"></script>
+<script type="text/javascript" src="/blog/js/codeBlock/codeCopy.js"></script>
+<script type="text/javascript" src="/blog/js/codeBlock/codeShrink.js"></script>
+
+</body>
+</html>

@@ -480,13 +480,23 @@ const submit = () =&gt; &#123;
 <h3 id="忽略某些代码">忽略某些代码</h3>
 <p>istanbul 提供注释语法，允许某些代码不计入覆盖率。<br>
 <code>/* istanbul ignore next */</code><br>
-忽略下一行代码<br>
-<code>/* istanbul ignore if */</code><br>
-忽略 if 语句<br>
-<code>/* istanbul ignore else */</code><br>
-忽略 else 语句<br>
-<code>/* istanbul ignore file */</code><br>
-写在文件头部 忽略整个文件</p>
+忽略下一行代码</p>
+<pre><code class="hljs js"><span class="hljs-comment">// 忽略一个 if 分支</span>
+<span class="hljs-comment">/* istanbul ignore if */</span>
+<span class="hljs-keyword">if</span> (hardToReproduceError)) &#123;
+    <span class="hljs-keyword">return</span> <span class="hljs-title function_">callback</span>(hardToReproduceError);
+&#125;
+<span class="hljs-comment">// 忽略一个 else 分支</span>
+<span class="hljs-comment">/* istanbul ignore else */</span>
+<span class="hljs-keyword">if</span> (foo.<span class="hljs-title function_">hasOwnProperty</span>(<span class="hljs-string">&quot;bar&quot;</span>)) &#123;
+  <span class="hljs-comment">// do something</span>
+&#125;
+<span class="hljs-comment">// 忽略默认值 &#123;&#125;</span>
+<span class="hljs-keyword">var</span> object = parameter || <span class="hljs-comment">/* istanbul ignore next */</span> &#123;&#125;;
+
+<span class="hljs-comment">/* istanbul ignore file */</span>
+<span class="hljs-comment">// 写在文件头部 忽略整个文件</span>
+</code></pre>
 <p>参考文章：</p>
 <ol>
 <li><a target="_blank" rel="noopener" href="https://cn.vitest.dev/api/#expect">Vitest API 索引</a></li>

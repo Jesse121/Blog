@@ -4,7 +4,6 @@
   <meta charset="utf-8" />
    
   <title>常用的Git命令整理 | 前端之路</title>
-  <link rel="manifest" href="/blog/manifest.json" />
   <meta name="theme-color" content="#bccddd" />
   <meta
     name="viewport"
@@ -275,11 +274,7 @@
 <span id="more"></span>
 <h4 id="Git-工作流">Git 工作流</h4>
 <p>一般来说，日常使用只要记住下图 6 个命令，就可以了。<br>
-<img src="/blog/static/images/git/1.png" alt="Git工作流" referrerPolicy="no-referrer"></p>
-<p>Remote：远程仓库<br>
-Repository：本地仓库<br>
-Index/Stage：暂存区<br>
-Workspace：工作区</p>
+<img src="/blog/static/images/git/1.png" alt="" referrerPolicy="no-referrer"></p>
 <h4 id="配置">配置</h4>
 <p>Git 的设置文件为.gitconfig，它可以在用户主目录下（全局配置），也可以在项目目录下（项目配置）。</p>
 <p>显示当前的 Git 配置<br>
@@ -296,6 +291,8 @@ $ git init</p>
 $ git init [project-name]</p>
 <p>下载一个项目和它的整个代码历史<br>
 $ git clone [url]</p>
+<p>克隆指定分支<br>
+git clone -b [branchName] [url]</p>
 <h4 id="增加-删除文件">增加/删除文件</h4>
 <p>添加指定文件到暂存区<br>
 $ git add [file1] [file2] …</p>
@@ -350,15 +347,15 @@ $ git merge [branch]</p>
 <p>选择一个 commit，合并进当前分支<br>
 $ git cherry-pick [commit]</p>
 <p>删除分支<br>
-$ git branch -d [branch-name]</p>
+$ git branch -d [branchName]</p>
 <p>删除远程跟踪分支<br>
 $ git branch -dr [remote/branch]</p>
 <p>删除远程分支<br>
-$ git push origin --delete <branchName></p>
+$ git push origin -d [branchName]</p>
 <p>追加远程分支<br>
-$ git remote add &lt;主机名&gt; &lt;网址&gt;</p>
+$ git remote add [主机名] [网址]</p>
 <p>删除远程分支<br>
-$ git remote rm &lt;主机名&gt;</p>
+$ git remote rm [主机名]</p>
 <h4 id="标签">标签</h4>
 <p>列出所有 tag<br>
 $ git tag</p>
@@ -458,13 +455,13 @@ $ git archive</p>
 <p>在 windows 下面将已经 push 到远端的文件，改变其文件名的大小写时，git 默认会认为文件没有发生任何改动，从而拒绝提交和推送，原因是其默认配置为大小写不敏感，故须在 bash 下修改配置：</p>
 <p>$ git config core.ignorecase false</p>
 <h4 id="git-clean">git clean</h4>
-<p>git clean 经常和 git reset --hard 一起结合使用. 记住 reset 只影响被 track 过的文件, 所以需要 clean 来删除没有 track 过的文件. 结合使用这两个命令能让你的工作目录完全回到一个指定的<commit>的状态</p>
+<p>git clean 经常和 git reset --hard 一起结合使用. 记住 reset 只影响被 track 过的文件, 所以需要 clean 来删除没有 track 过的文件. 结合使用这两个命令能让你的工作目录完全回到一个指定的[commit]的状态</p>
 <p>告诉你哪些文件会被删除. 记住他不会真正的删除文件, 只是一个提醒<br>
 $ git clean -n</p>
 <p>删除当前目录下所有没有 track 过的文件. 他不会删除.gitignore 文件里面指定的文件夹和文件, 不管这些文件有没有被 track 过<br>
 $ git clean -f</p>
 <p>删除指定路径下的没有被 track 过的文件<br>
-$ git clean -f <path></p>
+$ git clean -f [path]</p>
 <p>删除当前目录下没有被 track 过的文件和文件夹，这个经常使用<br>
 $ git clean -df</p>
 <p>删除当前目录下所有没有 track 过的文件. 不管他是否是.gitignore 文件里面指定的文件夹和文件<br>
@@ -490,6 +487,35 @@ $ git push --delete origin oldName</p>
 $ git push origin newName</p>
 <p>d.把修改后的本地分支与远程分支关联<br>
 $ git branch --set-upstream-to origin/newName</p>
+<h4 id="git-添加工作树">git 添加工作树</h4>
+<p>用于多分支并行开发 节省磁盘空间</p>
+<p>git add worktree [path] [branchName]</p>
+<h4 id="git-合并分支策略">git 合并分支策略</h4>
+<p>采用自己分支的改动<br>
+git merge [branchName] -X diff-algorithm=ours<br>
+采用他人分支的改动<br>
+git merge [branchName] -X diff-algorithm=theirs<br>
+将远程分支合并到自己的分支上<br>
+git merge --squash [origin branchName]</p>
+<h4 id="git-合并多个-message">git 合并多个 message</h4>
+<pre><code class="hljs sh"><span class="hljs-comment"># 查看记录 记住要合并的几个commit</span>
+git <span class="hljs-built_in">log</span> --oneline
+<span class="hljs-comment"># 4是要合并的4个commit</span>
+<span class="hljs-comment"># 如果你想合并 1/2/3/4、四个commit，最终想留下最后一个版本 4，那就把 2.3.4 三个 commit 的 pick 换成 s，然后保存退出</span>
+git rebase -i HEAD~4
+<span class="hljs-comment"># 强制推送远程</span>
+git push -f</code></pre>
+<h4 id="windows-下-git-bash-添加-alias">windows 下 git bash 添加 alias</h4>
+<ol>
+<li>打开 git 安装目录下的 etc 目录（如：C:\Program Files\Git\etc）</li>
+<li>编辑这个目录下的 bash.bashrc 文件</li>
+<li>添加如下命令：</li>
+</ol>
+<pre><code class="hljs sh"><span class="hljs-built_in">alias</span> <span class="hljs-built_in">ls</span>=<span class="hljs-string">&#x27;ls --show-control-chars --color&#x27;</span>
+<span class="hljs-built_in">alias</span> ll=<span class="hljs-string">&quot;ls -l&quot;</span>
+<span class="hljs-built_in">alias</span> ya=yarn
+<span class="hljs-built_in">alias</span> pn=pnpm</code></pre>
+<p>关闭所有 git bash，重启即可生效</p>
 <h4 id="参考文章">参考文章</h4>
 <blockquote>
 <p><a target="_blank" rel="noopener" href="http://blog.csdn.net/jackjia2015/article/details/50607408">SVN 和 Git 介绍,区别,优缺点,适用范围总结</a><br>
@@ -500,7 +526,7 @@ $ git branch --set-upstream-to origin/newName</p>
   <div class="widget-wrap" id="toc-wrap">
     <h3 class="widget-title"><i class="fa fa-toc"></i> 文章目录</h3>
     <div class="widget">
-      <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#Git-%E5%B7%A5%E4%BD%9C%E6%B5%81"><span class="toc-text">Git 工作流</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE"><span class="toc-text">配置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%96%B0%E5%BB%BA%E4%BB%A3%E7%A0%81%E5%BA%93"><span class="toc-text">新建代码库</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A2%9E%E5%8A%A0-%E5%88%A0%E9%99%A4%E6%96%87%E4%BB%B6"><span class="toc-text">增加&#x2F;删除文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E6%8F%90%E4%BA%A4"><span class="toc-text">代码提交</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%86%E6%94%AF"><span class="toc-text">分支</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A0%87%E7%AD%BE"><span class="toc-text">标签</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E4%BF%A1%E6%81%AF"><span class="toc-text">查看信息</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BF%9C%E7%A8%8B%E5%90%8C%E6%AD%A5"><span class="toc-text">远程同步</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%92%A4%E9%94%80"><span class="toc-text">撤销</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%B6%E4%BB%96"><span class="toc-text">其他</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#git-clean"><span class="toc-text">git clean</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#git-%E8%AE%BE%E7%BD%AE-alias"><span class="toc-text">git 设置 alias</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#git-%E9%87%8D%E5%91%BD%E5%90%8D%E5%88%86%E6%94%AF"><span class="toc-text">git 重命名分支</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E7%AB%A0"><span class="toc-text">参考文章</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#Git-%E5%B7%A5%E4%BD%9C%E6%B5%81"><span class="toc-text">Git 工作流</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE"><span class="toc-text">配置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%96%B0%E5%BB%BA%E4%BB%A3%E7%A0%81%E5%BA%93"><span class="toc-text">新建代码库</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A2%9E%E5%8A%A0-%E5%88%A0%E9%99%A4%E6%96%87%E4%BB%B6"><span class="toc-text">增加&#x2F;删除文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E6%8F%90%E4%BA%A4"><span class="toc-text">代码提交</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%86%E6%94%AF"><span class="toc-text">分支</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A0%87%E7%AD%BE"><span class="toc-text">标签</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E4%BF%A1%E6%81%AF"><span class="toc-text">查看信息</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BF%9C%E7%A8%8B%E5%90%8C%E6%AD%A5"><span class="toc-text">远程同步</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%92%A4%E9%94%80"><span class="toc-text">撤销</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%B6%E4%BB%96"><span class="toc-text">其他</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#git-clean"><span class="toc-text">git clean</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#git-%E8%AE%BE%E7%BD%AE-alias"><span class="toc-text">git 设置 alias</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#git-%E9%87%8D%E5%91%BD%E5%90%8D%E5%88%86%E6%94%AF"><span class="toc-text">git 重命名分支</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#git-%E6%B7%BB%E5%8A%A0%E5%B7%A5%E4%BD%9C%E6%A0%91"><span class="toc-text">git 添加工作树</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#git-%E5%90%88%E5%B9%B6%E5%88%86%E6%94%AF%E7%AD%96%E7%95%A5"><span class="toc-text">git 合并分支策略</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#git-%E5%90%88%E5%B9%B6%E5%A4%9A%E4%B8%AA-message"><span class="toc-text">git 合并多个 message</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#windows-%E4%B8%8B-git-bash-%E6%B7%BB%E5%8A%A0-alias"><span class="toc-text">windows 下 git bash 添加 alias</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E7%AB%A0"><span class="toc-text">参考文章</span></a></li></ol>
     </div>
   </div>
 
@@ -618,6 +644,12 @@ $ git branch --set-upstream-to origin/newName</p>
       </li>
         
       <li>
+        <a href="/blog/articles/2022/09/10.html"
+          >手写Promise思考过程</a
+        >
+      </li>
+        
+      <li>
         <a href="/blog/articles/2022/08/08.html"
           >如何解决Electron应用安装在C盘没有权限更新的问题</a
         >
@@ -682,12 +714,6 @@ $ git branch --set-upstream-to origin/newName</p>
           >什么是SSE(Server-Sent Event)</a
         >
       </li>
-        
-      <li>
-        <a href="/blog/articles/2021/06/11.html"
-          >如何用Vite快速搭建一个vue3项目</a
-        >
-      </li>
        
     </ul>
   </div>
@@ -699,7 +725,7 @@ $ git branch --set-upstream-to origin/newName</p>
   <div class="widget-wrap">
     <h3 class="widget-title"><i class="fa fa-tag"></i> 标签云</h3>
     <div class="widget tagcloud">
-      <a href="/blog/tags/angularjs/" style="font-size: 10px;">AngularJs</a> <a href="/blog/tags/apache/" style="font-size: 12.5px;">Apache</a> <a href="/blog/tags/bootstrap/" style="font-size: 12.5px;">Bootstrap</a> <a href="/blog/tags/css/" style="font-size: 17.5px;">CSS</a> <a href="/blog/tags/centos/" style="font-size: 10px;">CentOS</a> <a href="/blog/tags/docker/" style="font-size: 13.75px;">Docker</a> <a href="/blog/tags/elementplus/" style="font-size: 10px;">ElementPlus</a> <a href="/blog/tags/git/" style="font-size: 11.25px;">Git</a> <a href="/blog/tags/gitlab/" style="font-size: 10px;">Gitlab</a> <a href="/blog/tags/gulp/" style="font-size: 10px;">Gulp</a> <a href="/blog/tags/html/" style="font-size: 12.5px;">HTML</a> <a href="/blog/tags/html5/" style="font-size: 10px;">HTML5</a> <a href="/blog/tags/http/" style="font-size: 12.5px;">HTTP</a> <a href="/blog/tags/https/" style="font-size: 10px;">HTTPS</a> <a href="/blog/tags/husky/" style="font-size: 10px;">Husky</a> <a href="/blog/tags/javascript/" style="font-size: 20px;">JavaScript</a> <a href="/blog/tags/jenkins/" style="font-size: 10px;">Jenkins</a> <a href="/blog/tags/linux/" style="font-size: 11.25px;">Linux</a> <a href="/blog/tags/mac/" style="font-size: 10px;">Mac</a> <a href="/blog/tags/mysql/" style="font-size: 12.5px;">MySQL</a> <a href="/blog/tags/nginx/" style="font-size: 11.25px;">Nginx</a> <a href="/blog/tags/node-js/" style="font-size: 11.25px;">Node.js</a> <a href="/blog/tags/php/" style="font-size: 15px;">PHP</a> <a href="/blog/tags/photoshop/" style="font-size: 10px;">Photoshop</a> <a href="/blog/tags/react/" style="font-size: 10px;">React</a> <a href="/blog/tags/redux/" style="font-size: 10px;">Redux</a> <a href="/blog/tags/sse/" style="font-size: 10px;">SSE</a> <a href="/blog/tags/sublimetext3/" style="font-size: 10px;">SublimeText3</a> <a href="/blog/tags/typescript/" style="font-size: 13.75px;">Typescript</a> <a href="/blog/tags/vagrant/" style="font-size: 10px;">Vagrant</a> <a href="/blog/tags/vim/" style="font-size: 10px;">Vim</a> <a href="/blog/tags/vitest/" style="font-size: 11.25px;">Vitest</a> <a href="/blog/tags/vue/" style="font-size: 10px;">Vue</a> <a href="/blog/tags/vue3/" style="font-size: 15px;">Vue3</a> <a href="/blog/tags/web/" style="font-size: 15px;">WEB</a> <a href="/blog/tags/webpack/" style="font-size: 12.5px;">Webpack</a> <a href="/blog/tags/wireshark/" style="font-size: 11.25px;">Wireshark</a> <a href="/blog/tags/yii/" style="font-size: 10px;">Yii</a> <a href="/blog/tags/electron/" style="font-size: 16.25px;">electron</a> <a href="/blog/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/blog/tags/jquery/" style="font-size: 12.5px;">jQuery</a> <a href="/blog/tags/kylin/" style="font-size: 10px;">kylin</a> <a href="/blog/tags/monorepo/" style="font-size: 10px;">monorepo</a> <a href="/blog/tags/ssh/" style="font-size: 10px;">ssh</a> <a href="/blog/tags/vite/" style="font-size: 13.75px;">vite</a> <a href="/blog/tags/vscode/" style="font-size: 10px;">vscode</a> <a href="/blog/tags/vue3/" style="font-size: 13.75px;">vue3</a> <a href="/blog/tags/%E5%89%8D%E7%AB%AF%E7%9B%91%E6%8E%A7/" style="font-size: 10px;">前端监控</a> <a href="/blog/tags/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F/" style="font-size: 10px;">微信小程序</a> <a href="/blog/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" style="font-size: 18.75px;">数据结构</a> <a href="/blog/tags/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" style="font-size: 10px;">正则表达式</a> <a href="/blog/tags/%E7%AE%97%E6%B3%95/" style="font-size: 18.75px;">算法</a>
+      <a href="/blog/tags/angularjs/" style="font-size: 10px;">AngularJs</a> <a href="/blog/tags/apache/" style="font-size: 12.5px;">Apache</a> <a href="/blog/tags/bootstrap/" style="font-size: 12.5px;">Bootstrap</a> <a href="/blog/tags/css/" style="font-size: 17.5px;">CSS</a> <a href="/blog/tags/centos/" style="font-size: 10px;">CentOS</a> <a href="/blog/tags/charles/" style="font-size: 10px;">Charles</a> <a href="/blog/tags/docker/" style="font-size: 13.75px;">Docker</a> <a href="/blog/tags/elementplus/" style="font-size: 10px;">ElementPlus</a> <a href="/blog/tags/git/" style="font-size: 11.25px;">Git</a> <a href="/blog/tags/gitlab/" style="font-size: 10px;">Gitlab</a> <a href="/blog/tags/gulp/" style="font-size: 10px;">Gulp</a> <a href="/blog/tags/html/" style="font-size: 12.5px;">HTML</a> <a href="/blog/tags/html5/" style="font-size: 10px;">HTML5</a> <a href="/blog/tags/http/" style="font-size: 12.5px;">HTTP</a> <a href="/blog/tags/https/" style="font-size: 10px;">HTTPS</a> <a href="/blog/tags/husky/" style="font-size: 10px;">Husky</a> <a href="/blog/tags/javascript/" style="font-size: 20px;">JavaScript</a> <a href="/blog/tags/jenkins/" style="font-size: 10px;">Jenkins</a> <a href="/blog/tags/linux/" style="font-size: 11.25px;">Linux</a> <a href="/blog/tags/mac/" style="font-size: 10px;">Mac</a> <a href="/blog/tags/mysql/" style="font-size: 12.5px;">MySQL</a> <a href="/blog/tags/nginx/" style="font-size: 11.25px;">Nginx</a> <a href="/blog/tags/node-js/" style="font-size: 11.25px;">Node.js</a> <a href="/blog/tags/php/" style="font-size: 15px;">PHP</a> <a href="/blog/tags/photoshop/" style="font-size: 10px;">Photoshop</a> <a href="/blog/tags/react/" style="font-size: 10px;">React</a> <a href="/blog/tags/redux/" style="font-size: 10px;">Redux</a> <a href="/blog/tags/regexp/" style="font-size: 10px;">Regexp</a> <a href="/blog/tags/sse/" style="font-size: 10px;">SSE</a> <a href="/blog/tags/sublimetext3/" style="font-size: 10px;">SublimeText3</a> <a href="/blog/tags/typescript/" style="font-size: 13.75px;">Typescript</a> <a href="/blog/tags/vagrant/" style="font-size: 10px;">Vagrant</a> <a href="/blog/tags/vim/" style="font-size: 10px;">Vim</a> <a href="/blog/tags/vitest/" style="font-size: 11.25px;">Vitest</a> <a href="/blog/tags/vue/" style="font-size: 10px;">Vue</a> <a href="/blog/tags/vue3/" style="font-size: 15px;">Vue3</a> <a href="/blog/tags/web/" style="font-size: 15px;">WEB</a> <a href="/blog/tags/webpack/" style="font-size: 12.5px;">Webpack</a> <a href="/blog/tags/wireshark/" style="font-size: 11.25px;">Wireshark</a> <a href="/blog/tags/yii/" style="font-size: 10px;">Yii</a> <a href="/blog/tags/electron/" style="font-size: 16.25px;">electron</a> <a href="/blog/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/blog/tags/jquery/" style="font-size: 12.5px;">jQuery</a> <a href="/blog/tags/kylin/" style="font-size: 10px;">kylin</a> <a href="/blog/tags/monorepo/" style="font-size: 10px;">monorepo</a> <a href="/blog/tags/ssh/" style="font-size: 10px;">ssh</a> <a href="/blog/tags/vite/" style="font-size: 13.75px;">vite</a> <a href="/blog/tags/vscode/" style="font-size: 10px;">vscode</a> <a href="/blog/tags/vue3/" style="font-size: 13.75px;">vue3</a> <a href="/blog/tags/%E5%89%8D%E7%AB%AF%E7%9B%91%E6%8E%A7/" style="font-size: 10px;">前端监控</a> <a href="/blog/tags/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F/" style="font-size: 10px;">微信小程序</a> <a href="/blog/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" style="font-size: 18.75px;">数据结构</a> <a href="/blog/tags/%E7%AE%97%E6%B3%95/" style="font-size: 18.75px;">算法</a>
     </div>
   </div>
 
@@ -708,7 +734,7 @@ $ git branch --set-upstream-to origin/newName</p>
   <div class="widget-wrap">
     <h3 class="widget-title"><i class="fa fa-classify"></i> 分类</h3>
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/blog/categories/bootstrap/">Bootstrap</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/electron/">Electron</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/html-css/">HTML-CSS</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/html5/">HTML5</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/javascript/">JavaScript</a><span class="category-list-count">11</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/linux/">Linux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/mysql/">MySQL</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/node-js/">Node.js</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/php/">PHP</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/photoshop/">Photoshop</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/typescript/">Typescript</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/vue3/">Vue3</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/web/">WEB</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/jquery/">jQuery</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/notes/">notes</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/%E5%85%B6%E4%BB%96/">其他</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/translation/">前端翻译</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/">开发工具</a><span class="category-list-count">16</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/%E5%BC%80%E5%8F%91%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/">开发问题记录</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/">正则表达式</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/%E7%AE%97%E6%B3%95/">算法</a><span class="category-list-count">15</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/notes/">读书笔记</a><span class="category-list-count">18</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/%E8%BD%AC%E8%BD%BD/">转载</a><span class="category-list-count">1</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/blog/categories/bootstrap/">Bootstrap</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/electron/">Electron</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/html-css/">HTML-CSS</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/html5/">HTML5</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/javascript/">JavaScript</a><span class="category-list-count">12</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/linux/">Linux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/mysql/">MySQL</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/node-js/">Node.js</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/php/">PHP</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/photoshop/">Photoshop</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/regexp/">Regexp</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/typescript/">Typescript</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/vue3/">Vue3</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/web/">WEB</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/jquery/">jQuery</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/notes/">notes</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/%E5%85%B6%E4%BB%96/">其他</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/translation/">前端翻译</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/">开发工具</a><span class="category-list-count">17</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/%E5%BC%80%E5%8F%91%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/">开发问题记录</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/%E7%AE%97%E6%B3%95/">算法</a><span class="category-list-count">15</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/notes/">读书笔记</a><span class="category-list-count">18</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/%E8%BD%AC%E8%BD%BD/">转载</a><span class="category-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -718,7 +744,7 @@ $ git branch --set-upstream-to origin/newName</p>
   <div class="widget-wrap">
     <h3 class="widget-title"><i class="fa fa-archive"></i> 归档</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2023/">2023年</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2022/">2022年</a><span class="archive-list-count">12</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2021/">2021年</a><span class="archive-list-count">17</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2020/">2020年</a><span class="archive-list-count">15</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2019/">2019年</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/">2018年</a><span class="archive-list-count">12</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2017/">2017年</a><span class="archive-list-count">26</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/">2016年</a><span class="archive-list-count">27</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2023/">2023年</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2022/">2022年</a><span class="archive-list-count">13</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2021/">2021年</a><span class="archive-list-count">17</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2020/">2020年</a><span class="archive-list-count">15</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2019/">2019年</a><span class="archive-list-count">11</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/">2018年</a><span class="archive-list-count">12</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2017/">2017年</a><span class="archive-list-count">26</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/">2016年</a><span class="archive-list-count">27</span></li></ul>
     </div>
   </div>
 
@@ -842,18 +868,6 @@ var _hmt = _hmt || [];
 </script>
          
  
-<script>
-  if (navigator.serviceWorker) {
-    navigator.serviceWorker
-      .register("/blog/sw.js")
-      .then(function (registration) {
-        console.log("Registered events at scope: ", registration.scope);
-      })
-      .catch(function (err) {
-        console.log("ServiceWorker registration failed: ", err);
-      });
-  }
-</script>
 <script
   type="text/javascript"
   src="https://unpkg.com/clipboard@2.0.4/dist/clipboard.min.js"

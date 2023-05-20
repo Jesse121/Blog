@@ -273,7 +273,7 @@
        <p>最近工作中遇到后台接口返回图片二进制流，需要前端在页面上正常显示出图片的需求，网上也介绍了多种方法解决这个问题。今天还是想总结下这个问题的解决方案及涉及到的知识点</p>
 <span id="more"></span>
 <p>方案一：在 axios 请求中通过设置<code>responseType:arraybuffer</code>,将二进制流转为 arrayBuffer，最终转为 base64 在页面显示<br>
-方案二：在 axios 请求中通过设置<code>responseType:blob</code>,将二进制流转为 blob 对象，最终通过 URL.createObjectURL(blob)转为临时链接在页面显示</p>
+方案二：在 axios 请求中通过设置<code>responseType:blob</code>,将二进制流转为 blob 对象，最终通过 URL.createObjectURL(blob)转为 DOMString 链接在页面显示</p>
 <h3 id="responseType-属性介绍">responseType 属性介绍</h3>
 <p><a target="_blank" rel="noopener" href="https://www.axios-http.cn/docs/req_config">axios 官网</a>中有关于 responseType 的介绍</p>
 <pre><code class="hljs json"><span class="hljs-comment">// `responseType` 表示浏览器将要响应的数据类型</span>

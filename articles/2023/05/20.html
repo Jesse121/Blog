@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+   
+  <title>图片二进制流如何在页面显示？ | 前端之路</title>
+  <meta name="theme-color" content="#bccddd" />
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, shrink-to-fit=no"
+  />
+
+  
+  <meta name="description" content="专注前端开发，前端开发技术博客" />
+   
+  <meta name="keywords" content="Web前端开发，Javascript，前端开发博客" />
+  
+  <link rel="dns-prefetch" href="https://unpkg.com" />
+  <link rel="dns-prefetch" href="https://busuanzi.ibruce.info" />
+   <link rel="alternate" href="/blog/atom.xml" title="前端之路" type="application/atom+xml">   <link rel="shortcut icon" href="/blog/favicon.ico"> 
+  <link rel="bookmark" href="/blog/favicon.ico" />
+  <link rel="apple-touch-icon" href="/blog/apple-touch-icon.png" />
+  <link rel="apple-touch-icon-precomposed" href="/blog/apple-touch-icon.png" />
+   
+<link rel="stylesheet" href="https://unpkg.com/@highlightjs/cdn-assets@11.6.0/styles/xt256.min.css">
+  
+<link rel="stylesheet" href="/blog/css/style.css">
+  
+<link rel="stylesheet" href="https://unpkg.com/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
+    
+<link rel="stylesheet" href="https://unpkg.com/gitalk@1.7.2/dist/gitalk.css">
+  
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/blog/" id="logo">前端之路</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/blog/" id="subtitle">路漫漫其修远兮，吾将上下而求索</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        
+          <a class="main-nav-link" href="/blog/."><i class="fa fa-home"></i> 首页</a>
+        
+          <a class="main-nav-link" href="/blog/archives/"><i class="fa fa-archive"></i> 归档</a>
+        
+          <a class="main-nav-link" href="/blog/about/"><i class="fa fa-user"></i> 关于</a>
+        
+      </nav>
+    </div>
+    <div id="search-form">
+      <div id="result-mask" class="hide"></div>
+      <label><input id="search-key" type="text" autocomplete="off" placeholder="搜索"></label>
+      <div id="result-wrap" class="hide">
+        <div id="search-result"></div>
+      </div>
+      <div class="hide">
+        <template id="search-tpl">
+          <div class="item">
+            <a href="/{path}" title="{title}">
+              <div class="title">{title}</div>
+              <div class="time">{date}</div>
+              <div class="tags">{tags}</div>
+            </a>
+          </div>
+        </template>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><style>
+  code {
+    padding: 1px 5px;
+    font-family: Inconsolata, Monaco, Consolas, "Courier New", Courier,
+      monospace;
+    /* font-size: 0.91rem; */
+    color: #e96900;
+    background-color: #f8f8f8;
+    border-radius: 2px;
+  }
+
+  pre code {
+    padding: 0 !important;
+    color: #e8eaf6;
+    background-color: #272822;
+  }
+
+  pre[class*="language-"] {
+    padding: 1.2em;
+    margin: 0.5em 0;
+  }
+
+  code[class*="language-"],
+  pre[class*="language-"] {
+    color: #e8eaf6;
+    white-space: pre-wrap !important;
+  }
+  .line-numbers-rows {
+    border-right-width: 0px !important;
+  }
+
+  .line-numbers {
+    padding: 1.5rem 1.5rem 1.5rem 3.2rem !important;
+    margin: 1rem 0 !important;
+    background: #272822;
+    overflow: auto;
+    border-radius: 0.35rem;
+    tab-size: 4;
+  }
+
+  pre {
+    padding: 1.5rem !important;
+    margin: 1rem 0 !important;
+    background: #272822;
+    overflow: auto;
+    border-radius: 0.35rem;
+    tab-size: 4;
+  }
+
+  pre::before {
+    content: "";
+    height: 16px;
+    margin-bottom: 0;
+    display: block;
+  }
+
+  pre::after {
+    content: " ";
+    position: absolute;
+    border-radius: 50%;
+    background: #ff5f56;
+    width: 12px;
+    height: 12px;
+    top: 0;
+    left: 12px;
+    margin-top: 12px;
+    -webkit-box-shadow: 20px 0 #ffbd2e, 40px 0 #27c93f;
+    box-shadow: 20px 0 #ffbd2e, 40px 0 #27c93f;
+  }
+
+  code {
+    padding: 1px 5px;
+    font-family: Inconsolata, Monaco, Consolas, "Courier New", Courier,
+      monospace;
+    font-size: 0.91rem;
+    color: #e96900;
+    background-color: #f8f8f8;
+    border-radius: 2px;
+  }
+
+  .code_copy {
+    position: absolute;
+    top: 0.7rem;
+    right: 35px;
+    z-index: 1;
+    filter: invert(50%);
+    cursor: pointer;
+  }
+
+  .code_lang {
+    position: absolute;
+    top: 1.2rem;
+    right: 60px;
+    line-height: 0;
+    font-weight: bold;
+    font-family: normal;
+    z-index: 1;
+    filter: invert(50%);
+    cursor: pointer;
+  }
+
+  .code-expand {
+    position: absolute;
+    top: 4px;
+    right: 0px;
+    filter: invert(50%);
+    padding: 7px 10px;
+    z-index: 1;
+    cursor: pointer;
+    transition: all 0.3s;
+    transform: rotate(0deg);
+  }
+
+  .code-closed .code-expand {
+    transform: rotate(-180deg) !important;
+    transition: all 0.3s;
+  }
+
+  .code-closed pre::before {
+    height: 0px;
+  }
+
+  pre code {
+    padding: 0;
+    color: #e8eaf6;
+    background-color: #272822 !important;
+  }
+
+  pre[class*="language-"] {
+    padding: 1.2em;
+    margin: 0.5em 0;
+  }
+
+  code[class*="language-"],
+  pre[class*="language-"] {
+    color: #e8eaf6;
+    white-space: pre-wrap !important;
+  }
+</style>
+<article
+  id="post-question/图片二进制流如何在页面显示？"
+  class="h-entry article article-type-post"
+  itemprop="blogPost"
+  itemscope
+  itemtype="https://schema.org/BlogPosting"
+>
+  <div class="article-inner">
+     
+    <header class="article-header">
+      
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      图片二进制流如何在页面显示？
+    </h1>
+  
+
+
+    </header>
+    
+    <div class="article-meta">
+       <span class="article-date">
+  <i class="fa fa-date"></i>
+  <time class="dt-published" datetime="2023-05-20T09:28:56.000Z" itemprop="datePublished">2023年05月20日</time>
+</span> 
+  <div class="article-category">
+    <i class="fa fa-classify"></i>
+    <a class="article-category-link" href="/blog/categories/%E5%BC%80%E5%8F%91%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/">开发问题记录</a>
+  </div>
+  <span class="article-views">
+  <i class="fa fa-views"></i>
+  <i id="busuanzi_container_page_pv">
+      <i id="busuanzi_value_page_pv"></i>
+  </i>
+</span>
+  
+<a href="/blog/articles/2023/05/20.html#comments" class="article-comment-link">
+  
+    
+    
+    
+    
+    
+  
+  <i class="fa fa-commt"></i>
+  留言
+</a>
+
+
+    </div>
+    <div class="e-content article-entry" itemprop="articleBody">
+       <p>最近工作中遇到后台接口返回图片二进制流，需要前端在页面上正常显示出图片的需求，网上也介绍了多种方法解决这个问题。今天还是想总结下这个问题的解决方案及涉及到的知识点</p>
+<span id="more"></span>
+<p>方案一：在 axios 请求中通过设置<code>responseType:arraybuffer</code>,将二进制流转为 arrayBuffer，最终转为 base64 在页面显示<br>
+方案二：在 axios 请求中通过设置<code>responseType:blob</code>,将二进制流转为 blob 对象，最终通过 URL.createObjectURL(blob)转为临时链接在页面显示</p>
+<h3 id="responseType-属性介绍">responseType 属性介绍</h3>
+<p><a target="_blank" rel="noopener" href="https://www.axios-http.cn/docs/req_config">axios 官网</a>中有关于 responseType 的介绍</p>
+<pre><code class="hljs json"><span class="hljs-comment">// `responseType` 表示浏览器将要响应的数据类型</span>
+<span class="hljs-comment">// 选项包括: &#x27;arraybuffer&#x27;, &#x27;document&#x27;, &#x27;json&#x27;, &#x27;text&#x27;, &#x27;stream&#x27;</span>
+<span class="hljs-comment">// 浏览器专属：&#x27;blob&#x27;</span>
+responseType<span class="hljs-punctuation">:</span> &#x27;json&#x27;<span class="hljs-punctuation">,</span> <span class="hljs-comment">// 默认值</span></code></pre>
+<p>axios 设置 responseType:arraybuffer 属性，xhr 请求发起后，浏览器会按照设置的类型进行解析和处理响应数据。</p>
+<p>通过 charles 抓包 http 响应结果发现，不同的 responseType 属性 http 响应结果都是一样的，说明 responseType 属性不会影响 http 响应，是浏览器按照设置的类型进行解析和处理响应数据。</p>
+<h3 id="通过-ArrayBuffer-转-base64-来解决">通过 ArrayBuffer 转 base64 来解决</h3>
+<p>关键代码</p>
+<pre><code class="hljs js"><span class="hljs-keyword">const</span> url =
+  <span class="hljs-string">&quot;https://img0.baidu.com/it/u=73689209,3130028231&amp;fm=253&amp;fmt=auto&amp;app=138&amp;f=JPEG&quot;</span>;
+
+axios
+  .<span class="hljs-title function_">get</span>(url, &#123;
+    <span class="hljs-attr">responseType</span>: <span class="hljs-string">&quot;arraybuffer&quot;</span>,
+  &#125;)
+  .<span class="hljs-title function_">then</span>(<span class="hljs-function">(<span class="hljs-params">res</span>) =&gt;</span> &#123;
+    <span class="hljs-keyword">let</span> imgBase64 =
+      <span class="hljs-string">&quot;data:image/png;base64&quot;</span> +
+      <span class="hljs-variable language_">window</span>.<span class="hljs-title function_">btoa</span>(<span class="hljs-title class_">String</span>.<span class="hljs-title function_">fromCharCode</span>(...<span class="hljs-keyword">new</span> <span class="hljs-title class_">Uint8Array</span>(res.<span class="hljs-property">data</span>)));
+    <span class="hljs-keyword">const</span> imgDom = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(<span class="hljs-string">&quot;img&quot;</span>);
+    imgDom.<span class="hljs-property">src</span> = imgBase64;
+  &#125;);</code></pre>
+<p>响应的 ArrayBuffer<br>
+<img src="https://raw.githubusercontents.com/Jesse121/publicPic/master/blog/pictures/20230520150048.png" alt="" referrerPolicy="no-referrer"></p>
+<p><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer">ArrayBuffer</a> 对象用来表示通用的、固定长度的原始二进制数据缓冲区。它是一个字节数组，通常在其他语言中称为“byte array”。<br>
+你不能直接操作 ArrayBuffer 中的内容；而是要通过 <a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/TypedArray">TypedArray</a>(类型数组对象)或 DataView 对象来操作，它们会将缓冲区中的数据表示为特定的格式，并通过这些格式来读写缓冲区的内容。</p>
+<p>TypedArray 对象描述了底层二进制数据缓冲区的类数组视图。没有称为 TypedArray 的全局属性，也没有直接可用的 TypedArray 构造函数。但是有很多不同的全局属性，其值是指定元素类型的类型化数组构造函数</p>
+<p>实际上，TypedArray 指的是以下的其中之一：</p>
+<ul>
+<li>Int8Array();</li>
+<li>Uint8Array();</li>
+<li>Uint8ClampedArray();</li>
+<li>Int16Array();</li>
+<li>Uint16Array();</li>
+<li>Int32Array();</li>
+<li>Uint32Array();</li>
+<li>Float32Array();</li>
+<li>Float64Array();</li>
+</ul>
+<p>以 Uint8Array 为例，它可以接受 buffer 参数，此时一个新的类型化数组视图将会被创建，可用于呈现传入的 ArrayBuffer 对象。<br>
+<img src="https://raw.githubusercontents.com/Jesse121/publicPic/master/blog/pictures/20230520162319.png" alt="" referrerPolicy="no-referrer"></p>
+<p><code>String.fromCharCode(...new Uint8Array(result));</code><br>
+就是将我们传入的类型化数组视图转为字符串，按照 UTF-16 的方式</p>
+<p><strong>window.btoa</strong></p>
+<p>btoa() 方法可以将一个二进制字符串（例如，将字符串中的每一个字节都视为一个二进制数据字节）编码为 Base64 编码的 ASCII 字符串。</p>
+<p>btoa()的作用是编码为 base64，atob()的作用是对 base64 字符串进行解码。</p>
+<p>window.btoa 将每个字符视为二进制数据的字节，而不管实际组成字符的字节数是多少，所以字符的码位不能超出 0x00 ~ 0xFF 范围，也就是十进制 0 ~ 255，这也是我们在上面用 Uint8Array 的原因</p>
+<p>因此 window.btoa 会将上面转换的普通字符串转为 base64，最后在前面加上 <code>data:image/png;base64</code>,就可以正常显示图片了</p>
+<h3 id="通过-Blob-来解决">通过 Blob 来解决</h3>
+<p>关键代码</p>
+<pre><code class="hljs js"><span class="hljs-keyword">const</span> url =
+  <span class="hljs-string">&quot;https://img0.baidu.com/it/u=73689209,3130028231&amp;fm=253&amp;fmt=auto&amp;app=138&amp;f=JPEG&quot;</span>;
+axios
+  .<span class="hljs-title function_">get</span>(url, &#123;
+    <span class="hljs-attr">responseType</span>: <span class="hljs-string">&quot;blob&quot;</span>,
+  &#125;)
+  .<span class="hljs-title function_">then</span>(<span class="hljs-function">(<span class="hljs-params">res</span>) =&gt;</span> &#123;
+    <span class="hljs-keyword">const</span> objectURL = <span class="hljs-variable language_">window</span>.<span class="hljs-property">URL</span>.<span class="hljs-title function_">createObjectURL</span>(res.<span class="hljs-property">data</span>);
+    <span class="hljs-keyword">const</span> imgDom = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(<span class="hljs-string">&quot;img&quot;</span>);
+    imgDom.<span class="hljs-property">src</span> = objectURL;
+    img.<span class="hljs-property">onload</span> = <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) &#123;
+      <span class="hljs-comment">// 调用 URL.revokeObjectURL() 方法来释放这个对象</span>
+      <span class="hljs-variable language_">window</span>.<span class="hljs-property">URL</span>.<span class="hljs-title function_">revokeObjectURL</span>(objectURL);
+    &#125;;
+  &#125;);</code></pre>
+<p>响应的 Blob<br>
+<img src="https://raw.githubusercontents.com/Jesse121/publicPic/master/blog/pictures/20230520150529.png" alt="" referrerPolicy="no-referrer"></p>
+<p><strong>Blob</strong> 对象表示一个不可变、原始数据的类文件对象。它的数据可以按文本或二进制的格式进行读取，也可以转换成 ReadableStream 来用于数据操作。</p>
+<p><strong>URL.createObjectURL()</strong> 静态方法会创建一个 DOMString，其中包含一个表示参数中给出的对象的 URL。这个 URL 的生命周期和创建它的窗口中的 document 绑定。这个新的 URL 对象表示指定的 File 对象或 Blob 对象。</p>
+<p><strong>URL.revokeObjectURL()</strong> 静态方法用来释放一个之前已经存在的、通过调用 URL.createObjectURL() 创建的 URL 对象。当你结束使用某个 URL 对象之后，应该通过调用这个方法来让浏览器知道不用在内存中继续保留对这个文件的引用了。</p>
+<p>最后项目中采用方案二，因为当图片较大时会产生大量的字符</p>
+<h3 id="接口报错处理">接口报错处理</h3>
+<p>在项目中当没有图片返回或图片获取失败时，需要展示出失败的原因，而此时我们已经将请求结果转化成了 Blob 或者 ArrayBuffer，此时我们需要转化成 json 格式才能正确显示失败的原因</p>
+<h4 id="responseType-为-arraybuffer-时">responseType 为 arraybuffer 时</h4>
+<pre><code class="hljs js">axios
+  .<span class="hljs-title function_">get</span>(url, &#123;
+    <span class="hljs-attr">responseType</span>: <span class="hljs-string">&quot;arraybuffer&quot;</span>,
+  &#125;)
+  .<span class="hljs-title function_">then</span>(<span class="hljs-function">(<span class="hljs-params">res</span>) =&gt;</span> &#123;
+    <span class="hljs-keyword">try</span> &#123;
+      <span class="hljs-keyword">const</span> uint8arr = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Uint8Array</span>(res.<span class="hljs-property">data</span>)
+      <span class="hljs-keyword">const</span> utf8decoder = <span class="hljs-keyword">new</span> <span class="hljs-title class_">TextDecoder</span>()
+      <span class="hljs-keyword">const</span> temp = utf8decoder.<span class="hljs-title function_">decode</span>(uint8arr)  <span class="hljs-comment">// 将二进制数据转为字符串</span>
+      <span class="hljs-keyword">const</span> msg = <span class="hljs-title class_">JSON</span>.<span class="hljs-title function_">parse</span>(temp)    <span class="hljs-comment">//这一步报错则返回的是二进制流图片，不报错则返回的是JSON的错误提示数据</span>
+      <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(msg)   <span class="hljs-comment">//msg为转换后的JSON数据</span>
+    &#125; <span class="hljs-keyword">catch</span> () &#123;
+      <span class="hljs-keyword">let</span> imgBase64 =
+        <span class="hljs-string">&quot;data:image/png;base64&quot;</span> +
+        <span class="hljs-variable language_">window</span>.<span class="hljs-title function_">btoa</span>(<span class="hljs-title class_">String</span>.<span class="hljs-title function_">fromCharCode</span>(...<span class="hljs-keyword">new</span> <span class="hljs-title class_">Uint8Array</span>(res.<span class="hljs-property">data</span>)));
+      <span class="hljs-keyword">const</span> imgDom = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(<span class="hljs-string">&quot;img&quot;</span>);
+      imgDom.<span class="hljs-property">src</span> = imgBase64;
+    &#125;
+  &#125;);</code></pre>
+<p>TextDecoder.decode() 方法返回一个字符串，其包含作为参数传递的缓冲区解码后的文本。</p>
+<pre><code class="hljs js"><span class="hljs-title function_">decode</span>();
+<span class="hljs-title function_">decode</span>(buffer);
+<span class="hljs-title function_">decode</span>(buffer, options);</code></pre>
+<p>buffer 可选 一个 ArrayBuffer、TypedArray 或包含要解码的编码文本的 DataView 对象。</p>
+<h4 id="responseType-为-blob-时">responseType 为 blob 时</h4>
+<pre><code class="hljs js">axios
+  .<span class="hljs-title function_">get</span>(url, &#123;
+    <span class="hljs-attr">responseType</span>: <span class="hljs-string">&quot;blob&quot;</span>,
+  &#125;)
+  .<span class="hljs-title function_">then</span>(<span class="hljs-function">(<span class="hljs-params">res</span>) =&gt;</span> &#123;
+    <span class="hljs-keyword">const</span> reader = <span class="hljs-keyword">new</span> <span class="hljs-title class_">FileReader</span>(); <span class="hljs-comment">//创建一个FileReader实例</span>
+    reader.<span class="hljs-title function_">readAsText</span>(res.<span class="hljs-property">data</span>, <span class="hljs-string">&quot;utf-8&quot;</span>); <span class="hljs-comment">//读取文件,结果用字符串形式表示</span>
+    reader.<span class="hljs-property">onload</span> = <span class="hljs-function">() =&gt;</span> &#123;
+      <span class="hljs-comment">//读取完成后,获取reader.result</span>
+      <span class="hljs-keyword">try</span> &#123;
+        <span class="hljs-keyword">const</span> msg = <span class="hljs-title class_">JSON</span>.<span class="hljs-title function_">parse</span>(reader.<span class="hljs-property">result</span>); <span class="hljs-comment">//这一步报错则返回的是二进制流图片，不报错则返回的是JSON的错误提示数据</span>
+        <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(msg); <span class="hljs-comment">//msg为转换后的JSON数据</span>
+      &#125; <span class="hljs-keyword">catch</span> &#123;
+        <span class="hljs-keyword">const</span> objectURL = <span class="hljs-variable language_">window</span>.<span class="hljs-property">URL</span>.<span class="hljs-title function_">createObjectURL</span>(res.<span class="hljs-property">data</span>);
+        <span class="hljs-keyword">const</span> imgDom = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(<span class="hljs-string">&quot;img&quot;</span>);
+        imgDom.<span class="hljs-property">src</span> = objectURL;
+        img.<span class="hljs-property">onload</span> = <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) &#123;
+          <span class="hljs-comment">// 调用 URL.revokeObjectURL() 方法来释放这个对象</span>
+          <span class="hljs-variable language_">window</span>.<span class="hljs-property">URL</span>.<span class="hljs-title function_">revokeObjectURL</span>(objectURL);
+        &#125;;
+      &#125;
+    &#125;;
+  &#125;);</code></pre>
+<p>至此完美展示接口错误提示</p>
+<h3 id="二进制文件流下载">二进制文件流下载</h3>
+<p>二进制文件流下载时我们一般直接设置 responseType:blob</p>
+<pre><code class="hljs js">axios
+  .<span class="hljs-title function_">get</span>(url, &#123;
+    <span class="hljs-attr">responseType</span>: <span class="hljs-string">&quot;blob&quot;</span>,
+  &#125;)
+  .<span class="hljs-title function_">then</span>(<span class="hljs-function">(<span class="hljs-params">res</span>) =&gt;</span> &#123;
+    <span class="hljs-keyword">const</span> &#123; data, headers &#125; = res;
+    <span class="hljs-comment">//获取文件流及文件类型</span>
+    <span class="hljs-keyword">const</span> blob = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Blob</span>([data], &#123; <span class="hljs-attr">type</span>: headers[<span class="hljs-string">&quot;content-type&quot;</span>] &#125;);
+    <span class="hljs-keyword">let</span> a = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">createElement</span>(<span class="hljs-string">&quot;a&quot;</span>);
+    <span class="hljs-keyword">let</span> url = <span class="hljs-variable language_">window</span>.<span class="hljs-property">URL</span>.<span class="hljs-title function_">createObjectURL</span>(blob);
+    a.<span class="hljs-property">href</span> = url;
+    a.<span class="hljs-property">download</span> = <span class="hljs-string">&quot;最美日落.jpeg&quot;</span>;
+    a.<span class="hljs-property">style</span>.<span class="hljs-property">display</span> = <span class="hljs-string">&quot;none&quot;</span>;
+    <span class="hljs-variable language_">document</span>.<span class="hljs-property">body</span>.<span class="hljs-title function_">appendChild</span>(a);
+    a.<span class="hljs-title function_">click</span>();
+    a.<span class="hljs-property">parentNode</span>.<span class="hljs-title function_">removeChild</span>(a);
+    <span class="hljs-variable language_">window</span>.<span class="hljs-property">URL</span>.<span class="hljs-title function_">revokeObjectURL</span>(url);
+  &#125;);</code></pre>
+<h3 id="总结">总结</h3>
+<p>图片二进制流在前端处理时优先考虑使用 Blob 格式</p>
+<ol>
+<li>设置 responseType:“blob”</li>
+<li>通过 URL.createObjectURL(blob)创建一个 DOMString</li>
+<li>用完后使用 URL.revokeObjectURL()释放内存</li>
+</ol>
+<p>参考文章：</p>
+<ol>
+<li><a target="_blank" rel="noopener" href="https://www.axios-http.cn/docs/req_config">axios 官网</a></li>
+<li><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer">ArrayBuffer</a>,<a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/TypedArray">TypedArray</a>,<a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/API/Blob">Blob</a>,<a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/API/TextDecoder">TextDecoder</a></li>
+<li><a target="_blank" rel="noopener" href="https://juejin.cn/post/6867878663115767822">js 将图片二进制流转为 base64 显示</a></li>
+<li><a target="_blank" rel="noopener" href="https://juejin.cn/post/6844903782959022093">你知道前端对图片的处理方式吗？</a></li>
+</ol>
+ 
+      <div id="toc-article">
+  <div class="widget-wrap" id="toc-wrap">
+    <h3 class="widget-title"><i class="fa fa-toc"></i> 文章目录</h3>
+    <div class="widget">
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#responseType-%E5%B1%9E%E6%80%A7%E4%BB%8B%E7%BB%8D"><span class="toc-text">responseType 属性介绍</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%9A%E8%BF%87-ArrayBuffer-%E8%BD%AC-base64-%E6%9D%A5%E8%A7%A3%E5%86%B3"><span class="toc-text">通过 ArrayBuffer 转 base64 来解决</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%9A%E8%BF%87-Blob-%E6%9D%A5%E8%A7%A3%E5%86%B3"><span class="toc-text">通过 Blob 来解决</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8E%A5%E5%8F%A3%E6%8A%A5%E9%94%99%E5%A4%84%E7%90%86"><span class="toc-text">接口报错处理</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#responseType-%E4%B8%BA-arraybuffer-%E6%97%B6"><span class="toc-text">responseType 为 arraybuffer 时</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#responseType-%E4%B8%BA-blob-%E6%97%B6"><span class="toc-text">responseType 为 blob 时</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8C%E8%BF%9B%E5%88%B6%E6%96%87%E4%BB%B6%E6%B5%81%E4%B8%8B%E8%BD%BD"><span class="toc-text">二进制文件流下载</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-text">总结</span></a></li></ol>
+    </div>
+  </div>
+
+</div>
+       
+      <blockquote id="copyright">
+        <p>
+           原文链接:
+          <a href="https://jesse121.github.io/blog/articles/2023/05/20.html"
+            >https://jesse121.github.io/blog/articles/2023/05/20.html</a
+          >
+        </p>
+        <p>版权声明: 转载请注明出处.</p>
+      </blockquote>
+       
+    </div>
+    <footer class="article-footer">
+      
+      <div class="article-tag-wrap">
+        
+ 
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/arraybuffer/" rel="tag">ArrayBuffer</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/axios/" rel="tag">Axios</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/blob/" rel="tag">Blob</a></li></ul>
+ 
+
+
+      </div>
+        
+<nav id="article-nav">
+  
+    <a href="/blog/articles/2023/02/15.html" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">下一篇</strong>
+      <div class="article-nav-title">
+        
+          如何编写Vue3组件测试用例？
+        
+      </div>
+    </a>
+  
+  
+</nav>
+   
+  <div id="comments"></div>
+
+
+
+
+
+
+
+
+ 
+    </footer>
+  </div>
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+<div class="widget-wrap">
+  <h3 class="widget-title"><i class="fa fa-posts"></i> 最新文章</h3>
+  <div class="widget">
+    <ul>
+       
+      <li>
+        <a href="/blog/articles/2023/05/20.html"
+          >图片二进制流如何在页面显示？</a
+        >
+      </li>
+        
+      <li>
+        <a href="/blog/articles/2023/02/15.html"
+          >如何编写Vue3组件测试用例？</a
+        >
+      </li>
+        
+      <li>
+        <a href="/blog/articles/2023/02/14.html"
+          >Vue3项目如何利用vitest做单元测试</a
+        >
+      </li>
+        
+      <li>
+        <a href="/blog/articles/2022/12/18.html"
+          >《第一本Docker书》--读书笔记</a
+        >
+      </li>
+          
+      <li>
+        <a href="/blog/articles/2022/11/22.html"
+          >基于ElementPlus封装的季度选择器组件</a
+        >
+      </li>
+        
+      <li>
+        <a href="/blog/articles/2022/11/16.html"
+          >掘金小册-Electron+Vue3桌面应用开发学习记录</a
+        >
+      </li>
+        
+      <li>
+        <a href="/blog/articles/2022/10/29.html"
+          >如何使用Monorepo实现跨项目共享组件和模块</a
+        >
+      </li>
+        
+      <li>
+        <a href="/blog/articles/2022/09/20.html"
+          >【转载】JavaScript代码优化之道</a
+        >
+      </li>
+        
+      <li>
+        <a href="/blog/articles/2022/09/10.html"
+          >手写Promise思考过程</a
+        >
+      </li>
+        
+      <li>
+        <a href="/blog/articles/2022/08/08.html"
+          >如何解决Electron应用安装在C盘没有权限更新的问题</a
+        >
+      </li>
+        
+      <li>
+        <a href="/blog/articles/2022/08/05.html"
+          >如何用Electron+vue+vite构建桌面端应用(三)</a
+        >
+      </li>
+        
+      <li>
+        <a href="/blog/articles/2022/08/04.html"
+          >如何用Electron+vue+vite构建桌面端应用(二)</a
+        >
+      </li>
+        
+      <li>
+        <a href="/blog/articles/2022/07/22.html"
+          >从源码分析为什么Electron+vue项目中router不能用history模式</a
+        >
+      </li>
+        
+      <li>
+        <a href="/blog/articles/2022/07/20.html"
+          >如何用Electron+vue+vite构建桌面端应用(一)</a
+        >
+      </li>
+        
+      <li>
+        <a href="/blog/articles/2022/06/15.html"
+          >如何在国产银河麒麟系统Mips架构上离线安装electron</a
+        >
+      </li>
+        
+      <li>
+        <a href="/blog/articles/2021/11/28.html"
+          >《学习Javascript数据结构和算法》--读书笔记</a
+        >
+      </li>
+        
+      <li>
+        <a href="/blog/articles/2021/10/27.html"
+          >极客时间-正则表达式</a
+        >
+      </li>
+        
+      <li>
+        <a href="/blog/articles/2021/09/04.html"
+          >Typescript内置工具类型和操作符介绍</a
+        >
+      </li>
+        
+      <li>
+        <a href="/blog/articles/2021/08/05.html"
+          >《深入理解Typescript》--读书笔记</a
+        >
+      </li>
+       
+    </ul>
+  </div>
+</div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-tag"></i> 标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/blog/tags/angularjs/" style="font-size: 10px;">AngularJs</a> <a href="/blog/tags/apache/" style="font-size: 12.5px;">Apache</a> <a href="/blog/tags/arraybuffer/" style="font-size: 10px;">ArrayBuffer</a> <a href="/blog/tags/axios/" style="font-size: 10px;">Axios</a> <a href="/blog/tags/blob/" style="font-size: 10px;">Blob</a> <a href="/blog/tags/bootstrap/" style="font-size: 12.5px;">Bootstrap</a> <a href="/blog/tags/css/" style="font-size: 17.5px;">CSS</a> <a href="/blog/tags/centos/" style="font-size: 10px;">CentOS</a> <a href="/blog/tags/charles/" style="font-size: 10px;">Charles</a> <a href="/blog/tags/docker/" style="font-size: 13.75px;">Docker</a> <a href="/blog/tags/elementplus/" style="font-size: 10px;">ElementPlus</a> <a href="/blog/tags/git/" style="font-size: 11.25px;">Git</a> <a href="/blog/tags/gitlab/" style="font-size: 10px;">Gitlab</a> <a href="/blog/tags/gulp/" style="font-size: 10px;">Gulp</a> <a href="/blog/tags/html/" style="font-size: 12.5px;">HTML</a> <a href="/blog/tags/html5/" style="font-size: 10px;">HTML5</a> <a href="/blog/tags/http/" style="font-size: 12.5px;">HTTP</a> <a href="/blog/tags/https/" style="font-size: 10px;">HTTPS</a> <a href="/blog/tags/husky/" style="font-size: 10px;">Husky</a> <a href="/blog/tags/javascript/" style="font-size: 20px;">JavaScript</a> <a href="/blog/tags/jenkins/" style="font-size: 10px;">Jenkins</a> <a href="/blog/tags/linux/" style="font-size: 11.25px;">Linux</a> <a href="/blog/tags/mac/" style="font-size: 10px;">Mac</a> <a href="/blog/tags/mysql/" style="font-size: 12.5px;">MySQL</a> <a href="/blog/tags/nginx/" style="font-size: 11.25px;">Nginx</a> <a href="/blog/tags/node-js/" style="font-size: 11.25px;">Node.js</a> <a href="/blog/tags/php/" style="font-size: 15px;">PHP</a> <a href="/blog/tags/photoshop/" style="font-size: 10px;">Photoshop</a> <a href="/blog/tags/react/" style="font-size: 10px;">React</a> <a href="/blog/tags/redux/" style="font-size: 10px;">Redux</a> <a href="/blog/tags/regexp/" style="font-size: 10px;">Regexp</a> <a href="/blog/tags/sse/" style="font-size: 10px;">SSE</a> <a href="/blog/tags/sublimetext3/" style="font-size: 10px;">SublimeText3</a> <a href="/blog/tags/typescript/" style="font-size: 13.75px;">Typescript</a> <a href="/blog/tags/vagrant/" style="font-size: 10px;">Vagrant</a> <a href="/blog/tags/vim/" style="font-size: 10px;">Vim</a> <a href="/blog/tags/vitest/" style="font-size: 11.25px;">Vitest</a> <a href="/blog/tags/vue/" style="font-size: 10px;">Vue</a> <a href="/blog/tags/vue3/" style="font-size: 15px;">Vue3</a> <a href="/blog/tags/web/" style="font-size: 15px;">WEB</a> <a href="/blog/tags/webpack/" style="font-size: 12.5px;">Webpack</a> <a href="/blog/tags/wireshark/" style="font-size: 11.25px;">Wireshark</a> <a href="/blog/tags/yii/" style="font-size: 10px;">Yii</a> <a href="/blog/tags/electron/" style="font-size: 16.25px;">electron</a> <a href="/blog/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/blog/tags/jquery/" style="font-size: 12.5px;">jQuery</a> <a href="/blog/tags/kylin/" style="font-size: 10px;">kylin</a> <a href="/blog/tags/monorepo/" style="font-size: 10px;">monorepo</a> <a href="/blog/tags/ssh/" style="font-size: 10px;">ssh</a> <a href="/blog/tags/vite/" style="font-size: 13.75px;">vite</a> <a href="/blog/tags/vscode/" style="font-size: 10px;">vscode</a> <a href="/blog/tags/vue3/" style="font-size: 13.75px;">vue3</a> <a href="/blog/tags/%E5%89%8D%E7%AB%AF%E7%9B%91%E6%8E%A7/" style="font-size: 10px;">前端监控</a> <a href="/blog/tags/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F/" style="font-size: 10px;">微信小程序</a> <a href="/blog/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" style="font-size: 18.75px;">数据结构</a> <a href="/blog/tags/%E7%AE%97%E6%B3%95/" style="font-size: 18.75px;">算法</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-classify"></i> 分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/blog/categories/bootstrap/">Bootstrap</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/electron/">Electron</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/html-css/">HTML-CSS</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/html5/">HTML5</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/javascript/">JavaScript</a><span class="category-list-count">12</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/linux/">Linux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/mysql/">MySQL</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/node-js/">Node.js</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/php/">PHP</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/photoshop/">Photoshop</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/regexp/">Regexp</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/typescript/">Typescript</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/vue3/">Vue3</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/web/">WEB</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/jquery/">jQuery</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/notes/">notes</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/%E5%85%B6%E4%BB%96/">其他</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/translation/">前端翻译</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/">开发工具</a><span class="category-list-count">17</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/%E5%BC%80%E5%8F%91%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/">开发问题记录</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/%E7%AE%97%E6%B3%95/">算法</a><span class="category-list-count">15</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/notes/">读书笔记</a><span class="category-list-count">18</span></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/%E8%BD%AC%E8%BD%BD/">转载</a><span class="category-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-archive"></i> 归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2023/">2023年</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2022/">2022年</a><span class="archive-list-count">13</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2021/">2021年</a><span class="archive-list-count">17</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2020/">2020年</a><span class="archive-list-count">15</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2019/">2019年</a><span class="archive-list-count">11</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/">2018年</a><span class="archive-list-count">12</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2017/">2017年</a><span class="archive-list-count">26</span></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/">2016年</a><span class="archive-list-count">27</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-link"></i> 友情链接</h3>
+    <div class="widget">
+      <ul>
+      
+        <li>
+          <a target="_blank" rel="noopener" href="http://www.mahaixiang.cn/internet/300.html">深入理解互联网协议的原理</a>
+        </li>
+      
+        <li>
+          <a target="_blank" rel="noopener" href="http://javascript.ruanyifeng.com/">JavaScript 标准参考教程</a>
+        </li>
+      
+        <li>
+          <a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript">Mozilla Developer Network</a>
+        </li>
+      
+      </ul>
+    </div>
+  </div>
+
+
+  
+</aside>
+        
+      </div>
+      <a id="totop" href="#top"></a>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      <p>
+        <a href="/blog/sitemap.xml">网站地图</a>
+        <span> | </span
+        ><a href="/blog/atom.xml">订阅本站</a>
+        <span> | </span
+        ><a href="/blog/about/">联系博主</a>
+      </p>
+      
+      <p>
+        <i class="fa fa-visitors"></i>
+        <i id="busuanzi_container_site_uv"
+          ><i id="busuanzi_value_site_uv"></i
+        ></i>
+        ，
+        <i class="fa fa-views"></i>
+        <i id="busuanzi_container_site_pv"
+          ><i id="busuanzi_value_site_pv"></i
+        ></i>
+      </p>
+      
+      <p>
+        <span
+          >Copyright &copy; 2023 Jesse.</span
+        >
+        <span
+          >Powered by <a href="https://hexo.io/" target="_blank">Hexo.</a></span
+        >
+      </p>
+    </div>
+  </div>
+</footer>
+
+    </div>
+  </div>
+  
+<script src="https://unpkg.com/@highlightjs/cdn-assets@11.6.0/highlight.min.js"></script>
+
+<script>
+  hljs.highlightAll();
+</script>
+
+<script src="https://unpkg.com/jquery@3.4.1/dist/jquery.min.js"></script>
+ 
+<script src="/blog/js/search.json.js"></script>
+  
+<script src="https://unpkg.com/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+
+ 
+<script src="/blog/js/script.js"></script>
+ 
+ 
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?8e59984317ab1777a88e5b3e62c7c767";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+  
+<script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+ 
+      
+<script src="https://unpkg.com/gitalk@1.7.2/dist/gitalk.min.js"></script>
+ 
+<script src="//cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.js"></script>
+
+<script>
+  var gitalk = new Gitalk({
+    clientID: "3c3e422527fd3f9fa17a",
+    clientSecret: "f28d1808ec9ab69fb24dc3e9fad81e1c3ab8dd83",
+    repo: "blog",
+    owner: "jesse121",
+    admin: ["jesse121"],
+    id: md5(window.location.pathname),
+    proxy: "https://stormy-gorge-51623.herokuapp.com/https://github.com/login/oauth/access_token",
+    distractionFreeMode: false,
+    language: "zh-CN",
+    body: "欢迎在下方提出问题，您的疑问促进我们共同进步！",
+    pagerDirection: "last",
+  });
+  gitalk.render("comments");
+</script>
+         
+ 
+<script
+  type="text/javascript"
+  src="https://unpkg.com/clipboard@2.0.4/dist/clipboard.min.js"
+></script>
+<script
+  type="text/javascript"
+  src="/blog/js/codeBlock/codeBlockFunction.js"
+></script>
+<script type="text/javascript" src="/blog/js/codeBlock/codeLang.js"></script>
+<script type="text/javascript" src="/blog/js/codeBlock/codeCopy.js"></script>
+<script type="text/javascript" src="/blog/js/codeBlock/codeShrink.js"></script>
+
+</body>
+</html>

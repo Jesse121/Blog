@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
    
-  <title>category: JavaScript | 前端之路</title>
+  <title>前端项目如何自定义页面Import排序？ | 前端之路</title>
   <meta name="theme-color" content="#bccddd" />
   <meta
     name="viewport"
@@ -80,218 +80,378 @@
 </header>
 
       <div class="outer">
-        <section id="main">
+        <section id="main"><style>
+  code {
+    padding: 1px 5px;
+    font-family: Inconsolata, Monaco, Consolas, "Courier New", Courier,
+      monospace;
+    /* font-size: 0.91rem; */
+    color: #e96900;
+    background-color: #f8f8f8;
+    border-radius: 2px;
+  }
 
+  pre code {
+    padding: 0 !important;
+    color: #e8eaf6;
+    background-color: #272822;
+  }
+
+  pre[class*="language-"] {
+    padding: 1.2em;
+    margin: 0.5em 0;
+  }
+
+  code[class*="language-"],
+  pre[class*="language-"] {
+    color: #e8eaf6;
+    white-space: pre-wrap !important;
+  }
+  .line-numbers-rows {
+    border-right-width: 0px !important;
+  }
+
+  .line-numbers {
+    padding: 1.5rem 1.5rem 1.5rem 3.2rem !important;
+    margin: 1rem 0 !important;
+    background: #272822;
+    overflow: auto;
+    border-radius: 0.35rem;
+    tab-size: 4;
+  }
+
+  pre {
+    padding: 1.5rem !important;
+    margin: 1rem 0 !important;
+    background: #272822;
+    overflow: auto;
+    border-radius: 0.35rem;
+    tab-size: 4;
+  }
+
+  pre::before {
+    content: "";
+    height: 16px;
+    margin-bottom: 0;
+    display: block;
+  }
+
+  pre::after {
+    content: " ";
+    position: absolute;
+    border-radius: 50%;
+    background: #ff5f56;
+    width: 12px;
+    height: 12px;
+    top: 0;
+    left: 12px;
+    margin-top: 12px;
+    -webkit-box-shadow: 20px 0 #ffbd2e, 40px 0 #27c93f;
+    box-shadow: 20px 0 #ffbd2e, 40px 0 #27c93f;
+  }
+
+  code {
+    padding: 1px 5px;
+    font-family: Inconsolata, Monaco, Consolas, "Courier New", Courier,
+      monospace;
+    font-size: 0.91rem;
+    color: #e96900;
+    background-color: #f8f8f8;
+    border-radius: 2px;
+  }
+
+  .code_copy {
+    position: absolute;
+    top: 0.7rem;
+    right: 35px;
+    z-index: 1;
+    filter: invert(50%);
+    cursor: pointer;
+  }
+
+  .code_lang {
+    position: absolute;
+    top: 1.2rem;
+    right: 60px;
+    line-height: 0;
+    font-weight: bold;
+    font-family: normal;
+    z-index: 1;
+    filter: invert(50%);
+    cursor: pointer;
+  }
+
+  .code-expand {
+    position: absolute;
+    top: 4px;
+    right: 0px;
+    filter: invert(50%);
+    padding: 7px 10px;
+    z-index: 1;
+    cursor: pointer;
+    transition: all 0.3s;
+    transform: rotate(0deg);
+  }
+
+  .code-closed .code-expand {
+    transform: rotate(-180deg) !important;
+    transition: all 0.3s;
+  }
+
+  .code-closed pre::before {
+    height: 0px;
+  }
+
+  pre code {
+    padding: 0;
+    color: #e8eaf6;
+    background-color: #272822 !important;
+  }
+
+  pre[class*="language-"] {
+    padding: 1.2em;
+    margin: 0.5em 0;
+  }
+
+  code[class*="language-"],
+  pre[class*="language-"] {
+    color: #e8eaf6;
+    white-space: pre-wrap !important;
+  }
+</style>
+<article
+  id="post-question/前端项目如何自定义页面import排序？"
+  class="h-entry article article-type-post"
+  itemprop="blogPost"
+  itemscope
+  itemtype="https://schema.org/BlogPosting"
+>
+  <div class="article-inner">
+     
+    <header class="article-header">
+      
   
+    <h1 class="p-name article-title" itemprop="headline name">
+      前端项目如何自定义页面Import排序？
+    </h1>
+  
+
+
+    </header>
+    
+    <div class="article-meta">
+       <span class="article-date">
+  <i class="fa fa-date"></i>
+  <time class="dt-published" datetime="2023-05-27T03:14:18.000Z" itemprop="datePublished">2023年05月27日</time>
+</span> 
+  <div class="article-category">
+    <i class="fa fa-classify"></i>
+    <a class="article-category-link" href="/blog/categories/%E5%BC%80%E5%8F%91%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/">开发问题记录</a>
+  </div>
+  <span class="article-views">
+  <i class="fa fa-views"></i>
+  <i id="busuanzi_container_page_pv">
+      <i id="busuanzi_value_page_pv"></i>
+  </i>
+</span>
+  
+<a href="/blog/articles/2023/05/27.html#comments" class="article-comment-link">
   
     
     
-    <section class="archives-wrap">
-      <div class="archive-title">
+    
+    
+    
+  
+  <i class="fa fa-commt"></i>
+  留言
+</a>
+
+
+    </div>
+    <div class="e-content article-entry" itemprop="articleBody">
+       <p>现在前端开发项目一般都会用 ES Module 模块化开发方式，这就少不了用 import 去加载相关依赖包或组件等。随着 import 语句使用量增加，就迫切需要某种规则约束当前页面的 import 语句的排序，从而提高代码的可读性和可维护性，避免出错。</p>
+<span id="more"></span>
+<h3 id="问题缘由">问题缘由</h3>
+<p>在最近的开发中因为项目缺少约束 import 语句的规范，导致在打包时因为 import 语句中因为包含了一个无效的引用。导致打包出错，从而不得不重新打包。这严重影响了打包发版效率，因此希望能在开发时 eslint 能自动移除未用到的引用，并且所有 import 语句能按自定义的规则排序而不是随便追加排列</p>
+<h3 id="提出问腿">提出问腿</h3>
+<ol>
+<li>如何自定义 import 排序?</li>
+<li>如何自动删除未用到的引用？</li>
+</ol>
+<h3 id="解决办法">解决办法</h3>
+<p><strong>方法一： 修改 vscode 配置</strong></p>
+<pre><code class="hljs json"><span class="hljs-attr">&quot;editor.codeActionsOnSave&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span>
+  <span class="hljs-attr">&quot;source.organizeImports&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-literal"><span class="hljs-keyword">true</span></span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">&quot;source.fixAll&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-literal"><span class="hljs-keyword">true</span></span>
+<span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span></code></pre>
+<p>用上面的配置可以在保存时自动排序 import 语句，而且能移除未用到的引用，可以解决当前问题。<br>
+<img src="https://raw.githubusercontents.com/Jesse121/publicPic/master/blog/pictures/20230527151251.png" alt="" referrerPolicy="no-referrer"><br>
+但是我们发现 vscode 默认的 import 语句排序规则不友好</p>
+<p>外部模块的引用放在中间了，我们项目小伙伴对这样都不太习惯，因此想按照自己的习惯自定义排序，于是有了方法二</p>
+<p><strong>方法二：用方法一的配置再加上 <a target="_blank" rel="noopener" href="https://github.com/lydell/eslint-plugin-simple-import-sort">eslint-plugin-simple-import-sort</a>插件</strong></p>
+<p>使用方法：</p>
+<ol>
+<li>安装插件</li>
+</ol>
+<pre><code class="hljs sh">yarn add eslint-plugin-simple-import-sort -D</code></pre>
+<ol start="2">
+<li>在.eslintrc.js 文件中增加配置</li>
+</ol>
+<pre><code class="hljs js"><span class="hljs-variable language_">module</span>.<span class="hljs-property">export</span> = &#123;
+  <span class="hljs-comment">// ...</span>
+  <span class="hljs-attr">plugins</span>: [<span class="hljs-string">&quot;simple-import-sort&quot;</span>],
+  <span class="hljs-attr">rules</span>: &#123;
+    <span class="hljs-string">&quot;sort-imports&quot;</span>: <span class="hljs-string">&quot;off&quot;</span>,
+    <span class="hljs-string">&quot;import/order&quot;</span>: <span class="hljs-string">&quot;off&quot;</span>,
+    <span class="hljs-string">&quot;simple-import-sort/imports&quot;</span>: <span class="hljs-string">&quot;error&quot;</span>,
+    <span class="hljs-string">&quot;simple-import-sort/exports&quot;</span>: <span class="hljs-string">&quot;error&quot;</span>,
+  &#125;,
+&#125;;</code></pre>
+<p>配置好后重启 vscode 后，保存后可以发现 import 语句排序变了<br>
+<img src="https://raw.githubusercontents.com/Jesse121/publicPic/master/blog/pictures/20230527153947.png" alt="" referrerPolicy="no-referrer"></p>
+<p>这次 import 语句自动排序后基本达到我们的要求，并且排序规则也比较合适。</p>
+<p>优点： 配置简单 使用方便<br>
+缺点： 不支持更加详细的自定义排序</p>
+<p>我个人觉得这也不算是插件的缺点吧，毕竟在 README 上也说明了这插件不是适合所有人<a target="_blank" rel="noopener" href="https://github.com/lydell/eslint-plugin-simple-import-sort#not-for-everyone">Not for everyone</a>，只是作者个人在小项目中用</p>
+<blockquote>
+<p>This plugin is not for everyone.<br>
+I made this plugin for myself. I use it in many little projects and I like it.</p>
+</blockquote>
+<p>由于我们是多人开发项目，且希望 import 语句能按照自定义规则排序，因此有了方法三</p>
+<p><strong>方法三：用方法一的配置再加上<code>eslint-plugin-import</code>插件</strong></p>
+<ol>
+<li>安装插件</li>
+</ol>
+<pre><code class="hljs sh">yarn add eslint-plugin-import -D</code></pre>
+<ol start="2">
+<li>在.eslintrc.js 文件中增加配置</li>
+</ol>
+<pre><code class="hljs js"><span class="hljs-variable language_">module</span>.<span class="hljs-property">export</span> = &#123;
+  <span class="hljs-comment">// ...</span>
+  <span class="hljs-attr">extends</span>: [
+    <span class="hljs-comment">// ...</span>
+    <span class="hljs-string">&quot;plugin:import/recommended&quot;</span>,
+  ],
+  <span class="hljs-attr">rules</span>: &#123;
+    <span class="hljs-comment">//...</span>
+    <span class="hljs-string">&quot;import/order&quot;</span>: [
+      <span class="hljs-string">&quot;error&quot;</span>,
+      &#123;
+        <span class="hljs-comment">// 对导入模块进行分组，分组排序规则如下</span>
+        <span class="hljs-attr">groups</span>: [
+          <span class="hljs-string">&quot;builtin&quot;</span>, <span class="hljs-comment">// 内置模块</span>
+          <span class="hljs-string">&quot;external&quot;</span>, <span class="hljs-comment">// 外部模块</span>
+          [
+            <span class="hljs-string">&quot;parent&quot;</span>, <span class="hljs-comment">//父节点依赖</span>
+            <span class="hljs-string">&quot;sibling&quot;</span>, <span class="hljs-comment">//兄弟依赖</span>
+          ],
+          <span class="hljs-string">&quot;internal&quot;</span>, <span class="hljs-comment">//内部引用</span>
+          <span class="hljs-string">&quot;index&quot;</span>, <span class="hljs-comment">// index文件</span>
+          <span class="hljs-string">&quot;type&quot;</span>, <span class="hljs-comment">//类型文件</span>
+          <span class="hljs-string">&quot;unknown&quot;</span>,
+        ],
+        <span class="hljs-comment">//通过路径自定义分组</span>
+        <span class="hljs-attr">pathGroups</span>: [
+          &#123;
+            <span class="hljs-attr">pattern</span>: <span class="hljs-string">&quot;@/**&quot;</span>, <span class="hljs-comment">// 把@开头的应用放在internal分组后面</span>
+            <span class="hljs-attr">group</span>: <span class="hljs-string">&quot;external&quot;</span>,
+            <span class="hljs-attr">position</span>: <span class="hljs-string">&quot;after&quot;</span>,
+          &#125;,
+        ],
+        <span class="hljs-comment">// 是否开启独特组，用于区分自定义规则分组和其他规则分组</span>
+        <span class="hljs-attr">distinctGroup</span>: <span class="hljs-literal">true</span>,
+        <span class="hljs-comment">// 每个分组之间换行</span>
+        <span class="hljs-string">&quot;newlines-between&quot;</span>: <span class="hljs-string">&quot;always&quot;</span>,
+        <span class="hljs-comment">// 相同分组排列规则 按字母升序排序</span>
+        <span class="hljs-attr">alphabetize</span>: &#123; <span class="hljs-attr">order</span>: <span class="hljs-string">&quot;asc&quot;</span> &#125;,
+      &#125;,
+    ],
+  &#125;,
+&#125;;</code></pre>
+<p>这个插件的配置就比较全面一点，在 import/order 中增加自己需要的排序规则,具体的排序规则可以参考<a target="_blank" rel="noopener" href="https://github.com/import-js/eslint-plugin-import/blob/HEAD/docs/rules/order.md#importorder">import/order</a></p>
+<p>上面的配置中也解释了各种排序规则的意义和作用</p>
+<p>因为我们是使用 Typescript,配置完后发现含有别名的路径不能被解析<br>
+<img src="https://raw.githubusercontents.com/Jesse121/publicPic/master/blog/pictures/20230527162338.png" alt="" referrerPolicy="no-referrer"></p>
+<p>查询资料后发现要增加<code>@typescript-eslint/parser</code>和 <code>eslint-import-resolver-typescript</code>插件和以下配置</p>
+<pre><code class="hljs js"><span class="hljs-variable language_">module</span>.<span class="hljs-property">export</span> = &#123;
+  <span class="hljs-attr">extends</span>: [
+    <span class="hljs-comment">// ...</span>
+    <span class="hljs-string">&quot;plugin:import/typescript&quot;</span>,
+  ],
+  <span class="hljs-attr">settings</span>: &#123;
+    <span class="hljs-string">&quot;import/resolver&quot;</span>: &#123;
+      <span class="hljs-attr">typescript</span>: <span class="hljs-literal">true</span>,
+      <span class="hljs-attr">node</span>: <span class="hljs-literal">true</span>,
+    &#125;,
+  &#125;,
+&#125;;</code></pre>
+<p>这样用 vscode 的配置加上方法三中的插件可以完美解决前文中提到的两个问题</p>
+<p>参考文章：</p>
+<ol>
+<li><a target="_blank" rel="noopener" href="https://github.com/lydell/eslint-plugin-simple-import-sort">eslint-plugin-simple-import-sort</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.npmjs.com/package/eslint-plugin-import">eslint-plugin-import</a></li>
+</ol>
+ 
+      <div id="toc-article">
+  <div class="widget-wrap" id="toc-wrap">
+    <h3 class="widget-title"><i class="fa fa-toc"></i> 文章目录</h3>
+    <div class="widget">
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%97%AE%E9%A2%98%E7%BC%98%E7%94%B1"><span class="toc-text">问题缘由</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8F%90%E5%87%BA%E9%97%AE%E8%85%BF"><span class="toc-text">提出问腿</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95"><span class="toc-text">解决办法</span></a></li></ol>
+    </div>
+  </div>
+
+</div>
+       
+      <blockquote id="copyright">
+        <p>
+           原文链接:
+          <a href="https://jesse121.github.io/blog/articles/2023/05/27.html"
+            >https://jesse121.github.io/blog/articles/2023/05/27.html</a
+          >
+        </p>
+        <p>版权声明: 转载请注明出处.</p>
+      </blockquote>
+       
+    </div>
+    <footer class="article-footer">
+      
+      <div class="article-tag-wrap">
         
-          <i class="fa fa-classify"></i>
-          JavaScript
+ 
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/eslint/" rel="tag">Eslint</a></li></ul>
+ 
+
+
+      </div>
+        
+<nav id="article-nav">
+  
+    <a href="/blog/articles/2023/05/20.html" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">下一篇</strong>
+      <div class="article-nav-title">
+        
+          图片二进制流如何在页面显示？
         
       </div>
-      <div class="archives">
-  
-  <ul class="archive-article archive-type-post">
-  <li class="archive-article-inner">
-    <a href="/blog/articles/2022/09/10.html">
-      <time class="dt-published" datetime="2022-09-10T09:25:23.000Z" itemprop="datePublished">2022年09月10日</time>
-      | <span class="archive-article-title">手写Promise思考过程</span>
     </a>
-  </li>
-</ul>
-
-
   
   
-    
-      </div></section>
-    
-    
-    <section class="archives-wrap">
-      <div class="archive-title">
-        
-          <i class="fa fa-classify"></i>
-          JavaScript
-        
-      </div>
-      <div class="archives">
-  
-  <ul class="archive-article archive-type-post">
-  <li class="archive-article-inner">
-    <a href="/blog/articles/2019/10/20.html">
-      <time class="dt-published" datetime="2019-10-20T09:25:23.000Z" itemprop="datePublished">2019年10月20日</time>
-      | <span class="archive-article-title">解读setTimeout, promise.then, process.nextTick, setImmediate的执行顺序</span>
-    </a>
-  </li>
-</ul>
-
-
-  
-  
-    
-      </div></section>
-    
-    
-    <section class="archives-wrap">
-      <div class="archive-title">
-        
-          <i class="fa fa-classify"></i>
-          JavaScript
-        
-      </div>
-      <div class="archives">
-  
-  <ul class="archive-article archive-type-post">
-  <li class="archive-article-inner">
-    <a href="/blog/articles/2018/12/23.html">
-      <time class="dt-published" datetime="2018-12-23T15:00:00.000Z" itemprop="datePublished">2018年12月23日</time>
-      | <span class="archive-article-title">exports与module.exports的区别,export与export.defult区别</span>
-    </a>
-  </li>
-</ul>
-
-
-  
-  
-    
-      </div></section>
-    
-    
-    <section class="archives-wrap">
-      <div class="archive-title">
-        
-          <i class="fa fa-classify"></i>
-          JavaScript
-        
-      </div>
-      <div class="archives">
-  
-  <ul class="archive-article archive-type-post">
-  <li class="archive-article-inner">
-    <a href="/blog/articles/2017/12/06.html">
-      <time class="dt-published" datetime="2017-12-06T00:08:18.000Z" itemprop="datePublished">2017年12月06日</time>
-      | <span class="archive-article-title">如何编写高性能的Javascript</span>
-    </a>
-  </li>
-</ul>
-
-
-  
-  
-  <ul class="archive-article archive-type-post">
-  <li class="archive-article-inner">
-    <a href="/blog/articles/2017/07/08.html">
-      <time class="dt-published" datetime="2017-07-07T23:15:23.000Z" itemprop="datePublished">2017年07月08日</time>
-      | <span class="archive-article-title">对JavaScript中this的理解</span>
-    </a>
-  </li>
-</ul>
-
-
-  
-  
-  <ul class="archive-article archive-type-post">
-  <li class="archive-article-inner">
-    <a href="/blog/articles/2017/05/03.html">
-      <time class="dt-published" datetime="2017-05-02T16:00:00.000Z" itemprop="datePublished">2017年05月03日</time>
-      | <span class="archive-article-title">前端开发工作中常用的JavaScript片段</span>
-    </a>
-  </li>
-</ul>
-
-
-  
-  
-  <ul class="archive-article archive-type-post">
-  <li class="archive-article-inner">
-    <a href="/blog/articles/2017/03/08.html">
-      <time class="dt-published" datetime="2017-03-07T23:15:23.000Z" itemprop="datePublished">2017年03月08日</time>
-      | <span class="archive-article-title">对JavaScript中闭包的理解</span>
-    </a>
-  </li>
-</ul>
-
-
-  
-  
-  <ul class="archive-article archive-type-post">
-  <li class="archive-article-inner">
-    <a href="/blog/articles/2017/03/04.html">
-      <time class="dt-published" datetime="2017-03-04T15:00:00.000Z" itemprop="datePublished">2017年03月04日</time>
-      | <span class="archive-article-title">ECMAScript5新特性总结</span>
-    </a>
-  </li>
-</ul>
-
-
-  
-  
-  <ul class="archive-article archive-type-post">
-  <li class="archive-article-inner">
-    <a href="/blog/articles/2017/02/28.html">
-      <time class="dt-published" datetime="2017-02-28T15:00:00.000Z" itemprop="datePublished">2017年02月28日</time>
-      | <span class="archive-article-title">原生Javascript操作DOM方法汇总</span>
-    </a>
-  </li>
-</ul>
-
-
-  
-  
-  <ul class="archive-article archive-type-post">
-  <li class="archive-article-inner">
-    <a href="/blog/articles/2017/02/26.html">
-      <time class="dt-published" datetime="2017-02-26T15:00:00.000Z" itemprop="datePublished">2017年02月26日</time>
-      | <span class="archive-article-title">Javascript几种跨域方式总结</span>
-    </a>
-  </li>
-</ul>
-
-
-  
-  
-    
-      </div></section>
-    
-    
-    <section class="archives-wrap">
-      <div class="archive-title">
-        
-          <i class="fa fa-classify"></i>
-          JavaScript
-        
-      </div>
-      <div class="archives">
-  
-  <ul class="archive-article archive-type-post">
-  <li class="archive-article-inner">
-    <a href="/blog/articles/2016/12/05.html">
-      <time class="dt-published" datetime="2016-12-05T15:00:00.000Z" itemprop="datePublished">2016年12月05日</time>
-      | <span class="archive-article-title">Javascript执行流总结</span>
-    </a>
-  </li>
-</ul>
-
-
-  
-  
-  <ul class="archive-article archive-type-post">
-  <li class="archive-article-inner">
-    <a href="/blog/articles/2016/07/26.html">
-      <time class="dt-published" datetime="2016-07-26T15:00:00.000Z" itemprop="datePublished">2016年07月26日</time>
-      | <span class="archive-article-title">Javascript获取网页各种高宽及位置总结</span>
-    </a>
-  </li>
-</ul>
+</nav>
+   
+  <div id="comments"></div>
 
 
 
-  </div></section>
 
+
+
+
+
+ 
+    </footer>
+  </div>
+</article>
 
 </section>
         
@@ -547,7 +707,7 @@ var _hmt = _hmt || [];
   
 <script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
  
-   
+      
 <script src="https://unpkg.com/gitalk@1.7.2/dist/gitalk.min.js"></script>
  
 <script src="//cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.js"></script>
